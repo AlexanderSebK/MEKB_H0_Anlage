@@ -10,35 +10,66 @@ using System.Net.Sockets;
 
 namespace MEKB_H0_Anlage
 {
-    public enum Z21_Error : int
-    {
-        SUCCESS = 0,
-        FALSE_LENGTH = 1,
-        WRONG_HEADER = 2,
-        FALSE_CHECK = 3,
-    }
-    class Z21
+    /// <summary>
+    /// Klasse für die Kommunikation mit der Z21.
+    /// </summary>
+    public class Z21
     {
         //Referenz Zugriff Hauptform
         private readonly Form1 form;
         public Z21(Form1 form)
         {
             this.form = form;   //Referenz zuweisen
+            Connected = false;
         }
 
         //UPD-Verbindung zur Z21 als Klassen-global
-        UdpClient Client = new UdpClient();
+        private UdpClient Client = new UdpClient();
+        public string Z21_IP { get; set; }      //IP-Adresse Z21
+        public UInt16 Z21_Port { get; set; }    //Port Z21 : 21105 (Primär)  / Alt. 21106
+        private bool Connected { get; set; }    //Status mit dem 
 
-        //Mit Z21 verbinden
+        /// <summary>
+        /// Starten einer UDP-Verbindung
+        /// </summary>
         public void Connect_Z21()
         {
+            Client = new UdpClient();
+            Z21_IP = Config.ReadConfig("Z21_IP");
+            if (Z21_IP.Equals("Not Found")) return;
+            if (Z21_IP.Equals("Error")) return;
+            Z21_Port = UInt16.Parse(Config.ReadConfig("Z21_Port"));
+            if (Z21_Port.Equals("Not Found")) return;
+            if (Z21_Port.Equals("Error")) return;
             IPEndPoint Z21_Adr = new IPEndPoint(IPAddress.Parse(Z21_IP), Z21_Port);     //Adressdaten in IPEndPoint-Datentyp umwandeln
             Client.Connect(Z21_Adr);                                                    //UPD-Verbindung aufbauen
             Client.BeginReceive(DataReceived, null);                                    //Interupt/Callback-funktion wenn neue Daten von Z21 empfangen wurden
+            byte[] SendBytes = { 0x04, 0x00, 0x10, 0x00 };
+            Client.Send(SendBytes, 4);
         }
-        public string Z21_IP { get; set; }      //IP-Adresse Z21
-        public UInt16 Z21_Port { get; set; }    //Port Z21 : 21105 (Primär)  / Alt. 21106
-
+        /// <summary>
+        /// Beenden der UDP-Verbindung inkl. Abmeldung von der Z21
+        /// </summary>
+        public void DisConnect_Z21()
+        {
+            Z21_LOGOFF();
+            Client.Dispose();                                                    //UPD-Verbindung beenden
+            Connected = false;
+            form.SetConnect(false);
+        }
+        /// <summary>
+        /// Rückmeldung des Status der aktuellen Verbindung. Wird als Verbindung gewertet sobald die ersten Nachrichten von der Z21 empfangen wurden
+        /// </summary>
+        /// <returns>true - Verbunden / false - Nicht verunden</returns>
+        public bool Verbunden()
+        {
+            return Connected;
+        }
+        /// <summary>
+        /// Interrupt-Funktion
+        /// Wird aufgerufen sobald eine Nachricht über UDP empfangen wurde
+        /// </summary>
+        /// <param name="ar"></param>
         private void DataReceived(IAsyncResult ar)
         {
             IPEndPoint ip = new IPEndPoint(IPAddress.Parse(Z21_IP), Z21_Port);
@@ -48,86 +79,106 @@ namespace MEKB_H0_Anlage
                 data = Client.EndReceive(ar, ref ip);
 
                 if (data.Length == 0)
+                {
+                    Connected = false;
+                    form.SetConnect(false);
                     return; // No more to receive
+                }
+                if (Connected == false) form.SetConnect(true);
+                Connected = true;
                 Client.BeginReceive(DataReceived, null);
             }
             catch (ObjectDisposedException)
             {
+                Connected = false;
+                form.SetConnect(false);
                 return; // Connection closed
             }
 
-            SolveZ21Msg(data);
+            int length;
+            byte[] msgdata;
+            int FehlerCode;
+
+            while (data.Length > 0)
+            {
+                length = data[0] + data[1] * 256;
+                msgdata = data.Take(length).ToArray();
+
+                FehlerCode = SolveZ21Msg(msgdata);
+                if (FehlerCode != 0) form.CallBack_Fehler(FehlerCode);
+
+                data = data.Skip(length).ToArray();
+            }  
         }
-        private Z21_Error SolveZ21Msg(byte[] data)
+        /// <summary>
+        /// Empfangene Nachricht auswerten, kontrollieren und die entsprechenden CallBack Funktionen ausrufen
+        /// </summary>
+        /// <param name="data">Byte-Array der empfangen Daten</param>
+        /// <returns>ErrorCode</returns>
+        private int SolveZ21Msg(byte[] data)
         {
             int length = data[0] + data[1] * 256;
-            length = length - 4;
+            if(length != data.Length)return Z21_ErrorCode.FALSE_LENGTH;
+
+            length -= 4;
             switch(data[2])
             {
-                case 0x10:      //Serien Nummer
-                    if (length != 4) return Z21_Error.FALSE_LENGTH;
+                case Z21_Header.SERIAL_NUMBER:      
+                    if (length != 4) return Z21_ErrorCode.FALSE_LENGTH;
                     form.CallBack_GET_SERIAL_NUMBER(data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24));
                     break;
-                case 0x40:      //Versionen
-                    if (length == 3)
+                case Z21_Header.CODE_STATUS: break;
+                case Z21_Header.Z21_VERSION: break;
+                case Z21_Header.X_BUS_TUNNEL:
+                    byte XOR_Check = 0x00;
+                    for(int i=4;i<data.Count();i++)
                     {
-                        if(data[6] != (data[4] ^ data[5])) return Z21_Error.FALSE_CHECK;
-                        byte[] para_db0 = { data[4], data[5] };
-                        form.GetCallback(0x40, para_db0);
+                        XOR_Check = (byte)(XOR_Check ^ data[i]);
                     }
-                    else if (length == 4)
-                    {
-                        if (data[7] != (data[4] ^ data[5] ^data[6])) return Z21_Error.FALSE_CHECK;
-                        byte[] para_db1 = { data[4], data[5], data[6] };
-                        form.GetCallback(0x40, para_db1);
-                    }
-                    else if (length == 5)
-                    {
-                        if (data[8] != (data[4] ^ data[5] ^ data[6] ^ data[7] )) return Z21_Error.FALSE_CHECK;
-                        byte[] para_db2 = { data[4], data[5], data[6], data[7] };
-                        form.GetCallback(0x40, para_db2);
-                    }
-                    else if (length == 6)
-                    {
-                        if (data[9] != (data[4] ^ data[5] ^ data[6] ^ data[7] ^ data[8])) return Z21_Error.FALSE_CHECK;
-                        byte[] para_db3 = { data[4], data[5], data[6], data[7], data[8] };
-                        form.GetCallback(0x40, para_db3);
-                    }
-                    else { return Z21_Error.WRONG_HEADER; }
+                    if(XOR_Check != 0x00) return Z21_ErrorCode.FALSE_CHECK;
+
+                    byte[] para_db = data.Skip(5).ToArray();
+                    para_db = para_db.Take(para_db.Count() - 1).ToArray();
+
+                    form.CallBack_X_BUS_TUNNEL(data[4], para_db, para_db.Count());
                     break;
-                case 0x51:      //Broadcast-Flags
-                    if (length != 16) return Z21_Error.FALSE_LENGTH;
-                    form.GetCallback(0x51, data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24));
+                case Z21_Header.BROADCAST_FLAGS:      //Broadcast-Flags
+                    if (length != 4) return Z21_ErrorCode.FALSE_LENGTH;
+                    Flags new_flags = new Flags(data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24));
+                    form.CallBack_Z21_Broadcast_Flags(new_flags);
                     break;
-                case 0x60:      //Lok-Status
+                case Z21_Header.GET_LOK_MODE:      //Lok-Status
                     break;
-                case 0x70:      //Fx-Decoder Status
+                case Z21_Header.GET_FKT_DEC_MODE:      //Fx-Decoder Status
                     break;
-                case 0x80:      //Rückmelde-Bus
+                case Z21_Header.RM_BUS:      //Rückmelde-Bus
                     break;
-                case 0x84:      //System-Status
-                    if (length != 16) return Z21_Error.FALSE_LENGTH;
-                    byte[] para_16 = { data[4],  data[5],  data[6],  data[7],
-                                       data[8],  data[9],  data[10], data[11],
-                                       data[12], data[13], data[14], data[15],
-                                       data[16], data[17], data[18], data[19]};
-                    form.GetCallback(0x84, para_16);
+                case Z21_Header.SYSTEM_STATE:      //System-Status
+                    if (length != 16) return Z21_ErrorCode.FALSE_LENGTH;
+
+                    int MainCurrent = BitConverter.ToInt16(data, 4);
+                    int ProgCurrent = BitConverter.ToInt16(data, 6);
+                    int MainCurrentFilter = BitConverter.ToInt16(data, 8);
+                    int Temperatur = BitConverter.ToInt16(data, 10);
+                    int VersorgungSpg = BitConverter.ToUInt16(data, 12);
+                    int GleisSpg = BitConverter.ToUInt16(data, 14);
+                    form.CallBack_Z21_System_Status(MainCurrent, ProgCurrent, MainCurrentFilter, Temperatur, VersorgungSpg, GleisSpg, data[16],data[17]);
                     break;
-                case 0x88:      //Railcom
+                case Z21_Header.RAILCOM:      //Railcom
                     break;
-                case 0xA0:      //LocoNet Rx
+                case Z21_Header.LOCONET_RX:      //LocoNet Rx
                     break;
-                case 0xA1:      //LocoNet Tx
+                case Z21_Header.LOCONET_TX:      //LocoNet Tx
                     break;
-                case 0xA2:      //LocoNet LAN
+                case Z21_Header.LOCONET_LAN:      //LocoNet LAN
                     break;
-                case 0xA3:      //LocoNet Adresse
+                case Z21_Header.LOCONET_ADDR:      //LocoNet Adresse
                     break;
-                case 0xA4:      //LocoNet Rückmelder
+                case Z21_Header.LOCONET_DETECTOR:      //LocoNet Rückmelder
                     break;
-                case 0xC4:      //CAN-Rückmelder
+                case Z21_Header.CAN_DETECTOR:      //CAN-Rückmelder
                     break;
-                default: return Z21_Error.WRONG_HEADER;  
+                default: return Z21_ErrorCode.WRONG_HEADER;  
             }
             return 0;
         }
@@ -137,12 +188,78 @@ namespace MEKB_H0_Anlage
         public void Z21_GET_SERIAL_NUMBER()                 //Daten senden: Seriennummer Abfragen
         {
             byte[] SendBytes = { 0x04, 0x00, 0x10, 0x00 };
-            Client.Send(SendBytes, 4);
+            if(Connected) Client.Send(SendBytes, 4);
+        }
+        public void Z21_LOGOFF()                
+        {
+            byte[] SendBytes = { 0x04, 0x00, 0x30, 0x00 };
+            if (Connected) Client.Send(SendBytes, 4);
+        }
+
+        public void Z21_GET_FIRMWARE_VERSION()
+        {
+            byte[] SendBytes = { 0x07, 0x00, 0x40, 0x00, 0xF1, 0x0A, 0xFB };
+            if (Connected) Client.Send(SendBytes, 7);
+        }
+
+        public void Z21_GET_BROADCASTFLAGS()
+        {
+            byte[] SendBytes = { 0x04, 0x00, 0x51, 0x00 };
+            if (Connected) Client.Send(SendBytes, 4);
+        }
+        public void Z21_SET_BROADCASTFLAGS(Flags flags)
+        {
+            byte[] tempdata = flags.GetAsBytes();
+            byte[] SendBytes = { 0x08, 0x00, 0x50, 0x00, tempdata[0], tempdata[1], tempdata[2], tempdata[3] };
+            if (Connected) Client.Send(SendBytes, 8);
         }
 
         public void Z21_SET_LOCO_DRIVE(int Adresse, int Geschwindigkeit, int Richtung, int Fahrstufe)
         {
+            byte Header = 0xE4;
+            byte DB0 = (byte)(0x10 + Fahrstufe);
+            byte DB1 = LokFahrstufen.Addr_High(Adresse);
+            byte DB2 = LokFahrstufen.Addr_Low(Adresse);
+            byte DB3 = LokFahrstufen.LookUpFahrstufe(Geschwindigkeit, Richtung, Fahrstufe);
+            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2 ^ DB3);
+            byte[] SendBytes = { 0x0A, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, DB3, XOR };
+            if (Connected) Client.Send(SendBytes, 10);
+        }
 
+        public void Z21_GET_SYSTEMSTATE()
+        {
+            byte[] SendBytes = { 0x04, 0x00, 0x85, 0x00 };
+            if (Connected) Client.Send(SendBytes, 4);
+        }
+
+        public async Task Z21_SET_WEICHEAsync(int Adresse,bool Abzweig)
+        {
+            Adresse--;
+            byte Header = 0x53;
+            byte DB0 = (byte)(Adresse >> 8);
+            byte DB1 = (byte)(Adresse & 0xFF);
+            byte DB2 = 0xA9;
+            if (Abzweig) DB2 = 0xA8;
+            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2 );
+            byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
+            if (Connected) Client.Send(SendBytes, 9);
+            await Task.Delay(500);
+            DB2 = 0xA1;
+            if (Abzweig) DB2 = 0xA0;
+            XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
+            byte[] SendBytes2 = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
+            if (Connected) Client.Send(SendBytes2, 9);
+        }
+
+        public void Z21_GET_WEICHE(int Adresse)
+        {
+            Adresse--;
+            byte Header = 0x43;
+            byte DB0 = (byte)(Adresse >> 8);
+            byte DB1 = (byte)(Adresse & 0xFF);
+            byte XOR = (byte)(Header ^ DB0 ^ DB1);
+            byte[] SendBytes = { 0x08, 0x00, 0x40, 0x00, Header, DB0, DB1, XOR };
+            if (Connected) Client.Send(SendBytes, 8);
         }
 
         //Schreiben auf Window
