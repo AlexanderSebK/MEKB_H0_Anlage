@@ -56,7 +56,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(262, 39);
             this.label1.TabIndex = 0;
-            this.label1.Text = "MEBK - Steuersoftware";
+            this.label1.Text = "MEKB - Steuersoftware";
             // 
             // label2
             // 
