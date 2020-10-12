@@ -13,7 +13,7 @@ namespace MEKB_H0_Anlage
     /// <summary>
     /// Klasse für die Kommunikation mit der Z21.
     /// </summary>
-    public class Z21
+    public partial class Z21
     {
         //Referenz Zugriff Hauptform
         private readonly Form1 form;

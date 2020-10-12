@@ -33,7 +33,7 @@ namespace MEKB_H0_Anlage
                 z21_Einstellung.SetFlags(flags);
             }
         }
-        private void ShowErrorCode(int Code)
+        public void ShowErrorCode(int Code)
         {
             switch (Code)
             {
@@ -46,7 +46,7 @@ namespace MEKB_H0_Anlage
 
         }
 
-        private void ConnectStatus(bool status)
+        public void ConnectStatus(bool status)
         {
             Menu_Trennen.Enabled = status;
             Menu_Verbinden.Enabled = !status;
@@ -74,10 +74,30 @@ namespace MEKB_H0_Anlage
         private void UpdateWeiche(int Adresse, int Status)
         {
             int index = Weichenliste.FindIndex(x => x.Adresse == Adresse); //Finde Weiche mit dieser Adresse 
-            if (index == -1) return;    //Weiche nicht gefunden in der Liste
-            Weichenliste[index].Schalten(Status);
+            if (index != -1)//Weiche gefunden in der Liste
+            {
+                Weichenliste[index].Schalten(Status);
+                UpdateWeicheImGleisplan(Weichenliste[index]);
+            }
+            else
+            {
+                index = Signalliste.FindIndex(x => x.Adresse == Adresse);
+                if (index != -1)//Signal gefunden in der 1. Adressen
+                {
+                    Signalliste[index].Setzen(Status);
+                    UpdateWeicheImGleisplan(Weichenliste[index]);
+                }
+                else
+                {
+                    index = Signalliste.FindIndex(x => x.Adresse2 == Adresse);
+                    if (index != -1)//Signal gefunden in der 2. Adressen
+                    {
+                        Signalliste[index].Setzen(Status+4);
+                        UpdateWeicheImGleisplan(Weichenliste[index]);
+                    }
+                }
 
-            UpdateWeicheImGleisplan(Weichenliste[index]);
+            }
         }
 
         private void UpdateWeicheImGleisplan(Weiche weiche)

@@ -372,9 +372,13 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public String Name { get; set; }
         /// <summary>
-        /// Parameter: Adresse des Signals
+        /// Parameter: Adresse des Signals für HP0/1
         /// </summary>
         public int Adresse { get; set; }
+        /// <summary>
+        /// Parameter: 2.Adresse des Signals für HP2/3
+        /// </summary>
+        public int Adresse2 { get; set; }
         /// <summary>
         /// Zustand: HPx des Signals 
         /// </summary>
@@ -423,9 +427,11 @@ namespace MEKB_H0_Anlage
         /// <param name="new_zustand">Neuer Zustand</param>
         public void Setzen(int new_zustand)
         {
-            if (new_zustand == 0) Zustand = 0;
+            if (new_zustand == 0) Zustand = 9;
             else if (new_zustand == 1) Zustand = 1;
             else if (new_zustand == 2) Zustand = 2;
+            else if (new_zustand == 5) Zustand = 3;
+            else if (new_zustand == 6) Zustand = 4;
             else Zustand = 0;
         }
     }
