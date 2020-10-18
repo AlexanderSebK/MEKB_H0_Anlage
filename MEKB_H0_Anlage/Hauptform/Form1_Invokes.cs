@@ -85,7 +85,7 @@ namespace MEKB_H0_Anlage
                 if (index != -1)//Signal gefunden in der 1. Adressen
                 {
                     Signalliste[index].Setzen(Status);
-                    UpdateWeicheImGleisplan(Weichenliste[index]);
+                    UpdateSignalImGleisplan(Signalliste[index]);
                 }
                 else
                 {
@@ -93,7 +93,7 @@ namespace MEKB_H0_Anlage
                     if (index != -1)//Signal gefunden in der 2. Adressen
                     {
                         Signalliste[index].Setzen(Status+4);
-                        UpdateWeicheImGleisplan(Weichenliste[index]);
+                        UpdateSignalImGleisplan(Signalliste[index]);
                     }
                 }
 
@@ -181,6 +181,27 @@ namespace MEKB_H0_Anlage
                 return Weichenliste[ListID];
             }
 
+        }
+
+        private void UpdateSignalImGleisplan(Signal signal)
+        {
+            try
+            {
+                switch (signal.Name)
+                {
+                    case "Signal_Ausfahrt_L1": GetSignalSchaltbild(signal, Signal_Ausfahrt_L1); break;
+                    case "Signal_Ausfahrt_L2": GetSignalSchaltbild(signal, Signal_Ausfahrt_L2); break;
+                    case "Signal_Ausfahrt_L3": GetSignalSchaltbild(signal, Signal_Ausfahrt_L3); break;
+                    case "Signal_Ausfahrt_L4": GetSignalSchaltbild(signal, Signal_Ausfahrt_L4); break;
+                    case "Signal_Ausfahrt_L5": GetSignalSchaltbild(signal, Signal_Ausfahrt_L5); break;
+                    case "Signal_Ausfahrt_L6": GetSignalSchaltbild(signal, Signal_Ausfahrt_L6); break;
+                    default: break;
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

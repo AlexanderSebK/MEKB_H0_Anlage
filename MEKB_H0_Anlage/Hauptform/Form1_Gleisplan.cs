@@ -65,6 +65,15 @@ namespace MEKB_H0_Anlage
         private void SetupWeichenListe()
         {
             XElement XMLFile = XElement.Load("Weichenliste.xml");       //XML-Datei öffnen
+            var optionen = XMLFile.Elements("Optionen").ToList();
+            bool Q_M = false;
+            bool deaktiv = true;
+            foreach (XElement werte in optionen)
+            {
+                Q_M = werte.Element("Q_Modus").Value.Equals("1");
+                deaktiv = werte.Element("Deaktivieren").Value.Equals("1");
+            }
+
             var list = XMLFile.Elements("Weiche").ToList();             //Alle Elemente des Types Weiche in eine Liste Umwandeln 
 
             foreach(XElement weiche in list)                            //Alle Elemente der Liste einzeln durchlaufen
@@ -72,7 +81,7 @@ namespace MEKB_H0_Anlage
                 int WAdresse = Int16.Parse(weiche.Element("Adresse").Value);                                //Weichenadresse des Elements auslesen
                 string WName = weiche.Element("name").Value;                                                //Weichenname des Elements auslesen
                 bool Wspiegeln = (weiche.Element("spiegeln").Value == "1");                                 //Parameter für gespiegelte Weichen auslesen
-                Weichenliste.Add(new Weiche() { Name = WName, Adresse = WAdresse, Spiegeln = Wspiegeln });  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
+                Weichenliste.Add(new Weiche() { Name = WName, Adresse = WAdresse, Spiegeln = Wspiegeln, Q_Modus = Q_M, Deaktivieren=deaktiv });  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
             }
         }
         /// <summary>
@@ -108,9 +117,12 @@ namespace MEKB_H0_Anlage
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = WeichenName });
             if (ListID == -1) return;
             int Adresse = Weichenliste[ListID].Adresse;
+            bool Q_Modus = Weichenliste[ListID].Q_Modus;
+            int Schaltzeit = Weichenliste[ListID].Schaltzeit;
+            bool deaktiviren = Weichenliste[ListID].Deaktivieren;
 
             if (Weichenliste[ListID].Spiegeln) Abzweig = !Abzweig;
-            _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig);
+            _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig, Q_Modus, Schaltzeit,deaktiviren);
         }
         /// <summary>
         /// Weichenstellung wechseln
@@ -127,8 +139,12 @@ namespace MEKB_H0_Anlage
 
             Abzweig = !Abzweig;     //Toggeln
 
+            bool Q_Modus = Weichenliste[ListID].Q_Modus;
+            int Schaltzeit = Weichenliste[ListID].Schaltzeit;
+            bool deaktiviren = Weichenliste[ListID].Deaktivieren;
+
             if (Weichenliste[ListID].Spiegeln) Abzweig = !Abzweig;
-            _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig);
+            _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig, Q_Modus, Schaltzeit, deaktiviren);
         }     
         /// <summary>
         /// Fahrstraße aktivieren/deaktivieren
