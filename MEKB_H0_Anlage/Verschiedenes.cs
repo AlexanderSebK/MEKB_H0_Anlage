@@ -73,6 +73,9 @@ namespace MEKB_H0_Anlage
             Status_Error = false;
             Besetzt = false;
             FahrstrasseAktive = false;
+            Q_Modus = false;
+            Schaltzeit = 500;
+            Deaktivieren = true;
         }
         /// <summary>
         /// Parameter: Name der Weiche als String
@@ -95,6 +98,10 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public bool FahrstrasseRichtung_vonZunge { get; set; }
         public bool FahrstrasseAktive { get; set; }
+
+        public bool Q_Modus { get; set; }
+        public int Schaltzeit { get; set; }
+        public bool Deaktivieren { get; set; }
 
         public bool Besetzt { get; set; }
         /// <summary>
@@ -215,13 +222,17 @@ namespace MEKB_H0_Anlage
                 
                 if (ListeGlobal[ListID].Abzweig != weiche.FahrstrasseAbzweig)   //Wenn Weiche noch nicht in Position ist
                 {
+                    bool Q_Modus = weiche.Q_Modus;
+                    int Schaltzeit = weiche.Schaltzeit;
+                    bool deaktiviren = weiche.Deaktivieren;
+
                     if (ListeGlobal[ListID].Spiegeln)
                     {
-                        _ = Z21_Instanz.Z21_SET_WEICHEAsync(Adresse, !weiche.FahrstrasseAbzweig);
+                        _ = Z21_Instanz.Z21_SET_WEICHEAsync(Adresse, !weiche.FahrstrasseAbzweig,Q_Modus,Schaltzeit,deaktiviren);
                     }
                     else
                     {
-                        _ = Z21_Instanz.Z21_SET_WEICHEAsync(Adresse, weiche.FahrstrasseAbzweig);
+                        _ = Z21_Instanz.Z21_SET_WEICHEAsync(Adresse, weiche.FahrstrasseAbzweig, Q_Modus, Schaltzeit, deaktiviren);
                     }   
                 }
             }
@@ -238,7 +249,6 @@ namespace MEKB_H0_Anlage
             }
             FahrstrasseAktiv = true;
         }
-
         public bool GetGesetztStatus()
         {
             return FahrstrasseGesetzt;
@@ -372,13 +382,23 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public String Name { get; set; }
         /// <summary>
-        /// Parameter: Adresse des Signals
+        /// Parameter: Adresse des Signals für HP0/1
         /// </summary>
         public int Adresse { get; set; }
+        /// <summary>
+        /// Parameter: 2.Adresse des Signals für HP2/3
+        /// </summary>
+        public int Adresse2 { get; set; }
         /// <summary>
         /// Zustand: HPx des Signals 
         /// </summary>
         public int Zustand { get; set; }
+        public int Adr1_1 { get; set; }
+        public int Adr1_2 { get; set; }
+        public int Adr2_1 { get; set; }
+        public int Adr2_2 { get; set; }
+
+
         public string Typ { get; set; }
         /// <summary>
         /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
@@ -421,12 +441,21 @@ namespace MEKB_H0_Anlage
         /// Weiche setzen
         /// </summary>
         /// <param name="new_zustand">Neuer Zustand</param>
-        public void Setzen(int new_zustand)
+        public void MaskenSetzen(int new_zustand)
         {
-            if (new_zustand == 0) Zustand = 0;
-            else if (new_zustand == 1) Zustand = 1;
-            else if (new_zustand == 2) Zustand = 2;
+            if (new_zustand == 0) Zustand = 9;
+            else if (new_zustand == 1) Zustand = Adr1_1;
+            else if (new_zustand == 2) Zustand = Adr1_2;
+            else if (new_zustand == 5) Zustand = Adr2_1;
+            else if (new_zustand == 6) Zustand = Adr2_2;
             else Zustand = 0;
+        }
+        public void Schalten(int HPx, Z21 z21)
+        {
+            if (HPx == Adr1_1) z21.Z21_SET_SIGNAL(Adresse, false);
+            else if (HPx == Adr1_2) z21.Z21_SET_SIGNAL(Adresse, true);
+            else if (HPx == Adr2_1) z21.Z21_SET_SIGNAL(Adresse2, false);
+            else if (HPx == Adr2_2) z21.Z21_SET_SIGNAL(Adresse2, true);
         }
     }
 }

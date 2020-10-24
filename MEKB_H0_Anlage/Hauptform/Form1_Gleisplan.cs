@@ -20,6 +20,7 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public partial class Form1 : Form
     {
+        //Fahrstraßen Instanzen
         private Fahrstrasse Gleis1_nach_links { set; get; }
         private Fahrstrasse Gleis2_nach_links { set; get; }
         private Fahrstrasse Gleis3_nach_links { set; get; }
@@ -64,6 +65,15 @@ namespace MEKB_H0_Anlage
         private void SetupWeichenListe()
         {
             XElement XMLFile = XElement.Load("Weichenliste.xml");       //XML-Datei öffnen
+            var optionen = XMLFile.Elements("Optionen").ToList();
+            bool Q_M = false;
+            bool deaktiv = true;
+            foreach (XElement werte in optionen)
+            {
+                Q_M = werte.Element("Q_Modus").Value.Equals("1");
+                deaktiv = werte.Element("Deaktivieren").Value.Equals("1");
+            }
+
             var list = XMLFile.Elements("Weiche").ToList();             //Alle Elemente des Types Weiche in eine Liste Umwandeln 
 
             foreach(XElement weiche in list)                            //Alle Elemente der Liste einzeln durchlaufen
@@ -71,7 +81,9 @@ namespace MEKB_H0_Anlage
                 int WAdresse = Int16.Parse(weiche.Element("Adresse").Value);                                //Weichenadresse des Elements auslesen
                 string WName = weiche.Element("name").Value;                                                //Weichenname des Elements auslesen
                 bool Wspiegeln = (weiche.Element("spiegeln").Value == "1");                                 //Parameter für gespiegelte Weichen auslesen
-                Weichenliste.Add(new Weiche() { Name = WName, Adresse = WAdresse, Spiegeln = Wspiegeln });  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
+                int time = 500;
+                if(weiche.Element("Zeit") != null) time = Int16.Parse(weiche.Element("Zeit").Value);
+                Weichenliste.Add(new Weiche() { Name = WName, Adresse = WAdresse, Spiegeln = Wspiegeln, Schaltzeit=time, Q_Modus = Q_M, Deaktivieren=deaktiv });  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
             }
         }
         /// <summary>
@@ -107,9 +119,12 @@ namespace MEKB_H0_Anlage
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = WeichenName });
             if (ListID == -1) return;
             int Adresse = Weichenliste[ListID].Adresse;
+            bool Q_Modus = Weichenliste[ListID].Q_Modus;
+            int Schaltzeit = Weichenliste[ListID].Schaltzeit;
+            bool deaktiviren = Weichenliste[ListID].Deaktivieren;
 
             if (Weichenliste[ListID].Spiegeln) Abzweig = !Abzweig;
-            _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig);
+            _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig, Q_Modus, Schaltzeit,deaktiviren);
         }
         /// <summary>
         /// Weichenstellung wechseln
@@ -126,28 +141,45 @@ namespace MEKB_H0_Anlage
 
             Abzweig = !Abzweig;     //Toggeln
 
+            bool Q_Modus = Weichenliste[ListID].Q_Modus;
+            int Schaltzeit = Weichenliste[ListID].Schaltzeit;
+            bool deaktiviren = Weichenliste[ListID].Deaktivieren;
+
             if (Weichenliste[ListID].Spiegeln) Abzweig = !Abzweig;
-            _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig);
+            _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig, Q_Modus, Schaltzeit, deaktiviren);
         }     
+        /// <summary>
+        /// Fahrstraße aktivieren/deaktivieren
+        /// </summary>
+        /// <param name="fahrstrasse">Fahrstraße zum Schalten</param>
         private void ToggleFahrstrasse(Fahrstrasse fahrstrasse)
         {
+            //Fahrstraße gesetzt
             if (fahrstrasse.GetGesetztStatus())
             {
+                //Fahrstraße deaktivieren
                 fahrstrasse.DeleteFahrstrasse(Weichenliste);
             }
             else
             {
+                //Fahrstraße aktivieren
                 fahrstrasse.SetFahrstrasse(Weichenliste, z21Start);
             }
+            //Weichenliste der Fahrstraßen übernehmen
             List<Weiche> FahrstrassenWeichen = fahrstrasse.GetFahrstrassenListe();
+            //Weichenliste durchgehen
             foreach (Weiche weiche in FahrstrassenWeichen)
             {
-                int ListID = Weichenliste.IndexOf(new Weiche() { Name = weiche.Name });
-                if (ListID == -1) return;
-                UpdateWeicheImGleisplan(Weichenliste[ListID]);
+                int ListID = Weichenliste.IndexOf(new Weiche() { Name = weiche.Name });//Weiche in der globalen Liste suchen
+                if (ListID == -1) return;   //Weiche nicht gefunden
+                UpdateWeicheImGleisplan(Weichenliste[ListID]); //Weiche im Gleisplan aktualisieren
             }
+            //Alle Fahrstraßen aktualisieren
             FahrstrasseBildUpdate();
         }
+        /// <summary>
+        /// Fahrstraßen initialisieren
+        /// </summary>
         private void SetupFahrstrassen()
         {
             SetupGleis1_nach_links();
@@ -2260,7 +2292,13 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
         }
-
+        /// <summary>
+        /// Zustand in einen Stringnamen umwandeln
+        /// </summary>
+        /// <param name="besetzt">true - Gleisbesetzmelder aktiv</param>
+        /// <param name="Fahrstrasse_links">Fahrstraße in die linke Richtung aktivieren</param>
+        /// <param name="Fahrstrasse_rechts">Fahrstraße in die rechte Richtung aktivieren</param>
+        /// <returns>Zustand als Stringname zurückgeben</returns>
         private string ErrechneZustand(bool besetzt, bool Fahrstrasse_links, bool Fahrstrasse_rechts)
         {
             string Zustand;
@@ -2282,6 +2320,11 @@ namespace MEKB_H0_Anlage
             }
             return Zustand;
         }
+        /// <summary>
+        /// Involke-Funktion. Verhindert Fehlermeldung beim gleichzeitigen Zugreifen auf ein Bild
+        /// </summary>
+        /// <param name="img">Neues Bild zum Anzeiegen</param>
+        /// <param name="picBox">Instanz der PictureBox</param>
         public void DisplayPicture(Bitmap img, PictureBox picBox)
         {
             picBox.Invoke(new EventHandler(delegate
@@ -3982,28 +4025,40 @@ namespace MEKB_H0_Anlage
             }
             return bild;
         }
+        /// <summary>
+        /// Weichenliste der Fahrstraße durchlaufen und mit aktueller Weichenstellung vergleichen
+        /// </summary>
+        /// <param name="fahrstrasse">Fahrstraße zum überprüfen</param>
         private void Fahrstrassenupdate(Fahrstrasse fahrstrasse)
         {
             if (fahrstrasse.GetGesetztStatus())    //Fahrstraße wurde gesetzt
             {
-                if (fahrstrasse.CheckFahrstrasse(Weichenliste) == false)
+                //Prüfen ob alle Weichen der Fahrstraßen richtig geschaltet sind
+                if (fahrstrasse.CheckFahrstrasse(Weichenliste) == false) //Noch nicht alle Weichen gestellt
                 {
+                    //Alle Weichen Schalten, falls Instance nicht am  schalten ist.
                     if (fahrstrasse.Busy == false) fahrstrasse.SetFahrstrasse(Weichenliste, z21Start);
                 }
-                else
+                else //Alle Weichen in richtiger Stellung
                 {
+                    //Fahrstraße als aktiviert kennzeichnen
                     fahrstrasse.AktiviereFahrstasse(Weichenliste);
+                    //Jede Weiche in der Fahrstraßenliste durchlaufen
                     foreach (Weiche weiche in fahrstrasse.Fahrstr_Weichenliste)
                     {
                         int ListID = Weichenliste.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
-                        if (ListID == -1) return;
-                        UpdateWeicheImGleisplan(Weichenliste[ListID]);
+                        if (ListID == -1) return;   //Weichen nicht gefunden - Funktion abbrechen
+                        UpdateWeicheImGleisplan(Weichenliste[ListID]);  //Weichenbild aktualisieren
                     }
                 }
             }
         }
+        /// <summary>
+        /// Fahrstraßen im Bild zeichnen
+        /// </summary>
         private void FahrstrasseBildUpdate()
         {
+            //Hauptbahnhof - Linker Teil der Gleise
             UpdateGleisbild_GL1_links(false, Gleis1_nach_links.GetAktivStatus(), Block2_nach_Gleis1.GetAktivStatus());
             UpdateGleisbild_GL2_links(false, Gleis2_nach_links.GetAktivStatus(), Block2_nach_Gleis2.GetAktivStatus());
             UpdateGleisbild_GL3_links(false, Gleis3_nach_links.GetAktivStatus(), Block2_nach_Gleis3.GetAktivStatus());
@@ -4011,6 +4066,7 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_GL5_links(false, Gleis5_nach_links.GetAktivStatus(), Block2_nach_Gleis5.GetAktivStatus());
             UpdateGleisbild_GL6_links(false, Gleis6_nach_links.GetAktivStatus(), Block2_nach_Gleis6.GetAktivStatus());
 
+            //Hauptbahnhof - Rechter Teil der Gleise
             UpdateGleisbild_GL1_rechts(false, Rechts1_nach_Gleis1.GetAktivStatus() || Rechts2_nach_Gleis1.GetAktivStatus(), Gleis1_nach_rechts1.GetAktivStatus() || Gleis1_nach_rechts2.GetAktivStatus());
             UpdateGleisbild_GL2_rechts(false, Rechts1_nach_Gleis2.GetAktivStatus() || Rechts2_nach_Gleis2.GetAktivStatus(), Gleis2_nach_rechts1.GetAktivStatus() || Gleis2_nach_rechts2.GetAktivStatus());
             UpdateGleisbild_GL3_rechts(false, Rechts1_nach_Gleis3.GetAktivStatus() || Rechts2_nach_Gleis3.GetAktivStatus(), Gleis3_nach_rechts1.GetAktivStatus() || Gleis3_nach_rechts2.GetAktivStatus());
@@ -4018,6 +4074,7 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_GL5_rechts(false, Rechts1_nach_Gleis5.GetAktivStatus() || Rechts2_nach_Gleis5.GetAktivStatus(), Gleis5_nach_rechts1.GetAktivStatus() || Gleis5_nach_rechts2.GetAktivStatus());
             UpdateGleisbild_GL6_rechts(false, Rechts1_nach_Gleis6.GetAktivStatus() || Rechts2_nach_Gleis6.GetAktivStatus(), Gleis6_nach_rechts1.GetAktivStatus() || Gleis6_nach_rechts2.GetAktivStatus());
 
+            //Gleise im Block 1 aktualisieren
             UpdateGleisbild_Block1a(false, //Besetzt
                                     Gleis1_nach_links.GetAktivStatus() || //Nach links
                                     Gleis2_nach_links.GetAktivStatus(),
@@ -4040,6 +4097,7 @@ namespace MEKB_H0_Anlage
                                     Gleis5_nach_links.GetAktivStatus() ||
                                     Gleis6_nach_links.GetAktivStatus(),
                                     false); //nach rechts immer aus
+            //Gleise im Block 2 aktualisieren
             UpdateGleisbild_Block2(false, //Besetzt
                                     Gleis3_nach_links.GetAktivStatus() || //Nach links
                                     Gleis4_nach_links.GetAktivStatus() ||
@@ -4049,6 +4107,7 @@ namespace MEKB_H0_Anlage
                                     Block2_nach_Gleis4.GetAktivStatus() ||
                                     Block2_nach_Gleis5.GetAktivStatus() ||
                                     Block2_nach_Gleis6.GetAktivStatus());
+            //Gleise im Block 3 aktualisieren
             UpdateGleisbild_Block3a(false, //Besetzt
                                     Rechts1_nach_Gleis3.GetAktivStatus() || //Nach links
                                     Rechts1_nach_Gleis4.GetAktivStatus() ||
@@ -4079,8 +4138,8 @@ namespace MEKB_H0_Anlage
                                     Gleis3_nach_rechts2.GetAktivStatus() ||
                                     Gleis4_nach_rechts2.GetAktivStatus() ||
                                     Gleis5_nach_rechts2.GetAktivStatus() ||
-                                    Gleis6_nach_rechts2.GetAktivStatus()); 
-                                    
+                                    Gleis6_nach_rechts2.GetAktivStatus());
+            //Gleise im Block 4 aktualisieren                        
             UpdateGleisbild_Block4a(false, //Besetzt
                                     Rechts1_nach_Gleis1.GetAktivStatus() || //Nach links
                                     Rechts1_nach_Gleis2.GetAktivStatus() ||
@@ -4095,7 +4154,6 @@ namespace MEKB_H0_Anlage
                                     Rechts2_nach_Gleis5.GetAktivStatus() ||
                                     Rechts2_nach_Gleis6.GetAktivStatus(),
                                     false);     //nie nach rechts
-
             UpdateGleisbild_Block4b(false, //Besetzt
                                     Rechts1_nach_Gleis1.GetAktivStatus() || //Nach links
                                     Rechts1_nach_Gleis2.GetAktivStatus() ||
@@ -4105,31 +4163,31 @@ namespace MEKB_H0_Anlage
                                     Gleis2_nach_rechts1.GetAktivStatus() ||
                                     Gleis1_nach_rechts2.GetAktivStatus() ||
                                     Gleis2_nach_rechts2.GetAktivStatus());
-
-            UpdateGleisbild_Weiche2();
-            UpdateGleisbild_Weiche3();
-            UpdateGleisbild_Weiche5();
-            UpdateGleisbild_Weiche6();
-            UpdateGleisbild_WeicheDKW7_1();
+            
+            UpdateGleisbild_Weiche2();  //Umfeld um Weiche 2
+            UpdateGleisbild_Weiche3();  //Umfeld um Weiche 3
+            UpdateGleisbild_Weiche5();  //Umfeld um Weiche 5
+            UpdateGleisbild_Weiche6();  //Umfeld um Weiche 6
+            UpdateGleisbild_WeicheDKW7_1();//Umfeld um Doppelkreuzungweiche 7
             UpdateGleisbild_WeicheDKW7_2();
-            UpdateGleisbild_Weiche8();
-            UpdateGleisbild_WeicheDKW9_1();
+            UpdateGleisbild_Weiche8();  //Umfeld um Weiche 8
+            UpdateGleisbild_WeicheDKW9_1();//Umfeld um Doppelkreuzungweiche 7
             UpdateGleisbild_WeicheDKW9_2();
 
-            UpdateGleisbild_Weiche21();
-            UpdateGleisbild_KW22_1();
+            UpdateGleisbild_Weiche21();     //Umfeld um Weiche 21
+            UpdateGleisbild_KW22_1();       //Umfeld um Kreuzungweiche 7
             UpdateGleisbild_KW22_2();
-            UpdateGleisbild_Weiche23();
-            UpdateGleisbild_DKW24_1();
+            UpdateGleisbild_Weiche23();     //Umfeld um Weiche 23
+            UpdateGleisbild_DKW24_1();      //Umfeld um Doppelkreuzungweiche 7
             UpdateGleisbild_DKW24_2();
-            UpdateGleisbild_Weiche25();
-            UpdateGleisbild_Weiche26();
-            UpdateGleisbild_Weiche27();
-            UpdateGleisbild_Weiche28();
-            UpdateGleisbild_Weiche29();
-            UpdateGleisbild_Weiche30();
-            UpdateGleisbild_Weiche50();
-            UpdateGleisbild_Weiche51();
+            UpdateGleisbild_Weiche25();     //Umfeld um Weiche 25
+            UpdateGleisbild_Weiche26();     //Umfeld um Weiche 26
+            UpdateGleisbild_Weiche27();     //Umfeld um Weiche 27
+            UpdateGleisbild_Weiche28();     //Umfeld um Weiche 28
+            UpdateGleisbild_Weiche29();     //Umfeld um Weiche 29
+            UpdateGleisbild_Weiche30();     //Umfeld um Weiche 30
+            UpdateGleisbild_Weiche50();     //Umfeld um Weiche 50
+            UpdateGleisbild_Weiche51();     //Umfeld um Weiche 51
         }
     }
 }

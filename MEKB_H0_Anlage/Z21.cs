@@ -13,7 +13,7 @@ namespace MEKB_H0_Anlage
     /// <summary>
     /// Klasse für die Kommunikation mit der Z21.
     /// </summary>
-    public class Z21
+    public partial class Z21
     {
         //Referenz Zugriff Hauptform
         private readonly Form1 form;
@@ -232,15 +232,53 @@ namespace MEKB_H0_Anlage
             if (Connected) Client.Send(SendBytes, 4);
         }
 
-        public async Task Z21_SET_WEICHEAsync(int Adresse,bool Abzweig)
+        public async Task Z21_SET_WEICHEAsync(int Adresse, bool Abzweig, bool Q_Modus, int time, bool deaktivieren)
         {
+            Adresse--;
+            byte Header = 0x53;
+            byte DB0 = (byte)(Adresse >> 8);
+            byte DB1 = (byte)(Adresse & 0xFF);
+            byte DB2;
+            if (Q_Modus)
+            {
+                DB2 = 0xA9;
+                if (Abzweig) DB2 = 0xA8;
+            }
+            else
+            {
+                DB2 = 0x89;
+                if (Abzweig) DB2 = 0x88;
+            }
+            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
+            byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
+            if (Connected) Client.Send(SendBytes, 9);
+            if (deaktivieren)
+            {
+                await Task.Delay(time);
+                if (Q_Modus)
+                {
+                    DB2 = 0xA1;
+                    if (Abzweig) DB2 = 0xA0;
+                }
+                else
+                {
+                    DB2 = 0x81;
+                    if (Abzweig) DB2 = 0x80;
+                }
+
+
+                XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
+                byte[] SendBytes2 = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
+                if (Connected) Client.Send(SendBytes2, 9);
+            }
+            /*
             Adresse--;
             byte Header = 0x53;
             byte DB0 = (byte)(Adresse >> 8);
             byte DB1 = (byte)(Adresse & 0xFF);
             byte DB2 = 0xA9;
             if (Abzweig) DB2 = 0xA8;
-            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2 );
+            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             if (Connected) Client.Send(SendBytes, 9);
             await Task.Delay(500);
@@ -249,6 +287,21 @@ namespace MEKB_H0_Anlage
             XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes2 = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             if (Connected) Client.Send(SendBytes2, 9);
+            */
+        }
+
+        public void Z21_SET_SIGNAL(int Adresse, bool Zustand)
+        {
+            Adresse--;
+            if (Adresse < 0) return;//Nicht schalten, da Adresse 0
+            byte Header = 0x53;
+            byte DB0 = (byte)(Adresse >> 8);
+            byte DB1 = (byte)(Adresse & 0xFF);
+            byte DB2 = 0xA8;
+            if (Zustand) DB2 = 0xA9;
+            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
+            byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
+            if (Connected) Client.Send(SendBytes, 9);
         }
 
         public void Z21_GET_WEICHE(int Adresse)

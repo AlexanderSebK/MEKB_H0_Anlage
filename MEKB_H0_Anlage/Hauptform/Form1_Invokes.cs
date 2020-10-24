@@ -33,7 +33,7 @@ namespace MEKB_H0_Anlage
                 z21_Einstellung.SetFlags(flags);
             }
         }
-        private void ShowErrorCode(int Code)
+        public void ShowErrorCode(int Code)
         {
             switch (Code)
             {
@@ -46,7 +46,7 @@ namespace MEKB_H0_Anlage
 
         }
 
-        private void ConnectStatus(bool status)
+        public void ConnectStatus(bool status)
         {
             Menu_Trennen.Enabled = status;
             Menu_Verbinden.Enabled = !status;
@@ -74,10 +74,30 @@ namespace MEKB_H0_Anlage
         private void UpdateWeiche(int Adresse, int Status)
         {
             int index = Weichenliste.FindIndex(x => x.Adresse == Adresse); //Finde Weiche mit dieser Adresse 
-            if (index == -1) return;    //Weiche nicht gefunden in der Liste
-            Weichenliste[index].Schalten(Status);
+            if (index != -1)//Weiche gefunden in der Liste
+            {
+                Weichenliste[index].Schalten(Status);
+                UpdateWeicheImGleisplan(Weichenliste[index]);
+            }
+            else
+            {
+                index = Signalliste.FindIndex(x => x.Adresse == Adresse);
+                if (index != -1)//Signal gefunden in der 1. Adressen
+                {
+                    Signalliste[index].MaskenSetzen(Status);
+                    UpdateSignalImGleisplan(Signalliste[index]);
+                }
+                else
+                {
+                    index = Signalliste.FindIndex(x => x.Adresse2 == Adresse);
+                    if (index != -1)//Signal gefunden in der 2. Adressen
+                    {
+                        Signalliste[index].MaskenSetzen(Status+4);
+                        UpdateSignalImGleisplan(Signalliste[index]);
+                    }
+                }
 
-            UpdateWeicheImGleisplan(Weichenliste[index]);
+            }
         }
 
         private void UpdateWeicheImGleisplan(Weiche weiche)
@@ -161,6 +181,37 @@ namespace MEKB_H0_Anlage
                 return Weichenliste[ListID];
             }
 
+        }
+
+        private void UpdateSignalImGleisplan(Signal signal)
+        {
+            try
+            {
+                switch (signal.Name)
+                {
+                    case "Signal_Ausfahrt_L1": GetSignalSchaltbild(signal, Signal_Ausfahrt_L1); break;
+                    case "Signal_Ausfahrt_L2": GetSignalSchaltbild(signal, Signal_Ausfahrt_L2); break;
+                    case "Signal_Ausfahrt_L3": GetSignalSchaltbild(signal, Signal_Ausfahrt_L3); break;
+                    case "Signal_Ausfahrt_L4": GetSignalSchaltbild(signal, Signal_Ausfahrt_L4); break;
+                    case "Signal_Ausfahrt_L5": GetSignalSchaltbild(signal, Signal_Ausfahrt_L5); break;
+                    case "Signal_Ausfahrt_L6": GetSignalSchaltbild(signal, Signal_Ausfahrt_L6); break;
+                    case "Signal_Ausfahrt_R1": GetSignalSchaltbild(signal, Signal_Ausfahrt_R1); break;
+                    case "Signal_Ausfahrt_R2": GetSignalSchaltbild(signal, Signal_Ausfahrt_R2); break;
+                    case "Signal_Ausfahrt_R3": GetSignalSchaltbild(signal, Signal_Ausfahrt_R3); break;
+                    case "Signal_Ausfahrt_R4": GetSignalSchaltbild(signal, Signal_Ausfahrt_R4); break;
+                    case "Signal_Ausfahrt_R5": GetSignalSchaltbild(signal, Signal_Ausfahrt_R5); break;
+                    case "Signal_Ausfahrt_R6": GetSignalSchaltbild(signal, Signal_Ausfahrt_R6); break;
+                    case "Signal_RTunnel_1":   GetSignalSchaltbild(signal, Signal_RTunnel_1);   break;
+                    case "Signal_RTunnel_2":   GetSignalSchaltbild(signal, Signal_RTunnel_2);   break;
+                    case "Signal_Einfahrt_L":  GetSignalSchaltbild(signal, Signal_Einfahrt_L);  break;
+                    case "Signal_Tunnel_L1":   GetSignalSchaltbild(signal, Signal_Tunnel_L1);   break;
+                    default: break;
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }
