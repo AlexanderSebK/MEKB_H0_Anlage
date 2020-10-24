@@ -597,6 +597,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logo.ico" />
+    <Content Include="Signalliste.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Weichenliste.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\Fahrstr_Kurve0L_unten.png" />
     <None Include="Resources\Fahrstr_Kurve0L_oben.png" />
     <None Include="Resources\Fahrstr_Kurve180R_unten.png" />

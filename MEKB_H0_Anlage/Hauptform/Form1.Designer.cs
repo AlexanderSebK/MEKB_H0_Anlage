@@ -768,16 +768,16 @@
             this.Signal_Ausfahrt_L3 = new System.Windows.Forms.PictureBox();
             this.Signal_Ausfahrt_L5 = new System.Windows.Forms.PictureBox();
             this.Signal_Ausfahrt_L6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox17 = new System.Windows.Forms.PictureBox();
-            this.pictureBox21 = new System.Windows.Forms.PictureBox();
-            this.pictureBox23 = new System.Windows.Forms.PictureBox();
-            this.pictureBox27 = new System.Windows.Forms.PictureBox();
-            this.pictureBox28 = new System.Windows.Forms.PictureBox();
-            this.pictureBox29 = new System.Windows.Forms.PictureBox();
-            this.pictureBox30 = new System.Windows.Forms.PictureBox();
-            this.pictureBox31 = new System.Windows.Forms.PictureBox();
-            this.pictureBox32 = new System.Windows.Forms.PictureBox();
-            this.pictureBox37 = new System.Windows.Forms.PictureBox();
+            this.Signal_Tunnel_L1 = new System.Windows.Forms.PictureBox();
+            this.Signal_Einfahrt_L = new System.Windows.Forms.PictureBox();
+            this.Signal_Ausfahrt_R1 = new System.Windows.Forms.PictureBox();
+            this.Signal_Ausfahrt_R2 = new System.Windows.Forms.PictureBox();
+            this.Signal_Ausfahrt_R3 = new System.Windows.Forms.PictureBox();
+            this.Signal_Ausfahrt_R4 = new System.Windows.Forms.PictureBox();
+            this.Signal_Ausfahrt_R5 = new System.Windows.Forms.PictureBox();
+            this.Signal_Ausfahrt_R6 = new System.Windows.Forms.PictureBox();
+            this.Signal_RTunnel_1 = new System.Windows.Forms.PictureBox();
+            this.Signal_RTunnel_2 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1325,16 +1325,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox30)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Tunnel_L1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Einfahrt_L)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_RTunnel_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_RTunnel_2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -8058,10 +8058,13 @@
             // 
             // textBox1
             // 
+            this.textBox1.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.textBox1.Location = new System.Drawing.Point(864, 102);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(160, 20);
             this.textBox1.TabIndex = 628;
+            this.textBox1.Text = "Gleis 1";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Fahrstr_GL6_rechts
             // 
@@ -8179,38 +8182,53 @@
             // 
             // textBox2
             // 
+            this.textBox2.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.textBox2.Location = new System.Drawing.Point(864, 134);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(160, 20);
             this.textBox2.TabIndex = 635;
+            this.textBox2.Text = "Gleis 2";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox3
             // 
+            this.textBox3.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.textBox3.Location = new System.Drawing.Point(864, 166);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(160, 20);
             this.textBox3.TabIndex = 636;
+            this.textBox3.Text = "Gleis 3";
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox4
             // 
+            this.textBox4.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.textBox4.Location = new System.Drawing.Point(864, 198);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(160, 20);
             this.textBox4.TabIndex = 637;
+            this.textBox4.Text = "Gleis 4";
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox5
             // 
+            this.textBox5.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.textBox5.Location = new System.Drawing.Point(864, 262);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(160, 20);
             this.textBox5.TabIndex = 638;
+            this.textBox5.Text = "Gleis 5";
+            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox6
             // 
+            this.textBox6.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.textBox6.Location = new System.Drawing.Point(864, 294);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(160, 20);
             this.textBox6.TabIndex = 639;
+            this.textBox6.Text = "Gleis 6";
+            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Fahrstr_Rechts1
             // 
@@ -8687,95 +8705,95 @@
             this.Signal_Ausfahrt_L6.TabIndex = 660;
             this.Signal_Ausfahrt_L6.TabStop = false;
             // 
-            // pictureBox17
+            // Signal_Tunnel_L1
             // 
-            this.pictureBox17.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_2B_270;
-            this.pictureBox17.Location = new System.Drawing.Point(48, 122);
-            this.pictureBox17.Name = "pictureBox17";
-            this.pictureBox17.Size = new System.Drawing.Size(64, 16);
-            this.pictureBox17.TabIndex = 661;
-            this.pictureBox17.TabStop = false;
+            this.Signal_Tunnel_L1.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_2B_270;
+            this.Signal_Tunnel_L1.Location = new System.Drawing.Point(48, 122);
+            this.Signal_Tunnel_L1.Name = "Signal_Tunnel_L1";
+            this.Signal_Tunnel_L1.Size = new System.Drawing.Size(64, 16);
+            this.Signal_Tunnel_L1.TabIndex = 661;
+            this.Signal_Tunnel_L1.TabStop = false;
             // 
-            // pictureBox21
+            // Signal_Einfahrt_L
             // 
-            this.pictureBox21.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
-            this.pictureBox21.Location = new System.Drawing.Point(368, 182);
-            this.pictureBox21.Name = "pictureBox21";
-            this.pictureBox21.Size = new System.Drawing.Size(64, 16);
-            this.pictureBox21.TabIndex = 662;
-            this.pictureBox21.TabStop = false;
+            this.Signal_Einfahrt_L.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
+            this.Signal_Einfahrt_L.Location = new System.Drawing.Point(368, 182);
+            this.Signal_Einfahrt_L.Name = "Signal_Einfahrt_L";
+            this.Signal_Einfahrt_L.Size = new System.Drawing.Size(64, 16);
+            this.Signal_Einfahrt_L.TabIndex = 662;
+            this.Signal_Einfahrt_L.TabStop = false;
             // 
-            // pictureBox23
+            // Signal_Ausfahrt_R1
             // 
-            this.pictureBox23.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
-            this.pictureBox23.Location = new System.Drawing.Point(1136, 118);
-            this.pictureBox23.Name = "pictureBox23";
-            this.pictureBox23.Size = new System.Drawing.Size(64, 16);
-            this.pictureBox23.TabIndex = 663;
-            this.pictureBox23.TabStop = false;
+            this.Signal_Ausfahrt_R1.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
+            this.Signal_Ausfahrt_R1.Location = new System.Drawing.Point(1136, 118);
+            this.Signal_Ausfahrt_R1.Name = "Signal_Ausfahrt_R1";
+            this.Signal_Ausfahrt_R1.Size = new System.Drawing.Size(64, 16);
+            this.Signal_Ausfahrt_R1.TabIndex = 663;
+            this.Signal_Ausfahrt_R1.TabStop = false;
             // 
-            // pictureBox27
+            // Signal_Ausfahrt_R2
             // 
-            this.pictureBox27.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
-            this.pictureBox27.Location = new System.Drawing.Point(1136, 150);
-            this.pictureBox27.Name = "pictureBox27";
-            this.pictureBox27.Size = new System.Drawing.Size(64, 16);
-            this.pictureBox27.TabIndex = 664;
-            this.pictureBox27.TabStop = false;
+            this.Signal_Ausfahrt_R2.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
+            this.Signal_Ausfahrt_R2.Location = new System.Drawing.Point(1136, 150);
+            this.Signal_Ausfahrt_R2.Name = "Signal_Ausfahrt_R2";
+            this.Signal_Ausfahrt_R2.Size = new System.Drawing.Size(64, 16);
+            this.Signal_Ausfahrt_R2.TabIndex = 664;
+            this.Signal_Ausfahrt_R2.TabStop = false;
             // 
-            // pictureBox28
+            // Signal_Ausfahrt_R3
             // 
-            this.pictureBox28.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
-            this.pictureBox28.Location = new System.Drawing.Point(1136, 182);
-            this.pictureBox28.Name = "pictureBox28";
-            this.pictureBox28.Size = new System.Drawing.Size(64, 16);
-            this.pictureBox28.TabIndex = 665;
-            this.pictureBox28.TabStop = false;
+            this.Signal_Ausfahrt_R3.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
+            this.Signal_Ausfahrt_R3.Location = new System.Drawing.Point(1136, 182);
+            this.Signal_Ausfahrt_R3.Name = "Signal_Ausfahrt_R3";
+            this.Signal_Ausfahrt_R3.Size = new System.Drawing.Size(64, 16);
+            this.Signal_Ausfahrt_R3.TabIndex = 665;
+            this.Signal_Ausfahrt_R3.TabStop = false;
             // 
-            // pictureBox29
+            // Signal_Ausfahrt_R4
             // 
-            this.pictureBox29.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
-            this.pictureBox29.Location = new System.Drawing.Point(1136, 214);
-            this.pictureBox29.Name = "pictureBox29";
-            this.pictureBox29.Size = new System.Drawing.Size(64, 16);
-            this.pictureBox29.TabIndex = 666;
-            this.pictureBox29.TabStop = false;
+            this.Signal_Ausfahrt_R4.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
+            this.Signal_Ausfahrt_R4.Location = new System.Drawing.Point(1136, 214);
+            this.Signal_Ausfahrt_R4.Name = "Signal_Ausfahrt_R4";
+            this.Signal_Ausfahrt_R4.Size = new System.Drawing.Size(64, 16);
+            this.Signal_Ausfahrt_R4.TabIndex = 666;
+            this.Signal_Ausfahrt_R4.TabStop = false;
             // 
-            // pictureBox30
+            // Signal_Ausfahrt_R5
             // 
-            this.pictureBox30.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
-            this.pictureBox30.Location = new System.Drawing.Point(1136, 278);
-            this.pictureBox30.Name = "pictureBox30";
-            this.pictureBox30.Size = new System.Drawing.Size(64, 16);
-            this.pictureBox30.TabIndex = 667;
-            this.pictureBox30.TabStop = false;
+            this.Signal_Ausfahrt_R5.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
+            this.Signal_Ausfahrt_R5.Location = new System.Drawing.Point(1136, 278);
+            this.Signal_Ausfahrt_R5.Name = "Signal_Ausfahrt_R5";
+            this.Signal_Ausfahrt_R5.Size = new System.Drawing.Size(64, 16);
+            this.Signal_Ausfahrt_R5.TabIndex = 667;
+            this.Signal_Ausfahrt_R5.TabStop = false;
             // 
-            // pictureBox31
+            // Signal_Ausfahrt_R6
             // 
-            this.pictureBox31.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
-            this.pictureBox31.Location = new System.Drawing.Point(1136, 310);
-            this.pictureBox31.Name = "pictureBox31";
-            this.pictureBox31.Size = new System.Drawing.Size(64, 16);
-            this.pictureBox31.TabIndex = 668;
-            this.pictureBox31.TabStop = false;
+            this.Signal_Ausfahrt_R6.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Signal_3B_90;
+            this.Signal_Ausfahrt_R6.Location = new System.Drawing.Point(1136, 310);
+            this.Signal_Ausfahrt_R6.Name = "Signal_Ausfahrt_R6";
+            this.Signal_Ausfahrt_R6.Size = new System.Drawing.Size(64, 16);
+            this.Signal_Ausfahrt_R6.TabIndex = 668;
+            this.Signal_Ausfahrt_R6.TabStop = false;
             // 
-            // pictureBox32
+            // Signal_RTunnel_1
             // 
-            this.pictureBox32.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox32.BackgroundImage")));
-            this.pictureBox32.Location = new System.Drawing.Point(1712, 90);
-            this.pictureBox32.Name = "pictureBox32";
-            this.pictureBox32.Size = new System.Drawing.Size(64, 16);
-            this.pictureBox32.TabIndex = 669;
-            this.pictureBox32.TabStop = false;
+            this.Signal_RTunnel_1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Signal_RTunnel_1.BackgroundImage")));
+            this.Signal_RTunnel_1.Location = new System.Drawing.Point(1712, 90);
+            this.Signal_RTunnel_1.Name = "Signal_RTunnel_1";
+            this.Signal_RTunnel_1.Size = new System.Drawing.Size(64, 16);
+            this.Signal_RTunnel_1.TabIndex = 669;
+            this.Signal_RTunnel_1.TabStop = false;
             // 
-            // pictureBox37
+            // Signal_RTunnel_2
             // 
-            this.pictureBox37.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox37.BackgroundImage")));
-            this.pictureBox37.Location = new System.Drawing.Point(1712, 122);
-            this.pictureBox37.Name = "pictureBox37";
-            this.pictureBox37.Size = new System.Drawing.Size(64, 16);
-            this.pictureBox37.TabIndex = 670;
-            this.pictureBox37.TabStop = false;
+            this.Signal_RTunnel_2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Signal_RTunnel_2.BackgroundImage")));
+            this.Signal_RTunnel_2.Location = new System.Drawing.Point(1712, 122);
+            this.Signal_RTunnel_2.Name = "Signal_RTunnel_2";
+            this.Signal_RTunnel_2.Size = new System.Drawing.Size(64, 16);
+            this.Signal_RTunnel_2.TabIndex = 670;
+            this.Signal_RTunnel_2.TabStop = false;
             // 
             // Form1
             // 
@@ -8799,18 +8817,18 @@
             this.Controls.Add(this.Fahrstr_GL3_rechts);
             this.Controls.Add(this.Fahrstr_GL2_rechts);
             this.Controls.Add(this.Fahrstr_GL1_rechts);
-            this.Controls.Add(this.pictureBox37);
-            this.Controls.Add(this.pictureBox32);
-            this.Controls.Add(this.pictureBox31);
-            this.Controls.Add(this.pictureBox30);
-            this.Controls.Add(this.pictureBox29);
-            this.Controls.Add(this.pictureBox28);
-            this.Controls.Add(this.pictureBox27);
-            this.Controls.Add(this.pictureBox23);
+            this.Controls.Add(this.Signal_RTunnel_2);
+            this.Controls.Add(this.Signal_RTunnel_1);
+            this.Controls.Add(this.Signal_Ausfahrt_R6);
+            this.Controls.Add(this.Signal_Ausfahrt_R5);
+            this.Controls.Add(this.Signal_Ausfahrt_R4);
+            this.Controls.Add(this.Signal_Ausfahrt_R3);
+            this.Controls.Add(this.Signal_Ausfahrt_R2);
+            this.Controls.Add(this.Signal_Ausfahrt_R1);
             this.Controls.Add(this.Block2_Auswahl);
-            this.Controls.Add(this.pictureBox21);
+            this.Controls.Add(this.Signal_Einfahrt_L);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.pictureBox17);
+            this.Controls.Add(this.Signal_Tunnel_L1);
             this.Controls.Add(this.Fahrstr_GL6_links);
             this.Controls.Add(this.Fahrstr_GL5_links);
             this.Controls.Add(this.Fahrstr_GL4_links);
@@ -9406,6 +9424,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "MEKB H0-Anlage";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.menuStrip1.ResumeLayout(false);
@@ -9958,16 +9977,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox30)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Tunnel_L1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Einfahrt_L)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_RTunnel_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Signal_RTunnel_2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -10713,16 +10732,16 @@
         private System.Windows.Forms.PictureBox Signal_Ausfahrt_L3;
         private System.Windows.Forms.PictureBox Signal_Ausfahrt_L5;
         private System.Windows.Forms.PictureBox Signal_Ausfahrt_L6;
-        private System.Windows.Forms.PictureBox pictureBox17;
-        private System.Windows.Forms.PictureBox pictureBox21;
-        private System.Windows.Forms.PictureBox pictureBox23;
-        private System.Windows.Forms.PictureBox pictureBox27;
-        private System.Windows.Forms.PictureBox pictureBox28;
-        private System.Windows.Forms.PictureBox pictureBox29;
-        private System.Windows.Forms.PictureBox pictureBox30;
-        private System.Windows.Forms.PictureBox pictureBox31;
-        private System.Windows.Forms.PictureBox pictureBox32;
-        private System.Windows.Forms.PictureBox pictureBox37;
+        private System.Windows.Forms.PictureBox Signal_Tunnel_L1;
+        private System.Windows.Forms.PictureBox Signal_Einfahrt_L;
+        private System.Windows.Forms.PictureBox Signal_Ausfahrt_R1;
+        private System.Windows.Forms.PictureBox Signal_Ausfahrt_R2;
+        private System.Windows.Forms.PictureBox Signal_Ausfahrt_R3;
+        private System.Windows.Forms.PictureBox Signal_Ausfahrt_R4;
+        private System.Windows.Forms.PictureBox Signal_Ausfahrt_R5;
+        private System.Windows.Forms.PictureBox Signal_Ausfahrt_R6;
+        private System.Windows.Forms.PictureBox Signal_RTunnel_1;
+        private System.Windows.Forms.PictureBox Signal_RTunnel_2;
     }
 }
 

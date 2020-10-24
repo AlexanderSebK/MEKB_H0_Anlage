@@ -65,7 +65,7 @@ namespace MEKB_H0_Anlage
                     default: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_270; break;
                 }
             }
-            else if (signal.Typ.Equals("3B_00"))
+            else if (signal.Typ.Equals("3B_90"))
             {
                 switch (signal.Zustand)
                 {
