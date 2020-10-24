@@ -441,7 +441,7 @@ namespace MEKB_H0_Anlage
         /// Weiche setzen
         /// </summary>
         /// <param name="new_zustand">Neuer Zustand</param>
-        public void Setzen(int new_zustand)
+        public void MaskenSetzen(int new_zustand)
         {
             if (new_zustand == 0) Zustand = 9;
             else if (new_zustand == 1) Zustand = Adr1_1;
@@ -449,6 +449,13 @@ namespace MEKB_H0_Anlage
             else if (new_zustand == 5) Zustand = Adr2_1;
             else if (new_zustand == 6) Zustand = Adr2_2;
             else Zustand = 0;
+        }
+        public void Schalten(int HPx, Z21 z21)
+        {
+            if (HPx == Adr1_1) z21.Z21_SET_SIGNAL(Adresse, false);
+            else if (HPx == Adr1_2) z21.Z21_SET_SIGNAL(Adresse, true);
+            else if (HPx == Adr2_1) z21.Z21_SET_SIGNAL(Adresse2, false);
+            else if (HPx == Adr2_2) z21.Z21_SET_SIGNAL(Adresse2, true);
         }
     }
 }

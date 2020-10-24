@@ -1721,12 +1721,151 @@ namespace MEKB_H0_Anlage
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
             if (ListID == -1) return;
-            int Zustand = Signalliste[ListID].Zustand;
-            if (Zustand == 0) Signalliste[ListID].Zustand = 1;
-            else if (Zustand == 1) Signalliste[ListID].Zustand = 2;
-            else Signalliste[ListID].Zustand = 0;
 
-            GetSignalSchaltbild(Signalliste[ListID], Signal_Ausfahrt_L1);
+            if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+        }
+
+        private void Signal_Ausfahrt_L2_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L2" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
+        }
+
+        private void Signal_Ausfahrt_L3_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L3" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
+        }
+
+        private void Signal_Ausfahrt_L4_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L4" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+        }
+
+        private void Signal_Ausfahrt_L5_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L5" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+        }
+
+        private void Signal_Ausfahrt_L6_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L6" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+        }
+
+        private void Signal_Ausfahrt_R1_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R1" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+        }
+
+        private void Signal_Ausfahrt_R2_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R2" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
+        }
+
+        private void Signal_Ausfahrt_R3_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R3" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
+        }
+
+        private void Signal_Ausfahrt_R4_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R4" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+        }
+
+        private void Signal_Ausfahrt_R5_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R5" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+        }
+
+        private void Signal_Ausfahrt_R6_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R6" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+        }
+
+        private void Signal_RTunnel_1_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+        }
+
+        private void Signal_RTunnel_2_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
+        }
+
+        private void Signal_Tunnel_L1_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Tunnel_L1" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
+            else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
+        }
+
+        private void Signal_Einfahrt_L_Click(object sender, EventArgs e)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
+            if (ListID == -1) return;
+
+            if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+            if (Control.ModifierKeys == Keys.Shift)
+            {
+                if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+            }
+            else
+            {
+                if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
+            }
         }
     }
 }

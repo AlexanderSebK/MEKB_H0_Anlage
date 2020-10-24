@@ -8668,6 +8668,7 @@
             this.Signal_Ausfahrt_L2.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L2.TabIndex = 656;
             this.Signal_Ausfahrt_L2.TabStop = false;
+            this.Signal_Ausfahrt_L2.Click += new System.EventHandler(this.Signal_Ausfahrt_L2_Click);
             // 
             // Signal_Ausfahrt_L4
             // 
@@ -8677,6 +8678,7 @@
             this.Signal_Ausfahrt_L4.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L4.TabIndex = 657;
             this.Signal_Ausfahrt_L4.TabStop = false;
+            this.Signal_Ausfahrt_L4.Click += new System.EventHandler(this.Signal_Ausfahrt_L4_Click);
             // 
             // Signal_Ausfahrt_L3
             // 
@@ -8686,6 +8688,7 @@
             this.Signal_Ausfahrt_L3.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L3.TabIndex = 658;
             this.Signal_Ausfahrt_L3.TabStop = false;
+            this.Signal_Ausfahrt_L3.Click += new System.EventHandler(this.Signal_Ausfahrt_L3_Click);
             // 
             // Signal_Ausfahrt_L5
             // 
@@ -8695,6 +8698,7 @@
             this.Signal_Ausfahrt_L5.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L5.TabIndex = 659;
             this.Signal_Ausfahrt_L5.TabStop = false;
+            this.Signal_Ausfahrt_L5.Click += new System.EventHandler(this.Signal_Ausfahrt_L5_Click);
             // 
             // Signal_Ausfahrt_L6
             // 
@@ -8704,6 +8708,7 @@
             this.Signal_Ausfahrt_L6.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L6.TabIndex = 660;
             this.Signal_Ausfahrt_L6.TabStop = false;
+            this.Signal_Ausfahrt_L6.Click += new System.EventHandler(this.Signal_Ausfahrt_L6_Click);
             // 
             // Signal_Tunnel_L1
             // 
@@ -8713,6 +8718,7 @@
             this.Signal_Tunnel_L1.Size = new System.Drawing.Size(64, 16);
             this.Signal_Tunnel_L1.TabIndex = 661;
             this.Signal_Tunnel_L1.TabStop = false;
+            this.Signal_Tunnel_L1.Click += new System.EventHandler(this.Signal_Tunnel_L1_Click);
             // 
             // Signal_Einfahrt_L
             // 
@@ -8722,6 +8728,7 @@
             this.Signal_Einfahrt_L.Size = new System.Drawing.Size(64, 16);
             this.Signal_Einfahrt_L.TabIndex = 662;
             this.Signal_Einfahrt_L.TabStop = false;
+            this.Signal_Einfahrt_L.Click += new System.EventHandler(this.Signal_Einfahrt_L_Click);
             // 
             // Signal_Ausfahrt_R1
             // 
@@ -8731,6 +8738,7 @@
             this.Signal_Ausfahrt_R1.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R1.TabIndex = 663;
             this.Signal_Ausfahrt_R1.TabStop = false;
+            this.Signal_Ausfahrt_R1.Click += new System.EventHandler(this.Signal_Ausfahrt_R1_Click);
             // 
             // Signal_Ausfahrt_R2
             // 
@@ -8740,6 +8748,7 @@
             this.Signal_Ausfahrt_R2.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R2.TabIndex = 664;
             this.Signal_Ausfahrt_R2.TabStop = false;
+            this.Signal_Ausfahrt_R2.Click += new System.EventHandler(this.Signal_Ausfahrt_R2_Click);
             // 
             // Signal_Ausfahrt_R3
             // 
@@ -8749,6 +8758,7 @@
             this.Signal_Ausfahrt_R3.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R3.TabIndex = 665;
             this.Signal_Ausfahrt_R3.TabStop = false;
+            this.Signal_Ausfahrt_R3.Click += new System.EventHandler(this.Signal_Ausfahrt_R3_Click);
             // 
             // Signal_Ausfahrt_R4
             // 
@@ -8758,6 +8768,7 @@
             this.Signal_Ausfahrt_R4.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R4.TabIndex = 666;
             this.Signal_Ausfahrt_R4.TabStop = false;
+            this.Signal_Ausfahrt_R4.Click += new System.EventHandler(this.Signal_Ausfahrt_R4_Click);
             // 
             // Signal_Ausfahrt_R5
             // 
@@ -8767,6 +8778,7 @@
             this.Signal_Ausfahrt_R5.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R5.TabIndex = 667;
             this.Signal_Ausfahrt_R5.TabStop = false;
+            this.Signal_Ausfahrt_R5.Click += new System.EventHandler(this.Signal_Ausfahrt_R5_Click);
             // 
             // Signal_Ausfahrt_R6
             // 
@@ -8776,6 +8788,7 @@
             this.Signal_Ausfahrt_R6.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R6.TabIndex = 668;
             this.Signal_Ausfahrt_R6.TabStop = false;
+            this.Signal_Ausfahrt_R6.Click += new System.EventHandler(this.Signal_Ausfahrt_R6_Click);
             // 
             // Signal_RTunnel_1
             // 
@@ -8785,6 +8798,7 @@
             this.Signal_RTunnel_1.Size = new System.Drawing.Size(64, 16);
             this.Signal_RTunnel_1.TabIndex = 669;
             this.Signal_RTunnel_1.TabStop = false;
+            this.Signal_RTunnel_1.Click += new System.EventHandler(this.Signal_RTunnel_1_Click);
             // 
             // Signal_RTunnel_2
             // 
@@ -8794,6 +8808,7 @@
             this.Signal_RTunnel_2.Size = new System.Drawing.Size(64, 16);
             this.Signal_RTunnel_2.TabIndex = 670;
             this.Signal_RTunnel_2.TabStop = false;
+            this.Signal_RTunnel_2.Click += new System.EventHandler(this.Signal_RTunnel_2_Click);
             // 
             // Form1
             // 

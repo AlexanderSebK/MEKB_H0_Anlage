@@ -238,7 +238,7 @@ namespace MEKB_H0_Anlage
             byte Header = 0x53;
             byte DB0 = (byte)(Adresse >> 8);
             byte DB1 = (byte)(Adresse & 0xFF);
-            byte DB2 = 0xA9;
+            byte DB2;
             if (Q_Modus)
             {
                 DB2 = 0xA9;
@@ -288,6 +288,20 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes2 = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             if (Connected) Client.Send(SendBytes2, 9);
             */
+        }
+
+        public void Z21_SET_SIGNAL(int Adresse, bool Zustand)
+        {
+            Adresse--;
+            if (Adresse < 0) return;//Nicht schalten, da Adresse 0
+            byte Header = 0x53;
+            byte DB0 = (byte)(Adresse >> 8);
+            byte DB1 = (byte)(Adresse & 0xFF);
+            byte DB2 = 0xA8;
+            if (Zustand) DB2 = 0xA9;
+            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
+            byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
+            if (Connected) Client.Send(SendBytes, 9);
         }
 
         public void Z21_GET_WEICHE(int Adresse)

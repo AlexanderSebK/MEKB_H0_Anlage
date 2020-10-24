@@ -129,15 +129,16 @@
   <Signal>
     <Name>Signal_Einfahrt_L</Name>
     <Adresse>314</Adresse>
+    <Adresse2>315</Adresse2>
     <Typ>3B_90</Typ>
     <Adr1Zustand1>0</Adr1Zustand1>
     <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand1>2</Adr2Zustand1>
     <Adr2Zustand2>0</Adr2Zustand2>
   </Signal>
   <Signal>
     <Name>Signal_Tunnel_L1</Name>
-    <Adresse>315</Adresse>
+    <Adresse>316</Adresse>
     <Typ>2B_270</Typ>
     <Adr1Zustand1>0</Adr1Zustand1>
     <Adr1Zustand2>1</Adr1Zustand2>
