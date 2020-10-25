@@ -84,16 +84,22 @@ namespace MEKB_H0_Anlage
                 index = Signalliste.FindIndex(x => x.Adresse == Adresse);
                 if (index != -1)//Signal gefunden in der 1. Adressen
                 {
-                    Signalliste[index].MaskenSetzen(Status);
-                    UpdateSignalImGleisplan(Signalliste[index]);
+                    if (!Signalliste[index].Letzte_Adresswahl)
+                    {
+                        Signalliste[index].MaskenSetzen(Status);
+                        UpdateSignalImGleisplan(Signalliste[index]);
+                    }
                 }
                 else
                 {
                     index = Signalliste.FindIndex(x => x.Adresse2 == Adresse);
                     if (index != -1)//Signal gefunden in der 2. Adressen
                     {
-                        Signalliste[index].MaskenSetzen(Status+4);
-                        UpdateSignalImGleisplan(Signalliste[index]);
+                        if (Signalliste[index].Letzte_Adresswahl)
+                        {
+                            Signalliste[index].MaskenSetzen(Status + 4);
+                            UpdateSignalImGleisplan(Signalliste[index]);
+                        }
                     }
                 }
 

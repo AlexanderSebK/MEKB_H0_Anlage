@@ -389,6 +389,7 @@ namespace MEKB_H0_Anlage
         /// Parameter: 2.Adresse des Signals für HP2/3
         /// </summary>
         public int Adresse2 { get; set; }
+        public bool Letzte_Adresswahl { set; get; }
         /// <summary>
         /// Zustand: HPx des Signals 
         /// </summary>
@@ -452,10 +453,10 @@ namespace MEKB_H0_Anlage
         }
         public void Schalten(int HPx, Z21 z21)
         {
-            if (HPx == Adr1_1) z21.Z21_SET_SIGNAL(Adresse, false);
-            else if (HPx == Adr1_2) z21.Z21_SET_SIGNAL(Adresse, true);
-            else if (HPx == Adr2_1) z21.Z21_SET_SIGNAL(Adresse2, false);
-            else if (HPx == Adr2_2) z21.Z21_SET_SIGNAL(Adresse2, true);
+            if (HPx == Adr1_1) { z21.Z21_SET_SIGNAL(Adresse, false); z21.Z21_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
+            else if (HPx == Adr1_2) {z21.Z21_SET_SIGNAL(Adresse, true); z21.Z21_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
+            else if (HPx == Adr2_1) {z21.Z21_SET_SIGNAL(Adresse2, false); z21.Z21_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
+            else if (HPx == Adr2_2) {z21.Z21_SET_SIGNAL(Adresse2, true); z21.Z21_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
         }
     }
 }
