@@ -64,9 +64,9 @@
             this.label2.Font = new System.Drawing.Font("Bahnschrift Condensed", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(8, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(302, 23);
+            this.label2.Size = new System.Drawing.Size(303, 23);
             this.label2.TabIndex = 1;
-            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 0.7";
+            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 0.8";
             // 
             // label3
             // 
@@ -147,12 +147,12 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.ForeColor = System.Drawing.Color.ForestGreen;
             this.label10.Location = new System.Drawing.Point(384, 136);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(121, 17);
+            this.label10.Size = new System.Drawing.Size(205, 17);
             this.label10.TabIndex = 9;
-            this.label10.Text = "alle Signale zugeordnet ";
+            this.label10.Text = "alle Signale zugeordnet  (fertig - 24.10.20)";
             // 
             // label11
             // 

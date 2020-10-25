@@ -1453,6 +1453,7 @@
             // HauptStatusbar
             // 
             this.HauptStatusbar.AutoSize = false;
+            this.HauptStatusbar.BackColor = System.Drawing.Color.Red;
             this.HauptStatusbar.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));

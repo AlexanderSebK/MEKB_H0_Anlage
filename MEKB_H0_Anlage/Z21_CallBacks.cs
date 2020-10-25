@@ -32,9 +32,9 @@ namespace MEKB_H0_Anlage
         /// Änderung des Verbindungsstatus
         /// </summary>
         /// <param name="Status">Neuer Status (true = verbunden)</param>
-        public void SetConnect(bool Status)
+        public void SetConnect(bool Status, bool Init)
         {
-            this.BeginInvoke((Action<bool>)ConnectStatus, Status);
+            this.BeginInvoke((Action<bool,bool>)ConnectStatus, Status, Init);
         }
         /// <summary>
         /// CallBack Funktion: Seriennummer 

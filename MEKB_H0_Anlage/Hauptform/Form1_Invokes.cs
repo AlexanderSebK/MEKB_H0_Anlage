@@ -46,12 +46,31 @@ namespace MEKB_H0_Anlage
 
         }
 
-        public void ConnectStatus(bool status)
+        public void ConnectStatus(bool status,bool init)
         {
             Menu_Trennen.Enabled = status;
             Menu_Verbinden.Enabled = !status;
-            if (status) HauptStatusbar.Text = "Z21: Verbunden";
-            else HauptStatusbar.Text = "Z21: Getrennt";
+            if (status)
+            {
+                if (init)
+                {
+                    HauptStatusbar.Text = "Z21: Verbunden";
+                    HauptStatusbar.BackColor = Color.ForestGreen;
+                    HauptStatusbar.ForeColor = Color.White;
+                }
+                else
+                {
+                    HauptStatusbar.Text = "Z21: Initialisieren";
+                    HauptStatusbar.BackColor = Color.Gold;
+                    HauptStatusbar.ForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                HauptStatusbar.Text = "Z21: Getrennt";
+                HauptStatusbar.BackColor = Color.Red;
+                HauptStatusbar.ForeColor = Color.White;
+            }
             z21_Einstellung.ConnectStatus(status);
         }
 

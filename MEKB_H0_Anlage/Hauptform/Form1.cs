@@ -47,7 +47,7 @@ namespace MEKB_H0_Anlage
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
             z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
 
-            ConnectStatus(false);                       //Verbindungsstatus auf getrennt setzen
+            ConnectStatus(false,false);                 //Verbindungsstatus auf getrennt setzen
 
             SetupWeichenListe();                        //Weichenliste aus Datei laden
             SetupFahrstrassen();                        //Fahstrassen festlegen
@@ -81,6 +81,11 @@ namespace MEKB_H0_Anlage
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            Pointer_Weichenliste = Weichenliste.Count() - 1;
+            Pointer_Signalliste = Signalliste.Count() - 1;
+            Signal_Init = false;
+            Weichen_Init = false;
+
             // 5 Sekunden Timer einrichten (Lebenspuls für die Verbindung)
             FlagTimer = new System.Timers.Timer(5000);
             // Timer mit Funktion "Z21_Heartbeat" Verbinden
@@ -113,6 +118,8 @@ namespace MEKB_H0_Anlage
         }
         private int Pointer_Weichenliste = 0;
         private int Pointer_Signalliste = 0;
+        private bool Signal_Init;
+        private bool Weichen_Init;
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
 
@@ -122,6 +129,7 @@ namespace MEKB_H0_Anlage
                 if (Pointer_Weichenliste <= 0)
                 {
                     Pointer_Weichenliste = Weichenliste.Count() - 1;
+                    Weichen_Init = true;
                 }
                 else
                 {
@@ -131,11 +139,13 @@ namespace MEKB_H0_Anlage
                 if (Pointer_Signalliste <= 0)
                 {
                     Pointer_Signalliste = Signalliste.Count() - 1;
+                    Signal_Init = true;
                 }
                 else
                 {
                     Pointer_Signalliste--;
                 }
+                if(Weichen_Init & Signal_Init) SetConnect(true, true); //Initialisierung abgeschlossen
                 //
                 Fahrstrassenupdate(Gleis1_nach_links);
                 Fahrstrassenupdate(Gleis2_nach_links);
@@ -193,6 +203,10 @@ namespace MEKB_H0_Anlage
         private void Menu_Verbinden_Click(object sender, EventArgs e)
         {
             z21Start.Connect_Z21();
+            Pointer_Weichenliste = Weichenliste.Count() - 1;
+            Pointer_Signalliste = Signalliste.Count() - 1;
+            Signal_Init = false;
+            Weichen_Init = false;
         }
 
         private void Menu_Trennen_Click(object sender, EventArgs e)
