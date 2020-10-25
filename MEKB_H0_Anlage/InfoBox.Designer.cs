@@ -93,12 +93,12 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Orange;
+            this.label5.ForeColor = System.Drawing.Color.ForestGreen;
             this.label5.Location = new System.Drawing.Point(8, 136);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(186, 17);
+            this.label5.Size = new System.Drawing.Size(221, 17);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Basisfkt. - Signalsteuerung (in Arbeit)";
+            this.label5.Text = "Basisfkt. - Signalsteuerung (fertig - 25.10.20)";
             // 
             // label6
             // 

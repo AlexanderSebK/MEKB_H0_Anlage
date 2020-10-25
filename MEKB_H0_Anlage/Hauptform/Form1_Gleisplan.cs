@@ -174,7 +174,8 @@ namespace MEKB_H0_Anlage
                 if (ListID == -1) return;   //Weiche nicht gefunden
                 UpdateWeicheImGleisplan(Weichenliste[ListID]); //Weiche im Gleisplan aktualisieren
             }
-            //Alle Fahrstraßen aktualisieren
+            //Alle Fahrstraßen/Buttons aktualisieren
+            UpdateSchalterSignale();
             FahrstrasseBildUpdate();
         }
         /// <summary>

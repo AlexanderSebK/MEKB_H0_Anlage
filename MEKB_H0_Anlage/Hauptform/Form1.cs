@@ -112,6 +112,7 @@ namespace MEKB_H0_Anlage
 
         }
         private int Pointer_Weichenliste = 0;
+        private int Pointer_Signalliste = 0;
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
 
@@ -125,6 +126,15 @@ namespace MEKB_H0_Anlage
                 else
                 {
                     Pointer_Weichenliste--;
+                }
+                GetSignalStatus(Signalliste[Pointer_Signalliste].Name);
+                if (Pointer_Signalliste <= 0)
+                {
+                    Pointer_Signalliste = Signalliste.Count() - 1;
+                }
+                else
+                {
+                    Pointer_Signalliste--;
                 }
                 //
                 Fahrstrassenupdate(Gleis1_nach_links);
@@ -175,7 +185,6 @@ namespace MEKB_H0_Anlage
         }
 
         
-
         /// <summary>
         /// Menü Zentrale -> Verbinden
         /// </summary>
