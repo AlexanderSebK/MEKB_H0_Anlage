@@ -45,7 +45,6 @@ namespace MEKB_H0_Anlage
             }
 
         }
-
         public void ConnectStatus(bool status)
         {
             Menu_Trennen.Enabled = status;
@@ -54,7 +53,6 @@ namespace MEKB_H0_Anlage
             else HauptStatusbar.Text = "Z21: Getrennt";
             z21_Einstellung.ConnectStatus(status);
         }
-
         private void Set_Z21_Strom(int Main, int Prog, int MainFilter)
         {
             StatusBarStrom.Text = String.Format("Stromverbauch: {0} mA", MainFilter);
@@ -84,25 +82,29 @@ namespace MEKB_H0_Anlage
                 index = Signalliste.FindIndex(x => x.Adresse == Adresse);
                 if (index != -1)//Signal gefunden in der 1. Adressen
                 {
-                    Signalliste[index].MaskenSetzen(Status);
-                    UpdateSignalImGleisplan(Signalliste[index]);
+                    if (!Signalliste[index].Letzte_Adresswahl)
+                    {
+                        Signalliste[index].MaskenSetzen(Status);
+                        UpdateSignalImGleisplan(Signalliste[index]);
+                    }
                 }
                 else
                 {
                     index = Signalliste.FindIndex(x => x.Adresse2 == Adresse);
                     if (index != -1)//Signal gefunden in der 2. Adressen
                     {
-                        Signalliste[index].MaskenSetzen(Status+4);
-                        UpdateSignalImGleisplan(Signalliste[index]);
+                        if (Signalliste[index].Letzte_Adresswahl)
+                        {
+                            Signalliste[index].MaskenSetzen(Status + 4);
+                            UpdateSignalImGleisplan(Signalliste[index]);
+                        }
                     }
                 }
 
             }
         }
-
         private void UpdateWeicheImGleisplan(Weiche weiche)
-        {
-            
+        {           
             Weiche DKW_2nd = GetDWK_2nd(weiche.Name);     //Zweite Weiche bei DKWs und KWs DisplayPicture(GetSchaltbildGerade90_EckeOR(Zustand, "Frei"), Weiche30_Gleis1);
             try
             {
@@ -182,7 +184,6 @@ namespace MEKB_H0_Anlage
             }
 
         }
-
         private void UpdateSignalImGleisplan(Signal signal)
         {
             try
