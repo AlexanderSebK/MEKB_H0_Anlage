@@ -391,6 +391,10 @@ namespace MEKB_H0_Anlage
         public int Adresse2 { get; set; }
         public bool Letzte_Adresswahl { set; get; }
         /// <summary>
+        /// Lezte angewählte Adresse
+        /// </summary>
+        public bool Letzte_Adresswahl { get; set; }
+        /// <summary>
         /// Zustand: HPx des Signals 
         /// </summary>
         public int Zustand { get; set; }

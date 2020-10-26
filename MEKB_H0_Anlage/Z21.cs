@@ -315,11 +315,10 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             if (Connected) Client.Send(SendBytes, 9);
         }
-
-
         public void Z21_GET_WEICHE(int Adresse)
         {
             Adresse--;
+            if (Adresse < 0) return;//Nicht anfragen, da Adresse 0
             byte Header = 0x43;
             byte DB0 = (byte)(Adresse >> 8);
             byte DB1 = (byte)(Adresse & 0xFF);

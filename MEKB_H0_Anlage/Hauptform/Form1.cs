@@ -116,6 +116,7 @@ namespace MEKB_H0_Anlage
             }
 
         }
+        
         private int Pointer_Weichenliste = 0;
         private int Pointer_Signalliste = 0;
         private bool Signal_Init;
