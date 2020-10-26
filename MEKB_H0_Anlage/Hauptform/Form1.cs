@@ -1891,5 +1891,16 @@ namespace MEKB_H0_Anlage
                 if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
             }
         }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Alle Autozüge Stop
+            //Alle Signale Rot
+        }
     }
 }

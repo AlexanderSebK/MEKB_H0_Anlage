@@ -778,6 +778,11 @@
             this.Signal_Ausfahrt_R6 = new System.Windows.Forms.PictureBox();
             this.Signal_RTunnel_1 = new System.Windows.Forms.PictureBox();
             this.Signal_RTunnel_2 = new System.Windows.Forms.PictureBox();
+            this.Bhf_Gl4_Gl5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1335,6 +1340,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_RTunnel_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_RTunnel_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Bhf_Gl4_Gl5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -1354,16 +1362,18 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2});
+            this.toolStripMenuItem2,
+            this.toolStripSeparator1,
+            this.toolStripMenuItem3});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(125, 20);
-            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(46, 20);
+            this.toolStripMenuItem1.Text = "Datei";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem2.Text = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Text = "Lok-Editor";
             // 
             // zentraleToolStripMenuItem
             // 
@@ -8811,11 +8821,51 @@
             this.Signal_RTunnel_2.TabStop = false;
             this.Signal_RTunnel_2.Click += new System.EventHandler(this.Signal_RTunnel_2_Click);
             // 
+            // Bhf_Gl4_Gl5
+            // 
+            this.Bhf_Gl4_Gl5.Image = global::MEKB_H0_Anlage.Properties.Resources.Bahnsteig_Mitte;
+            this.Bhf_Gl4_Gl5.Location = new System.Drawing.Point(768, 224);
+            this.Bhf_Gl4_Gl5.Name = "Bhf_Gl4_Gl5";
+            this.Bhf_Gl4_Gl5.Size = new System.Drawing.Size(352, 32);
+            this.Bhf_Gl4_Gl5.TabIndex = 671;
+            this.Bhf_Gl4_Gl5.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::MEKB_H0_Anlage.Properties.Resources.Bahnsteig_Oben;
+            this.pictureBox7.Location = new System.Drawing.Point(768, 320);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(352, 16);
+            this.pictureBox7.TabIndex = 672;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::MEKB_H0_Anlage.Properties.Resources.Bahnsteig_Unten;
+            this.pictureBox8.Location = new System.Drawing.Point(768, 80);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(352, 16);
+            this.pictureBox8.TabIndex = 673;
+            this.pictureBox8.TabStop = false;
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Text = "Beenden";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.pictureBox8);
             this.Controls.Add(this.Rechts2_Auswahl);
             this.Controls.Add(this.Rechts1_Auswahl);
             this.Controls.Add(this.Gl1_rechts_Auswahl);
@@ -9436,11 +9486,14 @@
             this.Controls.Add(this.Weiche6);
             this.Controls.Add(this.Statusbar);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.Bhf_Gl4_Gl5);
+            this.Controls.Add(this.pictureBox7);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "MEKB H0-Anlage";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.menuStrip1.ResumeLayout(false);
@@ -10003,6 +10056,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_R6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_RTunnel_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_RTunnel_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Bhf_Gl4_Gl5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -10758,6 +10814,11 @@
         private System.Windows.Forms.PictureBox Signal_Ausfahrt_R6;
         private System.Windows.Forms.PictureBox Signal_RTunnel_1;
         private System.Windows.Forms.PictureBox Signal_RTunnel_2;
+        private System.Windows.Forms.PictureBox Bhf_Gl4_Gl5;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }
 }
 

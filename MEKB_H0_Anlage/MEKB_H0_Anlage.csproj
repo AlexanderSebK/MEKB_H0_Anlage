@@ -602,6 +602,9 @@
     <Content Include="Logo.ico" />
     <None Include="Resources\Fahrstrasse_links_deakt.png" />
     <None Include="Resources\Fahrstrasse_rechts_deakt.png" />
+    <None Include="Resources\Bahnsteig_Mitte.png" />
+    <None Include="Resources\Bahnsteig_Oben.png" />
+    <None Include="Resources\Bahnsteig_Unten.png" />
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
