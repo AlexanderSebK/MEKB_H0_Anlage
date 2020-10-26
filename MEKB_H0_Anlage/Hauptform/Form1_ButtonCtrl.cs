@@ -26,6 +26,7 @@ namespace MEKB_H0_Anlage
             UpdateButton_Fahrstr_GL6_rechts();
             UpdateButton_Fahrstr_Rechts1_nach_Hbf();
             UpdateButton_Fahrstr_Rechts2_nach_Hbf();
+            UpdateButton_Fahrstr_RechtsSubButtons_nach_Hbf();
 
         }
 
@@ -505,6 +506,63 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_Rechts2.Enabled = true;
                 Fahrstr_Rechts2.BackgroundImage = Properties.Resources.Fahrstrasse_links;
+            }
+        }
+        private void UpdateButton_Fahrstr_RechtsSubButtons_nach_Hbf()
+        {
+            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
+                Gleis1_nach_rechts2.GetGesetztStatus() ||
+                Gleis2_nach_rechts1.GetGesetztStatus() ||
+                Gleis2_nach_rechts2.GetGesetztStatus() )               
+            {
+                Rechts1_Einfahrt_Gl1.Enabled = false;
+                Rechts1_Einfahrt_Gl2.Enabled = false;
+                Rechts2_Einfahrt_Gl1.Enabled = false;
+                Rechts2_Einfahrt_Gl2.Enabled = false;
+            }
+            else
+            {
+                Rechts1_Einfahrt_Gl1.Enabled = true;
+                Rechts1_Einfahrt_Gl2.Enabled = true;
+                Rechts2_Einfahrt_Gl1.Enabled = true;
+                Rechts2_Einfahrt_Gl2.Enabled = true;
+            }
+            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
+                Gleis1_nach_rechts2.GetGesetztStatus() ||
+                Gleis2_nach_rechts1.GetGesetztStatus() ||
+                Gleis2_nach_rechts2.GetGesetztStatus() ||
+                Gleis3_nach_rechts1.GetGesetztStatus() ||
+                Gleis3_nach_rechts2.GetGesetztStatus() ||
+                Gleis4_nach_rechts1.GetGesetztStatus() ||
+                Gleis4_nach_rechts2.GetGesetztStatus() ||
+                Gleis5_nach_rechts1.GetGesetztStatus() ||
+                Gleis5_nach_rechts2.GetGesetztStatus() ||
+                Gleis6_nach_rechts1.GetGesetztStatus() ||
+                Gleis6_nach_rechts2.GetGesetztStatus())
+            {
+                
+                Rechts1_Einfahrt_Gl3.Enabled = false;
+                Rechts1_Einfahrt_Gl4.Enabled = false;
+                Rechts1_Einfahrt_Gl5.Enabled = false;
+                Rechts1_Einfahrt_Gl6.Enabled = false;
+               
+                Rechts2_Einfahrt_Gl3.Enabled = false;
+                Rechts2_Einfahrt_Gl4.Enabled = false;
+                Rechts2_Einfahrt_Gl5.Enabled = false;
+                Rechts2_Einfahrt_Gl6.Enabled = false;
+            }
+            else
+            {
+                
+                Rechts1_Einfahrt_Gl3.Enabled = true;
+                Rechts1_Einfahrt_Gl4.Enabled = true;
+                Rechts1_Einfahrt_Gl5.Enabled = true;
+                Rechts1_Einfahrt_Gl6.Enabled = true;
+               
+                Rechts2_Einfahrt_Gl3.Enabled = true;
+                Rechts2_Einfahrt_Gl4.Enabled = true;
+                Rechts2_Einfahrt_Gl5.Enabled = true;
+                Rechts2_Einfahrt_Gl6.Enabled = true;
             }
         }
     }
