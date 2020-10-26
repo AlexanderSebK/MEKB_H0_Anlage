@@ -94,16 +94,15 @@ namespace MEKB_H0_Anlage
                 picBox.Image = img;
             }));
         }
-
         private void GetSignalStatus(string Signalname)
         {          
+
             int ListID = Signalliste.IndexOf(new Signal() { Name = Signalname }); //Weiche mit diesem Namen in der Liste suchen
             if (ListID == -1) return;                                               //Weiche nicht vorhanden, Funktion abbrechen
             int Adresse = Signalliste[ListID].Adresse;                             //Adresse der Weiche übernehmen
             z21Start.Z21_GET_WEICHE(Adresse);                                       //paket senden "GET Weiche"
             Adresse = Signalliste[ListID].Adresse2;                             //Adresse der Weiche übernehmen
             z21Start.Z21_GET_WEICHE(Adresse);                                       //paket senden "GET Weiche"
-
         }
     }
 }

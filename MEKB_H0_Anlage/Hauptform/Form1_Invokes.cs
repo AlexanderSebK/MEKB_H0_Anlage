@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,14 +45,35 @@ namespace MEKB_H0_Anlage
             }
 
         }
-        public void ConnectStatus(bool status)
+
+        public void ConnectStatus(bool status,bool init)
         {
             Menu_Trennen.Enabled = status;
             Menu_Verbinden.Enabled = !status;
-            if (status) HauptStatusbar.Text = "Z21: Verbunden";
-            else HauptStatusbar.Text = "Z21: Getrennt";
+            if (status)
+            {
+                if (init)
+                {
+                    HauptStatusbar.Text = "Z21: Verbunden";
+                    HauptStatusbar.BackColor = Color.ForestGreen;
+                    HauptStatusbar.ForeColor = Color.White;
+                }
+                else
+                {
+                    HauptStatusbar.Text = "Z21: Initialisieren";
+                    HauptStatusbar.BackColor = Color.Gold;
+                    HauptStatusbar.ForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                HauptStatusbar.Text = "Z21: Getrennt";
+                HauptStatusbar.BackColor = Color.Red;
+                HauptStatusbar.ForeColor = Color.White;
+            }
             z21_Einstellung.ConnectStatus(status);
         }
+
         private void Set_Z21_Strom(int Main, int Prog, int MainFilter)
         {
             StatusBarStrom.Text = String.Format("Stromverbauch: {0} mA", MainFilter);
@@ -103,8 +124,10 @@ namespace MEKB_H0_Anlage
 
             }
         }
+
         private void UpdateWeicheImGleisplan(Weiche weiche)
-        {           
+        {
+            
             Weiche DKW_2nd = GetDWK_2nd(weiche.Name);     //Zweite Weiche bei DKWs und KWs DisplayPicture(GetSchaltbildGerade90_EckeOR(Zustand, "Frei"), Weiche30_Gleis1);
             try
             {
@@ -184,6 +207,7 @@ namespace MEKB_H0_Anlage
             }
 
         }
+
         private void UpdateSignalImGleisplan(Signal signal)
         {
             try

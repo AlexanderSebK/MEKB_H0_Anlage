@@ -389,6 +389,7 @@ namespace MEKB_H0_Anlage
         /// Parameter: 2.Adresse des Signals für HP2/3
         /// </summary>
         public int Adresse2 { get; set; }
+        public bool Letzte_Adresswahl { set; get; }
         /// <summary>
         /// Lezte angewählte Adresse
         /// </summary>

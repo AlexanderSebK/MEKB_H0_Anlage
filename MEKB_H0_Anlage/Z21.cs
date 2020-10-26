@@ -55,7 +55,7 @@ namespace MEKB_H0_Anlage
             Z21_LOGOFF();
             Client.Dispose();                                                    //UPD-Verbindung beenden
             Connected = false;
-            form.SetConnect(false);
+            form.SetConnect(false,false);
         }
         /// <summary>
         /// Rückmeldung des Status der aktuellen Verbindung. Wird als Verbindung gewertet sobald die ersten Nachrichten von der Z21 empfangen wurden
@@ -81,17 +81,17 @@ namespace MEKB_H0_Anlage
                 if (data.Length == 0)
                 {
                     Connected = false;
-                    form.SetConnect(false);
+                    form.SetConnect(false,false);
                     return; // No more to receive
                 }
-                if (Connected == false) form.SetConnect(true);
+                if (Connected == false) form.SetConnect(true,false);
                 Connected = true;
                 Client.BeginReceive(DataReceived, null);
             }
             catch (ObjectDisposedException)
             {
                 Connected = false;
-                form.SetConnect(false);
+                form.SetConnect(false,false);
                 return; // Connection closed
             }
 
@@ -315,7 +315,6 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             if (Connected) Client.Send(SendBytes, 9);
         }
-
         public void Z21_GET_WEICHE(int Adresse)
         {
             Adresse--;

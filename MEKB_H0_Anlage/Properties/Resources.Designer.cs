@@ -453,9 +453,29 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Fahrstrasse_links_deakt {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstrasse_links_deakt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Fahrstrasse_rechts {
             get {
                 object obj = ResourceManager.GetObject("Fahrstrasse_rechts", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fahrstrasse_rechts_deakt {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstrasse_rechts_deakt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
