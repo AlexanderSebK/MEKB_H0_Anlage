@@ -91,6 +91,12 @@
       <DependentUpon>Z21_Einstellung.cs</DependentUpon>
     </Compile>
     <Compile Include="Z21_Konstanten.cs" />
+    <Compile Include="ZugSteuerpult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZugSteuerpult.Designer.cs">
+      <DependentUpon>ZugSteuerpult.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Hauptform\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -110,6 +116,9 @@
     </Compile>
     <EmbeddedResource Include="Z21_Einstellung.resx">
       <DependentUpon>Z21_Einstellung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZugSteuerpult.resx">
+      <DependentUpon>ZugSteuerpult.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -605,6 +614,8 @@
     <None Include="Resources\Bahnsteig_Mitte.png" />
     <None Include="Resources\Bahnsteig_Oben.png" />
     <None Include="Resources\Bahnsteig_Unten.png" />
+    <None Include="Resources\Sperrsignal_kurz_270.png" />
+    <None Include="Resources\FahrstufenAnzeige.png" />
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

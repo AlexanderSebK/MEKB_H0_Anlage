@@ -1902,5 +1902,12 @@ namespace MEKB_H0_Anlage
             //Alle Autozüge Stop
             //Alle Signale Rot
         }
+        ZugSteuerpult Fahrpult2 = new ZugSteuerpult();
+        private void OpenFahrpult2_Click(object sender, EventArgs e)
+        {
+            if(!Fahrpult2.IsDisposed) Fahrpult2.Dispose();
+            Fahrpult2 = new ZugSteuerpult();
+            Fahrpult2.Show();
+        }
     }
 }

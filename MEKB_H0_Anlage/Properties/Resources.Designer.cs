@@ -513,6 +513,16 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FahrstufenAnzeige {
+            get {
+                object obj = ResourceManager.GetObject("FahrstufenAnzeige", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Gerade0 {
             get {
                 object obj = ResourceManager.GetObject("Gerade0", resourceCulture);
@@ -976,6 +986,16 @@ namespace MEKB_H0_Anlage.Properties {
         internal static System.Drawing.Bitmap Signal_3B_HP2_90 {
             get {
                 object obj = ResourceManager.GetObject("Signal_3B_HP2_90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Sperrsignal_kurz_270 {
+            get {
+                object obj = ResourceManager.GetObject("Sperrsignal_kurz_270", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

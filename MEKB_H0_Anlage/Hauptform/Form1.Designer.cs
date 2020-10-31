@@ -33,6 +33,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.zentraleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verbindungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Verbinden = new System.Windows.Forms.ToolStripMenuItem();
@@ -781,8 +783,25 @@
             this.Bhf_Gl4_Gl5 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.pictureBox14 = new System.Windows.Forms.PictureBox();
+            this.pictureBox15 = new System.Windows.Forms.PictureBox();
+            this.pictureBox16 = new System.Windows.Forms.PictureBox();
+            this.SperrSignal1 = new System.Windows.Forms.PictureBox();
+            this.SperrSignal2 = new System.Windows.Forms.PictureBox();
+            this.label69 = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this.label75 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
+            this.label77 = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
+            this.label79 = new System.Windows.Forms.Label();
+            this.label80 = new System.Windows.Forms.Label();
+            this.OpenFahrpult2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1343,6 +1362,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.Bhf_Gl4_Gl5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SperrSignal1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SperrSignal2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -1372,8 +1397,20 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(129, 22);
             this.toolStripMenuItem2.Text = "Lok-Editor";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(129, 22);
+            this.toolStripMenuItem3.Text = "Beenden";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // zentraleToolStripMenuItem
             // 
@@ -1935,7 +1972,7 @@
             // 
             this.label34.AutoSize = true;
             this.label34.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label34.Location = new System.Drawing.Point(1336, 336);
+            this.label34.Location = new System.Drawing.Point(1400, 336);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(21, 15);
             this.label34.TabIndex = 496;
@@ -1945,7 +1982,7 @@
             // 
             this.label35.AutoSize = true;
             this.label35.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label35.Location = new System.Drawing.Point(1400, 320);
+            this.label35.Location = new System.Drawing.Point(1464, 320);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(21, 15);
             this.label35.TabIndex = 497;
@@ -1955,7 +1992,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label36.Location = new System.Drawing.Point(1400, 400);
+            this.label36.Location = new System.Drawing.Point(1464, 400);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(21, 15);
             this.label36.TabIndex = 498;
@@ -1965,7 +2002,7 @@
             // 
             this.label37.AutoSize = true;
             this.label37.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label37.Location = new System.Drawing.Point(1448, 376);
+            this.label37.Location = new System.Drawing.Point(1512, 376);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(21, 15);
             this.label37.TabIndex = 499;
@@ -2257,7 +2294,7 @@
             // Weiche93
             // 
             this.Weiche93.Image = global::MEKB_H0_Anlage.Properties.Resources.WeicheL315_Analog_EckeUL;
-            this.Weiche93.Location = new System.Drawing.Point(1376, 320);
+            this.Weiche93.Location = new System.Drawing.Point(1440, 320);
             this.Weiche93.Name = "Weiche93";
             this.Weiche93.Size = new System.Drawing.Size(32, 32);
             this.Weiche93.TabIndex = 462;
@@ -2266,7 +2303,7 @@
             // Weiche36
             // 
             this.Weiche36.Image = global::MEKB_H0_Anlage.Properties.Resources.WeicheL135_Analog;
-            this.Weiche36.Location = new System.Drawing.Point(1408, 384);
+            this.Weiche36.Location = new System.Drawing.Point(1472, 384);
             this.Weiche36.Name = "Weiche36";
             this.Weiche36.Size = new System.Drawing.Size(32, 32);
             this.Weiche36.TabIndex = 461;
@@ -2275,7 +2312,7 @@
             // Weiche92
             // 
             this.Weiche92.Image = global::MEKB_H0_Anlage.Properties.Resources.WeicheL135_Analog_EckeOL;
-            this.Weiche92.Location = new System.Drawing.Point(1344, 320);
+            this.Weiche92.Location = new System.Drawing.Point(1408, 320);
             this.Weiche92.Name = "Weiche92";
             this.Weiche92.Size = new System.Drawing.Size(32, 32);
             this.Weiche92.TabIndex = 460;
@@ -2293,7 +2330,7 @@
             // pictureBox407
             // 
             this.pictureBox407.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
-            this.pictureBox407.Location = new System.Drawing.Point(1440, 320);
+            this.pictureBox407.Location = new System.Drawing.Point(1504, 320);
             this.pictureBox407.Name = "pictureBox407";
             this.pictureBox407.Size = new System.Drawing.Size(32, 32);
             this.pictureBox407.TabIndex = 458;
@@ -2302,7 +2339,7 @@
             // pictureBox406
             // 
             this.pictureBox406.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOR;
-            this.pictureBox406.Location = new System.Drawing.Point(1408, 416);
+            this.pictureBox406.Location = new System.Drawing.Point(1472, 416);
             this.pictureBox406.Name = "pictureBox406";
             this.pictureBox406.Size = new System.Drawing.Size(32, 32);
             this.pictureBox406.TabIndex = 457;
@@ -2311,7 +2348,7 @@
             // pictureBox405
             // 
             this.pictureBox405.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOR;
-            this.pictureBox405.Location = new System.Drawing.Point(1376, 384);
+            this.pictureBox405.Location = new System.Drawing.Point(1440, 384);
             this.pictureBox405.Name = "pictureBox405";
             this.pictureBox405.Size = new System.Drawing.Size(32, 32);
             this.pictureBox405.TabIndex = 456;
@@ -2320,7 +2357,7 @@
             // pictureBox404
             // 
             this.pictureBox404.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOR;
-            this.pictureBox404.Location = new System.Drawing.Point(1344, 352);
+            this.pictureBox404.Location = new System.Drawing.Point(1408, 352);
             this.pictureBox404.Name = "pictureBox404";
             this.pictureBox404.Size = new System.Drawing.Size(32, 32);
             this.pictureBox404.TabIndex = 455;
@@ -2329,7 +2366,7 @@
             // pictureBox403
             // 
             this.pictureBox403.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOR;
-            this.pictureBox403.Location = new System.Drawing.Point(1312, 320);
+            this.pictureBox403.Location = new System.Drawing.Point(1376, 320);
             this.pictureBox403.Name = "pictureBox403";
             this.pictureBox403.Size = new System.Drawing.Size(32, 32);
             this.pictureBox403.TabIndex = 454;
@@ -2338,7 +2375,7 @@
             // pictureBox402
             // 
             this.pictureBox402.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
-            this.pictureBox402.Location = new System.Drawing.Point(1376, 288);
+            this.pictureBox402.Location = new System.Drawing.Point(1440, 288);
             this.pictureBox402.Name = "pictureBox402";
             this.pictureBox402.Size = new System.Drawing.Size(32, 32);
             this.pictureBox402.TabIndex = 453;
@@ -2347,7 +2384,7 @@
             // pictureBox401
             // 
             this.pictureBox401.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
-            this.pictureBox401.Location = new System.Drawing.Point(1408, 320);
+            this.pictureBox401.Location = new System.Drawing.Point(1472, 320);
             this.pictureBox401.Name = "pictureBox401";
             this.pictureBox401.Size = new System.Drawing.Size(32, 32);
             this.pictureBox401.TabIndex = 452;
@@ -2356,7 +2393,7 @@
             // pictureBox400
             // 
             this.pictureBox400.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
-            this.pictureBox400.Location = new System.Drawing.Point(1344, 256);
+            this.pictureBox400.Location = new System.Drawing.Point(1408, 256);
             this.pictureBox400.Name = "pictureBox400";
             this.pictureBox400.Size = new System.Drawing.Size(32, 32);
             this.pictureBox400.TabIndex = 451;
@@ -2365,7 +2402,7 @@
             // pictureBox399
             // 
             this.pictureBox399.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade135_EckeUL;
-            this.pictureBox399.Location = new System.Drawing.Point(1344, 288);
+            this.pictureBox399.Location = new System.Drawing.Point(1408, 288);
             this.pictureBox399.Name = "pictureBox399";
             this.pictureBox399.Size = new System.Drawing.Size(32, 32);
             this.pictureBox399.TabIndex = 450;
@@ -2374,7 +2411,7 @@
             // pictureBox398
             // 
             this.pictureBox398.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade135_EckeOR;
-            this.pictureBox398.Location = new System.Drawing.Point(1376, 352);
+            this.pictureBox398.Location = new System.Drawing.Point(1440, 352);
             this.pictureBox398.Name = "pictureBox398";
             this.pictureBox398.Size = new System.Drawing.Size(32, 32);
             this.pictureBox398.TabIndex = 449;
@@ -2383,7 +2420,7 @@
             // pictureBox397
             // 
             this.pictureBox397.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox397.Location = new System.Drawing.Point(1504, 384);
+            this.pictureBox397.Location = new System.Drawing.Point(1568, 384);
             this.pictureBox397.Name = "pictureBox397";
             this.pictureBox397.Size = new System.Drawing.Size(32, 32);
             this.pictureBox397.TabIndex = 448;
@@ -2392,7 +2429,7 @@
             // pictureBox396
             // 
             this.pictureBox396.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox396.Location = new System.Drawing.Point(1472, 384);
+            this.pictureBox396.Location = new System.Drawing.Point(1536, 384);
             this.pictureBox396.Name = "pictureBox396";
             this.pictureBox396.Size = new System.Drawing.Size(32, 32);
             this.pictureBox396.TabIndex = 447;
@@ -2401,7 +2438,7 @@
             // pictureBox395
             // 
             this.pictureBox395.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox395.Location = new System.Drawing.Point(1472, 416);
+            this.pictureBox395.Location = new System.Drawing.Point(1536, 416);
             this.pictureBox395.Name = "pictureBox395";
             this.pictureBox395.Size = new System.Drawing.Size(32, 32);
             this.pictureBox395.TabIndex = 446;
@@ -2410,7 +2447,7 @@
             // pictureBox391
             // 
             this.pictureBox391.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox391.Location = new System.Drawing.Point(1504, 320);
+            this.pictureBox391.Location = new System.Drawing.Point(1568, 320);
             this.pictureBox391.Name = "pictureBox391";
             this.pictureBox391.Size = new System.Drawing.Size(32, 32);
             this.pictureBox391.TabIndex = 445;
@@ -2419,7 +2456,7 @@
             // pictureBox392
             // 
             this.pictureBox392.Image = global::MEKB_H0_Anlage.Properties.Resources.GeradePrelbock270;
-            this.pictureBox392.Location = new System.Drawing.Point(1536, 416);
+            this.pictureBox392.Location = new System.Drawing.Point(1600, 416);
             this.pictureBox392.Name = "pictureBox392";
             this.pictureBox392.Size = new System.Drawing.Size(32, 32);
             this.pictureBox392.TabIndex = 444;
@@ -2428,7 +2465,7 @@
             // pictureBox393
             // 
             this.pictureBox393.Image = global::MEKB_H0_Anlage.Properties.Resources.GeradePrelbock270;
-            this.pictureBox393.Location = new System.Drawing.Point(1536, 384);
+            this.pictureBox393.Location = new System.Drawing.Point(1600, 384);
             this.pictureBox393.Name = "pictureBox393";
             this.pictureBox393.Size = new System.Drawing.Size(32, 32);
             this.pictureBox393.TabIndex = 443;
@@ -2437,7 +2474,7 @@
             // pictureBox394
             // 
             this.pictureBox394.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox394.Location = new System.Drawing.Point(1504, 416);
+            this.pictureBox394.Location = new System.Drawing.Point(1568, 416);
             this.pictureBox394.Name = "pictureBox394";
             this.pictureBox394.Size = new System.Drawing.Size(32, 32);
             this.pictureBox394.TabIndex = 442;
@@ -2446,7 +2483,7 @@
             // pictureBox125
             // 
             this.pictureBox125.Image = global::MEKB_H0_Anlage.Properties.Resources.GeradePrelbock270;
-            this.pictureBox125.Location = new System.Drawing.Point(1536, 352);
+            this.pictureBox125.Location = new System.Drawing.Point(1600, 352);
             this.pictureBox125.Name = "pictureBox125";
             this.pictureBox125.Size = new System.Drawing.Size(32, 32);
             this.pictureBox125.TabIndex = 440;
@@ -2455,7 +2492,7 @@
             // pictureBox177
             // 
             this.pictureBox177.Image = global::MEKB_H0_Anlage.Properties.Resources.GeradePrelbock270;
-            this.pictureBox177.Location = new System.Drawing.Point(1536, 320);
+            this.pictureBox177.Location = new System.Drawing.Point(1600, 320);
             this.pictureBox177.Name = "pictureBox177";
             this.pictureBox177.Size = new System.Drawing.Size(32, 32);
             this.pictureBox177.TabIndex = 439;
@@ -2464,7 +2501,7 @@
             // pictureBox181
             // 
             this.pictureBox181.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox181.Location = new System.Drawing.Point(1504, 352);
+            this.pictureBox181.Location = new System.Drawing.Point(1568, 352);
             this.pictureBox181.Name = "pictureBox181";
             this.pictureBox181.Size = new System.Drawing.Size(32, 32);
             this.pictureBox181.TabIndex = 438;
@@ -2473,7 +2510,7 @@
             // pictureBox124
             // 
             this.pictureBox124.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
-            this.pictureBox124.Location = new System.Drawing.Point(1472, 352);
+            this.pictureBox124.Location = new System.Drawing.Point(1536, 352);
             this.pictureBox124.Name = "pictureBox124";
             this.pictureBox124.Size = new System.Drawing.Size(32, 32);
             this.pictureBox124.TabIndex = 436;
@@ -2482,7 +2519,7 @@
             // pictureBox123
             // 
             this.pictureBox123.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270L;
-            this.pictureBox123.Location = new System.Drawing.Point(1472, 320);
+            this.pictureBox123.Location = new System.Drawing.Point(1536, 320);
             this.pictureBox123.Name = "pictureBox123";
             this.pictureBox123.Size = new System.Drawing.Size(32, 32);
             this.pictureBox123.TabIndex = 435;
@@ -2491,7 +2528,7 @@
             // pictureBox122
             // 
             this.pictureBox122.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUL;
-            this.pictureBox122.Location = new System.Drawing.Point(1440, 384);
+            this.pictureBox122.Location = new System.Drawing.Point(1504, 384);
             this.pictureBox122.Name = "pictureBox122";
             this.pictureBox122.Size = new System.Drawing.Size(32, 32);
             this.pictureBox122.TabIndex = 434;
@@ -2500,7 +2537,7 @@
             // pictureBox116
             // 
             this.pictureBox116.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270R;
-            this.pictureBox116.Location = new System.Drawing.Point(1440, 416);
+            this.pictureBox116.Location = new System.Drawing.Point(1504, 416);
             this.pictureBox116.Name = "pictureBox116";
             this.pictureBox116.Size = new System.Drawing.Size(32, 32);
             this.pictureBox116.TabIndex = 433;
@@ -2509,7 +2546,7 @@
             // pictureBox115
             // 
             this.pictureBox115.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270R_EckeUL;
-            this.pictureBox115.Location = new System.Drawing.Point(1408, 352);
+            this.pictureBox115.Location = new System.Drawing.Point(1472, 352);
             this.pictureBox115.Name = "pictureBox115";
             this.pictureBox115.Size = new System.Drawing.Size(32, 32);
             this.pictureBox115.TabIndex = 432;
@@ -2519,7 +2556,7 @@
             // 
             this.Weiche35.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Weiche35.Image = global::MEKB_H0_Anlage.Properties.Resources.WeicheL90_Analog;
-            this.Weiche35.Location = new System.Drawing.Point(1440, 352);
+            this.Weiche35.Location = new System.Drawing.Point(1504, 352);
             this.Weiche35.Margin = new System.Windows.Forms.Padding(0);
             this.Weiche35.Name = "Weiche35";
             this.Weiche35.Size = new System.Drawing.Size(32, 32);
@@ -4728,7 +4765,7 @@
             // pictureBox152
             // 
             this.pictureBox152.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90R;
-            this.pictureBox152.Location = new System.Drawing.Point(1312, 256);
+            this.pictureBox152.Location = new System.Drawing.Point(1376, 256);
             this.pictureBox152.Name = "pictureBox152";
             this.pictureBox152.Size = new System.Drawing.Size(32, 32);
             this.pictureBox152.TabIndex = 185;
@@ -4737,7 +4774,7 @@
             // pictureBox151
             // 
             this.pictureBox151.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90R_EckeOR;
-            this.pictureBox151.Location = new System.Drawing.Point(1312, 288);
+            this.pictureBox151.Location = new System.Drawing.Point(1376, 288);
             this.pictureBox151.Name = "pictureBox151";
             this.pictureBox151.Size = new System.Drawing.Size(32, 32);
             this.pictureBox151.TabIndex = 184;
@@ -6976,6 +7013,7 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.Controls.Add(this.OpenFahrpult2);
             this.panel1.Controls.Add(this.LokCtrl10_Name);
             this.panel1.Controls.Add(this.LokCtrl9_Name);
             this.panel1.Controls.Add(this.LokCtrl8_Name);
@@ -8848,23 +8886,213 @@
             this.pictureBox8.TabIndex = 673;
             this.pictureBox8.TabStop = false;
             // 
-            // toolStripSeparator1
+            // pictureBox12
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.pictureBox12.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.pictureBox12.Location = new System.Drawing.Point(1312, 256);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox12.TabIndex = 677;
+            this.pictureBox12.TabStop = false;
             // 
-            // toolStripMenuItem3
+            // pictureBox14
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem3.Text = "Beenden";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            this.pictureBox14.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.pictureBox14.Location = new System.Drawing.Point(1312, 288);
+            this.pictureBox14.Name = "pictureBox14";
+            this.pictureBox14.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox14.TabIndex = 676;
+            this.pictureBox14.TabStop = false;
+            // 
+            // pictureBox15
+            // 
+            this.pictureBox15.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.pictureBox15.Location = new System.Drawing.Point(1344, 256);
+            this.pictureBox15.Name = "pictureBox15";
+            this.pictureBox15.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox15.TabIndex = 675;
+            this.pictureBox15.TabStop = false;
+            // 
+            // pictureBox16
+            // 
+            this.pictureBox16.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.pictureBox16.Location = new System.Drawing.Point(1344, 288);
+            this.pictureBox16.Name = "pictureBox16";
+            this.pictureBox16.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox16.TabIndex = 674;
+            this.pictureBox16.TabStop = false;
+            // 
+            // SperrSignal1
+            // 
+            this.SperrSignal1.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Sperrsignal_kurz_270;
+            this.SperrSignal1.Location = new System.Drawing.Point(1320, 250);
+            this.SperrSignal1.Name = "SperrSignal1";
+            this.SperrSignal1.Size = new System.Drawing.Size(64, 16);
+            this.SperrSignal1.TabIndex = 678;
+            this.SperrSignal1.TabStop = false;
+            // 
+            // SperrSignal2
+            // 
+            this.SperrSignal2.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Sperrsignal_kurz_270;
+            this.SperrSignal2.Location = new System.Drawing.Point(1320, 282);
+            this.SperrSignal2.Name = "SperrSignal2";
+            this.SperrSignal2.Size = new System.Drawing.Size(64, 16);
+            this.SperrSignal2.TabIndex = 679;
+            this.SperrSignal2.TabStop = false;
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label69.Location = new System.Drawing.Point(808, 104);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(15, 15);
+            this.label69.TabIndex = 680;
+            this.label69.Text = "1";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label70.Location = new System.Drawing.Point(808, 136);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(15, 15);
+            this.label70.TabIndex = 681;
+            this.label70.Text = "2";
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label71.Location = new System.Drawing.Point(808, 168);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(15, 15);
+            this.label71.TabIndex = 682;
+            this.label71.Text = "3";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label72.Location = new System.Drawing.Point(808, 200);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(15, 15);
+            this.label72.TabIndex = 683;
+            this.label72.Text = "4";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label73.Location = new System.Drawing.Point(808, 264);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(15, 15);
+            this.label73.TabIndex = 684;
+            this.label73.Text = "5";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label74.Location = new System.Drawing.Point(808, 296);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(15, 15);
+            this.label74.TabIndex = 685;
+            this.label74.Text = "6";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label75.Location = new System.Drawing.Point(1064, 296);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(15, 15);
+            this.label75.TabIndex = 686;
+            this.label75.Text = "6";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label76.Location = new System.Drawing.Point(1064, 264);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(15, 15);
+            this.label76.TabIndex = 687;
+            this.label76.Text = "5";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label77.Location = new System.Drawing.Point(1064, 200);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(15, 15);
+            this.label77.TabIndex = 688;
+            this.label77.Text = "4";
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label78.Location = new System.Drawing.Point(1064, 168);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(15, 15);
+            this.label78.TabIndex = 689;
+            this.label78.Text = "3";
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label79.Location = new System.Drawing.Point(1064, 136);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(15, 15);
+            this.label79.TabIndex = 690;
+            this.label79.Text = "2";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label80.Location = new System.Drawing.Point(1064, 104);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(15, 15);
+            this.label80.TabIndex = 691;
+            this.label80.Text = "1";
+            // 
+            // OpenFahrpult2
+            // 
+            this.OpenFahrpult2.Location = new System.Drawing.Point(552, 56);
+            this.OpenFahrpult2.Name = "OpenFahrpult2";
+            this.OpenFahrpult2.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult2.TabIndex = 702;
+            this.OpenFahrpult2.Text = "Fahrpult";
+            this.OpenFahrpult2.UseVisualStyleBackColor = true;
+            this.OpenFahrpult2.Click += new System.EventHandler(this.OpenFahrpult2_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.label80);
+            this.Controls.Add(this.label79);
+            this.Controls.Add(this.label78);
+            this.Controls.Add(this.label77);
+            this.Controls.Add(this.label76);
+            this.Controls.Add(this.label75);
+            this.Controls.Add(this.label74);
+            this.Controls.Add(this.label73);
+            this.Controls.Add(this.label72);
+            this.Controls.Add(this.label71);
+            this.Controls.Add(this.label70);
+            this.Controls.Add(this.label69);
+            this.Controls.Add(this.SperrSignal2);
+            this.Controls.Add(this.SperrSignal1);
+            this.Controls.Add(this.pictureBox12);
+            this.Controls.Add(this.pictureBox14);
+            this.Controls.Add(this.pictureBox15);
+            this.Controls.Add(this.pictureBox16);
             this.Controls.Add(this.pictureBox8);
             this.Controls.Add(this.Rechts2_Auswahl);
             this.Controls.Add(this.Rechts1_Auswahl);
@@ -10059,6 +10287,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.Bhf_Gl4_Gl5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SperrSignal1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SperrSignal2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -10819,6 +11053,25 @@
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.PictureBox pictureBox12;
+        private System.Windows.Forms.PictureBox pictureBox14;
+        private System.Windows.Forms.PictureBox pictureBox15;
+        private System.Windows.Forms.PictureBox pictureBox16;
+        private System.Windows.Forms.PictureBox SperrSignal1;
+        private System.Windows.Forms.PictureBox SperrSignal2;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.Label label74;
+        private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.Button OpenFahrpult2;
     }
 }
 
