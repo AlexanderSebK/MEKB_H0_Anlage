@@ -64,15 +64,23 @@ namespace MEKB_H0_Anlage
                         this.BeginInvoke((Action<int,int>)ShowFirmware, major, minor);
                     }
                     break;
-                case Z21_XBus_Header.Weichen_INFO:
+               /* case Z21_XBus_Header.Weichen_INFO:
                     if (anzahl == 3)
                     {
                         int WAdresse = (db[0] << 8) + db[1] + 1; //+1 da ab 0 beginnend
                         this.BeginInvoke((Action<int, int>)UpdateWeiche, WAdresse, db[2]);
                     }
-                    break;
+                    break;*/
 
             }
+        }
+        /// <summary>
+        /// CallBack Funktion: Z21_Status
+        /// Wird aufgerufen sobald eine Statusantwort von der Z21 bezüglich Weichen empfangen wurde
+        /// </summary>
+        public void CallBack_LAN_X_TURNOUT_INFO(int Adresse, byte Zustand)
+        {
+            this.BeginInvoke((Action<int, int>)UpdateWeiche, Adresse, Zustand);
         }
         /// <summary>
         /// CallBack Funktion: Z21_Status

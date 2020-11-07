@@ -46,28 +46,7 @@ namespace MEKB_H0_Anlage
             }
         }
     }
-    /// <summary>
-    /// Header-Nummern für Z21 Pakettyp
-    /// </summary>
-    class Z21_Header
-    {
-        public const int SERIAL_NUMBER =    0x10;
-        public const int CODE_STATUS =      0x18;
-        public const int Z21_VERSION =      0x1A;
-        public const int X_BUS_TUNNEL =     0x40;
-        public const int BROADCAST_FLAGS =  0x51;
-        public const int GET_LOK_MODE =     0x60;
-        public const int GET_FKT_DEC_MODE = 0x70;
-        public const int RM_BUS =           0x80;
-        public const int SYSTEM_STATE =     0x84;
-        public const int RAILCOM =          0x88;
-        public const int LOCONET_RX =       0xA0;
-        public const int LOCONET_TX =       0xA1;
-        public const int LOCONET_LAN =      0xA2;
-        public const int LOCONET_ADDR =     0xA3;
-        public const int LOCONET_DETECTOR = 0xA4;
-        public const int CAN_DETECTOR =     0xC4;
-     }
+    
     /// <summary>
     /// Packettyp wenn das X_BUS_TUNNEL (Z21-Header ID 0x40) verwendet wird
     /// </summary>

@@ -15,6 +15,33 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public partial class Z21
     {
+        enum Z21_Header : byte
+        {
+           SERIAL_NUMBER = 0x10,
+           CODE_STATUS = 0x18,
+           Z21_VERSION = 0x1A,
+           X_BUS_TUNNEL = 0x40,
+           BROADCAST_FLAGS = 0x51,
+           GET_LOK_MODE = 0x60,
+           GET_FKT_DEC_MODE = 0x70,
+           RM_BUS = 0x80,
+           SYSTEM_STATE = 0x84,
+           RAILCOM = 0x88,
+           LOCONET_RX = 0xA0,
+           LOCONET_TX = 0xA1,
+           LOCONET_LAN = 0xA2,
+           LOCONET_ADDR = 0xA3,
+           LOCONET_DETECTOR = 0xA4,
+           CAN_DETECTOR = 0xC4,
+        }
+
+        enum Z21_XBus_Header : byte
+        {
+            GET_FIRMWARE = 0xF3,
+            Weichen_INFO = 0x43,
+        }
+
+
         //Referenz Zugriff Hauptform
         private readonly Form1 form;
         public Z21(Form1 form)
@@ -28,6 +55,24 @@ namespace MEKB_H0_Anlage
         public string Z21_IP { get; set; }      //IP-Adresse Z21
         public UInt16 Z21_Port { get; set; }    //Port Z21 : 21105 (Primär)  / Alt. 21106
         private bool Connected { get; set; }    //Status mit dem 
+
+        //Delegates
+        public delegate void LAN_ERROR(int ErrorCode);
+        public delegate void LAN_X_TURNOUT_INFO(int Adresse, byte Zustand);
+        public delegate void LAN_GET_SERIAL_NUMBER(int Serial);
+
+
+        public LAN_X_TURNOUT_INFO call_LAN_X_TURNOUT_INFO;
+        public LAN_GET_SERIAL_NUMBER call_LAN_GET_SERIAL_NUMBER;
+
+        public void Register_LAN_X_TURNOUT_INFO(LAN_X_TURNOUT_INFO function)
+        {
+            call_LAN_X_TURNOUT_INFO = function;
+        }
+        public void Register_LAN_GET_SERIAL_NUMBER(LAN_GET_SERIAL_NUMBER function)
+        {
+            call_LAN_GET_SERIAL_NUMBER = function;
+        }
 
         /// <summary>
         /// Starten einer UDP-Verbindung
@@ -121,11 +166,13 @@ namespace MEKB_H0_Anlage
             if(length != data.Length)return Z21_ErrorCode.FALSE_LENGTH;
 
             length -= 4;
-            switch(data[2])
+
+            switch((Z21_Header)data[2])
             {
                 case Z21_Header.SERIAL_NUMBER:      
                     if (length != 4) return Z21_ErrorCode.FALSE_LENGTH;
-                    form.CallBack_GET_SERIAL_NUMBER(data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24));
+                    //Call LAN_GET_SERIAL_NUMBER if available
+                    call_LAN_GET_SERIAL_NUMBER?.Invoke(data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24));
                     break;
                 case Z21_Header.CODE_STATUS: break;
                 case Z21_Header.Z21_VERSION: break;
@@ -139,6 +186,8 @@ namespace MEKB_H0_Anlage
 
                     byte[] para_db = data.Skip(5).ToArray();
                     para_db = para_db.Take(para_db.Count() - 1).ToArray();
+
+                    SolveXTunnel((Z21_XBus_Header)data[4], para_db);
 
                     form.CallBack_X_BUS_TUNNEL(data[4], para_db, para_db.Count());
                     break;
@@ -181,6 +230,21 @@ namespace MEKB_H0_Anlage
                 default: return Z21_ErrorCode.WRONG_HEADER;  
             }
             return 0;
+        }
+
+        private void SolveXTunnel(Z21_XBus_Header header, byte[] db)
+        {
+            switch(header)
+            {
+                case Z21_XBus_Header.Weichen_INFO:
+                    if (db.Length == 3)
+                    {
+                        int addr = (db[0] << 8) + db[1] + 1;
+                        if (db.Length == 3) call_LAN_X_TURNOUT_INFO?.Invoke(addr, db[2]);
+                    }                      
+                    break;
+
+            }
         }
 
         
