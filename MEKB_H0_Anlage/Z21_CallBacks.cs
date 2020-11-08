@@ -46,33 +46,12 @@ namespace MEKB_H0_Anlage
             this.BeginInvoke((Action<string>)Set_SerienNummer, sn.ToString());
         }
         /// <summary>
-        /// CallBack Funktion: Z21_Status
-        /// Wird aufgerufen sobald eine Statusantwort von der Z21 empfangen wurde
+        /// CallBack Funktion: Z21 Firmware
+        /// Wird aufgerufen sobald eine Nachricht über die Firmware erhalten wurde
         /// </summary>
-        /// <param name="header">ID des Status</param>
-        /// <param name="db">Dateninhalt als Byte Array</param>
-        /// <param name="anzahl">Anzahl an db-bytes</param>
-        public void CallBack_X_BUS_TUNNEL(byte header, byte[] db, int anzahl)
+        public void CallBack_LAN_X_GET_FIRMWARE_VERSION(double firmware)
         {
-            switch(header)
-            {
-                case Z21_XBus_Header.GET_FIRMWARE:
-                    if((db[0] == 0x0A) && (anzahl == 3))
-                    {
-                        int major = (db[1] & 0x0F) + ((db[1] >> 4) * 10);       //Umwandeln DBC-Format
-                        int minor = (db[2] & 0x0F) + ((db[2] >> 4) * 10);       //Umwandeln DBC-Format
-                        this.BeginInvoke((Action<int,int>)ShowFirmware, major, minor);
-                    }
-                    break;
-               /* case Z21_XBus_Header.Weichen_INFO:
-                    if (anzahl == 3)
-                    {
-                        int WAdresse = (db[0] << 8) + db[1] + 1; //+1 da ab 0 beginnend
-                        this.BeginInvoke((Action<int, int>)UpdateWeiche, WAdresse, db[2]);
-                    }
-                    break;*/
-
-            }
+            this.BeginInvoke((Action<double>)ShowFirmware, firmware);
         }
         /// <summary>
         /// CallBack Funktion: Z21_Status
@@ -93,7 +72,6 @@ namespace MEKB_H0_Anlage
             Flags newFlags = new Flags(flags);
             this.BeginInvoke((Action<Flags>)Set_Flags, newFlags);
         }
-
         public void CallBack_Z21_System_Status(int MainCurrent, int ProgCurrent, int MainCurrentFilter, int Temperatur, 
                     int VersorgungSpg, int GleisSpg, byte ZentralenStatus, byte ZentralenStatusGrund)
         {

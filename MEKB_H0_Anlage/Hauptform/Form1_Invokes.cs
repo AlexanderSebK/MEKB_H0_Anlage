@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Globalization;
 
 
 namespace MEKB_H0_Anlage
@@ -19,11 +20,11 @@ namespace MEKB_H0_Anlage
         {
             z21_Einstellung.Set_SerienNummer(data);
         }
-        private void ShowFirmware(int major, int minor)
+        private void ShowFirmware(double Firmware)
         {
             if (!z21_Einstellung.IsDisposed)
             {
-                z21_Einstellung.SetFirmware(String.Format("{0}.{1}", major, minor));
+                z21_Einstellung.SetFirmware(Firmware.ToString("F2", CultureInfo.CreateSpecificCulture("en-GB")));
             }
         }
         private void Set_Flags(Flags flags)

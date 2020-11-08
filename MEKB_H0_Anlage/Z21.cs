@@ -36,9 +36,15 @@ namespace MEKB_H0_Anlage
         }
 
         enum Z21_XBus_Header : byte
-        {
+        {          
+            TURNOUT_INFO = 0x43,
+            PROGRAMMING = 0x61,
+            STATUS_CHANGE = 0x62,
+            X_VERSION = 0x63,
+            CV_RESULT = 0x64,
+            BC_STOPPED = 0x81,
+            LOCO_INFO = 0xEF,
             GET_FIRMWARE = 0xF3,
-            Weichen_INFO = 0x43,
         }
 
 
@@ -71,10 +77,10 @@ namespace MEKB_H0_Anlage
         public delegate void LAN_X_CV_NACK();
         public delegate void LAN_X_UNKNOWN_COMMAND();
         public delegate void LAN_X_STATUS_CHANGED(byte Status);
-        public delegate void LAN_X_GET_VERSION(byte XBusVersion, byte ID);
+        public delegate void LAN_X_GET_VERSION(double XBusVersion, byte ID);
         public delegate void LAN_X_CV_RESULT(int CVAdresse, byte Wert);
         public delegate void LAN_X_BC_STOPPED();
-        public delegate void LAN_X_LOCO_INFO(bool Besetzt, byte FahrstufenInfo, bool Richtung, byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen);
+        public delegate void LAN_X_LOCO_INFO(int ParamterCount, int Addresse, bool Besetzt, byte FahrstufenInfo, bool Richtung, byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen);
         public delegate void LAN_X_GET_FIRMWARE_VERSION(double FW_Version);
         public delegate void LAN_GET_BROADCASTFLAGS(int BroadcastFlags);
         public delegate void LAN_GET_LOCOMODE(int Adresse, byte Modus);
@@ -99,7 +105,7 @@ namespace MEKB_H0_Anlage
         public delegate void LAN_LOCONET_FROM_LAN(byte[] LocoNet);
         public delegate void LAN_LOCONET_DISPATCH_ADDR(int Addresse, byte Ergebnis);
         public delegate void LAN_LOCONET_DETECTOR(byte Typ, int Reportadresse);
-        public delegate void LAN_CAN_DETECTOR(byte Typ, int CANID);
+        public delegate void LAN_CAN_DETECTOR(int CANID, int ModulAdresse, byte Port, byte Typ, int Value1,int Value2);
 
         private LAN_ERROR call_LAN_ERROR;
         private LAN_CONNECT_STATUS call_LAN_CONNECT_STATUS;
@@ -264,11 +270,22 @@ namespace MEKB_H0_Anlage
             {
                 case Z21_Header.SERIAL_NUMBER:      
                     if (length != 4) return Z21_ErrorCode.FALSE_LENGTH;
-                    //Call LAN_GET_SERIAL_NUMBER if available
                     call_LAN_GET_SERIAL_NUMBER?.Invoke(data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24));
                     break;
-                case Z21_Header.CODE_STATUS: break;
-                case Z21_Header.Z21_VERSION: break;
+                case Z21_Header.CODE_STATUS: 
+                    if (length != 1) return Z21_ErrorCode.FALSE_LENGTH;
+                    call_LAN_GET_CODE?.Invoke(data[4]);
+                    break;
+                case Z21_Header.Z21_VERSION:
+                    if (length != 8) return Z21_ErrorCode.FALSE_LENGTH;
+                    int major = (data[9] & 0x0F) + ((data[9] >> 4) * 10);       //Umwandeln DBC-Format
+                    int major100 = (data[10] & 0x0F) + ((data[10] >> 4) * 10);       //Umwandeln DBC-Format
+                    int major10000 = (data[11] & 0x0F) + ((data[11] >> 4) * 10);       //Umwandeln DBC-Format
+                    int minor = (data[8] & 0x0F) + ((data[8] >> 4) * 10);       //Umwandeln DBC-Format
+                    double FW_Version = (minor * 0.01) + (major) + (major100 * 100) + (major10000 * 1000);
+                    int HWTYpe = data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24);
+                    call_LAN_GET_HWINFO?.Invoke(HWTYpe, FW_Version);
+                    break;
                 case Z21_Header.X_BUS_TUNNEL:
                     byte XOR_Check = 0x00;
                     for(int i=4;i<data.Count();i++)
@@ -287,16 +304,22 @@ namespace MEKB_H0_Anlage
                     if (length != 4) return Z21_ErrorCode.FALSE_LENGTH;
                     int flags = data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24);
                     call_LAN_GET_BROADCASTFLAGS?.Invoke(flags);
-
-                    //Flags new_flags = new Flags(data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24));                   
-                    //form.CallBack_Z21_Broadcast_Flags(new_flags);
-
                     break;
                 case Z21_Header.GET_LOK_MODE:      //Lok-Status
+                    if (length != 3) return Z21_ErrorCode.FALSE_LENGTH;
+                    int Adresse = data[4] + (data[5] << 8) + 1;
+                    call_LAN_GET_LOCOMODE?.Invoke(Adresse, data[6]);
                     break;
                 case Z21_Header.GET_FKT_DEC_MODE:      //Fx-Decoder Status
+                    if (length != 3) return Z21_ErrorCode.FALSE_LENGTH;
+                    int FxAdresse = data[4] + (data[5] << 8) + 1;
+                    call_LAN_GET_TURNOUTMODE?.Invoke(FxAdresse, data[6]);
                     break;
                 case Z21_Header.RM_BUS:      //Rückmelde-Bus
+                    if (length != 11) return Z21_ErrorCode.FALSE_LENGTH;
+                    byte GruppenIndex = data[4];
+                    byte[] RMStatus = data.Skip(5).ToArray();
+                    call_LAN_RMBUS_DATACHANGED?.Invoke(GruppenIndex, RMStatus);
                     break;
                 case Z21_Header.SYSTEM_STATE:      //System-Status
                     if (length != 16) return Z21_ErrorCode.FALSE_LENGTH;
@@ -307,21 +330,48 @@ namespace MEKB_H0_Anlage
                     int VersorgungSpg = BitConverter.ToUInt16(data, 12);
                     int GleisSpg = BitConverter.ToUInt16(data, 14);
                     call_LAN_SYSTEMSTATE_DATACHANGED?.Invoke(MainCurrent, ProgCurrent, MainCurrentFilter, Temperatur, VersorgungSpg, GleisSpg, data[16], data[17]);
-                    //form.CallBack_Z21_System_Status(MainCurrent, ProgCurrent, MainCurrentFilter, Temperatur, VersorgungSpg, GleisSpg, data[16],data[17]);
                     break;
                 case Z21_Header.RAILCOM:      //Railcom
+                    if (length != 13) return Z21_ErrorCode.FALSE_LENGTH;
+                    int LocoAdress = BitConverter.ToUInt16(data, 4);
+                    int ReceiveCounter = (int)BitConverter.ToUInt32(data, 6);
+                    int ErrorCounter = BitConverter.ToUInt16(data, 10);
+                    byte Options = data[13];
+                    byte Speed = data[14];
+                    byte QoS = data[15];
+                    call_LAN_RAILCOM_DATACHANGED?.Invoke(LocoAdress, ReceiveCounter, ErrorCounter, Options, Speed, QoS);
                     break;
                 case Z21_Header.LOCONET_RX:      //LocoNet Rx
+                    byte[] LocoNet_RX = data.Skip(5).ToArray();
+                    call_LAN_LOCONET_Z21_RX?.Invoke(LocoNet_RX);
                     break;
                 case Z21_Header.LOCONET_TX:      //LocoNet Tx
+                    byte[] LocoNet_TX = data.Skip(5).ToArray();
+                    call_LAN_LOCONET_Z21_TX?.Invoke(LocoNet_TX);
                     break;
                 case Z21_Header.LOCONET_LAN:      //LocoNet LAN
+                    byte[] LocoNet_LAN = data.Skip(5).ToArray();
+                    call_LAN_LOCONET_FROM_LAN?.Invoke(LocoNet_LAN);
                     break;
                 case Z21_Header.LOCONET_ADDR:      //LocoNet Adresse
+                    if (length != 3) return Z21_ErrorCode.FALSE_LENGTH;
+                    int LOCONet_Adresse = data[4] + (data[5] << 8) + 1;
+                    call_LAN_LOCONET_DISPATCH_ADDR?.Invoke(LOCONet_Adresse, data[6]);
                     break;
                 case Z21_Header.LOCONET_DETECTOR:      //LocoNet Rückmelder
+                    if (length != 3) return Z21_ErrorCode.FALSE_LENGTH;
+                    int Reporter_Adresse = data[5] + (data[6] << 8) + 1;
+                    call_LAN_LOCONET_DETECTOR?.Invoke(data[4], Reporter_Adresse);
                     break;
                 case Z21_Header.CAN_DETECTOR:      //CAN-Rückmelder
+                    if (length != 10) return Z21_ErrorCode.FALSE_LENGTH;
+                    int CANID = BitConverter.ToUInt16(data, 4);
+                    int Addr = BitConverter.ToUInt16(data, 6);
+                    byte Port = data[8];
+                    byte Typ = data[9];
+                    int Value1 = BitConverter.ToUInt16(data, 10);
+                    int Value2 = BitConverter.ToUInt16(data, 12);
+                    call_LAN_CAN_DETECTOR?.Invoke(CANID,Addr,Port,Typ,Value1,Value2);
                     break;
                 default: return Z21_ErrorCode.WRONG_HEADER;  
             }
@@ -332,14 +382,171 @@ namespace MEKB_H0_Anlage
         {
             switch(header)
             {
-                case Z21_XBus_Header.Weichen_INFO:
+                case Z21_XBus_Header.TURNOUT_INFO:
                     if (db.Length == 3)
                     {
                         int addr = (db[0] << 8) + db[1] + 1;
-                        if (db.Length == 3) call_LAN_X_TURNOUT_INFO?.Invoke(addr, db[2]);
+                        call_LAN_X_TURNOUT_INFO?.Invoke(addr, db[2]);
                     }                      
                     break;
+                case Z21_XBus_Header.PROGRAMMING:
+                    if (db.Length == 1)
+                    {
+                        if(db[0] == 0x00) call_LAN_X_BC_TRACK_POWER_OFF?.Invoke();
+                        else if (db[0] == 0x01) call_LAN_X_BC_TRACK_POWER_ON?.Invoke();
+                        else if (db[0] == 0x02) call_LAN_X_PROGRAMMING_MODE?.Invoke();
+                        else if (db[0] == 0x08) call_LAN_X_BC_TRACK_SHORT_CIRCUIT?.Invoke();
+                        else if (db[0] == 0x12) call_LAN_X_CV_NACK_SC?.Invoke();
+                        else if (db[0] == 0x13) call_LAN_X_CV_NACK?.Invoke();
+                        else if (db[0] == 0x82) call_LAN_X_UNKNOWN_COMMAND?.Invoke();
+                    }
+                    break;
+                case Z21_XBus_Header.GET_FIRMWARE:
+                    if (db.Length == 3)
+                    {
+                        int major = (db[1] & 0x0F) + ((db[1] >> 4) * 10);       //Umwandeln DBC-Format
+                        int minor = (db[2] & 0x0F) + ((db[2] >> 4) * 10);       //Umwandeln DBC-Format
+                        double FW = major + (minor * 0.01);
+                        if (db[0] == 0x0A) call_LAN_X_GET_FIRMWARE_VERSION?.Invoke(FW);
+                    }
+                    break;
+                case Z21_XBus_Header.STATUS_CHANGE:
+                    if (db.Length == 2)
+                    {
+                        if (db[0] == 0x22)call_LAN_X_STATUS_CHANGED?.Invoke(db[1]);
+                    }
+                    break;
+                case Z21_XBus_Header.X_VERSION:
+                    if (db.Length == 3)
+                    {
+                        int major = (db[1] & 0x0F) + ((db[1] >> 4) * 10);       //Umwandeln DBC-Format
+                        int minor = (db[2] & 0x0F) + ((db[2] >> 4) * 10);       //Umwandeln DBC-Format
+                        double Version = major + (minor * 0.01);
+                        if (db[0] == 0x21) call_LAN_X_GET_VERSION?.Invoke(Version, db[2]);
+                    }
+                    break;
+                case Z21_XBus_Header.CV_RESULT:
+                    if (db.Length == 4)
+                    {
+                        int addr = (db[0] << 8) + db[1] + 1;
+                        if (db[0] == 0x14) call_LAN_X_CV_RESULT?.Invoke(addr, db[3]);
+                    }
+                    break;
+                case Z21_XBus_Header.BC_STOPPED:
+                    if (db.Length == 1)
+                    {
+                        if (db[0] == 0x00) call_LAN_X_BC_STOPPED?.Invoke();
+                    }
+                    break;
+                case Z21_XBus_Header.LOCO_INFO:
+                    int ParameterCount = 0;
+                    int Adr = 0;
+                    bool besetzt = false;
+                    byte FahrstufeInfo = 0;
+                    bool Richtung = false;
+                    byte Fahrstufe = 0;
+                    bool Doppeltraktion = false;
+                    bool SmartSearch = false;
+                    List<bool> Funktionen = new List<bool>();
 
+
+                    if (db.Length >=2)
+                    {
+                        ParameterCount = 1;
+                        Adr = ((db[0] & 0x3F) << 8 + db[1]) + 1;
+                    }
+                    if(db.Length >=3)
+                    {
+                        ParameterCount = 3;
+                        if ((db[2] & 0x08) == 0x08) besetzt = true;
+                        else besetzt = false;
+                        FahrstufeInfo = (byte)(db[2] & 0x07);
+                    }
+                    if (db.Length >= 4)
+                    {
+                        ParameterCount = 5;
+                        if ((db[3] & 0x80) == 0x80) Richtung = true;
+                        else Richtung = false;
+                        Fahrstufe = (byte)(db[3] & 0x7F);
+                    }
+                    if (db.Length >= 5)
+                    {
+                        ParameterCount = 8;
+                        if ((db[4] & 0x40) == 0x40) Doppeltraktion = true;
+                        else Doppeltraktion = false;
+                        if ((db[4] & 0x20) == 0x20) SmartSearch = true;
+                        else SmartSearch = false;
+                        if ((db[4] & 0x10) == 0x10) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[4] & 0x01) == 0x01) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[4] & 0x02) == 0x02) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[4] & 0x04) == 0x04) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[4] & 0x08) == 0x08) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                    }
+                    if (db.Length >= 6)
+                    {
+                        if ((db[5] & 0x01) == 0x01) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[5] & 0x02) == 0x02) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[5] & 0x04) == 0x04) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[5] & 0x08) == 0x08) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[5] & 0x10) == 0x10) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[5] & 0x20) == 0x20) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[5] & 0x40) == 0x40) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[5] & 0x80) == 0x80) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                    }
+                    if (db.Length >= 7)
+                    {
+                        if ((db[6] & 0x01) == 0x01) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[6] & 0x02) == 0x02) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[6] & 0x04) == 0x04) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[6] & 0x08) == 0x08) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[6] & 0x10) == 0x10) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[6] & 0x20) == 0x20) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[6] & 0x40) == 0x40) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[6] & 0x80) == 0x80) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                    }
+                    if (db.Length >= 8)
+                    {
+                        if ((db[7] & 0x01) == 0x01) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[7] & 0x02) == 0x02) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[7] & 0x04) == 0x04) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[7] & 0x08) == 0x08) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[7] & 0x10) == 0x10) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[7] & 0x20) == 0x20) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[7] & 0x40) == 0x40) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                        if ((db[7] & 0x80) == 0x80) Funktionen.Add(true);
+                        else Funktionen.Add(false);
+                    }
+
+                    call_LAN_X_LOCO_INFO?.Invoke(ParameterCount, Adr, besetzt, FahrstufeInfo, Richtung, Fahrstufe, Doppeltraktion, SmartSearch, Funktionen.ToArray());
+                    break;
             }
         }
 
