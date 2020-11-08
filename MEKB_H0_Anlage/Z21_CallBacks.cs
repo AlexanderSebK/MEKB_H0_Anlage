@@ -81,5 +81,11 @@ namespace MEKB_H0_Anlage
             this.BeginInvoke((Action<int, int>)Set_Gleistatus, ZentralenStatus, ZentralenStatusGrund);
         }
 
+        public void CallBack_Z21_LokUpdate(int ParamterCount, int Addresse, bool Besetzt, byte FahrstufenInfo, bool Richtung,
+                                             byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen)
+        {
+            this.BeginInvoke((Action<int, int, bool, byte, bool, byte, bool, bool, bool[]>)UpdateLok, ParamterCount,  Addresse,  Besetzt,  FahrstufenInfo,  Richtung,
+                                              Fahrstufe,  Doppeltraktio,  Smartsearch, Funktionen);
+        }
     }
 }

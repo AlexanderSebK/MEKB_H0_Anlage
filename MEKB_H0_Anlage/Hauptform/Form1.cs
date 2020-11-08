@@ -38,6 +38,7 @@ namespace MEKB_H0_Anlage
         public List<Weiche> Weichenliste = new List<Weiche>();
         public List<Signal> Signalliste = new List<Signal>();
         public List<Lok> Lokliste = new List<Lok>();
+        public Lok[] AktiveLoks = new Lok[12];
 
         public Form1()
         {
@@ -51,6 +52,7 @@ namespace MEKB_H0_Anlage
             z21Start.Register_LAN_X_GET_FIRMWARE_VERSION(CallBack_LAN_X_GET_FIRMWARE_VERSION);
             z21Start.Register_LAN_SYSTEMSTATE_DATACHANGED(CallBack_Z21_System_Status);
             z21Start.Register_LAN_GET_BROADCASTFLAGS(CallBack_Z21_Broadcast_Flags);
+            z21Start.Register_LAN_X_LOCO_INFO(CallBack_Z21_LokUpdate);
 
 
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
@@ -110,8 +112,6 @@ namespace MEKB_H0_Anlage
             WeichenTimer.Enabled = true;
 
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
-
-
         }
         private void Z21_Heartbeat(Object source, ElapsedEventArgs e)
         {
@@ -1612,8 +1612,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl1_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl1_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl1_Name.Text = String.Format("Lok: {0}", LokCtrl1_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl1_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl1_Name.Text = String.Format("Lok: {0}", LokCtrl1_Adr.Value);
+                AktiveLoks[0] = new Lok() { Adresse = (int)LokCtrl1_Adr.Value };
+            }
+            else
+            {
+                LokCtrl1_Name.Text = Lokliste[index].Name;
+                AktiveLoks[0] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern1(sender, e);
@@ -1621,8 +1629,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl2_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl2_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl2_Name.Text = String.Format("Lok: {0}", LokCtrl2_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl2_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl2_Name.Text = String.Format("Lok: {0}", LokCtrl2_Adr.Value);
+                AktiveLoks[1] = new Lok() { Adresse = (int)LokCtrl2_Adr.Value };
+            }
+            else
+            {
+                LokCtrl2_Name.Text = Lokliste[index].Name;
+                AktiveLoks[1] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern2(sender, e);
@@ -1630,8 +1646,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl3_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl3_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl3_Name.Text = String.Format("Lok: {0}", LokCtrl3_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl3_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl3_Name.Text = String.Format("Lok: {0}", LokCtrl3_Adr.Value);
+                AktiveLoks[2] = new Lok() { Adresse = (int)LokCtrl3_Adr.Value };
+            }
+            else
+            {
+                LokCtrl3_Name.Text = Lokliste[index].Name;
+                AktiveLoks[2] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern3(sender, e);
@@ -1639,8 +1663,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl4_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl4_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl4_Name.Text = String.Format("Lok: {0}", LokCtrl4_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl4_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl4_Name.Text = String.Format("Lok: {0}", LokCtrl4_Adr.Value);
+                AktiveLoks[3] = new Lok() { Adresse = (int)LokCtrl4_Adr.Value };
+            }
+            else
+            {
+                LokCtrl4_Name.Text = Lokliste[index].Name;
+                AktiveLoks[3] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern4(sender, e);
@@ -1648,8 +1680,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl5_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl5_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl5_Name.Text = String.Format("Lok: {0}", LokCtrl5_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl5_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl5_Name.Text = String.Format("Lok: {0}", LokCtrl5_Adr.Value);
+                AktiveLoks[4] = new Lok() { Adresse = (int)LokCtrl5_Adr.Value };
+            }
+            else
+            {
+                LokCtrl5_Name.Text = Lokliste[index].Name;
+                AktiveLoks[4] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern5(sender, e);
@@ -1657,8 +1697,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl6_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl6_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl6_Name.Text = String.Format("Lok: {0}", LokCtrl6_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl6_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl6_Name.Text = String.Format("Lok: {0}", LokCtrl6_Adr.Value);
+                AktiveLoks[5] = new Lok() { Adresse = (int)LokCtrl6_Adr.Value };
+            }
+            else
+            {
+                LokCtrl6_Name.Text = Lokliste[index].Name;
+                AktiveLoks[5] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern6(sender, e);
@@ -1666,17 +1714,33 @@ namespace MEKB_H0_Anlage
         private void LokCtrl7_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl7_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl7_Name.Text = String.Format("Lok: {0}", LokCtrl7_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl7_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl7_Name.Text = String.Format("Lok: {0}", LokCtrl7_Adr.Value);
+                AktiveLoks[6] = new Lok() { Adresse = (int)LokCtrl7_Adr.Value };
+            }
+            else
+            {
+                LokCtrl7_Name.Text = Lokliste[index].Name;
+                AktiveLoks[6] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern7(sender, e);
         }
         private void LokCtrl8_Adr_ValueChanged(object sender, EventArgs e)
         {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl8_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl8_Name.Text = String.Format("Lok: {0}", LokCtrl8_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl8_Name.Text = Lokliste[index].Name;
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl8_Adr.Value);                   //Finde Lok mit dieser Adresse                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl8_Name.Text = String.Format("Lok: {0}", LokCtrl8_Adr.Value);
+                AktiveLoks[7] = new Lok() { Adresse = (int)LokCtrl8_Adr.Value };
+            }
+            else
+            {
+                LokCtrl8_Name.Text = Lokliste[index].Name;
+                AktiveLoks[7] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern8(sender, e);
@@ -1684,8 +1748,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl9_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl9_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl9_Name.Text = String.Format("Lok: {0}", LokCtrl9_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl9_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl9_Name.Text = String.Format("Lok: {0}", LokCtrl9_Adr.Value);
+                AktiveLoks[8] = new Lok() { Adresse = (int)LokCtrl9_Adr.Value };
+            }
+            else
+            {
+                LokCtrl9_Name.Text = Lokliste[index].Name;
+                AktiveLoks[8] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern9(sender, e);
@@ -1693,8 +1765,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl10_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl10_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl10_Name.Text = String.Format("Lok: {0}", LokCtrl10_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl10_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl10_Name.Text = String.Format("Lok: {0}", LokCtrl10_Adr.Value);
+                AktiveLoks[9] = new Lok() { Adresse = (int)LokCtrl10_Adr.Value };
+            }
+            else
+            {
+                LokCtrl10_Name.Text = Lokliste[index].Name;
+                AktiveLoks[9] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern10(sender, e);

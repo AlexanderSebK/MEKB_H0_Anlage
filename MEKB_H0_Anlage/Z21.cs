@@ -80,7 +80,15 @@ namespace MEKB_H0_Anlage
         public delegate void LAN_X_GET_VERSION(double XBusVersion, byte ID);
         public delegate void LAN_X_CV_RESULT(int CVAdresse, byte Wert);
         public delegate void LAN_X_BC_STOPPED();
-        public delegate void LAN_X_LOCO_INFO(int ParamterCount, int Addresse, bool Besetzt, byte FahrstufenInfo, bool Richtung, byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen);
+        public delegate void LAN_X_LOCO_INFO(int ParamterCount, 
+                                             int Addresse, 
+                                             bool Besetzt, 
+                                             byte FahrstufenInfo, 
+                                             bool Richtung, 
+                                             byte Fahrstufe, 
+                                             bool Doppeltraktio,
+                                             bool Smartsearch, 
+                                             bool[] Funktionen);
         public delegate void LAN_X_GET_FIRMWARE_VERSION(double FW_Version);
         public delegate void LAN_GET_BROADCASTFLAGS(int BroadcastFlags);
         public delegate void LAN_GET_LOCOMODE(int Adresse, byte Modus);
@@ -453,7 +461,7 @@ namespace MEKB_H0_Anlage
                     if (db.Length >=2)
                     {
                         ParameterCount = 1;
-                        Adr = ((db[0] & 0x3F) << 8 + db[1]) + 1;
+                        Adr = (((db[0] & 0x3F) << 8) + db[1]);
                     }
                     if(db.Length >=3)
                     {

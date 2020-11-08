@@ -318,6 +318,7 @@ namespace MEKB_H0_Anlage
         public Lok()
         {
             Funktionen = new List<string>();
+            AktiveFunktion = new bool[30];
         }
         /// <summary>
         /// Parameter: Name der Lok als String
@@ -335,6 +336,10 @@ namespace MEKB_H0_Anlage
         /// Funktionstasten
         /// </summary>
         public List<string> Funktionen { get; set; }
+        public int Fahrstufe { get; set; }
+        public bool Richtung { get; set; }
+        public bool[] AktiveFunktion { get; set; }
+        public byte FahrstufenInfo { get; set; }
 
         public override string ToString()
         {
