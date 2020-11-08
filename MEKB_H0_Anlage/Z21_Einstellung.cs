@@ -73,8 +73,8 @@ namespace MEKB_H0_Anlage
         /// <param name="e"></param>
         private void Z21_Get_Click(object sender, EventArgs e)
         {
-            z21Start.Z21_GET_FIRMWARE_VERSION();
-            z21Start.Z21_GET_BROADCASTFLAGS();
+            z21Start.GET_FIRMWARE_VERSION();
+            z21Start.GET_BROADCASTFLAGS();
         }
         /// <summary>
         /// Button "Werte schreiben" - Konfiguration an die Z21 senden

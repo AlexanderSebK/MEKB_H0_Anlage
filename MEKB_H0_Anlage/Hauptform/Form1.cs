@@ -43,11 +43,12 @@ namespace MEKB_H0_Anlage
         {
             InitializeComponent();                      //Programminitialisieren
 
-            z21Start = new Z21(this);                   //Neue Z21-Verbindung anlegen
+            z21Start = new Z21();                   //Neue Z21-Verbindung anlegen
             //Callback Funktionen registrieren
             z21Start.Register_LAN_GET_SERIAL_NUMBER(CallBack_GET_SERIAL_NUMBER);
             z21Start.Register_LAN_X_TURNOUT_INFO(CallBack_LAN_X_TURNOUT_INFO);
-
+            z21Start.Register_LAN_SYSTEMSTATE_DATACHANGED(CallBack_Z21_System_Status);
+            z21Start.Register_LAN_GET_BROADCASTFLAGS(CallBack_Z21_Broadcast_Flags);
 
 
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
@@ -67,7 +68,7 @@ namespace MEKB_H0_Anlage
 
         private void GetFirmware_Click(object sender, EventArgs e)
         {
-            z21Start.Z21_GET_FIRMWARE_VERSION();
+            z21Start.GET_FIRMWARE_VERSION();
         }
 
         private void MenuZ21Eigenschaften_Click(object sender, EventArgs e)

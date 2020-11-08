@@ -88,13 +88,14 @@ namespace MEKB_H0_Anlage
         /// Die Flags geben an welche Änderungen von der Z21 automatisch (ohne anfrage gesendet werden)
         /// </summary>
         /// <param name="newFlags">Struktur mit Flags</param>
-        public void CallBack_Z21_Broadcast_Flags(Flags newFlags)
+        public void CallBack_Z21_Broadcast_Flags(int flags)
         {
+            Flags newFlags = new Flags(flags);
             this.BeginInvoke((Action<Flags>)Set_Flags, newFlags);
         }
 
         public void CallBack_Z21_System_Status(int MainCurrent, int ProgCurrent, int MainCurrentFilter, int Temperatur, 
-                    int VersorgungSpg, int GleisSpg, int ZentralenStatus, int ZentralenStatusGrund)
+                    int VersorgungSpg, int GleisSpg, byte ZentralenStatus, byte ZentralenStatusGrund)
         {
             this.BeginInvoke((Action<int, int, int>)Set_Z21_Strom, MainCurrent, ProgCurrent, MainCurrentFilter);
             this.BeginInvoke((Action<int, int>)Set_Z21_Spannung, VersorgungSpg, GleisSpg);
