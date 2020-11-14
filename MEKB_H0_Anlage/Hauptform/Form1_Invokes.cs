@@ -257,7 +257,7 @@ namespace MEKB_H0_Anlage
             if (ParamterCount >= 4)
             {
                 AktiveLoks[index].Richtung = Richtung;
-                AktiveLoks[index].Fahrstufe = Fahrstufe;
+                AktiveLoks[index].Fahrstufe = LokFahrstufen.ProtokolToFahrstufe(Fahrstufe, FahrstufenInfo);
             }
             if (ParamterCount >= 5)
             {
@@ -299,6 +299,10 @@ namespace MEKB_H0_Anlage
                 AktiveLoks[index].AktiveFunktion[26] = Funktionen[26];
                 AktiveLoks[index].AktiveFunktion[27] = Funktionen[27];
                 AktiveLoks[index].AktiveFunktion[28] = Funktionen[28];
+            }
+            if (!AktiveLoks[index].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[index].Steuerpult.UpdateLokDaten();
             }
             //int index = Lokliste.FindIndex(x => x.Adresse == Adresse);
 

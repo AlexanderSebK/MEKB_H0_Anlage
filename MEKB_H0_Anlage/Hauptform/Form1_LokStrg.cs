@@ -95,6 +95,14 @@ namespace MEKB_H0_Anlage
                 LokCtrl9_Name.Items.Add(Lokomtive.Name);
                 LokCtrl10_Name.Items.Add(Lokomtive.Name);
             }
-        }       
+        }  
+        private void Setze_Lok_Fahrt(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo)
+        {
+            z21Start.Z21_SET_LOCO_DRIVE(Adresse, Fahrstufe, Richtung, Fahstrufeninfo);
+        }
+        private void Setze_Lok_Funktion(int Adresse, byte Zustand, byte FunktionsNr)
+        {
+            z21Start.Z21_SET_LOCO_FUNCTION(Adresse, Zustand, FunktionsNr);
+        }
     }
 }

@@ -66,6 +66,12 @@ namespace MEKB_H0_Anlage
             SetupLokListe();                            //Lok-Daten aus Dateien laden
 
             LokCtrl_LoklisteAusfuellen();               //Auswahlliste im Lok-Kontrollfenster ausfüllen
+            for(int i = 0; i<AktiveLoks.Length;i++)
+            {
+                AktiveLoks[i] = new Lok();
+                AktiveLoks[i].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+                AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            }
         }
 
 
@@ -1838,7 +1844,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
         }
-
         private void Signal_Ausfahrt_L2_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L2" });
@@ -1991,12 +1996,22 @@ namespace MEKB_H0_Anlage
             //Alle Autozüge Stop
             //Alle Signale Rot
         }
-        ZugSteuerpult Fahrpult2 = new ZugSteuerpult();
+        
         private void OpenFahrpult2_Click(object sender, EventArgs e)
         {
-            if(!Fahrpult2.IsDisposed) Fahrpult2.Dispose();
+            if(!AktiveLoks[1].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[1].Steuerpult.Dispose();
+            }
+            AktiveLoks[1].Steuerpult = new ZugSteuerpult(AktiveLoks[1]);
+            AktiveLoks[1].Steuerpult.Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[1].Steuerpult.Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[1].Steuerpult.Show();
+            /*
+            if (!Fahrpult2.IsDisposed) Fahrpult2.Dispose();
             Fahrpult2 = new ZugSteuerpult();
             Fahrpult2.Show();
+            */
         }
     }
 }

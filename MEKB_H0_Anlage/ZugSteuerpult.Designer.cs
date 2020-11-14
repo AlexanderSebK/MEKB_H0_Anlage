@@ -53,7 +53,6 @@
             this.Fkt12 = new System.Windows.Forms.Button();
             this.Fkt11 = new System.Windows.Forms.Button();
             this.FktGroup = new System.Windows.Forms.GroupBox();
-            this.AlleAus = new System.Windows.Forms.Button();
             this.Adresse = new System.Windows.Forms.Label();
             this.Lokname = new System.Windows.Forms.Label();
             this.Rufnummer = new System.Windows.Forms.Label();
@@ -63,7 +62,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.Zusatzsteuerung = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.StufenInfo = new System.Windows.Forms.ComboBox();
             this.Steuerung = new System.Windows.Forms.GroupBox();
             this.FahrAnzeige = new System.Windows.Forms.PictureBox();
             this.Fahrplan = new System.Windows.Forms.GroupBox();
@@ -107,6 +106,7 @@
             this.Fkt_Licht.TabIndex = 2;
             this.Fkt_Licht.Text = "Licht";
             this.Fkt_Licht.UseVisualStyleBackColor = true;
+            this.Fkt_Licht.Click += new System.EventHandler(this.Fkt_Licht_Click);
             // 
             // Fkt1
             // 
@@ -116,6 +116,7 @@
             this.Fkt1.TabIndex = 3;
             this.Fkt1.Text = "Fkt. 1";
             this.Fkt1.UseVisualStyleBackColor = true;
+            this.Fkt1.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt2
             // 
@@ -125,6 +126,7 @@
             this.Fkt2.TabIndex = 4;
             this.Fkt2.Text = "Fkt. 2";
             this.Fkt2.UseVisualStyleBackColor = true;
+            this.Fkt2.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt3
             // 
@@ -134,6 +136,7 @@
             this.Fkt3.TabIndex = 5;
             this.Fkt3.Text = "Fkt. 3";
             this.Fkt3.UseVisualStyleBackColor = true;
+            this.Fkt3.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt4
             // 
@@ -143,6 +146,7 @@
             this.Fkt4.TabIndex = 6;
             this.Fkt4.Text = "Fkt. 4";
             this.Fkt4.UseVisualStyleBackColor = true;
+            this.Fkt4.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt5
             // 
@@ -152,6 +156,7 @@
             this.Fkt5.TabIndex = 7;
             this.Fkt5.Text = "Fkt. 5";
             this.Fkt5.UseVisualStyleBackColor = true;
+            this.Fkt5.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt6
             // 
@@ -161,6 +166,7 @@
             this.Fkt6.TabIndex = 8;
             this.Fkt6.Text = "Fkt. 6";
             this.Fkt6.UseVisualStyleBackColor = true;
+            this.Fkt6.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt7
             // 
@@ -170,6 +176,7 @@
             this.Fkt7.TabIndex = 9;
             this.Fkt7.Text = "Fkt. 7";
             this.Fkt7.UseVisualStyleBackColor = true;
+            this.Fkt7.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt8
             // 
@@ -179,6 +186,7 @@
             this.Fkt8.TabIndex = 10;
             this.Fkt8.Text = "Fkt. 8";
             this.Fkt8.UseVisualStyleBackColor = true;
+            this.Fkt8.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt9
             // 
@@ -188,6 +196,7 @@
             this.Fkt9.TabIndex = 11;
             this.Fkt9.Text = "Fkt. 9";
             this.Fkt9.UseVisualStyleBackColor = true;
+            this.Fkt9.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt10
             // 
@@ -197,6 +206,7 @@
             this.Fkt10.TabIndex = 12;
             this.Fkt10.Text = "Fkt. 10";
             this.Fkt10.UseVisualStyleBackColor = true;
+            this.Fkt10.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt20
             // 
@@ -206,6 +216,7 @@
             this.Fkt20.TabIndex = 22;
             this.Fkt20.Text = "Fkt. 20";
             this.Fkt20.UseVisualStyleBackColor = true;
+            this.Fkt20.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt19
             // 
@@ -215,6 +226,7 @@
             this.Fkt19.TabIndex = 21;
             this.Fkt19.Text = "Fkt. 19";
             this.Fkt19.UseVisualStyleBackColor = true;
+            this.Fkt19.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt18
             // 
@@ -224,6 +236,7 @@
             this.Fkt18.TabIndex = 20;
             this.Fkt18.Text = "Fkt. 18";
             this.Fkt18.UseVisualStyleBackColor = true;
+            this.Fkt18.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt17
             // 
@@ -233,6 +246,7 @@
             this.Fkt17.TabIndex = 19;
             this.Fkt17.Text = "Fkt. 17";
             this.Fkt17.UseVisualStyleBackColor = true;
+            this.Fkt17.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt16
             // 
@@ -242,6 +256,7 @@
             this.Fkt16.TabIndex = 18;
             this.Fkt16.Text = "Fkt. 16";
             this.Fkt16.UseVisualStyleBackColor = true;
+            this.Fkt16.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt15
             // 
@@ -251,6 +266,7 @@
             this.Fkt15.TabIndex = 17;
             this.Fkt15.Text = "Fkt. 15";
             this.Fkt15.UseVisualStyleBackColor = true;
+            this.Fkt15.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt14
             // 
@@ -260,6 +276,7 @@
             this.Fkt14.TabIndex = 16;
             this.Fkt14.Text = "Fkt. 14";
             this.Fkt14.UseVisualStyleBackColor = true;
+            this.Fkt14.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt13
             // 
@@ -269,6 +286,7 @@
             this.Fkt13.TabIndex = 15;
             this.Fkt13.Text = "Fkt. 13";
             this.Fkt13.UseVisualStyleBackColor = true;
+            this.Fkt13.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt12
             // 
@@ -278,6 +296,7 @@
             this.Fkt12.TabIndex = 14;
             this.Fkt12.Text = "Fkt. 12";
             this.Fkt12.UseVisualStyleBackColor = true;
+            this.Fkt12.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // Fkt11
             // 
@@ -287,10 +306,10 @@
             this.Fkt11.TabIndex = 13;
             this.Fkt11.Text = "Fkt. 11";
             this.Fkt11.UseVisualStyleBackColor = true;
+            this.Fkt11.Click += new System.EventHandler(this.Fkt_Set_Click);
             // 
             // FktGroup
             // 
-            this.FktGroup.Controls.Add(this.AlleAus);
             this.FktGroup.Controls.Add(this.Fkt1);
             this.FktGroup.Controls.Add(this.Fkt20);
             this.FktGroup.Controls.Add(this.Fkt2);
@@ -318,15 +337,6 @@
             this.FktGroup.TabIndex = 23;
             this.FktGroup.TabStop = false;
             this.FktGroup.Text = "Funktionen";
-            // 
-            // AlleAus
-            // 
-            this.AlleAus.Location = new System.Drawing.Point(248, 16);
-            this.AlleAus.Name = "AlleAus";
-            this.AlleAus.Size = new System.Drawing.Size(75, 23);
-            this.AlleAus.TabIndex = 28;
-            this.AlleAus.Text = "Alle aus";
-            this.AlleAus.UseVisualStyleBackColor = true;
             // 
             // Adresse
             // 
@@ -403,7 +413,7 @@
             // 
             // Zusatzsteuerung
             // 
-            this.Zusatzsteuerung.Controls.Add(this.comboBox1);
+            this.Zusatzsteuerung.Controls.Add(this.StufenInfo);
             this.Zusatzsteuerung.Controls.Add(this.button3);
             this.Zusatzsteuerung.Controls.Add(this.button4);
             this.Zusatzsteuerung.Controls.Add(this.button5);
@@ -414,13 +424,17 @@
             this.Zusatzsteuerung.TabStop = false;
             this.Zusatzsteuerung.Text = "Zusatzsteuerung";
             // 
-            // comboBox1
+            // StufenInfo
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(248, 16);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(72, 21);
-            this.comboBox1.TabIndex = 33;
+            this.StufenInfo.FormattingEnabled = true;
+            this.StufenInfo.Items.AddRange(new object[] {
+            "F14",
+            "F28",
+            "F128"});
+            this.StufenInfo.Location = new System.Drawing.Point(248, 16);
+            this.StufenInfo.Name = "StufenInfo";
+            this.StufenInfo.Size = new System.Drawing.Size(72, 21);
+            this.StufenInfo.TabIndex = 33;
             // 
             // Steuerung
             // 
@@ -525,6 +539,7 @@
             this.Controls.Add(this.FktGroup);
             this.Name = "ZugSteuerpult";
             this.Text = "ZugSteuerpult";
+            this.Load += new System.EventHandler(this.ZugSteuerpult_Load);
             this.Shown += new System.EventHandler(this.ZugSteuerpult_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.Fahrstufe)).EndInit();
             this.FktGroup.ResumeLayout(false);
@@ -565,7 +580,6 @@
         private System.Windows.Forms.Button Fkt12;
         private System.Windows.Forms.Button Fkt11;
         private System.Windows.Forms.GroupBox FktGroup;
-        private System.Windows.Forms.Button AlleAus;
         private System.Windows.Forms.Label Adresse;
         private System.Windows.Forms.Label Lokname;
         private System.Windows.Forms.Label Rufnummer;
@@ -584,6 +598,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox Position;
         private System.Windows.Forms.Label Positon_Label;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox StufenInfo;
     }
 }

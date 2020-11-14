@@ -591,11 +591,26 @@ namespace MEKB_H0_Anlage
 
         public void Z21_SET_LOCO_DRIVE(int Adresse, int Geschwindigkeit, int Richtung, int Fahrstufe)
         {
+            int SendeFahrStufe = Fahrstufe;
+            if (SendeFahrStufe == 4) SendeFahrStufe = 3;  //Umwandeln der Fahrstufe in Sendeformat
             byte Header = 0xE4;
-            byte DB0 = (byte)(0x10 + Fahrstufe);
+            byte DB0 = (byte)(0x10 + SendeFahrStufe);
             byte DB1 = LokFahrstufen.Addr_High(Adresse);
             byte DB2 = LokFahrstufen.Addr_Low(Adresse);
-            byte DB3 = LokFahrstufen.LookUpFahrstufe(Geschwindigkeit, Richtung, Fahrstufe);
+            byte DB3 = LokFahrstufen.FahrstufeToProtokol(Geschwindigkeit, Richtung, Fahrstufe);
+            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2 ^ DB3);
+            byte[] SendBytes = { 0x0A, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, DB3, XOR };
+            if (Connected) Client.Send(SendBytes, 10);
+        }
+        public void Z21_SET_LOCO_FUNCTION(int Adresse, byte Zustand, byte Funktion)
+        {
+            Zustand = (byte)(Zustand & 0x3);
+            Funktion = (byte)(Funktion & 0x3F);
+            byte Header = 0xE4;
+            byte DB0 = 0xF8;
+            byte DB1 = LokFahrstufen.Addr_High(Adresse);
+            byte DB2 = LokFahrstufen.Addr_Low(Adresse);
+            byte DB3 = (byte)((Zustand << 6)+Funktion);
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2 ^ DB3);
             byte[] SendBytes = { 0x0A, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, DB3, XOR };
             if (Connected) Client.Send(SendBytes, 10);
