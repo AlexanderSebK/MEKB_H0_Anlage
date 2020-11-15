@@ -57,10 +57,10 @@
             this.Lokname = new System.Windows.Forms.Label();
             this.Rufnummer = new System.Windows.Forms.Label();
             this.vor = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.Ruck = new System.Windows.Forms.Button();
+            this.Anhalten = new System.Windows.Forms.Button();
+            this.Notbremse = new System.Windows.Forms.Button();
+            this.Fahrwechsel = new System.Windows.Forms.Button();
             this.Zusatzsteuerung = new System.Windows.Forms.GroupBox();
             this.StufenInfo = new System.Windows.Forms.ComboBox();
             this.Steuerung = new System.Windows.Forms.GroupBox();
@@ -95,6 +95,7 @@
             // 
             this.Geschwindigkeit.Location = new System.Drawing.Point(8, 208);
             this.Geschwindigkeit.Name = "Geschwindigkeit";
+            this.Geschwindigkeit.ReadOnly = true;
             this.Geschwindigkeit.Size = new System.Drawing.Size(96, 20);
             this.Geschwindigkeit.TabIndex = 1;
             // 
@@ -374,49 +375,54 @@
             this.vor.TabIndex = 28;
             this.vor.Text = "Vor";
             this.vor.UseVisualStyleBackColor = true;
+            this.vor.Click += new System.EventHandler(this.vor_Click);
             // 
-            // button2
+            // Ruck
             // 
-            this.button2.Location = new System.Drawing.Point(56, 232);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(48, 23);
-            this.button2.TabIndex = 29;
-            this.button2.Text = "Rück";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Ruck.Location = new System.Drawing.Point(56, 232);
+            this.Ruck.Name = "Ruck";
+            this.Ruck.Size = new System.Drawing.Size(48, 23);
+            this.Ruck.TabIndex = 29;
+            this.Ruck.Text = "Rück";
+            this.Ruck.UseVisualStyleBackColor = true;
+            this.Ruck.Click += new System.EventHandler(this.Ruck_Click);
             // 
-            // button3
+            // Anhalten
             // 
-            this.button3.Location = new System.Drawing.Point(8, 16);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 30;
-            this.button3.Text = "Anhalten";
-            this.button3.UseVisualStyleBackColor = true;
+            this.Anhalten.Location = new System.Drawing.Point(8, 16);
+            this.Anhalten.Name = "Anhalten";
+            this.Anhalten.Size = new System.Drawing.Size(75, 23);
+            this.Anhalten.TabIndex = 30;
+            this.Anhalten.Text = "Anhalten";
+            this.Anhalten.UseVisualStyleBackColor = true;
+            this.Anhalten.Click += new System.EventHandler(this.Anhalten_Click);
             // 
-            // button4
+            // Notbremse
             // 
-            this.button4.Location = new System.Drawing.Point(88, 16);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 31;
-            this.button4.Text = "Notbremse";
-            this.button4.UseVisualStyleBackColor = true;
+            this.Notbremse.Location = new System.Drawing.Point(88, 16);
+            this.Notbremse.Name = "Notbremse";
+            this.Notbremse.Size = new System.Drawing.Size(75, 23);
+            this.Notbremse.TabIndex = 31;
+            this.Notbremse.Text = "Notbremse";
+            this.Notbremse.UseVisualStyleBackColor = true;
+            this.Notbremse.Click += new System.EventHandler(this.Notbremse_Click);
             // 
-            // button5
+            // Fahrwechsel
             // 
-            this.button5.Location = new System.Drawing.Point(168, 16);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 32;
-            this.button5.Text = "Fahrwechsel";
-            this.button5.UseVisualStyleBackColor = true;
+            this.Fahrwechsel.Location = new System.Drawing.Point(168, 16);
+            this.Fahrwechsel.Name = "Fahrwechsel";
+            this.Fahrwechsel.Size = new System.Drawing.Size(75, 23);
+            this.Fahrwechsel.TabIndex = 32;
+            this.Fahrwechsel.Text = "Fahrwechsel";
+            this.Fahrwechsel.UseVisualStyleBackColor = true;
+            this.Fahrwechsel.Click += new System.EventHandler(this.Fahrwechsel_Click);
             // 
             // Zusatzsteuerung
             // 
             this.Zusatzsteuerung.Controls.Add(this.StufenInfo);
-            this.Zusatzsteuerung.Controls.Add(this.button3);
-            this.Zusatzsteuerung.Controls.Add(this.button4);
-            this.Zusatzsteuerung.Controls.Add(this.button5);
+            this.Zusatzsteuerung.Controls.Add(this.Anhalten);
+            this.Zusatzsteuerung.Controls.Add(this.Notbremse);
+            this.Zusatzsteuerung.Controls.Add(this.Fahrwechsel);
             this.Zusatzsteuerung.Location = new System.Drawing.Point(128, 224);
             this.Zusatzsteuerung.Name = "Zusatzsteuerung";
             this.Zusatzsteuerung.Size = new System.Drawing.Size(328, 48);
@@ -426,6 +432,7 @@
             // 
             // StufenInfo
             // 
+            this.StufenInfo.Enabled = false;
             this.StufenInfo.FormattingEnabled = true;
             this.StufenInfo.Items.AddRange(new object[] {
             "F14",
@@ -441,7 +448,7 @@
             this.Steuerung.Controls.Add(this.FahrAnzeige);
             this.Steuerung.Controls.Add(this.Fahrstufe);
             this.Steuerung.Controls.Add(this.Geschwindigkeit);
-            this.Steuerung.Controls.Add(this.button2);
+            this.Steuerung.Controls.Add(this.Ruck);
             this.Steuerung.Controls.Add(this.vor);
             this.Steuerung.Location = new System.Drawing.Point(8, 8);
             this.Steuerung.Name = "Steuerung";
@@ -479,6 +486,7 @@
             // 
             // textBox2
             // 
+            this.textBox2.Enabled = false;
             this.textBox2.Location = new System.Drawing.Point(368, 16);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(72, 20);
@@ -495,6 +503,7 @@
             // 
             // textBox3
             // 
+            this.textBox3.Enabled = false;
             this.textBox3.Location = new System.Drawing.Point(80, 40);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(128, 20);
@@ -511,6 +520,7 @@
             // 
             // Position
             // 
+            this.Position.Enabled = false;
             this.Position.Location = new System.Drawing.Point(80, 16);
             this.Position.Name = "Position";
             this.Position.Size = new System.Drawing.Size(128, 20);
@@ -537,6 +547,7 @@
             this.Controls.Add(this.Lokname);
             this.Controls.Add(this.Adresse);
             this.Controls.Add(this.FktGroup);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ZugSteuerpult";
             this.Text = "ZugSteuerpult";
             this.Load += new System.EventHandler(this.ZugSteuerpult_Load);
@@ -584,10 +595,10 @@
         private System.Windows.Forms.Label Lokname;
         private System.Windows.Forms.Label Rufnummer;
         private System.Windows.Forms.Button vor;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button Ruck;
+        private System.Windows.Forms.Button Anhalten;
+        private System.Windows.Forms.Button Notbremse;
+        private System.Windows.Forms.Button Fahrwechsel;
         private System.Windows.Forms.GroupBox Zusatzsteuerung;
         private System.Windows.Forms.GroupBox Steuerung;
         private System.Windows.Forms.PictureBox FahrAnzeige;

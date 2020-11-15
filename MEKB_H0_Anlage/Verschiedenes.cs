@@ -344,7 +344,11 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Aktuelle Richtung
         /// </summary>
-        public bool Richtung { get; set; }
+        public int Richtung { get; set; }
+        /// <summary>
+        /// True: Richtung wird gespiegelt
+        /// </summary>
+        public bool LokUmgedreht { get; set; }
         /// <summary>
         /// Aktive Funktionen
         /// </summary>
@@ -375,7 +379,13 @@ namespace MEKB_H0_Anlage
 
         private void Set_LOKFAHRT(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo)
         {
-            setLOKFahrt?.Invoke(Adresse, Fahrstufe, Richtung, Fahstrufeninfo);
+            int RichtungMitUmkehr = Richtung;
+            if(LokUmgedreht)
+            {
+                if (Richtung == LokFahrstufen.Vorwaerts) RichtungMitUmkehr = LokFahrstufen.Rueckwaerts;
+                else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
+            }
+            setLOKFahrt?.Invoke(Adresse, Fahrstufe, RichtungMitUmkehr, Fahstrufeninfo);
         }
         private void Set_LOKFUNKTION(int Adresse, byte Zustand, byte FunktionsNr)
         {

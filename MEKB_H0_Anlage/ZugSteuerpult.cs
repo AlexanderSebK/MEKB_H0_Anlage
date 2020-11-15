@@ -29,9 +29,13 @@ namespace MEKB_H0_Anlage
         public void Register_CMD_LOKFAHRT(CMD_LOKFAHRT function) { setLOKFahrt = function; }
         public void Register_CMD_LOKFUNKTION(CMD_LOKFUNKTION function) { setLOKFunktion = function; }
 
+        private bool ValueChangedByZ21 = false;
+
         public void UpdateLokDaten()
         {
-            Fahrstufe.Value = Lokdaten.Fahrstufe;
+            ValueChangedByZ21 = true;
+            if (Lokdaten.Fahrstufe > Fahrstufe.Maximum) Fahrstufe.Value = Fahrstufe.Maximum;
+            else Fahrstufe.Value = Lokdaten.Fahrstufe;
             
             if (Lokdaten.FahrstufenInfo == 0) StufenInfo.SelectedIndex = 0;
             else if (Lokdaten.FahrstufenInfo == 2) StufenInfo.SelectedIndex = 1;
@@ -79,6 +83,20 @@ namespace MEKB_H0_Anlage
             else Fkt19.BackColor = Color.DarkGray;
             if (Lokdaten.AktiveFunktion[20]) Fkt20.BackColor = Color.White;
             else Fkt20.BackColor = Color.DarkGray;
+
+            if (Lokdaten.LokUmgedreht) Fahrwechsel.BackColor = Color.White;
+            else Fahrwechsel.BackColor = Color.DarkGray;
+
+            if(Lokdaten.Richtung == LokFahrstufen.Vorwaerts)
+            {
+                vor.BackColor = Color.White;
+                Ruck.BackColor = Color.DarkGray;
+            }
+            else
+            {
+                vor.BackColor = Color.DarkGray;
+                Ruck.BackColor = Color.White;
+            }
         }
 
         private void Fahrstufe_ValueChanged(object sender, EventArgs e)
@@ -86,9 +104,16 @@ namespace MEKB_H0_Anlage
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.FahrstufenAnzeige; //Gleisbild
             Graphics anzeige = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
             SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-            int drawvalue = (int)(168 - (Fahrstufe.Value * 1.3125));
+
+            int drawvalue;
+            switch (StufenInfo.SelectedIndex)
+            {
+                case 0: drawvalue = 168 - (Fahrstufe.Value * 12); Fahrstufe.Maximum = 14; break; //14 Fahrstufen
+                case 1: drawvalue = 168 - (Fahrstufe.Value * 6); Fahrstufe.Maximum = 28; break;  //28 Fahrstufen
+                default: drawvalue = (int)(168 - (Fahrstufe.Value * 1.3125)); Fahrstufe.Maximum = 126; break; //128 Fahrstufen
+            }
+
             Geschwindigkeit.Text = Lokdaten.Fahrstufe.ToString();
             anzeige.FillRectangle(myBrush, new Rectangle(0, 0, 64, drawvalue));
 
@@ -99,6 +124,18 @@ namespace MEKB_H0_Anlage
             myBrush.Dispose();
             anzeige.Dispose();
             
+            if(ValueChangedByZ21)
+            {
+                //Value Changed by Z21 - do nothing
+                ValueChangedByZ21 = false;
+            }
+            else
+            {
+                //Value was changed by user - send Command
+                Lokdaten.Fahrstufe = Fahrstufe.Value;
+                setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);              
+            }
+
         }
 
 
@@ -163,6 +200,51 @@ namespace MEKB_H0_Anlage
         {
             Adresse.Text = String.Format("Adresse: {0}", Lokdaten.Adresse);
             Rufnummer.Text = "Rufnummer: "+ LokKontrolle.Abkuerzung(Lokdaten.Gattung) + Lokdaten.Adresse.ToString();
+            if(Lokdaten.Name == null)
+            {
+                Lokname.Text = String.Format("Lok: {0}", Lokdaten.Adresse);
+            }
+            else
+            {
+                if(!Lokdaten.Name.Equals(""))
+                {
+                    Lokname.Text = Lokdaten.Name;
+                }
+                else
+                {
+                    Lokname.Text = String.Format("Lok: {0}", Lokdaten.Adresse);
+                }
+            }
+        }
+
+        private void vor_Click(object sender, EventArgs e)
+        {
+            Lokdaten.Richtung = LokFahrstufen.Vorwaerts;
+            setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+        }
+
+        private void Ruck_Click(object sender, EventArgs e)
+        {
+            Lokdaten.Richtung = LokFahrstufen.Rueckwaerts;
+            setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+        }
+
+        private void Anhalten_Click(object sender, EventArgs e)
+        {
+            setLOKFahrt?.Invoke(Lokdaten.Adresse, 0, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+        }
+
+        private void Notbremse_Click(object sender, EventArgs e)
+        {
+            setLOKFahrt?.Invoke(Lokdaten.Adresse, 255, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+        }
+
+        private void Fahrwechsel_Click(object sender, EventArgs e)
+        {
+            Lokdaten.LokUmgedreht = !Lokdaten.LokUmgedreht;
+            if (Lokdaten.LokUmgedreht) Fahrwechsel.BackColor = Color.White;
+            else Fahrwechsel.BackColor = Color.DarkGray;
+            setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
         }
     }
 }

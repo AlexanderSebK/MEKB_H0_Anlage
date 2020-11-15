@@ -237,7 +237,7 @@ namespace MEKB_H0_Anlage
                 case Fahstufe128:
                     if (Geschw != 0)
                     {
-                        if (Geschw > 126) Geschw = 126;
+                        if (Geschw > 126) return (byte)(0x01 + Richtung);
                         temp = (byte)(Geschw + 1);
                     }
                     else

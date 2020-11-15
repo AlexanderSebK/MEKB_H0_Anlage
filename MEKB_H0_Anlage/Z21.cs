@@ -589,6 +589,17 @@ namespace MEKB_H0_Anlage
             if (Connected) Client.Send(SendBytes, 8);
         }
 
+        public void Z21_GET_LOCO_INFO(int Adresse)
+        {
+            byte Header = 0xE3;
+            byte DB0 = 0xF0;
+            byte DB1 = LokFahrstufen.Addr_High(Adresse);
+            byte DB2 = LokFahrstufen.Addr_Low(Adresse);
+            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
+            byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
+            if (Connected) Client.Send(SendBytes, 9);
+        }
+
         public void Z21_SET_LOCO_DRIVE(int Adresse, int Geschwindigkeit, int Richtung, int Fahrstufe)
         {
             int SendeFahrStufe = Fahrstufe;

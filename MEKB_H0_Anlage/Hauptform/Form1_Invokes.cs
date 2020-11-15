@@ -256,7 +256,12 @@ namespace MEKB_H0_Anlage
             }
             if (ParamterCount >= 4)
             {
-                AktiveLoks[index].Richtung = Richtung;
+                int FahrRichtung = LokFahrstufen.Vorwaerts;
+                if ((Richtung == true) && (AktiveLoks[index].LokUmgedreht == false)) FahrRichtung = LokFahrstufen.Vorwaerts;
+                if ((Richtung == true) && (AktiveLoks[index].LokUmgedreht == true)) FahrRichtung = LokFahrstufen.Rueckwaerts;
+                if ((Richtung == false) && (AktiveLoks[index].LokUmgedreht == false)) FahrRichtung = LokFahrstufen.Rueckwaerts;
+                if ((Richtung == false) && (AktiveLoks[index].LokUmgedreht == true)) FahrRichtung = LokFahrstufen.Vorwaerts;
+                AktiveLoks[index].Richtung = FahrRichtung;
                 AktiveLoks[index].Fahrstufe = LokFahrstufen.ProtokolToFahrstufe(Fahrstufe, FahrstufenInfo);
             }
             if (ParamterCount >= 5)
