@@ -38,12 +38,23 @@ namespace MEKB_H0_Anlage
         public List<Weiche> Weichenliste = new List<Weiche>();
         public List<Signal> Signalliste = new List<Signal>();
         public List<Lok> Lokliste = new List<Lok>();
+        public Lok[] AktiveLoks = new Lok[12];
 
         public Form1()
         {
             InitializeComponent();                      //Programminitialisieren
 
-            z21Start = new Z21(this);                   //Neue Z21-Verbindung anlegen
+            z21Start = new Z21();                   //Neue Z21-Verbindung anlegen
+            //Callback Funktionen registrieren
+            z21Start.Register_LAN_CONNECT_STATUS(SetConnect);
+            z21Start.Register_LAN_GET_SERIAL_NUMBER(CallBack_GET_SERIAL_NUMBER);
+            z21Start.Register_LAN_X_TURNOUT_INFO(CallBack_LAN_X_TURNOUT_INFO);
+            z21Start.Register_LAN_X_GET_FIRMWARE_VERSION(CallBack_LAN_X_GET_FIRMWARE_VERSION);
+            z21Start.Register_LAN_SYSTEMSTATE_DATACHANGED(CallBack_Z21_System_Status);
+            z21Start.Register_LAN_GET_BROADCASTFLAGS(CallBack_Z21_Broadcast_Flags);
+            z21Start.Register_LAN_X_LOCO_INFO(CallBack_Z21_LokUpdate);
+
+
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
             z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
 
@@ -55,13 +66,19 @@ namespace MEKB_H0_Anlage
             SetupLokListe();                            //Lok-Daten aus Dateien laden
 
             LokCtrl_LoklisteAusfuellen();               //Auswahlliste im Lok-Kontrollfenster ausfüllen
+            for(int i = 0; i<AktiveLoks.Length;i++)
+            {
+                AktiveLoks[i] = new Lok();
+                AktiveLoks[i].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+                AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            }
         }
 
 
 
         private void GetFirmware_Click(object sender, EventArgs e)
         {
-            z21Start.Z21_GET_FIRMWARE_VERSION();
+            z21Start.GET_FIRMWARE_VERSION();
         }
 
         private void MenuZ21Eigenschaften_Click(object sender, EventArgs e)
@@ -101,8 +118,6 @@ namespace MEKB_H0_Anlage
             WeichenTimer.Enabled = true;
 
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
-
-
         }
         private void Z21_Heartbeat(Object source, ElapsedEventArgs e)
         {
@@ -111,7 +126,8 @@ namespace MEKB_H0_Anlage
             {
                 if (!z21_Einstellung.IsDisposed) //Fenster Z21-Einstellung nläuft immer noch im Hintergrund
                 {
-                    z21Start.Z21_SET_BROADCASTFLAGS(z21_Einstellung.Get_Flag_Config()); //Flags neu setzen 
+                    Flags temp = z21_Einstellung.Get_Flag_Config();
+                    z21Start.Z21_SET_BROADCASTFLAGS(temp); //Flags neu setzen 
                 }
             }
 
@@ -1452,62 +1468,7 @@ namespace MEKB_H0_Anlage
             }
 
         }
-        private void DemoFahrt_Scroll(object sender, EventArgs e)
-        {
-            int Richtung;
-            int Fahrstufe;
-            int Geschwindigkeit;
-            int Adresse = (int)LokCtrl1_Adr.Value;
-
-            if (DemoFahrt.Value < 0)
-            {
-                Richtung = LokFahrstufen.Rueckwaerts;
-                Geschwindigkeit = -DemoFahrt.Value;
-            }
-            else
-            {
-                Richtung = LokFahrstufen.Vorwaerts;
-                Geschwindigkeit = DemoFahrt.Value;
-            }
-            switch (DemoFahrstufen.Text)
-            {
-                case "FS14": Fahrstufe = LokFahrstufen.Fahstufe14;break;
-                case "FS28": Fahrstufe = LokFahrstufen.Fahstufe28; break;
-                case "FS128": Fahrstufe = LokFahrstufen.Fahstufe128; break;
-                default: Fahrstufe = LokFahrstufen.Fahstufe128; break;
-            }
-
-            
-            z21Start.Z21_SET_LOCO_DRIVE(Adresse, Geschwindigkeit, Richtung, Fahrstufe);
-            DemoGesch.Text = DemoFahrt.Value.ToString();
-
-
-        }
-
-        private void DemoFahrstufen_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (DemoFahrstufen.Text)
-            {
-                case "FS14":
-                    DemoFahrt.TickFrequency = 14;
-                    DemoFahrt.Maximum = 14;
-                    DemoFahrt.Minimum = -14;
-                    break;
-                case "FS28":
-                    DemoFahrt.TickFrequency = 28;
-                    DemoFahrt.Maximum = 28;
-                    DemoFahrt.Minimum = -28;
-                    break;
-                case "FS128":
-                    DemoFahrt.TickFrequency = 128;
-                    DemoFahrt.Maximum = 128;
-                    DemoFahrt.Minimum = -128;
-                    break;
-                default:break;
-            }
-            
-        }
-
+        
         bool Sperrung;
         private void Sperr_GL1_links_Click(object sender, EventArgs e)
         {
@@ -1603,8 +1564,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl1_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl1_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl1_Name.Text = String.Format("Lok: {0}", LokCtrl1_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl1_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl1_Name.Text = String.Format("Lok: {0}", LokCtrl1_Adr.Value);
+                AktiveLoks[0] = new Lok() { Adresse = (int)LokCtrl1_Adr.Value };
+            }
+            else
+            {
+                LokCtrl1_Name.Text = Lokliste[index].Name;
+                AktiveLoks[0] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern1(sender, e);
@@ -1612,8 +1581,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl2_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl2_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl2_Name.Text = String.Format("Lok: {0}", LokCtrl2_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl2_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl2_Name.Text = String.Format("Lok: {0}", LokCtrl2_Adr.Value);
+                AktiveLoks[1] = new Lok() { Adresse = (int)LokCtrl2_Adr.Value };
+            }
+            else
+            {
+                LokCtrl2_Name.Text = Lokliste[index].Name;
+                AktiveLoks[1] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern2(sender, e);
@@ -1621,8 +1598,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl3_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl3_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl3_Name.Text = String.Format("Lok: {0}", LokCtrl3_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl3_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl3_Name.Text = String.Format("Lok: {0}", LokCtrl3_Adr.Value);
+                AktiveLoks[2] = new Lok() { Adresse = (int)LokCtrl3_Adr.Value };
+            }
+            else
+            {
+                LokCtrl3_Name.Text = Lokliste[index].Name;
+                AktiveLoks[2] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern3(sender, e);
@@ -1630,8 +1615,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl4_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl4_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl4_Name.Text = String.Format("Lok: {0}", LokCtrl4_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl4_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl4_Name.Text = String.Format("Lok: {0}", LokCtrl4_Adr.Value);
+                AktiveLoks[3] = new Lok() { Adresse = (int)LokCtrl4_Adr.Value };
+            }
+            else
+            {
+                LokCtrl4_Name.Text = Lokliste[index].Name;
+                AktiveLoks[3] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern4(sender, e);
@@ -1639,8 +1632,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl5_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl5_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl5_Name.Text = String.Format("Lok: {0}", LokCtrl5_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl5_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl5_Name.Text = String.Format("Lok: {0}", LokCtrl5_Adr.Value);
+                AktiveLoks[4] = new Lok() { Adresse = (int)LokCtrl5_Adr.Value };
+            }
+            else
+            {
+                LokCtrl5_Name.Text = Lokliste[index].Name;
+                AktiveLoks[4] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern5(sender, e);
@@ -1648,8 +1649,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl6_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl6_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl6_Name.Text = String.Format("Lok: {0}", LokCtrl6_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl6_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl6_Name.Text = String.Format("Lok: {0}", LokCtrl6_Adr.Value);
+                AktiveLoks[5] = new Lok() { Adresse = (int)LokCtrl6_Adr.Value };
+            }
+            else
+            {
+                LokCtrl6_Name.Text = Lokliste[index].Name;
+                AktiveLoks[5] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern6(sender, e);
@@ -1657,17 +1666,33 @@ namespace MEKB_H0_Anlage
         private void LokCtrl7_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl7_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl7_Name.Text = String.Format("Lok: {0}", LokCtrl7_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl7_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl7_Name.Text = String.Format("Lok: {0}", LokCtrl7_Adr.Value);
+                AktiveLoks[6] = new Lok() { Adresse = (int)LokCtrl7_Adr.Value };
+            }
+            else
+            {
+                LokCtrl7_Name.Text = Lokliste[index].Name;
+                AktiveLoks[6] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern7(sender, e);
         }
         private void LokCtrl8_Adr_ValueChanged(object sender, EventArgs e)
         {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl8_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl8_Name.Text = String.Format("Lok: {0}", LokCtrl8_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl8_Name.Text = Lokliste[index].Name;
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl8_Adr.Value);                   //Finde Lok mit dieser Adresse                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl8_Name.Text = String.Format("Lok: {0}", LokCtrl8_Adr.Value);
+                AktiveLoks[7] = new Lok() { Adresse = (int)LokCtrl8_Adr.Value };
+            }
+            else
+            {
+                LokCtrl8_Name.Text = Lokliste[index].Name;
+                AktiveLoks[7] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern8(sender, e);
@@ -1675,8 +1700,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl9_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl9_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl9_Name.Text = String.Format("Lok: {0}", LokCtrl9_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl9_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl9_Name.Text = String.Format("Lok: {0}", LokCtrl9_Adr.Value);
+                AktiveLoks[8] = new Lok() { Adresse = (int)LokCtrl9_Adr.Value };
+            }
+            else
+            {
+                LokCtrl9_Name.Text = Lokliste[index].Name;
+                AktiveLoks[8] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern9(sender, e);
@@ -1684,8 +1717,16 @@ namespace MEKB_H0_Anlage
         private void LokCtrl10_Adr_ValueChanged(object sender, EventArgs e)
         {
             int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl10_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1) LokCtrl10_Name.Text = String.Format("Lok: {0}", LokCtrl10_Adr.Value);    //Lok nicht gefunden in der Liste
-            else LokCtrl10_Name.Text = Lokliste[index].Name;
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl10_Name.Text = String.Format("Lok: {0}", LokCtrl10_Adr.Value);
+                AktiveLoks[9] = new Lok() { Adresse = (int)LokCtrl10_Adr.Value };
+            }
+            else
+            {
+                LokCtrl10_Name.Text = Lokliste[index].Name;
+                AktiveLoks[9] = Lokliste[index];
+            }
 
             //Update Rest
             Update_Rufnummern10(sender, e);
@@ -1749,7 +1790,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
         }
-
         private void Signal_Ausfahrt_L2_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L2" });
@@ -1758,7 +1798,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
         }
-
         private void Signal_Ausfahrt_L3_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L3" });
@@ -1767,7 +1806,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
         }
-
         private void Signal_Ausfahrt_L4_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L4" });
@@ -1776,7 +1814,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
         }
-
         private void Signal_Ausfahrt_L5_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L5" });
@@ -1785,7 +1822,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
         }
-
         private void Signal_Ausfahrt_L6_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L6" });
@@ -1794,7 +1830,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
         }
-
         private void Signal_Ausfahrt_R1_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R1" });
@@ -1803,7 +1838,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
         }
-
         private void Signal_Ausfahrt_R2_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R2" });
@@ -1812,7 +1846,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
         }
-
         private void Signal_Ausfahrt_R3_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R3" });
@@ -1821,7 +1854,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
         }
-
         private void Signal_Ausfahrt_R4_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R4" });
@@ -1830,7 +1862,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
         }
-
         private void Signal_Ausfahrt_R5_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R5" });
@@ -1839,7 +1870,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
         }
-
         private void Signal_Ausfahrt_R6_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R6" });
@@ -1848,7 +1878,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
         }
-
         private void Signal_RTunnel_1_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
@@ -1857,7 +1886,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
         }
-
         private void Signal_RTunnel_2_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
@@ -1866,7 +1894,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
         }
-
         private void Signal_Tunnel_L1_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Tunnel_L1" });
@@ -1875,7 +1902,6 @@ namespace MEKB_H0_Anlage
             if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
             else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
         }
-
         private void Signal_Einfahrt_L_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
@@ -1890,6 +1916,245 @@ namespace MEKB_H0_Anlage
             {
                 if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
             }
+        }
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Alle Autozüge Stop
+            //Alle Signale Rot
+        }
+        private void OpenFahrpult1_Click(object sender, EventArgs e)
+        {
+            if (!(Weichen_Init & Signal_Init))
+            {
+                MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (LokCtrl1_Adr.Value == 0)
+            {
+                MessageBox.Show("Keine Lok gewählt", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AktiveLoks[0].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[0].Steuerpult.Dispose();
+            }
+            AktiveLoks[0].Steuerpult = new ZugSteuerpult(AktiveLoks[0]);
+            AktiveLoks[0].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[0].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[0].Steuerpult.Show();
+            z21Start.Z21_GET_LOCO_INFO(AktiveLoks[0].Adresse);
+
+        }
+        private void OpenFahrpult2_Click(object sender, EventArgs e)
+        {
+            if(! (Weichen_Init & Signal_Init))
+            {
+                MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                return;
+            }
+            if(LokCtrl2_Adr.Value == 0)
+            {
+                MessageBox.Show("Keine Lok gewählt", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AktiveLoks[1].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[1].Steuerpult.Dispose();
+            }
+            AktiveLoks[1].Steuerpult = new ZugSteuerpult(AktiveLoks[1]);
+            AktiveLoks[1].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[1].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[1].Steuerpult.Show();
+            z21Start.Z21_GET_LOCO_INFO(AktiveLoks[1].Adresse);
+        }
+
+        private void OpenFahrpult3_Click(object sender, EventArgs e)
+        {
+            if (!(Weichen_Init & Signal_Init))
+            {
+                MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (LokCtrl3_Adr.Value == 0)
+            {
+                MessageBox.Show("Keine Lok gewählt", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AktiveLoks[2].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[2].Steuerpult.Dispose();
+            }
+            AktiveLoks[2].Steuerpult = new ZugSteuerpult(AktiveLoks[2]);
+            AktiveLoks[2].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[2].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[2].Steuerpult.Show();
+            z21Start.Z21_GET_LOCO_INFO(AktiveLoks[2].Adresse);
+        }
+
+        private void OpenFahrpult4_Click(object sender, EventArgs e)
+        {
+            if (!(Weichen_Init & Signal_Init))
+            {
+                MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (LokCtrl4_Adr.Value == 0)
+            {
+                MessageBox.Show("Keine Lok gewählt", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AktiveLoks[3].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[3].Steuerpult.Dispose();
+            }
+            AktiveLoks[3].Steuerpult = new ZugSteuerpult(AktiveLoks[3]);
+            AktiveLoks[3].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[3].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[3].Steuerpult.Show();
+            z21Start.Z21_GET_LOCO_INFO(AktiveLoks[3].Adresse);
+        }
+
+        private void OpenFahrpult5_Click(object sender, EventArgs e)
+        {
+            if (!(Weichen_Init & Signal_Init))
+            {
+                MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (LokCtrl5_Adr.Value == 0)
+            {
+                MessageBox.Show("Keine Lok gewählt", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AktiveLoks[4].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[4].Steuerpult.Dispose();
+            }
+            AktiveLoks[4].Steuerpult = new ZugSteuerpult(AktiveLoks[4]);
+            AktiveLoks[4].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[4].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[4].Steuerpult.Show();
+            z21Start.Z21_GET_LOCO_INFO(AktiveLoks[4].Adresse);
+        }
+
+        private void OpenFahrpult6_Click(object sender, EventArgs e)
+        {
+            if (!(Weichen_Init & Signal_Init))
+            {
+                MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (LokCtrl6_Adr.Value == 0)
+            {
+                MessageBox.Show("Keine Lok gewählt", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AktiveLoks[5].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[5].Steuerpult.Dispose();
+            }
+            AktiveLoks[5].Steuerpult = new ZugSteuerpult(AktiveLoks[5]);
+            AktiveLoks[5].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[5].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[5].Steuerpult.Show();
+            z21Start.Z21_GET_LOCO_INFO(AktiveLoks[5].Adresse);
+        }
+
+        private void OpenFahrpult7_Click(object sender, EventArgs e)
+        {
+            if (!(Weichen_Init & Signal_Init))
+            {
+                MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (LokCtrl7_Adr.Value == 0)
+            {
+                MessageBox.Show("Keine Lok gewählt", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AktiveLoks[6].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[6].Steuerpult.Dispose();
+            }
+            AktiveLoks[6].Steuerpult = new ZugSteuerpult(AktiveLoks[6]);
+            AktiveLoks[6].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[6].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[6].Steuerpult.Show();
+            z21Start.Z21_GET_LOCO_INFO(AktiveLoks[6].Adresse);
+        }
+
+        private void OpenFahrpult8_Click(object sender, EventArgs e)
+        {
+            if (!(Weichen_Init & Signal_Init))
+            {
+                MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (LokCtrl8_Adr.Value == 0)
+            {
+                MessageBox.Show("Keine Lok gewählt", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AktiveLoks[7].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[7].Steuerpult.Dispose();
+            }
+            AktiveLoks[7].Steuerpult = new ZugSteuerpult(AktiveLoks[7]);
+            AktiveLoks[7].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[7].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[7].Steuerpult.Show();
+            z21Start.Z21_GET_LOCO_INFO(AktiveLoks[7].Adresse);
+        }
+
+        private void OpenFahrpult9_Click(object sender, EventArgs e)
+        {
+            if (!(Weichen_Init & Signal_Init))
+            {
+                MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (LokCtrl9_Adr.Value == 0)
+            {
+                MessageBox.Show("Keine Lok gewählt", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AktiveLoks[8].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[8].Steuerpult.Dispose();
+            }
+            AktiveLoks[8].Steuerpult = new ZugSteuerpult(AktiveLoks[8]);
+            AktiveLoks[8].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[8].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[8].Steuerpult.Show();
+            z21Start.Z21_GET_LOCO_INFO(AktiveLoks[8].Adresse);
+        }
+
+        private void OpenFahrpult10_Click(object sender, EventArgs e)
+        {
+            if (!(Weichen_Init & Signal_Init))
+            {
+                MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (LokCtrl10_Adr.Value == 0)
+            {
+                MessageBox.Show("Keine Lok gewählt", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!AktiveLoks[9].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[9].Steuerpult.Dispose();
+            }
+            AktiveLoks[9].Steuerpult = new ZugSteuerpult(AktiveLoks[9]);
+            AktiveLoks[9].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            AktiveLoks[9].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[9].Steuerpult.Show();
+            z21Start.Z21_GET_LOCO_INFO(AktiveLoks[9].Adresse);
         }
     }
 }

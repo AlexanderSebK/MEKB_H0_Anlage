@@ -457,4 +457,19 @@
   <data name="Fahrstrasse_rechts_deakt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fahrstrasse_rechts_deakt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Bahnsteig_Mitte" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Bahnsteig_Mitte.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Bahnsteig_Oben" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Bahnsteig_Oben.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Bahnsteig_Unten" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Bahnsteig_Unten.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Sperrsignal_kurz_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sperrsignal_kurz_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FahrstufenAnzeige" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FahrstufenAnzeige.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

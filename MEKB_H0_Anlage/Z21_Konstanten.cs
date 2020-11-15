@@ -46,28 +46,7 @@ namespace MEKB_H0_Anlage
             }
         }
     }
-    /// <summary>
-    /// Header-Nummern für Z21 Pakettyp
-    /// </summary>
-    class Z21_Header
-    {
-        public const int SERIAL_NUMBER =    0x10;
-        public const int CODE_STATUS =      0x18;
-        public const int Z21_VERSION =      0x1A;
-        public const int X_BUS_TUNNEL =     0x40;
-        public const int BROADCAST_FLAGS =  0x51;
-        public const int GET_LOK_MODE =     0x60;
-        public const int GET_FKT_DEC_MODE = 0x70;
-        public const int RM_BUS =           0x80;
-        public const int SYSTEM_STATE =     0x84;
-        public const int RAILCOM =          0x88;
-        public const int LOCONET_RX =       0xA0;
-        public const int LOCONET_TX =       0xA1;
-        public const int LOCONET_LAN =      0xA2;
-        public const int LOCONET_ADDR =     0xA3;
-        public const int LOCONET_DETECTOR = 0xA4;
-        public const int CAN_DETECTOR =     0xC4;
-     }
+    
     /// <summary>
     /// Packettyp wenn das X_BUS_TUNNEL (Z21-Header ID 0x40) verwendet wird
     /// </summary>
@@ -174,11 +153,11 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// ID für 28 Fahrstufen
         /// </summary>
-        public const int Fahstufe28 = 1;
+        public const int Fahstufe28 = 2;
         /// <summary>
         /// ID für 128 Fahrstufen
         /// </summary>
-        public const int Fahstufe128 = 2;
+        public const int Fahstufe128 = 4;
         /// <summary>
         /// ID für Vorwärtsfahrt
         /// </summary>
@@ -190,51 +169,75 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Fahrstufen in Datenpaket umwandeln
         /// </summary>
-        /// <param name="Geschw">Fahrstufe: Je nach Anzahl 0..126 </param>
+        /// <param name="Geschw">Fahrstufe: Je nach Anzahl 0..126 / -1 (oder Außerhalb) = Nothalt </param>
         /// <param name="Richtung">Für Vorwärts benutze <see cref="Vorwaerts"/> | für Rückwärts benutze <see cref="Rueckwaerts"/></param>
         /// <param name="Fahrstufen"><see cref="Fahstufe14"/>, <see cref="Fahstufe28"/> oder <see cref="Fahstufe128"/></param>
         /// <returns></returns>
-        public static byte LookUpFahrstufe(int Geschw, int Richtung, int Fahrstufen)
+        public static byte FahrstufeToProtokol(int Geschw, int Richtung, int Fahrstufen)
         {
             byte temp = 0;
             switch(Fahrstufen)
             {
                 case Fahstufe14: 
-                    if (Geschw != 0)
+                    switch (Geschw)
                     {
-                        if (Geschw > 14) Geschw = 14;
-                        temp = (byte)(Geschw + 1);
-                    }
-                    else
-                    {
-                        temp = 0;
+                        case 0: temp = 0x00; break;
+                        case 1: temp = 0x02; break;
+                        case 2: temp = 0x03; break;
+                        case 3: temp = 0x04; break;
+                        case 4: temp = 0x05; break;
+                        case 5: temp = 0x06; break;
+                        case 6: temp = 0x07; break;
+                        case 7: temp = 0x08; break;
+                        case 8: temp = 0x09; break;
+                        case 9: temp = 0x0A; break;
+                        case 10: temp = 0x0B; break;
+                        case 11: temp = 0x0C; break;
+                        case 12: temp = 0x0D; break;
+                        case 13: temp = 0x0E; break;
+                        case 14: temp = 0x0F; break;
+                        default: temp = 0x01;break;
                     }
                     break;
                 case Fahstufe28:
-                    if (Geschw != 0)
+                    switch (Geschw)
                     {
-                        if (Geschw > 28) Geschw = 28;
-                        temp = (byte)(Geschw + 3);
-
-                        if ((temp & 0x01) == 0x01)
-                        {
-                            temp = (byte)(temp >> 1);
-                            temp += 0x10;
-                        }
-                        else 
-                        {
-                            temp = (byte)(temp >> 1);
-                        }
-                    }
-                    else
-                    {
-                        temp = 0x10;
+                        case 0: temp =  0x00; break;
+                        case 1: temp =  0x02; break;
+                        case 2: temp =  0x12; break;
+                        case 3: temp =  0x03; break;
+                        case 4: temp =  0x13; break;
+                        case 5: temp =  0x04; break;
+                        case 6: temp =  0x14; break;
+                        case 7: temp =  0x05; break;
+                        case 8: temp =  0x15; break;
+                        case 9: temp =  0x06; break;
+                        case 10: temp = 0x16; break;
+                        case 11: temp = 0x07; break;
+                        case 12: temp = 0x17; break;
+                        case 13: temp = 0x08; break;
+                        case 14: temp = 0x18; break;
+                        case 15: temp = 0x09; break;
+                        case 16: temp = 0x19; break;
+                        case 17: temp = 0x0A; break;
+                        case 18: temp = 0x1A; break;
+                        case 19: temp = 0x0B; break;
+                        case 20: temp = 0x1B; break;
+                        case 21: temp = 0x0C; break;
+                        case 22: temp = 0x1C; break;
+                        case 23: temp = 0x0D; break;
+                        case 24: temp = 0x1D; break;
+                        case 25: temp = 0x0E; break;
+                        case 26: temp = 0x1E; break;
+                        case 27: temp = 0x0F; break;
+                        case 28: temp = 0x1F; break;
+                        default: temp = 0x01; break;
                     }
                     break;
                 case Fahstufe128:
                     if (Geschw != 0)
                     {
-                        if (Geschw > 126) Geschw = 126;
+                        if (Geschw > 126) return (byte)(0x01 + Richtung);
                         temp = (byte)(Geschw + 1);
                     }
                     else
@@ -244,6 +247,75 @@ namespace MEKB_H0_Anlage
                     break;
             }
             return (byte)(temp + Richtung);
+        }
+        public static byte ProtokolToFahrstufe(int Geschw, int FahrstufenInfo)
+        {
+            Geschw = Geschw & 0x7F; //Entfernen des MSB bit (Richtung)
+            switch (FahrstufenInfo)
+            {
+                case Fahstufe14:
+                    switch (Geschw)
+                    {
+                        case 0x00: return 0;
+                        case 0x02: return 1;
+                        case 0x03: return 2;
+                        case 0x04: return 3;
+                        case 0x05: return 4;
+                        case 0x06: return 5;
+                        case 0x07: return 6;
+                        case 0x08: return 7;
+                        case 0x09: return 8;
+                        case 0x0A: return 9;
+                        case 0x0B: return 10;
+                        case 0x0C: return 11;
+                        case 0x0D: return 12;
+                        case 0x0E: return 13;
+                        case 0x0F: return 14;
+                        default: return 0;
+                    }
+                case Fahstufe28:
+                    switch (Geschw)
+                    {
+                        case 0x00: return 0;
+                        case 0x02: return 1;
+                        case 0x12: return 2;
+                        case 0x03: return 3;
+                        case 0x13: return 4;
+                        case 0x04: return 5;
+                        case 0x14: return 6;
+                        case 0x05: return 7;
+                        case 0x15: return 8;
+                        case 0x06: return 9;
+                        case 0x16: return 10;
+                        case 0x07: return 11;
+                        case 0x17: return 12;
+                        case 0x08: return 13;
+                        case 0x18: return 14;
+                        case 0x09: return 15;
+                        case 0x19: return 16;
+                        case 0x0A: return 17;
+                        case 0x1A: return 18;
+                        case 0x0B: return 19;
+                        case 0x1B: return 20;
+                        case 0x0C: return 21;
+                        case 0x1C: return 22;
+                        case 0x0D: return 23;
+                        case 0x1D: return 24;
+                        case 0x0E: return 25;
+                        case 0x1E: return 26;
+                        case 0x0F: return 27;
+                        case 0x1F: return 28;
+                        default: return 0;
+                    }
+                case Fahstufe128:
+                    switch (Geschw)
+                    {
+                        case 0x00: return 0;
+                        case 0x01: return 0;
+                        default: return (byte)(Geschw - 1);
+                    }
+                default: return 0;
+            }             
         }
         public static byte Addr_Low(int Addresse)
         {

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Globalization;
 
 
 namespace MEKB_H0_Anlage
@@ -19,11 +20,11 @@ namespace MEKB_H0_Anlage
         {
             z21_Einstellung.Set_SerienNummer(data);
         }
-        private void ShowFirmware(int major, int minor)
+        private void ShowFirmware(double Firmware)
         {
             if (!z21_Einstellung.IsDisposed)
             {
-                z21_Einstellung.SetFirmware(String.Format("{0}.{1}", major, minor));
+                z21_Einstellung.SetFirmware(Firmware.ToString("F2", CultureInfo.CreateSpecificCulture("en-GB")));
             }
         }
         private void Set_Flags(Flags flags)
@@ -124,7 +125,6 @@ namespace MEKB_H0_Anlage
 
             }
         }
-
         private void UpdateWeicheImGleisplan(Weiche weiche)
         {
             
@@ -207,7 +207,6 @@ namespace MEKB_H0_Anlage
             }
 
         }
-
         private void UpdateSignalImGleisplan(Signal signal)
         {
             try
@@ -237,6 +236,81 @@ namespace MEKB_H0_Anlage
             {
 
             }
+        }
+        private void UpdateLok(int ParamterCount, int Adresse, bool Besetzt, byte FahrstufenInfo, bool Richtung,
+                                             byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen)
+        {
+            int index = -1;
+            for (int i = 0; i<AktiveLoks.Length;i++)
+            {
+                if(AktiveLoks[i] != null)
+                {
+                    if (AktiveLoks[i].Adresse == Adresse) index = i;
+                }
+            }
+            if (index == -1) return;
+
+            if (ParamterCount >= 3)
+            {
+                AktiveLoks[index].FahrstufenInfo = FahrstufenInfo;
+            }
+            if (ParamterCount >= 4)
+            {
+                int FahrRichtung = LokFahrstufen.Vorwaerts;
+                if ((Richtung == true) && (AktiveLoks[index].LokUmgedreht == false)) FahrRichtung = LokFahrstufen.Vorwaerts;
+                if ((Richtung == true) && (AktiveLoks[index].LokUmgedreht == true)) FahrRichtung = LokFahrstufen.Rueckwaerts;
+                if ((Richtung == false) && (AktiveLoks[index].LokUmgedreht == false)) FahrRichtung = LokFahrstufen.Rueckwaerts;
+                if ((Richtung == false) && (AktiveLoks[index].LokUmgedreht == true)) FahrRichtung = LokFahrstufen.Vorwaerts;
+                AktiveLoks[index].Richtung = FahrRichtung;
+                AktiveLoks[index].Fahrstufe = LokFahrstufen.ProtokolToFahrstufe(Fahrstufe, FahrstufenInfo);
+            }
+            if (ParamterCount >= 5)
+            {
+                AktiveLoks[index].AktiveFunktion[0] = Funktionen[0];
+                AktiveLoks[index].AktiveFunktion[1] = Funktionen[1];
+                AktiveLoks[index].AktiveFunktion[2] = Funktionen[2];
+                AktiveLoks[index].AktiveFunktion[3] = Funktionen[3];
+                AktiveLoks[index].AktiveFunktion[4] = Funktionen[4];
+            }
+            if (ParamterCount >= 6)
+            {
+                AktiveLoks[index].AktiveFunktion[5] = Funktionen[5];
+                AktiveLoks[index].AktiveFunktion[6] = Funktionen[6];
+                AktiveLoks[index].AktiveFunktion[7] = Funktionen[7];
+                AktiveLoks[index].AktiveFunktion[8] = Funktionen[8];
+                AktiveLoks[index].AktiveFunktion[9] = Funktionen[9];
+                AktiveLoks[index].AktiveFunktion[10] = Funktionen[10];
+                AktiveLoks[index].AktiveFunktion[11] = Funktionen[11];
+                AktiveLoks[index].AktiveFunktion[12] = Funktionen[12];
+            }
+            if (ParamterCount >= 7)
+            {
+                AktiveLoks[index].AktiveFunktion[13] = Funktionen[13];
+                AktiveLoks[index].AktiveFunktion[14] = Funktionen[14];
+                AktiveLoks[index].AktiveFunktion[15] = Funktionen[15];
+                AktiveLoks[index].AktiveFunktion[16] = Funktionen[16];
+                AktiveLoks[index].AktiveFunktion[17] = Funktionen[17];
+                AktiveLoks[index].AktiveFunktion[18] = Funktionen[18];
+                AktiveLoks[index].AktiveFunktion[19] = Funktionen[19];
+                AktiveLoks[index].AktiveFunktion[20] = Funktionen[20];
+            }
+            if (ParamterCount >= 8)
+            {
+                AktiveLoks[index].AktiveFunktion[21] = Funktionen[21];
+                AktiveLoks[index].AktiveFunktion[22] = Funktionen[22];
+                AktiveLoks[index].AktiveFunktion[23] = Funktionen[23];
+                AktiveLoks[index].AktiveFunktion[24] = Funktionen[24];
+                AktiveLoks[index].AktiveFunktion[25] = Funktionen[25];
+                AktiveLoks[index].AktiveFunktion[26] = Funktionen[26];
+                AktiveLoks[index].AktiveFunktion[27] = Funktionen[27];
+                AktiveLoks[index].AktiveFunktion[28] = Funktionen[28];
+            }
+            if (!AktiveLoks[index].Steuerpult.IsDisposed)
+            {
+                AktiveLoks[index].Steuerpult.UpdateLokDaten();
+            }
+            //int index = Lokliste.FindIndex(x => x.Adresse == Adresse);
+
         }
     }
 }

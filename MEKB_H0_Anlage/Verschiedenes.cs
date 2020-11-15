@@ -318,6 +318,8 @@ namespace MEKB_H0_Anlage
         public Lok()
         {
             Funktionen = new List<string>();
+            AktiveFunktion = new bool[30];
+            Steuerpult = new ZugSteuerpult(this);
         }
         /// <summary>
         /// Parameter: Name der Lok als String
@@ -335,6 +337,60 @@ namespace MEKB_H0_Anlage
         /// Funktionstasten
         /// </summary>
         public List<string> Funktionen { get; set; }
+        /// <summary>
+        /// Aktuelle Geschwindigkeit
+        /// </summary>
+        public int Fahrstufe { get; set; }
+        /// <summary>
+        /// Aktuelle Richtung
+        /// </summary>
+        public int Richtung { get; set; }
+        /// <summary>
+        /// True: Richtung wird gespiegelt
+        /// </summary>
+        public bool LokUmgedreht { get; set; }
+        /// <summary>
+        /// Aktive Funktionen
+        /// </summary>
+        public bool[] AktiveFunktion { get; set; }
+        /// <summary>
+        /// Anzahl Fahrstufen 0=14, 2=28, 4 = 128
+        /// </summary>
+        public byte FahrstufenInfo { get; set; }
+
+        public ZugSteuerpult Steuerpult { get; set; }
+
+        public delegate void CMD_LOKFAHRT(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo);
+        public delegate void CMD_LOKFUNKTION(int Adresse, byte Zustand, byte FunktionsNr);
+
+        private CMD_LOKFAHRT setLOKFahrt;
+        private CMD_LOKFUNKTION setLOKFunktion;
+
+        public void Register_CMD_LOKFAHRT(CMD_LOKFAHRT function) 
+        { 
+            setLOKFahrt = function;
+            Steuerpult.Register_CMD_LOKFAHRT(Set_LOKFAHRT);
+        }
+        public void Register_CMD_LOKFUNKTION(CMD_LOKFUNKTION function)
+        { 
+            setLOKFunktion = function;
+            Steuerpult.Register_CMD_LOKFUNKTION(Set_LOKFUNKTION);
+        }
+
+        private void Set_LOKFAHRT(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo)
+        {
+            int RichtungMitUmkehr = Richtung;
+            if(LokUmgedreht)
+            {
+                if (Richtung == LokFahrstufen.Vorwaerts) RichtungMitUmkehr = LokFahrstufen.Rueckwaerts;
+                else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
+            }
+            setLOKFahrt?.Invoke(Adresse, Fahrstufe, RichtungMitUmkehr, Fahstrufeninfo);
+        }
+        private void Set_LOKFUNKTION(int Adresse, byte Zustand, byte FunktionsNr)
+        {
+            setLOKFunktion?.Invoke(Adresse, Zustand, FunktionsNr);
+        }
 
         public override string ToString()
         {
