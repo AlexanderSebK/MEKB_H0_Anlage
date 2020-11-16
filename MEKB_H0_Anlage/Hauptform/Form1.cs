@@ -1917,7 +1917,7 @@ namespace MEKB_H0_Anlage
                 if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
             }
         }
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private void ProgrammBeenden_Click(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -34,7 +34,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ProgrammBeenden = new System.Windows.Forms.ToolStripMenuItem();
             this.zentraleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verbindungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Verbinden = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +59,18 @@
             this.Weiche42 = new System.Windows.Forms.PictureBox();
             this.Weiche40 = new System.Windows.Forms.PictureBox();
             this.Sperr_GL1_links = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button17 = new System.Windows.Forms.Button();
+            this.button18 = new System.Windows.Forms.Button();
+            this.button19 = new System.Windows.Forms.Button();
+            this.button20 = new System.Windows.Forms.Button();
+            this.button21 = new System.Windows.Forms.Button();
+            this.button22 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -626,6 +638,52 @@
             this.pictureBox442 = new System.Windows.Forms.PictureBox();
             this.pictureBox443 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.LokCtrlStop12 = new System.Windows.Forms.Button();
+            this.LokCtrlStop11 = new System.Windows.Forms.Button();
+            this.LokCtrlStop10 = new System.Windows.Forms.Button();
+            this.LokCtrlStop9 = new System.Windows.Forms.Button();
+            this.LokCtrlStop8 = new System.Windows.Forms.Button();
+            this.LokCtrlStop7 = new System.Windows.Forms.Button();
+            this.LokCtrlStop6 = new System.Windows.Forms.Button();
+            this.LokCtrlStop5 = new System.Windows.Forms.Button();
+            this.LokCtrlStop4 = new System.Windows.Forms.Button();
+            this.LokCtrlStop3 = new System.Windows.Forms.Button();
+            this.LokCtrlStop2 = new System.Windows.Forms.Button();
+            this.LokCtrlStop1 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox18 = new System.Windows.Forms.TextBox();
+            this.textBox19 = new System.Windows.Forms.TextBox();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.textBox17 = new System.Windows.Forms.TextBox();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.OpenFahrpult12 = new System.Windows.Forms.Button();
+            this.OpenFahrpult11 = new System.Windows.Forms.Button();
+            this.OpenFahrpult10 = new System.Windows.Forms.Button();
+            this.OpenFahrpult9 = new System.Windows.Forms.Button();
+            this.OpenFahrpult8 = new System.Windows.Forms.Button();
+            this.OpenFahrpult7 = new System.Windows.Forms.Button();
+            this.OpenFahrpult6 = new System.Windows.Forms.Button();
+            this.OpenFahrpult5 = new System.Windows.Forms.Button();
+            this.OpenFahrpult4 = new System.Windows.Forms.Button();
+            this.OpenFahrpult3 = new System.Windows.Forms.Button();
+            this.OpenFahrpult1 = new System.Windows.Forms.Button();
             this.OpenFahrpult2 = new System.Windows.Forms.Button();
             this.LokCtrl10_Name = new System.Windows.Forms.ComboBox();
             this.LokCtrl9_Name = new System.Windows.Forms.ComboBox();
@@ -793,52 +851,6 @@
             this.label78 = new System.Windows.Forms.Label();
             this.label79 = new System.Windows.Forms.Label();
             this.label80 = new System.Windows.Forms.Label();
-            this.OpenFahrpult1 = new System.Windows.Forms.Button();
-            this.OpenFahrpult3 = new System.Windows.Forms.Button();
-            this.OpenFahrpult4 = new System.Windows.Forms.Button();
-            this.OpenFahrpult5 = new System.Windows.Forms.Button();
-            this.OpenFahrpult6 = new System.Windows.Forms.Button();
-            this.OpenFahrpult7 = new System.Windows.Forms.Button();
-            this.OpenFahrpult8 = new System.Windows.Forms.Button();
-            this.OpenFahrpult9 = new System.Windows.Forms.Button();
-            this.OpenFahrpult10 = new System.Windows.Forms.Button();
-            this.OpenFahrpult11 = new System.Windows.Forms.Button();
-            this.OpenFahrpult12 = new System.Windows.Forms.Button();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.textBox16 = new System.Windows.Forms.TextBox();
-            this.textBox17 = new System.Windows.Forms.TextBox();
-            this.textBox18 = new System.Windows.Forms.TextBox();
-            this.textBox19 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.LokCtrlStop1 = new System.Windows.Forms.Button();
-            this.LokCtrlStop2 = new System.Windows.Forms.Button();
-            this.LokCtrlStop3 = new System.Windows.Forms.Button();
-            this.LokCtrlStop4 = new System.Windows.Forms.Button();
-            this.LokCtrlStop5 = new System.Windows.Forms.Button();
-            this.LokCtrlStop6 = new System.Windows.Forms.Button();
-            this.LokCtrlStop7 = new System.Windows.Forms.Button();
-            this.LokCtrlStop8 = new System.Windows.Forms.Button();
-            this.LokCtrlStop9 = new System.Windows.Forms.Button();
-            this.LokCtrlStop10 = new System.Windows.Forms.Button();
-            this.LokCtrlStop11 = new System.Windows.Forms.Button();
-            this.LokCtrlStop12 = new System.Windows.Forms.Button();
             this.label81 = new System.Windows.Forms.Label();
             this.label82 = new System.Windows.Forms.Label();
             this.label83 = new System.Windows.Forms.Label();
@@ -847,7 +859,6 @@
             this.label86 = new System.Windows.Forms.Label();
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.label87 = new System.Windows.Forms.Label();
-            this.button14 = new System.Windows.Forms.Button();
             this.pictureBox17 = new System.Windows.Forms.PictureBox();
             this.pictureBox21 = new System.Windows.Forms.PictureBox();
             this.pictureBox23 = new System.Windows.Forms.PictureBox();
@@ -880,17 +891,27 @@
             this.label92 = new System.Windows.Forms.Label();
             this.label93 = new System.Windows.Forms.Label();
             this.textBox25 = new System.Windows.Forms.TextBox();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
-            this.button18 = new System.Windows.Forms.Button();
-            this.button19 = new System.Windows.Forms.Button();
-            this.button20 = new System.Windows.Forms.Button();
-            this.button21 = new System.Windows.Forms.Button();
-            this.button22 = new System.Windows.Forms.Button();
-            this.button23 = new System.Windows.Forms.Button();
-            this.button24 = new System.Windows.Forms.Button();
-            this.button25 = new System.Windows.Forms.Button();
+            this.button26 = new System.Windows.Forms.Button();
+            this.button27 = new System.Windows.Forms.Button();
+            this.button28 = new System.Windows.Forms.Button();
+            this.button29 = new System.Windows.Forms.Button();
+            this.button30 = new System.Windows.Forms.Button();
+            this.button31 = new System.Windows.Forms.Button();
+            this.label94 = new System.Windows.Forms.Label();
+            this.label95 = new System.Windows.Forms.Label();
+            this.label96 = new System.Windows.Forms.Label();
+            this.label97 = new System.Windows.Forms.Label();
+            this.label98 = new System.Windows.Forms.Label();
+            this.label99 = new System.Windows.Forms.Label();
+            this.pictureBox51 = new System.Windows.Forms.PictureBox();
+            this.label100 = new System.Windows.Forms.Label();
+            this.label101 = new System.Windows.Forms.Label();
+            this.label102 = new System.Windows.Forms.Label();
+            this.label103 = new System.Windows.Forms.Label();
+            this.label104 = new System.Windows.Forms.Label();
+            this.label105 = new System.Windows.Forms.Label();
+            this.label106 = new System.Windows.Forms.Label();
+            this.label107 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1471,6 +1492,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox48)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox49)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox50)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox51)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -1492,7 +1514,7 @@
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
             this.toolStripSeparator1,
-            this.toolStripMenuItem3});
+            this.ProgrammBeenden});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(46, 20);
             this.toolStripMenuItem1.Text = "Datei";
@@ -1500,20 +1522,20 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(129, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "Lok-Editor";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
-            // toolStripMenuItem3
+            // ProgrammBeenden
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(129, 22);
-            this.toolStripMenuItem3.Text = "Beenden";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            this.ProgrammBeenden.Name = "ProgrammBeenden";
+            this.ProgrammBeenden.Size = new System.Drawing.Size(180, 22);
+            this.ProgrammBeenden.Text = "Beenden";
+            this.ProgrammBeenden.Click += new System.EventHandler(this.ProgrammBeenden_Click);
             // 
             // zentraleToolStripMenuItem
             // 
@@ -1740,6 +1762,150 @@
         "ahrt von Gleis 1 auf der linken Seite");
             this.Sperr_GL1_links.UseVisualStyleBackColor = true;
             this.Sperr_GL1_links.Click += new System.EventHandler(this.Sperr_GL1_links_Click);
+            // 
+            // button14
+            // 
+            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button14.Image = ((System.Drawing.Image)(resources.GetObject("button14.Image")));
+            this.button14.Location = new System.Drawing.Point(704, 712);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(32, 16);
+            this.button14.TabIndex = 700;
+            this.toolTip1.SetToolTip(this.button14, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button14.UseVisualStyleBackColor = true;
+            // 
+            // button15
+            // 
+            this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button15.Image = ((System.Drawing.Image)(resources.GetObject("button15.Image")));
+            this.button15.Location = new System.Drawing.Point(736, 680);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(32, 16);
+            this.button15.TabIndex = 733;
+            this.toolTip1.SetToolTip(this.button15, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button15.UseVisualStyleBackColor = true;
+            // 
+            // button16
+            // 
+            this.button16.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button16.Image = ((System.Drawing.Image)(resources.GetObject("button16.Image")));
+            this.button16.Location = new System.Drawing.Point(672, 744);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(32, 16);
+            this.button16.TabIndex = 734;
+            this.toolTip1.SetToolTip(this.button16, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button16.UseVisualStyleBackColor = true;
+            // 
+            // button17
+            // 
+            this.button17.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button17.Image = ((System.Drawing.Image)(resources.GetObject("button17.Image")));
+            this.button17.Location = new System.Drawing.Point(640, 776);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(32, 16);
+            this.button17.TabIndex = 735;
+            this.toolTip1.SetToolTip(this.button17, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button17.UseVisualStyleBackColor = true;
+            // 
+            // button18
+            // 
+            this.button18.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button18.Image = ((System.Drawing.Image)(resources.GetObject("button18.Image")));
+            this.button18.Location = new System.Drawing.Point(608, 808);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(32, 16);
+            this.button18.TabIndex = 736;
+            this.toolTip1.SetToolTip(this.button18, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button18.UseVisualStyleBackColor = true;
+            // 
+            // button19
+            // 
+            this.button19.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button19.Image = ((System.Drawing.Image)(resources.GetObject("button19.Image")));
+            this.button19.Location = new System.Drawing.Point(576, 840);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(32, 16);
+            this.button19.TabIndex = 737;
+            this.toolTip1.SetToolTip(this.button19, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button19.UseVisualStyleBackColor = true;
+            // 
+            // button20
+            // 
+            this.button20.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button20.Image = ((System.Drawing.Image)(resources.GetObject("button20.Image")));
+            this.button20.Location = new System.Drawing.Point(480, 680);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(32, 16);
+            this.button20.TabIndex = 738;
+            this.toolTip1.SetToolTip(this.button20, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button20.UseVisualStyleBackColor = true;
+            // 
+            // button21
+            // 
+            this.button21.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button21.Image = ((System.Drawing.Image)(resources.GetObject("button21.Image")));
+            this.button21.Location = new System.Drawing.Point(448, 712);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(32, 16);
+            this.button21.TabIndex = 739;
+            this.toolTip1.SetToolTip(this.button21, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button21.UseVisualStyleBackColor = true;
+            // 
+            // button22
+            // 
+            this.button22.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button22.Image = ((System.Drawing.Image)(resources.GetObject("button22.Image")));
+            this.button22.Location = new System.Drawing.Point(416, 744);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(32, 16);
+            this.button22.TabIndex = 740;
+            this.toolTip1.SetToolTip(this.button22, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button22.UseVisualStyleBackColor = true;
+            // 
+            // button23
+            // 
+            this.button23.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button23.Image = ((System.Drawing.Image)(resources.GetObject("button23.Image")));
+            this.button23.Location = new System.Drawing.Point(384, 776);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(32, 16);
+            this.button23.TabIndex = 741;
+            this.toolTip1.SetToolTip(this.button23, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button23.UseVisualStyleBackColor = true;
+            // 
+            // button24
+            // 
+            this.button24.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button24.Image = ((System.Drawing.Image)(resources.GetObject("button24.Image")));
+            this.button24.Location = new System.Drawing.Point(352, 808);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(32, 16);
+            this.button24.TabIndex = 742;
+            this.toolTip1.SetToolTip(this.button24, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button24.UseVisualStyleBackColor = true;
+            // 
+            // button25
+            // 
+            this.button25.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button25.Image = ((System.Drawing.Image)(resources.GetObject("button25.Image")));
+            this.button25.Location = new System.Drawing.Point(320, 840);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(32, 16);
+            this.button25.TabIndex = 743;
+            this.toolTip1.SetToolTip(this.button25, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
+        "ahrt von Gleis 1 auf der linken Seite");
+            this.button25.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -4281,7 +4447,7 @@
             // pictureBox210
             // 
             this.pictureBox210.Image = global::MEKB_H0_Anlage.Properties.Resources.GeradePrelbock90;
-            this.pictureBox210.Location = new System.Drawing.Point(384, 288);
+            this.pictureBox210.Location = new System.Drawing.Point(352, 288);
             this.pictureBox210.Name = "pictureBox210";
             this.pictureBox210.Size = new System.Drawing.Size(32, 32);
             this.pictureBox210.TabIndex = 244;
@@ -7193,6 +7359,472 @@
             this.panel1.Size = new System.Drawing.Size(936, 384);
             this.panel1.TabIndex = 601;
             // 
+            // LokCtrlStop12
+            // 
+            this.LokCtrlStop12.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop12.Enabled = false;
+            this.LokCtrlStop12.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop12.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop12.Location = new System.Drawing.Point(872, 312);
+            this.LokCtrlStop12.Name = "LokCtrlStop12";
+            this.LokCtrlStop12.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop12.TabIndex = 748;
+            this.LokCtrlStop12.Text = "Stop";
+            this.LokCtrlStop12.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop11
+            // 
+            this.LokCtrlStop11.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop11.Enabled = false;
+            this.LokCtrlStop11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop11.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop11.Location = new System.Drawing.Point(872, 288);
+            this.LokCtrlStop11.Name = "LokCtrlStop11";
+            this.LokCtrlStop11.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop11.TabIndex = 747;
+            this.LokCtrlStop11.Text = "Stop";
+            this.LokCtrlStop11.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop10
+            // 
+            this.LokCtrlStop10.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop10.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop10.Location = new System.Drawing.Point(872, 256);
+            this.LokCtrlStop10.Name = "LokCtrlStop10";
+            this.LokCtrlStop10.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop10.TabIndex = 746;
+            this.LokCtrlStop10.Text = "Stop";
+            this.LokCtrlStop10.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop9
+            // 
+            this.LokCtrlStop9.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop9.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop9.Location = new System.Drawing.Point(872, 232);
+            this.LokCtrlStop9.Name = "LokCtrlStop9";
+            this.LokCtrlStop9.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop9.TabIndex = 745;
+            this.LokCtrlStop9.Text = "Stop";
+            this.LokCtrlStop9.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop8
+            // 
+            this.LokCtrlStop8.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop8.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop8.Location = new System.Drawing.Point(872, 208);
+            this.LokCtrlStop8.Name = "LokCtrlStop8";
+            this.LokCtrlStop8.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop8.TabIndex = 744;
+            this.LokCtrlStop8.Text = "Stop";
+            this.LokCtrlStop8.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop7
+            // 
+            this.LokCtrlStop7.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop7.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop7.Location = new System.Drawing.Point(872, 184);
+            this.LokCtrlStop7.Name = "LokCtrlStop7";
+            this.LokCtrlStop7.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop7.TabIndex = 743;
+            this.LokCtrlStop7.Text = "Stop";
+            this.LokCtrlStop7.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop6
+            // 
+            this.LokCtrlStop6.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop6.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop6.Location = new System.Drawing.Point(872, 160);
+            this.LokCtrlStop6.Name = "LokCtrlStop6";
+            this.LokCtrlStop6.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop6.TabIndex = 742;
+            this.LokCtrlStop6.Text = "Stop";
+            this.LokCtrlStop6.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop5
+            // 
+            this.LokCtrlStop5.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop5.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop5.Location = new System.Drawing.Point(872, 128);
+            this.LokCtrlStop5.Name = "LokCtrlStop5";
+            this.LokCtrlStop5.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop5.TabIndex = 741;
+            this.LokCtrlStop5.Text = "Stop";
+            this.LokCtrlStop5.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop4
+            // 
+            this.LokCtrlStop4.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop4.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop4.Location = new System.Drawing.Point(872, 104);
+            this.LokCtrlStop4.Name = "LokCtrlStop4";
+            this.LokCtrlStop4.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop4.TabIndex = 740;
+            this.LokCtrlStop4.Text = "Stop";
+            this.LokCtrlStop4.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop3
+            // 
+            this.LokCtrlStop3.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop3.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop3.Location = new System.Drawing.Point(872, 80);
+            this.LokCtrlStop3.Name = "LokCtrlStop3";
+            this.LokCtrlStop3.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop3.TabIndex = 739;
+            this.LokCtrlStop3.Text = "Stop";
+            this.LokCtrlStop3.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop2
+            // 
+            this.LokCtrlStop2.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop2.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop2.Location = new System.Drawing.Point(872, 56);
+            this.LokCtrlStop2.Name = "LokCtrlStop2";
+            this.LokCtrlStop2.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop2.TabIndex = 738;
+            this.LokCtrlStop2.Text = "Stop";
+            this.LokCtrlStop2.UseVisualStyleBackColor = false;
+            // 
+            // LokCtrlStop1
+            // 
+            this.LokCtrlStop1.BackColor = System.Drawing.Color.Red;
+            this.LokCtrlStop1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokCtrlStop1.ForeColor = System.Drawing.SystemColors.Control;
+            this.LokCtrlStop1.Location = new System.Drawing.Point(872, 32);
+            this.LokCtrlStop1.Name = "LokCtrlStop1";
+            this.LokCtrlStop1.Size = new System.Drawing.Size(56, 23);
+            this.LokCtrlStop1.TabIndex = 737;
+            this.LokCtrlStop1.Text = "Stop";
+            this.LokCtrlStop1.UseVisualStyleBackColor = false;
+            // 
+            // button13
+            // 
+            this.button13.Enabled = false;
+            this.button13.Location = new System.Drawing.Point(552, 312);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(72, 23);
+            this.button13.TabIndex = 736;
+            this.button13.Text = "Ort ändern";
+            this.button13.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            this.button12.Enabled = false;
+            this.button12.Location = new System.Drawing.Point(552, 288);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(72, 23);
+            this.button12.TabIndex = 735;
+            this.button12.Text = "Ort ändern";
+            this.button12.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            this.button11.Enabled = false;
+            this.button11.Location = new System.Drawing.Point(552, 256);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(72, 23);
+            this.button11.TabIndex = 734;
+            this.button11.Text = "Ort ändern";
+            this.button11.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Enabled = false;
+            this.button10.Location = new System.Drawing.Point(552, 232);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(72, 23);
+            this.button10.TabIndex = 733;
+            this.button10.Text = "Ort ändern";
+            this.button10.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Enabled = false;
+            this.button9.Location = new System.Drawing.Point(552, 208);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(72, 23);
+            this.button9.TabIndex = 732;
+            this.button9.Text = "Ort ändern";
+            this.button9.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Enabled = false;
+            this.button8.Location = new System.Drawing.Point(552, 184);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(72, 23);
+            this.button8.TabIndex = 731;
+            this.button8.Text = "Ort ändern";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Enabled = false;
+            this.button7.Location = new System.Drawing.Point(552, 160);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(72, 23);
+            this.button7.TabIndex = 730;
+            this.button7.Text = "Ort ändern";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Enabled = false;
+            this.button6.Location = new System.Drawing.Point(552, 128);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(72, 23);
+            this.button6.TabIndex = 729;
+            this.button6.Text = "Ort ändern";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Enabled = false;
+            this.button5.Location = new System.Drawing.Point(552, 104);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(72, 23);
+            this.button5.TabIndex = 728;
+            this.button5.Text = "Ort ändern";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Enabled = false;
+            this.button4.Location = new System.Drawing.Point(552, 80);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(72, 23);
+            this.button4.TabIndex = 727;
+            this.button4.Text = "Ort ändern";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Enabled = false;
+            this.button3.Location = new System.Drawing.Point(552, 56);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(72, 23);
+            this.button3.TabIndex = 726;
+            this.button3.Text = "Ort ändern";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(552, 32);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(72, 23);
+            this.button2.TabIndex = 725;
+            this.button2.Text = "Ort ändern";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // textBox18
+            // 
+            this.textBox18.Enabled = false;
+            this.textBox18.Location = new System.Drawing.Point(632, 312);
+            this.textBox18.Name = "textBox18";
+            this.textBox18.ReadOnly = true;
+            this.textBox18.Size = new System.Drawing.Size(152, 20);
+            this.textBox18.TabIndex = 724;
+            // 
+            // textBox19
+            // 
+            this.textBox19.Enabled = false;
+            this.textBox19.Location = new System.Drawing.Point(632, 288);
+            this.textBox19.Name = "textBox19";
+            this.textBox19.ReadOnly = true;
+            this.textBox19.Size = new System.Drawing.Size(152, 20);
+            this.textBox19.TabIndex = 723;
+            // 
+            // textBox13
+            // 
+            this.textBox13.Location = new System.Drawing.Point(632, 256);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.ReadOnly = true;
+            this.textBox13.Size = new System.Drawing.Size(152, 20);
+            this.textBox13.TabIndex = 722;
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(632, 232);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.ReadOnly = true;
+            this.textBox14.Size = new System.Drawing.Size(152, 20);
+            this.textBox14.TabIndex = 721;
+            // 
+            // textBox15
+            // 
+            this.textBox15.Location = new System.Drawing.Point(632, 208);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.ReadOnly = true;
+            this.textBox15.Size = new System.Drawing.Size(152, 20);
+            this.textBox15.TabIndex = 720;
+            // 
+            // textBox16
+            // 
+            this.textBox16.Location = new System.Drawing.Point(632, 184);
+            this.textBox16.Name = "textBox16";
+            this.textBox16.ReadOnly = true;
+            this.textBox16.Size = new System.Drawing.Size(152, 20);
+            this.textBox16.TabIndex = 719;
+            // 
+            // textBox17
+            // 
+            this.textBox17.Location = new System.Drawing.Point(632, 160);
+            this.textBox17.Name = "textBox17";
+            this.textBox17.ReadOnly = true;
+            this.textBox17.Size = new System.Drawing.Size(152, 20);
+            this.textBox17.TabIndex = 718;
+            // 
+            // textBox12
+            // 
+            this.textBox12.Location = new System.Drawing.Point(632, 128);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.ReadOnly = true;
+            this.textBox12.Size = new System.Drawing.Size(152, 20);
+            this.textBox12.TabIndex = 717;
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(632, 104);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.ReadOnly = true;
+            this.textBox11.Size = new System.Drawing.Size(152, 20);
+            this.textBox11.TabIndex = 716;
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(632, 80);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.ReadOnly = true;
+            this.textBox10.Size = new System.Drawing.Size(152, 20);
+            this.textBox10.TabIndex = 715;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(632, 56);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.ReadOnly = true;
+            this.textBox9.Size = new System.Drawing.Size(152, 20);
+            this.textBox9.TabIndex = 714;
+            // 
+            // OpenFahrpult12
+            // 
+            this.OpenFahrpult12.Enabled = false;
+            this.OpenFahrpult12.Location = new System.Drawing.Point(792, 312);
+            this.OpenFahrpult12.Name = "OpenFahrpult12";
+            this.OpenFahrpult12.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult12.TabIndex = 713;
+            this.OpenFahrpult12.Text = "Fahrpult";
+            this.OpenFahrpult12.UseVisualStyleBackColor = true;
+            // 
+            // OpenFahrpult11
+            // 
+            this.OpenFahrpult11.Enabled = false;
+            this.OpenFahrpult11.Location = new System.Drawing.Point(792, 288);
+            this.OpenFahrpult11.Name = "OpenFahrpult11";
+            this.OpenFahrpult11.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult11.TabIndex = 712;
+            this.OpenFahrpult11.Text = "Fahrpult";
+            this.OpenFahrpult11.UseVisualStyleBackColor = true;
+            // 
+            // OpenFahrpult10
+            // 
+            this.OpenFahrpult10.Location = new System.Drawing.Point(792, 256);
+            this.OpenFahrpult10.Name = "OpenFahrpult10";
+            this.OpenFahrpult10.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult10.TabIndex = 711;
+            this.OpenFahrpult10.Text = "Fahrpult";
+            this.OpenFahrpult10.UseVisualStyleBackColor = true;
+            this.OpenFahrpult10.Click += new System.EventHandler(this.OpenFahrpult10_Click);
+            // 
+            // OpenFahrpult9
+            // 
+            this.OpenFahrpult9.Location = new System.Drawing.Point(792, 232);
+            this.OpenFahrpult9.Name = "OpenFahrpult9";
+            this.OpenFahrpult9.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult9.TabIndex = 710;
+            this.OpenFahrpult9.Text = "Fahrpult";
+            this.OpenFahrpult9.UseVisualStyleBackColor = true;
+            this.OpenFahrpult9.Click += new System.EventHandler(this.OpenFahrpult9_Click);
+            // 
+            // OpenFahrpult8
+            // 
+            this.OpenFahrpult8.Location = new System.Drawing.Point(792, 208);
+            this.OpenFahrpult8.Name = "OpenFahrpult8";
+            this.OpenFahrpult8.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult8.TabIndex = 709;
+            this.OpenFahrpult8.Text = "Fahrpult";
+            this.OpenFahrpult8.UseVisualStyleBackColor = true;
+            this.OpenFahrpult8.Click += new System.EventHandler(this.OpenFahrpult8_Click);
+            // 
+            // OpenFahrpult7
+            // 
+            this.OpenFahrpult7.Location = new System.Drawing.Point(792, 184);
+            this.OpenFahrpult7.Name = "OpenFahrpult7";
+            this.OpenFahrpult7.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult7.TabIndex = 708;
+            this.OpenFahrpult7.Text = "Fahrpult";
+            this.OpenFahrpult7.UseVisualStyleBackColor = true;
+            this.OpenFahrpult7.Click += new System.EventHandler(this.OpenFahrpult7_Click);
+            // 
+            // OpenFahrpult6
+            // 
+            this.OpenFahrpult6.Location = new System.Drawing.Point(792, 160);
+            this.OpenFahrpult6.Name = "OpenFahrpult6";
+            this.OpenFahrpult6.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult6.TabIndex = 707;
+            this.OpenFahrpult6.Text = "Fahrpult";
+            this.OpenFahrpult6.UseVisualStyleBackColor = true;
+            this.OpenFahrpult6.Click += new System.EventHandler(this.OpenFahrpult6_Click);
+            // 
+            // OpenFahrpult5
+            // 
+            this.OpenFahrpult5.Location = new System.Drawing.Point(792, 128);
+            this.OpenFahrpult5.Name = "OpenFahrpult5";
+            this.OpenFahrpult5.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult5.TabIndex = 706;
+            this.OpenFahrpult5.Text = "Fahrpult";
+            this.OpenFahrpult5.UseVisualStyleBackColor = true;
+            this.OpenFahrpult5.Click += new System.EventHandler(this.OpenFahrpult5_Click);
+            // 
+            // OpenFahrpult4
+            // 
+            this.OpenFahrpult4.Location = new System.Drawing.Point(792, 104);
+            this.OpenFahrpult4.Name = "OpenFahrpult4";
+            this.OpenFahrpult4.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult4.TabIndex = 705;
+            this.OpenFahrpult4.Text = "Fahrpult";
+            this.OpenFahrpult4.UseVisualStyleBackColor = true;
+            this.OpenFahrpult4.Click += new System.EventHandler(this.OpenFahrpult4_Click);
+            // 
+            // OpenFahrpult3
+            // 
+            this.OpenFahrpult3.Location = new System.Drawing.Point(792, 80);
+            this.OpenFahrpult3.Name = "OpenFahrpult3";
+            this.OpenFahrpult3.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult3.TabIndex = 704;
+            this.OpenFahrpult3.Text = "Fahrpult";
+            this.OpenFahrpult3.UseVisualStyleBackColor = true;
+            this.OpenFahrpult3.Click += new System.EventHandler(this.OpenFahrpult3_Click);
+            // 
+            // OpenFahrpult1
+            // 
+            this.OpenFahrpult1.Location = new System.Drawing.Point(792, 32);
+            this.OpenFahrpult1.Name = "OpenFahrpult1";
+            this.OpenFahrpult1.Size = new System.Drawing.Size(75, 23);
+            this.OpenFahrpult1.TabIndex = 703;
+            this.OpenFahrpult1.Text = "Fahrpult";
+            this.OpenFahrpult1.UseVisualStyleBackColor = true;
+            this.OpenFahrpult1.Click += new System.EventHandler(this.OpenFahrpult1_Click);
+            // 
             // OpenFahrpult2
             // 
             this.OpenFahrpult2.Location = new System.Drawing.Point(792, 56);
@@ -9128,477 +9760,11 @@
             this.label80.TabIndex = 691;
             this.label80.Text = "1";
             // 
-            // OpenFahrpult1
-            // 
-            this.OpenFahrpult1.Location = new System.Drawing.Point(792, 32);
-            this.OpenFahrpult1.Name = "OpenFahrpult1";
-            this.OpenFahrpult1.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult1.TabIndex = 703;
-            this.OpenFahrpult1.Text = "Fahrpult";
-            this.OpenFahrpult1.UseVisualStyleBackColor = true;
-            this.OpenFahrpult1.Click += new System.EventHandler(this.OpenFahrpult1_Click);
-            // 
-            // OpenFahrpult3
-            // 
-            this.OpenFahrpult3.Location = new System.Drawing.Point(792, 80);
-            this.OpenFahrpult3.Name = "OpenFahrpult3";
-            this.OpenFahrpult3.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult3.TabIndex = 704;
-            this.OpenFahrpult3.Text = "Fahrpult";
-            this.OpenFahrpult3.UseVisualStyleBackColor = true;
-            this.OpenFahrpult3.Click += new System.EventHandler(this.OpenFahrpult3_Click);
-            // 
-            // OpenFahrpult4
-            // 
-            this.OpenFahrpult4.Location = new System.Drawing.Point(792, 104);
-            this.OpenFahrpult4.Name = "OpenFahrpult4";
-            this.OpenFahrpult4.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult4.TabIndex = 705;
-            this.OpenFahrpult4.Text = "Fahrpult";
-            this.OpenFahrpult4.UseVisualStyleBackColor = true;
-            this.OpenFahrpult4.Click += new System.EventHandler(this.OpenFahrpult4_Click);
-            // 
-            // OpenFahrpult5
-            // 
-            this.OpenFahrpult5.Location = new System.Drawing.Point(792, 128);
-            this.OpenFahrpult5.Name = "OpenFahrpult5";
-            this.OpenFahrpult5.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult5.TabIndex = 706;
-            this.OpenFahrpult5.Text = "Fahrpult";
-            this.OpenFahrpult5.UseVisualStyleBackColor = true;
-            this.OpenFahrpult5.Click += new System.EventHandler(this.OpenFahrpult5_Click);
-            // 
-            // OpenFahrpult6
-            // 
-            this.OpenFahrpult6.Location = new System.Drawing.Point(792, 160);
-            this.OpenFahrpult6.Name = "OpenFahrpult6";
-            this.OpenFahrpult6.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult6.TabIndex = 707;
-            this.OpenFahrpult6.Text = "Fahrpult";
-            this.OpenFahrpult6.UseVisualStyleBackColor = true;
-            this.OpenFahrpult6.Click += new System.EventHandler(this.OpenFahrpult6_Click);
-            // 
-            // OpenFahrpult7
-            // 
-            this.OpenFahrpult7.Location = new System.Drawing.Point(792, 184);
-            this.OpenFahrpult7.Name = "OpenFahrpult7";
-            this.OpenFahrpult7.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult7.TabIndex = 708;
-            this.OpenFahrpult7.Text = "Fahrpult";
-            this.OpenFahrpult7.UseVisualStyleBackColor = true;
-            this.OpenFahrpult7.Click += new System.EventHandler(this.OpenFahrpult7_Click);
-            // 
-            // OpenFahrpult8
-            // 
-            this.OpenFahrpult8.Location = new System.Drawing.Point(792, 208);
-            this.OpenFahrpult8.Name = "OpenFahrpult8";
-            this.OpenFahrpult8.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult8.TabIndex = 709;
-            this.OpenFahrpult8.Text = "Fahrpult";
-            this.OpenFahrpult8.UseVisualStyleBackColor = true;
-            this.OpenFahrpult8.Click += new System.EventHandler(this.OpenFahrpult8_Click);
-            // 
-            // OpenFahrpult9
-            // 
-            this.OpenFahrpult9.Location = new System.Drawing.Point(792, 232);
-            this.OpenFahrpult9.Name = "OpenFahrpult9";
-            this.OpenFahrpult9.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult9.TabIndex = 710;
-            this.OpenFahrpult9.Text = "Fahrpult";
-            this.OpenFahrpult9.UseVisualStyleBackColor = true;
-            this.OpenFahrpult9.Click += new System.EventHandler(this.OpenFahrpult9_Click);
-            // 
-            // OpenFahrpult10
-            // 
-            this.OpenFahrpult10.Location = new System.Drawing.Point(792, 256);
-            this.OpenFahrpult10.Name = "OpenFahrpult10";
-            this.OpenFahrpult10.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult10.TabIndex = 711;
-            this.OpenFahrpult10.Text = "Fahrpult";
-            this.OpenFahrpult10.UseVisualStyleBackColor = true;
-            this.OpenFahrpult10.Click += new System.EventHandler(this.OpenFahrpult10_Click);
-            // 
-            // OpenFahrpult11
-            // 
-            this.OpenFahrpult11.Enabled = false;
-            this.OpenFahrpult11.Location = new System.Drawing.Point(792, 288);
-            this.OpenFahrpult11.Name = "OpenFahrpult11";
-            this.OpenFahrpult11.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult11.TabIndex = 712;
-            this.OpenFahrpult11.Text = "Fahrpult";
-            this.OpenFahrpult11.UseVisualStyleBackColor = true;
-            // 
-            // OpenFahrpult12
-            // 
-            this.OpenFahrpult12.Enabled = false;
-            this.OpenFahrpult12.Location = new System.Drawing.Point(792, 312);
-            this.OpenFahrpult12.Name = "OpenFahrpult12";
-            this.OpenFahrpult12.Size = new System.Drawing.Size(75, 23);
-            this.OpenFahrpult12.TabIndex = 713;
-            this.OpenFahrpult12.Text = "Fahrpult";
-            this.OpenFahrpult12.UseVisualStyleBackColor = true;
-            // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(632, 56);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(152, 20);
-            this.textBox9.TabIndex = 714;
-            // 
-            // textBox10
-            // 
-            this.textBox10.Location = new System.Drawing.Point(632, 80);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.ReadOnly = true;
-            this.textBox10.Size = new System.Drawing.Size(152, 20);
-            this.textBox10.TabIndex = 715;
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(632, 104);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(152, 20);
-            this.textBox11.TabIndex = 716;
-            // 
-            // textBox12
-            // 
-            this.textBox12.Location = new System.Drawing.Point(632, 128);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.ReadOnly = true;
-            this.textBox12.Size = new System.Drawing.Size(152, 20);
-            this.textBox12.TabIndex = 717;
-            // 
-            // textBox13
-            // 
-            this.textBox13.Location = new System.Drawing.Point(632, 256);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.ReadOnly = true;
-            this.textBox13.Size = new System.Drawing.Size(152, 20);
-            this.textBox13.TabIndex = 722;
-            // 
-            // textBox14
-            // 
-            this.textBox14.Location = new System.Drawing.Point(632, 232);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.ReadOnly = true;
-            this.textBox14.Size = new System.Drawing.Size(152, 20);
-            this.textBox14.TabIndex = 721;
-            // 
-            // textBox15
-            // 
-            this.textBox15.Location = new System.Drawing.Point(632, 208);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.ReadOnly = true;
-            this.textBox15.Size = new System.Drawing.Size(152, 20);
-            this.textBox15.TabIndex = 720;
-            // 
-            // textBox16
-            // 
-            this.textBox16.Location = new System.Drawing.Point(632, 184);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.ReadOnly = true;
-            this.textBox16.Size = new System.Drawing.Size(152, 20);
-            this.textBox16.TabIndex = 719;
-            // 
-            // textBox17
-            // 
-            this.textBox17.Location = new System.Drawing.Point(632, 160);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.ReadOnly = true;
-            this.textBox17.Size = new System.Drawing.Size(152, 20);
-            this.textBox17.TabIndex = 718;
-            // 
-            // textBox18
-            // 
-            this.textBox18.Enabled = false;
-            this.textBox18.Location = new System.Drawing.Point(632, 312);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.ReadOnly = true;
-            this.textBox18.Size = new System.Drawing.Size(152, 20);
-            this.textBox18.TabIndex = 724;
-            // 
-            // textBox19
-            // 
-            this.textBox19.Enabled = false;
-            this.textBox19.Location = new System.Drawing.Point(632, 288);
-            this.textBox19.Name = "textBox19";
-            this.textBox19.ReadOnly = true;
-            this.textBox19.Size = new System.Drawing.Size(152, 20);
-            this.textBox19.TabIndex = 723;
-            // 
-            // button2
-            // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(552, 32);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(72, 23);
-            this.button2.TabIndex = 725;
-            this.button2.Text = "Ort ändern";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(552, 56);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(72, 23);
-            this.button3.TabIndex = 726;
-            this.button3.Text = "Ort ändern";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Enabled = false;
-            this.button4.Location = new System.Drawing.Point(552, 80);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(72, 23);
-            this.button4.TabIndex = 727;
-            this.button4.Text = "Ort ändern";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Enabled = false;
-            this.button5.Location = new System.Drawing.Point(552, 104);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(72, 23);
-            this.button5.TabIndex = 728;
-            this.button5.Text = "Ort ändern";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Enabled = false;
-            this.button6.Location = new System.Drawing.Point(552, 128);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(72, 23);
-            this.button6.TabIndex = 729;
-            this.button6.Text = "Ort ändern";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Enabled = false;
-            this.button7.Location = new System.Drawing.Point(552, 160);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(72, 23);
-            this.button7.TabIndex = 730;
-            this.button7.Text = "Ort ändern";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            this.button8.Enabled = false;
-            this.button8.Location = new System.Drawing.Point(552, 184);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(72, 23);
-            this.button8.TabIndex = 731;
-            this.button8.Text = "Ort ändern";
-            this.button8.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            this.button9.Enabled = false;
-            this.button9.Location = new System.Drawing.Point(552, 208);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(72, 23);
-            this.button9.TabIndex = 732;
-            this.button9.Text = "Ort ändern";
-            this.button9.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            this.button10.Enabled = false;
-            this.button10.Location = new System.Drawing.Point(552, 232);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(72, 23);
-            this.button10.TabIndex = 733;
-            this.button10.Text = "Ort ändern";
-            this.button10.UseVisualStyleBackColor = true;
-            // 
-            // button11
-            // 
-            this.button11.Enabled = false;
-            this.button11.Location = new System.Drawing.Point(552, 256);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(72, 23);
-            this.button11.TabIndex = 734;
-            this.button11.Text = "Ort ändern";
-            this.button11.UseVisualStyleBackColor = true;
-            // 
-            // button12
-            // 
-            this.button12.Enabled = false;
-            this.button12.Location = new System.Drawing.Point(552, 288);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(72, 23);
-            this.button12.TabIndex = 735;
-            this.button12.Text = "Ort ändern";
-            this.button12.UseVisualStyleBackColor = true;
-            // 
-            // button13
-            // 
-            this.button13.Enabled = false;
-            this.button13.Location = new System.Drawing.Point(552, 312);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(72, 23);
-            this.button13.TabIndex = 736;
-            this.button13.Text = "Ort ändern";
-            this.button13.UseVisualStyleBackColor = true;
-            // 
-            // LokCtrlStop1
-            // 
-            this.LokCtrlStop1.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop1.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop1.Location = new System.Drawing.Point(872, 32);
-            this.LokCtrlStop1.Name = "LokCtrlStop1";
-            this.LokCtrlStop1.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop1.TabIndex = 737;
-            this.LokCtrlStop1.Text = "Stop";
-            this.LokCtrlStop1.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop2
-            // 
-            this.LokCtrlStop2.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop2.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop2.Location = new System.Drawing.Point(872, 56);
-            this.LokCtrlStop2.Name = "LokCtrlStop2";
-            this.LokCtrlStop2.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop2.TabIndex = 738;
-            this.LokCtrlStop2.Text = "Stop";
-            this.LokCtrlStop2.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop3
-            // 
-            this.LokCtrlStop3.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop3.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop3.Location = new System.Drawing.Point(872, 80);
-            this.LokCtrlStop3.Name = "LokCtrlStop3";
-            this.LokCtrlStop3.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop3.TabIndex = 739;
-            this.LokCtrlStop3.Text = "Stop";
-            this.LokCtrlStop3.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop4
-            // 
-            this.LokCtrlStop4.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop4.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop4.Location = new System.Drawing.Point(872, 104);
-            this.LokCtrlStop4.Name = "LokCtrlStop4";
-            this.LokCtrlStop4.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop4.TabIndex = 740;
-            this.LokCtrlStop4.Text = "Stop";
-            this.LokCtrlStop4.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop5
-            // 
-            this.LokCtrlStop5.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop5.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop5.Location = new System.Drawing.Point(872, 128);
-            this.LokCtrlStop5.Name = "LokCtrlStop5";
-            this.LokCtrlStop5.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop5.TabIndex = 741;
-            this.LokCtrlStop5.Text = "Stop";
-            this.LokCtrlStop5.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop6
-            // 
-            this.LokCtrlStop6.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop6.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop6.Location = new System.Drawing.Point(872, 160);
-            this.LokCtrlStop6.Name = "LokCtrlStop6";
-            this.LokCtrlStop6.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop6.TabIndex = 742;
-            this.LokCtrlStop6.Text = "Stop";
-            this.LokCtrlStop6.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop7
-            // 
-            this.LokCtrlStop7.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop7.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop7.Location = new System.Drawing.Point(872, 184);
-            this.LokCtrlStop7.Name = "LokCtrlStop7";
-            this.LokCtrlStop7.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop7.TabIndex = 743;
-            this.LokCtrlStop7.Text = "Stop";
-            this.LokCtrlStop7.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop8
-            // 
-            this.LokCtrlStop8.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop8.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop8.Location = new System.Drawing.Point(872, 208);
-            this.LokCtrlStop8.Name = "LokCtrlStop8";
-            this.LokCtrlStop8.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop8.TabIndex = 744;
-            this.LokCtrlStop8.Text = "Stop";
-            this.LokCtrlStop8.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop9
-            // 
-            this.LokCtrlStop9.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop9.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop9.Location = new System.Drawing.Point(872, 232);
-            this.LokCtrlStop9.Name = "LokCtrlStop9";
-            this.LokCtrlStop9.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop9.TabIndex = 745;
-            this.LokCtrlStop9.Text = "Stop";
-            this.LokCtrlStop9.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop10
-            // 
-            this.LokCtrlStop10.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop10.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop10.Location = new System.Drawing.Point(872, 256);
-            this.LokCtrlStop10.Name = "LokCtrlStop10";
-            this.LokCtrlStop10.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop10.TabIndex = 746;
-            this.LokCtrlStop10.Text = "Stop";
-            this.LokCtrlStop10.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop11
-            // 
-            this.LokCtrlStop11.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop11.Enabled = false;
-            this.LokCtrlStop11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop11.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop11.Location = new System.Drawing.Point(872, 288);
-            this.LokCtrlStop11.Name = "LokCtrlStop11";
-            this.LokCtrlStop11.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop11.TabIndex = 747;
-            this.LokCtrlStop11.Text = "Stop";
-            this.LokCtrlStop11.UseVisualStyleBackColor = false;
-            // 
-            // LokCtrlStop12
-            // 
-            this.LokCtrlStop12.BackColor = System.Drawing.Color.Red;
-            this.LokCtrlStop12.Enabled = false;
-            this.LokCtrlStop12.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokCtrlStop12.ForeColor = System.Drawing.SystemColors.Control;
-            this.LokCtrlStop12.Location = new System.Drawing.Point(872, 312);
-            this.LokCtrlStop12.Name = "LokCtrlStop12";
-            this.LokCtrlStop12.Size = new System.Drawing.Size(56, 23);
-            this.LokCtrlStop12.TabIndex = 748;
-            this.LokCtrlStop12.Text = "Stop";
-            this.LokCtrlStop12.UseVisualStyleBackColor = false;
-            // 
             // label81
             // 
             this.label81.AutoSize = true;
             this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label81.Location = new System.Drawing.Point(712, 712);
+            this.label81.Location = new System.Drawing.Point(680, 712);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(15, 15);
             this.label81.TabIndex = 692;
@@ -9618,7 +9784,7 @@
             // 
             this.label83.AutoSize = true;
             this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label83.Location = new System.Drawing.Point(680, 744);
+            this.label83.Location = new System.Drawing.Point(648, 744);
             this.label83.Name = "label83";
             this.label83.Size = new System.Drawing.Size(15, 15);
             this.label83.TabIndex = 694;
@@ -9628,7 +9794,7 @@
             // 
             this.label84.AutoSize = true;
             this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label84.Location = new System.Drawing.Point(648, 776);
+            this.label84.Location = new System.Drawing.Point(616, 776);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(15, 15);
             this.label84.TabIndex = 695;
@@ -9638,7 +9804,7 @@
             // 
             this.label85.AutoSize = true;
             this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label85.Location = new System.Drawing.Point(616, 808);
+            this.label85.Location = new System.Drawing.Point(584, 808);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(15, 15);
             this.label85.TabIndex = 696;
@@ -9648,7 +9814,7 @@
             // 
             this.label86.AutoSize = true;
             this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(584, 840);
+            this.label86.Location = new System.Drawing.Point(552, 840);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(15, 15);
             this.label86.TabIndex = 697;
@@ -9668,23 +9834,11 @@
             // 
             this.label87.AutoSize = true;
             this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(424, 744);
+            this.label87.Location = new System.Drawing.Point(456, 744);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(15, 15);
             this.label87.TabIndex = 699;
             this.label87.Text = "2";
-            // 
-            // button14
-            // 
-            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button14.Image = ((System.Drawing.Image)(resources.GetObject("button14.Image")));
-            this.button14.Location = new System.Drawing.Point(736, 712);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(32, 16);
-            this.button14.TabIndex = 700;
-            this.toolTip1.SetToolTip(this.button14, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button14.UseVisualStyleBackColor = true;
             // 
             // pictureBox17
             // 
@@ -9816,7 +9970,7 @@
             // 
             this.label88.AutoSize = true;
             this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label88.Location = new System.Drawing.Point(328, 840);
+            this.label88.Location = new System.Drawing.Point(360, 840);
             this.label88.Name = "label88";
             this.label88.Size = new System.Drawing.Size(15, 15);
             this.label88.TabIndex = 715;
@@ -9826,7 +9980,7 @@
             // 
             this.label89.AutoSize = true;
             this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label89.Location = new System.Drawing.Point(360, 808);
+            this.label89.Location = new System.Drawing.Point(392, 808);
             this.label89.Name = "label89";
             this.label89.Size = new System.Drawing.Size(15, 15);
             this.label89.TabIndex = 716;
@@ -9836,7 +9990,7 @@
             // 
             this.label90.AutoSize = true;
             this.label90.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label90.Location = new System.Drawing.Point(392, 776);
+            this.label90.Location = new System.Drawing.Point(424, 776);
             this.label90.Name = "label90";
             this.label90.Size = new System.Drawing.Size(15, 15);
             this.label90.TabIndex = 717;
@@ -9846,7 +10000,7 @@
             // 
             this.label91.AutoSize = true;
             this.label91.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label91.Location = new System.Drawing.Point(456, 712);
+            this.label91.Location = new System.Drawing.Point(488, 712);
             this.label91.Name = "label91";
             this.label91.Size = new System.Drawing.Size(15, 15);
             this.label91.TabIndex = 718;
@@ -9959,7 +10113,7 @@
             // 
             this.label92.AutoSize = true;
             this.label92.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label92.Location = new System.Drawing.Point(744, 680);
+            this.label92.Location = new System.Drawing.Point(712, 680);
             this.label92.Name = "label92";
             this.label92.Size = new System.Drawing.Size(15, 15);
             this.label92.TabIndex = 730;
@@ -9969,7 +10123,7 @@
             // 
             this.label93.AutoSize = true;
             this.label93.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label93.Location = new System.Drawing.Point(488, 680);
+            this.label93.Location = new System.Drawing.Point(520, 680);
             this.label93.Name = "label93";
             this.label93.Size = new System.Drawing.Size(15, 15);
             this.label93.TabIndex = 731;
@@ -9985,143 +10139,289 @@
             this.textBox25.Text = "Eingleisen";
             this.textBox25.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // button15
+            // button26
             // 
-            this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button15.Image = ((System.Drawing.Image)(resources.GetObject("button15.Image")));
-            this.button15.Location = new System.Drawing.Point(768, 680);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(32, 16);
-            this.button15.TabIndex = 733;
-            this.toolTip1.SetToolTip(this.button15, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button15.UseVisualStyleBackColor = true;
+            this.button26.BackColor = System.Drawing.Color.Yellow;
+            this.button26.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.button26.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button26.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.button26.FlatAppearance.BorderSize = 0;
+            this.button26.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.button26.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.button26.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button26.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button26.Location = new System.Drawing.Point(288, 840);
+            this.button26.Margin = new System.Windows.Forms.Padding(0);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(16, 16);
+            this.button26.TabIndex = 744;
+            this.button26.UseVisualStyleBackColor = false;
             // 
-            // button16
+            // button27
             // 
-            this.button16.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button16.Image = ((System.Drawing.Image)(resources.GetObject("button16.Image")));
-            this.button16.Location = new System.Drawing.Point(704, 744);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(32, 16);
-            this.button16.TabIndex = 734;
-            this.toolTip1.SetToolTip(this.button16, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button16.UseVisualStyleBackColor = true;
+            this.button27.BackColor = System.Drawing.Color.Yellow;
+            this.button27.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.button27.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button27.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.button27.FlatAppearance.BorderSize = 0;
+            this.button27.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.button27.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.button27.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button27.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button27.Location = new System.Drawing.Point(320, 808);
+            this.button27.Margin = new System.Windows.Forms.Padding(0);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(16, 16);
+            this.button27.TabIndex = 745;
+            this.button27.UseVisualStyleBackColor = false;
             // 
-            // button17
+            // button28
             // 
-            this.button17.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button17.Image = ((System.Drawing.Image)(resources.GetObject("button17.Image")));
-            this.button17.Location = new System.Drawing.Point(672, 776);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(32, 16);
-            this.button17.TabIndex = 735;
-            this.toolTip1.SetToolTip(this.button17, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button17.UseVisualStyleBackColor = true;
+            this.button28.BackColor = System.Drawing.Color.Yellow;
+            this.button28.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.button28.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button28.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.button28.FlatAppearance.BorderSize = 0;
+            this.button28.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.button28.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.button28.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button28.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button28.Location = new System.Drawing.Point(352, 776);
+            this.button28.Margin = new System.Windows.Forms.Padding(0);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(16, 16);
+            this.button28.TabIndex = 746;
+            this.button28.UseVisualStyleBackColor = false;
             // 
-            // button18
+            // button29
             // 
-            this.button18.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button18.Image = ((System.Drawing.Image)(resources.GetObject("button18.Image")));
-            this.button18.Location = new System.Drawing.Point(640, 808);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(32, 16);
-            this.button18.TabIndex = 736;
-            this.toolTip1.SetToolTip(this.button18, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button18.UseVisualStyleBackColor = true;
+            this.button29.BackColor = System.Drawing.Color.Yellow;
+            this.button29.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.button29.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button29.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.button29.FlatAppearance.BorderSize = 0;
+            this.button29.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.button29.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.button29.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button29.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button29.Location = new System.Drawing.Point(384, 744);
+            this.button29.Margin = new System.Windows.Forms.Padding(0);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(16, 16);
+            this.button29.TabIndex = 747;
+            this.button29.UseVisualStyleBackColor = false;
             // 
-            // button19
+            // button30
             // 
-            this.button19.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button19.Image = ((System.Drawing.Image)(resources.GetObject("button19.Image")));
-            this.button19.Location = new System.Drawing.Point(608, 840);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(32, 16);
-            this.button19.TabIndex = 737;
-            this.toolTip1.SetToolTip(this.button19, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button19.UseVisualStyleBackColor = true;
+            this.button30.BackColor = System.Drawing.Color.Yellow;
+            this.button30.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.button30.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button30.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.button30.FlatAppearance.BorderSize = 0;
+            this.button30.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.button30.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.button30.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button30.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button30.Location = new System.Drawing.Point(416, 712);
+            this.button30.Margin = new System.Windows.Forms.Padding(0);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(16, 16);
+            this.button30.TabIndex = 748;
+            this.button30.UseVisualStyleBackColor = false;
             // 
-            // button20
+            // button31
             // 
-            this.button20.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button20.Image = ((System.Drawing.Image)(resources.GetObject("button20.Image")));
-            this.button20.Location = new System.Drawing.Point(448, 680);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(32, 16);
-            this.button20.TabIndex = 738;
-            this.toolTip1.SetToolTip(this.button20, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button20.UseVisualStyleBackColor = true;
+            this.button31.BackColor = System.Drawing.Color.Yellow;
+            this.button31.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.button31.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button31.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.button31.FlatAppearance.BorderSize = 0;
+            this.button31.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.button31.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.button31.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button31.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button31.Location = new System.Drawing.Point(448, 680);
+            this.button31.Margin = new System.Windows.Forms.Padding(0);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(16, 16);
+            this.button31.TabIndex = 749;
+            this.button31.UseVisualStyleBackColor = false;
             // 
-            // button21
+            // label94
             // 
-            this.button21.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button21.Image = ((System.Drawing.Image)(resources.GetObject("button21.Image")));
-            this.button21.Location = new System.Drawing.Point(416, 712);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(32, 16);
-            this.button21.TabIndex = 739;
-            this.toolTip1.SetToolTip(this.button21, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button21.UseVisualStyleBackColor = true;
+            this.label94.AutoSize = true;
+            this.label94.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label94.Location = new System.Drawing.Point(1576, 328);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(23, 15);
+            this.label94.TabIndex = 750;
+            this.label94.Text = "22";
             // 
-            // button22
+            // label95
             // 
-            this.button22.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button22.Image = ((System.Drawing.Image)(resources.GetObject("button22.Image")));
-            this.button22.Location = new System.Drawing.Point(384, 744);
-            this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(32, 16);
-            this.button22.TabIndex = 740;
-            this.toolTip1.SetToolTip(this.button22, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button22.UseVisualStyleBackColor = true;
+            this.label95.AutoSize = true;
+            this.label95.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label95.Location = new System.Drawing.Point(1344, 264);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(23, 15);
+            this.label95.TabIndex = 751;
+            this.label95.Text = "14";
             // 
-            // button23
+            // label96
             // 
-            this.button23.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button23.Image = ((System.Drawing.Image)(resources.GetObject("button23.Image")));
-            this.button23.Location = new System.Drawing.Point(352, 776);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(32, 16);
-            this.button23.TabIndex = 741;
-            this.toolTip1.SetToolTip(this.button23, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button23.UseVisualStyleBackColor = true;
+            this.label96.AutoSize = true;
+            this.label96.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label96.Location = new System.Drawing.Point(1344, 296);
+            this.label96.Name = "label96";
+            this.label96.Size = new System.Drawing.Size(23, 15);
+            this.label96.TabIndex = 752;
+            this.label96.Text = "12";
             // 
-            // button24
+            // label97
             // 
-            this.button24.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button24.Image = ((System.Drawing.Image)(resources.GetObject("button24.Image")));
-            this.button24.Location = new System.Drawing.Point(320, 808);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(32, 16);
-            this.button24.TabIndex = 742;
-            this.toolTip1.SetToolTip(this.button24, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button24.UseVisualStyleBackColor = true;
+            this.label97.AutoSize = true;
+            this.label97.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label97.Location = new System.Drawing.Point(1576, 360);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(23, 15);
+            this.label97.TabIndex = 753;
+            this.label97.Text = "20";
             // 
-            // button25
+            // label98
             // 
-            this.button25.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button25.Image = ((System.Drawing.Image)(resources.GetObject("button25.Image")));
-            this.button25.Location = new System.Drawing.Point(288, 840);
-            this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(32, 16);
-            this.button25.TabIndex = 743;
-            this.toolTip1.SetToolTip(this.button25, "Für Auto. Fahrdienstleiter:\r\n   Einfahrt sperren\r\n   Verhindert die Ein- und Ausf" +
-        "ahrt von Gleis 1 auf der linken Seite");
-            this.button25.UseVisualStyleBackColor = true;
+            this.label98.AutoSize = true;
+            this.label98.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label98.Location = new System.Drawing.Point(1576, 392);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(23, 15);
+            this.label98.TabIndex = 754;
+            this.label98.Text = "18";
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label99.Location = new System.Drawing.Point(1576, 424);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(23, 15);
+            this.label99.TabIndex = 755;
+            this.label99.Text = "16";
+            // 
+            // pictureBox51
+            // 
+            this.pictureBox51.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.pictureBox51.Location = new System.Drawing.Point(384, 288);
+            this.pictureBox51.Name = "pictureBox51";
+            this.pictureBox51.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox51.TabIndex = 756;
+            this.pictureBox51.TabStop = false;
+            // 
+            // label100
+            // 
+            this.label100.AutoSize = true;
+            this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label100.Location = new System.Drawing.Point(408, 296);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(23, 15);
+            this.label100.TabIndex = 757;
+            this.label100.Text = "21";
+            // 
+            // label101
+            // 
+            this.label101.AutoSize = true;
+            this.label101.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label101.Location = new System.Drawing.Point(408, 328);
+            this.label101.Name = "label101";
+            this.label101.Size = new System.Drawing.Size(23, 15);
+            this.label101.TabIndex = 758;
+            this.label101.Text = "23";
+            // 
+            // label102
+            // 
+            this.label102.AutoSize = true;
+            this.label102.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label102.Location = new System.Drawing.Point(408, 360);
+            this.label102.Name = "label102";
+            this.label102.Size = new System.Drawing.Size(23, 15);
+            this.label102.TabIndex = 759;
+            this.label102.Text = "25";
+            // 
+            // label103
+            // 
+            this.label103.AutoSize = true;
+            this.label103.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label103.Location = new System.Drawing.Point(408, 392);
+            this.label103.Name = "label103";
+            this.label103.Size = new System.Drawing.Size(23, 15);
+            this.label103.TabIndex = 760;
+            this.label103.Text = "27";
+            // 
+            // label104
+            // 
+            this.label104.AutoSize = true;
+            this.label104.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label104.Location = new System.Drawing.Point(280, 424);
+            this.label104.Name = "label104";
+            this.label104.Size = new System.Drawing.Size(23, 15);
+            this.label104.TabIndex = 761;
+            this.label104.Text = "33";
+            // 
+            // label105
+            // 
+            this.label105.AutoSize = true;
+            this.label105.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label105.Location = new System.Drawing.Point(280, 456);
+            this.label105.Name = "label105";
+            this.label105.Size = new System.Drawing.Size(23, 15);
+            this.label105.TabIndex = 762;
+            this.label105.Text = "35";
+            // 
+            // label106
+            // 
+            this.label106.AutoSize = true;
+            this.label106.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label106.Location = new System.Drawing.Point(280, 488);
+            this.label106.Name = "label106";
+            this.label106.Size = new System.Drawing.Size(23, 15);
+            this.label106.TabIndex = 763;
+            this.label106.Text = "37";
+            // 
+            // label107
+            // 
+            this.label107.AutoSize = true;
+            this.label107.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label107.Location = new System.Drawing.Point(280, 520);
+            this.label107.Name = "label107";
+            this.label107.Size = new System.Drawing.Size(23, 15);
+            this.label107.TabIndex = 764;
+            this.label107.Text = "39";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.label107);
+            this.Controls.Add(this.label106);
+            this.Controls.Add(this.label105);
+            this.Controls.Add(this.label104);
+            this.Controls.Add(this.label103);
+            this.Controls.Add(this.label102);
+            this.Controls.Add(this.label101);
+            this.Controls.Add(this.label100);
+            this.Controls.Add(this.pictureBox51);
+            this.Controls.Add(this.label99);
+            this.Controls.Add(this.label98);
+            this.Controls.Add(this.label97);
+            this.Controls.Add(this.label96);
+            this.Controls.Add(this.label95);
+            this.Controls.Add(this.label94);
+            this.Controls.Add(this.button31);
+            this.Controls.Add(this.button30);
+            this.Controls.Add(this.button29);
+            this.Controls.Add(this.button28);
+            this.Controls.Add(this.button27);
+            this.Controls.Add(this.button26);
             this.Controls.Add(this.button25);
             this.Controls.Add(this.button24);
             this.Controls.Add(this.button23);
@@ -11400,6 +11700,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox48)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox49)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox50)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox51)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -12150,7 +12451,7 @@
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem ProgrammBeenden;
         private System.Windows.Forms.PictureBox pictureBox12;
         private System.Windows.Forms.PictureBox pictureBox14;
         private System.Windows.Forms.PictureBox pictureBox15;
@@ -12268,6 +12569,27 @@
         private System.Windows.Forms.Button button23;
         private System.Windows.Forms.Button button24;
         private System.Windows.Forms.Button button25;
+        private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Button button28;
+        private System.Windows.Forms.Button button29;
+        private System.Windows.Forms.Button button30;
+        private System.Windows.Forms.Button button31;
+        private System.Windows.Forms.Label label94;
+        private System.Windows.Forms.Label label95;
+        private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.Label label97;
+        private System.Windows.Forms.Label label98;
+        private System.Windows.Forms.Label label99;
+        private System.Windows.Forms.PictureBox pictureBox51;
+        private System.Windows.Forms.Label label100;
+        private System.Windows.Forms.Label label101;
+        private System.Windows.Forms.Label label102;
+        private System.Windows.Forms.Label label103;
+        private System.Windows.Forms.Label label104;
+        private System.Windows.Forms.Label label105;
+        private System.Windows.Forms.Label label106;
+        private System.Windows.Forms.Label label107;
     }
 }
 

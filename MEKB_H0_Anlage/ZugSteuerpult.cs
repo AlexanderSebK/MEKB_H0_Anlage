@@ -200,7 +200,29 @@ namespace MEKB_H0_Anlage
         {
             Adresse.Text = String.Format("Adresse: {0}", Lokdaten.Adresse);
             Rufnummer.Text = "Rufnummer: "+ LokKontrolle.Abkuerzung(Lokdaten.Gattung) + Lokdaten.Adresse.ToString();
-            if(Lokdaten.Name == null)
+            if (Lokdaten.Funktionen[1]  != null) Fkt1.Text  = Lokdaten.Funktionen[1];
+            if (Lokdaten.Funktionen[2]  != null) Fkt2.Text  = Lokdaten.Funktionen[2];
+            if (Lokdaten.Funktionen[3]  != null) Fkt3.Text  = Lokdaten.Funktionen[3];
+            if (Lokdaten.Funktionen[4]  != null) Fkt4.Text  = Lokdaten.Funktionen[4];
+            if (Lokdaten.Funktionen[5]  != null) Fkt5.Text  = Lokdaten.Funktionen[5];
+            if (Lokdaten.Funktionen[6]  != null) Fkt6.Text  = Lokdaten.Funktionen[6];
+            if (Lokdaten.Funktionen[7]  != null) Fkt7.Text  = Lokdaten.Funktionen[7];
+            if (Lokdaten.Funktionen[8]  != null) Fkt8.Text  = Lokdaten.Funktionen[8];
+            if (Lokdaten.Funktionen[9]  != null) Fkt9.Text  = Lokdaten.Funktionen[9];
+            if (Lokdaten.Funktionen[10] != null) Fkt10.Text = Lokdaten.Funktionen[10];
+            if (Lokdaten.Funktionen[11] != null) Fkt11.Text = Lokdaten.Funktionen[11];
+            if (Lokdaten.Funktionen[12] != null) Fkt12.Text = Lokdaten.Funktionen[12];
+            if (Lokdaten.Funktionen[13] != null) Fkt13.Text = Lokdaten.Funktionen[13];
+            if (Lokdaten.Funktionen[14] != null) Fkt14.Text = Lokdaten.Funktionen[14];
+            if (Lokdaten.Funktionen[15] != null) Fkt15.Text = Lokdaten.Funktionen[15];
+            if (Lokdaten.Funktionen[16] != null) Fkt16.Text = Lokdaten.Funktionen[16];
+            if (Lokdaten.Funktionen[17] != null) Fkt17.Text = Lokdaten.Funktionen[17];
+            if (Lokdaten.Funktionen[18] != null) Fkt18.Text = Lokdaten.Funktionen[18];
+            if (Lokdaten.Funktionen[19] != null) Fkt19.Text = Lokdaten.Funktionen[19];
+            if (Lokdaten.Funktionen[20] != null) Fkt20.Text = Lokdaten.Funktionen[20];
+
+
+            if (Lokdaten.Name == null)
             {
                 Lokname.Text = String.Format("Lok: {0}", Lokdaten.Adresse);
             }
