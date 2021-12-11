@@ -124,7 +124,7 @@ namespace MEKB_H0_Anlage
             bool deaktiviren = Weichenliste[ListID].Deaktivieren;
 
             if (Weichenliste[ListID].Spiegeln) Abzweig = !Abzweig;
-            _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig, Q_Modus, Schaltzeit,deaktiviren);
+            if (Betriebsbereit) _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig, Q_Modus, Schaltzeit,deaktiviren);
         }
         /// <summary>
         /// Weichenstellung wechseln
@@ -146,7 +146,7 @@ namespace MEKB_H0_Anlage
             bool deaktiviren = Weichenliste[ListID].Deaktivieren;
 
             if (Weichenliste[ListID].Spiegeln) Abzweig = !Abzweig;
-            _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig, Q_Modus, Schaltzeit, deaktiviren);
+            if (Betriebsbereit) _ = z21Start.Z21_SET_WEICHEAsync(Adresse, Abzweig, Q_Modus, Schaltzeit, deaktiviren);
         }     
         /// <summary>
         /// Fahrstraße aktivieren/deaktivieren
@@ -163,7 +163,7 @@ namespace MEKB_H0_Anlage
             else
             {
                 //Fahrstraße aktivieren
-                fahrstrasse.SetFahrstrasse(Weichenliste, z21Start);
+                if (Betriebsbereit) fahrstrasse.SetFahrstrasse(Weichenliste, z21Start);
             }
             //Weichenliste der Fahrstraßen übernehmen
             List<Weiche> FahrstrassenWeichen = fahrstrasse.GetFahrstrassenListe();
@@ -4038,7 +4038,10 @@ namespace MEKB_H0_Anlage
                 if (fahrstrasse.CheckFahrstrasse(Weichenliste) == false) //Noch nicht alle Weichen gestellt
                 {
                     //Alle Weichen Schalten, falls Instance nicht am  schalten ist.
-                    if (fahrstrasse.Busy == false) fahrstrasse.SetFahrstrasse(Weichenliste, z21Start);
+                    if (fahrstrasse.Busy == false)
+                    {
+                        if (Betriebsbereit) fahrstrasse.SetFahrstrasse(Weichenliste, z21Start);
+                    }
                 }
                 else //Alle Weichen in richtiger Stellung
                 {
@@ -4051,6 +4054,9 @@ namespace MEKB_H0_Anlage
                         if (ListID == -1) return;   //Weichen nicht gefunden - Funktion abbrechen
                         UpdateWeicheImGleisplan(Weichenliste[ListID]);  //Weichenbild aktualisieren
                     }
+
+                    //Weichen zyklisch nochmal schalten um hängenbleiben zu vermeiden
+                    if (Betriebsbereit) fahrstrasse.ControlSetFahrstrasse(Weichenliste, z21Start);
                 }
             }
         }

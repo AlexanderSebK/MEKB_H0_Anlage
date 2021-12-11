@@ -8,7 +8,6 @@
 
 ****************************************************************/
 
-
 using System;
 using System.Timers;
 using System.Collections.Generic;
@@ -40,6 +39,8 @@ namespace MEKB_H0_Anlage
         public List<Lok> Lokliste = new List<Lok>();
         public Lok[] AktiveLoks = new Lok[12];
 
+        public bool Betriebsbereit;
+
         public Form1()
         {
             InitializeComponent();                      //Programminitialisieren
@@ -65,6 +66,8 @@ namespace MEKB_H0_Anlage
             SetupSignalListe();                         //Signalliste festlegen
             SetupLokListe();                            //Lok-Daten aus Dateien laden
 
+            Betriebsbereit = false;
+
             LokCtrl_LoklisteAusfuellen();               //Auswahlliste im Lok-Kontrollfenster ausfüllen
             for(int i = 0; i<AktiveLoks.Length;i++)
             {
@@ -73,19 +76,14 @@ namespace MEKB_H0_Anlage
                 AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             }
         }
-
-
-
         private void GetFirmware_Click(object sender, EventArgs e)
         {
             z21Start.GET_FIRMWARE_VERSION();
         }
-
         private void MenuZ21Eigenschaften_Click(object sender, EventArgs e)
         {
             if (z21_Einstellung.IsDisposed) z21_Einstellung = new Z21_Einstellung();
             z21_Einstellung.Show();
-
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -152,6 +150,8 @@ namespace MEKB_H0_Anlage
                 {
                     Pointer_Weichenliste--;
                 }
+                
+
                 GetSignalStatus(Signalliste[Pointer_Signalliste].Name);
                 if (Pointer_Signalliste <= 0)
                 {
@@ -209,9 +209,7 @@ namespace MEKB_H0_Anlage
                 FahrstrasseBildUpdate();
             }
 
-        }
-
-        
+        }      
         /// <summary>
         /// Menü Zentrale -> Verbinden
         /// </summary>
@@ -225,7 +223,6 @@ namespace MEKB_H0_Anlage
             Signal_Init = false;
             Weichen_Init = false;
         }
-
         private void Menu_Trennen_Click(object sender, EventArgs e)
         {
             z21Start.DisConnect_Z21();
@@ -1454,20 +1451,7 @@ namespace MEKB_H0_Anlage
                 Rechts2_Auswahl.Visible = false;
             }
         }
-        private void LokCtrl1_Strg_Typ_Click(object sender, EventArgs e)
-        {
-            if(LokCtrl1_Strg_Typ.Text == "Manuell")
-            {
-                LokCtrl1_Strg_Typ.Text = "Automatik";
-                LokCtrl1_Strg_Typ.BackColor = Color.FromArgb(128,0,0);
-            }
-            else
-            {
-                LokCtrl1_Strg_Typ.Text = "Manuell";
-                LokCtrl1_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
-            }
-
-        }
+       
         
         bool Sperrung;
         private void Sperr_GL1_links_Click(object sender, EventArgs e)
@@ -1496,6 +1480,7 @@ namespace MEKB_H0_Anlage
             if (ListID == -1) return;
             int Adresse = Lokliste[ListID].Adresse;
             LokCtrl1_Adr.Value = Adresse;      
+
         }
         private void LokCtrl2_Name_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1571,9 +1556,13 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                LokCtrl1_Name.Text = Lokliste[index].Name;
                 AktiveLoks[0] = Lokliste[index];
+                LokCtrl1_Name.Text = AktiveLoks[0].Name;
+                LokCtrl1_Gattung.Text = AktiveLoks[0].Gattung;
             }
+            AktiveLoks[0].Automatik = false;
+            LokCtrl1_Strg_Typ.Text = "Manuell";
+            LokCtrl1_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
 
             //Update Rest
             Update_Rufnummern1(sender, e);
@@ -1588,10 +1577,13 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                LokCtrl2_Name.Text = Lokliste[index].Name;
                 AktiveLoks[1] = Lokliste[index];
+                LokCtrl2_Name.Text = AktiveLoks[1].Name;
+                LokCtrl2_Gattung.Text = AktiveLoks[1].Gattung;
             }
-
+            AktiveLoks[1].Automatik = false;
+            LokCtrl2_Strg_Typ.Text = "Manuell";
+            LokCtrl2_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
             //Update Rest
             Update_Rufnummern2(sender, e);
         }
@@ -1605,10 +1597,13 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                LokCtrl3_Name.Text = Lokliste[index].Name;
                 AktiveLoks[2] = Lokliste[index];
+                LokCtrl3_Name.Text = AktiveLoks[2].Name;
+                LokCtrl3_Gattung.Text = AktiveLoks[2].Gattung;
             }
-
+            AktiveLoks[2].Automatik = false;
+            LokCtrl3_Strg_Typ.Text = "Manuell";
+            LokCtrl3_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
             //Update Rest
             Update_Rufnummern3(sender, e);
         }
@@ -1622,10 +1617,13 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                LokCtrl4_Name.Text = Lokliste[index].Name;
                 AktiveLoks[3] = Lokliste[index];
+                LokCtrl4_Name.Text = AktiveLoks[3].Name;
+                LokCtrl4_Gattung.Text = AktiveLoks[3].Gattung;
             }
-
+            AktiveLoks[3].Automatik = false;
+            LokCtrl4_Strg_Typ.Text = "Manuell";
+            LokCtrl4_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
             //Update Rest
             Update_Rufnummern4(sender, e);
         }
@@ -1639,10 +1637,13 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                LokCtrl5_Name.Text = Lokliste[index].Name;
                 AktiveLoks[4] = Lokliste[index];
+                LokCtrl5_Name.Text = AktiveLoks[4].Name;
+                LokCtrl5_Gattung.Text = AktiveLoks[4].Gattung;
             }
-
+            AktiveLoks[4].Automatik = false;
+            LokCtrl5_Strg_Typ.Text = "Manuell";
+            LokCtrl5_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
             //Update Rest
             Update_Rufnummern5(sender, e);
         }
@@ -1656,10 +1657,13 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                LokCtrl6_Name.Text = Lokliste[index].Name;
                 AktiveLoks[5] = Lokliste[index];
+                LokCtrl6_Name.Text = AktiveLoks[5].Name;
+                LokCtrl6_Gattung.Text = AktiveLoks[5].Gattung;
             }
-
+            AktiveLoks[5].Automatik = false;
+            LokCtrl6_Strg_Typ.Text = "Manuell";
+            LokCtrl6_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
             //Update Rest
             Update_Rufnummern6(sender, e);
         }
@@ -1673,10 +1677,13 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                LokCtrl7_Name.Text = Lokliste[index].Name;
                 AktiveLoks[6] = Lokliste[index];
+                LokCtrl7_Name.Text = AktiveLoks[6].Name;
+                LokCtrl7_Gattung.Text = AktiveLoks[6].Gattung;
             }
-
+            AktiveLoks[6].Automatik = false;
+            LokCtrl7_Strg_Typ.Text = "Manuell";
+            LokCtrl7_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
             //Update Rest
             Update_Rufnummern7(sender, e);
         }
@@ -1690,10 +1697,13 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                LokCtrl8_Name.Text = Lokliste[index].Name;
                 AktiveLoks[7] = Lokliste[index];
+                LokCtrl8_Name.Text = AktiveLoks[7].Name;
+                LokCtrl8_Gattung.Text = AktiveLoks[7].Gattung;
             }
-
+            AktiveLoks[7].Automatik = false;
+            LokCtrl8_Strg_Typ.Text = "Manuell";
+            LokCtrl8_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
             //Update Rest
             Update_Rufnummern8(sender, e);
         }
@@ -1707,10 +1717,13 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                LokCtrl9_Name.Text = Lokliste[index].Name;
                 AktiveLoks[8] = Lokliste[index];
+                LokCtrl9_Name.Text = AktiveLoks[8].Name;
+                LokCtrl9_Gattung.Text = AktiveLoks[8].Gattung;
             }
-
+            AktiveLoks[8].Automatik = false;
+            LokCtrl9_Strg_Typ.Text = "Manuell";
+            LokCtrl9_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
             //Update Rest
             Update_Rufnummern9(sender, e);
         }
@@ -1724,61 +1737,74 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                LokCtrl10_Name.Text = Lokliste[index].Name;
                 AktiveLoks[9] = Lokliste[index];
+                LokCtrl10_Name.Text = AktiveLoks[9].Name;
+                LokCtrl10_Gattung.Text = AktiveLoks[9].Gattung;
             }
-
+            AktiveLoks[9].Automatik = false;
+            LokCtrl10_Strg_Typ.Text = "Manuell";
+            LokCtrl10_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
             //Update Rest
             Update_Rufnummern10(sender, e);
         }
         private void Update_Rufnummern1(object sender, EventArgs e)
         {
-            if (LokCtrl1_Adr.Value != 0) LokCtrl1_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl1_Gattung.Text) + LokCtrl1_Adr.Value.ToString();
+            AktiveLoks[0].Gattung = LokCtrl1_Gattung.Text;
+            if (AktiveLoks[0].Adresse != 0) LokCtrl1_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[0].Gattung) + AktiveLoks[0].Adresse.ToString();
             else LokCtrl1_Ruf.Text = "";
         }
         private void Update_Rufnummern2(object sender, EventArgs e)
         {
-            if (LokCtrl2_Adr.Value != 0) LokCtrl2_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl2_Gattung.Text) + LokCtrl2_Adr.Value.ToString();
+            AktiveLoks[1].Gattung = LokCtrl2_Gattung.Text;
+            if (AktiveLoks[1].Adresse != 0) LokCtrl2_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[1].Gattung) + AktiveLoks[1].Adresse.ToString();
             else LokCtrl2_Ruf.Text = "";
         }
         private void Update_Rufnummern3(object sender, EventArgs e)
         {
-            if (LokCtrl3_Adr.Value != 0) LokCtrl3_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl3_Gattung.Text) + LokCtrl3_Adr.Value.ToString();
+            AktiveLoks[2].Gattung = LokCtrl3_Gattung.Text;
+            if (AktiveLoks[2].Adresse != 0) LokCtrl3_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[2].Gattung) + AktiveLoks[2].Adresse.ToString();
             else LokCtrl3_Ruf.Text = "";
         }
         private void Update_Rufnummern4(object sender, EventArgs e)
         {
-            if (LokCtrl4_Adr.Value != 0) LokCtrl4_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl4_Gattung.Text) + LokCtrl4_Adr.Value.ToString();
+            AktiveLoks[3].Gattung = LokCtrl4_Gattung.Text;
+            if (AktiveLoks[3].Adresse != 0) LokCtrl4_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[3].Gattung) + AktiveLoks[3].Adresse.ToString();
             else LokCtrl4_Ruf.Text = "";
         }
         private void Update_Rufnummern5(object sender, EventArgs e)
         {
-            if (LokCtrl5_Adr.Value != 0) LokCtrl5_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl5_Gattung.Text) + LokCtrl5_Adr.Value.ToString();
+            AktiveLoks[4].Gattung = LokCtrl5_Gattung.Text;
+            if (AktiveLoks[4].Adresse != 0) LokCtrl5_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[4].Gattung) + AktiveLoks[4].Adresse.ToString();
             else LokCtrl5_Ruf.Text = "";
         }
         private void Update_Rufnummern6(object sender, EventArgs e)
         {
-            if (LokCtrl6_Adr.Value != 0) LokCtrl6_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl6_Gattung.Text) + LokCtrl6_Adr.Value.ToString();
+            AktiveLoks[5].Gattung = LokCtrl6_Gattung.Text;
+            if (AktiveLoks[5].Adresse != 0) LokCtrl6_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[5].Gattung) + AktiveLoks[5].Adresse.ToString();
             else LokCtrl6_Ruf.Text = "";
         }
         private void Update_Rufnummern7(object sender, EventArgs e)
         {
-            if (LokCtrl7_Adr.Value != 0) LokCtrl7_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl7_Gattung.Text) + LokCtrl7_Adr.Value.ToString();
+            AktiveLoks[6].Gattung = LokCtrl7_Gattung.Text;
+            if (AktiveLoks[6].Adresse != 0) LokCtrl7_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[6].Gattung) + AktiveLoks[6].Adresse.ToString();
             else LokCtrl7_Ruf.Text = "";
         }
         private void Update_Rufnummern8(object sender, EventArgs e)
         {
-            if (LokCtrl8_Adr.Value != 0) LokCtrl8_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl8_Gattung.Text) + LokCtrl8_Adr.Value.ToString();
+            AktiveLoks[7].Gattung = LokCtrl8_Gattung.Text;
+            if (AktiveLoks[7].Adresse != 0) LokCtrl8_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[7].Gattung) + AktiveLoks[7].Adresse.ToString();
             else LokCtrl8_Ruf.Text = "";
         }
         private void Update_Rufnummern9(object sender, EventArgs e)
         {
-            if (LokCtrl9_Adr.Value != 0) LokCtrl9_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl9_Gattung.Text) + LokCtrl9_Adr.Value.ToString();
+            AktiveLoks[8].Gattung = LokCtrl9_Gattung.Text;
+            if (AktiveLoks[8].Adresse != 0) LokCtrl9_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[8].Gattung) + AktiveLoks[8].Adresse.ToString();
             else LokCtrl9_Ruf.Text = "";
         }
         private void Update_Rufnummern10(object sender, EventArgs e)
         {
-            if (LokCtrl10_Adr.Value != 0) LokCtrl10_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl10_Gattung.Text) + LokCtrl10_Adr.Value.ToString();
+            AktiveLoks[9].Gattung = LokCtrl10_Gattung.Text;
+            if (AktiveLoks[9].Adresse != 0) LokCtrl10_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[9].Gattung) + AktiveLoks[9].Adresse.ToString();
             else LokCtrl10_Ruf.Text = "";
         }
 
@@ -1917,16 +1943,21 @@ namespace MEKB_H0_Anlage
                 if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
             }
         }
+        
         private void ProgrammBeenden_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Alle Autozüge Stop
-            //Alle Signale Rot
+            StopAlle_Click(sender, e);
+            foreach(Signal signal in Signalliste)
+            {
+                signal.Schalten(0, z21Start);//Alle Signale Rot
+            }
+            z21Start.DisConnect_Z21();
         }
+        
         private void OpenFahrpult1_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -1946,6 +1977,7 @@ namespace MEKB_H0_Anlage
             AktiveLoks[0].Steuerpult = new ZugSteuerpult(AktiveLoks[0]);
             AktiveLoks[0].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[0].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[0].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[0].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[0].Adresse);
 
@@ -1969,10 +2001,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[1].Steuerpult = new ZugSteuerpult(AktiveLoks[1]);
             AktiveLoks[1].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[1].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[1].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[1].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[1].Adresse);
         }
-
         private void OpenFahrpult3_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -1992,10 +2024,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[2].Steuerpult = new ZugSteuerpult(AktiveLoks[2]);
             AktiveLoks[2].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[2].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[2].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[2].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[2].Adresse);
         }
-
         private void OpenFahrpult4_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2015,10 +2047,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[3].Steuerpult = new ZugSteuerpult(AktiveLoks[3]);
             AktiveLoks[3].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[3].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[3].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[3].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[3].Adresse);
         }
-
         private void OpenFahrpult5_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2038,10 +2070,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[4].Steuerpult = new ZugSteuerpult(AktiveLoks[4]);
             AktiveLoks[4].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[4].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[4].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[4].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[4].Adresse);
         }
-
         private void OpenFahrpult6_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2061,10 +2093,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[5].Steuerpult = new ZugSteuerpult(AktiveLoks[5]);
             AktiveLoks[5].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[5].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[5].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[5].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[5].Adresse);
         }
-
         private void OpenFahrpult7_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2084,10 +2116,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[6].Steuerpult = new ZugSteuerpult(AktiveLoks[6]);
             AktiveLoks[6].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[6].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[6].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[6].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[6].Adresse);
         }
-
         private void OpenFahrpult8_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2107,10 +2139,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[7].Steuerpult = new ZugSteuerpult(AktiveLoks[7]);
             AktiveLoks[7].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[7].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[7].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[7].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[7].Adresse);
         }
-
         private void OpenFahrpult9_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2130,10 +2162,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[8].Steuerpult = new ZugSteuerpult(AktiveLoks[8]);
             AktiveLoks[8].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[8].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[8].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[8].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[8].Adresse);
         }
-
         private void OpenFahrpult10_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2153,8 +2185,249 @@ namespace MEKB_H0_Anlage
             AktiveLoks[9].Steuerpult = new ZugSteuerpult(AktiveLoks[9]);
             AktiveLoks[9].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[9].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[9].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[9].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[9].Adresse);
+        }
+
+        private void LokCtrlStop1_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[0].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[0].Adresse, 255, AktiveLoks[0].Richtung, AktiveLoks[0].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop2_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[1].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[1].Adresse, 255, AktiveLoks[1].Richtung, AktiveLoks[1].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop3_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[2].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[2].Adresse, 255, AktiveLoks[2].Richtung, AktiveLoks[2].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop4_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[3].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[3].Adresse, 255, AktiveLoks[3].Richtung, AktiveLoks[3].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop5_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[4].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[4].Adresse, 255, AktiveLoks[4].Richtung, AktiveLoks[4].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop6_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[5].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[5].Adresse, 255, AktiveLoks[5].Richtung, AktiveLoks[5].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop7_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[6].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[6].Adresse, 255, AktiveLoks[6].Richtung, AktiveLoks[6].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop8_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[7].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[7].Adresse, 255, AktiveLoks[7].Richtung, AktiveLoks[7].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop9_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[8].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[8].Adresse, 255, AktiveLoks[8].Richtung, AktiveLoks[8].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop10_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[9].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[9].Adresse, 255, AktiveLoks[9].Richtung, AktiveLoks[9].FahrstufenInfo);
+            }
+        }
+        private void StopAlle_Click(object sender, EventArgs e)
+        {
+            LokCtrlStop1_Click(sender, e);
+            LokCtrlStop2_Click(sender, e);
+            LokCtrlStop3_Click(sender, e);
+            LokCtrlStop4_Click(sender, e);
+            LokCtrlStop5_Click(sender, e);
+            LokCtrlStop6_Click(sender, e);
+            LokCtrlStop7_Click(sender, e);
+            LokCtrlStop8_Click(sender, e);
+            LokCtrlStop9_Click(sender, e);
+            LokCtrlStop10_Click(sender, e);
+        }
+        private void LokCtrl1_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[0].Automatik)
+            {
+                LokCtrl1_Strg_Typ.Text = "Automatik";
+                LokCtrl1_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[0].Automatik = true;
+            }
+            else
+            {
+                LokCtrl1_Strg_Typ.Text = "Manuell";
+                LokCtrl1_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[0].Automatik = false;
+            }
+        }
+        private void LokCtrl2_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[1].Automatik)
+            {
+                LokCtrl2_Strg_Typ.Text = "Automatik";
+                LokCtrl2_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[1].Automatik = true;
+            }
+            else
+            {
+                LokCtrl2_Strg_Typ.Text = "Manuell";
+                LokCtrl2_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[1].Automatik = false;
+            }
+        }
+        private void LokCtrl3_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[2].Automatik)
+            {
+                LokCtrl3_Strg_Typ.Text = "Automatik";
+                LokCtrl3_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[2].Automatik = true;
+            }
+            else
+            {
+                LokCtrl3_Strg_Typ.Text = "Manuell";
+                LokCtrl3_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[2].Automatik = false;
+            }
+        }
+        private void LokCtrl4_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[3].Automatik)
+            {
+                LokCtrl4_Strg_Typ.Text = "Automatik";
+                LokCtrl4_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[3].Automatik = true;
+            }
+            else
+            {
+                LokCtrl4_Strg_Typ.Text = "Manuell";
+                LokCtrl4_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[3].Automatik = false;
+            }
+        }
+        private void LokCtrl5_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[4].Automatik)
+            {
+                LokCtrl5_Strg_Typ.Text = "Automatik";
+                LokCtrl5_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[4].Automatik = true;
+            }
+            else
+            {
+                LokCtrl5_Strg_Typ.Text = "Manuell";
+                LokCtrl5_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[4].Automatik = false;
+            }
+        }
+        private void LokCtrl6_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[5].Automatik)
+            {
+                LokCtrl6_Strg_Typ.Text = "Automatik";
+                LokCtrl6_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[5].Automatik = true;
+            }
+            else
+            {
+                LokCtrl6_Strg_Typ.Text = "Manuell";
+                LokCtrl6_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[5].Automatik = false;
+            }
+        }
+        private void LokCtrl7_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[6].Automatik)
+            {
+                LokCtrl7_Strg_Typ.Text = "Automatik";
+                LokCtrl7_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[6].Automatik = true;
+            }
+            else
+            {
+                LokCtrl7_Strg_Typ.Text = "Manuell";
+                LokCtrl7_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[6].Automatik = false;
+            }
+        }
+        private void LokCtrl8_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[7].Automatik)
+            {
+                LokCtrl8_Strg_Typ.Text = "Automatik";
+                LokCtrl8_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[7].Automatik = true;
+            }
+            else
+            {
+                LokCtrl8_Strg_Typ.Text = "Manuell";
+                LokCtrl8_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[7].Automatik = false;
+            }
+        }
+        private void LokCtrl9_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[8].Automatik)
+            {
+                LokCtrl9_Strg_Typ.Text = "Automatik";
+                LokCtrl9_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[8].Automatik = true;
+            }
+            else
+            {
+                LokCtrl9_Strg_Typ.Text = "Manuell";
+                LokCtrl9_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[8].Automatik = false;
+            }
+        }
+        private void LokCtrl10_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[9].Automatik)
+            {
+                LokCtrl10_Strg_Typ.Text = "Automatik";
+                LokCtrl10_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[9].Automatik = true;
+            }
+            else
+            {
+                LokCtrl10_Strg_Typ.Text = "Manuell";
+                LokCtrl10_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[9].Automatik = false;
+            }
+        }
+
+        private void LokEditorOpen_Click(object sender, EventArgs e)
+        {
+            LokEditor lokEditor = new LokEditor();
+            lokEditor.Show();
         }
     }
 }

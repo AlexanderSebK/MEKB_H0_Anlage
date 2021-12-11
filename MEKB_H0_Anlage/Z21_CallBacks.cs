@@ -72,6 +72,18 @@ namespace MEKB_H0_Anlage
             Flags newFlags = new Flags(flags);
             this.BeginInvoke((Action<Flags>)Set_Flags, newFlags);
         }
+        /// <summary>
+        /// CallBack Funktion: Z21_Status
+        /// Wird aufgerufen, sobald eine Statusnachricht von der Z21 empfangen wurde
+        /// </summary>
+        /// <param name="MainCurrent"></param>
+        /// <param name="ProgCurrent"></param>
+        /// <param name="MainCurrentFilter"></param>
+        /// <param name="Temperatur"></param>
+        /// <param name="VersorgungSpg"></param>
+        /// <param name="GleisSpg"></param>
+        /// <param name="ZentralenStatus"></param>
+        /// <param name="ZentralenStatusGrund"></param>
         public void CallBack_Z21_System_Status(int MainCurrent, int ProgCurrent, int MainCurrentFilter, int Temperatur, 
                     int VersorgungSpg, int GleisSpg, byte ZentralenStatus, byte ZentralenStatusGrund)
         {
@@ -87,5 +99,11 @@ namespace MEKB_H0_Anlage
             this.BeginInvoke((Action<int, int, bool, byte, bool, byte, bool, bool, bool[]>)UpdateLok, ParamterCount,  Addresse,  Besetzt,  FahrstufenInfo,  Richtung,
                                               Fahrstufe,  Doppeltraktio,  Smartsearch, Funktionen);
         }
+
+        public void CallBack_Z21_TrackStatus(byte status)
+        {
+
+        }
+
     }
 }

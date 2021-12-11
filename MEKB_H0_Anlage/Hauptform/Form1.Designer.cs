@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.LokEditorOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ProgrammBeenden = new System.Windows.Forms.ToolStripMenuItem();
             this.zentraleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -912,6 +912,12 @@
             this.label105 = new System.Windows.Forms.Label();
             this.label106 = new System.Windows.Forms.Label();
             this.label107 = new System.Windows.Forms.Label();
+            this.StopAlle = new System.Windows.Forms.Button();
+            this.label108 = new System.Windows.Forms.Label();
+            this.label109 = new System.Windows.Forms.Label();
+            this.label110 = new System.Windows.Forms.Label();
+            this.label111 = new System.Windows.Forms.Label();
+            this.TrackStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1512,28 +1518,29 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2,
+            this.LokEditorOpen,
             this.toolStripSeparator1,
             this.ProgrammBeenden});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(46, 20);
             this.toolStripMenuItem1.Text = "Datei";
             // 
-            // toolStripMenuItem2
+            // LokEditorOpen
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem2.Text = "Lok-Editor";
+            this.LokEditorOpen.Name = "LokEditorOpen";
+            this.LokEditorOpen.Size = new System.Drawing.Size(129, 22);
+            this.LokEditorOpen.Text = "Lok-Editor";
+            this.LokEditorOpen.Click += new System.EventHandler(this.LokEditorOpen_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
             // 
             // ProgrammBeenden
             // 
             this.ProgrammBeenden.Name = "ProgrammBeenden";
-            this.ProgrammBeenden.Size = new System.Drawing.Size(180, 22);
+            this.ProgrammBeenden.Size = new System.Drawing.Size(129, 22);
             this.ProgrammBeenden.Text = "Beenden";
             this.ProgrammBeenden.Click += new System.EventHandler(this.ProgrammBeenden_Click);
             // 
@@ -1615,7 +1622,8 @@
             this.Statusbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.HauptStatusbar,
             this.StatusBarSpg,
-            this.StatusBarStrom});
+            this.StatusBarStrom,
+            this.TrackStatus});
             this.Statusbar.Location = new System.Drawing.Point(0, 937);
             this.Statusbar.Name = "Statusbar";
             this.Statusbar.Size = new System.Drawing.Size(1904, 24);
@@ -2061,7 +2069,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label16.Location = new System.Drawing.Point(1384, 192);
+            this.label16.Location = new System.Drawing.Point(1384, 184);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(21, 15);
             this.label16.TabIndex = 478;
@@ -2091,7 +2099,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label19.Location = new System.Drawing.Point(1480, 192);
+            this.label19.Location = new System.Drawing.Point(1480, 184);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(21, 15);
             this.label19.TabIndex = 481;
@@ -7396,6 +7404,7 @@
             this.LokCtrlStop10.TabIndex = 746;
             this.LokCtrlStop10.Text = "Stop";
             this.LokCtrlStop10.UseVisualStyleBackColor = false;
+            this.LokCtrlStop10.Click += new System.EventHandler(this.LokCtrlStop10_Click);
             // 
             // LokCtrlStop9
             // 
@@ -7408,6 +7417,7 @@
             this.LokCtrlStop9.TabIndex = 745;
             this.LokCtrlStop9.Text = "Stop";
             this.LokCtrlStop9.UseVisualStyleBackColor = false;
+            this.LokCtrlStop9.Click += new System.EventHandler(this.LokCtrlStop9_Click);
             // 
             // LokCtrlStop8
             // 
@@ -7420,6 +7430,7 @@
             this.LokCtrlStop8.TabIndex = 744;
             this.LokCtrlStop8.Text = "Stop";
             this.LokCtrlStop8.UseVisualStyleBackColor = false;
+            this.LokCtrlStop8.Click += new System.EventHandler(this.LokCtrlStop8_Click);
             // 
             // LokCtrlStop7
             // 
@@ -7432,6 +7443,7 @@
             this.LokCtrlStop7.TabIndex = 743;
             this.LokCtrlStop7.Text = "Stop";
             this.LokCtrlStop7.UseVisualStyleBackColor = false;
+            this.LokCtrlStop7.Click += new System.EventHandler(this.LokCtrlStop7_Click);
             // 
             // LokCtrlStop6
             // 
@@ -7444,6 +7456,7 @@
             this.LokCtrlStop6.TabIndex = 742;
             this.LokCtrlStop6.Text = "Stop";
             this.LokCtrlStop6.UseVisualStyleBackColor = false;
+            this.LokCtrlStop6.Click += new System.EventHandler(this.LokCtrlStop6_Click);
             // 
             // LokCtrlStop5
             // 
@@ -7456,6 +7469,7 @@
             this.LokCtrlStop5.TabIndex = 741;
             this.LokCtrlStop5.Text = "Stop";
             this.LokCtrlStop5.UseVisualStyleBackColor = false;
+            this.LokCtrlStop5.Click += new System.EventHandler(this.LokCtrlStop5_Click);
             // 
             // LokCtrlStop4
             // 
@@ -7468,6 +7482,7 @@
             this.LokCtrlStop4.TabIndex = 740;
             this.LokCtrlStop4.Text = "Stop";
             this.LokCtrlStop4.UseVisualStyleBackColor = false;
+            this.LokCtrlStop4.Click += new System.EventHandler(this.LokCtrlStop4_Click);
             // 
             // LokCtrlStop3
             // 
@@ -7480,6 +7495,7 @@
             this.LokCtrlStop3.TabIndex = 739;
             this.LokCtrlStop3.Text = "Stop";
             this.LokCtrlStop3.UseVisualStyleBackColor = false;
+            this.LokCtrlStop3.Click += new System.EventHandler(this.LokCtrlStop3_Click);
             // 
             // LokCtrlStop2
             // 
@@ -7492,6 +7508,7 @@
             this.LokCtrlStop2.TabIndex = 738;
             this.LokCtrlStop2.Text = "Stop";
             this.LokCtrlStop2.UseVisualStyleBackColor = false;
+            this.LokCtrlStop2.Click += new System.EventHandler(this.LokCtrlStop2_Click);
             // 
             // LokCtrlStop1
             // 
@@ -7504,6 +7521,7 @@
             this.LokCtrlStop1.TabIndex = 737;
             this.LokCtrlStop1.Text = "Stop";
             this.LokCtrlStop1.UseVisualStyleBackColor = false;
+            this.LokCtrlStop1.Click += new System.EventHandler(this.LokCtrlStop1_Click);
             // 
             // button13
             // 
@@ -8474,7 +8492,6 @@
             // LokCtrl10_Strg_Typ
             // 
             this.LokCtrl10_Strg_Typ.BackColor = System.Drawing.Color.Green;
-            this.LokCtrl10_Strg_Typ.Enabled = false;
             this.LokCtrl10_Strg_Typ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LokCtrl10_Strg_Typ.ForeColor = System.Drawing.Color.White;
             this.LokCtrl10_Strg_Typ.Location = new System.Drawing.Point(280, 256);
@@ -8483,11 +8500,11 @@
             this.LokCtrl10_Strg_Typ.TabIndex = 654;
             this.LokCtrl10_Strg_Typ.Text = "Manuell";
             this.LokCtrl10_Strg_Typ.UseVisualStyleBackColor = false;
+            this.LokCtrl10_Strg_Typ.Click += new System.EventHandler(this.LokCtrl10_Strg_Typ_Click);
             // 
             // LokCtrl9_Strg_Typ
             // 
             this.LokCtrl9_Strg_Typ.BackColor = System.Drawing.Color.Green;
-            this.LokCtrl9_Strg_Typ.Enabled = false;
             this.LokCtrl9_Strg_Typ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LokCtrl9_Strg_Typ.ForeColor = System.Drawing.Color.White;
             this.LokCtrl9_Strg_Typ.Location = new System.Drawing.Point(280, 232);
@@ -8496,11 +8513,11 @@
             this.LokCtrl9_Strg_Typ.TabIndex = 653;
             this.LokCtrl9_Strg_Typ.Text = "Manuell";
             this.LokCtrl9_Strg_Typ.UseVisualStyleBackColor = false;
+            this.LokCtrl9_Strg_Typ.Click += new System.EventHandler(this.LokCtrl9_Strg_Typ_Click);
             // 
             // LokCtrl8_Strg_Typ
             // 
             this.LokCtrl8_Strg_Typ.BackColor = System.Drawing.Color.Green;
-            this.LokCtrl8_Strg_Typ.Enabled = false;
             this.LokCtrl8_Strg_Typ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LokCtrl8_Strg_Typ.ForeColor = System.Drawing.Color.White;
             this.LokCtrl8_Strg_Typ.Location = new System.Drawing.Point(280, 208);
@@ -8509,11 +8526,11 @@
             this.LokCtrl8_Strg_Typ.TabIndex = 652;
             this.LokCtrl8_Strg_Typ.Text = "Manuell";
             this.LokCtrl8_Strg_Typ.UseVisualStyleBackColor = false;
+            this.LokCtrl8_Strg_Typ.Click += new System.EventHandler(this.LokCtrl8_Strg_Typ_Click);
             // 
             // LokCtrl7_Strg_Typ
             // 
             this.LokCtrl7_Strg_Typ.BackColor = System.Drawing.Color.Green;
-            this.LokCtrl7_Strg_Typ.Enabled = false;
             this.LokCtrl7_Strg_Typ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LokCtrl7_Strg_Typ.ForeColor = System.Drawing.Color.White;
             this.LokCtrl7_Strg_Typ.Location = new System.Drawing.Point(280, 184);
@@ -8522,11 +8539,11 @@
             this.LokCtrl7_Strg_Typ.TabIndex = 651;
             this.LokCtrl7_Strg_Typ.Text = "Manuell";
             this.LokCtrl7_Strg_Typ.UseVisualStyleBackColor = false;
+            this.LokCtrl7_Strg_Typ.Click += new System.EventHandler(this.LokCtrl7_Strg_Typ_Click);
             // 
             // LokCtrl6_Strg_Typ
             // 
             this.LokCtrl6_Strg_Typ.BackColor = System.Drawing.Color.Green;
-            this.LokCtrl6_Strg_Typ.Enabled = false;
             this.LokCtrl6_Strg_Typ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LokCtrl6_Strg_Typ.ForeColor = System.Drawing.Color.White;
             this.LokCtrl6_Strg_Typ.Location = new System.Drawing.Point(280, 160);
@@ -8535,11 +8552,11 @@
             this.LokCtrl6_Strg_Typ.TabIndex = 650;
             this.LokCtrl6_Strg_Typ.Text = "Manuell";
             this.LokCtrl6_Strg_Typ.UseVisualStyleBackColor = false;
+            this.LokCtrl6_Strg_Typ.Click += new System.EventHandler(this.LokCtrl6_Strg_Typ_Click);
             // 
             // LokCtrl5_Strg_Typ
             // 
             this.LokCtrl5_Strg_Typ.BackColor = System.Drawing.Color.Green;
-            this.LokCtrl5_Strg_Typ.Enabled = false;
             this.LokCtrl5_Strg_Typ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LokCtrl5_Strg_Typ.ForeColor = System.Drawing.Color.White;
             this.LokCtrl5_Strg_Typ.Location = new System.Drawing.Point(280, 128);
@@ -8548,11 +8565,11 @@
             this.LokCtrl5_Strg_Typ.TabIndex = 649;
             this.LokCtrl5_Strg_Typ.Text = "Manuell";
             this.LokCtrl5_Strg_Typ.UseVisualStyleBackColor = false;
+            this.LokCtrl5_Strg_Typ.Click += new System.EventHandler(this.LokCtrl5_Strg_Typ_Click);
             // 
             // LokCtrl4_Strg_Typ
             // 
             this.LokCtrl4_Strg_Typ.BackColor = System.Drawing.Color.Green;
-            this.LokCtrl4_Strg_Typ.Enabled = false;
             this.LokCtrl4_Strg_Typ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LokCtrl4_Strg_Typ.ForeColor = System.Drawing.Color.White;
             this.LokCtrl4_Strg_Typ.Location = new System.Drawing.Point(280, 104);
@@ -8561,11 +8578,11 @@
             this.LokCtrl4_Strg_Typ.TabIndex = 648;
             this.LokCtrl4_Strg_Typ.Text = "Manuell";
             this.LokCtrl4_Strg_Typ.UseVisualStyleBackColor = false;
+            this.LokCtrl4_Strg_Typ.Click += new System.EventHandler(this.LokCtrl4_Strg_Typ_Click);
             // 
             // LokCtrl3_Strg_Typ
             // 
             this.LokCtrl3_Strg_Typ.BackColor = System.Drawing.Color.Green;
-            this.LokCtrl3_Strg_Typ.Enabled = false;
             this.LokCtrl3_Strg_Typ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LokCtrl3_Strg_Typ.ForeColor = System.Drawing.Color.White;
             this.LokCtrl3_Strg_Typ.Location = new System.Drawing.Point(280, 80);
@@ -8574,11 +8591,11 @@
             this.LokCtrl3_Strg_Typ.TabIndex = 647;
             this.LokCtrl3_Strg_Typ.Text = "Manuell";
             this.LokCtrl3_Strg_Typ.UseVisualStyleBackColor = false;
+            this.LokCtrl3_Strg_Typ.Click += new System.EventHandler(this.LokCtrl3_Strg_Typ_Click);
             // 
             // LokCtrl2_Strg_Typ
             // 
             this.LokCtrl2_Strg_Typ.BackColor = System.Drawing.Color.Green;
-            this.LokCtrl2_Strg_Typ.Enabled = false;
             this.LokCtrl2_Strg_Typ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LokCtrl2_Strg_Typ.ForeColor = System.Drawing.Color.White;
             this.LokCtrl2_Strg_Typ.Location = new System.Drawing.Point(280, 56);
@@ -8587,6 +8604,7 @@
             this.LokCtrl2_Strg_Typ.TabIndex = 640;
             this.LokCtrl2_Strg_Typ.Text = "Manuell";
             this.LokCtrl2_Strg_Typ.UseVisualStyleBackColor = false;
+            this.LokCtrl2_Strg_Typ.Click += new System.EventHandler(this.LokCtrl2_Strg_Typ_Click);
             // 
             // LokCtrl1_Ort
             // 
@@ -8652,7 +8670,6 @@
             // LokCtrl1_Strg_Typ
             // 
             this.LokCtrl1_Strg_Typ.BackColor = System.Drawing.Color.Green;
-            this.LokCtrl1_Strg_Typ.Enabled = false;
             this.LokCtrl1_Strg_Typ.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.LokCtrl1_Strg_Typ.ForeColor = System.Drawing.Color.White;
             this.LokCtrl1_Strg_Typ.Location = new System.Drawing.Point(280, 32);
@@ -10396,11 +10413,82 @@
             this.label107.TabIndex = 764;
             this.label107.Text = "39";
             // 
+            // StopAlle
+            // 
+            this.StopAlle.BackColor = System.Drawing.Color.Red;
+            this.StopAlle.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.StopAlle.ForeColor = System.Drawing.SystemColors.Control;
+            this.StopAlle.Location = new System.Drawing.Point(1744, 520);
+            this.StopAlle.Name = "StopAlle";
+            this.StopAlle.Size = new System.Drawing.Size(136, 23);
+            this.StopAlle.TabIndex = 765;
+            this.StopAlle.Text = "Alle Loks anhalten";
+            this.StopAlle.UseVisualStyleBackColor = false;
+            this.StopAlle.Click += new System.EventHandler(this.StopAlle_Click);
+            // 
+            // label108
+            // 
+            this.label108.AutoSize = true;
+            this.label108.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label108.Location = new System.Drawing.Point(256, 136);
+            this.label108.Name = "label108";
+            this.label108.Size = new System.Drawing.Size(54, 15);
+            this.label108.TabIndex = 766;
+            this.label108.Text = "Block 1";
+            // 
+            // label109
+            // 
+            this.label109.AutoSize = true;
+            this.label109.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label109.Location = new System.Drawing.Point(256, 168);
+            this.label109.Name = "label109";
+            this.label109.Size = new System.Drawing.Size(54, 15);
+            this.label109.TabIndex = 767;
+            this.label109.Text = "Block 2";
+            // 
+            // label110
+            // 
+            this.label110.AutoSize = true;
+            this.label110.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label110.Location = new System.Drawing.Point(1568, 168);
+            this.label110.Name = "label110";
+            this.label110.Size = new System.Drawing.Size(54, 15);
+            this.label110.TabIndex = 768;
+            this.label110.Text = "Block 3";
+            // 
+            // label111
+            // 
+            this.label111.AutoSize = true;
+            this.label111.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label111.Location = new System.Drawing.Point(1568, 136);
+            this.label111.Name = "label111";
+            this.label111.Size = new System.Drawing.Size(54, 15);
+            this.label111.TabIndex = 769;
+            this.label111.Text = "Block 4";
+            // 
+            // TrackStatus
+            // 
+            this.TrackStatus.AutoSize = false;
+            this.TrackStatus.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.TrackStatus.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
+            this.TrackStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.TrackStatus.Name = "TrackStatus";
+            this.TrackStatus.Size = new System.Drawing.Size(150, 24);
+            this.TrackStatus.Text = "Strecke: ";
+            this.TrackStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.label111);
+            this.Controls.Add(this.label110);
+            this.Controls.Add(this.label109);
+            this.Controls.Add(this.label108);
+            this.Controls.Add(this.StopAlle);
             this.Controls.Add(this.label107);
             this.Controls.Add(this.label106);
             this.Controls.Add(this.label105);
@@ -11710,7 +11798,7 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem LokEditorOpen;
         private System.Windows.Forms.ToolStripMenuItem zentraleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verbindungToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Menu_Verbinden;
@@ -12590,6 +12678,12 @@
         private System.Windows.Forms.Label label105;
         private System.Windows.Forms.Label label106;
         private System.Windows.Forms.Label label107;
+        private System.Windows.Forms.Button StopAlle;
+        private System.Windows.Forms.Label label108;
+        private System.Windows.Forms.Label label109;
+        private System.Windows.Forms.Label label110;
+        private System.Windows.Forms.Label label111;
+        private System.Windows.Forms.ToolStripStatusLabel TrackStatus;
     }
 }
 

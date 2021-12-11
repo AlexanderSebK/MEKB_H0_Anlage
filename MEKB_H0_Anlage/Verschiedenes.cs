@@ -74,7 +74,7 @@ namespace MEKB_H0_Anlage
             Besetzt = false;
             FahrstrasseAktive = false;
             Q_Modus = false;
-            Schaltzeit = 500;
+            Schaltzeit = 100;
             Deaktivieren = true;
         }
         /// <summary>
@@ -194,6 +194,7 @@ namespace MEKB_H0_Anlage
         public Fahrstrasse()
         {
             Fahrstr_Weichenliste = new List<Weiche>();
+            ControlSetPointer = 0;
         }
         public List<Weiche> Fahrstr_Weichenliste { get; set; }
         public bool Busy { get; set; }
@@ -228,7 +229,7 @@ namespace MEKB_H0_Anlage
 
                     if (ListeGlobal[ListID].Spiegeln)
                     {
-                        _ = Z21_Instanz.Z21_SET_WEICHEAsync(Adresse, !weiche.FahrstrasseAbzweig,Q_Modus,Schaltzeit,deaktiviren);
+                        _ = Z21_Instanz.Z21_SET_WEICHEAsync(Adresse, !weiche.FahrstrasseAbzweig,Q_Modus, Schaltzeit, deaktiviren);
                     }
                     else
                     {
@@ -273,6 +274,29 @@ namespace MEKB_H0_Anlage
             }
             return okay;
         }
+       
+
+        public void ControlSetFahrstrasse(List<Weiche> ListeGlobal, Z21 Z21_Instanz)
+        {
+            Weiche weiche = Fahrstr_Weichenliste[ControlSetPointer];
+            int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
+            if (ListID == -1) return;
+
+            if (ListeGlobal[ListID].Spiegeln)
+            {
+                _ = Z21_Instanz.Z21_SET_WEICHEAsync(ListeGlobal[ListID].Adresse, !weiche.FahrstrasseAbzweig, weiche.Q_Modus, weiche.Schaltzeit, weiche.Deaktivieren);
+            }
+            else
+            {
+                _ = Z21_Instanz.Z21_SET_WEICHEAsync(ListeGlobal[ListID].Adresse, weiche.FahrstrasseAbzweig, weiche.Q_Modus, weiche.Schaltzeit, weiche.Deaktivieren);
+            }
+
+            ControlSetPointer++;
+            if (ControlSetPointer >= Fahrstr_Weichenliste.Count)
+            {
+                ControlSetPointer = 0;
+            }
+        }
 
         public List<Weiche> GetFahrstrassenListe()
         {
@@ -290,6 +314,7 @@ namespace MEKB_H0_Anlage
             }
             FahrstrasseAktiv = false;
         }
+        private int ControlSetPointer;
     }
     public class LokKontrolle
     {
@@ -320,6 +345,7 @@ namespace MEKB_H0_Anlage
             Funktionen = new List<string>();
             AktiveFunktion = new bool[30];
             Steuerpult = new ZugSteuerpult(this);
+            Automatik = false;
         }
         /// <summary>
         /// Parameter: Name der Lok als String
@@ -357,14 +383,19 @@ namespace MEKB_H0_Anlage
         /// Anzahl Fahrstufen 0=14, 2=28, 4 = 128
         /// </summary>
         public byte FahrstufenInfo { get; set; }
-
+        /// <summary>
+        /// True: Lok wird vom Programm gesteuert
+        /// </summary>
+        public bool Automatik { set; get; }
         public ZugSteuerpult Steuerpult { get; set; }
 
         public delegate void CMD_LOKFAHRT(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo);
         public delegate void CMD_LOKFUNKTION(int Adresse, byte Zustand, byte FunktionsNr);
+        public delegate void CMD_LOKSTATUS(int Adresse);
 
         private CMD_LOKFAHRT setLOKFahrt;
         private CMD_LOKFUNKTION setLOKFunktion;
+        private CMD_LOKSTATUS setLOKStatus;
 
         public void Register_CMD_LOKFAHRT(CMD_LOKFAHRT function) 
         { 
@@ -375,6 +406,11 @@ namespace MEKB_H0_Anlage
         { 
             setLOKFunktion = function;
             Steuerpult.Register_CMD_LOKFUNKTION(Set_LOKFUNKTION);
+        }
+        public void Register_CMD_LOKSTATUS(CMD_LOKSTATUS function)
+        {
+            setLOKStatus = function;
+            Steuerpult.Register_CMD_LOKSTATUS(Set_LOKSTATUS);
         }
 
         private void Set_LOKFAHRT(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo)
@@ -390,6 +426,10 @@ namespace MEKB_H0_Anlage
         private void Set_LOKFUNKTION(int Adresse, byte Zustand, byte FunktionsNr)
         {
             setLOKFunktion?.Invoke(Adresse, Zustand, FunktionsNr);
+        }
+        private void Set_LOKSTATUS(int Adresse)
+        {
+            setLOKStatus?.Invoke(Adresse);
         }
 
         public override string ToString()

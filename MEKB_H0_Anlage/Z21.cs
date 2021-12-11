@@ -304,7 +304,7 @@ namespace MEKB_H0_Anlage
 
                     byte[] para_db = data.Skip(5).ToArray();
                     para_db = para_db.Take(para_db.Count() - 1).ToArray();
-
+                    if (data.Length <= 4) return Z21_ErrorCode.FALSE_LENGTH;
                     SolveXTunnel((Z21_XBus_Header)data[4], para_db);
 
                     break;

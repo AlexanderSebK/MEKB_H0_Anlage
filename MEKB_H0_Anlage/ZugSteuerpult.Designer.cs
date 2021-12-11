@@ -432,7 +432,6 @@
             // 
             // StufenInfo
             // 
-            this.StufenInfo.Enabled = false;
             this.StufenInfo.FormattingEnabled = true;
             this.StufenInfo.Items.AddRange(new object[] {
             "F14",
@@ -442,6 +441,7 @@
             this.StufenInfo.Name = "StufenInfo";
             this.StufenInfo.Size = new System.Drawing.Size(72, 21);
             this.StufenInfo.TabIndex = 33;
+            this.StufenInfo.SelectedIndexChanged += new System.EventHandler(this.StufenInfo_SelectedIndexChanged);
             // 
             // Steuerung
             // 

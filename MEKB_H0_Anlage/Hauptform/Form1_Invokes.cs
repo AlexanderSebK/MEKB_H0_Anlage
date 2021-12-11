@@ -89,7 +89,41 @@ namespace MEKB_H0_Anlage
         }
         private void Set_Gleistatus(int Status, int Grund)
         {
-
+            if (Status == 0x00)
+            {
+                TrackStatus.Text = "Strecke: In Betrieb";
+                TrackStatus.BackColor = Color.ForestGreen;
+                TrackStatus.ForeColor = Color.White;
+                Betriebsbereit = true;
+            }
+            if ((Status & 0x02) == 0x02)
+            {
+                TrackStatus.Text = "Strecke: Kein Strom";
+                TrackStatus.BackColor = Color.Gold;
+                TrackStatus.ForeColor = Color.Black;
+                Betriebsbereit = false;
+            }
+            if ((Status & 0x01) == 0x01)
+            {
+                TrackStatus.Text = "Strecke: Nothalt";
+                TrackStatus.BackColor = Color.Orange;
+                TrackStatus.ForeColor = Color.Black;
+                Betriebsbereit = false;
+            }
+            if ((Status & 0x04) == 0x04)
+            {
+                TrackStatus.Text = "Strecke: Kurzschluss";
+                TrackStatus.BackColor = Color.Red;
+                TrackStatus.ForeColor = Color.White;
+                Betriebsbereit = false;
+            }
+            if ((Status & 0x20) == 0x20)
+            {
+                TrackStatus.Text = "Programmiermodus";
+                TrackStatus.BackColor = Color.Blue;
+                TrackStatus.ForeColor = Color.White;
+                Betriebsbereit = false;
+            }
         }
         private void UpdateWeiche(int Adresse, int Status)
         {
