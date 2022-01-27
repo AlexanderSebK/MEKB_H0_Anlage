@@ -99,6 +99,8 @@ namespace MEKB_H0_Anlage
         public bool FahrstrasseRichtung_vonZunge { get; set; }
         public bool FahrstrasseAktive { get; set; }
 
+        public bool FahrstrasseSicher { get; set; }
+
         public bool Q_Modus { get; set; }
         public int Schaltzeit { get; set; }
         public bool Deaktivieren { get; set; }
@@ -198,12 +200,25 @@ namespace MEKB_H0_Anlage
         }
         public List<Weiche> Fahrstr_Weichenliste { get; set; }
         public bool Busy { get; set; }
+        public bool Safe { get; set; }
         private bool FahrstrasseGesetzt { get; set; }
         private bool FahrstrasseAktiv { get; set; }
+
+        private void WeichenSicherheit(List<Weiche> ListeGlobal, bool Sicherheitsstatus)
+        {
+            foreach (Weiche weiche in Fahrstr_Weichenliste)
+            {
+                int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
+                if (ListID == -1) return;
+                ListeGlobal[ListID].FahrstrasseSicher = Sicherheitsstatus;
+            }
+        }
         public void SetFahrstrasse(List<Weiche> ListeGlobal, Z21 Z21_Instanz)
         {
             FahrstrasseGesetzt = true;
             Busy = true;
+            Safe = false;
+            WeichenSicherheit(ListeGlobal, Safe);
             foreach (Weiche weiche in Fahrstr_Weichenliste)
             {
                 int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
@@ -278,23 +293,34 @@ namespace MEKB_H0_Anlage
 
         public void ControlSetFahrstrasse(List<Weiche> ListeGlobal, Z21 Z21_Instanz)
         {
-            Weiche weiche = Fahrstr_Weichenliste[ControlSetPointer];
-            int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
-            if (ListID == -1) return;
-
-            if (ListeGlobal[ListID].Spiegeln)
+            if(Fahrstr_Weichenliste.Count == 0) //Weichenloser Block
             {
-                _ = Z21_Instanz.Z21_SET_WEICHEAsync(ListeGlobal[ListID].Adresse, !weiche.FahrstrasseAbzweig, weiche.Q_Modus, weiche.Schaltzeit, weiche.Deaktivieren);
+                Safe = true;
+                WeichenSicherheit(ListeGlobal, Safe);
+                return;
             }
-            else
+            if (!Safe)
             {
-                _ = Z21_Instanz.Z21_SET_WEICHEAsync(ListeGlobal[ListID].Adresse, weiche.FahrstrasseAbzweig, weiche.Q_Modus, weiche.Schaltzeit, weiche.Deaktivieren);
-            }
+                Weiche weiche = Fahrstr_Weichenliste[ControlSetPointer];
+                int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
+                if (ListID == -1) return;
 
-            ControlSetPointer++;
-            if (ControlSetPointer >= Fahrstr_Weichenliste.Count)
-            {
-                ControlSetPointer = 0;
+                if (ListeGlobal[ListID].Spiegeln)
+                {
+                    _ = Z21_Instanz.Z21_SET_WEICHEAsync(ListeGlobal[ListID].Adresse, !weiche.FahrstrasseAbzweig, weiche.Q_Modus, weiche.Schaltzeit, weiche.Deaktivieren);
+                }
+                else
+                {
+                    _ = Z21_Instanz.Z21_SET_WEICHEAsync(ListeGlobal[ListID].Adresse, weiche.FahrstrasseAbzweig, weiche.Q_Modus, weiche.Schaltzeit, weiche.Deaktivieren);
+                }
+
+                ControlSetPointer++;
+                if (ControlSetPointer >= Fahrstr_Weichenliste.Count)
+                {
+                    ControlSetPointer = 0;
+                    Safe = true;
+                    WeichenSicherheit(ListeGlobal, Safe);
+                }
             }
         }
 
@@ -313,6 +339,8 @@ namespace MEKB_H0_Anlage
                 ListeGlobal[ListID].FahrstrasseAktive = false;
             }
             FahrstrasseAktiv = false;
+            Safe = false;
+            WeichenSicherheit(ListeGlobal, Safe);
         }
         private int ControlSetPointer;
     }

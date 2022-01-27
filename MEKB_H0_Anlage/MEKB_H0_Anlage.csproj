@@ -640,6 +640,10 @@
     <None Include="Resources\Bahnsteig_Unten.png" />
     <None Include="Resources\Sperrsignal_kurz_270.png" />
     <None Include="Resources\FahrstufenAnzeige.png" />
+    <None Include="Resources\Fahrstr_Kurve0R_oben.png" />
+    <None Include="Resources\Fahrstr_Kurve0R_unten.png" />
+    <None Include="Resources\Fahrstrasse_unten.png" />
+    <None Include="Resources\Fahrstrasse_unten_deakt.png" />
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

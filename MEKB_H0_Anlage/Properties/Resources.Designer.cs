@@ -353,6 +353,26 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Fahrstr_Kurve0R_oben {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstr_Kurve0R_oben", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fahrstr_Kurve0R_unten {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstr_Kurve0R_unten", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Fahrstr_Kurve180L_oben {
             get {
                 object obj = ResourceManager.GetObject("Fahrstr_Kurve180L_oben", resourceCulture);
@@ -506,6 +526,26 @@ namespace MEKB_H0_Anlage.Properties {
         internal static System.Drawing.Bitmap Fahrstrasse_rechts_deakt {
             get {
                 object obj = ResourceManager.GetObject("Fahrstrasse_rechts_deakt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fahrstrasse_unten {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstrasse_unten", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fahrstrasse_unten_deakt {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstrasse_unten_deakt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

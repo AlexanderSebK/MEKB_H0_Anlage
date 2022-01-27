@@ -32,11 +32,11 @@ namespace MEKB_H0_Anlage
 
         private void UpdateButton_Fahrstr_GL1_links()
         {
-            if (Gleis2_nach_links.GetGesetztStatus() ||
-                Gleis3_nach_links.GetGesetztStatus() ||
-                Gleis4_nach_links.GetGesetztStatus() ||
-                Gleis5_nach_links.GetGesetztStatus() ||
-                Gleis6_nach_links.GetGesetztStatus() ||
+            if (Gleis2_nach_Block2.GetGesetztStatus() ||
+                Gleis3_nach_Block2.GetGesetztStatus() ||
+                Gleis4_nach_Block2.GetGesetztStatus() ||
+                Gleis5_nach_Block2.GetGesetztStatus() ||
+                Gleis6_nach_Block2.GetGesetztStatus() ||
                 Block2_nach_Gleis1.GetGesetztStatus() ||
                 Block2_nach_Gleis2.GetGesetztStatus())
             {
@@ -57,11 +57,11 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_GL2_links()
         {
-            if (Gleis1_nach_links.GetGesetztStatus() ||
-                Gleis3_nach_links.GetGesetztStatus() ||
-                Gleis4_nach_links.GetGesetztStatus() ||
-                Gleis5_nach_links.GetGesetztStatus() ||
-                Gleis6_nach_links.GetGesetztStatus() ||
+            if (Gleis1_nach_Block2.GetGesetztStatus() ||
+                Gleis3_nach_Block2.GetGesetztStatus() ||
+                Gleis4_nach_Block2.GetGesetztStatus() ||
+                Gleis5_nach_Block2.GetGesetztStatus() ||
+                Gleis6_nach_Block2.GetGesetztStatus() ||
                 Block2_nach_Gleis1.GetGesetztStatus() ||
                 Block2_nach_Gleis2.GetGesetztStatus())
             {
@@ -82,11 +82,11 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_GL3_links()
         {
-            if (Gleis1_nach_links.GetGesetztStatus() ||
-                Gleis2_nach_links.GetGesetztStatus() ||
-                Gleis4_nach_links.GetGesetztStatus() ||
-                Gleis5_nach_links.GetGesetztStatus() ||
-                Gleis6_nach_links.GetGesetztStatus() ||
+            if (Gleis1_nach_Block2.GetGesetztStatus() ||
+                Gleis2_nach_Block2.GetGesetztStatus() ||
+                Gleis4_nach_Block2.GetGesetztStatus() ||
+                Gleis5_nach_Block2.GetGesetztStatus() ||
+                Gleis6_nach_Block2.GetGesetztStatus() ||
                 Block2_nach_Gleis1.GetGesetztStatus() ||
                 Block2_nach_Gleis2.GetGesetztStatus() ||
                 Block2_nach_Gleis3.GetGesetztStatus() ||
@@ -111,11 +111,11 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_GL4_links()
         {
-            if (Gleis1_nach_links.GetGesetztStatus() ||
-                Gleis2_nach_links.GetGesetztStatus() ||
-                Gleis3_nach_links.GetGesetztStatus() ||
-                Gleis5_nach_links.GetGesetztStatus() ||
-                Gleis6_nach_links.GetGesetztStatus() ||
+            if (Gleis1_nach_Block2.GetGesetztStatus() ||
+                Gleis2_nach_Block2.GetGesetztStatus() ||
+                Gleis3_nach_Block2.GetGesetztStatus() ||
+                Gleis5_nach_Block2.GetGesetztStatus() ||
+                Gleis6_nach_Block2.GetGesetztStatus() ||
                 Block2_nach_Gleis1.GetGesetztStatus() ||
                 Block2_nach_Gleis2.GetGesetztStatus() ||
                 Block2_nach_Gleis3.GetGesetztStatus() ||
@@ -140,11 +140,11 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_GL5_links()
         {
-            if (Gleis1_nach_links.GetGesetztStatus() ||
-                Gleis2_nach_links.GetGesetztStatus() ||
-                Gleis3_nach_links.GetGesetztStatus() ||
-                Gleis4_nach_links.GetGesetztStatus() ||
-                Gleis6_nach_links.GetGesetztStatus() ||
+            if (Gleis1_nach_Block2.GetGesetztStatus() ||
+                Gleis2_nach_Block2.GetGesetztStatus() ||
+                Gleis3_nach_Block2.GetGesetztStatus() ||
+                Gleis4_nach_Block2.GetGesetztStatus() ||
+                Gleis6_nach_Block2.GetGesetztStatus() ||
                 Block2_nach_Gleis1.GetGesetztStatus() ||
                 Block2_nach_Gleis2.GetGesetztStatus() ||
                 Block2_nach_Gleis3.GetGesetztStatus() ||
@@ -169,11 +169,11 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_GL6_links()
         {
-            if (Gleis1_nach_links.GetGesetztStatus() ||
-                Gleis2_nach_links.GetGesetztStatus() ||
-                Gleis3_nach_links.GetGesetztStatus() ||
-                Gleis4_nach_links.GetGesetztStatus() ||
-                Gleis5_nach_links.GetGesetztStatus() ||
+            if (Gleis1_nach_Block2.GetGesetztStatus() ||
+                Gleis2_nach_Block2.GetGesetztStatus() ||
+                Gleis3_nach_Block2.GetGesetztStatus() ||
+                Gleis4_nach_Block2.GetGesetztStatus() ||
+                Gleis5_nach_Block2.GetGesetztStatus() ||
                 Block2_nach_Gleis1.GetGesetztStatus() ||
                 Block2_nach_Gleis2.GetGesetztStatus() ||
                 Block2_nach_Gleis3.GetGesetztStatus() ||
@@ -198,8 +198,8 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Block2_Einfahrt()
         {
-            if (Gleis1_nach_links.GetGesetztStatus() ||
-                Gleis2_nach_links.GetGesetztStatus() )               
+            if (Gleis1_nach_Block2.GetGesetztStatus() ||
+                Gleis2_nach_Block2.GetGesetztStatus() )               
             {
                 Block2_Einfaht_GL1.Enabled = false;
                 Block2_Einfaht_GL2.Enabled = false;                
@@ -209,10 +209,10 @@ namespace MEKB_H0_Anlage
                 Block2_Einfaht_GL1.Enabled = true;
                 Block2_Einfaht_GL2.Enabled = true;
             }
-            if (Gleis3_nach_links.GetGesetztStatus() ||
-                Gleis4_nach_links.GetGesetztStatus() ||
-                Gleis5_nach_links.GetGesetztStatus() ||
-                Gleis6_nach_links.GetGesetztStatus() )
+            if (Gleis3_nach_Block2.GetGesetztStatus() ||
+                Gleis4_nach_Block2.GetGesetztStatus() ||
+                Gleis5_nach_Block2.GetGesetztStatus() ||
+                Gleis6_nach_Block2.GetGesetztStatus() )
             {
                 Block2_Einfahrt.Enabled = false;
                 Block2_Einfahrt.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
