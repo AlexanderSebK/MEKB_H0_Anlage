@@ -36,16 +36,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt1 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt2 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt3 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt4 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt5 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt6 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt7 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt8 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt9 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt10 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -62,25 +62,24 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.textBox16 = new System.Windows.Forms.TextBox();
-            this.textBox17 = new System.Windows.Forms.TextBox();
-            this.textBox18 = new System.Windows.Forms.TextBox();
-            this.textBox19 = new System.Windows.Forms.TextBox();
-            this.textBox20 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt20 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt19 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt18 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt17 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt16 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt15 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt14 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt13 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt12 = new System.Windows.Forms.TextBox();
+            this.DisplayLokFkt11 = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.textBox21 = new System.Windows.Forms.TextBox();
-            this.Speichern = new System.Windows.Forms.Button();
+            this.DisplayLokGattung = new System.Windows.Forms.ComboBox();
+            this.DisplayLokAdresse = new System.Windows.Forms.NumericUpDown();
+            this.DisplayLokName = new System.Windows.Forms.TextBox();
             this.SpeichernUnter = new System.Windows.Forms.Button();
             this.Laden = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplayLokAdresse)).BeginInit();
             this.SuspendLayout();
             // 
             // Lokliste
@@ -146,85 +145,85 @@
             this.label6.TabIndex = 6;
             this.label6.Text = "Funktion 2";
             // 
-            // textBox1
+            // DisplayLokFkt1
             // 
-            this.textBox1.Location = new System.Drawing.Point(240, 144);
-            this.textBox1.MaxLength = 12;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
+            this.DisplayLokFkt1.Location = new System.Drawing.Point(240, 144);
+            this.DisplayLokFkt1.MaxLength = 12;
+            this.DisplayLokFkt1.Name = "DisplayLokFkt1";
+            this.DisplayLokFkt1.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt1.TabIndex = 7;
             // 
-            // textBox2
+            // DisplayLokFkt2
             // 
-            this.textBox2.Location = new System.Drawing.Point(240, 168);
-            this.textBox2.MaxLength = 12;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 8;
+            this.DisplayLokFkt2.Location = new System.Drawing.Point(240, 168);
+            this.DisplayLokFkt2.MaxLength = 12;
+            this.DisplayLokFkt2.Name = "DisplayLokFkt2";
+            this.DisplayLokFkt2.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt2.TabIndex = 8;
             // 
-            // textBox3
+            // DisplayLokFkt3
             // 
-            this.textBox3.Location = new System.Drawing.Point(240, 192);
-            this.textBox3.MaxLength = 12;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 9;
+            this.DisplayLokFkt3.Location = new System.Drawing.Point(240, 192);
+            this.DisplayLokFkt3.MaxLength = 12;
+            this.DisplayLokFkt3.Name = "DisplayLokFkt3";
+            this.DisplayLokFkt3.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt3.TabIndex = 9;
             // 
-            // textBox4
+            // DisplayLokFkt4
             // 
-            this.textBox4.Location = new System.Drawing.Point(240, 216);
-            this.textBox4.MaxLength = 12;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 10;
+            this.DisplayLokFkt4.Location = new System.Drawing.Point(240, 216);
+            this.DisplayLokFkt4.MaxLength = 12;
+            this.DisplayLokFkt4.Name = "DisplayLokFkt4";
+            this.DisplayLokFkt4.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt4.TabIndex = 10;
             // 
-            // textBox5
+            // DisplayLokFkt5
             // 
-            this.textBox5.Location = new System.Drawing.Point(240, 240);
-            this.textBox5.MaxLength = 12;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 11;
+            this.DisplayLokFkt5.Location = new System.Drawing.Point(240, 240);
+            this.DisplayLokFkt5.MaxLength = 12;
+            this.DisplayLokFkt5.Name = "DisplayLokFkt5";
+            this.DisplayLokFkt5.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt5.TabIndex = 11;
             // 
-            // textBox6
+            // DisplayLokFkt6
             // 
-            this.textBox6.Location = new System.Drawing.Point(240, 264);
-            this.textBox6.MaxLength = 12;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 12;
+            this.DisplayLokFkt6.Location = new System.Drawing.Point(240, 264);
+            this.DisplayLokFkt6.MaxLength = 12;
+            this.DisplayLokFkt6.Name = "DisplayLokFkt6";
+            this.DisplayLokFkt6.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt6.TabIndex = 12;
             // 
-            // textBox7
+            // DisplayLokFkt7
             // 
-            this.textBox7.Location = new System.Drawing.Point(240, 288);
-            this.textBox7.MaxLength = 12;
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 20);
-            this.textBox7.TabIndex = 13;
+            this.DisplayLokFkt7.Location = new System.Drawing.Point(240, 288);
+            this.DisplayLokFkt7.MaxLength = 12;
+            this.DisplayLokFkt7.Name = "DisplayLokFkt7";
+            this.DisplayLokFkt7.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt7.TabIndex = 13;
             // 
-            // textBox8
+            // DisplayLokFkt8
             // 
-            this.textBox8.Location = new System.Drawing.Point(240, 312);
-            this.textBox8.MaxLength = 12;
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(100, 20);
-            this.textBox8.TabIndex = 14;
+            this.DisplayLokFkt8.Location = new System.Drawing.Point(240, 312);
+            this.DisplayLokFkt8.MaxLength = 12;
+            this.DisplayLokFkt8.Name = "DisplayLokFkt8";
+            this.DisplayLokFkt8.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt8.TabIndex = 14;
             // 
-            // textBox9
+            // DisplayLokFkt9
             // 
-            this.textBox9.Location = new System.Drawing.Point(240, 336);
-            this.textBox9.MaxLength = 12;
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(100, 20);
-            this.textBox9.TabIndex = 15;
+            this.DisplayLokFkt9.Location = new System.Drawing.Point(240, 336);
+            this.DisplayLokFkt9.MaxLength = 12;
+            this.DisplayLokFkt9.Name = "DisplayLokFkt9";
+            this.DisplayLokFkt9.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt9.TabIndex = 15;
             // 
-            // textBox10
+            // DisplayLokFkt10
             // 
-            this.textBox10.Location = new System.Drawing.Point(240, 360);
-            this.textBox10.MaxLength = 12;
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(100, 20);
-            this.textBox10.TabIndex = 16;
+            this.DisplayLokFkt10.Location = new System.Drawing.Point(240, 360);
+            this.DisplayLokFkt10.MaxLength = 12;
+            this.DisplayLokFkt10.Name = "DisplayLokFkt10";
+            this.DisplayLokFkt10.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt10.TabIndex = 16;
             // 
             // label7
             // 
@@ -370,85 +369,85 @@
             this.label22.TabIndex = 37;
             this.label22.Text = "Funktion 13";
             // 
-            // textBox11
+            // DisplayLokFkt20
             // 
-            this.textBox11.Location = new System.Drawing.Point(440, 360);
-            this.textBox11.MaxLength = 12;
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(100, 20);
-            this.textBox11.TabIndex = 36;
+            this.DisplayLokFkt20.Location = new System.Drawing.Point(440, 360);
+            this.DisplayLokFkt20.MaxLength = 12;
+            this.DisplayLokFkt20.Name = "DisplayLokFkt20";
+            this.DisplayLokFkt20.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt20.TabIndex = 36;
             // 
-            // textBox12
+            // DisplayLokFkt19
             // 
-            this.textBox12.Location = new System.Drawing.Point(440, 336);
-            this.textBox12.MaxLength = 12;
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(100, 20);
-            this.textBox12.TabIndex = 35;
+            this.DisplayLokFkt19.Location = new System.Drawing.Point(440, 336);
+            this.DisplayLokFkt19.MaxLength = 12;
+            this.DisplayLokFkt19.Name = "DisplayLokFkt19";
+            this.DisplayLokFkt19.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt19.TabIndex = 35;
             // 
-            // textBox13
+            // DisplayLokFkt18
             // 
-            this.textBox13.Location = new System.Drawing.Point(440, 312);
-            this.textBox13.MaxLength = 12;
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(100, 20);
-            this.textBox13.TabIndex = 34;
+            this.DisplayLokFkt18.Location = new System.Drawing.Point(440, 312);
+            this.DisplayLokFkt18.MaxLength = 12;
+            this.DisplayLokFkt18.Name = "DisplayLokFkt18";
+            this.DisplayLokFkt18.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt18.TabIndex = 34;
             // 
-            // textBox14
+            // DisplayLokFkt17
             // 
-            this.textBox14.Location = new System.Drawing.Point(440, 288);
-            this.textBox14.MaxLength = 12;
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(100, 20);
-            this.textBox14.TabIndex = 33;
+            this.DisplayLokFkt17.Location = new System.Drawing.Point(440, 288);
+            this.DisplayLokFkt17.MaxLength = 12;
+            this.DisplayLokFkt17.Name = "DisplayLokFkt17";
+            this.DisplayLokFkt17.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt17.TabIndex = 33;
             // 
-            // textBox15
+            // DisplayLokFkt16
             // 
-            this.textBox15.Location = new System.Drawing.Point(440, 264);
-            this.textBox15.MaxLength = 12;
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(100, 20);
-            this.textBox15.TabIndex = 32;
+            this.DisplayLokFkt16.Location = new System.Drawing.Point(440, 264);
+            this.DisplayLokFkt16.MaxLength = 12;
+            this.DisplayLokFkt16.Name = "DisplayLokFkt16";
+            this.DisplayLokFkt16.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt16.TabIndex = 32;
             // 
-            // textBox16
+            // DisplayLokFkt15
             // 
-            this.textBox16.Location = new System.Drawing.Point(440, 240);
-            this.textBox16.MaxLength = 12;
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(100, 20);
-            this.textBox16.TabIndex = 31;
+            this.DisplayLokFkt15.Location = new System.Drawing.Point(440, 240);
+            this.DisplayLokFkt15.MaxLength = 12;
+            this.DisplayLokFkt15.Name = "DisplayLokFkt15";
+            this.DisplayLokFkt15.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt15.TabIndex = 31;
             // 
-            // textBox17
+            // DisplayLokFkt14
             // 
-            this.textBox17.Location = new System.Drawing.Point(440, 216);
-            this.textBox17.MaxLength = 12;
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(100, 20);
-            this.textBox17.TabIndex = 30;
+            this.DisplayLokFkt14.Location = new System.Drawing.Point(440, 216);
+            this.DisplayLokFkt14.MaxLength = 12;
+            this.DisplayLokFkt14.Name = "DisplayLokFkt14";
+            this.DisplayLokFkt14.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt14.TabIndex = 30;
             // 
-            // textBox18
+            // DisplayLokFkt13
             // 
-            this.textBox18.Location = new System.Drawing.Point(440, 192);
-            this.textBox18.MaxLength = 12;
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(100, 20);
-            this.textBox18.TabIndex = 29;
+            this.DisplayLokFkt13.Location = new System.Drawing.Point(440, 192);
+            this.DisplayLokFkt13.MaxLength = 12;
+            this.DisplayLokFkt13.Name = "DisplayLokFkt13";
+            this.DisplayLokFkt13.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt13.TabIndex = 29;
             // 
-            // textBox19
+            // DisplayLokFkt12
             // 
-            this.textBox19.Location = new System.Drawing.Point(440, 168);
-            this.textBox19.MaxLength = 12;
-            this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(100, 20);
-            this.textBox19.TabIndex = 28;
+            this.DisplayLokFkt12.Location = new System.Drawing.Point(440, 168);
+            this.DisplayLokFkt12.MaxLength = 12;
+            this.DisplayLokFkt12.Name = "DisplayLokFkt12";
+            this.DisplayLokFkt12.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt12.TabIndex = 28;
             // 
-            // textBox20
+            // DisplayLokFkt11
             // 
-            this.textBox20.Location = new System.Drawing.Point(440, 144);
-            this.textBox20.MaxLength = 12;
-            this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(100, 20);
-            this.textBox20.TabIndex = 27;
+            this.DisplayLokFkt11.Location = new System.Drawing.Point(440, 144);
+            this.DisplayLokFkt11.MaxLength = 12;
+            this.DisplayLokFkt11.Name = "DisplayLokFkt11";
+            this.DisplayLokFkt11.Size = new System.Drawing.Size(100, 20);
+            this.DisplayLokFkt11.TabIndex = 27;
             // 
             // label23
             // 
@@ -468,10 +467,10 @@
             this.label24.TabIndex = 25;
             this.label24.Text = "Funktion 11";
             // 
-            // comboBox1
+            // DisplayLokGattung
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.DisplayLokGattung.FormattingEnabled = true;
+            this.DisplayLokGattung.Items.AddRange(new object[] {
             "InterCityExpress",
             "InterCity",
             "InterRegioExpress",
@@ -480,42 +479,49 @@
             "RegionalBahn",
             "S-Bahn",
             "Güterzug"});
-            this.comboBox1.Location = new System.Drawing.Point(240, 88);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(96, 21);
-            this.comboBox1.TabIndex = 45;
+            this.DisplayLokGattung.Location = new System.Drawing.Point(240, 88);
+            this.DisplayLokGattung.Name = "DisplayLokGattung";
+            this.DisplayLokGattung.Size = new System.Drawing.Size(96, 21);
+            this.DisplayLokGattung.TabIndex = 45;
             // 
-            // numericUpDown1
+            // DisplayLokAdresse
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(240, 64);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(96, 20);
-            this.numericUpDown1.TabIndex = 46;
+            this.DisplayLokAdresse.Location = new System.Drawing.Point(240, 64);
+            this.DisplayLokAdresse.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.DisplayLokAdresse.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.DisplayLokAdresse.Name = "DisplayLokAdresse";
+            this.DisplayLokAdresse.Size = new System.Drawing.Size(96, 20);
+            this.DisplayLokAdresse.TabIndex = 46;
+            this.DisplayLokAdresse.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // textBox21
+            // DisplayLokName
             // 
-            this.textBox21.Location = new System.Drawing.Point(240, 40);
-            this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new System.Drawing.Size(184, 20);
-            this.textBox21.TabIndex = 47;
-            // 
-            // Speichern
-            // 
-            this.Speichern.Location = new System.Drawing.Point(456, 416);
-            this.Speichern.Name = "Speichern";
-            this.Speichern.Size = new System.Drawing.Size(91, 23);
-            this.Speichern.TabIndex = 48;
-            this.Speichern.Text = "Lok Speichern";
-            this.Speichern.UseVisualStyleBackColor = true;
+            this.DisplayLokName.Location = new System.Drawing.Point(240, 40);
+            this.DisplayLokName.Name = "DisplayLokName";
+            this.DisplayLokName.Size = new System.Drawing.Size(184, 20);
+            this.DisplayLokName.TabIndex = 47;
             // 
             // SpeichernUnter
             // 
-            this.SpeichernUnter.Location = new System.Drawing.Point(328, 416);
+            this.SpeichernUnter.Location = new System.Drawing.Point(424, 416);
             this.SpeichernUnter.Name = "SpeichernUnter";
             this.SpeichernUnter.Size = new System.Drawing.Size(120, 23);
             this.SpeichernUnter.TabIndex = 49;
             this.SpeichernUnter.Text = "Lok Speichern unter...";
             this.SpeichernUnter.UseVisualStyleBackColor = true;
+            this.SpeichernUnter.Click += new System.EventHandler(this.SpeichernUnter_Click);
             // 
             // Laden
             // 
@@ -525,6 +531,7 @@
             this.Laden.TabIndex = 50;
             this.Laden.Text = "Lok Laden";
             this.Laden.UseVisualStyleBackColor = true;
+            this.Laden.Click += new System.EventHandler(this.Laden_Click);
             // 
             // LokEditor
             // 
@@ -533,10 +540,9 @@
             this.ClientSize = new System.Drawing.Size(561, 450);
             this.Controls.Add(this.Laden);
             this.Controls.Add(this.SpeichernUnter);
-            this.Controls.Add(this.Speichern);
-            this.Controls.Add(this.textBox21);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.DisplayLokName);
+            this.Controls.Add(this.DisplayLokAdresse);
+            this.Controls.Add(this.DisplayLokGattung);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label17);
@@ -545,16 +551,16 @@
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label22);
-            this.Controls.Add(this.textBox11);
-            this.Controls.Add(this.textBox12);
-            this.Controls.Add(this.textBox13);
-            this.Controls.Add(this.textBox14);
-            this.Controls.Add(this.textBox15);
-            this.Controls.Add(this.textBox16);
-            this.Controls.Add(this.textBox17);
-            this.Controls.Add(this.textBox18);
-            this.Controls.Add(this.textBox19);
-            this.Controls.Add(this.textBox20);
+            this.Controls.Add(this.DisplayLokFkt20);
+            this.Controls.Add(this.DisplayLokFkt19);
+            this.Controls.Add(this.DisplayLokFkt18);
+            this.Controls.Add(this.DisplayLokFkt17);
+            this.Controls.Add(this.DisplayLokFkt16);
+            this.Controls.Add(this.DisplayLokFkt15);
+            this.Controls.Add(this.DisplayLokFkt14);
+            this.Controls.Add(this.DisplayLokFkt13);
+            this.Controls.Add(this.DisplayLokFkt12);
+            this.Controls.Add(this.DisplayLokFkt11);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label24);
             this.Controls.Add(this.label14);
@@ -565,16 +571,16 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox10);
-            this.Controls.Add(this.textBox9);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.DisplayLokFkt10);
+            this.Controls.Add(this.DisplayLokFkt9);
+            this.Controls.Add(this.DisplayLokFkt8);
+            this.Controls.Add(this.DisplayLokFkt7);
+            this.Controls.Add(this.DisplayLokFkt6);
+            this.Controls.Add(this.DisplayLokFkt5);
+            this.Controls.Add(this.DisplayLokFkt4);
+            this.Controls.Add(this.DisplayLokFkt3);
+            this.Controls.Add(this.DisplayLokFkt2);
+            this.Controls.Add(this.DisplayLokFkt1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -586,7 +592,7 @@
             this.Name = "LokEditor";
             this.Text = "LokEditor";
             this.Load += new System.EventHandler(this.LokEditor_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplayLokAdresse)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -601,16 +607,16 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox DisplayLokFkt1;
+        private System.Windows.Forms.TextBox DisplayLokFkt2;
+        private System.Windows.Forms.TextBox DisplayLokFkt3;
+        private System.Windows.Forms.TextBox DisplayLokFkt4;
+        private System.Windows.Forms.TextBox DisplayLokFkt5;
+        private System.Windows.Forms.TextBox DisplayLokFkt6;
+        private System.Windows.Forms.TextBox DisplayLokFkt7;
+        private System.Windows.Forms.TextBox DisplayLokFkt8;
+        private System.Windows.Forms.TextBox DisplayLokFkt9;
+        private System.Windows.Forms.TextBox DisplayLokFkt10;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
@@ -627,22 +633,21 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.TextBox textBox15;
-        private System.Windows.Forms.TextBox textBox16;
-        private System.Windows.Forms.TextBox textBox17;
-        private System.Windows.Forms.TextBox textBox18;
-        private System.Windows.Forms.TextBox textBox19;
-        private System.Windows.Forms.TextBox textBox20;
+        private System.Windows.Forms.TextBox DisplayLokFkt20;
+        private System.Windows.Forms.TextBox DisplayLokFkt19;
+        private System.Windows.Forms.TextBox DisplayLokFkt18;
+        private System.Windows.Forms.TextBox DisplayLokFkt17;
+        private System.Windows.Forms.TextBox DisplayLokFkt16;
+        private System.Windows.Forms.TextBox DisplayLokFkt15;
+        private System.Windows.Forms.TextBox DisplayLokFkt14;
+        private System.Windows.Forms.TextBox DisplayLokFkt13;
+        private System.Windows.Forms.TextBox DisplayLokFkt12;
+        private System.Windows.Forms.TextBox DisplayLokFkt11;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.TextBox textBox21;
-        private System.Windows.Forms.Button Speichern;
+        private System.Windows.Forms.ComboBox DisplayLokGattung;
+        private System.Windows.Forms.NumericUpDown DisplayLokAdresse;
+        private System.Windows.Forms.TextBox DisplayLokName;
         private System.Windows.Forms.Button SpeichernUnter;
         private System.Windows.Forms.Button Laden;
     }
