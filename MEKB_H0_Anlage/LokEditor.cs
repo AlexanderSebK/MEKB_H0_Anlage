@@ -15,7 +15,7 @@ namespace MEKB_H0_Anlage
     public partial class LokEditor : Form
     {
         private string[] LokDatein;
-        private List<Lok> loks = new List<Lok>(); 
+        private List<Lok> loks = new List<Lok>();
         public LokEditor()
         {
             InitializeComponent();
@@ -28,17 +28,23 @@ namespace MEKB_H0_Anlage
 
         private void LoadLokList()
         {
-            LokDatein = Directory.GetFiles("LokArchiv");
+            loks.Clear();
+            LokDatein = Directory.GetFiles("LokArchiv", "*.xml", SearchOption.AllDirectories);
             Lokliste.Items.Clear();
-            foreach(string Datei in LokDatein)
+            foreach (string Datei in LokDatein)
             {
-                Lokliste.Items.Add(Path.GetFileName(Datei));               
+
+                LoadLokValues(XElement.Load(Datei));
+            }
+            foreach (Lok lokomotive in loks)
+            {
+                Lokliste.Items.Add(lokomotive.Name);
             }
         }
 
-        private void LoadLok(XElement XMLFile)
+        private void LoadLokValues(XElement XMLFile)
         {
-            loks.Clear();
+
             var list = XMLFile.Elements("Lok").ToList();             //Alle Elemente des Types Lok in eine Liste Umwandeln 
 
             foreach (XElement lok in list)                            //Alle Elemente der Liste einzeln durchlaufen
@@ -77,6 +83,104 @@ namespace MEKB_H0_Anlage
         private void SaveLok(string Filename)
         {
 
+        }
+
+        private void Laden_Click(object sender, EventArgs e)
+        {
+            string FileToOpen = "LokArchiv\\" + Lokliste.SelectedItem.ToString();
+
+            int ListID = loks.IndexOf(new Lok() { Name = Lokliste.SelectedItem.ToString() }); //Lok mit diesem Namen in der Liste suchen
+            if (ListID == -1) return;                                               //Lok nicht vorhanden, Funktion abbrechen
+            DisplayLokValues(loks[ListID]);                                                   //Lokdaten anzeigen lassen
+        }
+
+        private void DisplayLokValues(Lok lok)
+        {
+            DisplayLokName.Text = lok.Name;
+            try
+            {
+                DisplayLokAdresse.Value = lok.Adresse;
+            }
+            catch
+            {
+                DisplayLokAdresse.Value = 3;
+            }
+            DisplayLokGattung.Text = lok.Gattung;
+
+            DisplayLokFkt1.Text = lok.Funktionen[1];
+            DisplayLokFkt2.Text = lok.Funktionen[2];
+            DisplayLokFkt3.Text = lok.Funktionen[3];
+            DisplayLokFkt4.Text = lok.Funktionen[4];
+            DisplayLokFkt5.Text = lok.Funktionen[5];
+            DisplayLokFkt6.Text = lok.Funktionen[6];
+            DisplayLokFkt7.Text = lok.Funktionen[7];
+            DisplayLokFkt8.Text = lok.Funktionen[8];
+            DisplayLokFkt9.Text = lok.Funktionen[9];
+            DisplayLokFkt10.Text = lok.Funktionen[10];
+            DisplayLokFkt11.Text = lok.Funktionen[11];
+            DisplayLokFkt12.Text = lok.Funktionen[12];
+            DisplayLokFkt13.Text = lok.Funktionen[13];
+            DisplayLokFkt14.Text = lok.Funktionen[14];
+            DisplayLokFkt15.Text = lok.Funktionen[15];
+            DisplayLokFkt16.Text = lok.Funktionen[16];
+            DisplayLokFkt17.Text = lok.Funktionen[17];
+            DisplayLokFkt18.Text = lok.Funktionen[18];
+            DisplayLokFkt19.Text = lok.Funktionen[19];
+            DisplayLokFkt20.Text = lok.Funktionen[20];
+        }
+
+        private void SpeichernUnter_Click(object sender, EventArgs e)
+        {
+            int ListID = loks.IndexOf(new Lok() { Name = Lokliste.SelectedItem.ToString() }); //Lok mit diesem Namen in der Liste suchen
+            if (ListID == -1) return;                                               //Lok nicht vorhanden, Funktion abbrechen
+            XElement ExportData = ExportLokData();                                                   //Lokdaten in XElement verwandeln;
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            saveFileDialog1.Filter = "LokArchiv (*.xml)|*.xml";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                ExportData.Save(saveFileDialog1.FileName);
+            }
+
+
+            
+        }
+
+        private XElement ExportLokData()
+        {
+            XElement LokXMLData = new XElement("Lokliste",
+                new XElement("Lok", 
+                    new XElement("Name", DisplayLokName.Text),
+                    new XElement("Adresse", DisplayLokAdresse.Value.ToString()),
+                    new XElement("Gattung", DisplayLokGattung.Text),
+                    new XElement("Funktion1", DisplayLokFkt1.Text),
+                    new XElement("Funktion2", DisplayLokFkt2.Text),
+                    new XElement("Funktion3", DisplayLokFkt3.Text),
+                    new XElement("Funktion4", DisplayLokFkt4.Text),
+                    new XElement("Funktion5", DisplayLokFkt5.Text),
+                    new XElement("Funktion6", DisplayLokFkt6.Text),
+                    new XElement("Funktion7", DisplayLokFkt7.Text),
+                    new XElement("Funktion8", DisplayLokFkt8.Text),
+                    new XElement("Funktion9", DisplayLokFkt9.Text),
+                    new XElement("Funktion10", DisplayLokFkt10.Text),
+                    new XElement("Funktion11", DisplayLokFkt11.Text),
+                    new XElement("Funktion12", DisplayLokFkt12.Text),
+                    new XElement("Funktion13", DisplayLokFkt13.Text),
+                    new XElement("Funktion14", DisplayLokFkt14.Text),
+                    new XElement("Funktion15", DisplayLokFkt15.Text),
+                    new XElement("Funktion16", DisplayLokFkt16.Text),
+                    new XElement("Funktion17", DisplayLokFkt17.Text),
+                    new XElement("Funktion18", DisplayLokFkt18.Text),
+                    new XElement("Funktion19", DisplayLokFkt19.Text),
+                    new XElement("Funktion20", DisplayLokFkt20.Text)
+                )
+            );
+
+            return LokXMLData;
         }
     }
 }
