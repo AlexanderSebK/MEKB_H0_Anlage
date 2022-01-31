@@ -644,6 +644,10 @@
     <None Include="Resources\Fahrstr_Kurve0R_unten.png" />
     <None Include="Resources\Fahrstrasse_unten.png" />
     <None Include="Resources\Fahrstrasse_unten_deakt.png" />
+    <None Include="Resources\Kurve180R_EckeOL.png" />
+    <None Include="Resources\WeicheR180_Analog.png" />
+    <None Include="Resources\WeicheR180_EckeOL_Analog.png" />
+    <None Include="Resources\Zunge_AbzweigR_1801.png" />
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -98,7 +98,6 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public bool FahrstrasseRichtung_vonZunge { get; set; }
         public bool FahrstrasseAktive { get; set; }
-
         public bool FahrstrasseSicher { get; set; }
 
         public bool Q_Modus { get; set; }
@@ -584,6 +583,43 @@ namespace MEKB_H0_Anlage
             else if (HPx == Adr1_2) {z21.Z21_SET_SIGNAL(Adresse, true); z21.Z21_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
             else if (HPx == Adr2_1) {z21.Z21_SET_SIGNAL(Adresse2, false); z21.Z21_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
             else if (HPx == Adr2_2) {z21.Z21_SET_SIGNAL(Adresse2, true); z21.Z21_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
+        }
+    }
+
+    public struct MeldeZustand
+    {
+        public MeldeZustand(bool besetzt, bool fahrstrasse, bool sicher, bool richtung)
+        {
+            Besetzt = besetzt;
+            Fahrstrasse = fahrstrasse;
+            Sicher = sicher;
+            Richtung = richtung;
+        }
+
+        public MeldeZustand(Weiche weiche, bool richtung)
+        {
+            Besetzt = weiche.Besetzt;
+            Fahrstrasse = weiche.FahrstrasseAktive;
+            Sicher = weiche.FahrstrasseSicher;
+            Richtung = weiche.FahrstrasseRichtung_vonZunge ^ richtung;
+        }
+
+        public MeldeZustand(bool StatusALL)
+        {
+            Besetzt = StatusALL;
+            Fahrstrasse = StatusALL;
+            Sicher = StatusALL;
+            Richtung = StatusALL;
+        }
+
+        public bool Besetzt { get; set; }
+        public bool Fahrstrasse { get; set; }
+        public bool Sicher { get; set; }
+        public bool Richtung { get; set; }
+
+        public bool IstFrei()
+        {
+            return !(Besetzt || Fahrstrasse);
         }
     }
 }

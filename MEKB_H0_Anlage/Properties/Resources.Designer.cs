@@ -773,6 +773,16 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Kurve180R_EckeOL {
+            get {
+                object obj = ResourceManager.GetObject("Kurve180R_EckeOL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Kurve270L {
             get {
                 object obj = ResourceManager.GetObject("Kurve270L", resourceCulture);
@@ -1153,6 +1163,26 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap WeicheR180_Analog {
+            get {
+                object obj = ResourceManager.GetObject("WeicheR180_Analog", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WeicheR180_EckeOL_Analog {
+            get {
+                object obj = ResourceManager.GetObject("WeicheR180_EckeOL_Analog", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap WeicheR225_Analog {
             get {
                 object obj = ResourceManager.GetObject("WeicheR225_Analog", resourceCulture);
@@ -1216,6 +1246,16 @@ namespace MEKB_H0_Anlage.Properties {
         internal static System.Drawing.Bitmap Zunge_AbzweigL_90 {
             get {
                 object obj = ResourceManager.GetObject("Zunge_AbzweigL_90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Zunge_AbzweigR_180 {
+            get {
+                object obj = ResourceManager.GetObject("Zunge_AbzweigR_180", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

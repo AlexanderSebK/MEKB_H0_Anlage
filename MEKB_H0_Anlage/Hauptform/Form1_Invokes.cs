@@ -156,7 +156,6 @@ namespace MEKB_H0_Anlage
                         }
                     }
                 }
-
             }
         }
         private void UpdateWeicheImGleisplan(Weiche weiche)
@@ -174,6 +173,7 @@ namespace MEKB_H0_Anlage
                     case "Weiche5":  DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche5) ; break;
                     case "Weiche6":  DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche6) ; break;
                     case "Weiche8":  DisplayPicture(GetSchaltbildWeicheL315(weiche),Weiche8) ; break;
+
                     case "Weiche21": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche21); break;
                     case "Weiche23": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche23); break;
                     case "Weiche25": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche25); break;
@@ -182,20 +182,36 @@ namespace MEKB_H0_Anlage
                     case "Weiche28": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche28); break;
                     case "Weiche29": DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche29); break;
                     case "Weiche30": DisplayPicture(GetSchaltbildWeicheR270(weiche),Weiche30); break;
+
                     case "Weiche50": DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche50); break;
                     case "Weiche51": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche51); break;
                     case "Weiche52": DisplayPicture(GetSchaltbildWeicheL180(weiche),Weiche52); break;
                     case "Weiche53": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche53); break;
+
                     case "Weiche60": DisplayPicture(GetSchaltbildWeicheR270(weiche),Weiche60); break;
                     case "Weiche61": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche61); break;
                     case "Weiche62": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche62); break;
                     case "Weiche63": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche63); break;
                     case "Weiche64": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche64); break;
+                    case "Weiche65": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche65); break;
+                    case "Weiche66": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche66); break;
+                    case "Weiche67": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche67); break;
+
                     case "Weiche70": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche70); break;
                     case "Weiche71": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche71); break;
                     case "Weiche72": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche72); break;
                     case "Weiche73": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche73); break;
                     case "Weiche74": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche74); break;
+                    case "Weiche75": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche75); break;
+
+                    case "Weiche80": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche80); break;
+                    case "Weiche81": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche81); break;
+                    case "Weiche82": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche82); break;
+
+                    case "Weiche90": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche90); break;
+                    case "Weiche91": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche91); break;
+                    case "Weiche92": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche92); break;
+
                     case "DKW7_1":   DisplayPicture(GetSchaltbildDKW90_135(weiche, DKW_2nd),DKW7) ;break;
                     case "DKW7_2":   DisplayPicture(GetSchaltbildDKW90_135(DKW_2nd, weiche),DKW7) ;break; //Spiegelverkehrt, da der zweite Weichenteil die aktuelle zu Schaltene ist     
                         

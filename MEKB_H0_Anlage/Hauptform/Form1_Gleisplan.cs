@@ -21,9 +21,12 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public partial class Form1 : Form
     {
+        const bool WEST = true;
+        const bool OST = false;
+        MeldeZustand FreiesGleis = new MeldeZustand(false);
         #region Farben
         private Color Farbe_Gelb = Color.FromArgb(255, 255, 255, 0);
-        private Color Farbe_Gruen = Color.FromArgb(255, 255, 255, 0);
+        private Color Farbe_Gruen = Color.FromArgb(255, 0, 255, 0);
         private Color Farbe_Rot = Color.FromArgb(255, 255, 0, 0);
         private Color Farbe_Grau = Color.FromArgb(255, 128, 128, 128);
         #endregion
@@ -2732,6 +2735,77 @@ namespace MEKB_H0_Anlage
             }
             return Zustand;
         }
+
+        MeldeZustand ErrechneZustand(bool besetzt, List<Fahrstrasse> Fahrstrassen_west, List<Fahrstrasse> Fahrstrassen_ost, bool Extra)
+        {
+
+            int aktiv_west = 0;
+            int aktiv_ost = 0;
+            int safe_west = 0;
+            int safe_ost = 0;
+
+            bool richtung = false;
+            bool fahrstrasseAktiv = false;
+            bool sicher = false;
+            foreach (Fahrstrasse fahrstrasse in Fahrstrassen_west)
+            {
+                if (fahrstrasse.GetAktivStatus()) aktiv_west++;
+                if (fahrstrasse.Safe) safe_west++;
+            }
+            foreach (Fahrstrasse fahrstrasse in Fahrstrassen_ost)
+            {
+                if (fahrstrasse.GetAktivStatus()) aktiv_ost++;
+                if (fahrstrasse.Safe) safe_ost++;
+            }
+
+            if (aktiv_west > 1) return new MeldeZustand(false);
+            if (aktiv_ost > 1) return new MeldeZustand(false);
+            if (safe_west > 1) return new MeldeZustand(false);
+            if (safe_ost > 1) return new MeldeZustand(false);
+
+            if ((aktiv_west == 1) && (aktiv_ost == 1)) return new MeldeZustand(false);
+
+            if (aktiv_west == 1) 
+            { 
+                richtung = WEST;
+                fahrstrasseAktiv = true;
+                if (safe_west == 1) sicher = true;
+            }
+            if (aktiv_ost == 1) 
+            { 
+                richtung = OST;
+                fahrstrasseAktiv = true;
+                if (safe_ost == 1) sicher = true;
+            }
+
+
+            return new MeldeZustand(besetzt, fahrstrasseAktiv, sicher, richtung);
+        }
+
+        private string ErrechneWeichenZustand(Weiche weiche, string vonZunge, string zuZunge)
+        {
+            string Zustand = "";
+
+            if (weiche.FahrstrasseSicher) Zustand += "Sicher:";
+            if (weiche.Besetzt) Zustand += " Besetzt";
+            if (weiche.FahrstrasseAktive)
+            {
+                Zustand += " Fahrstrasse";
+                if (weiche.FahrstrasseRichtung_vonZunge) Zustand += vonZunge;
+                else Zustand += zuZunge;
+            }
+            if (!weiche.Besetzt && !weiche.FahrstrasseAktive)
+            {
+                Zustand = "Frei";
+            }
+
+            return Zustand;
+        }
+
+        private MeldeZustand Frei()
+        {
+            return new MeldeZustand(false, false, false, false);
+        }
         /// <summary>
         /// Involke-Funktion. Verhindert Fehlermeldung beim gleichzeitigen Zugreifen auf ein Bild
         /// </summary>
@@ -2747,45 +2821,46 @@ namespace MEKB_H0_Anlage
         #region Bahnhofsausfahrt links
         private void UpdateGleisbild_GL1_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt,Fahrstrasse_links,Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL1_links_0);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL1_links_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL1_links_2);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL1_links_3);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_0);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_3);
         }
         private void UpdateGleisbild_GL2_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL2_links_0);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL2_links_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL2_links_2);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL2_links_3);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_0);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_3);
         }
         private void UpdateGleisbild_GL3_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL3_links_0);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL3_links_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL3_links_2);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL3_links_3);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_0);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_3);
         }
         private void UpdateGleisbild_GL4_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL4_links_0);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL4_links_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL4_links_2);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_links_0);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_links_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_links_2);
         }
         private void UpdateGleisbild_GL5_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL5_links_0);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL5_links_0);
 
         }
         private void UpdateGleisbild_GL6_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL6_links_0);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL6_links_0);
             DisplayPicture(GetSchaltbildKurve270R(Zustand), GL6_links_1);
         }
         #endregion
@@ -2793,60 +2868,60 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_GL1_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL1_rechts_0);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL1_rechts_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL1_rechts_2);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL1_rechts_3);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_0);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_3);
             DisplayPicture(GetSchaltbildKurve90R(Zustand), GL1_rechts_4);
-            DisplayPicture(GetSchaltbildEckeUL(Zustand), GL1_rechts_5);
+            DisplayPicture(GetSchaltbildEckeUL(zustand), GL1_rechts_5);
         }
         private void UpdateGleisbild_GL2_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL2_rechts_0);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL2_rechts_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL2_rechts_2);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL2_rechts_3);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_0);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_3);
         }
         private void UpdateGleisbild_GL3_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL3_rechts_0);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL3_rechts_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL3_rechts_2);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL3_rechts_3);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_0);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_3);
         }
         private void UpdateGleisbild_GL4_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL4_rechts_0);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL4_rechts_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL4_rechts_2);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_rechts_0);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_rechts_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_rechts_2);
         }       
         private void UpdateGleisbild_GL5_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL5_rechts_0);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL5_rechts_0);
         }
         private void UpdateGleisbild_GL6_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), GL6_rechts_0);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), GL6_rechts_0);
         }
         #endregion
         #region Bahnhofseinfahrt links
         private void UpdateGleisbild_Block_BhfEinfahrtL(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block_BhfEinfahrt_Links);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block_BhfEinfahrt_Links);
         }
         #endregion
         #region Block 1
         private void UpdateGleisbild_Block1a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block1a_1);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1a_1);
         }
         private void UpdateGleisbild_Block1b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
@@ -2860,42 +2935,27 @@ namespace MEKB_H0_Anlage
             if (ListID == -1) return;
             Weiche W1 = Weichenliste[ListID];
 
-            if (W1.FahrstrasseAktive)
-            {
-                if (W1.FahrstrasseAbzweig) DisplayPicture(GetSchaltbildGerade90_EckeUL("Frei", Zustand), Block1b_2);
-                else DisplayPicture(GetSchaltbildGerade90_EckeUL(Zustand, "Frei"), Block1b_2);
-            }
-            else
-            {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL("Frei", "Frei"),Block1b_2);
-            }
+            
 
 
-            if (W4.FahrstrasseAktive)
-            {
-                if (W4.FahrstrasseAbzweig) DisplayPicture(GetSchaltbildGerade90_EckeUR("Frei", Zustand), Block1b_1);
-                else DisplayPicture(GetSchaltbildGerade90_EckeUR(Zustand, "Frei"), Block1b_1);
-            }
-            else
-            {
-                DisplayPicture(GetSchaltbildGerade90_EckeUR("Frei", "Frei"), Block1b_1);
-            }
+            
         }
         private void UpdateGleisbild_Block1c(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block1c_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block1c_2);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block1c_3);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block1c_4);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block1c_5);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block1c_6);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block1c_7);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block1c_8);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block1c_9);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_6);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_7);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_8);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_9);
             DisplayPicture(GetSchaltbildKurve270L(Zustand),Block1d_0);
-            DisplayPicture(GetSchaltbildEckeUR(Zustand),   Block1d_1);
-            DisplayPicture(GetSchaltbildEckeOL(Zustand),   Block1d_2);
+            DisplayPicture(GetSchaltbildEckeUR(zustand),   Block1d_1);
+            DisplayPicture(GetSchaltbildEckeOL(zustand),   Block1d_2);
             DisplayPicture(GetSchaltbildKurve225L(Zustand),Block1d_3);
         }
         #endregion
@@ -2903,122 +2963,116 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Block2(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildEckeOL_Sp(Zustand), Block2_1);
-            DisplayPicture(GetSchaltbildEckeUR_Sp(Zustand), Block2_2);
-            DisplayPicture(GetSchaltbildGerade225(Zustand), Block2_3);
-            DisplayPicture(GetSchaltbildEckeOL_Sp(Zustand), Block2_4);
-            DisplayPicture(GetSchaltbildEckeUR_Sp(Zustand), Block2_5);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts,false);
+            DisplayPicture(GetSchaltbildEckeOL_Sp(zustand), Block2_1);
+            DisplayPicture(GetSchaltbildEckeUR_Sp(zustand), Block2_2);
+            DisplayPicture(GetSchaltbildGerade225(zustand), Block2_3);
+            DisplayPicture(GetSchaltbildEckeOL_Sp(zustand), Block2_4);
+            DisplayPicture(GetSchaltbildEckeUR_Sp(zustand), Block2_5);
             DisplayPicture(GetSchaltbildKurve225R(Zustand), Block2_6);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block2_7);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block2_8);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block2_10);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block2_11);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block2_12);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_7);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_8);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_10);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_11);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_12);
         }
         #endregion
         #region Block 3
         private void UpdateGleisbild_Block3a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block3a);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3a);
         }
         private void UpdateGleisbild_Block3b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block3b_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block3b_2);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block3b_3);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block3b_4);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block3b_5);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_5);
         }
         #endregion
         #region Block 4
         private void UpdateGleisbild_Block4a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block4a_1);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block4a_2);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block4a_3);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block4a_4);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block4a_5);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_5);
         }
         private void UpdateGleisbild_Block4b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(Zustand), Block4b_1);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4b_1);
         }
         #endregion
         #region Block 5
         private void UpdateGleisbild_Block5(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_0);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_1);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_2);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_3);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_4);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_5);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_6);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_7);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_8);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_9);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_10);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_11);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_12);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_13);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_14);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_15);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block5_16);
-            DisplayPicture(GetSchaltbildKurve180L(Zustand), Block5_17);
-            DisplayPicture(GetSchaltbildEckeOR_Sp(Zustand), Block5_18);
-            DisplayPicture(GetSchaltbildGerade135(Zustand), Block5_19);
-            DisplayPicture(GetSchaltbildEckeOR_Sp(Zustand), Block5_20);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_0);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_1);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_2);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_3);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_4);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_5);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_6);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_7);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_8);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_9);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_10);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_11);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_12);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_13);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_14);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_15);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_16);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_17);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_18);
+            DisplayPicture(GetSchaltbildKurve180L(Zustand), Block5_19);
+            DisplayPicture(GetSchaltbildEckeOR_Sp(zustand), Block5_20);
             DisplayPicture(GetSchaltbildKurve135L(Zustand), Block5_21);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block5_22);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block5_23);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block5_22);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block5_23);
         }
         #endregion
         #region Block 6
         private void UpdateGleisbild_Block6(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_1);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_2);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_3);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_4);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_5);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_6);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_7);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_8);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_9);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_10);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_11);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_12);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_13);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_14);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_15);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_16);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_17);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_18);
-            DisplayPicture(GetSchaltbildGerade270(Zustand), Block6_19);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_1);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_2);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_3);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_4);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_5);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_6);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_7);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_8);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_9);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_10);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_11);
         }
         #endregion
         #region Block 7
         private void UpdateGleisbild_Block7(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildKurve90L(Zustand), Block7_1);
-            DisplayPicture(GetSchaltbildEckeOL(Zustand), Block7_2);
-            DisplayPicture(GetSchaltbildEckeUR(Zustand), Block7_3);
-            DisplayPicture(GetSchaltbildKurve45L(Zustand), Block7_4);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block7_5);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block7_6);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block7_7);
-            DisplayPicture(GetSchaltbildGerade180(Zustand), Block7_8);
-            DisplayPicture(GetSchaltbildKurve0L(Zustand), Block7_9);
-            DisplayPicture(GetSchaltbildEckeOR_Sp(Zustand), Block7_10);
-            DisplayPicture(GetSchaltbildEckeUL_Sp(Zustand), Block7_11);
-            DisplayPicture(GetSchaltbildKurve315L(Zustand), Block7_12);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block7_1);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block7_2);
+            DisplayPicture(GetSchaltbildKurve0L(zustand),   Block7_3);
+            DisplayPicture(GetSchaltbildEckeOR_Sp(zustand), Block7_4);
+            DisplayPicture(GetSchaltbildEckeUL_Sp(zustand), Block7_5);
+            DisplayPicture(GetSchaltbildKurve315L(Zustand), Block7_6);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block7_7);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block7_8);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block7_9);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block7_10);
+
         }
         #endregion
 
@@ -3031,39 +3085,36 @@ namespace MEKB_H0_Anlage
         }
         #endregion
 
-        #region Weichen Fleisfeldumgebung
+        #region Weichen Gleisfeldumgebung
+
+        private void UpdateGleisbild_Weiche1()
+        {
+            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            if (Weichenliste[ListID].Abzweig)
+            {
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche1_Gl1);
+            }
+            else
+            {
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(meldeZustand, FreiesGleis), Weiche1_Gl1);
+            }
+
+        }
+
         private void UpdateGleisbild_Weiche2()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOR("Frei", Zustand), Weiche2_Gleis);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, meldeZustand), Weiche2_Gleis);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOR(Zustand, "Frei"), Weiche2_Gleis);               
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(meldeZustand, FreiesGleis), Weiche2_Gleis);               
             }
 
         }
@@ -3071,106 +3122,63 @@ namespace MEKB_H0_Anlage
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL("Frei", Zustand), Weiche3_Gleis);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche3_Gleis);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL(Zustand, "Frei"), Weiche3_Gleis);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche3_Gleis);
             }
+        }
+
+        private void UpdateGleisbild_Weiche4()
+        {
+            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche4" });
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            if (Weichenliste[ListID].Abzweig)
+            {
+                DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche4_Gl1);
+            }
+            else
+            {
+                DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche4_Gl1);
+            }
+
         }
         private void UpdateGleisbild_Weiche5()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche5" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL("Frei", Zustand), Weiche5_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche5_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL(Zustand, "Frei"), Weiche5_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(meldeZustand, FreiesGleis), Weiche5_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche6()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche6" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                    
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            string Zustand = ErrechneWeichenZustand(Weichenliste[ListID], " =>", " <=");
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildKurve270L(Zustand), Weiche6_Gleis2);
-                DisplayPicture(GetSchaltbildEckeUR(Zustand), Weiche6_Gleis3);
-                DisplayPicture(GetSchaltbildGerade90_EckeOL("Frei", Zustand), Weiche6_Gleis1);
+                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche6_Gleis3);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche6_Gleis1);
             }
             else
             {
                 DisplayPicture(GetSchaltbildKurve270L("Frei"), Weiche6_Gleis2);
-                DisplayPicture(GetSchaltbildEckeUR("Frei"), Weiche6_Gleis3);
-                DisplayPicture(GetSchaltbildGerade90_EckeOL(Zustand, "Frei"), Weiche6_Gleis1);
+                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Weiche6_Gleis3);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche6_Gleis1);
             }
 
         }
@@ -3178,306 +3186,131 @@ namespace MEKB_H0_Anlage
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche8" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOR(Zustand, "Frei"), Weiche8_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(meldeZustand, FreiesGleis), Weiche8_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOR("Frei", Zustand), Weiche8_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, meldeZustand), Weiche8_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche21()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche21" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL("Frei", Zustand), Weiche21_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche21_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL(Zustand, "Frei"), Weiche21_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche21_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche23()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche23" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL(Zustand, "Frei"), Weiche23_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche23_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL("Frei", Zustand), Weiche23_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche23_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche25()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
 
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUR("Frei", Zustand), Weiche25_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche25_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUR(Zustand, "Frei"), Weiche25_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche25_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche26()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
 
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOR("Frei", Zustand), Weiche26_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, meldeZustand), Weiche26_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOR(Zustand, "Frei"), Weiche26_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(meldeZustand, FreiesGleis), Weiche26_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche27()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL("Frei", Zustand), Weiche27_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche27_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL(Zustand, "Frei"), Weiche27_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche27_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche28()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUR("Frei", Zustand), Weiche28_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche28_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUR(Zustand, "Frei"), Weiche28_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche28_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche29()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL("Frei", Zustand), Weiche29_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche29_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL(Zustand, "Frei"), Weiche29_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(meldeZustand, FreiesGleis), Weiche29_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche30()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOR("Frei", Zustand), Weiche30_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, meldeZustand), Weiche30_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOR(Zustand, "Frei"), Weiche30_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(meldeZustand, FreiesGleis), Weiche30_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche50()
@@ -3485,6 +3318,7 @@ namespace MEKB_H0_Anlage
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
             if (ListID == -1) return;
             string Zustand;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             string ZustandSpiegel;
             if (Weichenliste[ListID].Besetzt)
             {
@@ -3512,32 +3346,32 @@ namespace MEKB_H0_Anlage
             }
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeOR(Zustand),   Weiche50a_1);
+                DisplayPicture(GetSchaltbildEckeOR(meldeZustand),   Weiche50a_1);
                 DisplayPicture(GetSchaltbildKurve270R(Zustand),Weiche50a_2);
-                DisplayPicture(GetSchaltbildGerade90(Zustand), Weiche50a_3);
-                DisplayPicture(GetSchaltbildGerade90(Zustand), Weiche50a_4);
-                DisplayPicture(GetSchaltbildGerade90(Zustand), Weiche50a_5);
-                DisplayPicture(GetSchaltbildKurve90L(Zustand), Weiche50a_6);
-                DisplayPicture(GetSchaltbildEckeOL(Zustand),Weiche50a_7);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50a_3);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50a_4);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50a_5);
+                DisplayPicture(GetSchaltbildKurve90L(meldeZustand), Weiche50a_6);
+                DisplayPicture(GetSchaltbildEckeOL(meldeZustand),Weiche50a_7);
                 DisplayPicture(GetSchaltbildKurve180R(Zustand), Weiche50a_8);
-                DisplayPicture(GetSchaltbildKurve0L(Zustand), Weiche50a_9);
-                DisplayPicture(GetSchaltbildEckeUL(ZustandSpiegel), Weiche50a_10);
+                DisplayPicture(GetSchaltbildKurve0L(meldeZustand), Weiche50a_9);
+                DisplayPicture(GetSchaltbildEckeUL_Sp(meldeZustand), Weiche50a_10);
                 DisplayPicture(GetSchaltbildKurve90R(ZustandSpiegel),Weiche50a_11);
-                DisplayPicture(GetSchaltbildGerade90(ZustandSpiegel), Weiche50a_12);
-                DisplayPicture(GetSchaltbildGerade90(ZustandSpiegel), Weiche50a_13);
+                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50a_12);
+                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50a_13);
 
-                DisplayPicture(GetSchaltbildGerade90_EckeUL("Frei", Zustand), Weiche50b_1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche50b_1);
                 DisplayPicture(GetSchaltbildKurve90L_EckeUR("Frei", Zustand), Weiche50b_6);
                 DisplayPicture(GetSchaltbildKurve90R_EckeOR("Frei", ZustandSpiegel), Weiche50b_7);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90(Zustand), Weiche50b_2);
-                DisplayPicture(GetSchaltbildGerade90(Zustand), Weiche50b_4);
-                DisplayPicture(GetSchaltbildGerade90(Zustand), Weiche50b_5);
-                DisplayPicture(GetSchaltbildGerade90(ZustandSpiegel), Weiche50b_8);
-                DisplayPicture(GetSchaltbildGerade90(ZustandSpiegel), Weiche50b_9);
-                DisplayPicture(GetSchaltbildGerade90_EckeUL(Zustand, "Frei"), Weiche50b_1);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50b_2);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50b_4);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50b_5);
+                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50b_8);
+                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50b_9);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(meldeZustand, FreiesGleis), Weiche50b_1);
                 DisplayPicture(GetSchaltbildKurve90L_EckeUR(Zustand, "Frei"), Weiche50b_6);
                 DisplayPicture(GetSchaltbildKurve90R_EckeOR(ZustandSpiegel, "Frei"), Weiche50b_7);
             }
@@ -3547,6 +3381,7 @@ namespace MEKB_H0_Anlage
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) return;
             string Zustand;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Besetzt)
             {
                 Zustand = "Besetzt";
@@ -3569,54 +3404,34 @@ namespace MEKB_H0_Anlage
             }
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeUR(Zustand), Weiche51a_1);
+                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche51a_1);
                 DisplayPicture(GetSchaltbildKurve270L(Zustand), Weiche51a_2);
-                DisplayPicture(GetSchaltbildGerade90(Zustand), Weiche51a_3);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche51a_3);
                 
-                DisplayPicture(GetSchaltbildGerade90_EckeOL("Frei", Zustand), Weiche51b_1);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche51b_1);
 
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90(Zustand), Weiche51b_2);
-                DisplayPicture(GetSchaltbildGerade90_EckeOL(Zustand, "Frei"), Weiche51b_1);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche51b_2);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche51b_1);
             }
         }
         private void UpdateGleisbild_Weiche52()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche52" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
 
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeUL_Sp(Zustand), Weiche52_Gleis3);
-                DisplayPicture(GetSchaltbildGerade180_EckeOR("Frei", Zustand), Weiche52_Gleis1);
-
+                DisplayPicture(GetSchaltbildEckeUL_Sp(meldeZustand), Weiche52_Gleis3);
+                DisplayPicture(GetSchaltbildGerade180_EckeOR(FreiesGleis, meldeZustand), Weiche52_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildEckeUL_Sp("Frei"), Weiche52_Gleis3);
-                DisplayPicture(GetSchaltbildGerade180_EckeOR(Zustand, "Frei"), Weiche52_Gleis1);
+                DisplayPicture(GetSchaltbildEckeUL_Sp(FreiesGleis), Weiche52_Gleis3);
+                DisplayPicture(GetSchaltbildGerade180_EckeOR(meldeZustand, FreiesGleis), Weiche52_Gleis1);
             }
         }
         private void UpdateGleisbild_Weiche53()
@@ -3624,6 +3439,7 @@ namespace MEKB_H0_Anlage
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche53" });
             if (ListID == -1) return;
             string Zustand;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Besetzt)
             {
                 Zustand = "Besetzt";
@@ -3647,14 +3463,14 @@ namespace MEKB_H0_Anlage
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildKurve0R("Frei"), Weiche53_Gleis0);
-                DisplayPicture(GetSchaltbildEckeOL("Frei"), Weiche53_Gleis1);
+                DisplayPicture(GetSchaltbildEckeOL(FreiesGleis), Weiche53_Gleis1);
                 DisplayPicture(GetSchaltbildKurve225L_EckeUR(Zustand, "Frei"), Weiche53_Gleis2);
 
             }
             else
             {
                 DisplayPicture(GetSchaltbildKurve0R(Zustand), Weiche53_Gleis0);
-                DisplayPicture(GetSchaltbildEckeOL(Zustand), Weiche53_Gleis1);
+                DisplayPicture(GetSchaltbildEckeOL(meldeZustand), Weiche53_Gleis1);
                 DisplayPicture(GetSchaltbildKurve225L_EckeUR("Frei", Zustand), Weiche53_Gleis2);
             }
         }
@@ -3662,35 +3478,14 @@ namespace MEKB_H0_Anlage
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche60" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);           
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade270_EckeOR("Frei", Zustand), Weiche60_Gleis1);
-
+                DisplayPicture(GetSchaltbildGerade270_EckeOR(FreiesGleis, meldeZustand), Weiche60_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade270_EckeOR(Zustand, "Frei"), Weiche60_Gleis1);
+                DisplayPicture(GetSchaltbildGerade270_EckeOR(meldeZustand, FreiesGleis), Weiche60_Gleis1);
             }
         }
         #endregion
@@ -3699,66 +3494,28 @@ namespace MEKB_H0_Anlage
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_1" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOR("Frei", Zustand), Weiche7_Gleis2);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, meldeZustand), Weiche7_Gleis2);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOR(Zustand, "Frei"), Weiche7_Gleis2);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(meldeZustand, FreiesGleis), Weiche7_Gleis2);
             }
         }
         private void UpdateGleisbild_WeicheDKW7_2()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_2" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL("Frei", Zustand), Weiche7_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche7_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL(Zustand, "Frei"), Weiche7_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(meldeZustand, FreiesGleis), Weiche7_Gleis1);
             }
         }     
         private void UpdateGleisbild_WeicheDKW9_1()
@@ -3766,6 +3523,7 @@ namespace MEKB_H0_Anlage
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_1" });
             if (ListID == -1) return;
             string Zustand;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
             if (Weichenliste[ListID].Besetzt)
             {
                 Zustand = "Besetzt";
@@ -3788,12 +3546,12 @@ namespace MEKB_H0_Anlage
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildKurve270L_EckeOR("Frei", Zustand), Weiche9_Gleis1);
-                DisplayPicture(GetSchaltbildEckeUL(Zustand), Weiche9_Gleis4);
+                DisplayPicture(GetSchaltbildEckeUL(meldeZustand), Weiche9_Gleis4);
             }
             else
             {
                 DisplayPicture(GetSchaltbildKurve270L_EckeOR(Zustand, "Frei"), Weiche9_Gleis1);
-                DisplayPicture(GetSchaltbildEckeUL("Frei"), Weiche9_Gleis4);
+                DisplayPicture(GetSchaltbildEckeUL(FreiesGleis), Weiche9_Gleis4);
             }
 
         }
@@ -3801,70 +3559,32 @@ namespace MEKB_H0_Anlage
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_2" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL("Frei", Zustand), Weiche9_Gleis2);
-                DisplayPicture(GetSchaltbildEckeOR(Zustand), Weiche9_Gleis3);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche9_Gleis2);
+                DisplayPicture(GetSchaltbildEckeOR(meldeZustand), Weiche9_Gleis3);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL(Zustand, "Frei"), Weiche9_Gleis2);
-                DisplayPicture(GetSchaltbildEckeOR("Frei"), Weiche9_Gleis3);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(meldeZustand, FreiesGleis), Weiche9_Gleis2);
+                DisplayPicture(GetSchaltbildEckeOR(FreiesGleis), Weiche9_Gleis3);
             }
         }       
         private void UpdateGleisbild_KW22_1()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL_UR("Frei", Zustand), KW22_Gleis2);
-                DisplayPicture(GetSchaltbildEckeUR(Zustand), KW22_Gleis3);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(FreiesGleis, meldeZustand), KW22_Gleis2);
+                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), KW22_Gleis3);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(Zustand, "Frei"), KW22_Gleis2);
-                DisplayPicture(GetSchaltbildEckeUR("Frei"), KW22_Gleis3);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(meldeZustand, FreiesGleis), KW22_Gleis2);
+                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), KW22_Gleis3);
             }
 
         }
@@ -3872,99 +3592,45 @@ namespace MEKB_H0_Anlage
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUR("Frei", Zustand), KW22_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), KW22_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUR(Zustand, "Frei"), KW22_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), KW22_Gleis1);
             }
         }       
         private void UpdateGleisbild_DKW24_1()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL("Frei", Zustand), DKW24_Gleis2);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), DKW24_Gleis2);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeOL(Zustand, "Frei"), DKW24_Gleis2);
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), DKW24_Gleis2);
             }
         }
         private void UpdateGleisbild_DKW24_2()
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
             if (ListID == -1) return;
-            string Zustand;
-            if (Weichenliste[ListID].Besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (Weichenliste[ListID].FahrstrasseAktive)
-            {
-                if (Weichenliste[ListID].FahrstrasseRichtung_vonZunge)
-                {
-                    Zustand = "Fahrstrasse <=";
-                }
-                else
-                {
-                    Zustand = "Fahrstrasse =>";
-                }
-            }
-            else
-            {
-                Zustand = "Frei";
-            }
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+
             if (Weichenliste[ListID].Abzweig)
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUR("Frei", Zustand), DKW24_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), DKW24_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUR(Zustand, "Frei"), DKW24_Gleis1);
+                DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), DKW24_Gleis1);
             }
         }
         #endregion
@@ -3989,495 +3655,827 @@ namespace MEKB_H0_Anlage
         }
 
         #region nur Ecken
-        private dynamic GetSchaltbildEckeUR(String Zustand)
+        private dynamic GetSchaltbildEckeUR(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeUR; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.EckeUR;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links, Farbe_Gelb); break;
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts, Farbe_Gelb); break;
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links, Farbe_Gruen); break;
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts, Farbe_Gruen); break;
-                default: return MEKB_H0_Anlage.Properties.Resources.EckeUR;
+                return bild;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildEckeOR(String Zustand)
+        private dynamic GetSchaltbildEckeOR(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeOR; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.EckeOR;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links, Farbe_Gelb); break;
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts, Farbe_Gelb); break;
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links, Farbe_Gruen); break;
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts, Farbe_Gruen); break;
-                default: return MEKB_H0_Anlage.Properties.Resources.EckeOR;
+                return bild;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildEckeOL(String Zustand)
+        private dynamic GetSchaltbildEckeOL(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeOL; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.EckeOL;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links, Farbe_Gelb); break;
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts, Farbe_Gelb); break;
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links, Farbe_Gruen); break;
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts, Farbe_Gruen); break;
-                default: return MEKB_H0_Anlage.Properties.Resources.EckeOL;
+                return bild;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildEckeUL(String Zustand)
+        private dynamic GetSchaltbildEckeUL(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeUL; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.EckeUL;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links, Farbe_Gelb); break;
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts, Farbe_Gelb); break;
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links, Farbe_Gruen); break;
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts, Farbe_Gruen); break;
-                default: return MEKB_H0_Anlage.Properties.Resources.EckeUL;
+                return bild;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-
-        private dynamic GetSchaltbildEckeUR_Sp(String Zustand)
+        private dynamic GetSchaltbildEckeUR_Sp(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeUR; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.EckeUR;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts, Farbe_Gelb); break;
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links, Farbe_Gelb); break;
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts, Farbe_Gruen); break;
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links, Farbe_Gruen); break;
-                default: return MEKB_H0_Anlage.Properties.Resources.EckeUR;
+                return bild;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildEckeOR_Sp(String Zustand)
+        private dynamic GetSchaltbildEckeOR_Sp(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeOR; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.EckeOR;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts, Farbe_Gelb); break;
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links, Farbe_Gelb); break;
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts, Farbe_Gruen); break;
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links, Farbe_Gruen); break;
-                default: return MEKB_H0_Anlage.Properties.Resources.EckeOR;
+                return bild;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildEckeOL_Sp(String Zustand)
+        private dynamic GetSchaltbildEckeOL_Sp(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeOL; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.EckeOL;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts, Farbe_Gelb); break;
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links, Farbe_Gelb); break;
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts, Farbe_Gruen); break;
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links, Farbe_Gruen); break;
-                default: return MEKB_H0_Anlage.Properties.Resources.EckeOL;
+                return bild;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildEckeUL_Sp(String Zustand)
+        private dynamic GetSchaltbildEckeUL_Sp(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeUL; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.EckeUL;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts, Farbe_Gelb); break;
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links, Farbe_Gelb); break;
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts, Farbe_Gruen); break;
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links, Farbe_Gruen); break;
-                default: return MEKB_H0_Anlage.Properties.Resources.EckeUL;
+                return bild;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
             return bild; //Bild ausgeben
         }
         #endregion
         #region nur Geraden
-        private dynamic GetSchaltbildGerade0(String Zustand)
+        private dynamic GetSchaltbildGerade0(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade0; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade0;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben, Farbe_Gelb); break;
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten, Farbe_Gelb); break;
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben, Farbe_Gruen); break;
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten, Farbe_Gruen); break;
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+                farbe = Farbe_Rot;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }     
-        private dynamic GetSchaltbildGerade45(String Zustand)
+        private dynamic GetSchaltbildGerade45(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade45; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links, Farbe_Gelb); break; 
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts, Farbe_Gelb); break; 
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links, Farbe_Gruen); break; 
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts, Farbe_Gruen); break; 
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
+                farbe = Farbe_Rot;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildGerade90(String Zustand)
+        private dynamic GetSchaltbildGerade90(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade90; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, Farbe_Gelb); break; 
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, Farbe_Gelb); break; 
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, Farbe_Gruen); break; 
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, Farbe_Gruen); break; 
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                farbe = Farbe_Rot;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildGerade180(String Zustand)
+        private dynamic GetSchaltbildGerade180(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade0; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade0;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten, Farbe_Gelb); break;
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben, Farbe_Gelb); break;
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten, Farbe_Gruen); break;
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben, Farbe_Gruen); break;
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+                farbe = Farbe_Rot;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildGerade225(String Zustand)
+        private dynamic GetSchaltbildGerade225(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade45; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade45;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links, 0, 0); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
+                farbe = Farbe_Rot;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildGerade135(String Zustand)
+        private dynamic GetSchaltbildGerade135(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade135; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade135;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_135_rechts, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_135_links, 0, 0); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
+                farbe = Farbe_Rot;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_135_rechts;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_135_links;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildGerade270(String Zustand)
+        private dynamic GetSchaltbildGerade270(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade90; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, 0, 0); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                farbe = Farbe_Rot;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
             return bild; //Bild ausgeben
         }
         #endregion
         #region Geraden mit einer Ecke
-        private dynamic GetSchaltbildGerade180_EckeOR(String Zustand_Gerade, String Zustand_Ecke)
+        private dynamic GetSchaltbildGerade180_EckeOR(MeldeZustand Zustand_Gerade, MeldeZustand Zustand_Ecke)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade0_EckeOR;
             Graphics gleis = Graphics.FromImage(bild);
 
-            switch (Zustand_Gerade)
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand_Gerade.Besetzt == true) && (Zustand_Gerade.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade0_EckeOR;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben, 0, 0); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+                farbe = Farbe_Rot;
             }
-            switch (Zustand_Ecke)
+            else
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade0_EckeOR;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links, 0, 0); break; //Fahrstraße malen
-                default: break;
+                if (Zustand_Gerade.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben;
+
+                if (Zustand_Gerade.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Gerade.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
+            }
+
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
+
+            if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
+            {
+                //Do nothing
+            }
+            else
+            {
+                if (Zustand_Ecke.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links;
+
+                if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
             }
             return bild; //Bild ausgeben
         }      
-        private dynamic GetSchaltbildGerade90_EckeOL(String Zustand_Gerade, String Zustand_Ecke)
+        private dynamic GetSchaltbildGerade90_EckeOL(MeldeZustand Zustand_Gerade, MeldeZustand Zustand_Ecke)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
             Graphics gleis = Graphics.FromImage(bild);
 
-            switch (Zustand_Gerade)
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand_Gerade.Besetzt == true) && (Zustand_Gerade.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                farbe = Farbe_Rot;
             }
-            switch (Zustand_Ecke)
+            else
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                if (Zustand_Gerade.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
+
+                if (Zustand_Gerade.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Gerade.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
+
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
+
+            if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
+            {
+                //Do nothing
+            }
+            else
+            {
+                if (Zustand_Ecke.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts;
+
+                if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            }
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildGerade90_EckeOR(String Zustand_Gerade, String Zustand_Ecke)
+        private dynamic GetSchaltbildGerade90_EckeOR(MeldeZustand Zustand_Gerade, MeldeZustand Zustand_Ecke)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOR;
             Graphics gleis = Graphics.FromImage(bild);
 
-            switch (Zustand_Gerade)
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand_Gerade.Besetzt == true) && (Zustand_Gerade.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links,0,0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                farbe = Farbe_Rot;
             }
-            switch (Zustand_Ecke)
+            else
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links,0,0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                if (Zustand_Gerade.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
+
+                if (Zustand_Gerade.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Gerade.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
+
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
+
+            if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
+            {
+                //Do nothing
+            }
+            else
+            {
+                if (Zustand_Ecke.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts;
+
+                if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            }
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildGerade90_EckeUR(String Zustand_Gerade, String Zustand_Ecke)
+        private dynamic GetSchaltbildGerade90_EckeUR(MeldeZustand Zustand_Gerade, MeldeZustand Zustand_Ecke)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
             Graphics gleis = Graphics.FromImage(bild);
 
-            switch (Zustand_Gerade)
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand_Gerade.Besetzt == true) && (Zustand_Gerade.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                farbe = Farbe_Rot;
             }
-            switch (Zustand_Ecke)
+            else
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                if (Zustand_Gerade.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
+
+                if (Zustand_Gerade.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Gerade.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
+            }
+
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
+
+            if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
+            {
+                //Do nothing
+            }
+            else
+            {
+                if (Zustand_Ecke.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts;
+
+                if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
             }
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildGerade90_EckeUL(String Zustand_Gerade, String Zustand_Ecke)
+        private dynamic GetSchaltbildGerade90_EckeUL(MeldeZustand Zustand_Gerade, MeldeZustand Zustand_Ecke)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUL;
             Graphics gleis = Graphics.FromImage(bild);
 
-            switch (Zustand_Gerade)
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand_Gerade.Besetzt == true) && (Zustand_Gerade.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                farbe = Farbe_Rot;
             }
-            switch (Zustand_Ecke)
+            else
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                if (Zustand_Gerade.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
+
+                if (Zustand_Gerade.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Gerade.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
+
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
+
+            if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
+            {
+                //Do nothing
+            }
+            else
+            {
+                if (Zustand_Ecke.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts;
+
+                if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            }
+
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildGerade270_EckeOR(String Zustand_Gerade, String Zustand_Ecke)
+        private dynamic GetSchaltbildGerade270_EckeOR(MeldeZustand Zustand_Gerade, MeldeZustand Zustand_Ecke)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOR;
             Graphics gleis = Graphics.FromImage(bild);
 
-            switch (Zustand_Gerade)
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand_Gerade.Besetzt == true) && (Zustand_Gerade.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                farbe = Farbe_Rot;
             }
-            switch (Zustand_Ecke)
+            else
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                if (Zustand_Gerade.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
+
+                if (Zustand_Gerade.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Gerade.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
+
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
+
+            if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
+            {
+                //Do nothing
+            }
+            else
+            {
+                if (Zustand_Ecke.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts;
+
+                if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            }
+
             return bild; //Bild ausgeben
         }
         #endregion
         #region Geraden mit zwei Ecken
-        private dynamic GetSchaltbildGerade90_EckeOL_UR(String Zustand_Gerade, String Zustand_Ecke)
+        private dynamic GetSchaltbildGerade90_EckeOL_UR(MeldeZustand Zustand_Gerade, MeldeZustand Zustand_Ecke)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL_UR;
             Graphics gleis = Graphics.FromImage(bild);
 
-            switch (Zustand_Gerade)
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand_Gerade.Besetzt == true) && (Zustand_Gerade.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL_UR;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                farbe = Farbe_Rot;
             }
-            switch (Zustand_Ecke)
+            else
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL_UR;//_besetzt
-                case "Fahrstrasse <=": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links, 0, 0); break; //Fahrstraße malen
-                case "Fahrstrasse =>": gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts, 0, 0); break; //Fahrstraße malen
-                default: break;
+                if (Zustand_Gerade.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
+
+                if (Zustand_Gerade.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Gerade.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
+            }
+
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+
+
+            if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
+            {
+                //Do nothing
+            }
+            else
+            {
+                if (Zustand_Ecke.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts;
+
+                if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
+                if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
             }
             return bild; //Bild ausgeben
         }
         #endregion
         #region Kurve Links
-        private dynamic GetSchaltbildKurve0L(String Zustand)
+        private dynamic GetSchaltbildKurve0L(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve0L; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Kurve0L;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0L_unten, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0L_oben, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0L_unten, Farbe_Gelb); break; //Fahrstraße malen
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0L_oben, Farbe_Gelb); break; //Fahrstraße malen
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0L_unten, Farbe_Gruen); break; //Fahrstraße malen
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0L_oben, Farbe_Gruen); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
+                farbe = Farbe_Rot;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0L_unten;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0L_oben;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildKurve45L(String Zustand)
+        private dynamic GetSchaltbildKurve45L(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve180R; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Kurve180R;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_unten, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_oben, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_unten, Farbe_Gelb); break; //Fahrstraße malen
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_oben, Farbe_Gelb); break; //Fahrstraße malen
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_unten, Farbe_Gruen); break; //Fahrstraße malen
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_oben, Farbe_Gruen); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
+                farbe = Farbe_Rot;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_unten;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_oben;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
             return bild; //Bild ausgeben
         }
-        private dynamic GetSchaltbildKurve90L(String Zustand)
+        private dynamic GetSchaltbildKurve90L(MeldeZustand Zustand)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve90L; //Gleisbild
             Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            switch (Zustand)
+            if (Zustand.IstFrei()) return bild;
+
+            Image zeichenmuster;
+            Color farbe = Farbe_Grau;
+
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                case "Besetzt": return MEKB_H0_Anlage.Properties.Resources.Kurve90L;//_besetzt
-                case "Besetzt <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_links, Farbe_Rot); break;
-                case "Besetzt =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_rechts, Farbe_Rot); break;
-                case "Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_links, Farbe_Gelb); break; //Fahrstraße malen
-                case "Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_rechts, Farbe_Gelb); break; //Fahrstraße malen
-                case "Sicher: Fahrstrasse <=": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_links, Farbe_Gruen); break; //Fahrstraße malen
-                case "Sicher: Fahrstrasse =>": ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_rechts, Farbe_Gruen); break; //Fahrstraße malen
-                default: break;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
+                farbe = Farbe_Rot;
             }
+            else
+            {
+                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_links;
+                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_rechts;
+
+                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
+                if (Zustand.Sicher) farbe = Farbe_Gruen;
+                if (Zustand.Besetzt) farbe = Farbe_Rot;
+            }
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve135L(String Zustand)
@@ -4894,13 +4892,29 @@ namespace MEKB_H0_Anlage
             {
                 if (weiche.Abzweig)
                 {
-                    if (weiche.FahrstrasseRichtung_vonZunge) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_rechts, 0, 0);
-                    else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_links, 0, 0);
+                    if (weiche.FahrstrasseRichtung_vonZunge)
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_rechts, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_rechts, Farbe_Gelb);
+                    }
+                    else
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_links, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_links, Farbe_Gelb);
+                    }
                 }
                 else
                 {
-                    if (weiche.FahrstrasseRichtung_vonZunge) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts, 0, 0);
-                    else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links, 0, 0);
+                    if (weiche.FahrstrasseRichtung_vonZunge)
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts, Farbe_Gelb);
+                    }
+                    else
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links, Farbe_Gelb);
+                    }
                 }
             }
 
@@ -4954,6 +4968,54 @@ namespace MEKB_H0_Anlage
 
             return bild;
         }
+        private dynamic GetSchaltbildWeicheR180(Weiche weiche)
+        {
+            //Grundgleisbild
+            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.WeicheR180_Analog;
+            Graphics gleis = Graphics.FromImage(bild);
+
+            //Bei Fehler: Error-Symbol laden und Funktion abbrechen
+            if (weiche.Status_Error) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Error, 0, 0); return bild; }
+
+            //Bei Unebkannt: Unebkannt-Symbol laden und Funktion abbrechen
+            if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
+
+            //Weichenzunge zeichnen
+            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180, 0, 0);   //Abzweig
+            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0, 0, 0);                    //Gerade
+
+            if (weiche.FahrstrasseAktive)
+            {
+                if (weiche.Abzweig)
+                {
+                    if (weiche.FahrstrasseRichtung_vonZunge)
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_unten, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_unten, Farbe_Gelb);
+                    }
+                    else
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_oben, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_oben, Farbe_Gelb);
+                    }
+                }
+                else
+                {
+                    if (weiche.FahrstrasseRichtung_vonZunge)
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten, Farbe_Gelb);
+                    }
+                    else
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben, Farbe_Gelb);
+                    }
+                }
+            }
+
+            return bild;
+        }
         private dynamic GetSchaltbildWeicheR225(Weiche weiche)
         {
             //Grundgleisbild
@@ -4974,13 +5036,29 @@ namespace MEKB_H0_Anlage
             {
                 if (weiche.Abzweig)
                 {
-                    if (weiche.FahrstrasseRichtung_vonZunge) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_links, 0, 0);
-                    else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_rechts, 0, 0);
+                    if (weiche.FahrstrasseRichtung_vonZunge)
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_links, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_links, Farbe_Gelb);
+                    }
+                    else
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_rechts, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_rechts, Farbe_Gelb);
+                    }
                 }
                 else
                 {
-                    if (weiche.FahrstrasseRichtung_vonZunge) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links, 0, 0);
-                    else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts, 0, 0);
+                    if (weiche.FahrstrasseRichtung_vonZunge)
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links, Farbe_Gelb);
+                    }
+                    else
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts, Farbe_Gelb);
+                    }
                 }
             }
 
@@ -5005,13 +5083,29 @@ namespace MEKB_H0_Anlage
             {
                 if (weiche.Abzweig)
                 {
-                    if (weiche.FahrstrasseRichtung_vonZunge) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_links, 0, 0);
-                    else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_rechts, 0, 0);
+                    if (weiche.FahrstrasseRichtung_vonZunge)
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_links, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_links, Farbe_Gelb);
+                    }
+                    else
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_rechts, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_rechts, Farbe_Gelb);
+                    }
                 }
                 else
                 {
-                    if (weiche.FahrstrasseRichtung_vonZunge) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, 0, 0);
-                    else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, 0, 0);
+                    if (weiche.FahrstrasseRichtung_vonZunge)
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links, Farbe_Gelb);
+                    }
+                    else
+                    {
+                        if (weiche.FahrstrasseSicher) ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, Farbe_Gruen);
+                        else ZeichneFahrstraße(ref gleis, MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts, Farbe_Gelb);
+                    }
                 }
             }
 
@@ -5239,6 +5333,7 @@ namespace MEKB_H0_Anlage
                                     new List<Fahrstrasse>(),  //nie nach links
                                     new List<Fahrstrasse> { Block6_nach_Block7 }); //nach rechts
 
+            UpdateGleisbild_Weiche1();  //Umfeld um Weiche 1
             UpdateGleisbild_Weiche2();  //Umfeld um Weiche 2
             UpdateGleisbild_Weiche3();  //Umfeld um Weiche 3
             UpdateGleisbild_Weiche5();  //Umfeld um Weiche 5

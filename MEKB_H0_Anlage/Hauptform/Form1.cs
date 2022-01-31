@@ -389,6 +389,18 @@ namespace MEKB_H0_Anlage
         {
             ToggleWeiche("Weiche64");
         }
+        private void Weiche65_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche65");
+        }
+        private void Weiche66_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche66");
+        }
+        private void Weiche67_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche67");
+        }
         private void Weiche70_Click(object sender, EventArgs e)
         {
             ToggleWeiche("Weiche70");
@@ -409,6 +421,35 @@ namespace MEKB_H0_Anlage
         {
             ToggleWeiche("Weiche74");
         }
+        private void Weiche75_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche75");
+        }
+        private void Weiche80_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche80");
+        }
+        private void Weiche81_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche81");
+        }
+        private void Weiche82_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche82");
+        }
+        private void Weiche90_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche90");
+        }
+        private void Weiche91_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche91");
+        }
+        private void Weiche92_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche92");
+        }
+
 
         private void Fahrstr_GL1_links_Click(object sender, EventArgs e)
         {
@@ -2520,5 +2561,12 @@ namespace MEKB_H0_Anlage
             ToggleFahrstrasse(Block7_nach_Schatten5);
             Block7_Auswahl.Visible = false;
         }
+
+        private void Block7_10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
     }
 }

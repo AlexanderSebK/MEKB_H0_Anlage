@@ -167,28 +167,78 @@
     <spiegeln>0</spiegeln>
   </Weiche>
   <Weiche>
-    <name>Weiche70</name>
+    <name>Weiche65</name>
     <Adresse>10</Adresse>
     <spiegeln>0</spiegeln>
   </Weiche>
   <Weiche>
-    <name>Weiche71</name>
+    <name>Weiche66</name>
     <Adresse>11</Adresse>
     <spiegeln>0</spiegeln>
   </Weiche>
   <Weiche>
-    <name>Weiche72</name>
+    <name>Weiche67</name>
     <Adresse>12</Adresse>
     <spiegeln>0</spiegeln>
   </Weiche>
   <Weiche>
+    <name>Weiche70</name>
+    <Adresse>20</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
+    <name>Weiche71</name>
+    <Adresse>21</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
+    <name>Weiche72</name>
+    <Adresse>22</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
     <name>Weiche73</name>
-    <Adresse>13</Adresse>
+    <Adresse>23</Adresse>
     <spiegeln>0</spiegeln>
   </Weiche>
   <Weiche>
     <name>Weiche74</name>
-    <Adresse>14</Adresse>
+    <Adresse>24</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
+    <name>Weiche75</name>
+    <Adresse>25</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
+    <name>Weiche80</name>
+    <Adresse>30</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
+    <name>Weiche81</name>
+    <Adresse>31</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
+    <name>Weiche82</name>
+    <Adresse>32</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
+    <name>Weiche90</name>
+    <Adresse>40</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
+    <name>Weiche91</name>
+    <Adresse>41</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
+    <name>Weiche92</name>
+    <Adresse>42</Adresse>
     <spiegeln>0</spiegeln>
   </Weiche>
 </Weichenliste>

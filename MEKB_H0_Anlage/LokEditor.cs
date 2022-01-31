@@ -80,10 +80,6 @@ namespace MEKB_H0_Anlage
                 loks.Add(Lokomotive);
             }
         }
-        private void SaveLok(string Filename)
-        {
-
-        }
 
         private void Laden_Click(object sender, EventArgs e)
         {
