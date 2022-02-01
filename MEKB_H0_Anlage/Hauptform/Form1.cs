@@ -2482,11 +2482,6 @@ namespace MEKB_H0_Anlage
             lokEditor.Show();
         }
 
-        private void Block1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void Block5_Click(object sender, EventArgs e)
         {
             ToggleFahrstrasse(Block1_nach_Block5);

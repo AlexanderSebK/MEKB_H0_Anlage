@@ -2703,7 +2703,6 @@
             this.Block1.Size = new System.Drawing.Size(16, 16);
             this.Block1.TabIndex = 527;
             this.Block1.UseVisualStyleBackColor = false;
-            this.Block1.Click += new System.EventHandler(this.Block1_Click);
             // 
             // pictureBox244
             // 
