@@ -30,6 +30,7 @@ namespace MEKB_H0_Anlage
 
         }
 
+        #region Fahrstrassen
         private void UpdateButton_Fahrstr_GL1_links()
         {
             if (Gleis2_nach_Block2.GetGesetztStatus() ||
@@ -565,5 +566,6 @@ namespace MEKB_H0_Anlage
                 Rechts2_Einfahrt_Gl6.Enabled = true;
             }
         }
+        #endregion
     }
 }

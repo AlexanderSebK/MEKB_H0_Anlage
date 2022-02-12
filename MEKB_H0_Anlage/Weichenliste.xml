@@ -182,6 +182,11 @@
     <spiegeln>0</spiegeln>
   </Weiche>
   <Weiche>
+    <name>Weiche68</name>
+    <Adresse>13</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
     <name>Weiche70</name>
     <Adresse>20</Adresse>
     <spiegeln>0</spiegeln>
@@ -209,6 +214,11 @@
   <Weiche>
     <name>Weiche75</name>
     <Adresse>25</Adresse>
+    <spiegeln>0</spiegeln>
+  </Weiche>
+  <Weiche>
+    <name>Weiche76</name>
+    <Adresse>26</Adresse>
     <spiegeln>0</spiegeln>
   </Weiche>
   <Weiche>

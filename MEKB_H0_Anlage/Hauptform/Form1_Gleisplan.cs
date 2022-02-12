@@ -25,11 +25,11 @@ namespace MEKB_H0_Anlage
         const bool OST = false;
         MeldeZustand FreiesGleis = new MeldeZustand(false);
         #region Farben
-        private Color Farbe_Gelb = Color.FromArgb(255, 255, 255, 0);
-        private Color Farbe_Gruen = Color.FromArgb(255, 0, 255, 0);
-        private Color Farbe_Rot = Color.FromArgb(255, 255, 0, 0);
-        private Color Farbe_Grau = Color.FromArgb(255, 128, 128, 128);
-        private Color Farbe_Weis = Color.FromArgb(255, 255, 255, 255);
+        private readonly Color Farbe_Gelb = Color.FromArgb(255, 255, 255, 0);
+        private readonly Color Farbe_Gruen = Color.FromArgb(255, 0, 255, 0);
+        private readonly Color Farbe_Rot = Color.FromArgb(255, 255, 0, 0);
+        private readonly Color Farbe_Grau = Color.FromArgb(255, 128, 128, 128);
+        private readonly Color Farbe_Weis = Color.FromArgb(255, 255, 255, 255);
         #endregion
         #region Fahrstraßen Instanzen
         private Fahrstrasse Gleis1_nach_Block2 { set; get; }
@@ -80,7 +80,16 @@ namespace MEKB_H0_Anlage
 
         private Fahrstrasse Block1_nach_Block5 { set; get; }
         private Fahrstrasse Block5_nach_Block6 { set; get; }
-        private Fahrstrasse Block6_nach_Block7 { set; get; }
+
+        private Fahrstrasse Block6_nach_Schatten8 { set; get; }
+        private Fahrstrasse Block6_nach_Schatten9 { set; get; }
+        private Fahrstrasse Block6_nach_Schatten10 { set; get; }
+        private Fahrstrasse Block6_nach_Schatten11 { set; get; }
+
+        private Fahrstrasse Schatten8_nach_Block7 { set; get; }
+        private Fahrstrasse Schatten9_nach_Block7 { set; get; }
+        private Fahrstrasse Schatten10_nach_Block7 { set; get; }
+        private Fahrstrasse Schatten11_nach_Block7 { set; get; }
 
         private Fahrstrasse Block7_nach_Schatten0 { set; get; }
         private Fahrstrasse Block7_nach_Schatten1 { set; get; }
@@ -263,7 +272,12 @@ namespace MEKB_H0_Anlage
 
             SetupBlock1_nach_Block5();
             SetupBlock5_nach_Block6();
-            SetupBlock6_nach_Block7();
+
+
+            SetupBlock6_nach_Schatten8();
+            SetupBlock6_nach_Schatten9();
+            SetupBlock6_nach_Schatten10();
+            SetupBlock6_nach_Schatten11();
 
             SetupBlock7_nach_Schatten0();
             SetupBlock7_nach_Schatten1();
@@ -2467,12 +2481,211 @@ namespace MEKB_H0_Anlage
             Block5_nach_Block6.Fahrstr_Weichenliste.Add(weiche);
 
         }
-        private void SetupBlock6_nach_Block7()
-        {
-            ////////// Block6_nach_Block7 /////////
-            Block6_nach_Block7 = new Fahrstrasse();
-        }
         #region Schatten Einfahrt
+        private void SetupBlock6_nach_Schatten8()
+        {
+            Weiche weiche;
+            int ListID;
+            ////////// Block6_nach Schattenbahnhof Gl. 8 /////////
+            Block6_nach_Schatten8 = new Fahrstrasse();
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseAbzweig = true;
+            Block6_nach_Schatten8.Fahrstr_Weichenliste.Add(weiche);
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche91" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche91 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseAbzweig = false;
+            Block6_nach_Schatten8.Fahrstr_Weichenliste.Add(weiche);
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche92" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche92 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseAbzweig = false;
+            Block6_nach_Schatten8.Fahrstr_Weichenliste.Add(weiche);
+        }
+        private void SetupBlock6_nach_Schatten9()
+        {
+            Weiche weiche;
+            int ListID;
+            ////////// Block6_nach Schattenbahnhof Gl. 9 /////////
+            Block6_nach_Schatten9 = new Fahrstrasse();
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseAbzweig = true;
+            Block6_nach_Schatten9.Fahrstr_Weichenliste.Add(weiche);
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche91" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche91 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseAbzweig = false;
+            Block6_nach_Schatten9.Fahrstr_Weichenliste.Add(weiche);
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche92" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche92 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseAbzweig = true;
+            Block6_nach_Schatten9.Fahrstr_Weichenliste.Add(weiche);
+        }
+        private void SetupBlock6_nach_Schatten10()
+        {
+            Weiche weiche;
+            int ListID;
+            ////////// Block6_nach Schattenbahnhof Gl. 10 /////////
+            Block6_nach_Schatten10 = new Fahrstrasse();
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseAbzweig = true;
+            Block6_nach_Schatten10.Fahrstr_Weichenliste.Add(weiche);
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche91" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche91 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseAbzweig = true;
+            Block6_nach_Schatten10.Fahrstr_Weichenliste.Add(weiche);
+        }
+        private void SetupBlock6_nach_Schatten11()
+        {
+            Weiche weiche;
+            int ListID;
+            ////////// Block6_nach Schattenbahnhof Gl. 11 /////////
+            Block6_nach_Schatten11 = new Fahrstrasse();
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseAbzweig = false;
+            Block6_nach_Schatten11.Fahrstr_Weichenliste.Add(weiche);
+        }
+
+        private void SetupSchatten11_nach_Block7()
+        {
+            Weiche weiche;
+            int ListID;
+            ////////// Schattenbahnhof Gl. 11 Ausf/////////
+            Schatten11_nach_Block7 = new Fahrstrasse();
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseAbzweig = false;
+            Schatten11_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche81" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche81 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseAbzweig = false;
+            Schatten11_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche82" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche82 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseAbzweig = false;
+            Schatten11_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
+        }
+        private void SetupSchatten10_nach_Block7()
+        {
+            Weiche weiche;
+            int ListID;
+            ////////// Schattenbahnhof Gl. 10 Ausf/////////
+            Schatten10_nach_Block7 = new Fahrstrasse();
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseAbzweig = false;
+            Schatten10_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche81" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche81 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseAbzweig = false;
+            Schatten10_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche82" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche82 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseAbzweig = true;
+            Schatten10_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
+        }
+        private void SetupSchatten9_nach_Block7()
+        {
+            Weiche weiche;
+            int ListID;
+            ////////// Schattenbahnhof Gl. 9 Ausf/////////
+            Schatten9_nach_Block7 = new Fahrstrasse();
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseAbzweig = false;
+            Schatten9_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche81" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche81 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseAbzweig = true;
+            Schatten9_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
+        }
+        private void SetupSchatten8_nach_Block7()
+        {
+            Weiche weiche;
+            int ListID;
+            ////////// Schattenbahnhof Gl. 9 Ausf/////////
+            Schatten8_nach_Block7 = new Fahrstrasse();
+
+            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+            weiche = Weichenliste[ListID].Copy();
+            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseAbzweig = true;
+            Schatten8_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
+
+        }
+
+
         private void SetupBlock7_nach_Schatten0()
         {
             Weiche weiche;
@@ -2674,70 +2887,8 @@ namespace MEKB_H0_Anlage
         #endregion
         #endregion
         #region Fahrstraßen bestimmen
-        private string ErrechneZustand(bool besetzt, List<Fahrstrasse> Fahrstrassen_links, List<Fahrstrasse> Fahrstrassen_rechts)
-        {
-            int aktiv_links = 0;
-            int aktiv_rechts = 0;
-            int safe_links = 0;
-            int safe_rechts = 0;
-            foreach (Fahrstrasse fahrstrasse in Fahrstrassen_links) 
-            { 
-                if (fahrstrasse.GetAktivStatus()) aktiv_links++;
-                if (fahrstrasse.Safe) safe_links++;
-            }
-            foreach (Fahrstrasse fahrstrasse in Fahrstrassen_rechts) 
-            { 
-                if (fahrstrasse.GetAktivStatus()) aktiv_rechts++;
-                if (fahrstrasse.Safe) safe_rechts++;
-            }
-
-            if (aktiv_links > 1) return "Error";
-            if (aktiv_rechts > 1) return "Error";
-            if (safe_links > 1) return "Error";
-            if (safe_rechts > 1) return "Error";
-
-            if ( (aktiv_links == 1) && ( aktiv_rechts == 1 ) ) return "Error";
-            
-
-            string Zustand;
-            if (besetzt)
-            {
-                Zustand = "Besetzt";
-            }
-            else if (besetzt && (aktiv_links == 1))
-            {
-                Zustand = "Besetzt <=";
-            }
-            else if (besetzt && (aktiv_rechts == 1))
-            {
-                Zustand = "Besetzt =>";
-            }
-
-            else if ((safe_links == 0) && (aktiv_links == 1))
-            {
-                Zustand = "Fahrstrasse <=";
-            }
-            else if ((safe_rechts == 0) && (aktiv_rechts == 1))
-            {
-                Zustand = "Fahrstrasse =>";
-            }
-            else if ((safe_links == 1) && (aktiv_links == 1))
-            {
-                Zustand = "Sicher: Fahrstrasse <=";
-            }
-            else if ((safe_rechts == 1) && (aktiv_rechts == 1))
-            {
-                Zustand = "Sicher: Fahrstrasse =>";
-            }
-
-            else
-            {
-                Zustand = "Frei";
-            }
-            return Zustand;
-        }
-
-        MeldeZustand ErrechneZustand(bool besetzt, List<Fahrstrasse> Fahrstrassen_west, List<Fahrstrasse> Fahrstrassen_ost, bool Extra)
+        
+        MeldeZustand ErrechneZustand(bool besetzt, List<Fahrstrasse> Fahrstrassen_west, List<Fahrstrasse> Fahrstrassen_ost)
         {
 
             int aktiv_west = 0;
@@ -2822,7 +2973,7 @@ namespace MEKB_H0_Anlage
         #region Bahnhofsausfahrt links
         private void UpdateGleisbild_GL1_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_0);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_2);
@@ -2830,7 +2981,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_GL2_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_0);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_2);
@@ -2838,7 +2989,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_GL3_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_0);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_2);
@@ -2846,20 +2997,20 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_GL4_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL4_links_0);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL4_links_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL4_links_2);
         }
         private void UpdateGleisbild_GL5_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL5_links_0);
 
         }
         private void UpdateGleisbild_GL6_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL6_links_0);
             DisplayPicture(GetSchaltbildKurve270R(zustand), GL6_links_1);
         }
@@ -2867,7 +3018,7 @@ namespace MEKB_H0_Anlage
         #region Bahnhofsausfahrt rechts
         private void UpdateGleisbild_GL1_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_0);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_2);
@@ -2877,7 +3028,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_GL2_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_0);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_2);
@@ -2885,7 +3036,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_GL3_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_0);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_2);
@@ -2893,55 +3044,39 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_GL4_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL4_rechts_0);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL4_rechts_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL4_rechts_2);
         }       
         private void UpdateGleisbild_GL5_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL5_rechts_0);
         }
         private void UpdateGleisbild_GL6_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), GL6_rechts_0);
         }
         #endregion
         #region Bahnhofseinfahrt links
         private void UpdateGleisbild_Block_BhfEinfahrtL(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block_BhfEinfahrt_Links);
         }
         #endregion
         #region Block 1
         private void UpdateGleisbild_Block1a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block1a_1);
         }
-        private void UpdateGleisbild_Block1b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
-        {
-            string Zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
 
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche4" });
-            if (ListID == -1) return;
-            Weiche W4 = Weichenliste[ListID];
-
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
-            if (ListID == -1) return;
-            Weiche W1 = Weichenliste[ListID];
-
-            
-
-
-            
-        }
         private void UpdateGleisbild_Block1c(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_2);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_3);
@@ -2960,7 +3095,7 @@ namespace MEKB_H0_Anlage
         #region Block 2
         private void UpdateGleisbild_Block2(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts,false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildEckeOL_Sp(zustand), Block2_1);
             DisplayPicture(GetSchaltbildEckeUR_Sp(zustand), Block2_2);
             DisplayPicture(GetSchaltbildGerade225(zustand), Block2_3);
@@ -2977,12 +3112,12 @@ namespace MEKB_H0_Anlage
         #region Block 3
         private void UpdateGleisbild_Block3a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block3a);
         }
         private void UpdateGleisbild_Block3b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_2);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_3);
@@ -2993,7 +3128,7 @@ namespace MEKB_H0_Anlage
         #region Block 4
         private void UpdateGleisbild_Block4a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_1);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_2);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_3);
@@ -3002,14 +3137,14 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Block4b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block4b_1);
         }
         #endregion
         #region Block 5
         private void UpdateGleisbild_Block5(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {           
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block5_0);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block5_1);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block5_2);
@@ -3039,7 +3174,7 @@ namespace MEKB_H0_Anlage
         #region Block 6
         private void UpdateGleisbild_Block6(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade270(zustand), Block6_1);
             DisplayPicture(GetSchaltbildGerade270(zustand), Block6_2);
             DisplayPicture(GetSchaltbildGerade270(zustand), Block6_3);
@@ -3056,27 +3191,52 @@ namespace MEKB_H0_Anlage
         #region Block 7
         private void UpdateGleisbild_Block7(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts, false);
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block7_1);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block7_2);
             DisplayPicture(GetSchaltbildKurve0L(zustand),   Block7_3);
             DisplayPicture(GetSchaltbildEckeOR_Sp(zustand), Block7_4);
             DisplayPicture(GetSchaltbildEckeUL_Sp(zustand), Block7_5);
             DisplayPicture(GetSchaltbildKurve315L(zustand), Block7_6);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block7_7);
+            //DisplayPicture(GetSchaltbildGerade90(zustand), Block7_7);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block7_8);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block7_9);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block7_10);
 
         }
         #endregion
+        #region Schattenbahnhof
+        private void UpdateGleisbild_SchattenkleinAusf(List<bool> besetzt, List<Fahrstrasse> Fahrstrassen)
+        {
+            MeldeZustand zustand8 = ErrechneZustand(besetzt[0], new List<Fahrstrasse> { Fahrstrassen[0] }, new List<Fahrstrasse>()); //Gleis8
+            MeldeZustand zustand9 = ErrechneZustand(besetzt[1], new List<Fahrstrasse> { Fahrstrassen[1] }, new List<Fahrstrasse>()); //Gleis9
+            MeldeZustand zustand10 = ErrechneZustand(besetzt[2], new List<Fahrstrasse> { Fahrstrassen[2] }, new List<Fahrstrasse>()); //Gleis10
+            MeldeZustand zustand11 = ErrechneZustand(besetzt[3], new List<Fahrstrasse> { Fahrstrassen[3] }, new List<Fahrstrasse>()); //Gleis11
+
+            /*
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block7_1);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block7_2);
+            DisplayPicture(GetSchaltbildKurve0L(zustand), Block7_3);
+            DisplayPicture(GetSchaltbildEckeOR_Sp(zustand), Block7_4);
+            DisplayPicture(GetSchaltbildEckeUL_Sp(zustand), Block7_5);
+            DisplayPicture(GetSchaltbildKurve315L(zustand), Block7_6);
+            //DisplayPicture(GetSchaltbildGerade90(zustand), Block7_7);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block7_8);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block7_9);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block7_10);
+            */
+
+        }
+
+        #endregion
+
 
         #region Block (sonder)
         private void UpdateGleisbild_Block5_Block8(bool besetzt_Block5, List<Fahrstrasse> Fahrstrasse_links_Block5, List<Fahrstrasse> Fahrstrasse_rechts_Block5, 
                                                    bool besetzt_Block7, List<Fahrstrasse> Fahrstrasse_links_Block7, List<Fahrstrasse> Fahrstrasse_rechts_Block7)
         {
-            string Zustand_Block5 = ErrechneZustand(besetzt_Block5, Fahrstrasse_links_Block5, Fahrstrasse_rechts_Block5);
-            string Zustand_Block7 = ErrechneZustand(besetzt_Block7, Fahrstrasse_links_Block7, Fahrstrasse_rechts_Block7);
+            MeldeZustand Zustand_Block5 = ErrechneZustand(besetzt_Block5, Fahrstrasse_links_Block5, Fahrstrasse_rechts_Block5);
+            MeldeZustand Zustand_Block7 = ErrechneZustand(besetzt_Block7, Fahrstrasse_links_Block7, Fahrstrasse_rechts_Block7);
         }
         #endregion
 
@@ -3414,6 +3574,51 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildGerade270_EckeOR(meldeZustand, FreiesGleis), Weiche60_Gleis1);
             }
         }
+        private void UpdateGleisbild_Weiche90()
+        {
+            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            if (Weichenliste[ListID].Abzweig)
+            {
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche90_Gleis1);
+            }
+            else
+            {
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche90_Gleis1);
+            }
+        }
+        private void UpdateGleisbild_Weiche91()
+        {
+            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche91" });
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            if (Weichenliste[ListID].Abzweig)
+            {
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche91_Gleis1);
+            }
+            else
+            {
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche91_Gleis1);
+            }
+        }
+        private void UpdateGleisbild_Weiche92()
+        {
+            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche92" });
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            if (Weichenliste[ListID].Abzweig)
+            {
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche92_Gleis1);
+                DisplayPicture(GetSchaltbildKurve270L(FreiesGleis), Weiche92_Gleis2);
+            }
+            else
+            {
+                DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche92_Gleis1);
+                DisplayPicture(GetSchaltbildKurve270L(meldeZustand), Weiche92_Gleis2);
+            }
+        }
+
         #endregion
         #region DKW Gleisfeldumgebung
         private void UpdateGleisbild_WeicheDKW7_1()
@@ -3549,9 +3754,11 @@ namespace MEKB_H0_Anlage
             ImageAttributes imageAttributes = new ImageAttributes();
             int width = 32;
             int height = 32;
-            ColorMap colorMap = new ColorMap();
-            colorMap.OldColor = Color.FromArgb(255, 255, 255, 0);  // original gelb
-            colorMap.NewColor = Farbe;  // opaque blue
+            ColorMap colorMap = new ColorMap
+            {
+                OldColor = Color.FromArgb(255, 255, 255, 0),  // original gelb
+                NewColor = Farbe  // opaque blue
+            };
             ColorMap[] remapTable = { colorMap };
             imageAttributes.SetRemapTable(remapTable, ColorAdjustType.Bitmap);
 
@@ -5533,10 +5740,6 @@ namespace MEKB_H0_Anlage
                                     new List<Fahrstrasse> { Gleis1_nach_Block2, Gleis2_nach_Block2 },//Nach links
                                     new List<Fahrstrasse> { Block2_nach_Gleis1, Block2_nach_Gleis2 });//Nach rechts
 
-            UpdateGleisbild_Block1b(false, //Besetzt 
-                                    new List<Fahrstrasse> { Gleis1_nach_Block2, Gleis2_nach_Block2, Gleis3_nach_Block2, //Nach links
-                                                            Gleis4_nach_Block2, Gleis5_nach_Block2, Gleis6_nach_Block2 },
-                                    new List<Fahrstrasse> { Block2_nach_Gleis1, Block2_nach_Gleis2 }); //Nach rechts
             UpdateGleisbild_Block1c(false, //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block2, Gleis2_nach_Block2, Gleis3_nach_Block2, //Nach links
                                                             Gleis4_nach_Block2, Gleis5_nach_Block2, Gleis6_nach_Block2 },
@@ -5581,7 +5784,7 @@ namespace MEKB_H0_Anlage
 
             UpdateGleisbild_Block7(false, //Besetzt
                                     new List<Fahrstrasse>(),  //nie nach links
-                                    new List<Fahrstrasse> { Block6_nach_Block7 }); //nach rechts
+                                    new List<Fahrstrasse>()); //nach rechts
 
             UpdateGleisbild_Weiche1();  //Umfeld um Weiche 1
             UpdateGleisbild_Weiche2();  //Umfeld um Weiche 2
@@ -5614,12 +5817,18 @@ namespace MEKB_H0_Anlage
 
             UpdateGleisbild_Weiche60();     //Umfeld um Weiche 60
 
+            UpdateGleisbild_Weiche90();     //Umfeld um Weiche 90
+            UpdateGleisbild_Weiche91();     //Umfeld um Weiche 91
+            UpdateGleisbild_Weiche92();     //Umfeld um Weiche 92
+
             UpdateGleisbild_Block5_Block8(false, //Block6: Besetzt
                         new List<Fahrstrasse> { Block1_nach_Block5 },  //Block6: Nach links
                         new List<Fahrstrasse>(), //Block6: nie nach rechts
                         false, //Block7: Besetzt
                         new List<Fahrstrasse> { Block1_nach_Block5 },  //Block7: Nach links
                         new List<Fahrstrasse>());//Block7: nie nach rechts
+
+            UpdateGleisbild_SchattenkleinAusf(new List<bool> { false, false, false, false }, new List<Fahrstrasse> { Block6_nach_Schatten8, Block6_nach_Schatten8, Block6_nach_Schatten8, Block6_nach_Schatten8 });
         }
     }
 }

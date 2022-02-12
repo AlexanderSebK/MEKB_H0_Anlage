@@ -196,13 +196,15 @@ namespace MEKB_H0_Anlage
                     case "Weiche65": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche65); break;
                     case "Weiche66": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche66); break;
                     case "Weiche67": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche67); break;
+                    case "Weiche68": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche68); break;
 
-                    case "Weiche70": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche70); break;
-                    case "Weiche71": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche71); break;
-                    case "Weiche72": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche72); break;
-                    case "Weiche73": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche73); break;
-                    case "Weiche74": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche74); break;
-                    case "Weiche75": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche75); break;
+                    case "Weiche70": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche70); break;
+                    case "Weiche71": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche71); break;
+                    case "Weiche72": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche72); break;
+                    case "Weiche73": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche73); break;
+                    case "Weiche74": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche74); break;
+                    case "Weiche75": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche75); break;
+                    case "Weiche76": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche76); break;
 
                     case "Weiche80": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche80); break;
                     case "Weiche81": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche81); break;

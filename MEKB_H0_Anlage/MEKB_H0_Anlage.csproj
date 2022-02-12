@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -66,6 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hauptform\Form1_ButtonCtrl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Hauptform\Form1_FahrstrassenKontroll.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Hauptform\Form1_Signale.cs">
@@ -648,6 +651,10 @@
     <None Include="Resources\WeicheR180_Analog.png" />
     <None Include="Resources\WeicheR180_EckeOL_Analog.png" />
     <None Include="Resources\Zunge_AbzweigR_1801.png" />
+    <None Include="Resources\Fahrstrasse_oben.png" />
+    <None Include="Resources\Fahrstrasse_oben_deakt.png" />
+    <None Include="Resources\Block5_90.png" />
+    <None Include="Resources\Block9_90.png" />
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

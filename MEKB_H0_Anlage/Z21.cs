@@ -633,6 +633,22 @@ namespace MEKB_H0_Anlage
             if (Connected) Client.Send(SendBytes, 4);
         }
 
+        public void Z21_SET_TURNOUT(int Adresse, bool Abzweig, bool Q_Modus, bool aktivieren)
+        {
+            Adresse--;
+            byte Header = 0x53;
+            byte DB0 = (byte)(Adresse >> 8);
+            byte DB1 = (byte)(Adresse & 0xFF);
+            byte DB2 = (byte)(1 << 7);
+            if (!Abzweig) DB2 |= (1 << 1); // Gerade: Bit0 aktiv / Abzweig: Bit0 inaktiv
+            if (Q_Modus) DB2 |= (1 << 5); // Queue-Modus aktivieren: Befehl wird in ein FiFo eingereiht und dann 4 mal an Gleis gesendet
+            if (aktivieren) DB2 |= (1 << 3); //Ausgang aktivieren
+
+            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
+            byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
+            if (Connected) Client.Send(SendBytes, 9);
+        }
+
         public async Task Z21_SET_WEICHEAsync(int Adresse, bool Abzweig, bool Q_Modus, int time, bool deaktivieren)
         {
             Adresse--;

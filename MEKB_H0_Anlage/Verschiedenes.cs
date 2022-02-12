@@ -74,7 +74,7 @@ namespace MEKB_H0_Anlage
             Besetzt = false;
             FahrstrasseAktive = false;
             Q_Modus = false;
-            Schaltzeit = 100;
+            Schaltzeit = 3000;
             Deaktivieren = true;
         }
         /// <summary>
@@ -99,11 +99,9 @@ namespace MEKB_H0_Anlage
         public bool FahrstrasseRichtung_vonZunge { get; set; }
         public bool FahrstrasseAktive { get; set; }
         public bool FahrstrasseSicher { get; set; }
-
         public bool Q_Modus { get; set; }
         public int Schaltzeit { get; set; }
         public bool Deaktivieren { get; set; }
-
         public bool Besetzt { get; set; }
         /// <summary>
         /// Paramter: Weichen Befehl zur Z21 wird gespiegelt. 
@@ -119,6 +117,10 @@ namespace MEKB_H0_Anlage
         /// Zustand: Wenn gesetzt hat Z21 einen Fehler am Decoder erkannt
         /// </summary>
         public bool Status_Error { get; set; }
+        /// <summary>
+        /// Zeit wie lange der Ausgang noch aktiv ist (ms)
+        /// </summary>
+        public int ZeitAktiv { get; set; }
         /// <summary>
         /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
         /// </summary>
