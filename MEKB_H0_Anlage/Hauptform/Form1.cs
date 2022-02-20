@@ -93,6 +93,7 @@ namespace MEKB_H0_Anlage
 
         private static System.Timers.Timer FlagTimer;
         private static System.Timers.Timer WeichenTimer;
+        private static System.Timers.Timer CooldownTimer;
 
         private void Form1_Shown(object sender, EventArgs e)
         {
@@ -114,6 +115,13 @@ namespace MEKB_H0_Anlage
             WeichenTimer.Elapsed += OnTimedWeichenEvent;
             WeichenTimer.AutoReset = true;
             WeichenTimer.Enabled = true;
+
+            // 100 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
+            CooldownTimer = new System.Timers.Timer(100);
+            // Timer mit Funktion "WeichenCooldown" Verbinden
+            CooldownTimer.Elapsed += WeichenCooldown;
+            CooldownTimer.AutoReset = true;
+            CooldownTimer.Enabled = true;
 
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
         }
@@ -170,6 +178,12 @@ namespace MEKB_H0_Anlage
                 Fahrstrassenupdate(Gleis4_nach_Block2);
                 Fahrstrassenupdate(Gleis5_nach_Block2);
                 Fahrstrassenupdate(Gleis6_nach_Block2);
+                Fahrstrassenupdate(Gleis1_nach_Block5);
+                Fahrstrassenupdate(Gleis2_nach_Block5);
+                Fahrstrassenupdate(Gleis3_nach_Block5);
+                Fahrstrassenupdate(Gleis4_nach_Block5);
+                Fahrstrassenupdate(Gleis5_nach_Block5);
+                Fahrstrassenupdate(Gleis6_nach_Block5);
 
                 Fahrstrassenupdate(Block2_nach_Gleis1);
                 Fahrstrassenupdate(Block2_nach_Gleis2);
@@ -208,11 +222,18 @@ namespace MEKB_H0_Anlage
 
                 Fahrstrassenupdate(Block1_nach_Block5);
                 Fahrstrassenupdate(Block5_nach_Block6);
+                Fahrstrassenupdate(Block8_nach_Block6);
+                Fahrstrassenupdate(Block9_nach_Block2);
 
                 Fahrstrassenupdate(Block6_nach_Schatten8);
                 Fahrstrassenupdate(Block6_nach_Schatten9);
                 Fahrstrassenupdate(Block6_nach_Schatten10);
                 Fahrstrassenupdate(Block6_nach_Schatten11);
+
+                Fahrstrassenupdate(Schatten8_nach_Block7);
+                Fahrstrassenupdate(Schatten9_nach_Block7);
+                Fahrstrassenupdate(Schatten10_nach_Block7);
+                Fahrstrassenupdate(Schatten11_nach_Block7);
 
                 Fahrstrassenupdate(Block7_nach_Schatten0);
                 Fahrstrassenupdate(Block7_nach_Schatten1);
@@ -220,11 +241,55 @@ namespace MEKB_H0_Anlage
                 Fahrstrassenupdate(Block7_nach_Schatten3);
                 Fahrstrassenupdate(Block7_nach_Schatten4);
                 Fahrstrassenupdate(Block7_nach_Schatten5);
+                Fahrstrassenupdate(Block7_nach_Schatten6);
+                Fahrstrassenupdate(Block7_nach_Schatten7);
+
+                Fahrstrassenupdate(Schatten0_nach_Block8);
+                Fahrstrassenupdate(Schatten1_nach_Block8);
+                Fahrstrassenupdate(Schatten1_nach_Block9);
+                Fahrstrassenupdate(Schatten2_nach_Block9);
+                Fahrstrassenupdate(Schatten3_nach_Block9);
+                Fahrstrassenupdate(Schatten4_nach_Block9);
+                Fahrstrassenupdate(Schatten5_nach_Block9);
+                Fahrstrassenupdate(Schatten6_nach_Block9);
+                Fahrstrassenupdate(Schatten7_nach_Block9);
 
                 FahrstrasseBildUpdate();
             }
 
-        }      
+        }
+
+        private void WeichenCooldown(Object source, ElapsedEventArgs e)
+        {
+            if (z21Start.Verbunden())
+            {
+                foreach (Weiche weiche in Weichenliste)
+                {
+                    if (weiche.ZeitAktiv > 0)
+                    {
+                        weiche.ZeitAktiv -= 100;
+                            this.Invoke(new Action<string>(WriteTextBox), new object[] { weiche.ZeitAktiv.ToString() + weiche.Name });
+
+                        if (weiche.ZeitAktiv <= 0)
+                        {
+                            weiche.ZeitAktiv = 0;                         
+                            bool Abzweig = weiche.Abzweig;
+                            if (weiche.Spiegeln) Abzweig = !Abzweig;
+                            if (Betriebsbereit)
+                            {
+                                z21Start.Z21_SET_TURNOUT(weiche.Adresse, Abzweig, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv
+                                    this.Invoke(new Action<string>(WriteTextBox), new object[] { weiche.ZeitAktiv.ToString() + weiche.Name });
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void WriteTextBox(String text)
+        {
+            LokCtrl1_Ort.Text = text;
+        }
         /// <summary>
         /// Menü Zentrale -> Verbinden
         /// </summary>
@@ -368,11 +433,11 @@ namespace MEKB_H0_Anlage
         }
         private void Weiche52_Click(object sender, EventArgs e)
         {
-            SetWeiche("Weiche52", true);        //Nur Abzweig, da noch nicht vorhanden
+            ToggleWeiche("Weiche52");        
         }
         private void Weiche53_Click(object sender, EventArgs e)
         {
-            SetWeiche("Weiche53", true);        //Nur Abzweig, da noch nicht vorhanden
+            ToggleWeiche("Weiche53");        
         }
         private void Weiche60_Click(object sender, EventArgs e)
         {
@@ -1454,53 +1519,6 @@ namespace MEKB_H0_Anlage
 
         
 
-        private void Block7_Click(object sender, EventArgs e)
-        {
-            //Einer der Gl5-rechts Fahrstrassen aktiv
-            if (Block7_nach_Schatten0.GetGesetztStatus() ||
-                Block7_nach_Schatten1.GetGesetztStatus() ||
-                Block7_nach_Schatten2.GetGesetztStatus() ||
-                Block7_nach_Schatten3.GetGesetztStatus() ||
-                Block7_nach_Schatten4.GetGesetztStatus() ||
-                Block7_nach_Schatten5.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Block7_nach_Schatten0.GetGesetztStatus()) ToggleFahrstrasse(Block7_nach_Schatten0);
-                if (Block7_nach_Schatten1.GetGesetztStatus()) ToggleFahrstrasse(Block7_nach_Schatten1);
-                if (Block7_nach_Schatten2.GetGesetztStatus()) ToggleFahrstrasse(Block7_nach_Schatten2);
-                if (Block7_nach_Schatten3.GetGesetztStatus()) ToggleFahrstrasse(Block7_nach_Schatten3);
-                if (Block7_nach_Schatten4.GetGesetztStatus()) ToggleFahrstrasse(Block7_nach_Schatten4);
-                if (Block7_nach_Schatten5.GetGesetztStatus()) ToggleFahrstrasse(Block7_nach_Schatten5);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Block6_Auswahl.Visible) Block6_Auswahl.Visible = false;
-                else Block6_Auswahl.Visible = true;
-            }
-        }
-
-
-        private void Block6_Schatten11_Click(object sender, EventArgs e)
-        {
-            ToggleFahrstrasse(Block6_nach_Schatten11);
-            Block6_Auswahl.Visible = false;
-        }
-
-        private void Block6_Schatten10_Click(object sender, EventArgs e)
-        {
-            ToggleFahrstrasse(Block6_nach_Schatten10);
-            Block6_Auswahl.Visible = false;
-        }
-
-        private void Block6_Schatten9_Click(object sender, EventArgs e)
-        {
-            ToggleFahrstrasse(Block6_nach_Schatten9);
-            Block6_Auswahl.Visible = false;
-        }
-
-        private void Block6_Schatten8_Click(object sender, EventArgs e)
-        {
-            ToggleFahrstrasse(Block6_nach_Schatten8);
-            Block6_Auswahl.Visible = false;
-        }
+        
     }
 }

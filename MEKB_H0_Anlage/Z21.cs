@@ -640,7 +640,7 @@ namespace MEKB_H0_Anlage
             byte DB0 = (byte)(Adresse >> 8);
             byte DB1 = (byte)(Adresse & 0xFF);
             byte DB2 = (byte)(1 << 7);
-            if (!Abzweig) DB2 |= (1 << 1); // Gerade: Bit0 aktiv / Abzweig: Bit0 inaktiv
+            if (!Abzweig) DB2 |= (1 << 0); // Gerade: Bit0 aktiv / Abzweig: Bit0 inaktiv
             if (Q_Modus) DB2 |= (1 << 5); // Queue-Modus aktivieren: Befehl wird in ein FiFo eingereiht und dann 4 mal an Gleis gesendet
             if (aktivieren) DB2 |= (1 << 3); //Ausgang aktivieren
 

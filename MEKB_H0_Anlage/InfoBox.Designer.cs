@@ -159,12 +159,12 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Orange;
+            this.label11.ForeColor = System.Drawing.Color.ForestGreen;
             this.label11.Location = new System.Drawing.Point(384, 184);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(189, 17);
+            this.label11.Size = new System.Drawing.Size(226, 17);
             this.label11.TabIndex = 10;
-            this.label11.Text = "alle Fahrstraßen zugeordnet (in Arbeit)";
+            this.label11.Text = "alle Fahrstraßen zugeordnet (fertig - 20.02.22)";
             // 
             // label12
             // 

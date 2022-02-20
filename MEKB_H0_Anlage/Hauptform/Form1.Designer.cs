@@ -179,36 +179,36 @@
             this.pictureBox116 = new System.Windows.Forms.PictureBox();
             this.pictureBox115 = new System.Windows.Forms.PictureBox();
             this.Weiche35 = new System.Windows.Forms.PictureBox();
-            this.pictureBox26 = new System.Windows.Forms.PictureBox();
-            this.pictureBox22 = new System.Windows.Forms.PictureBox();
-            this.pictureBox390 = new System.Windows.Forms.PictureBox();
-            this.pictureBox285 = new System.Windows.Forms.PictureBox();
+            this.Kreuzung1 = new System.Windows.Forms.PictureBox();
+            this.Block5_Block9 = new System.Windows.Forms.PictureBox();
+            this.Block9_2 = new System.Windows.Forms.PictureBox();
+            this.WeicheEcke76_90 = new System.Windows.Forms.PictureBox();
             this.Block5_20 = new System.Windows.Forms.PictureBox();
-            this.pictureBox386 = new System.Windows.Forms.PictureBox();
-            this.pictureBox385 = new System.Windows.Forms.PictureBox();
-            this.pictureBox384 = new System.Windows.Forms.PictureBox();
-            this.pictureBox383 = new System.Windows.Forms.PictureBox();
-            this.pictureBox382 = new System.Windows.Forms.PictureBox();
-            this.pictureBox381 = new System.Windows.Forms.PictureBox();
-            this.pictureBox380 = new System.Windows.Forms.PictureBox();
-            this.pictureBox379 = new System.Windows.Forms.PictureBox();
-            this.pictureBox378 = new System.Windows.Forms.PictureBox();
-            this.Block7_4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox370 = new System.Windows.Forms.PictureBox();
-            this.pictureBox367 = new System.Windows.Forms.PictureBox();
-            this.pictureBox366 = new System.Windows.Forms.PictureBox();
-            this.Schatten_Einfahrt_3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox364 = new System.Windows.Forms.PictureBox();
-            this.pictureBox363 = new System.Windows.Forms.PictureBox();
-            this.Schatten_Einfahrt_2 = new System.Windows.Forms.PictureBox();
+            this.Kreuzung1_2 = new System.Windows.Forms.PictureBox();
+            this.Weiche61_2 = new System.Windows.Forms.PictureBox();
+            this.Weiche62_2 = new System.Windows.Forms.PictureBox();
+            this.Weiche63_2 = new System.Windows.Forms.PictureBox();
+            this.Weiche64_2 = new System.Windows.Forms.PictureBox();
+            this.Weiche61_1 = new System.Windows.Forms.PictureBox();
+            this.Weiche62_1 = new System.Windows.Forms.PictureBox();
+            this.Weiche63_1 = new System.Windows.Forms.PictureBox();
+            this.Weiche65_1 = new System.Windows.Forms.PictureBox();
+            this.Block7_5 = new System.Windows.Forms.PictureBox();
+            this.Weiche76_2 = new System.Windows.Forms.PictureBox();
+            this.Weiche73_2 = new System.Windows.Forms.PictureBox();
+            this.Weiche71_2 = new System.Windows.Forms.PictureBox();
+            this.Weiche70_2 = new System.Windows.Forms.PictureBox();
+            this.Block8_8 = new System.Windows.Forms.PictureBox();
+            this.Block8_7 = new System.Windows.Forms.PictureBox();
+            this.Block7_13 = new System.Windows.Forms.PictureBox();
             this.Block7_2 = new System.Windows.Forms.PictureBox();
             this.Block7_1 = new System.Windows.Forms.PictureBox();
-            this.Block7_5 = new System.Windows.Forms.PictureBox();
-            this.Block7_3 = new System.Windows.Forms.PictureBox();
+            this.Block7_6 = new System.Windows.Forms.PictureBox();
+            this.Block7_4 = new System.Windows.Forms.PictureBox();
             this.Schatten11_Ausf4 = new System.Windows.Forms.PictureBox();
             this.Schatten11_Ausf5 = new System.Windows.Forms.PictureBox();
             this.Schatten11_Ausf3 = new System.Windows.Forms.PictureBox();
-            this.Block7_6 = new System.Windows.Forms.PictureBox();
+            this.Block7_7 = new System.Windows.Forms.PictureBox();
             this.Block6_18 = new System.Windows.Forms.PictureBox();
             this.Block6_11 = new System.Windows.Forms.PictureBox();
             this.Block6_17 = new System.Windows.Forms.PictureBox();
@@ -226,10 +226,10 @@
             this.pictureBox332 = new System.Windows.Forms.PictureBox();
             this.pictureBox333 = new System.Windows.Forms.PictureBox();
             this.pictureBox334 = new System.Windows.Forms.PictureBox();
-            this.pictureBox326 = new System.Windows.Forms.PictureBox();
-            this.pictureBox327 = new System.Windows.Forms.PictureBox();
-            this.pictureBox328 = new System.Windows.Forms.PictureBox();
-            this.pictureBox329 = new System.Windows.Forms.PictureBox();
+            this.Block8_1 = new System.Windows.Forms.PictureBox();
+            this.Block8_3 = new System.Windows.Forms.PictureBox();
+            this.Block8_4 = new System.Windows.Forms.PictureBox();
+            this.Block8_5 = new System.Windows.Forms.PictureBox();
             this.pictureBox322 = new System.Windows.Forms.PictureBox();
             this.pictureBox314 = new System.Windows.Forms.PictureBox();
             this.pictureBox317 = new System.Windows.Forms.PictureBox();
@@ -253,35 +253,35 @@
             this.pictureBox292 = new System.Windows.Forms.PictureBox();
             this.Block5_22 = new System.Windows.Forms.PictureBox();
             this.Block5_16 = new System.Windows.Forms.PictureBox();
-            this.pictureBox278 = new System.Windows.Forms.PictureBox();
+            this.Block9_6 = new System.Windows.Forms.PictureBox();
             this.Block5_15 = new System.Windows.Forms.PictureBox();
-            this.pictureBox280 = new System.Windows.Forms.PictureBox();
+            this.Block9_7 = new System.Windows.Forms.PictureBox();
             this.Block5_14 = new System.Windows.Forms.PictureBox();
-            this.pictureBox282 = new System.Windows.Forms.PictureBox();
+            this.Block9_8 = new System.Windows.Forms.PictureBox();
             this.Block5_13 = new System.Windows.Forms.PictureBox();
-            this.pictureBox268 = new System.Windows.Forms.PictureBox();
+            this.Block9_9 = new System.Windows.Forms.PictureBox();
             this.Block5_12 = new System.Windows.Forms.PictureBox();
-            this.pictureBox270 = new System.Windows.Forms.PictureBox();
+            this.Block9_10 = new System.Windows.Forms.PictureBox();
             this.Block5_11 = new System.Windows.Forms.PictureBox();
-            this.pictureBox272 = new System.Windows.Forms.PictureBox();
+            this.Block9_11 = new System.Windows.Forms.PictureBox();
             this.Block5_10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox274 = new System.Windows.Forms.PictureBox();
+            this.Block9_12 = new System.Windows.Forms.PictureBox();
             this.Block5_9 = new System.Windows.Forms.PictureBox();
             this.Block5_19 = new System.Windows.Forms.PictureBox();
             this.Block5_21 = new System.Windows.Forms.PictureBox();
-            this.pictureBox265 = new System.Windows.Forms.PictureBox();
-            this.pictureBox264 = new System.Windows.Forms.PictureBox();
-            this.pictureBox263 = new System.Windows.Forms.PictureBox();
-            this.pictureBox262 = new System.Windows.Forms.PictureBox();
-            this.pictureBox261 = new System.Windows.Forms.PictureBox();
+            this.Block9_1 = new System.Windows.Forms.PictureBox();
+            this.Block9_3 = new System.Windows.Forms.PictureBox();
+            this.Block8_12 = new System.Windows.Forms.PictureBox();
+            this.Block8_10 = new System.Windows.Forms.PictureBox();
+            this.Block8_9 = new System.Windows.Forms.PictureBox();
             this.Weiche60_Gleis1 = new System.Windows.Forms.PictureBox();
             this.Block5_23 = new System.Windows.Forms.PictureBox();
-            this.pictureBox256 = new System.Windows.Forms.PictureBox();
+            this.Kreuzung1_3 = new System.Windows.Forms.PictureBox();
             this.Block6_19 = new System.Windows.Forms.PictureBox();
-            this.Schatten_Einfahrt_1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox253 = new System.Windows.Forms.PictureBox();
-            this.pictureBox251 = new System.Windows.Forms.PictureBox();
-            this.pictureBox250 = new System.Windows.Forms.PictureBox();
+            this.Block7_12 = new System.Windows.Forms.PictureBox();
+            this.Block8_6 = new System.Windows.Forms.PictureBox();
+            this.Kreuzung1_4 = new System.Windows.Forms.PictureBox();
+            this.Kreuzung1_1 = new System.Windows.Forms.PictureBox();
             this.Weiche60 = new System.Windows.Forms.PictureBox();
             this.Weiche71 = new System.Windows.Forms.PictureBox();
             this.Weiche72 = new System.Windows.Forms.PictureBox();
@@ -292,21 +292,21 @@
             this.Weiche63 = new System.Windows.Forms.PictureBox();
             this.Weiche62 = new System.Windows.Forms.PictureBox();
             this.Weiche61 = new System.Windows.Forms.PictureBox();
-            this.pictureBox238 = new System.Windows.Forms.PictureBox();
+            this.Block9_13 = new System.Windows.Forms.PictureBox();
             this.Block5_8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox236 = new System.Windows.Forms.PictureBox();
+            this.Block9_14 = new System.Windows.Forms.PictureBox();
             this.Block5_7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox234 = new System.Windows.Forms.PictureBox();
+            this.Block9_15 = new System.Windows.Forms.PictureBox();
             this.Block5_6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox232 = new System.Windows.Forms.PictureBox();
+            this.Block9_16 = new System.Windows.Forms.PictureBox();
             this.Block5_5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox230 = new System.Windows.Forms.PictureBox();
+            this.Block9_17 = new System.Windows.Forms.PictureBox();
             this.Block5_4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox228 = new System.Windows.Forms.PictureBox();
+            this.Block9_18 = new System.Windows.Forms.PictureBox();
             this.Block5_3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox226 = new System.Windows.Forms.PictureBox();
+            this.Block9_19 = new System.Windows.Forms.PictureBox();
             this.Block5_2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox225 = new System.Windows.Forms.PictureBox();
+            this.Block9_20 = new System.Windows.Forms.PictureBox();
             this.Block5_1 = new System.Windows.Forms.PictureBox();
             this.Block5_0 = new System.Windows.Forms.PictureBox();
             this.Drehscheibe = new System.Windows.Forms.PictureBox();
@@ -863,12 +863,12 @@
             this.textBox24 = new System.Windows.Forms.TextBox();
             this.label93 = new System.Windows.Forms.Label();
             this.textBox25 = new System.Windows.Forms.TextBox();
-            this.button26 = new System.Windows.Forms.Button();
-            this.button27 = new System.Windows.Forms.Button();
-            this.button28 = new System.Windows.Forms.Button();
-            this.button29 = new System.Windows.Forms.Button();
-            this.button30 = new System.Windows.Forms.Button();
-            this.button31 = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten7_Ausf = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten6_Ausf = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten5_Ausf = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten4_Ausf = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten2_Ausf = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten1_Ausf = new System.Windows.Forms.Button();
             this.label94 = new System.Windows.Forms.Label();
             this.label95 = new System.Windows.Forms.Label();
             this.label96 = new System.Windows.Forms.Label();
@@ -901,16 +901,16 @@
             this.Block6_Schatten8 = new System.Windows.Forms.Button();
             this.Block5_17 = new System.Windows.Forms.PictureBox();
             this.Block5_18 = new System.Windows.Forms.PictureBox();
-            this.pictureBox44 = new System.Windows.Forms.PictureBox();
-            this.pictureBox52 = new System.Windows.Forms.PictureBox();
+            this.Block9_4 = new System.Windows.Forms.PictureBox();
+            this.Block9_5 = new System.Windows.Forms.PictureBox();
             this.Weiche66 = new System.Windows.Forms.PictureBox();
-            this.pictureBox56 = new System.Windows.Forms.PictureBox();
+            this.Weiche66_1 = new System.Windows.Forms.PictureBox();
             this.Weiche65 = new System.Windows.Forms.PictureBox();
             this.textBox26 = new System.Windows.Forms.TextBox();
             this.pictureBox63 = new System.Windows.Forms.PictureBox();
             this.label116 = new System.Windows.Forms.Label();
-            this.pictureBox67 = new System.Windows.Forms.PictureBox();
-            this.pictureBox72 = new System.Windows.Forms.PictureBox();
+            this.Weiche64_1 = new System.Windows.Forms.PictureBox();
+            this.Weiche72_2 = new System.Windows.Forms.PictureBox();
             this.pictureBox76 = new System.Windows.Forms.PictureBox();
             this.pictureBox81 = new System.Windows.Forms.PictureBox();
             this.pictureBox82 = new System.Windows.Forms.PictureBox();
@@ -918,13 +918,13 @@
             this.Weiche73 = new System.Windows.Forms.PictureBox();
             this.pictureBox89 = new System.Windows.Forms.PictureBox();
             this.pictureBox90 = new System.Windows.Forms.PictureBox();
-            this.pictureBox91 = new System.Windows.Forms.PictureBox();
-            this.pictureBox71 = new System.Windows.Forms.PictureBox();
-            this.pictureBox100 = new System.Windows.Forms.PictureBox();
-            this.pictureBox73 = new System.Windows.Forms.PictureBox();
-            this.pictureBox104 = new System.Windows.Forms.PictureBox();
-            this.pictureBox105 = new System.Windows.Forms.PictureBox();
-            this.pictureBox106 = new System.Windows.Forms.PictureBox();
+            this.Weiche65_2 = new System.Windows.Forms.PictureBox();
+            this.Weiche71_1 = new System.Windows.Forms.PictureBox();
+            this.Weiche72_1 = new System.Windows.Forms.PictureBox();
+            this.Weiche73_1 = new System.Windows.Forms.PictureBox();
+            this.Weiche74_1 = new System.Windows.Forms.PictureBox();
+            this.Weiche75_1 = new System.Windows.Forms.PictureBox();
+            this.Weiche76_1 = new System.Windows.Forms.PictureBox();
             this.Weiche90 = new System.Windows.Forms.PictureBox();
             this.Weiche90_Gleis1 = new System.Windows.Forms.PictureBox();
             this.pictureBox109 = new System.Windows.Forms.PictureBox();
@@ -934,8 +934,8 @@
             this.Weiche92_Gleis2 = new System.Windows.Forms.PictureBox();
             this.pictureBox114 = new System.Windows.Forms.PictureBox();
             this.textBox27 = new System.Windows.Forms.TextBox();
-            this.pictureBox74 = new System.Windows.Forms.PictureBox();
-            this.pictureBox117 = new System.Windows.Forms.PictureBox();
+            this.WeicheEcke75_91 = new System.Windows.Forms.PictureBox();
+            this.WeicheEcke74_92 = new System.Windows.Forms.PictureBox();
             this.SchattenGl8_1 = new System.Windows.Forms.PictureBox();
             this.SchattenGl8_2 = new System.Windows.Forms.PictureBox();
             this.SchattenGl8_3 = new System.Windows.Forms.PictureBox();
@@ -948,9 +948,9 @@
             this.Schatten10_Ausf2 = new System.Windows.Forms.PictureBox();
             this.Schatten9_Ausf1 = new System.Windows.Forms.PictureBox();
             this.label81 = new System.Windows.Forms.Label();
-            this.button35 = new System.Windows.Forms.Button();
-            this.pictureBox24 = new System.Windows.Forms.PictureBox();
-            this.pictureBox141 = new System.Windows.Forms.PictureBox();
+            this.Fahrstr_Schatten3_Ausf = new System.Windows.Forms.Button();
+            this.Block8_2 = new System.Windows.Forms.PictureBox();
+            this.Block8_11 = new System.Windows.Forms.PictureBox();
             this.Weiche92_Gleis1 = new System.Windows.Forms.PictureBox();
             this.Weiche91_Gleis1 = new System.Windows.Forms.PictureBox();
             this.pictureBox144 = new System.Windows.Forms.PictureBox();
@@ -977,10 +977,10 @@
             this.Block7_10 = new System.Windows.Forms.PictureBox();
             this.Block7_9 = new System.Windows.Forms.PictureBox();
             this.Block7_8 = new System.Windows.Forms.PictureBox();
-            this.button36 = new System.Windows.Forms.Button();
-            this.button37 = new System.Windows.Forms.Button();
-            this.button38 = new System.Windows.Forms.Button();
-            this.button39 = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten11_Ausf = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten10_Ausf = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten9_Ausf = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten8_Ausf = new System.Windows.Forms.Button();
             this.textBox28 = new System.Windows.Forms.TextBox();
             this.textBox29 = new System.Windows.Forms.TextBox();
             this.textBox30 = new System.Windows.Forms.TextBox();
@@ -1004,12 +1004,12 @@
             this.label124 = new System.Windows.Forms.Label();
             this.label125 = new System.Windows.Forms.Label();
             this.Weiche70 = new System.Windows.Forms.PictureBox();
-            this.pictureBox21 = new System.Windows.Forms.PictureBox();
+            this.Block7_14 = new System.Windows.Forms.PictureBox();
             this.Weiche68 = new System.Windows.Forms.PictureBox();
-            this.pictureBox54 = new System.Windows.Forms.PictureBox();
-            this.pictureBox57 = new System.Windows.Forms.PictureBox();
-            this.pictureBox58 = new System.Windows.Forms.PictureBox();
-            this.pictureBox87 = new System.Windows.Forms.PictureBox();
+            this.Schatten0_Ausf3 = new System.Windows.Forms.PictureBox();
+            this.Schatten0_Ausf1 = new System.Windows.Forms.PictureBox();
+            this.Schatten0_Ausf2 = new System.Windows.Forms.PictureBox();
+            this.Weiche68_67 = new System.Windows.Forms.PictureBox();
             this.pictureBox107 = new System.Windows.Forms.PictureBox();
             this.pictureBox111 = new System.Windows.Forms.PictureBox();
             this.pictureBox112 = new System.Windows.Forms.PictureBox();
@@ -1019,27 +1019,48 @@
             this.pictureBox140 = new System.Windows.Forms.PictureBox();
             this.pictureBox176 = new System.Windows.Forms.PictureBox();
             this.pictureBox178 = new System.Windows.Forms.PictureBox();
-            this.pictureBox180 = new System.Windows.Forms.PictureBox();
+            this.Weiche70_1 = new System.Windows.Forms.PictureBox();
             this.textBox31 = new System.Windows.Forms.TextBox();
-            this.pictureBox184 = new System.Windows.Forms.PictureBox();
+            this.Block7_3 = new System.Windows.Forms.PictureBox();
             this.label126 = new System.Windows.Forms.Label();
             this.label127 = new System.Windows.Forms.Label();
             this.pictureBox17 = new System.Windows.Forms.PictureBox();
             this.pictureBox53 = new System.Windows.Forms.PictureBox();
             this.Block8 = new System.Windows.Forms.Button();
             this.label114 = new System.Windows.Forms.Label();
-            this.button32 = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button51 = new System.Windows.Forms.Button();
-            this.button50 = new System.Windows.Forms.Button();
-            this.button49 = new System.Windows.Forms.Button();
-            this.button48 = new System.Windows.Forms.Button();
-            this.button40 = new System.Windows.Forms.Button();
-            this.button41 = new System.Windows.Forms.Button();
-            this.button46 = new System.Windows.Forms.Button();
-            this.button47 = new System.Windows.Forms.Button();
+            this.Fahrstr_Schatten0_Ausf = new System.Windows.Forms.Button();
+            this.SchattenIntern_Auswahl = new System.Windows.Forms.Panel();
+            this.Intern_Schatten7 = new System.Windows.Forms.Button();
+            this.Intern_Schatten6 = new System.Windows.Forms.Button();
+            this.Intern_Schatten5 = new System.Windows.Forms.Button();
+            this.Intern_Schatten2 = new System.Windows.Forms.Button();
+            this.Intern_Schatten4 = new System.Windows.Forms.Button();
+            this.Intern_Schatten1 = new System.Windows.Forms.Button();
+            this.Intern_Schatten3 = new System.Windows.Forms.Button();
+            this.Intern_Schatten0 = new System.Windows.Forms.Button();
             this.Schatten8_Ausf3 = new System.Windows.Forms.PictureBox();
             this.Schatten9_Ausf2 = new System.Windows.Forms.PictureBox();
+            this.Schatten1_Auswahl = new System.Windows.Forms.Panel();
+            this.Schatten1_Block9 = new System.Windows.Forms.Button();
+            this.Schatten1_Block8 = new System.Windows.Forms.Button();
+            this.Gl6_links_Auswahl = new System.Windows.Forms.Panel();
+            this.Gl6_Ausfahrt_links_Block5 = new System.Windows.Forms.Button();
+            this.Gl6_Ausfahrt_links_Block2 = new System.Windows.Forms.Button();
+            this.Gl5_links_Auswahl = new System.Windows.Forms.Panel();
+            this.Gl5_Ausfahrt_links_Block5 = new System.Windows.Forms.Button();
+            this.Gl5_Ausfahrt_links_Block2 = new System.Windows.Forms.Button();
+            this.Gl4_links_Auswahl = new System.Windows.Forms.Panel();
+            this.Gl4_Ausfahrt_links_Block5 = new System.Windows.Forms.Button();
+            this.Gl4_Ausfahrt_links_Block2 = new System.Windows.Forms.Button();
+            this.Gl3_links_Auswahl = new System.Windows.Forms.Panel();
+            this.Gl3_Ausfahrt_links_Block5 = new System.Windows.Forms.Button();
+            this.Gl3_Ausfahrt_links_Block2 = new System.Windows.Forms.Button();
+            this.Gl2_links_Auswahl = new System.Windows.Forms.Panel();
+            this.Gl2_Ausfahrt_links_Block5 = new System.Windows.Forms.Button();
+            this.Gl2_Ausfahrt_links_Block2 = new System.Windows.Forms.Button();
+            this.Gl1_links_Auswahl = new System.Windows.Forms.Panel();
+            this.Gl1_Ausfahrt_links_Block5 = new System.Windows.Forms.Button();
+            this.Gl1_Ausfahrt_links_Block2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1095,36 +1116,36 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox116)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox115)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche35)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox390)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox285)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block5_Block9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WeicheEcke76_90)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox386)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox385)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox384)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox383)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox382)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox381)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox380)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox379)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox378)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block7_4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox370)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox367)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox366)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Schatten_Einfahrt_3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox364)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox363)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Schatten_Einfahrt_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche61_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche62_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche63_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche64_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche61_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche62_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche63_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche65_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche76_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche73_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche71_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche70_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block7_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block7_1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block7_5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block7_3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten11_Ausf4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten11_Ausf5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten11_Ausf3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block7_6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block6_18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block6_11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block6_17)).BeginInit();
@@ -1142,10 +1163,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox332)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox333)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox334)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox326)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox327)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox328)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox329)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox322)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox314)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox317)).BeginInit();
@@ -1169,35 +1190,35 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox292)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_22)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_16)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox278)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox280)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox282)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox268)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox270)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox272)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox274)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_19)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox265)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox264)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox263)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox262)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox261)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche60_Gleis1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_23)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox256)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block6_19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Schatten_Einfahrt_1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox253)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox251)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox250)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche60)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche71)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche72)).BeginInit();
@@ -1208,21 +1229,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche63)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche62)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche61)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox238)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox236)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox234)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox232)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox230)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox228)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox226)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_19)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox225)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_20)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Drehscheibe)).BeginInit();
@@ -1590,14 +1611,14 @@
             this.Block6_Auswahl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_18)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox44)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox52)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche66)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox56)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche66_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche65)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox63)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox67)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox72)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche64_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche72_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox76)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox81)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox82)).BeginInit();
@@ -1605,13 +1626,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche73)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox89)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox90)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox91)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox71)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox100)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox73)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox104)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox105)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox106)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche65_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche71_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche72_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche73_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche74_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche75_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche76_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche90)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche90_Gleis1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox109)).BeginInit();
@@ -1620,8 +1641,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche92)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche92_Gleis2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox114)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox74)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox117)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WeicheEcke75_91)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WeicheEcke74_92)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl8_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl8_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl8_3)).BeginInit();
@@ -1633,8 +1654,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Schatten8_Ausf2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten10_Ausf2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten9_Ausf1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox24)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox141)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche92_Gleis1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche91_Gleis1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox144)).BeginInit();
@@ -1666,12 +1687,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche81)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche82)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche70)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche68)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox54)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox57)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox58)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox87)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Schatten0_Ausf3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Schatten0_Ausf1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Schatten0_Ausf2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche68_67)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox107)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox111)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox112)).BeginInit();
@@ -1681,13 +1702,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox140)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox176)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox178)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox180)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox184)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche70_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox53)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.SchattenIntern_Auswahl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten8_Ausf3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten9_Ausf2)).BeginInit();
+            this.Schatten1_Auswahl.SuspendLayout();
+            this.Gl6_links_Auswahl.SuspendLayout();
+            this.Gl5_links_Auswahl.SuspendLayout();
+            this.Gl4_links_Auswahl.SuspendLayout();
+            this.Gl3_links_Auswahl.SuspendLayout();
+            this.Gl2_links_Auswahl.SuspendLayout();
+            this.Gl1_links_Auswahl.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -3186,41 +3214,41 @@
             this.Weiche35.TabIndex = 431;
             this.Weiche35.TabStop = false;
             // 
-            // pictureBox26
+            // Kreuzung1
             // 
-            this.pictureBox26.Image = global::MEKB_H0_Anlage.Properties.Resources.Kreuzung90_135;
-            this.pictureBox26.Location = new System.Drawing.Point(160, 864);
-            this.pictureBox26.Name = "pictureBox26";
-            this.pictureBox26.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox26.TabIndex = 430;
-            this.pictureBox26.TabStop = false;
+            this.Kreuzung1.Image = global::MEKB_H0_Anlage.Properties.Resources.Kreuzung90_135;
+            this.Kreuzung1.Location = new System.Drawing.Point(160, 864);
+            this.Kreuzung1.Name = "Kreuzung1";
+            this.Kreuzung1.Size = new System.Drawing.Size(32, 32);
+            this.Kreuzung1.TabIndex = 430;
+            this.Kreuzung1.TabStop = false;
             // 
-            // pictureBox22
+            // Block5_Block9
             // 
-            this.pictureBox22.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL_OR;
-            this.pictureBox22.Location = new System.Drawing.Point(64, 864);
-            this.pictureBox22.Name = "pictureBox22";
-            this.pictureBox22.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox22.TabIndex = 428;
-            this.pictureBox22.TabStop = false;
+            this.Block5_Block9.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL_OR;
+            this.Block5_Block9.Location = new System.Drawing.Point(64, 864);
+            this.Block5_Block9.Name = "Block5_Block9";
+            this.Block5_Block9.Size = new System.Drawing.Size(32, 32);
+            this.Block5_Block9.TabIndex = 428;
+            this.Block5_Block9.TabStop = false;
             // 
-            // pictureBox390
+            // Block9_2
             // 
-            this.pictureBox390.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
-            this.pictureBox390.Location = new System.Drawing.Point(96, 832);
-            this.pictureBox390.Name = "pictureBox390";
-            this.pictureBox390.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox390.TabIndex = 427;
-            this.pictureBox390.TabStop = false;
+            this.Block9_2.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
+            this.Block9_2.Location = new System.Drawing.Point(96, 832);
+            this.Block9_2.Name = "Block9_2";
+            this.Block9_2.Size = new System.Drawing.Size(32, 32);
+            this.Block9_2.TabIndex = 427;
+            this.Block9_2.TabStop = false;
             // 
-            // pictureBox285
+            // WeicheEcke76_90
             // 
-            this.pictureBox285.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL_UR;
-            this.pictureBox285.Location = new System.Drawing.Point(576, 864);
-            this.pictureBox285.Name = "pictureBox285";
-            this.pictureBox285.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox285.TabIndex = 426;
-            this.pictureBox285.TabStop = false;
+            this.WeicheEcke76_90.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL_UR;
+            this.WeicheEcke76_90.Location = new System.Drawing.Point(576, 864);
+            this.WeicheEcke76_90.Name = "WeicheEcke76_90";
+            this.WeicheEcke76_90.Size = new System.Drawing.Size(32, 32);
+            this.WeicheEcke76_90.TabIndex = 426;
+            this.WeicheEcke76_90.TabStop = false;
             // 
             // Block5_20
             // 
@@ -3231,158 +3259,158 @@
             this.Block5_20.TabIndex = 423;
             this.Block5_20.TabStop = false;
             // 
-            // pictureBox386
+            // Kreuzung1_2
             // 
-            this.pictureBox386.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
-            this.pictureBox386.Location = new System.Drawing.Point(160, 832);
-            this.pictureBox386.Name = "pictureBox386";
-            this.pictureBox386.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox386.TabIndex = 421;
-            this.pictureBox386.TabStop = false;
+            this.Kreuzung1_2.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
+            this.Kreuzung1_2.Location = new System.Drawing.Point(160, 832);
+            this.Kreuzung1_2.Name = "Kreuzung1_2";
+            this.Kreuzung1_2.Size = new System.Drawing.Size(32, 32);
+            this.Kreuzung1_2.TabIndex = 421;
+            this.Kreuzung1_2.TabStop = false;
             // 
-            // pictureBox385
+            // Weiche61_2
             // 
-            this.pictureBox385.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
-            this.pictureBox385.Location = new System.Drawing.Point(256, 864);
-            this.pictureBox385.Name = "pictureBox385";
-            this.pictureBox385.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox385.TabIndex = 420;
-            this.pictureBox385.TabStop = false;
+            this.Weiche61_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
+            this.Weiche61_2.Location = new System.Drawing.Point(256, 864);
+            this.Weiche61_2.Name = "Weiche61_2";
+            this.Weiche61_2.Size = new System.Drawing.Size(32, 32);
+            this.Weiche61_2.TabIndex = 420;
+            this.Weiche61_2.TabStop = false;
             // 
-            // pictureBox384
+            // Weiche62_2
             // 
-            this.pictureBox384.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
-            this.pictureBox384.Location = new System.Drawing.Point(288, 832);
-            this.pictureBox384.Name = "pictureBox384";
-            this.pictureBox384.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox384.TabIndex = 419;
-            this.pictureBox384.TabStop = false;
+            this.Weiche62_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
+            this.Weiche62_2.Location = new System.Drawing.Point(288, 832);
+            this.Weiche62_2.Name = "Weiche62_2";
+            this.Weiche62_2.Size = new System.Drawing.Size(32, 32);
+            this.Weiche62_2.TabIndex = 419;
+            this.Weiche62_2.TabStop = false;
             // 
-            // pictureBox383
+            // Weiche63_2
             // 
-            this.pictureBox383.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
-            this.pictureBox383.Location = new System.Drawing.Point(320, 800);
-            this.pictureBox383.Name = "pictureBox383";
-            this.pictureBox383.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox383.TabIndex = 418;
-            this.pictureBox383.TabStop = false;
+            this.Weiche63_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
+            this.Weiche63_2.Location = new System.Drawing.Point(320, 800);
+            this.Weiche63_2.Name = "Weiche63_2";
+            this.Weiche63_2.Size = new System.Drawing.Size(32, 32);
+            this.Weiche63_2.TabIndex = 418;
+            this.Weiche63_2.TabStop = false;
             // 
-            // pictureBox382
+            // Weiche64_2
             // 
-            this.pictureBox382.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
-            this.pictureBox382.Location = new System.Drawing.Point(352, 768);
-            this.pictureBox382.Name = "pictureBox382";
-            this.pictureBox382.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox382.TabIndex = 417;
-            this.pictureBox382.TabStop = false;
+            this.Weiche64_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
+            this.Weiche64_2.Location = new System.Drawing.Point(352, 768);
+            this.Weiche64_2.Name = "Weiche64_2";
+            this.Weiche64_2.Size = new System.Drawing.Size(32, 32);
+            this.Weiche64_2.TabIndex = 417;
+            this.Weiche64_2.TabStop = false;
             // 
-            // pictureBox381
+            // Weiche61_1
             // 
-            this.pictureBox381.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
-            this.pictureBox381.Location = new System.Drawing.Point(224, 832);
-            this.pictureBox381.Name = "pictureBox381";
-            this.pictureBox381.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox381.TabIndex = 416;
-            this.pictureBox381.TabStop = false;
+            this.Weiche61_1.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
+            this.Weiche61_1.Location = new System.Drawing.Point(224, 832);
+            this.Weiche61_1.Name = "Weiche61_1";
+            this.Weiche61_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche61_1.TabIndex = 416;
+            this.Weiche61_1.TabStop = false;
             // 
-            // pictureBox380
+            // Weiche62_1
             // 
-            this.pictureBox380.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
-            this.pictureBox380.Location = new System.Drawing.Point(256, 800);
-            this.pictureBox380.Name = "pictureBox380";
-            this.pictureBox380.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox380.TabIndex = 415;
-            this.pictureBox380.TabStop = false;
+            this.Weiche62_1.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
+            this.Weiche62_1.Location = new System.Drawing.Point(256, 800);
+            this.Weiche62_1.Name = "Weiche62_1";
+            this.Weiche62_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche62_1.TabIndex = 415;
+            this.Weiche62_1.TabStop = false;
             // 
-            // pictureBox379
+            // Weiche63_1
             // 
-            this.pictureBox379.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
-            this.pictureBox379.Location = new System.Drawing.Point(288, 768);
-            this.pictureBox379.Name = "pictureBox379";
-            this.pictureBox379.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox379.TabIndex = 414;
-            this.pictureBox379.TabStop = false;
+            this.Weiche63_1.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
+            this.Weiche63_1.Location = new System.Drawing.Point(288, 768);
+            this.Weiche63_1.Name = "Weiche63_1";
+            this.Weiche63_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche63_1.TabIndex = 414;
+            this.Weiche63_1.TabStop = false;
             // 
-            // pictureBox378
+            // Weiche65_1
             // 
-            this.pictureBox378.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
-            this.pictureBox378.Location = new System.Drawing.Point(352, 704);
-            this.pictureBox378.Name = "pictureBox378";
-            this.pictureBox378.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox378.TabIndex = 413;
-            this.pictureBox378.TabStop = false;
+            this.Weiche65_1.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
+            this.Weiche65_1.Location = new System.Drawing.Point(352, 704);
+            this.Weiche65_1.Name = "Weiche65_1";
+            this.Weiche65_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche65_1.TabIndex = 413;
+            this.Weiche65_1.TabStop = false;
             // 
-            // Block7_4
+            // Block7_5
             // 
-            this.Block7_4.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOR;
-            this.Block7_4.Location = new System.Drawing.Point(960, 640);
-            this.Block7_4.Name = "Block7_4";
-            this.Block7_4.Size = new System.Drawing.Size(32, 32);
-            this.Block7_4.TabIndex = 407;
-            this.Block7_4.TabStop = false;
+            this.Block7_5.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOR;
+            this.Block7_5.Location = new System.Drawing.Point(960, 640);
+            this.Block7_5.Name = "Block7_5";
+            this.Block7_5.Size = new System.Drawing.Size(32, 32);
+            this.Block7_5.TabIndex = 407;
+            this.Block7_5.TabStop = false;
             // 
-            // pictureBox370
+            // Weiche76_2
             // 
-            this.pictureBox370.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90L;
-            this.pictureBox370.Location = new System.Drawing.Point(544, 864);
-            this.pictureBox370.Name = "pictureBox370";
-            this.pictureBox370.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox370.TabIndex = 405;
-            this.pictureBox370.TabStop = false;
+            this.Weiche76_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90L;
+            this.Weiche76_2.Location = new System.Drawing.Point(544, 864);
+            this.Weiche76_2.Name = "Weiche76_2";
+            this.Weiche76_2.Size = new System.Drawing.Size(32, 32);
+            this.Weiche76_2.TabIndex = 405;
+            this.Weiche76_2.TabStop = false;
             // 
-            // pictureBox367
+            // Weiche73_2
             // 
-            this.pictureBox367.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
-            this.pictureBox367.Location = new System.Drawing.Point(672, 768);
-            this.pictureBox367.Name = "pictureBox367";
-            this.pictureBox367.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox367.TabIndex = 402;
-            this.pictureBox367.TabStop = false;
+            this.Weiche73_2.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
+            this.Weiche73_2.Location = new System.Drawing.Point(672, 768);
+            this.Weiche73_2.Name = "Weiche73_2";
+            this.Weiche73_2.Size = new System.Drawing.Size(32, 32);
+            this.Weiche73_2.TabIndex = 402;
+            this.Weiche73_2.TabStop = false;
             // 
-            // pictureBox366
+            // Weiche71_2
             // 
-            this.pictureBox366.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
-            this.pictureBox366.Location = new System.Drawing.Point(736, 704);
-            this.pictureBox366.Name = "pictureBox366";
-            this.pictureBox366.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox366.TabIndex = 401;
-            this.pictureBox366.TabStop = false;
+            this.Weiche71_2.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
+            this.Weiche71_2.Location = new System.Drawing.Point(736, 704);
+            this.Weiche71_2.Name = "Weiche71_2";
+            this.Weiche71_2.Size = new System.Drawing.Size(32, 32);
+            this.Weiche71_2.TabIndex = 401;
+            this.Weiche71_2.TabStop = false;
             // 
-            // Schatten_Einfahrt_3
+            // Weiche70_2
             // 
-            this.Schatten_Einfahrt_3.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
-            this.Schatten_Einfahrt_3.Location = new System.Drawing.Point(768, 672);
-            this.Schatten_Einfahrt_3.Name = "Schatten_Einfahrt_3";
-            this.Schatten_Einfahrt_3.Size = new System.Drawing.Size(32, 32);
-            this.Schatten_Einfahrt_3.TabIndex = 400;
-            this.Schatten_Einfahrt_3.TabStop = false;
+            this.Weiche70_2.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
+            this.Weiche70_2.Location = new System.Drawing.Point(768, 672);
+            this.Weiche70_2.Name = "Weiche70_2";
+            this.Weiche70_2.Size = new System.Drawing.Size(32, 32);
+            this.Weiche70_2.TabIndex = 400;
+            this.Weiche70_2.TabStop = false;
             // 
-            // pictureBox364
+            // Block8_8
             // 
-            this.pictureBox364.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
-            this.pictureBox364.Location = new System.Drawing.Point(160, 704);
-            this.pictureBox364.Name = "pictureBox364";
-            this.pictureBox364.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox364.TabIndex = 399;
-            this.pictureBox364.TabStop = false;
+            this.Block8_8.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
+            this.Block8_8.Location = new System.Drawing.Point(160, 704);
+            this.Block8_8.Name = "Block8_8";
+            this.Block8_8.Size = new System.Drawing.Size(32, 32);
+            this.Block8_8.TabIndex = 399;
+            this.Block8_8.TabStop = false;
             // 
-            // pictureBox363
+            // Block8_7
             // 
-            this.pictureBox363.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
-            this.pictureBox363.Location = new System.Drawing.Point(128, 672);
-            this.pictureBox363.Name = "pictureBox363";
-            this.pictureBox363.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox363.TabIndex = 398;
-            this.pictureBox363.TabStop = false;
+            this.Block8_7.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
+            this.Block8_7.Location = new System.Drawing.Point(128, 672);
+            this.Block8_7.Name = "Block8_7";
+            this.Block8_7.Size = new System.Drawing.Size(32, 32);
+            this.Block8_7.TabIndex = 398;
+            this.Block8_7.TabStop = false;
             // 
-            // Schatten_Einfahrt_2
+            // Block7_13
             // 
-            this.Schatten_Einfahrt_2.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
-            this.Schatten_Einfahrt_2.Location = new System.Drawing.Point(768, 608);
-            this.Schatten_Einfahrt_2.Name = "Schatten_Einfahrt_2";
-            this.Schatten_Einfahrt_2.Size = new System.Drawing.Size(32, 32);
-            this.Schatten_Einfahrt_2.TabIndex = 396;
-            this.Schatten_Einfahrt_2.TabStop = false;
+            this.Block7_13.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
+            this.Block7_13.Location = new System.Drawing.Point(768, 608);
+            this.Block7_13.Name = "Block7_13";
+            this.Block7_13.Size = new System.Drawing.Size(32, 32);
+            this.Block7_13.TabIndex = 396;
+            this.Block7_13.TabStop = false;
             // 
             // Block7_2
             // 
@@ -3402,23 +3430,23 @@
             this.Block7_1.TabIndex = 392;
             this.Block7_1.TabStop = false;
             // 
-            // Block7_5
+            // Block7_6
             // 
-            this.Block7_5.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
-            this.Block7_5.Location = new System.Drawing.Point(992, 608);
-            this.Block7_5.Name = "Block7_5";
-            this.Block7_5.Size = new System.Drawing.Size(32, 32);
-            this.Block7_5.TabIndex = 391;
-            this.Block7_5.TabStop = false;
+            this.Block7_6.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
+            this.Block7_6.Location = new System.Drawing.Point(992, 608);
+            this.Block7_6.Name = "Block7_6";
+            this.Block7_6.Size = new System.Drawing.Size(32, 32);
+            this.Block7_6.TabIndex = 391;
+            this.Block7_6.TabStop = false;
             // 
-            // Block7_3
+            // Block7_4
             // 
-            this.Block7_3.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve0L;
-            this.Block7_3.Location = new System.Drawing.Point(992, 640);
-            this.Block7_3.Name = "Block7_3";
-            this.Block7_3.Size = new System.Drawing.Size(32, 32);
-            this.Block7_3.TabIndex = 390;
-            this.Block7_3.TabStop = false;
+            this.Block7_4.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve0L;
+            this.Block7_4.Location = new System.Drawing.Point(992, 640);
+            this.Block7_4.Name = "Block7_4";
+            this.Block7_4.Size = new System.Drawing.Size(32, 32);
+            this.Block7_4.TabIndex = 390;
+            this.Block7_4.TabStop = false;
             // 
             // Schatten11_Ausf4
             // 
@@ -3447,14 +3475,14 @@
             this.Schatten11_Ausf3.TabIndex = 387;
             this.Schatten11_Ausf3.TabStop = false;
             // 
-            // Block7_6
+            // Block7_7
             // 
-            this.Block7_6.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90R;
-            this.Block7_6.Location = new System.Drawing.Point(960, 608);
-            this.Block7_6.Name = "Block7_6";
-            this.Block7_6.Size = new System.Drawing.Size(32, 32);
-            this.Block7_6.TabIndex = 385;
-            this.Block7_6.TabStop = false;
+            this.Block7_7.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90R;
+            this.Block7_7.Location = new System.Drawing.Point(960, 608);
+            this.Block7_7.Name = "Block7_7";
+            this.Block7_7.Size = new System.Drawing.Size(32, 32);
+            this.Block7_7.TabIndex = 385;
+            this.Block7_7.TabStop = false;
             // 
             // Block6_18
             // 
@@ -3609,41 +3637,41 @@
             this.pictureBox334.TabIndex = 365;
             this.pictureBox334.TabStop = false;
             // 
-            // pictureBox326
+            // Block8_1
             // 
-            this.pictureBox326.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox326.Location = new System.Drawing.Point(320, 672);
-            this.pictureBox326.Name = "pictureBox326";
-            this.pictureBox326.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox326.TabIndex = 363;
-            this.pictureBox326.TabStop = false;
+            this.Block8_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Block8_1.Location = new System.Drawing.Point(320, 672);
+            this.Block8_1.Name = "Block8_1";
+            this.Block8_1.Size = new System.Drawing.Size(32, 32);
+            this.Block8_1.TabIndex = 363;
+            this.Block8_1.TabStop = false;
             // 
-            // pictureBox327
+            // Block8_3
             // 
-            this.pictureBox327.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox327.Location = new System.Drawing.Point(256, 672);
-            this.pictureBox327.Name = "pictureBox327";
-            this.pictureBox327.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox327.TabIndex = 362;
-            this.pictureBox327.TabStop = false;
+            this.Block8_3.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Block8_3.Location = new System.Drawing.Point(256, 672);
+            this.Block8_3.Name = "Block8_3";
+            this.Block8_3.Size = new System.Drawing.Size(32, 32);
+            this.Block8_3.TabIndex = 362;
+            this.Block8_3.TabStop = false;
             // 
-            // pictureBox328
+            // Block8_4
             // 
-            this.pictureBox328.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox328.Location = new System.Drawing.Point(224, 672);
-            this.pictureBox328.Name = "pictureBox328";
-            this.pictureBox328.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox328.TabIndex = 361;
-            this.pictureBox328.TabStop = false;
+            this.Block8_4.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Block8_4.Location = new System.Drawing.Point(224, 672);
+            this.Block8_4.Name = "Block8_4";
+            this.Block8_4.Size = new System.Drawing.Size(32, 32);
+            this.Block8_4.TabIndex = 361;
+            this.Block8_4.TabStop = false;
             // 
-            // pictureBox329
+            // Block8_5
             // 
-            this.pictureBox329.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox329.Location = new System.Drawing.Point(192, 672);
-            this.pictureBox329.Name = "pictureBox329";
-            this.pictureBox329.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox329.TabIndex = 360;
-            this.pictureBox329.TabStop = false;
+            this.Block8_5.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Block8_5.Location = new System.Drawing.Point(192, 672);
+            this.Block8_5.Name = "Block8_5";
+            this.Block8_5.Size = new System.Drawing.Size(32, 32);
+            this.Block8_5.TabIndex = 360;
+            this.Block8_5.TabStop = false;
             // 
             // pictureBox322
             // 
@@ -3852,14 +3880,14 @@
             this.Block5_16.TabIndex = 316;
             this.Block5_16.TabStop = false;
             // 
-            // pictureBox278
+            // Block9_6
             // 
-            this.pictureBox278.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox278.Location = new System.Drawing.Point(64, 736);
-            this.pictureBox278.Name = "pictureBox278";
-            this.pictureBox278.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox278.TabIndex = 315;
-            this.pictureBox278.TabStop = false;
+            this.Block9_6.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_6.Location = new System.Drawing.Point(64, 736);
+            this.Block9_6.Name = "Block9_6";
+            this.Block9_6.Size = new System.Drawing.Size(32, 32);
+            this.Block9_6.TabIndex = 315;
+            this.Block9_6.TabStop = false;
             // 
             // Block5_15
             // 
@@ -3870,14 +3898,14 @@
             this.Block5_15.TabIndex = 314;
             this.Block5_15.TabStop = false;
             // 
-            // pictureBox280
+            // Block9_7
             // 
-            this.pictureBox280.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox280.Location = new System.Drawing.Point(64, 704);
-            this.pictureBox280.Name = "pictureBox280";
-            this.pictureBox280.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox280.TabIndex = 313;
-            this.pictureBox280.TabStop = false;
+            this.Block9_7.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_7.Location = new System.Drawing.Point(64, 704);
+            this.Block9_7.Name = "Block9_7";
+            this.Block9_7.Size = new System.Drawing.Size(32, 32);
+            this.Block9_7.TabIndex = 313;
+            this.Block9_7.TabStop = false;
             // 
             // Block5_14
             // 
@@ -3888,14 +3916,14 @@
             this.Block5_14.TabIndex = 312;
             this.Block5_14.TabStop = false;
             // 
-            // pictureBox282
+            // Block9_8
             // 
-            this.pictureBox282.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox282.Location = new System.Drawing.Point(64, 672);
-            this.pictureBox282.Name = "pictureBox282";
-            this.pictureBox282.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox282.TabIndex = 311;
-            this.pictureBox282.TabStop = false;
+            this.Block9_8.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_8.Location = new System.Drawing.Point(64, 672);
+            this.Block9_8.Name = "Block9_8";
+            this.Block9_8.Size = new System.Drawing.Size(32, 32);
+            this.Block9_8.TabIndex = 311;
+            this.Block9_8.TabStop = false;
             // 
             // Block5_13
             // 
@@ -3906,14 +3934,14 @@
             this.Block5_13.TabIndex = 310;
             this.Block5_13.TabStop = false;
             // 
-            // pictureBox268
+            // Block9_9
             // 
-            this.pictureBox268.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox268.Location = new System.Drawing.Point(64, 640);
-            this.pictureBox268.Name = "pictureBox268";
-            this.pictureBox268.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox268.TabIndex = 309;
-            this.pictureBox268.TabStop = false;
+            this.Block9_9.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_9.Location = new System.Drawing.Point(64, 640);
+            this.Block9_9.Name = "Block9_9";
+            this.Block9_9.Size = new System.Drawing.Size(32, 32);
+            this.Block9_9.TabIndex = 309;
+            this.Block9_9.TabStop = false;
             // 
             // Block5_12
             // 
@@ -3924,14 +3952,14 @@
             this.Block5_12.TabIndex = 308;
             this.Block5_12.TabStop = false;
             // 
-            // pictureBox270
+            // Block9_10
             // 
-            this.pictureBox270.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox270.Location = new System.Drawing.Point(64, 608);
-            this.pictureBox270.Name = "pictureBox270";
-            this.pictureBox270.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox270.TabIndex = 307;
-            this.pictureBox270.TabStop = false;
+            this.Block9_10.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_10.Location = new System.Drawing.Point(64, 608);
+            this.Block9_10.Name = "Block9_10";
+            this.Block9_10.Size = new System.Drawing.Size(32, 32);
+            this.Block9_10.TabIndex = 307;
+            this.Block9_10.TabStop = false;
             // 
             // Block5_11
             // 
@@ -3942,14 +3970,14 @@
             this.Block5_11.TabIndex = 306;
             this.Block5_11.TabStop = false;
             // 
-            // pictureBox272
+            // Block9_11
             // 
-            this.pictureBox272.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox272.Location = new System.Drawing.Point(64, 576);
-            this.pictureBox272.Name = "pictureBox272";
-            this.pictureBox272.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox272.TabIndex = 305;
-            this.pictureBox272.TabStop = false;
+            this.Block9_11.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_11.Location = new System.Drawing.Point(64, 576);
+            this.Block9_11.Name = "Block9_11";
+            this.Block9_11.Size = new System.Drawing.Size(32, 32);
+            this.Block9_11.TabIndex = 305;
+            this.Block9_11.TabStop = false;
             // 
             // Block5_10
             // 
@@ -3960,14 +3988,14 @@
             this.Block5_10.TabIndex = 304;
             this.Block5_10.TabStop = false;
             // 
-            // pictureBox274
+            // Block9_12
             // 
-            this.pictureBox274.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox274.Location = new System.Drawing.Point(64, 544);
-            this.pictureBox274.Name = "pictureBox274";
-            this.pictureBox274.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox274.TabIndex = 303;
-            this.pictureBox274.TabStop = false;
+            this.Block9_12.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_12.Location = new System.Drawing.Point(64, 544);
+            this.Block9_12.Name = "Block9_12";
+            this.Block9_12.Size = new System.Drawing.Size(32, 32);
+            this.Block9_12.TabIndex = 303;
+            this.Block9_12.TabStop = false;
             // 
             // Block5_9
             // 
@@ -3996,50 +4024,50 @@
             this.Block5_21.TabIndex = 300;
             this.Block5_21.TabStop = false;
             // 
-            // pictureBox265
+            // Block9_1
             // 
-            this.pictureBox265.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270R;
-            this.pictureBox265.Location = new System.Drawing.Point(96, 864);
-            this.pictureBox265.Name = "pictureBox265";
-            this.pictureBox265.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox265.TabIndex = 299;
-            this.pictureBox265.TabStop = false;
+            this.Block9_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270R;
+            this.Block9_1.Location = new System.Drawing.Point(96, 864);
+            this.Block9_1.Name = "Block9_1";
+            this.Block9_1.Size = new System.Drawing.Size(32, 32);
+            this.Block9_1.TabIndex = 299;
+            this.Block9_1.TabStop = false;
             // 
-            // pictureBox264
+            // Block9_3
             // 
-            this.pictureBox264.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve180L;
-            this.pictureBox264.Location = new System.Drawing.Point(64, 832);
-            this.pictureBox264.Name = "pictureBox264";
-            this.pictureBox264.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox264.TabIndex = 298;
-            this.pictureBox264.TabStop = false;
+            this.Block9_3.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve180L;
+            this.Block9_3.Location = new System.Drawing.Point(64, 832);
+            this.Block9_3.Name = "Block9_3";
+            this.Block9_3.Size = new System.Drawing.Size(32, 32);
+            this.Block9_3.TabIndex = 298;
+            this.Block9_3.TabStop = false;
             // 
-            // pictureBox263
+            // Block8_12
             // 
-            this.pictureBox263.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox263.Location = new System.Drawing.Point(128, 800);
-            this.pictureBox263.Name = "pictureBox263";
-            this.pictureBox263.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox263.TabIndex = 297;
-            this.pictureBox263.TabStop = false;
+            this.Block8_12.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block8_12.Location = new System.Drawing.Point(128, 800);
+            this.Block8_12.Name = "Block8_12";
+            this.Block8_12.Size = new System.Drawing.Size(32, 32);
+            this.Block8_12.TabIndex = 297;
+            this.Block8_12.TabStop = false;
             // 
-            // pictureBox262
+            // Block8_10
             // 
-            this.pictureBox262.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox262.Location = new System.Drawing.Point(128, 736);
-            this.pictureBox262.Name = "pictureBox262";
-            this.pictureBox262.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox262.TabIndex = 296;
-            this.pictureBox262.TabStop = false;
+            this.Block8_10.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block8_10.Location = new System.Drawing.Point(128, 736);
+            this.Block8_10.Name = "Block8_10";
+            this.Block8_10.Size = new System.Drawing.Size(32, 32);
+            this.Block8_10.TabIndex = 296;
+            this.Block8_10.TabStop = false;
             // 
-            // pictureBox261
+            // Block8_9
             // 
-            this.pictureBox261.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve0R;
-            this.pictureBox261.Location = new System.Drawing.Point(128, 704);
-            this.pictureBox261.Name = "pictureBox261";
-            this.pictureBox261.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox261.TabIndex = 295;
-            this.pictureBox261.TabStop = false;
+            this.Block8_9.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve0R;
+            this.Block8_9.Location = new System.Drawing.Point(128, 704);
+            this.Block8_9.Name = "Block8_9";
+            this.Block8_9.Size = new System.Drawing.Size(32, 32);
+            this.Block8_9.TabIndex = 295;
+            this.Block8_9.TabStop = false;
             // 
             // Weiche60_Gleis1
             // 
@@ -4059,14 +4087,14 @@
             this.Block5_23.TabIndex = 291;
             this.Block5_23.TabStop = false;
             // 
-            // pictureBox256
+            // Kreuzung1_3
             // 
-            this.pictureBox256.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOR;
-            this.pictureBox256.Location = new System.Drawing.Point(128, 864);
-            this.pictureBox256.Name = "pictureBox256";
-            this.pictureBox256.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox256.TabIndex = 290;
-            this.pictureBox256.TabStop = false;
+            this.Kreuzung1_3.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOR;
+            this.Kreuzung1_3.Location = new System.Drawing.Point(128, 864);
+            this.Kreuzung1_3.Name = "Kreuzung1_3";
+            this.Kreuzung1_3.Size = new System.Drawing.Size(32, 32);
+            this.Kreuzung1_3.TabIndex = 290;
+            this.Kreuzung1_3.TabStop = false;
             // 
             // Block6_19
             // 
@@ -4077,41 +4105,41 @@
             this.Block6_19.TabIndex = 289;
             this.Block6_19.TabStop = false;
             // 
-            // Schatten_Einfahrt_1
+            // Block7_12
             // 
-            this.Schatten_Einfahrt_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270L;
-            this.Schatten_Einfahrt_1.Location = new System.Drawing.Point(800, 608);
-            this.Schatten_Einfahrt_1.Name = "Schatten_Einfahrt_1";
-            this.Schatten_Einfahrt_1.Size = new System.Drawing.Size(32, 32);
-            this.Schatten_Einfahrt_1.TabIndex = 288;
-            this.Schatten_Einfahrt_1.TabStop = false;
+            this.Block7_12.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270L;
+            this.Block7_12.Location = new System.Drawing.Point(800, 608);
+            this.Block7_12.Name = "Block7_12";
+            this.Block7_12.Size = new System.Drawing.Size(32, 32);
+            this.Block7_12.TabIndex = 288;
+            this.Block7_12.TabStop = false;
             // 
-            // pictureBox253
+            // Block8_6
             // 
-            this.pictureBox253.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270L;
-            this.pictureBox253.Location = new System.Drawing.Point(160, 672);
-            this.pictureBox253.Name = "pictureBox253";
-            this.pictureBox253.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox253.TabIndex = 287;
-            this.pictureBox253.TabStop = false;
+            this.Block8_6.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270L;
+            this.Block8_6.Location = new System.Drawing.Point(160, 672);
+            this.Block8_6.Name = "Block8_6";
+            this.Block8_6.Size = new System.Drawing.Size(32, 32);
+            this.Block8_6.TabIndex = 287;
+            this.Block8_6.TabStop = false;
             // 
-            // pictureBox251
+            // Kreuzung1_4
             // 
-            this.pictureBox251.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve180L;
-            this.pictureBox251.Location = new System.Drawing.Point(128, 832);
-            this.pictureBox251.Name = "pictureBox251";
-            this.pictureBox251.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox251.TabIndex = 285;
-            this.pictureBox251.TabStop = false;
+            this.Kreuzung1_4.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve180L;
+            this.Kreuzung1_4.Location = new System.Drawing.Point(128, 832);
+            this.Kreuzung1_4.Name = "Kreuzung1_4";
+            this.Kreuzung1_4.Size = new System.Drawing.Size(32, 32);
+            this.Kreuzung1_4.TabIndex = 285;
+            this.Kreuzung1_4.TabStop = false;
             // 
-            // pictureBox250
+            // Kreuzung1_1
             // 
-            this.pictureBox250.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUL;
-            this.pictureBox250.Location = new System.Drawing.Point(192, 864);
-            this.pictureBox250.Name = "pictureBox250";
-            this.pictureBox250.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox250.TabIndex = 284;
-            this.pictureBox250.TabStop = false;
+            this.Kreuzung1_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUL;
+            this.Kreuzung1_1.Location = new System.Drawing.Point(192, 864);
+            this.Kreuzung1_1.Name = "Kreuzung1_1";
+            this.Kreuzung1_1.Size = new System.Drawing.Size(32, 32);
+            this.Kreuzung1_1.TabIndex = 284;
+            this.Kreuzung1_1.TabStop = false;
             // 
             // Weiche60
             // 
@@ -4222,14 +4250,14 @@
             this.Weiche61.TabStop = false;
             this.Weiche61.Click += new System.EventHandler(this.Weiche61_Click);
             // 
-            // pictureBox238
+            // Block9_13
             // 
-            this.pictureBox238.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox238.Location = new System.Drawing.Point(64, 512);
-            this.pictureBox238.Name = "pictureBox238";
-            this.pictureBox238.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox238.TabIndex = 273;
-            this.pictureBox238.TabStop = false;
+            this.Block9_13.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_13.Location = new System.Drawing.Point(64, 512);
+            this.Block9_13.Name = "Block9_13";
+            this.Block9_13.Size = new System.Drawing.Size(32, 32);
+            this.Block9_13.TabIndex = 273;
+            this.Block9_13.TabStop = false;
             // 
             // Block5_8
             // 
@@ -4240,14 +4268,14 @@
             this.Block5_8.TabIndex = 272;
             this.Block5_8.TabStop = false;
             // 
-            // pictureBox236
+            // Block9_14
             // 
-            this.pictureBox236.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox236.Location = new System.Drawing.Point(64, 480);
-            this.pictureBox236.Name = "pictureBox236";
-            this.pictureBox236.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox236.TabIndex = 271;
-            this.pictureBox236.TabStop = false;
+            this.Block9_14.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_14.Location = new System.Drawing.Point(64, 480);
+            this.Block9_14.Name = "Block9_14";
+            this.Block9_14.Size = new System.Drawing.Size(32, 32);
+            this.Block9_14.TabIndex = 271;
+            this.Block9_14.TabStop = false;
             // 
             // Block5_7
             // 
@@ -4258,14 +4286,14 @@
             this.Block5_7.TabIndex = 270;
             this.Block5_7.TabStop = false;
             // 
-            // pictureBox234
+            // Block9_15
             // 
-            this.pictureBox234.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox234.Location = new System.Drawing.Point(64, 448);
-            this.pictureBox234.Name = "pictureBox234";
-            this.pictureBox234.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox234.TabIndex = 269;
-            this.pictureBox234.TabStop = false;
+            this.Block9_15.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_15.Location = new System.Drawing.Point(64, 448);
+            this.Block9_15.Name = "Block9_15";
+            this.Block9_15.Size = new System.Drawing.Size(32, 32);
+            this.Block9_15.TabIndex = 269;
+            this.Block9_15.TabStop = false;
             // 
             // Block5_6
             // 
@@ -4276,14 +4304,14 @@
             this.Block5_6.TabIndex = 268;
             this.Block5_6.TabStop = false;
             // 
-            // pictureBox232
+            // Block9_16
             // 
-            this.pictureBox232.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox232.Location = new System.Drawing.Point(64, 416);
-            this.pictureBox232.Name = "pictureBox232";
-            this.pictureBox232.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox232.TabIndex = 267;
-            this.pictureBox232.TabStop = false;
+            this.Block9_16.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_16.Location = new System.Drawing.Point(64, 416);
+            this.Block9_16.Name = "Block9_16";
+            this.Block9_16.Size = new System.Drawing.Size(32, 32);
+            this.Block9_16.TabIndex = 267;
+            this.Block9_16.TabStop = false;
             // 
             // Block5_5
             // 
@@ -4294,14 +4322,14 @@
             this.Block5_5.TabIndex = 266;
             this.Block5_5.TabStop = false;
             // 
-            // pictureBox230
+            // Block9_17
             // 
-            this.pictureBox230.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox230.Location = new System.Drawing.Point(64, 384);
-            this.pictureBox230.Name = "pictureBox230";
-            this.pictureBox230.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox230.TabIndex = 265;
-            this.pictureBox230.TabStop = false;
+            this.Block9_17.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_17.Location = new System.Drawing.Point(64, 384);
+            this.Block9_17.Name = "Block9_17";
+            this.Block9_17.Size = new System.Drawing.Size(32, 32);
+            this.Block9_17.TabIndex = 265;
+            this.Block9_17.TabStop = false;
             // 
             // Block5_4
             // 
@@ -4312,14 +4340,14 @@
             this.Block5_4.TabIndex = 264;
             this.Block5_4.TabStop = false;
             // 
-            // pictureBox228
+            // Block9_18
             // 
-            this.pictureBox228.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox228.Location = new System.Drawing.Point(64, 352);
-            this.pictureBox228.Name = "pictureBox228";
-            this.pictureBox228.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox228.TabIndex = 263;
-            this.pictureBox228.TabStop = false;
+            this.Block9_18.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_18.Location = new System.Drawing.Point(64, 352);
+            this.Block9_18.Name = "Block9_18";
+            this.Block9_18.Size = new System.Drawing.Size(32, 32);
+            this.Block9_18.TabIndex = 263;
+            this.Block9_18.TabStop = false;
             // 
             // Block5_3
             // 
@@ -4330,14 +4358,14 @@
             this.Block5_3.TabIndex = 262;
             this.Block5_3.TabStop = false;
             // 
-            // pictureBox226
+            // Block9_19
             // 
-            this.pictureBox226.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox226.Location = new System.Drawing.Point(64, 320);
-            this.pictureBox226.Name = "pictureBox226";
-            this.pictureBox226.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox226.TabIndex = 261;
-            this.pictureBox226.TabStop = false;
+            this.Block9_19.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_19.Location = new System.Drawing.Point(64, 320);
+            this.Block9_19.Name = "Block9_19";
+            this.Block9_19.Size = new System.Drawing.Size(32, 32);
+            this.Block9_19.TabIndex = 261;
+            this.Block9_19.TabStop = false;
             // 
             // Block5_2
             // 
@@ -4348,14 +4376,14 @@
             this.Block5_2.TabIndex = 260;
             this.Block5_2.TabStop = false;
             // 
-            // pictureBox225
+            // Block9_20
             // 
-            this.pictureBox225.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox225.Location = new System.Drawing.Point(64, 288);
-            this.pictureBox225.Name = "pictureBox225";
-            this.pictureBox225.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox225.TabIndex = 259;
-            this.pictureBox225.TabStop = false;
+            this.Block9_20.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_20.Location = new System.Drawing.Point(64, 288);
+            this.Block9_20.Name = "Block9_20";
+            this.Block9_20.Size = new System.Drawing.Size(32, 32);
+            this.Block9_20.TabIndex = 259;
+            this.Block9_20.TabStop = false;
             // 
             // Block5_1
             // 
@@ -10127,113 +10155,119 @@
             this.textBox25.Text = "Gleis 1";
             this.textBox25.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // button26
+            // Fahrstr_Schatten7_Ausf
             // 
-            this.button26.BackColor = System.Drawing.Color.Yellow;
-            this.button26.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.button26.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button26.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button26.FlatAppearance.BorderSize = 0;
-            this.button26.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button26.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button26.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button26.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button26.Location = new System.Drawing.Point(256, 872);
-            this.button26.Margin = new System.Windows.Forms.Padding(0);
-            this.button26.Name = "button26";
-            this.button26.Size = new System.Drawing.Size(16, 16);
-            this.button26.TabIndex = 744;
-            this.button26.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten7_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten7_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Fahrstr_Schatten7_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten7_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten7_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten7_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten7_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten7_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten7_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten7_Ausf.Location = new System.Drawing.Point(256, 872);
+            this.Fahrstr_Schatten7_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten7_Ausf.Name = "Fahrstr_Schatten7_Ausf";
+            this.Fahrstr_Schatten7_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten7_Ausf.TabIndex = 744;
+            this.Fahrstr_Schatten7_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten7_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten7_Ausf_Click);
             // 
-            // button27
+            // Fahrstr_Schatten6_Ausf
             // 
-            this.button27.BackColor = System.Drawing.Color.Yellow;
-            this.button27.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.button27.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button27.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button27.FlatAppearance.BorderSize = 0;
-            this.button27.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button27.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button27.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button27.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button27.Location = new System.Drawing.Point(288, 840);
-            this.button27.Margin = new System.Windows.Forms.Padding(0);
-            this.button27.Name = "button27";
-            this.button27.Size = new System.Drawing.Size(16, 16);
-            this.button27.TabIndex = 745;
-            this.button27.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten6_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten6_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Fahrstr_Schatten6_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten6_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten6_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten6_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten6_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten6_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten6_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten6_Ausf.Location = new System.Drawing.Point(288, 840);
+            this.Fahrstr_Schatten6_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten6_Ausf.Name = "Fahrstr_Schatten6_Ausf";
+            this.Fahrstr_Schatten6_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten6_Ausf.TabIndex = 745;
+            this.Fahrstr_Schatten6_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten6_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten6_Ausf_Click);
             // 
-            // button28
+            // Fahrstr_Schatten5_Ausf
             // 
-            this.button28.BackColor = System.Drawing.Color.Yellow;
-            this.button28.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.button28.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button28.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button28.FlatAppearance.BorderSize = 0;
-            this.button28.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button28.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button28.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button28.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button28.Location = new System.Drawing.Point(320, 808);
-            this.button28.Margin = new System.Windows.Forms.Padding(0);
-            this.button28.Name = "button28";
-            this.button28.Size = new System.Drawing.Size(16, 16);
-            this.button28.TabIndex = 746;
-            this.button28.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten5_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten5_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Fahrstr_Schatten5_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten5_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten5_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten5_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten5_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten5_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten5_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten5_Ausf.Location = new System.Drawing.Point(320, 808);
+            this.Fahrstr_Schatten5_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten5_Ausf.Name = "Fahrstr_Schatten5_Ausf";
+            this.Fahrstr_Schatten5_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten5_Ausf.TabIndex = 746;
+            this.Fahrstr_Schatten5_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten5_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten5_Ausf_Click);
             // 
-            // button29
+            // Fahrstr_Schatten4_Ausf
             // 
-            this.button29.BackColor = System.Drawing.Color.Yellow;
-            this.button29.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.button29.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button29.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button29.FlatAppearance.BorderSize = 0;
-            this.button29.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button29.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button29.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button29.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button29.Location = new System.Drawing.Point(352, 776);
-            this.button29.Margin = new System.Windows.Forms.Padding(0);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(16, 16);
-            this.button29.TabIndex = 747;
-            this.button29.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten4_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten4_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Fahrstr_Schatten4_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten4_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten4_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten4_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten4_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten4_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten4_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten4_Ausf.Location = new System.Drawing.Point(352, 776);
+            this.Fahrstr_Schatten4_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten4_Ausf.Name = "Fahrstr_Schatten4_Ausf";
+            this.Fahrstr_Schatten4_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten4_Ausf.TabIndex = 747;
+            this.Fahrstr_Schatten4_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten4_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten4_Ausf_Click);
             // 
-            // button30
+            // Fahrstr_Schatten2_Ausf
             // 
-            this.button30.BackColor = System.Drawing.Color.Yellow;
-            this.button30.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.button30.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button30.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button30.FlatAppearance.BorderSize = 0;
-            this.button30.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button30.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button30.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button30.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button30.Location = new System.Drawing.Point(416, 712);
-            this.button30.Margin = new System.Windows.Forms.Padding(0);
-            this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(16, 16);
-            this.button30.TabIndex = 748;
-            this.button30.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten2_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten2_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Fahrstr_Schatten2_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten2_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten2_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten2_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten2_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten2_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten2_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten2_Ausf.Location = new System.Drawing.Point(416, 712);
+            this.Fahrstr_Schatten2_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten2_Ausf.Name = "Fahrstr_Schatten2_Ausf";
+            this.Fahrstr_Schatten2_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten2_Ausf.TabIndex = 748;
+            this.Fahrstr_Schatten2_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten2_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten2_Ausf_Click);
             // 
-            // button31
+            // Fahrstr_Schatten1_Ausf
             // 
-            this.button31.BackColor = System.Drawing.Color.Yellow;
-            this.button31.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.button31.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button31.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button31.FlatAppearance.BorderSize = 0;
-            this.button31.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button31.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button31.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button31.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button31.Location = new System.Drawing.Point(448, 680);
-            this.button31.Margin = new System.Windows.Forms.Padding(0);
-            this.button31.Name = "button31";
-            this.button31.Size = new System.Drawing.Size(16, 16);
-            this.button31.TabIndex = 749;
-            this.button31.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten1_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten1_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Fahrstr_Schatten1_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten1_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten1_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten1_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten1_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten1_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten1_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten1_Ausf.Location = new System.Drawing.Point(448, 680);
+            this.Fahrstr_Schatten1_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten1_Ausf.Name = "Fahrstr_Schatten1_Ausf";
+            this.Fahrstr_Schatten1_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten1_Ausf.TabIndex = 749;
+            this.Fahrstr_Schatten1_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten1_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten1_Ausf_Click);
             // 
             // label94
             // 
@@ -10515,13 +10549,14 @@
             this.Block9.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
             this.Block9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Block9.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Block9.Location = new System.Drawing.Point(72, 320);
+            this.Block9.Location = new System.Drawing.Point(72, 288);
             this.Block9.Margin = new System.Windows.Forms.Padding(0);
             this.Block9.Name = "Block9";
             this.Block9.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Block9.Size = new System.Drawing.Size(16, 16);
             this.Block9.TabIndex = 775;
             this.Block9.UseVisualStyleBackColor = false;
+            this.Block9.Click += new System.EventHandler(this.Block9_Click);
             // 
             // Block6_Auswahl
             // 
@@ -10529,7 +10564,7 @@
             this.Block6_Auswahl.Controls.Add(this.Block6_Schatten9);
             this.Block6_Auswahl.Controls.Add(this.Block6_Schatten10);
             this.Block6_Auswahl.Controls.Add(this.Block6_Schatten8);
-            this.Block6_Auswahl.Location = new System.Drawing.Point(576, 880);
+            this.Block6_Auswahl.Location = new System.Drawing.Point(576, 888);
             this.Block6_Auswahl.Name = "Block6_Auswahl";
             this.Block6_Auswahl.Size = new System.Drawing.Size(101, 40);
             this.Block6_Auswahl.TabIndex = 779;
@@ -10596,23 +10631,23 @@
             this.Block5_18.TabIndex = 781;
             this.Block5_18.TabStop = false;
             // 
-            // pictureBox44
+            // Block9_4
             // 
-            this.pictureBox44.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox44.Location = new System.Drawing.Point(64, 800);
-            this.pictureBox44.Name = "pictureBox44";
-            this.pictureBox44.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox44.TabIndex = 782;
-            this.pictureBox44.TabStop = false;
+            this.Block9_4.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_4.Location = new System.Drawing.Point(64, 800);
+            this.Block9_4.Name = "Block9_4";
+            this.Block9_4.Size = new System.Drawing.Size(32, 32);
+            this.Block9_4.TabIndex = 782;
+            this.Block9_4.TabStop = false;
             // 
-            // pictureBox52
+            // Block9_5
             // 
-            this.pictureBox52.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox52.Location = new System.Drawing.Point(64, 768);
-            this.pictureBox52.Name = "pictureBox52";
-            this.pictureBox52.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox52.TabIndex = 783;
-            this.pictureBox52.TabStop = false;
+            this.Block9_5.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block9_5.Location = new System.Drawing.Point(64, 768);
+            this.Block9_5.Name = "Block9_5";
+            this.Block9_5.Size = new System.Drawing.Size(32, 32);
+            this.Block9_5.TabIndex = 783;
+            this.Block9_5.TabStop = false;
             // 
             // Weiche66
             // 
@@ -10626,14 +10661,14 @@
             this.Weiche66.TabStop = false;
             this.Weiche66.Click += new System.EventHandler(this.Weiche66_Click);
             // 
-            // pictureBox56
+            // Weiche66_1
             // 
-            this.pictureBox56.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
-            this.pictureBox56.Location = new System.Drawing.Point(416, 704);
-            this.pictureBox56.Name = "pictureBox56";
-            this.pictureBox56.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox56.TabIndex = 786;
-            this.pictureBox56.TabStop = false;
+            this.Weiche66_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
+            this.Weiche66_1.Location = new System.Drawing.Point(416, 704);
+            this.Weiche66_1.Name = "Weiche66_1";
+            this.Weiche66_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche66_1.TabIndex = 786;
+            this.Weiche66_1.TabStop = false;
             // 
             // Weiche65
             // 
@@ -10676,23 +10711,23 @@
             this.label116.TabIndex = 798;
             this.label116.Text = "73";
             // 
-            // pictureBox67
+            // Weiche64_1
             // 
-            this.pictureBox67.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
-            this.pictureBox67.Location = new System.Drawing.Point(320, 736);
-            this.pictureBox67.Name = "pictureBox67";
-            this.pictureBox67.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox67.TabIndex = 797;
-            this.pictureBox67.TabStop = false;
+            this.Weiche64_1.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
+            this.Weiche64_1.Location = new System.Drawing.Point(320, 736);
+            this.Weiche64_1.Name = "Weiche64_1";
+            this.Weiche64_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche64_1.TabIndex = 797;
+            this.Weiche64_1.TabStop = false;
             // 
-            // pictureBox72
+            // Weiche72_2
             // 
-            this.pictureBox72.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
-            this.pictureBox72.Location = new System.Drawing.Point(704, 736);
-            this.pictureBox72.Name = "pictureBox72";
-            this.pictureBox72.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox72.TabIndex = 795;
-            this.pictureBox72.TabStop = false;
+            this.Weiche72_2.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
+            this.Weiche72_2.Location = new System.Drawing.Point(704, 736);
+            this.Weiche72_2.Name = "Weiche72_2";
+            this.Weiche72_2.Size = new System.Drawing.Size(32, 32);
+            this.Weiche72_2.TabIndex = 795;
+            this.Weiche72_2.TabStop = false;
             // 
             // pictureBox76
             // 
@@ -10758,68 +10793,68 @@
             this.pictureBox90.TabIndex = 800;
             this.pictureBox90.TabStop = false;
             // 
-            // pictureBox91
+            // Weiche65_2
             // 
-            this.pictureBox91.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
-            this.pictureBox91.Location = new System.Drawing.Point(384, 736);
-            this.pictureBox91.Name = "pictureBox91";
-            this.pictureBox91.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox91.TabIndex = 804;
-            this.pictureBox91.TabStop = false;
+            this.Weiche65_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL;
+            this.Weiche65_2.Location = new System.Drawing.Point(384, 736);
+            this.Weiche65_2.Name = "Weiche65_2";
+            this.Weiche65_2.Size = new System.Drawing.Size(32, 32);
+            this.Weiche65_2.TabIndex = 804;
+            this.Weiche65_2.TabStop = false;
             // 
-            // pictureBox71
+            // Weiche71_1
             // 
-            this.pictureBox71.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
-            this.pictureBox71.Location = new System.Drawing.Point(704, 672);
-            this.pictureBox71.Name = "pictureBox71";
-            this.pictureBox71.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox71.TabIndex = 805;
-            this.pictureBox71.TabStop = false;
+            this.Weiche71_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
+            this.Weiche71_1.Location = new System.Drawing.Point(704, 672);
+            this.Weiche71_1.Name = "Weiche71_1";
+            this.Weiche71_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche71_1.TabIndex = 805;
+            this.Weiche71_1.TabStop = false;
             // 
-            // pictureBox100
+            // Weiche72_1
             // 
-            this.pictureBox100.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
-            this.pictureBox100.Location = new System.Drawing.Point(672, 704);
-            this.pictureBox100.Name = "pictureBox100";
-            this.pictureBox100.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox100.TabIndex = 806;
-            this.pictureBox100.TabStop = false;
+            this.Weiche72_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
+            this.Weiche72_1.Location = new System.Drawing.Point(672, 704);
+            this.Weiche72_1.Name = "Weiche72_1";
+            this.Weiche72_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche72_1.TabIndex = 806;
+            this.Weiche72_1.TabStop = false;
             // 
-            // pictureBox73
+            // Weiche73_1
             // 
-            this.pictureBox73.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
-            this.pictureBox73.Location = new System.Drawing.Point(640, 736);
-            this.pictureBox73.Name = "pictureBox73";
-            this.pictureBox73.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox73.TabIndex = 807;
-            this.pictureBox73.TabStop = false;
+            this.Weiche73_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
+            this.Weiche73_1.Location = new System.Drawing.Point(640, 736);
+            this.Weiche73_1.Name = "Weiche73_1";
+            this.Weiche73_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche73_1.TabIndex = 807;
+            this.Weiche73_1.TabStop = false;
             // 
-            // pictureBox104
+            // Weiche74_1
             // 
-            this.pictureBox104.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
-            this.pictureBox104.Location = new System.Drawing.Point(608, 768);
-            this.pictureBox104.Name = "pictureBox104";
-            this.pictureBox104.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox104.TabIndex = 808;
-            this.pictureBox104.TabStop = false;
+            this.Weiche74_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
+            this.Weiche74_1.Location = new System.Drawing.Point(608, 768);
+            this.Weiche74_1.Name = "Weiche74_1";
+            this.Weiche74_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche74_1.TabIndex = 808;
+            this.Weiche74_1.TabStop = false;
             // 
-            // pictureBox105
+            // Weiche75_1
             // 
-            this.pictureBox105.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
-            this.pictureBox105.Location = new System.Drawing.Point(576, 800);
-            this.pictureBox105.Name = "pictureBox105";
-            this.pictureBox105.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox105.TabIndex = 809;
-            this.pictureBox105.TabStop = false;
+            this.Weiche75_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
+            this.Weiche75_1.Location = new System.Drawing.Point(576, 800);
+            this.Weiche75_1.Name = "Weiche75_1";
+            this.Weiche75_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche75_1.TabIndex = 809;
+            this.Weiche75_1.TabStop = false;
             // 
-            // pictureBox106
+            // Weiche76_1
             // 
-            this.pictureBox106.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
-            this.pictureBox106.Location = new System.Drawing.Point(544, 832);
-            this.pictureBox106.Name = "pictureBox106";
-            this.pictureBox106.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox106.TabIndex = 810;
-            this.pictureBox106.TabStop = false;
+            this.Weiche76_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
+            this.Weiche76_1.Location = new System.Drawing.Point(544, 832);
+            this.Weiche76_1.Name = "Weiche76_1";
+            this.Weiche76_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche76_1.TabIndex = 810;
+            this.Weiche76_1.TabStop = false;
             // 
             // Weiche90
             // 
@@ -10912,23 +10947,23 @@
             this.textBox27.Text = "Gleis 8";
             this.textBox27.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // pictureBox74
+            // WeicheEcke75_91
             // 
-            this.pictureBox74.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL_UR;
-            this.pictureBox74.Location = new System.Drawing.Point(608, 832);
-            this.pictureBox74.Name = "pictureBox74";
-            this.pictureBox74.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox74.TabIndex = 823;
-            this.pictureBox74.TabStop = false;
+            this.WeicheEcke75_91.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL_UR;
+            this.WeicheEcke75_91.Location = new System.Drawing.Point(608, 832);
+            this.WeicheEcke75_91.Name = "WeicheEcke75_91";
+            this.WeicheEcke75_91.Size = new System.Drawing.Size(32, 32);
+            this.WeicheEcke75_91.TabIndex = 823;
+            this.WeicheEcke75_91.TabStop = false;
             // 
-            // pictureBox117
+            // WeicheEcke74_92
             // 
-            this.pictureBox117.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL_UR;
-            this.pictureBox117.Location = new System.Drawing.Point(640, 800);
-            this.pictureBox117.Name = "pictureBox117";
-            this.pictureBox117.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox117.TabIndex = 824;
-            this.pictureBox117.TabStop = false;
+            this.WeicheEcke74_92.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL_UR;
+            this.WeicheEcke74_92.Location = new System.Drawing.Point(640, 800);
+            this.WeicheEcke74_92.Name = "WeicheEcke74_92";
+            this.WeicheEcke74_92.Size = new System.Drawing.Size(32, 32);
+            this.WeicheEcke74_92.TabIndex = 824;
+            this.WeicheEcke74_92.TabStop = false;
             // 
             // SchattenGl8_1
             // 
@@ -11039,41 +11074,42 @@
             this.label81.TabIndex = 836;
             this.label81.Text = "3";
             // 
-            // button35
+            // Fahrstr_Schatten3_Ausf
             // 
-            this.button35.BackColor = System.Drawing.Color.Yellow;
-            this.button35.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.button35.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button35.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button35.FlatAppearance.BorderSize = 0;
-            this.button35.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button35.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button35.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button35.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button35.Location = new System.Drawing.Point(384, 744);
-            this.button35.Margin = new System.Windows.Forms.Padding(0);
-            this.button35.Name = "button35";
-            this.button35.Size = new System.Drawing.Size(16, 16);
-            this.button35.TabIndex = 838;
-            this.button35.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten3_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten3_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Fahrstr_Schatten3_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten3_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten3_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten3_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten3_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten3_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten3_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten3_Ausf.Location = new System.Drawing.Point(384, 744);
+            this.Fahrstr_Schatten3_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten3_Ausf.Name = "Fahrstr_Schatten3_Ausf";
+            this.Fahrstr_Schatten3_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten3_Ausf.TabIndex = 838;
+            this.Fahrstr_Schatten3_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten3_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten3_Ausf_Click);
             // 
-            // pictureBox24
+            // Block8_2
             // 
-            this.pictureBox24.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox24.Location = new System.Drawing.Point(288, 672);
-            this.pictureBox24.Name = "pictureBox24";
-            this.pictureBox24.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox24.TabIndex = 839;
-            this.pictureBox24.TabStop = false;
+            this.Block8_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Block8_2.Location = new System.Drawing.Point(288, 672);
+            this.Block8_2.Name = "Block8_2";
+            this.Block8_2.Size = new System.Drawing.Size(32, 32);
+            this.Block8_2.TabIndex = 839;
+            this.Block8_2.TabStop = false;
             // 
-            // pictureBox141
+            // Block8_11
             // 
-            this.pictureBox141.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox141.Location = new System.Drawing.Point(128, 768);
-            this.pictureBox141.Name = "pictureBox141";
-            this.pictureBox141.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox141.TabIndex = 840;
-            this.pictureBox141.TabStop = false;
+            this.Block8_11.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block8_11.Location = new System.Drawing.Point(128, 768);
+            this.Block8_11.Name = "Block8_11";
+            this.Block8_11.Size = new System.Drawing.Size(32, 32);
+            this.Block8_11.TabIndex = 840;
+            this.Block8_11.TabStop = false;
             // 
             // Weiche92_Gleis1
             // 
@@ -11309,77 +11345,81 @@
             this.Block7_8.TabIndex = 865;
             this.Block7_8.TabStop = false;
             // 
-            // button36
+            // Fahrstr_Schatten11_Ausf
             // 
-            this.button36.BackColor = System.Drawing.Color.Yellow;
-            this.button36.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_rechts;
-            this.button36.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button36.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button36.FlatAppearance.BorderSize = 0;
-            this.button36.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button36.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button36.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button36.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button36.Location = new System.Drawing.Point(880, 904);
-            this.button36.Margin = new System.Windows.Forms.Padding(0);
-            this.button36.Name = "button36";
-            this.button36.Size = new System.Drawing.Size(16, 16);
-            this.button36.TabIndex = 868;
-            this.button36.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten11_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten11_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_rechts;
+            this.Fahrstr_Schatten11_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten11_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten11_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten11_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten11_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten11_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten11_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten11_Ausf.Location = new System.Drawing.Point(880, 904);
+            this.Fahrstr_Schatten11_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten11_Ausf.Name = "Fahrstr_Schatten11_Ausf";
+            this.Fahrstr_Schatten11_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten11_Ausf.TabIndex = 868;
+            this.Fahrstr_Schatten11_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten11_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten11_Ausf_Click);
             // 
-            // button37
+            // Fahrstr_Schatten10_Ausf
             // 
-            this.button37.BackColor = System.Drawing.Color.Yellow;
-            this.button37.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_rechts;
-            this.button37.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button37.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button37.FlatAppearance.BorderSize = 0;
-            this.button37.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button37.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button37.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button37.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button37.Location = new System.Drawing.Point(912, 872);
-            this.button37.Margin = new System.Windows.Forms.Padding(0);
-            this.button37.Name = "button37";
-            this.button37.Size = new System.Drawing.Size(16, 16);
-            this.button37.TabIndex = 869;
-            this.button37.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten10_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten10_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_rechts;
+            this.Fahrstr_Schatten10_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten10_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten10_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten10_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten10_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten10_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten10_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten10_Ausf.Location = new System.Drawing.Point(912, 872);
+            this.Fahrstr_Schatten10_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten10_Ausf.Name = "Fahrstr_Schatten10_Ausf";
+            this.Fahrstr_Schatten10_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten10_Ausf.TabIndex = 869;
+            this.Fahrstr_Schatten10_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten10_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten10_Ausf_Click);
             // 
-            // button38
+            // Fahrstr_Schatten9_Ausf
             // 
-            this.button38.BackColor = System.Drawing.Color.Yellow;
-            this.button38.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_rechts;
-            this.button38.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button38.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button38.FlatAppearance.BorderSize = 0;
-            this.button38.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button38.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button38.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button38.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button38.Location = new System.Drawing.Point(944, 840);
-            this.button38.Margin = new System.Windows.Forms.Padding(0);
-            this.button38.Name = "button38";
-            this.button38.Size = new System.Drawing.Size(16, 16);
-            this.button38.TabIndex = 870;
-            this.button38.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten9_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten9_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_rechts;
+            this.Fahrstr_Schatten9_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten9_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten9_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten9_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten9_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten9_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten9_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten9_Ausf.Location = new System.Drawing.Point(944, 840);
+            this.Fahrstr_Schatten9_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten9_Ausf.Name = "Fahrstr_Schatten9_Ausf";
+            this.Fahrstr_Schatten9_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten9_Ausf.TabIndex = 870;
+            this.Fahrstr_Schatten9_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten9_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten9_Ausf_Click);
             // 
-            // button39
+            // Fahrstr_Schatten8_Ausf
             // 
-            this.button39.BackColor = System.Drawing.Color.Yellow;
-            this.button39.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_rechts;
-            this.button39.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button39.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button39.FlatAppearance.BorderSize = 0;
-            this.button39.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button39.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button39.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button39.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button39.Location = new System.Drawing.Point(960, 808);
-            this.button39.Margin = new System.Windows.Forms.Padding(0);
-            this.button39.Name = "button39";
-            this.button39.Size = new System.Drawing.Size(16, 16);
-            this.button39.TabIndex = 871;
-            this.button39.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten8_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten8_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_rechts;
+            this.Fahrstr_Schatten8_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten8_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten8_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten8_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten8_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten8_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten8_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten8_Ausf.Location = new System.Drawing.Point(960, 808);
+            this.Fahrstr_Schatten8_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten8_Ausf.Name = "Fahrstr_Schatten8_Ausf";
+            this.Fahrstr_Schatten8_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten8_Ausf.TabIndex = 871;
+            this.Fahrstr_Schatten8_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten8_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten8_Ausf_Click);
             // 
             // textBox28
             // 
@@ -11610,14 +11650,14 @@
             this.Weiche70.TabStop = false;
             this.Weiche70.Click += new System.EventHandler(this.Weiche70_Click);
             // 
-            // pictureBox21
+            // Block7_14
             // 
-            this.pictureBox21.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
-            this.pictureBox21.Location = new System.Drawing.Point(800, 640);
-            this.pictureBox21.Name = "pictureBox21";
-            this.pictureBox21.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox21.TabIndex = 901;
-            this.pictureBox21.TabStop = false;
+            this.Block7_14.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
+            this.Block7_14.Location = new System.Drawing.Point(800, 640);
+            this.Block7_14.Name = "Block7_14";
+            this.Block7_14.Size = new System.Drawing.Size(32, 32);
+            this.Block7_14.TabIndex = 901;
+            this.Block7_14.TabStop = false;
             // 
             // Weiche68
             // 
@@ -11631,41 +11671,41 @@
             this.Weiche68.TabStop = false;
             this.Weiche68.Click += new System.EventHandler(this.Weiche68_Click);
             // 
-            // pictureBox54
+            // Schatten0_Ausf3
             // 
-            this.pictureBox54.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.pictureBox54.Location = new System.Drawing.Point(416, 640);
-            this.pictureBox54.Name = "pictureBox54";
-            this.pictureBox54.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox54.TabIndex = 905;
-            this.pictureBox54.TabStop = false;
+            this.Schatten0_Ausf3.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Schatten0_Ausf3.Location = new System.Drawing.Point(416, 640);
+            this.Schatten0_Ausf3.Name = "Schatten0_Ausf3";
+            this.Schatten0_Ausf3.Size = new System.Drawing.Size(32, 32);
+            this.Schatten0_Ausf3.TabIndex = 905;
+            this.Schatten0_Ausf3.TabStop = false;
             // 
-            // pictureBox57
+            // Schatten0_Ausf1
             // 
-            this.pictureBox57.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
-            this.pictureBox57.Location = new System.Drawing.Point(352, 640);
-            this.pictureBox57.Name = "pictureBox57";
-            this.pictureBox57.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox57.TabIndex = 904;
-            this.pictureBox57.TabStop = false;
+            this.Schatten0_Ausf1.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
+            this.Schatten0_Ausf1.Location = new System.Drawing.Point(352, 640);
+            this.Schatten0_Ausf1.Name = "Schatten0_Ausf1";
+            this.Schatten0_Ausf1.Size = new System.Drawing.Size(32, 32);
+            this.Schatten0_Ausf1.TabIndex = 904;
+            this.Schatten0_Ausf1.TabStop = false;
             // 
-            // pictureBox58
+            // Schatten0_Ausf2
             // 
-            this.pictureBox58.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270L;
-            this.pictureBox58.Location = new System.Drawing.Point(384, 640);
-            this.pictureBox58.Name = "pictureBox58";
-            this.pictureBox58.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox58.TabIndex = 903;
-            this.pictureBox58.TabStop = false;
+            this.Schatten0_Ausf2.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270L;
+            this.Schatten0_Ausf2.Location = new System.Drawing.Point(384, 640);
+            this.Schatten0_Ausf2.Name = "Schatten0_Ausf2";
+            this.Schatten0_Ausf2.Size = new System.Drawing.Size(32, 32);
+            this.Schatten0_Ausf2.TabIndex = 903;
+            this.Schatten0_Ausf2.TabStop = false;
             // 
-            // pictureBox87
+            // Weiche68_67
             // 
-            this.pictureBox87.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL_UR;
-            this.pictureBox87.Location = new System.Drawing.Point(384, 672);
-            this.pictureBox87.Name = "pictureBox87";
-            this.pictureBox87.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox87.TabIndex = 906;
-            this.pictureBox87.TabStop = false;
+            this.Weiche68_67.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeOL_UR;
+            this.Weiche68_67.Location = new System.Drawing.Point(384, 672);
+            this.Weiche68_67.Name = "Weiche68_67";
+            this.Weiche68_67.Size = new System.Drawing.Size(32, 32);
+            this.Weiche68_67.TabIndex = 906;
+            this.Weiche68_67.TabStop = false;
             // 
             // pictureBox107
             // 
@@ -11748,14 +11788,14 @@
             this.pictureBox178.TabIndex = 915;
             this.pictureBox178.TabStop = false;
             // 
-            // pictureBox180
+            // Weiche70_1
             // 
-            this.pictureBox180.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
-            this.pictureBox180.Location = new System.Drawing.Point(736, 640);
-            this.pictureBox180.Name = "pictureBox180";
-            this.pictureBox180.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox180.TabIndex = 916;
-            this.pictureBox180.TabStop = false;
+            this.Weiche70_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90_EckeUR;
+            this.Weiche70_1.Location = new System.Drawing.Point(736, 640);
+            this.Weiche70_1.Name = "Weiche70_1";
+            this.Weiche70_1.Size = new System.Drawing.Size(32, 32);
+            this.Weiche70_1.TabIndex = 916;
+            this.Weiche70_1.TabStop = false;
             // 
             // textBox31
             // 
@@ -11767,14 +11807,14 @@
             this.textBox31.Text = "Eingleisen";
             this.textBox31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // pictureBox184
+            // Block7_3
             // 
-            this.pictureBox184.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.pictureBox184.Location = new System.Drawing.Point(992, 672);
-            this.pictureBox184.Name = "pictureBox184";
-            this.pictureBox184.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox184.TabIndex = 919;
-            this.pictureBox184.TabStop = false;
+            this.Block7_3.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
+            this.Block7_3.Location = new System.Drawing.Point(992, 672);
+            this.Block7_3.Name = "Block7_3";
+            this.Block7_3.Size = new System.Drawing.Size(32, 32);
+            this.Block7_3.TabIndex = 919;
+            this.Block7_3.TabStop = false;
             // 
             // label126
             // 
@@ -11831,6 +11871,7 @@
             this.Block8.Size = new System.Drawing.Size(16, 16);
             this.Block8.TabIndex = 924;
             this.Block8.UseVisualStyleBackColor = false;
+            this.Block8.Click += new System.EventHandler(this.Block8_Click);
             // 
             // label114
             // 
@@ -11842,118 +11883,127 @@
             this.label114.TabIndex = 925;
             this.label114.Text = "0";
             // 
-            // button32
+            // Fahrstr_Schatten0_Ausf
             // 
-            this.button32.BackColor = System.Drawing.Color.Yellow;
-            this.button32.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.button32.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button32.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button32.FlatAppearance.BorderSize = 0;
-            this.button32.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.button32.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.button32.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button32.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button32.Location = new System.Drawing.Point(448, 648);
-            this.button32.Margin = new System.Windows.Forms.Padding(0);
-            this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(16, 16);
-            this.button32.TabIndex = 926;
-            this.button32.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten0_Ausf.BackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten0_Ausf.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Fahrstr_Schatten0_Ausf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Fahrstr_Schatten0_Ausf.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten0_Ausf.FlatAppearance.BorderSize = 0;
+            this.Fahrstr_Schatten0_Ausf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten0_Ausf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Fahrstr_Schatten0_Ausf.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Fahrstr_Schatten0_Ausf.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Fahrstr_Schatten0_Ausf.Location = new System.Drawing.Point(448, 648);
+            this.Fahrstr_Schatten0_Ausf.Margin = new System.Windows.Forms.Padding(0);
+            this.Fahrstr_Schatten0_Ausf.Name = "Fahrstr_Schatten0_Ausf";
+            this.Fahrstr_Schatten0_Ausf.Size = new System.Drawing.Size(16, 16);
+            this.Fahrstr_Schatten0_Ausf.TabIndex = 926;
+            this.Fahrstr_Schatten0_Ausf.UseVisualStyleBackColor = false;
+            this.Fahrstr_Schatten0_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten0_Ausf_Click);
             // 
-            // panel2
+            // SchattenIntern_Auswahl
             // 
-            this.panel2.Controls.Add(this.button51);
-            this.panel2.Controls.Add(this.button50);
-            this.panel2.Controls.Add(this.button49);
-            this.panel2.Controls.Add(this.button48);
-            this.panel2.Controls.Add(this.button40);
-            this.panel2.Controls.Add(this.button41);
-            this.panel2.Controls.Add(this.button46);
-            this.panel2.Controls.Add(this.button47);
-            this.panel2.Location = new System.Drawing.Point(872, 648);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(66, 155);
-            this.panel2.TabIndex = 927;
-            this.panel2.Visible = false;
+            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten7);
+            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten6);
+            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten5);
+            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten2);
+            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten4);
+            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten1);
+            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten3);
+            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten0);
+            this.SchattenIntern_Auswahl.Location = new System.Drawing.Point(976, 784);
+            this.SchattenIntern_Auswahl.Name = "SchattenIntern_Auswahl";
+            this.SchattenIntern_Auswahl.Size = new System.Drawing.Size(66, 155);
+            this.SchattenIntern_Auswahl.TabIndex = 927;
+            this.SchattenIntern_Auswahl.Visible = false;
             // 
-            // button51
+            // Intern_Schatten7
             // 
-            this.button51.Location = new System.Drawing.Point(0, 133);
-            this.button51.Margin = new System.Windows.Forms.Padding(0);
-            this.button51.Name = "button51";
-            this.button51.Size = new System.Drawing.Size(64, 20);
-            this.button51.TabIndex = 930;
-            this.button51.Text = "Gleis 7";
-            this.button51.UseVisualStyleBackColor = true;
+            this.Intern_Schatten7.Location = new System.Drawing.Point(0, 133);
+            this.Intern_Schatten7.Margin = new System.Windows.Forms.Padding(0);
+            this.Intern_Schatten7.Name = "Intern_Schatten7";
+            this.Intern_Schatten7.Size = new System.Drawing.Size(64, 20);
+            this.Intern_Schatten7.TabIndex = 930;
+            this.Intern_Schatten7.Text = "Gleis 7";
+            this.Intern_Schatten7.UseVisualStyleBackColor = true;
+            this.Intern_Schatten7.Click += new System.EventHandler(this.Intern_Schatten7_Click);
             // 
-            // button50
+            // Intern_Schatten6
             // 
-            this.button50.Location = new System.Drawing.Point(0, 114);
-            this.button50.Margin = new System.Windows.Forms.Padding(0);
-            this.button50.Name = "button50";
-            this.button50.Size = new System.Drawing.Size(64, 20);
-            this.button50.TabIndex = 930;
-            this.button50.Text = "Gleis 6";
-            this.button50.UseVisualStyleBackColor = true;
+            this.Intern_Schatten6.Location = new System.Drawing.Point(0, 114);
+            this.Intern_Schatten6.Margin = new System.Windows.Forms.Padding(0);
+            this.Intern_Schatten6.Name = "Intern_Schatten6";
+            this.Intern_Schatten6.Size = new System.Drawing.Size(64, 20);
+            this.Intern_Schatten6.TabIndex = 930;
+            this.Intern_Schatten6.Text = "Gleis 6";
+            this.Intern_Schatten6.UseVisualStyleBackColor = true;
+            this.Intern_Schatten6.Click += new System.EventHandler(this.Intern_Schatten6_Click);
             // 
-            // button49
+            // Intern_Schatten5
             // 
-            this.button49.Location = new System.Drawing.Point(0, 95);
-            this.button49.Margin = new System.Windows.Forms.Padding(0);
-            this.button49.Name = "button49";
-            this.button49.Size = new System.Drawing.Size(64, 20);
-            this.button49.TabIndex = 929;
-            this.button49.Text = "Gleis 5";
-            this.button49.UseVisualStyleBackColor = true;
+            this.Intern_Schatten5.Location = new System.Drawing.Point(0, 95);
+            this.Intern_Schatten5.Margin = new System.Windows.Forms.Padding(0);
+            this.Intern_Schatten5.Name = "Intern_Schatten5";
+            this.Intern_Schatten5.Size = new System.Drawing.Size(64, 20);
+            this.Intern_Schatten5.TabIndex = 929;
+            this.Intern_Schatten5.Text = "Gleis 5";
+            this.Intern_Schatten5.UseVisualStyleBackColor = true;
+            this.Intern_Schatten5.Click += new System.EventHandler(this.Intern_Schatten5_Click);
             // 
-            // button48
+            // Intern_Schatten2
             // 
-            this.button48.Location = new System.Drawing.Point(0, 38);
-            this.button48.Margin = new System.Windows.Forms.Padding(0);
-            this.button48.Name = "button48";
-            this.button48.Size = new System.Drawing.Size(64, 20);
-            this.button48.TabIndex = 928;
-            this.button48.Text = "Gleis 2";
-            this.button48.UseVisualStyleBackColor = true;
+            this.Intern_Schatten2.Location = new System.Drawing.Point(0, 38);
+            this.Intern_Schatten2.Margin = new System.Windows.Forms.Padding(0);
+            this.Intern_Schatten2.Name = "Intern_Schatten2";
+            this.Intern_Schatten2.Size = new System.Drawing.Size(64, 20);
+            this.Intern_Schatten2.TabIndex = 928;
+            this.Intern_Schatten2.Text = "Gleis 2";
+            this.Intern_Schatten2.UseVisualStyleBackColor = true;
+            this.Intern_Schatten2.Click += new System.EventHandler(this.Intern_Schatten2_Click);
             // 
-            // button40
+            // Intern_Schatten4
             // 
-            this.button40.Location = new System.Drawing.Point(0, 76);
-            this.button40.Margin = new System.Windows.Forms.Padding(0);
-            this.button40.Name = "button40";
-            this.button40.Size = new System.Drawing.Size(64, 20);
-            this.button40.TabIndex = 538;
-            this.button40.Text = "Gleis 4";
-            this.button40.UseVisualStyleBackColor = true;
+            this.Intern_Schatten4.Location = new System.Drawing.Point(0, 76);
+            this.Intern_Schatten4.Margin = new System.Windows.Forms.Padding(0);
+            this.Intern_Schatten4.Name = "Intern_Schatten4";
+            this.Intern_Schatten4.Size = new System.Drawing.Size(64, 20);
+            this.Intern_Schatten4.TabIndex = 538;
+            this.Intern_Schatten4.Text = "Gleis 4";
+            this.Intern_Schatten4.UseVisualStyleBackColor = true;
+            this.Intern_Schatten4.Click += new System.EventHandler(this.Intern_Schatten4_Click);
             // 
-            // button41
+            // Intern_Schatten1
             // 
-            this.button41.Location = new System.Drawing.Point(0, 19);
-            this.button41.Margin = new System.Windows.Forms.Padding(0);
-            this.button41.Name = "button41";
-            this.button41.Size = new System.Drawing.Size(64, 20);
-            this.button41.TabIndex = 535;
-            this.button41.Text = "Gleis 1";
-            this.button41.UseVisualStyleBackColor = true;
+            this.Intern_Schatten1.Location = new System.Drawing.Point(0, 19);
+            this.Intern_Schatten1.Margin = new System.Windows.Forms.Padding(0);
+            this.Intern_Schatten1.Name = "Intern_Schatten1";
+            this.Intern_Schatten1.Size = new System.Drawing.Size(64, 20);
+            this.Intern_Schatten1.TabIndex = 535;
+            this.Intern_Schatten1.Text = "Gleis 1";
+            this.Intern_Schatten1.UseVisualStyleBackColor = true;
+            this.Intern_Schatten1.Click += new System.EventHandler(this.Intern_Schatten1_Click);
             // 
-            // button46
+            // Intern_Schatten3
             // 
-            this.button46.Location = new System.Drawing.Point(0, 57);
-            this.button46.Margin = new System.Windows.Forms.Padding(0);
-            this.button46.Name = "button46";
-            this.button46.Size = new System.Drawing.Size(64, 20);
-            this.button46.TabIndex = 537;
-            this.button46.Text = "Gleis 3";
-            this.button46.UseVisualStyleBackColor = true;
+            this.Intern_Schatten3.Location = new System.Drawing.Point(0, 57);
+            this.Intern_Schatten3.Margin = new System.Windows.Forms.Padding(0);
+            this.Intern_Schatten3.Name = "Intern_Schatten3";
+            this.Intern_Schatten3.Size = new System.Drawing.Size(64, 20);
+            this.Intern_Schatten3.TabIndex = 537;
+            this.Intern_Schatten3.Text = "Gleis 3";
+            this.Intern_Schatten3.UseVisualStyleBackColor = true;
+            this.Intern_Schatten3.Click += new System.EventHandler(this.Intern_Schatten3_Click);
             // 
-            // button47
+            // Intern_Schatten0
             // 
-            this.button47.Location = new System.Drawing.Point(0, 0);
-            this.button47.Name = "button47";
-            this.button47.Size = new System.Drawing.Size(64, 20);
-            this.button47.TabIndex = 534;
-            this.button47.Text = "Eingleisen";
-            this.button47.UseVisualStyleBackColor = true;
+            this.Intern_Schatten0.Location = new System.Drawing.Point(0, 0);
+            this.Intern_Schatten0.Name = "Intern_Schatten0";
+            this.Intern_Schatten0.Size = new System.Drawing.Size(64, 20);
+            this.Intern_Schatten0.TabIndex = 534;
+            this.Intern_Schatten0.Text = "Eingleisen";
+            this.Intern_Schatten0.UseVisualStyleBackColor = true;
+            this.Intern_Schatten0.Click += new System.EventHandler(this.Intern_Schatten0_Click);
             // 
             // Schatten8_Ausf3
             // 
@@ -11973,26 +12023,256 @@
             this.Schatten9_Ausf2.TabIndex = 929;
             this.Schatten9_Ausf2.TabStop = false;
             // 
+            // Schatten1_Auswahl
+            // 
+            this.Schatten1_Auswahl.Controls.Add(this.Schatten1_Block9);
+            this.Schatten1_Auswahl.Controls.Add(this.Schatten1_Block8);
+            this.Schatten1_Auswahl.Location = new System.Drawing.Point(384, 664);
+            this.Schatten1_Auswahl.Name = "Schatten1_Auswahl";
+            this.Schatten1_Auswahl.Size = new System.Drawing.Size(66, 40);
+            this.Schatten1_Auswahl.TabIndex = 930;
+            this.Schatten1_Auswahl.Visible = false;
+            // 
+            // Schatten1_Block9
+            // 
+            this.Schatten1_Block9.Location = new System.Drawing.Point(0, 19);
+            this.Schatten1_Block9.Margin = new System.Windows.Forms.Padding(0);
+            this.Schatten1_Block9.Name = "Schatten1_Block9";
+            this.Schatten1_Block9.Size = new System.Drawing.Size(64, 20);
+            this.Schatten1_Block9.TabIndex = 535;
+            this.Schatten1_Block9.Text = "Block 9";
+            this.Schatten1_Block9.UseVisualStyleBackColor = true;
+            this.Schatten1_Block9.Click += new System.EventHandler(this.Schatten1_Block9_Click);
+            // 
+            // Schatten1_Block8
+            // 
+            this.Schatten1_Block8.Location = new System.Drawing.Point(0, 0);
+            this.Schatten1_Block8.Name = "Schatten1_Block8";
+            this.Schatten1_Block8.Size = new System.Drawing.Size(64, 20);
+            this.Schatten1_Block8.TabIndex = 534;
+            this.Schatten1_Block8.Text = "Block 8";
+            this.Schatten1_Block8.UseVisualStyleBackColor = true;
+            this.Schatten1_Block8.Click += new System.EventHandler(this.Schatten1_Block8_Click);
+            // 
+            // Gl6_links_Auswahl
+            // 
+            this.Gl6_links_Auswahl.Controls.Add(this.Gl6_Ausfahrt_links_Block5);
+            this.Gl6_links_Auswahl.Controls.Add(this.Gl6_Ausfahrt_links_Block2);
+            this.Gl6_links_Auswahl.Location = new System.Drawing.Point(736, 312);
+            this.Gl6_links_Auswahl.Name = "Gl6_links_Auswahl";
+            this.Gl6_links_Auswahl.Size = new System.Drawing.Size(50, 42);
+            this.Gl6_links_Auswahl.TabIndex = 931;
+            this.Gl6_links_Auswahl.Visible = false;
+            // 
+            // Gl6_Ausfahrt_links_Block5
+            // 
+            this.Gl6_Ausfahrt_links_Block5.Location = new System.Drawing.Point(0, 0);
+            this.Gl6_Ausfahrt_links_Block5.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl6_Ausfahrt_links_Block5.Name = "Gl6_Ausfahrt_links_Block5";
+            this.Gl6_Ausfahrt_links_Block5.Size = new System.Drawing.Size(50, 20);
+            this.Gl6_Ausfahrt_links_Block5.TabIndex = 647;
+            this.Gl6_Ausfahrt_links_Block5.Text = "Block5";
+            this.Gl6_Ausfahrt_links_Block5.UseVisualStyleBackColor = true;
+            this.Gl6_Ausfahrt_links_Block5.Click += new System.EventHandler(this.Gl6_Ausfahrt_links_Block5_Click);
+            // 
+            // Gl6_Ausfahrt_links_Block2
+            // 
+            this.Gl6_Ausfahrt_links_Block2.Location = new System.Drawing.Point(0, 19);
+            this.Gl6_Ausfahrt_links_Block2.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl6_Ausfahrt_links_Block2.Name = "Gl6_Ausfahrt_links_Block2";
+            this.Gl6_Ausfahrt_links_Block2.Size = new System.Drawing.Size(50, 20);
+            this.Gl6_Ausfahrt_links_Block2.TabIndex = 646;
+            this.Gl6_Ausfahrt_links_Block2.Text = "Block2";
+            this.Gl6_Ausfahrt_links_Block2.UseVisualStyleBackColor = true;
+            this.Gl6_Ausfahrt_links_Block2.Click += new System.EventHandler(this.Gl6_Ausfahrt_links_Block2_Click);
+            // 
+            // Gl5_links_Auswahl
+            // 
+            this.Gl5_links_Auswahl.Controls.Add(this.Gl5_Ausfahrt_links_Block5);
+            this.Gl5_links_Auswahl.Controls.Add(this.Gl5_Ausfahrt_links_Block2);
+            this.Gl5_links_Auswahl.Location = new System.Drawing.Point(736, 280);
+            this.Gl5_links_Auswahl.Name = "Gl5_links_Auswahl";
+            this.Gl5_links_Auswahl.Size = new System.Drawing.Size(50, 42);
+            this.Gl5_links_Auswahl.TabIndex = 932;
+            this.Gl5_links_Auswahl.Visible = false;
+            // 
+            // Gl5_Ausfahrt_links_Block5
+            // 
+            this.Gl5_Ausfahrt_links_Block5.Location = new System.Drawing.Point(0, 0);
+            this.Gl5_Ausfahrt_links_Block5.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl5_Ausfahrt_links_Block5.Name = "Gl5_Ausfahrt_links_Block5";
+            this.Gl5_Ausfahrt_links_Block5.Size = new System.Drawing.Size(50, 20);
+            this.Gl5_Ausfahrt_links_Block5.TabIndex = 647;
+            this.Gl5_Ausfahrt_links_Block5.Text = "Block5";
+            this.Gl5_Ausfahrt_links_Block5.UseVisualStyleBackColor = true;
+            this.Gl5_Ausfahrt_links_Block5.Click += new System.EventHandler(this.Gl5_Ausfahrt_links_Block5_Click);
+            // 
+            // Gl5_Ausfahrt_links_Block2
+            // 
+            this.Gl5_Ausfahrt_links_Block2.Location = new System.Drawing.Point(0, 19);
+            this.Gl5_Ausfahrt_links_Block2.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl5_Ausfahrt_links_Block2.Name = "Gl5_Ausfahrt_links_Block2";
+            this.Gl5_Ausfahrt_links_Block2.Size = new System.Drawing.Size(50, 20);
+            this.Gl5_Ausfahrt_links_Block2.TabIndex = 646;
+            this.Gl5_Ausfahrt_links_Block2.Text = "Block2";
+            this.Gl5_Ausfahrt_links_Block2.UseVisualStyleBackColor = true;
+            this.Gl5_Ausfahrt_links_Block2.Click += new System.EventHandler(this.Gl5_Ausfahrt_links_Block2_Click);
+            // 
+            // Gl4_links_Auswahl
+            // 
+            this.Gl4_links_Auswahl.Controls.Add(this.Gl4_Ausfahrt_links_Block5);
+            this.Gl4_links_Auswahl.Controls.Add(this.Gl4_Ausfahrt_links_Block2);
+            this.Gl4_links_Auswahl.Location = new System.Drawing.Point(736, 216);
+            this.Gl4_links_Auswahl.Name = "Gl4_links_Auswahl";
+            this.Gl4_links_Auswahl.Size = new System.Drawing.Size(50, 42);
+            this.Gl4_links_Auswahl.TabIndex = 933;
+            this.Gl4_links_Auswahl.Visible = false;
+            // 
+            // Gl4_Ausfahrt_links_Block5
+            // 
+            this.Gl4_Ausfahrt_links_Block5.Location = new System.Drawing.Point(0, 0);
+            this.Gl4_Ausfahrt_links_Block5.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl4_Ausfahrt_links_Block5.Name = "Gl4_Ausfahrt_links_Block5";
+            this.Gl4_Ausfahrt_links_Block5.Size = new System.Drawing.Size(50, 20);
+            this.Gl4_Ausfahrt_links_Block5.TabIndex = 647;
+            this.Gl4_Ausfahrt_links_Block5.Text = "Block5";
+            this.Gl4_Ausfahrt_links_Block5.UseVisualStyleBackColor = true;
+            this.Gl4_Ausfahrt_links_Block5.Click += new System.EventHandler(this.Gl4_Ausfahrt_links_Block5_Click);
+            // 
+            // Gl4_Ausfahrt_links_Block2
+            // 
+            this.Gl4_Ausfahrt_links_Block2.Location = new System.Drawing.Point(0, 19);
+            this.Gl4_Ausfahrt_links_Block2.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl4_Ausfahrt_links_Block2.Name = "Gl4_Ausfahrt_links_Block2";
+            this.Gl4_Ausfahrt_links_Block2.Size = new System.Drawing.Size(50, 20);
+            this.Gl4_Ausfahrt_links_Block2.TabIndex = 646;
+            this.Gl4_Ausfahrt_links_Block2.Text = "Block2";
+            this.Gl4_Ausfahrt_links_Block2.UseVisualStyleBackColor = true;
+            this.Gl4_Ausfahrt_links_Block2.Click += new System.EventHandler(this.Gl4_Ausfahrt_links_Block2_Click);
+            // 
+            // Gl3_links_Auswahl
+            // 
+            this.Gl3_links_Auswahl.Controls.Add(this.Gl3_Ausfahrt_links_Block5);
+            this.Gl3_links_Auswahl.Controls.Add(this.Gl3_Ausfahrt_links_Block2);
+            this.Gl3_links_Auswahl.Location = new System.Drawing.Point(736, 184);
+            this.Gl3_links_Auswahl.Name = "Gl3_links_Auswahl";
+            this.Gl3_links_Auswahl.Size = new System.Drawing.Size(50, 42);
+            this.Gl3_links_Auswahl.TabIndex = 934;
+            this.Gl3_links_Auswahl.Visible = false;
+            // 
+            // Gl3_Ausfahrt_links_Block5
+            // 
+            this.Gl3_Ausfahrt_links_Block5.Location = new System.Drawing.Point(0, 0);
+            this.Gl3_Ausfahrt_links_Block5.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl3_Ausfahrt_links_Block5.Name = "Gl3_Ausfahrt_links_Block5";
+            this.Gl3_Ausfahrt_links_Block5.Size = new System.Drawing.Size(50, 20);
+            this.Gl3_Ausfahrt_links_Block5.TabIndex = 647;
+            this.Gl3_Ausfahrt_links_Block5.Text = "Block5";
+            this.Gl3_Ausfahrt_links_Block5.UseVisualStyleBackColor = true;
+            this.Gl3_Ausfahrt_links_Block5.Click += new System.EventHandler(this.Gl3_Ausfahrt_links_Block5_Click);
+            // 
+            // Gl3_Ausfahrt_links_Block2
+            // 
+            this.Gl3_Ausfahrt_links_Block2.Location = new System.Drawing.Point(0, 19);
+            this.Gl3_Ausfahrt_links_Block2.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl3_Ausfahrt_links_Block2.Name = "Gl3_Ausfahrt_links_Block2";
+            this.Gl3_Ausfahrt_links_Block2.Size = new System.Drawing.Size(50, 20);
+            this.Gl3_Ausfahrt_links_Block2.TabIndex = 646;
+            this.Gl3_Ausfahrt_links_Block2.Text = "Block2";
+            this.Gl3_Ausfahrt_links_Block2.UseVisualStyleBackColor = true;
+            this.Gl3_Ausfahrt_links_Block2.Click += new System.EventHandler(this.Gl3_Ausfahrt_links_Block2_Click);
+            // 
+            // Gl2_links_Auswahl
+            // 
+            this.Gl2_links_Auswahl.Controls.Add(this.Gl2_Ausfahrt_links_Block5);
+            this.Gl2_links_Auswahl.Controls.Add(this.Gl2_Ausfahrt_links_Block2);
+            this.Gl2_links_Auswahl.Location = new System.Drawing.Point(736, 152);
+            this.Gl2_links_Auswahl.Name = "Gl2_links_Auswahl";
+            this.Gl2_links_Auswahl.Size = new System.Drawing.Size(50, 42);
+            this.Gl2_links_Auswahl.TabIndex = 935;
+            this.Gl2_links_Auswahl.Visible = false;
+            // 
+            // Gl2_Ausfahrt_links_Block5
+            // 
+            this.Gl2_Ausfahrt_links_Block5.Location = new System.Drawing.Point(0, 0);
+            this.Gl2_Ausfahrt_links_Block5.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl2_Ausfahrt_links_Block5.Name = "Gl2_Ausfahrt_links_Block5";
+            this.Gl2_Ausfahrt_links_Block5.Size = new System.Drawing.Size(50, 20);
+            this.Gl2_Ausfahrt_links_Block5.TabIndex = 647;
+            this.Gl2_Ausfahrt_links_Block5.Text = "Block5";
+            this.Gl2_Ausfahrt_links_Block5.UseVisualStyleBackColor = true;
+            this.Gl2_Ausfahrt_links_Block5.Click += new System.EventHandler(this.Gl2_Ausfahrt_links_Block5_Click);
+            // 
+            // Gl2_Ausfahrt_links_Block2
+            // 
+            this.Gl2_Ausfahrt_links_Block2.Location = new System.Drawing.Point(0, 19);
+            this.Gl2_Ausfahrt_links_Block2.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl2_Ausfahrt_links_Block2.Name = "Gl2_Ausfahrt_links_Block2";
+            this.Gl2_Ausfahrt_links_Block2.Size = new System.Drawing.Size(50, 20);
+            this.Gl2_Ausfahrt_links_Block2.TabIndex = 646;
+            this.Gl2_Ausfahrt_links_Block2.Text = "Block2";
+            this.Gl2_Ausfahrt_links_Block2.UseVisualStyleBackColor = true;
+            this.Gl2_Ausfahrt_links_Block2.Click += new System.EventHandler(this.Gl2_Ausfahrt_links_Block2_Click);
+            // 
+            // Gl1_links_Auswahl
+            // 
+            this.Gl1_links_Auswahl.Controls.Add(this.Gl1_Ausfahrt_links_Block5);
+            this.Gl1_links_Auswahl.Controls.Add(this.Gl1_Ausfahrt_links_Block2);
+            this.Gl1_links_Auswahl.Location = new System.Drawing.Point(736, 120);
+            this.Gl1_links_Auswahl.Name = "Gl1_links_Auswahl";
+            this.Gl1_links_Auswahl.Size = new System.Drawing.Size(50, 42);
+            this.Gl1_links_Auswahl.TabIndex = 936;
+            this.Gl1_links_Auswahl.Visible = false;
+            // 
+            // Gl1_Ausfahrt_links_Block5
+            // 
+            this.Gl1_Ausfahrt_links_Block5.Location = new System.Drawing.Point(0, 0);
+            this.Gl1_Ausfahrt_links_Block5.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl1_Ausfahrt_links_Block5.Name = "Gl1_Ausfahrt_links_Block5";
+            this.Gl1_Ausfahrt_links_Block5.Size = new System.Drawing.Size(50, 20);
+            this.Gl1_Ausfahrt_links_Block5.TabIndex = 647;
+            this.Gl1_Ausfahrt_links_Block5.Text = "Block5";
+            this.Gl1_Ausfahrt_links_Block5.UseVisualStyleBackColor = true;
+            this.Gl1_Ausfahrt_links_Block5.Click += new System.EventHandler(this.Gl1_Ausfahrt_links_Block5_Click);
+            // 
+            // Gl1_Ausfahrt_links_Block2
+            // 
+            this.Gl1_Ausfahrt_links_Block2.Location = new System.Drawing.Point(0, 19);
+            this.Gl1_Ausfahrt_links_Block2.Margin = new System.Windows.Forms.Padding(0);
+            this.Gl1_Ausfahrt_links_Block2.Name = "Gl1_Ausfahrt_links_Block2";
+            this.Gl1_Ausfahrt_links_Block2.Size = new System.Drawing.Size(50, 20);
+            this.Gl1_Ausfahrt_links_Block2.TabIndex = 646;
+            this.Gl1_Ausfahrt_links_Block2.Text = "Block2";
+            this.Gl1_Ausfahrt_links_Block2.UseVisualStyleBackColor = true;
+            this.Gl1_Ausfahrt_links_Block2.Click += new System.EventHandler(this.Gl1_Ausfahrt_links_Block2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.Gl1_links_Auswahl);
+            this.Controls.Add(this.Gl2_links_Auswahl);
+            this.Controls.Add(this.Gl3_links_Auswahl);
+            this.Controls.Add(this.Gl4_links_Auswahl);
+            this.Controls.Add(this.Gl5_links_Auswahl);
+            this.Controls.Add(this.Gl6_links_Auswahl);
+            this.Controls.Add(this.SchattenIntern_Auswahl);
+            this.Controls.Add(this.Schatten1_Auswahl);
             this.Controls.Add(this.Schatten9_Ausf2);
             this.Controls.Add(this.Schatten8_Ausf3);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.Block6_Auswahl);
-            this.Controls.Add(this.button32);
+            this.Controls.Add(this.Fahrstr_Schatten0_Ausf);
             this.Controls.Add(this.label114);
             this.Controls.Add(this.Block8);
             this.Controls.Add(this.pictureBox53);
             this.Controls.Add(this.pictureBox17);
             this.Controls.Add(this.label127);
             this.Controls.Add(this.label126);
-            this.Controls.Add(this.pictureBox184);
+            this.Controls.Add(this.Block7_3);
             this.Controls.Add(this.textBox31);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.pictureBox180);
+            this.Controls.Add(this.Weiche70_1);
             this.Controls.Add(this.pictureBox178);
             this.Controls.Add(this.pictureBox176);
             this.Controls.Add(this.pictureBox140);
@@ -12002,13 +12282,13 @@
             this.Controls.Add(this.pictureBox112);
             this.Controls.Add(this.pictureBox111);
             this.Controls.Add(this.pictureBox107);
-            this.Controls.Add(this.pictureBox87);
+            this.Controls.Add(this.Weiche68_67);
             this.Controls.Add(this.label123);
-            this.Controls.Add(this.pictureBox54);
-            this.Controls.Add(this.pictureBox57);
-            this.Controls.Add(this.pictureBox58);
+            this.Controls.Add(this.Schatten0_Ausf3);
+            this.Controls.Add(this.Schatten0_Ausf1);
+            this.Controls.Add(this.Schatten0_Ausf2);
             this.Controls.Add(this.Weiche68);
-            this.Controls.Add(this.pictureBox21);
+            this.Controls.Add(this.Block7_14);
             this.Controls.Add(this.Weiche70);
             this.Controls.Add(this.label125);
             this.Controls.Add(this.label124);
@@ -12037,10 +12317,10 @@
             this.Controls.Add(this.textBox28);
             this.Controls.Add(this.Sperre_Einfahrt_Schatten9);
             this.Controls.Add(this.Sperre_Einfahrt_Schatten8);
-            this.Controls.Add(this.button39);
-            this.Controls.Add(this.button38);
-            this.Controls.Add(this.button37);
-            this.Controls.Add(this.button36);
+            this.Controls.Add(this.Fahrstr_Schatten8_Ausf);
+            this.Controls.Add(this.Fahrstr_Schatten9_Ausf);
+            this.Controls.Add(this.Fahrstr_Schatten10_Ausf);
+            this.Controls.Add(this.Fahrstr_Schatten11_Ausf);
             this.Controls.Add(this.Block7_9);
             this.Controls.Add(this.Block7_8);
             this.Controls.Add(this.Block7_11);
@@ -12067,9 +12347,9 @@
             this.Controls.Add(this.pictureBox149);
             this.Controls.Add(this.Weiche91_Gleis1);
             this.Controls.Add(this.Weiche92_Gleis1);
-            this.Controls.Add(this.pictureBox141);
-            this.Controls.Add(this.pictureBox24);
-            this.Controls.Add(this.button35);
+            this.Controls.Add(this.Block8_11);
+            this.Controls.Add(this.Block8_2);
+            this.Controls.Add(this.Fahrstr_Schatten3_Ausf);
             this.Controls.Add(this.button34);
             this.Controls.Add(this.label81);
             this.Controls.Add(this.Schatten9_Ausf1);
@@ -12097,8 +12377,8 @@
             this.Controls.Add(this.textBox26);
             this.Controls.Add(this.pictureBox63);
             this.Controls.Add(this.label116);
-            this.Controls.Add(this.pictureBox67);
-            this.Controls.Add(this.pictureBox72);
+            this.Controls.Add(this.Weiche64_1);
+            this.Controls.Add(this.Weiche72_2);
             this.Controls.Add(this.pictureBox76);
             this.Controls.Add(this.pictureBox81);
             this.Controls.Add(this.pictureBox82);
@@ -12106,11 +12386,11 @@
             this.Controls.Add(this.Weiche73);
             this.Controls.Add(this.pictureBox89);
             this.Controls.Add(this.pictureBox90);
-            this.Controls.Add(this.pictureBox91);
+            this.Controls.Add(this.Weiche65_2);
             this.Controls.Add(this.Weiche67);
             this.Controls.Add(this.Weiche66);
-            this.Controls.Add(this.pictureBox52);
-            this.Controls.Add(this.pictureBox44);
+            this.Controls.Add(this.Block9_5);
+            this.Controls.Add(this.Block9_4);
             this.Controls.Add(this.Block5_18);
             this.Controls.Add(this.Block5_17);
             this.Controls.Add(this.Block9);
@@ -12138,12 +12418,12 @@
             this.Controls.Add(this.label96);
             this.Controls.Add(this.label95);
             this.Controls.Add(this.label94);
-            this.Controls.Add(this.button31);
-            this.Controls.Add(this.button30);
-            this.Controls.Add(this.button29);
-            this.Controls.Add(this.button28);
-            this.Controls.Add(this.button27);
-            this.Controls.Add(this.button26);
+            this.Controls.Add(this.Fahrstr_Schatten1_Ausf);
+            this.Controls.Add(this.Fahrstr_Schatten2_Ausf);
+            this.Controls.Add(this.Fahrstr_Schatten4_Ausf);
+            this.Controls.Add(this.Fahrstr_Schatten5_Ausf);
+            this.Controls.Add(this.Fahrstr_Schatten6_Ausf);
+            this.Controls.Add(this.Fahrstr_Schatten7_Ausf);
             this.Controls.Add(this.button25);
             this.Controls.Add(this.button24);
             this.Controls.Add(this.button23);
@@ -12400,36 +12680,36 @@
             this.Controls.Add(this.pictureBox116);
             this.Controls.Add(this.pictureBox115);
             this.Controls.Add(this.Weiche35);
-            this.Controls.Add(this.pictureBox26);
-            this.Controls.Add(this.pictureBox22);
-            this.Controls.Add(this.pictureBox390);
-            this.Controls.Add(this.pictureBox285);
+            this.Controls.Add(this.Kreuzung1);
+            this.Controls.Add(this.Block5_Block9);
+            this.Controls.Add(this.Block9_2);
+            this.Controls.Add(this.WeicheEcke76_90);
             this.Controls.Add(this.Block5_20);
-            this.Controls.Add(this.pictureBox386);
-            this.Controls.Add(this.pictureBox385);
-            this.Controls.Add(this.pictureBox384);
-            this.Controls.Add(this.pictureBox383);
-            this.Controls.Add(this.pictureBox382);
-            this.Controls.Add(this.pictureBox381);
-            this.Controls.Add(this.pictureBox380);
-            this.Controls.Add(this.pictureBox379);
-            this.Controls.Add(this.pictureBox378);
-            this.Controls.Add(this.Block7_4);
-            this.Controls.Add(this.pictureBox370);
-            this.Controls.Add(this.pictureBox367);
-            this.Controls.Add(this.pictureBox366);
-            this.Controls.Add(this.Schatten_Einfahrt_3);
-            this.Controls.Add(this.pictureBox364);
-            this.Controls.Add(this.pictureBox363);
-            this.Controls.Add(this.Schatten_Einfahrt_2);
+            this.Controls.Add(this.Kreuzung1_2);
+            this.Controls.Add(this.Weiche61_2);
+            this.Controls.Add(this.Weiche62_2);
+            this.Controls.Add(this.Weiche63_2);
+            this.Controls.Add(this.Weiche64_2);
+            this.Controls.Add(this.Weiche61_1);
+            this.Controls.Add(this.Weiche62_1);
+            this.Controls.Add(this.Weiche63_1);
+            this.Controls.Add(this.Weiche65_1);
+            this.Controls.Add(this.Block7_5);
+            this.Controls.Add(this.Weiche76_2);
+            this.Controls.Add(this.Weiche73_2);
+            this.Controls.Add(this.Weiche71_2);
+            this.Controls.Add(this.Weiche70_2);
+            this.Controls.Add(this.Block8_8);
+            this.Controls.Add(this.Block8_7);
+            this.Controls.Add(this.Block7_13);
             this.Controls.Add(this.Block7_2);
             this.Controls.Add(this.Block7_1);
-            this.Controls.Add(this.Block7_5);
-            this.Controls.Add(this.Block7_3);
+            this.Controls.Add(this.Block7_6);
+            this.Controls.Add(this.Block7_4);
             this.Controls.Add(this.Schatten11_Ausf4);
             this.Controls.Add(this.Schatten11_Ausf5);
             this.Controls.Add(this.Schatten11_Ausf3);
-            this.Controls.Add(this.Block7_6);
+            this.Controls.Add(this.Block7_7);
             this.Controls.Add(this.Block6_18);
             this.Controls.Add(this.Block6_11);
             this.Controls.Add(this.Block6_17);
@@ -12447,10 +12727,10 @@
             this.Controls.Add(this.pictureBox332);
             this.Controls.Add(this.pictureBox333);
             this.Controls.Add(this.pictureBox334);
-            this.Controls.Add(this.pictureBox326);
-            this.Controls.Add(this.pictureBox327);
-            this.Controls.Add(this.pictureBox328);
-            this.Controls.Add(this.pictureBox329);
+            this.Controls.Add(this.Block8_1);
+            this.Controls.Add(this.Block8_3);
+            this.Controls.Add(this.Block8_4);
+            this.Controls.Add(this.Block8_5);
             this.Controls.Add(this.pictureBox322);
             this.Controls.Add(this.pictureBox314);
             this.Controls.Add(this.pictureBox317);
@@ -12474,35 +12754,35 @@
             this.Controls.Add(this.pictureBox292);
             this.Controls.Add(this.Block5_22);
             this.Controls.Add(this.Block5_16);
-            this.Controls.Add(this.pictureBox278);
+            this.Controls.Add(this.Block9_6);
             this.Controls.Add(this.Block5_15);
-            this.Controls.Add(this.pictureBox280);
+            this.Controls.Add(this.Block9_7);
             this.Controls.Add(this.Block5_14);
-            this.Controls.Add(this.pictureBox282);
+            this.Controls.Add(this.Block9_8);
             this.Controls.Add(this.Block5_13);
-            this.Controls.Add(this.pictureBox268);
+            this.Controls.Add(this.Block9_9);
             this.Controls.Add(this.Block5_12);
-            this.Controls.Add(this.pictureBox270);
+            this.Controls.Add(this.Block9_10);
             this.Controls.Add(this.Block5_11);
-            this.Controls.Add(this.pictureBox272);
+            this.Controls.Add(this.Block9_11);
             this.Controls.Add(this.Block5_10);
-            this.Controls.Add(this.pictureBox274);
+            this.Controls.Add(this.Block9_12);
             this.Controls.Add(this.Block5_9);
             this.Controls.Add(this.Block5_19);
             this.Controls.Add(this.Block5_21);
-            this.Controls.Add(this.pictureBox265);
-            this.Controls.Add(this.pictureBox264);
-            this.Controls.Add(this.pictureBox263);
-            this.Controls.Add(this.pictureBox262);
-            this.Controls.Add(this.pictureBox261);
+            this.Controls.Add(this.Block9_1);
+            this.Controls.Add(this.Block9_3);
+            this.Controls.Add(this.Block8_12);
+            this.Controls.Add(this.Block8_10);
+            this.Controls.Add(this.Block8_9);
             this.Controls.Add(this.Weiche60_Gleis1);
             this.Controls.Add(this.Block5_23);
-            this.Controls.Add(this.pictureBox256);
+            this.Controls.Add(this.Kreuzung1_3);
             this.Controls.Add(this.Block6_19);
-            this.Controls.Add(this.Schatten_Einfahrt_1);
-            this.Controls.Add(this.pictureBox253);
-            this.Controls.Add(this.pictureBox251);
-            this.Controls.Add(this.pictureBox250);
+            this.Controls.Add(this.Block7_12);
+            this.Controls.Add(this.Block8_6);
+            this.Controls.Add(this.Kreuzung1_4);
+            this.Controls.Add(this.Kreuzung1_1);
             this.Controls.Add(this.Weiche60);
             this.Controls.Add(this.Weiche71);
             this.Controls.Add(this.Weiche72);
@@ -12513,21 +12793,21 @@
             this.Controls.Add(this.Weiche63);
             this.Controls.Add(this.Weiche62);
             this.Controls.Add(this.Weiche61);
-            this.Controls.Add(this.pictureBox238);
+            this.Controls.Add(this.Block9_13);
             this.Controls.Add(this.Block5_8);
-            this.Controls.Add(this.pictureBox236);
+            this.Controls.Add(this.Block9_14);
             this.Controls.Add(this.Block5_7);
-            this.Controls.Add(this.pictureBox234);
+            this.Controls.Add(this.Block9_15);
             this.Controls.Add(this.Block5_6);
-            this.Controls.Add(this.pictureBox232);
+            this.Controls.Add(this.Block9_16);
             this.Controls.Add(this.Block5_5);
-            this.Controls.Add(this.pictureBox230);
+            this.Controls.Add(this.Block9_17);
             this.Controls.Add(this.Block5_4);
-            this.Controls.Add(this.pictureBox228);
+            this.Controls.Add(this.Block9_18);
             this.Controls.Add(this.Block5_3);
-            this.Controls.Add(this.pictureBox226);
+            this.Controls.Add(this.Block9_19);
             this.Controls.Add(this.Block5_2);
-            this.Controls.Add(this.pictureBox225);
+            this.Controls.Add(this.Block9_20);
             this.Controls.Add(this.Block5_1);
             this.Controls.Add(this.Block5_0);
             this.Controls.Add(this.Drehscheibe);
@@ -12790,16 +13070,16 @@
             this.Controls.Add(this.pictureBox42);
             this.Controls.Add(this.pictureBox43);
             this.Controls.Add(this.label82);
-            this.Controls.Add(this.pictureBox56);
-            this.Controls.Add(this.pictureBox106);
-            this.Controls.Add(this.pictureBox105);
-            this.Controls.Add(this.pictureBox104);
-            this.Controls.Add(this.pictureBox73);
-            this.Controls.Add(this.pictureBox100);
-            this.Controls.Add(this.pictureBox71);
+            this.Controls.Add(this.Weiche66_1);
+            this.Controls.Add(this.Weiche76_1);
+            this.Controls.Add(this.Weiche75_1);
+            this.Controls.Add(this.Weiche74_1);
+            this.Controls.Add(this.Weiche73_1);
+            this.Controls.Add(this.Weiche72_1);
+            this.Controls.Add(this.Weiche71_1);
             this.Controls.Add(this.pictureBox114);
-            this.Controls.Add(this.pictureBox74);
-            this.Controls.Add(this.pictureBox117);
+            this.Controls.Add(this.WeicheEcke75_91);
+            this.Controls.Add(this.WeicheEcke74_92);
             this.Controls.Add(this.SchattenGl8_1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -12866,36 +13146,36 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox116)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox115)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche35)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox390)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox285)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block5_Block9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WeicheEcke76_90)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox386)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox385)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox384)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox383)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox382)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox381)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox380)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox379)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox378)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block7_4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox370)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox367)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox366)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Schatten_Einfahrt_3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox364)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox363)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Schatten_Einfahrt_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche61_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche62_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche63_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche64_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche61_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche62_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche63_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche65_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche76_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche73_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche71_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche70_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block7_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block7_1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block7_5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block7_3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten11_Ausf4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten11_Ausf5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten11_Ausf3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block7_6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block6_18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block6_11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block6_17)).EndInit();
@@ -12913,10 +13193,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox332)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox333)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox334)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox326)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox327)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox328)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox329)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox322)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox314)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox317)).EndInit();
@@ -12940,35 +13220,35 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox292)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_22)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_16)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox278)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox280)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox282)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox268)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox270)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox272)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox274)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_19)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox265)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox264)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox263)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox262)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox261)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche60_Gleis1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_23)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox256)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block6_19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Schatten_Einfahrt_1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox253)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox251)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox250)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche60)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche71)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche72)).EndInit();
@@ -12979,21 +13259,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche63)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche62)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche61)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox238)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox236)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox234)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox232)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox230)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox228)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox226)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_19)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox225)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_20)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Drehscheibe)).EndInit();
@@ -13362,14 +13642,14 @@
             this.Block6_Auswahl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Block5_17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_18)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox44)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox52)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block9_5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche66)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox56)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche66_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche65)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox63)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox67)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox72)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche64_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche72_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox76)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox81)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox82)).EndInit();
@@ -13377,13 +13657,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche73)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox89)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox90)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox91)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox71)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox100)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox73)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox104)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox105)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox106)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche65_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche71_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche72_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche73_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche74_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche75_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche76_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche90)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche90_Gleis1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox109)).EndInit();
@@ -13392,8 +13672,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche92)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche92_Gleis2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox114)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox74)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox117)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WeicheEcke75_91)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WeicheEcke74_92)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl8_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl8_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl8_3)).EndInit();
@@ -13405,8 +13685,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Schatten8_Ausf2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten10_Ausf2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten9_Ausf1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox24)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox141)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block8_11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche92_Gleis1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche91_Gleis1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox144)).EndInit();
@@ -13438,12 +13718,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche81)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche82)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche70)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche68)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox54)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox57)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox58)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox87)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Schatten0_Ausf3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Schatten0_Ausf1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Schatten0_Ausf2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche68_67)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox107)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox111)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox112)).EndInit();
@@ -13453,13 +13733,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox140)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox176)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox178)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox180)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox184)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche70_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Block7_3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox53)).EndInit();
-            this.panel2.ResumeLayout(false);
+            this.SchattenIntern_Auswahl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Schatten8_Ausf3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Schatten9_Ausf2)).EndInit();
+            this.Schatten1_Auswahl.ResumeLayout(false);
+            this.Gl6_links_Auswahl.ResumeLayout(false);
+            this.Gl5_links_Auswahl.ResumeLayout(false);
+            this.Gl4_links_Auswahl.ResumeLayout(false);
+            this.Gl3_links_Auswahl.ResumeLayout(false);
+            this.Gl2_links_Auswahl.ResumeLayout(false);
+            this.Gl1_links_Auswahl.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -13724,20 +14011,20 @@
         private System.Windows.Forms.PictureBox Drehscheibe;
         private System.Windows.Forms.PictureBox Block5_0;
         private System.Windows.Forms.PictureBox Block5_1;
-        private System.Windows.Forms.PictureBox pictureBox225;
-        private System.Windows.Forms.PictureBox pictureBox226;
+        private System.Windows.Forms.PictureBox Block9_20;
+        private System.Windows.Forms.PictureBox Block9_19;
         private System.Windows.Forms.PictureBox Block5_2;
-        private System.Windows.Forms.PictureBox pictureBox228;
+        private System.Windows.Forms.PictureBox Block9_18;
         private System.Windows.Forms.PictureBox Block5_3;
-        private System.Windows.Forms.PictureBox pictureBox230;
+        private System.Windows.Forms.PictureBox Block9_17;
         private System.Windows.Forms.PictureBox Block5_4;
-        private System.Windows.Forms.PictureBox pictureBox232;
+        private System.Windows.Forms.PictureBox Block9_16;
         private System.Windows.Forms.PictureBox Block5_5;
-        private System.Windows.Forms.PictureBox pictureBox234;
+        private System.Windows.Forms.PictureBox Block9_15;
         private System.Windows.Forms.PictureBox Block5_6;
-        private System.Windows.Forms.PictureBox pictureBox236;
+        private System.Windows.Forms.PictureBox Block9_14;
         private System.Windows.Forms.PictureBox Block5_7;
-        private System.Windows.Forms.PictureBox pictureBox238;
+        private System.Windows.Forms.PictureBox Block9_13;
         private System.Windows.Forms.PictureBox Block5_8;
         private System.Windows.Forms.PictureBox Weiche61;
         private System.Windows.Forms.PictureBox Weiche62;
@@ -13749,35 +14036,35 @@
         private System.Windows.Forms.PictureBox Weiche72;
         private System.Windows.Forms.PictureBox Weiche71;
         private System.Windows.Forms.PictureBox Weiche60;
-        private System.Windows.Forms.PictureBox pictureBox250;
-        private System.Windows.Forms.PictureBox pictureBox251;
-        private System.Windows.Forms.PictureBox pictureBox253;
-        private System.Windows.Forms.PictureBox Schatten_Einfahrt_1;
+        private System.Windows.Forms.PictureBox Kreuzung1_1;
+        private System.Windows.Forms.PictureBox Kreuzung1_4;
+        private System.Windows.Forms.PictureBox Block8_6;
+        private System.Windows.Forms.PictureBox Block7_12;
         private System.Windows.Forms.PictureBox Block6_19;
-        private System.Windows.Forms.PictureBox pictureBox256;
+        private System.Windows.Forms.PictureBox Kreuzung1_3;
         private System.Windows.Forms.PictureBox Block5_23;
         private System.Windows.Forms.PictureBox Weiche60_Gleis1;
-        private System.Windows.Forms.PictureBox pictureBox261;
-        private System.Windows.Forms.PictureBox pictureBox262;
-        private System.Windows.Forms.PictureBox pictureBox263;
-        private System.Windows.Forms.PictureBox pictureBox264;
-        private System.Windows.Forms.PictureBox pictureBox265;
+        private System.Windows.Forms.PictureBox Block8_9;
+        private System.Windows.Forms.PictureBox Block8_10;
+        private System.Windows.Forms.PictureBox Block8_12;
+        private System.Windows.Forms.PictureBox Block9_3;
+        private System.Windows.Forms.PictureBox Block9_1;
         private System.Windows.Forms.PictureBox Block5_21;
         private System.Windows.Forms.PictureBox Block5_19;
-        private System.Windows.Forms.PictureBox pictureBox268;
+        private System.Windows.Forms.PictureBox Block9_9;
         private System.Windows.Forms.PictureBox Block5_12;
-        private System.Windows.Forms.PictureBox pictureBox270;
+        private System.Windows.Forms.PictureBox Block9_10;
         private System.Windows.Forms.PictureBox Block5_11;
-        private System.Windows.Forms.PictureBox pictureBox272;
+        private System.Windows.Forms.PictureBox Block9_11;
         private System.Windows.Forms.PictureBox Block5_10;
-        private System.Windows.Forms.PictureBox pictureBox274;
+        private System.Windows.Forms.PictureBox Block9_12;
         private System.Windows.Forms.PictureBox Block5_9;
         private System.Windows.Forms.PictureBox Block5_16;
-        private System.Windows.Forms.PictureBox pictureBox278;
+        private System.Windows.Forms.PictureBox Block9_6;
         private System.Windows.Forms.PictureBox Block5_15;
-        private System.Windows.Forms.PictureBox pictureBox280;
+        private System.Windows.Forms.PictureBox Block9_7;
         private System.Windows.Forms.PictureBox Block5_14;
-        private System.Windows.Forms.PictureBox pictureBox282;
+        private System.Windows.Forms.PictureBox Block9_8;
         private System.Windows.Forms.PictureBox Block5_13;
         private System.Windows.Forms.PictureBox Block5_22;
         private System.Windows.Forms.PictureBox pictureBox292;
@@ -13801,10 +14088,10 @@
         private System.Windows.Forms.PictureBox pictureBox317;
         private System.Windows.Forms.PictureBox pictureBox318;
         private System.Windows.Forms.PictureBox pictureBox322;
-        private System.Windows.Forms.PictureBox pictureBox326;
-        private System.Windows.Forms.PictureBox pictureBox327;
-        private System.Windows.Forms.PictureBox pictureBox328;
-        private System.Windows.Forms.PictureBox pictureBox329;
+        private System.Windows.Forms.PictureBox Block8_1;
+        private System.Windows.Forms.PictureBox Block8_3;
+        private System.Windows.Forms.PictureBox Block8_4;
+        private System.Windows.Forms.PictureBox Block8_5;
         private System.Windows.Forms.PictureBox pictureBox331;
         private System.Windows.Forms.PictureBox pictureBox332;
         private System.Windows.Forms.PictureBox pictureBox333;
@@ -13822,36 +14109,36 @@
         private System.Windows.Forms.PictureBox Block6_15;
         private System.Windows.Forms.PictureBox Block6_14;
         private System.Windows.Forms.PictureBox Block6_18;
-        private System.Windows.Forms.PictureBox Block7_6;
+        private System.Windows.Forms.PictureBox Block7_7;
         private System.Windows.Forms.PictureBox Schatten11_Ausf4;
         private System.Windows.Forms.PictureBox Schatten11_Ausf5;
         private System.Windows.Forms.PictureBox Schatten11_Ausf3;
-        private System.Windows.Forms.PictureBox Block7_5;
+        private System.Windows.Forms.PictureBox Block7_6;
         private System.Windows.Forms.PictureBox Block7_1;
         private System.Windows.Forms.PictureBox Block7_2;
-        private System.Windows.Forms.PictureBox Schatten_Einfahrt_2;
-        private System.Windows.Forms.PictureBox Block7_3;
-        private System.Windows.Forms.PictureBox pictureBox363;
-        private System.Windows.Forms.PictureBox pictureBox364;
-        private System.Windows.Forms.PictureBox Schatten_Einfahrt_3;
-        private System.Windows.Forms.PictureBox pictureBox366;
-        private System.Windows.Forms.PictureBox pictureBox367;
-        private System.Windows.Forms.PictureBox pictureBox370;
+        private System.Windows.Forms.PictureBox Block7_13;
         private System.Windows.Forms.PictureBox Block7_4;
-        private System.Windows.Forms.PictureBox pictureBox378;
-        private System.Windows.Forms.PictureBox pictureBox379;
-        private System.Windows.Forms.PictureBox pictureBox380;
-        private System.Windows.Forms.PictureBox pictureBox381;
-        private System.Windows.Forms.PictureBox pictureBox382;
-        private System.Windows.Forms.PictureBox pictureBox383;
-        private System.Windows.Forms.PictureBox pictureBox384;
-        private System.Windows.Forms.PictureBox pictureBox385;
-        private System.Windows.Forms.PictureBox pictureBox386;
+        private System.Windows.Forms.PictureBox Block8_7;
+        private System.Windows.Forms.PictureBox Block8_8;
+        private System.Windows.Forms.PictureBox Weiche70_2;
+        private System.Windows.Forms.PictureBox Weiche71_2;
+        private System.Windows.Forms.PictureBox Weiche73_2;
+        private System.Windows.Forms.PictureBox Weiche76_2;
+        private System.Windows.Forms.PictureBox Block7_5;
+        private System.Windows.Forms.PictureBox Weiche65_1;
+        private System.Windows.Forms.PictureBox Weiche63_1;
+        private System.Windows.Forms.PictureBox Weiche62_1;
+        private System.Windows.Forms.PictureBox Weiche61_1;
+        private System.Windows.Forms.PictureBox Weiche64_2;
+        private System.Windows.Forms.PictureBox Weiche63_2;
+        private System.Windows.Forms.PictureBox Weiche62_2;
+        private System.Windows.Forms.PictureBox Weiche61_2;
+        private System.Windows.Forms.PictureBox Kreuzung1_2;
         private System.Windows.Forms.PictureBox Block5_20;
-        private System.Windows.Forms.PictureBox pictureBox285;
-        private System.Windows.Forms.PictureBox pictureBox390;
-        private System.Windows.Forms.PictureBox pictureBox22;
-        private System.Windows.Forms.PictureBox pictureBox26;
+        private System.Windows.Forms.PictureBox WeicheEcke76_90;
+        private System.Windows.Forms.PictureBox Block9_2;
+        private System.Windows.Forms.PictureBox Block5_Block9;
+        private System.Windows.Forms.PictureBox Kreuzung1;
         private System.Windows.Forms.PictureBox Weiche35;
         private System.Windows.Forms.PictureBox pictureBox115;
         private System.Windows.Forms.PictureBox pictureBox116;
@@ -14287,12 +14574,12 @@
         private System.Windows.Forms.Button button23;
         private System.Windows.Forms.Button button24;
         private System.Windows.Forms.Button button25;
-        private System.Windows.Forms.Button button26;
-        private System.Windows.Forms.Button button27;
-        private System.Windows.Forms.Button button28;
-        private System.Windows.Forms.Button button29;
-        private System.Windows.Forms.Button button30;
-        private System.Windows.Forms.Button button31;
+        private System.Windows.Forms.Button Fahrstr_Schatten7_Ausf;
+        private System.Windows.Forms.Button Fahrstr_Schatten6_Ausf;
+        private System.Windows.Forms.Button Fahrstr_Schatten5_Ausf;
+        private System.Windows.Forms.Button Fahrstr_Schatten4_Ausf;
+        private System.Windows.Forms.Button Fahrstr_Schatten2_Ausf;
+        private System.Windows.Forms.Button Fahrstr_Schatten1_Ausf;
         private System.Windows.Forms.Label label94;
         private System.Windows.Forms.Label label95;
         private System.Windows.Forms.Label label96;
@@ -14326,17 +14613,17 @@
         private System.Windows.Forms.Button Block6_Schatten8;
         private System.Windows.Forms.PictureBox Block5_17;
         private System.Windows.Forms.PictureBox Block5_18;
-        private System.Windows.Forms.PictureBox pictureBox44;
-        private System.Windows.Forms.PictureBox pictureBox52;
+        private System.Windows.Forms.PictureBox Block9_4;
+        private System.Windows.Forms.PictureBox Block9_5;
         private System.Windows.Forms.PictureBox Weiche66;
         private System.Windows.Forms.PictureBox Weiche67;
-        private System.Windows.Forms.PictureBox pictureBox56;
+        private System.Windows.Forms.PictureBox Weiche66_1;
         private System.Windows.Forms.PictureBox Weiche65;
         private System.Windows.Forms.TextBox textBox26;
         private System.Windows.Forms.PictureBox pictureBox63;
         private System.Windows.Forms.Label label116;
-        private System.Windows.Forms.PictureBox pictureBox67;
-        private System.Windows.Forms.PictureBox pictureBox72;
+        private System.Windows.Forms.PictureBox Weiche64_1;
+        private System.Windows.Forms.PictureBox Weiche72_2;
         private System.Windows.Forms.PictureBox pictureBox76;
         private System.Windows.Forms.PictureBox pictureBox81;
         private System.Windows.Forms.PictureBox pictureBox82;
@@ -14344,13 +14631,13 @@
         private System.Windows.Forms.PictureBox Weiche73;
         private System.Windows.Forms.PictureBox pictureBox89;
         private System.Windows.Forms.PictureBox pictureBox90;
-        private System.Windows.Forms.PictureBox pictureBox91;
-        private System.Windows.Forms.PictureBox pictureBox71;
-        private System.Windows.Forms.PictureBox pictureBox100;
-        private System.Windows.Forms.PictureBox pictureBox73;
-        private System.Windows.Forms.PictureBox pictureBox104;
-        private System.Windows.Forms.PictureBox pictureBox105;
-        private System.Windows.Forms.PictureBox pictureBox106;
+        private System.Windows.Forms.PictureBox Weiche65_2;
+        private System.Windows.Forms.PictureBox Weiche71_1;
+        private System.Windows.Forms.PictureBox Weiche72_1;
+        private System.Windows.Forms.PictureBox Weiche73_1;
+        private System.Windows.Forms.PictureBox Weiche74_1;
+        private System.Windows.Forms.PictureBox Weiche75_1;
+        private System.Windows.Forms.PictureBox Weiche76_1;
         private System.Windows.Forms.PictureBox Weiche90;
         private System.Windows.Forms.PictureBox Weiche90_Gleis1;
         private System.Windows.Forms.Button Sperre_Einfahrt_Schatten10;
@@ -14363,8 +14650,8 @@
         private System.Windows.Forms.PictureBox pictureBox114;
         private System.Windows.Forms.TextBox textBox27;
         private System.Windows.Forms.Button button33;
-        private System.Windows.Forms.PictureBox pictureBox74;
-        private System.Windows.Forms.PictureBox pictureBox117;
+        private System.Windows.Forms.PictureBox WeicheEcke75_91;
+        private System.Windows.Forms.PictureBox WeicheEcke74_92;
         private System.Windows.Forms.PictureBox SchattenGl8_1;
         private System.Windows.Forms.PictureBox SchattenGl8_2;
         private System.Windows.Forms.PictureBox SchattenGl8_3;
@@ -14378,9 +14665,9 @@
         private System.Windows.Forms.PictureBox Schatten9_Ausf1;
         private System.Windows.Forms.Label label81;
         private System.Windows.Forms.Button button34;
-        private System.Windows.Forms.Button button35;
-        private System.Windows.Forms.PictureBox pictureBox24;
-        private System.Windows.Forms.PictureBox pictureBox141;
+        private System.Windows.Forms.Button Fahrstr_Schatten3_Ausf;
+        private System.Windows.Forms.PictureBox Block8_2;
+        private System.Windows.Forms.PictureBox Block8_11;
         private System.Windows.Forms.PictureBox Weiche92_Gleis1;
         private System.Windows.Forms.PictureBox Weiche91_Gleis1;
         private System.Windows.Forms.PictureBox pictureBox144;
@@ -14407,10 +14694,10 @@
         private System.Windows.Forms.PictureBox Block7_10;
         private System.Windows.Forms.PictureBox Block7_9;
         private System.Windows.Forms.PictureBox Block7_8;
-        private System.Windows.Forms.Button button36;
-        private System.Windows.Forms.Button button37;
-        private System.Windows.Forms.Button button38;
-        private System.Windows.Forms.Button button39;
+        private System.Windows.Forms.Button Fahrstr_Schatten11_Ausf;
+        private System.Windows.Forms.Button Fahrstr_Schatten10_Ausf;
+        private System.Windows.Forms.Button Fahrstr_Schatten9_Ausf;
+        private System.Windows.Forms.Button Fahrstr_Schatten8_Ausf;
         private System.Windows.Forms.Button Sperre_Einfahrt_Schatten8;
         private System.Windows.Forms.Button Sperre_Einfahrt_Schatten9;
         private System.Windows.Forms.TextBox textBox28;
@@ -14440,12 +14727,12 @@
         private System.Windows.Forms.Label label124;
         private System.Windows.Forms.Label label125;
         private System.Windows.Forms.PictureBox Weiche70;
-        private System.Windows.Forms.PictureBox pictureBox21;
+        private System.Windows.Forms.PictureBox Block7_14;
         private System.Windows.Forms.PictureBox Weiche68;
-        private System.Windows.Forms.PictureBox pictureBox54;
-        private System.Windows.Forms.PictureBox pictureBox57;
-        private System.Windows.Forms.PictureBox pictureBox58;
-        private System.Windows.Forms.PictureBox pictureBox87;
+        private System.Windows.Forms.PictureBox Schatten0_Ausf3;
+        private System.Windows.Forms.PictureBox Schatten0_Ausf1;
+        private System.Windows.Forms.PictureBox Schatten0_Ausf2;
+        private System.Windows.Forms.PictureBox Weiche68_67;
         private System.Windows.Forms.PictureBox pictureBox107;
         private System.Windows.Forms.PictureBox pictureBox111;
         private System.Windows.Forms.PictureBox pictureBox112;
@@ -14455,28 +14742,49 @@
         private System.Windows.Forms.PictureBox pictureBox140;
         private System.Windows.Forms.PictureBox pictureBox176;
         private System.Windows.Forms.PictureBox pictureBox178;
-        private System.Windows.Forms.PictureBox pictureBox180;
+        private System.Windows.Forms.PictureBox Weiche70_1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox31;
-        private System.Windows.Forms.PictureBox pictureBox184;
+        private System.Windows.Forms.PictureBox Block7_3;
         private System.Windows.Forms.Label label126;
         private System.Windows.Forms.Label label127;
         private System.Windows.Forms.PictureBox pictureBox17;
         private System.Windows.Forms.PictureBox pictureBox53;
         private System.Windows.Forms.Button Block8;
         private System.Windows.Forms.Label label114;
-        private System.Windows.Forms.Button button32;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button51;
-        private System.Windows.Forms.Button button50;
-        private System.Windows.Forms.Button button49;
-        private System.Windows.Forms.Button button48;
-        private System.Windows.Forms.Button button40;
-        private System.Windows.Forms.Button button41;
-        private System.Windows.Forms.Button button46;
-        private System.Windows.Forms.Button button47;
+        private System.Windows.Forms.Button Fahrstr_Schatten0_Ausf;
+        private System.Windows.Forms.Panel SchattenIntern_Auswahl;
+        private System.Windows.Forms.Button Intern_Schatten7;
+        private System.Windows.Forms.Button Intern_Schatten6;
+        private System.Windows.Forms.Button Intern_Schatten5;
+        private System.Windows.Forms.Button Intern_Schatten2;
+        private System.Windows.Forms.Button Intern_Schatten4;
+        private System.Windows.Forms.Button Intern_Schatten1;
+        private System.Windows.Forms.Button Intern_Schatten3;
+        private System.Windows.Forms.Button Intern_Schatten0;
         private System.Windows.Forms.PictureBox Schatten8_Ausf3;
         private System.Windows.Forms.PictureBox Schatten9_Ausf2;
+        private System.Windows.Forms.Panel Schatten1_Auswahl;
+        private System.Windows.Forms.Button Schatten1_Block9;
+        private System.Windows.Forms.Button Schatten1_Block8;
+        private System.Windows.Forms.Panel Gl6_links_Auswahl;
+        private System.Windows.Forms.Button Gl6_Ausfahrt_links_Block5;
+        private System.Windows.Forms.Button Gl6_Ausfahrt_links_Block2;
+        private System.Windows.Forms.Panel Gl5_links_Auswahl;
+        private System.Windows.Forms.Button Gl5_Ausfahrt_links_Block5;
+        private System.Windows.Forms.Button Gl5_Ausfahrt_links_Block2;
+        private System.Windows.Forms.Panel Gl4_links_Auswahl;
+        private System.Windows.Forms.Button Gl4_Ausfahrt_links_Block5;
+        private System.Windows.Forms.Button Gl4_Ausfahrt_links_Block2;
+        private System.Windows.Forms.Panel Gl3_links_Auswahl;
+        private System.Windows.Forms.Button Gl3_Ausfahrt_links_Block5;
+        private System.Windows.Forms.Button Gl3_Ausfahrt_links_Block2;
+        private System.Windows.Forms.Panel Gl2_links_Auswahl;
+        private System.Windows.Forms.Button Gl2_Ausfahrt_links_Block5;
+        private System.Windows.Forms.Button Gl2_Ausfahrt_links_Block2;
+        private System.Windows.Forms.Panel Gl1_links_Auswahl;
+        private System.Windows.Forms.Button Gl1_Ausfahrt_links_Block5;
+        private System.Windows.Forms.Button Gl1_Ausfahrt_links_Block2;
     }
 }
 
