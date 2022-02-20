@@ -52,18 +52,18 @@
             this.Abo_CAN_detect = new System.Windows.Forms.CheckBox();
             this.Abos = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.IP_1 = new System.Windows.Forms.TextBox();
-            this.IP_2 = new System.Windows.Forms.TextBox();
-            this.IP_3 = new System.Windows.Forms.TextBox();
-            this.IP_4 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.IP_Port = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.Z21_Connect = new System.Windows.Forms.Button();
-            this.Z21_DisConnect = new System.Windows.Forms.Button();
-            this.AutoConnect = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.Seriennummer = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.AutoConnect = new System.Windows.Forms.CheckBox();
+            this.Z21_DisConnect = new System.Windows.Forms.Button();
+            this.Z21_Connect = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.IP_Port = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.IP_4 = new System.Windows.Forms.TextBox();
+            this.IP_3 = new System.Windows.Forms.TextBox();
+            this.IP_2 = new System.Windows.Forms.TextBox();
+            this.IP_1 = new System.Windows.Forms.TextBox();
             this.Abos.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -328,78 +328,22 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "IP-Verbindung";
             // 
-            // IP_1
+            // Seriennummer
             // 
-            this.IP_1.Location = new System.Drawing.Point(75, 17);
-            this.IP_1.Name = "IP_1";
-            this.IP_1.Size = new System.Drawing.Size(28, 20);
-            this.IP_1.TabIndex = 0;
+            this.Seriennummer.Location = new System.Drawing.Point(314, 41);
+            this.Seriennummer.Name = "Seriennummer";
+            this.Seriennummer.ReadOnly = true;
+            this.Seriennummer.Size = new System.Drawing.Size(87, 20);
+            this.Seriennummer.TabIndex = 23;
             // 
-            // IP_2
+            // label2
             // 
-            this.IP_2.Location = new System.Drawing.Point(109, 17);
-            this.IP_2.Name = "IP_2";
-            this.IP_2.Size = new System.Drawing.Size(28, 20);
-            this.IP_2.TabIndex = 1;
-            // 
-            // IP_3
-            // 
-            this.IP_3.Location = new System.Drawing.Point(143, 17);
-            this.IP_3.Name = "IP_3";
-            this.IP_3.Size = new System.Drawing.Size(28, 20);
-            this.IP_3.TabIndex = 2;
-            // 
-            // IP_4
-            // 
-            this.IP_4.Location = new System.Drawing.Point(177, 17);
-            this.IP_4.Name = "IP_4";
-            this.IP_4.Size = new System.Drawing.Size(28, 20);
-            this.IP_4.TabIndex = 3;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 20);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "IP-Adresse";
-            // 
-            // IP_Port
-            // 
-            this.IP_Port.Location = new System.Drawing.Point(143, 41);
-            this.IP_Port.Name = "IP_Port";
-            this.IP_Port.Size = new System.Drawing.Size(62, 20);
-            this.IP_Port.TabIndex = 5;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 44);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "IP-Port";
-            // 
-            // Z21_Connect
-            // 
-            this.Z21_Connect.Location = new System.Drawing.Point(6, 67);
-            this.Z21_Connect.Name = "Z21_Connect";
-            this.Z21_Connect.Size = new System.Drawing.Size(97, 23);
-            this.Z21_Connect.TabIndex = 7;
-            this.Z21_Connect.Text = "Verbinden";
-            this.Z21_Connect.UseVisualStyleBackColor = true;
-            this.Z21_Connect.Click += new System.EventHandler(this.Z21_Connect_Click);
-            // 
-            // Z21_DisConnect
-            // 
-            this.Z21_DisConnect.Location = new System.Drawing.Point(109, 67);
-            this.Z21_DisConnect.Name = "Z21_DisConnect";
-            this.Z21_DisConnect.Size = new System.Drawing.Size(96, 23);
-            this.Z21_DisConnect.TabIndex = 20;
-            this.Z21_DisConnect.Text = "Trennen";
-            this.Z21_DisConnect.UseVisualStyleBackColor = true;
-            this.Z21_DisConnect.Click += new System.EventHandler(this.Z21_DisConnect_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(234, 44);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "Seriennummer";
             // 
             // AutoConnect
             // 
@@ -411,22 +355,78 @@
             this.AutoConnect.Text = "Automatisch bei Programmstart verbinden";
             this.AutoConnect.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // Z21_DisConnect
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(234, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 13);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "Seriennummer";
+            this.Z21_DisConnect.Location = new System.Drawing.Point(109, 67);
+            this.Z21_DisConnect.Name = "Z21_DisConnect";
+            this.Z21_DisConnect.Size = new System.Drawing.Size(96, 23);
+            this.Z21_DisConnect.TabIndex = 20;
+            this.Z21_DisConnect.Text = "Trennen";
+            this.Z21_DisConnect.UseVisualStyleBackColor = true;
+            this.Z21_DisConnect.Click += new System.EventHandler(this.Z21_DisConnect_Click);
             // 
-            // Seriennummer
+            // Z21_Connect
             // 
-            this.Seriennummer.Location = new System.Drawing.Point(314, 41);
-            this.Seriennummer.Name = "Seriennummer";
-            this.Seriennummer.ReadOnly = true;
-            this.Seriennummer.Size = new System.Drawing.Size(87, 20);
-            this.Seriennummer.TabIndex = 23;
+            this.Z21_Connect.Location = new System.Drawing.Point(6, 67);
+            this.Z21_Connect.Name = "Z21_Connect";
+            this.Z21_Connect.Size = new System.Drawing.Size(97, 23);
+            this.Z21_Connect.TabIndex = 7;
+            this.Z21_Connect.Text = "Verbinden";
+            this.Z21_Connect.UseVisualStyleBackColor = true;
+            this.Z21_Connect.Click += new System.EventHandler(this.Z21_Connect_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 44);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(39, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "IP-Port";
+            // 
+            // IP_Port
+            // 
+            this.IP_Port.Location = new System.Drawing.Point(143, 41);
+            this.IP_Port.Name = "IP_Port";
+            this.IP_Port.Size = new System.Drawing.Size(62, 20);
+            this.IP_Port.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 20);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "IP-Adresse";
+            // 
+            // IP_4
+            // 
+            this.IP_4.Location = new System.Drawing.Point(177, 17);
+            this.IP_4.Name = "IP_4";
+            this.IP_4.Size = new System.Drawing.Size(28, 20);
+            this.IP_4.TabIndex = 3;
+            // 
+            // IP_3
+            // 
+            this.IP_3.Location = new System.Drawing.Point(143, 17);
+            this.IP_3.Name = "IP_3";
+            this.IP_3.Size = new System.Drawing.Size(28, 20);
+            this.IP_3.TabIndex = 2;
+            // 
+            // IP_2
+            // 
+            this.IP_2.Location = new System.Drawing.Point(109, 17);
+            this.IP_2.Name = "IP_2";
+            this.IP_2.Size = new System.Drawing.Size(28, 20);
+            this.IP_2.TabIndex = 1;
+            // 
+            // IP_1
+            // 
+            this.IP_1.Location = new System.Drawing.Point(75, 17);
+            this.IP_1.Name = "IP_1";
+            this.IP_1.Size = new System.Drawing.Size(28, 20);
+            this.IP_1.TabIndex = 0;
             // 
             // Z21_Einstellung
             // 

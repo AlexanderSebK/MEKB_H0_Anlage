@@ -104,5 +104,9 @@ namespace MEKB_H0_Anlage
         {
             z21Start.Z21_SET_LOCO_FUNCTION(Adresse, Zustand, FunktionsNr);
         }
+        private void Setze_Lok_Status(int Adresse)
+        {
+            z21Start.Z21_GET_LOCO_INFO(Adresse);
+        }
     }
 }

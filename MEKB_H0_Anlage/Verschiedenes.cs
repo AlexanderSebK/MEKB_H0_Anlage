@@ -74,8 +74,9 @@ namespace MEKB_H0_Anlage
             Besetzt = false;
             FahrstrasseAktive = false;
             Q_Modus = false;
-            Schaltzeit = 500;
+            Schaltzeit = 3000;
             Deaktivieren = true;
+            ZeitAktiv = 0;
         }
         /// <summary>
         /// Parameter: Name der Weiche als String
@@ -98,11 +99,10 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public bool FahrstrasseRichtung_vonZunge { get; set; }
         public bool FahrstrasseAktive { get; set; }
-
+        public bool FahrstrasseSicher { get; set; }
         public bool Q_Modus { get; set; }
         public int Schaltzeit { get; set; }
         public bool Deaktivieren { get; set; }
-
         public bool Besetzt { get; set; }
         /// <summary>
         /// Paramter: Weichen Befehl zur Z21 wird gespiegelt. 
@@ -118,6 +118,10 @@ namespace MEKB_H0_Anlage
         /// Zustand: Wenn gesetzt hat Z21 einen Fehler am Decoder erkannt
         /// </summary>
         public bool Status_Error { get; set; }
+        /// <summary>
+        /// Zeit wie lange der Ausgang noch aktiv ist (ms)
+        /// </summary>
+        public int ZeitAktiv { get; set; }
         /// <summary>
         /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
         /// </summary>
@@ -194,49 +198,122 @@ namespace MEKB_H0_Anlage
         public Fahrstrasse()
         {
             Fahrstr_Weichenliste = new List<Weiche>();
+            ControlSetPointer = 0;
+            SetPointer = 0;
         }
         public List<Weiche> Fahrstr_Weichenliste { get; set; }
-        public bool Busy { get; set; }
+        public bool Safe { get; set; }
         private bool FahrstrasseGesetzt { get; set; }
         private bool FahrstrasseAktiv { get; set; }
-        public void SetFahrstrasse(List<Weiche> ListeGlobal, Z21 Z21_Instanz)
+
+        private int ControlSetPointer;
+        private int SetPointer;
+
+        private void WeichenSicherheit(List<Weiche> ListeGlobal, bool Sicherheitsstatus)
+        {
+            foreach (Weiche weiche in Fahrstr_Weichenliste)
+            {
+                int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
+                if (ListID == -1) return;
+                ListeGlobal[ListID].FahrstrasseSicher = Sicherheitsstatus;
+            }
+        }
+
+        public void StarteFahrstrasse(List<Weiche> ListeGlobal)
         {
             FahrstrasseGesetzt = true;
-            Busy = true;
+            Safe = false;
+            WeichenSicherheit(ListeGlobal, Safe);
+        }
+
+        public void SetFahrstrasseRichtung(List<Weiche> ListeGlobal)
+        {
             foreach (Weiche weiche in Fahrstr_Weichenliste)
             {
                 int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
                 if (ListID == -1) return;
 
-                if(ListeGlobal[ListID].Status_Unbekannt || ListeGlobal[ListID].Status_Error)
-                {
-                    MessageBox.Show("Weiche reagiert nicht. Verbindung von Z21 prüfen", "Weiche unbekannt oder Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    FahrstrasseGesetzt = false;
-                    FahrstrasseAktiv = false;
-                    return;
-                }
-
-                int Adresse = ListeGlobal[ListID].Adresse;
                 ListeGlobal[ListID].FahrstrasseRichtung_vonZunge = weiche.FahrstrasseRichtung_vonZunge;
-                ListeGlobal[ListID].FahrstrasseAbzweig = weiche.FahrstrasseAbzweig;
-                
-                if (ListeGlobal[ListID].Abzweig != weiche.FahrstrasseAbzweig)   //Wenn Weiche noch nicht in Position ist
-                {
-                    bool Q_Modus = weiche.Q_Modus;
-                    int Schaltzeit = weiche.Schaltzeit;
-                    bool deaktiviren = weiche.Deaktivieren;
+            }
+        }
 
+        public void SetFahrstrasse(List<Weiche> ListeGlobal, Z21 Z21_Instanz)
+        {
+            if (SetPointer >= Fahrstr_Weichenliste.Count) SetPointer = 0;
+            Weiche weiche = Fahrstr_Weichenliste[SetPointer];
+            
+
+            int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
+            if (ListID == -1) return;
+
+            if(ListeGlobal[ListID].Status_Unbekannt || ListeGlobal[ListID].Status_Error)
+            {
+                MessageBox.Show("Weiche reagiert nicht. Verbindung von Z21 prüfen", "Weiche unbekannt oder Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FahrstrasseGesetzt = false;
+                FahrstrasseAktiv = false;
+                return;
+            }
+
+            int Adresse = ListeGlobal[ListID].Adresse;
+            ListeGlobal[ListID].FahrstrasseRichtung_vonZunge = weiche.FahrstrasseRichtung_vonZunge;
+            ListeGlobal[ListID].FahrstrasseAbzweig = weiche.FahrstrasseAbzweig;
+                
+            if (ListeGlobal[ListID].Abzweig != weiche.FahrstrasseAbzweig)   //Wenn Weiche noch nicht in Position ist
+            {
+                if (ListeGlobal[ListID].ZeitAktiv <= 0) //Weiche nicht aktiv
+                {
                     if (ListeGlobal[ListID].Spiegeln)
                     {
-                        _ = Z21_Instanz.Z21_SET_WEICHEAsync(Adresse, !weiche.FahrstrasseAbzweig,Q_Modus,Schaltzeit,deaktiviren);
+                        Z21_Instanz.Z21_SET_TURNOUT(Adresse, !weiche.FahrstrasseAbzweig, true, true);
+                        ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
                     }
                     else
                     {
-                        _ = Z21_Instanz.Z21_SET_WEICHEAsync(Adresse, weiche.FahrstrasseAbzweig, Q_Modus, Schaltzeit, deaktiviren);
-                    }   
+                        Z21_Instanz.Z21_SET_TURNOUT(Adresse, weiche.FahrstrasseAbzweig, true, true);
+                        ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
+                    }
                 }
             }
-            Busy = false;
+            SetPointer++; // Nächste Weiche
+        }
+        public void ControlSetFahrstrasse(List<Weiche> ListeGlobal, Z21 Z21_Instanz)
+        {
+            if (Fahrstr_Weichenliste.Count == 0) //Weichenloser Block
+            {
+                Safe = true;
+                WeichenSicherheit(ListeGlobal, Safe);
+                return;
+            }
+            if (!Safe)
+            {
+                if (ControlSetPointer < Fahrstr_Weichenliste.Count)
+                {
+                    Weiche weiche = Fahrstr_Weichenliste[ControlSetPointer];
+                    int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
+                    if (ListID == -1) return;
+
+                    if (ListeGlobal[ListID].Spiegeln)
+                    {
+                        Z21_Instanz.Z21_SET_TURNOUT(ListeGlobal[ListID].Adresse, !weiche.FahrstrasseAbzweig, true, true);
+                        ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
+                    }
+                    else
+                    {
+                        Z21_Instanz.Z21_SET_TURNOUT(ListeGlobal[ListID].Adresse, weiche.FahrstrasseAbzweig, true, true);
+                        ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
+                    }
+                    ControlSetPointer++;
+                }
+                else
+                {
+                    if (GetBusyStatus(ListeGlobal) == false)
+                    {
+                        ControlSetPointer = 0;
+                        Safe = true;
+                        WeichenSicherheit(ListeGlobal, Safe);
+                    }
+                }
+            }
         }
         public void AktiviereFahrstasse(List<Weiche> ListeGlobal)
         {
@@ -249,6 +326,19 @@ namespace MEKB_H0_Anlage
             }
             FahrstrasseAktiv = true;
         }
+
+        public bool GetBusyStatus(List<Weiche> ListeGlobal)
+        {
+            foreach (Weiche weiche in Fahrstr_Weichenliste)
+            {
+                int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
+                if (ListID == -1) return false;
+
+                if(ListeGlobal[ListID].ZeitAktiv > 0) return true; //Eine Weiche noch beim Schalten?
+            }
+            return false;
+        }
+
         public bool GetGesetztStatus()
         {
             return FahrstrasseGesetzt;
@@ -257,22 +347,21 @@ namespace MEKB_H0_Anlage
         {
             return FahrstrasseAktiv;
         }
-        public bool CheckFahrstrasse(List<Weiche> ListeGlobal)
+        public bool CheckFahrstrassePos(List<Weiche> ListeGlobal)
         {
             if (!FahrstrasseGesetzt) return false;
-            bool okay = true;
             foreach (Weiche weiche in Fahrstr_Weichenliste)
             {
                 int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
                 if (ListID == -1) return false;
                 if (ListeGlobal[ListID].Abzweig != weiche.FahrstrasseAbzweig)   //Wenn Weiche noch nicht in Position ist
                 {
-                    okay = false;
-                }
-                
+                    return false;
+                }               
             }
-            return okay;
+            return true;
         }
+       
 
         public List<Weiche> GetFahrstrassenListe()
         {
@@ -289,7 +378,10 @@ namespace MEKB_H0_Anlage
                 ListeGlobal[ListID].FahrstrasseAktive = false;
             }
             FahrstrasseAktiv = false;
+            Safe = false;
+            WeichenSicherheit(ListeGlobal, Safe);
         }
+        
     }
     public class LokKontrolle
     {
@@ -320,6 +412,7 @@ namespace MEKB_H0_Anlage
             Funktionen = new List<string>();
             AktiveFunktion = new bool[30];
             Steuerpult = new ZugSteuerpult(this);
+            Automatik = false;
         }
         /// <summary>
         /// Parameter: Name der Lok als String
@@ -357,14 +450,19 @@ namespace MEKB_H0_Anlage
         /// Anzahl Fahrstufen 0=14, 2=28, 4 = 128
         /// </summary>
         public byte FahrstufenInfo { get; set; }
-
+        /// <summary>
+        /// True: Lok wird vom Programm gesteuert
+        /// </summary>
+        public bool Automatik { set; get; }
         public ZugSteuerpult Steuerpult { get; set; }
 
         public delegate void CMD_LOKFAHRT(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo);
         public delegate void CMD_LOKFUNKTION(int Adresse, byte Zustand, byte FunktionsNr);
+        public delegate void CMD_LOKSTATUS(int Adresse);
 
         private CMD_LOKFAHRT setLOKFahrt;
         private CMD_LOKFUNKTION setLOKFunktion;
+        private CMD_LOKSTATUS setLOKStatus;
 
         public void Register_CMD_LOKFAHRT(CMD_LOKFAHRT function) 
         { 
@@ -375,6 +473,11 @@ namespace MEKB_H0_Anlage
         { 
             setLOKFunktion = function;
             Steuerpult.Register_CMD_LOKFUNKTION(Set_LOKFUNKTION);
+        }
+        public void Register_CMD_LOKSTATUS(CMD_LOKSTATUS function)
+        {
+            setLOKStatus = function;
+            Steuerpult.Register_CMD_LOKSTATUS(Set_LOKSTATUS);
         }
 
         private void Set_LOKFAHRT(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo)
@@ -390,6 +493,10 @@ namespace MEKB_H0_Anlage
         private void Set_LOKFUNKTION(int Adresse, byte Zustand, byte FunktionsNr)
         {
             setLOKFunktion?.Invoke(Adresse, Zustand, FunktionsNr);
+        }
+        private void Set_LOKSTATUS(int Adresse)
+        {
+            setLOKStatus?.Invoke(Adresse);
         }
 
         public override string ToString()
@@ -516,6 +623,43 @@ namespace MEKB_H0_Anlage
             else if (HPx == Adr1_2) {z21.Z21_SET_SIGNAL(Adresse, true); z21.Z21_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
             else if (HPx == Adr2_1) {z21.Z21_SET_SIGNAL(Adresse2, false); z21.Z21_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
             else if (HPx == Adr2_2) {z21.Z21_SET_SIGNAL(Adresse2, true); z21.Z21_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
+        }
+    }
+
+    public struct MeldeZustand
+    {
+        public MeldeZustand(bool besetzt, bool fahrstrasse, bool sicher, bool richtung)
+        {
+            Besetzt = besetzt;
+            Fahrstrasse = fahrstrasse;
+            Sicher = sicher;
+            Richtung = richtung;
+        }
+
+        public MeldeZustand(Weiche weiche, bool richtung)
+        {
+            Besetzt = weiche.Besetzt;
+            Fahrstrasse = weiche.FahrstrasseAktive;
+            Sicher = weiche.FahrstrasseSicher;
+            Richtung = weiche.FahrstrasseRichtung_vonZunge ^ richtung;
+        }
+
+        public MeldeZustand(bool StatusALL)
+        {
+            Besetzt = StatusALL;
+            Fahrstrasse = StatusALL;
+            Sicher = StatusALL;
+            Richtung = StatusALL;
+        }
+
+        public bool Besetzt { get; set; }
+        public bool Fahrstrasse { get; set; }
+        public bool Sicher { get; set; }
+        public bool Richtung { get; set; }
+
+        public bool IstFrei()
+        {
+            return !(Besetzt || Fahrstrasse);
         }
     }
 }

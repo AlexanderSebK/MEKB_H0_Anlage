@@ -93,6 +93,26 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Block5_90 {
+            get {
+                object obj = ResourceManager.GetObject("Block5_90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Block9_90 {
+            get {
+                object obj = ResourceManager.GetObject("Block9_90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Drehscheibe {
             get {
                 object obj = ResourceManager.GetObject("Drehscheibe", resourceCulture);
@@ -353,6 +373,26 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Fahrstr_Kurve0R_oben {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstr_Kurve0R_oben", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fahrstr_Kurve0R_unten {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstr_Kurve0R_unten", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Fahrstr_Kurve180L_oben {
             get {
                 object obj = ResourceManager.GetObject("Fahrstr_Kurve180L_oben", resourceCulture);
@@ -493,6 +533,26 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Fahrstrasse_oben {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstrasse_oben", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fahrstrasse_oben_deakt {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstrasse_oben_deakt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Fahrstrasse_rechts {
             get {
                 object obj = ResourceManager.GetObject("Fahrstrasse_rechts", resourceCulture);
@@ -506,6 +566,26 @@ namespace MEKB_H0_Anlage.Properties {
         internal static System.Drawing.Bitmap Fahrstrasse_rechts_deakt {
             get {
                 object obj = ResourceManager.GetObject("Fahrstrasse_rechts_deakt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fahrstrasse_unten {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstrasse_unten", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fahrstrasse_unten_deakt {
+            get {
+                object obj = ResourceManager.GetObject("Fahrstrasse_unten_deakt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -726,6 +806,16 @@ namespace MEKB_H0_Anlage.Properties {
         internal static System.Drawing.Bitmap Kurve180R {
             get {
                 object obj = ResourceManager.GetObject("Kurve180R", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Kurve180R_EckeOL {
+            get {
+                object obj = ResourceManager.GetObject("Kurve180R_EckeOL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1113,6 +1203,26 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap WeicheR180_Analog {
+            get {
+                object obj = ResourceManager.GetObject("WeicheR180_Analog", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WeicheR180_EckeOL_Analog {
+            get {
+                object obj = ResourceManager.GetObject("WeicheR180_EckeOL_Analog", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap WeicheR225_Analog {
             get {
                 object obj = ResourceManager.GetObject("WeicheR225_Analog", resourceCulture);
@@ -1176,6 +1286,16 @@ namespace MEKB_H0_Anlage.Properties {
         internal static System.Drawing.Bitmap Zunge_AbzweigL_90 {
             get {
                 object obj = ResourceManager.GetObject("Zunge_AbzweigL_90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Zunge_AbzweigR_180 {
+            get {
+                object obj = ResourceManager.GetObject("Zunge_AbzweigR_180", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
