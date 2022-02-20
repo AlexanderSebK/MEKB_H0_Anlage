@@ -304,7 +304,7 @@ namespace MEKB_H0_Anlage
 
                     byte[] para_db = data.Skip(5).ToArray();
                     para_db = para_db.Take(para_db.Count() - 1).ToArray();
-
+                    if (data.Length <= 4) return Z21_ErrorCode.FALSE_LENGTH;
                     SolveXTunnel((Z21_XBus_Header)data[4], para_db);
 
                     break;
@@ -631,6 +631,22 @@ namespace MEKB_H0_Anlage
         {
             byte[] SendBytes = { 0x04, 0x00, 0x85, 0x00 };
             if (Connected) Client.Send(SendBytes, 4);
+        }
+
+        public void Z21_SET_TURNOUT(int Adresse, bool Abzweig, bool Q_Modus, bool aktivieren)
+        {
+            Adresse--;
+            byte Header = 0x53;
+            byte DB0 = (byte)(Adresse >> 8);
+            byte DB1 = (byte)(Adresse & 0xFF);
+            byte DB2 = (byte)(1 << 7);
+            if (!Abzweig) DB2 |= (1 << 0); // Gerade: Bit0 aktiv / Abzweig: Bit0 inaktiv
+            if (Q_Modus) DB2 |= (1 << 5); // Queue-Modus aktivieren: Befehl wird in ein FiFo eingereiht und dann 4 mal an Gleis gesendet
+            if (aktivieren) DB2 |= (1 << 3); //Ausgang aktivieren
+
+            byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
+            byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
+            if (Connected) Client.Send(SendBytes, 9);
         }
 
         public async Task Z21_SET_WEICHEAsync(int Adresse, bool Abzweig, bool Q_Modus, int time, bool deaktivieren)

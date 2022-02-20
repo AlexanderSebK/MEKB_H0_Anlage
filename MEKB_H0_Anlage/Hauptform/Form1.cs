@@ -8,7 +8,6 @@
 
 ****************************************************************/
 
-
 using System;
 using System.Timers;
 using System.Collections.Generic;
@@ -40,6 +39,8 @@ namespace MEKB_H0_Anlage
         public List<Lok> Lokliste = new List<Lok>();
         public Lok[] AktiveLoks = new Lok[12];
 
+        public bool Betriebsbereit;
+
         public Form1()
         {
             InitializeComponent();                      //Programminitialisieren
@@ -65,6 +66,8 @@ namespace MEKB_H0_Anlage
             SetupSignalListe();                         //Signalliste festlegen
             SetupLokListe();                            //Lok-Daten aus Dateien laden
 
+            Betriebsbereit = false;
+
             LokCtrl_LoklisteAusfuellen();               //Auswahlliste im Lok-Kontrollfenster ausfüllen
             for(int i = 0; i<AktiveLoks.Length;i++)
             {
@@ -73,19 +76,14 @@ namespace MEKB_H0_Anlage
                 AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             }
         }
-
-
-
         private void GetFirmware_Click(object sender, EventArgs e)
         {
             z21Start.GET_FIRMWARE_VERSION();
         }
-
         private void MenuZ21Eigenschaften_Click(object sender, EventArgs e)
         {
             if (z21_Einstellung.IsDisposed) z21_Einstellung = new Z21_Einstellung();
             z21_Einstellung.Show();
-
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -95,6 +93,7 @@ namespace MEKB_H0_Anlage
 
         private static System.Timers.Timer FlagTimer;
         private static System.Timers.Timer WeichenTimer;
+        private static System.Timers.Timer CooldownTimer;
 
         private void Form1_Shown(object sender, EventArgs e)
         {
@@ -116,6 +115,13 @@ namespace MEKB_H0_Anlage
             WeichenTimer.Elapsed += OnTimedWeichenEvent;
             WeichenTimer.AutoReset = true;
             WeichenTimer.Enabled = true;
+
+            // 100 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
+            CooldownTimer = new System.Timers.Timer(100);
+            // Timer mit Funktion "WeichenCooldown" Verbinden
+            CooldownTimer.Elapsed += WeichenCooldown;
+            CooldownTimer.AutoReset = true;
+            CooldownTimer.Enabled = true;
 
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
         }
@@ -152,6 +158,8 @@ namespace MEKB_H0_Anlage
                 {
                     Pointer_Weichenliste--;
                 }
+                
+
                 GetSignalStatus(Signalliste[Pointer_Signalliste].Name);
                 if (Pointer_Signalliste <= 0)
                 {
@@ -164,12 +172,18 @@ namespace MEKB_H0_Anlage
                 }
                 if(Weichen_Init & Signal_Init) SetConnect(true, true); //Initialisierung abgeschlossen
                 //
-                Fahrstrassenupdate(Gleis1_nach_links);
-                Fahrstrassenupdate(Gleis2_nach_links);
-                Fahrstrassenupdate(Gleis3_nach_links);
-                Fahrstrassenupdate(Gleis4_nach_links);
-                Fahrstrassenupdate(Gleis5_nach_links);
-                Fahrstrassenupdate(Gleis6_nach_links);
+                Fahrstrassenupdate(Gleis1_nach_Block2);
+                Fahrstrassenupdate(Gleis2_nach_Block2);
+                Fahrstrassenupdate(Gleis3_nach_Block2);
+                Fahrstrassenupdate(Gleis4_nach_Block2);
+                Fahrstrassenupdate(Gleis5_nach_Block2);
+                Fahrstrassenupdate(Gleis6_nach_Block2);
+                Fahrstrassenupdate(Gleis1_nach_Block5);
+                Fahrstrassenupdate(Gleis2_nach_Block5);
+                Fahrstrassenupdate(Gleis3_nach_Block5);
+                Fahrstrassenupdate(Gleis4_nach_Block5);
+                Fahrstrassenupdate(Gleis5_nach_Block5);
+                Fahrstrassenupdate(Gleis6_nach_Block5);
 
                 Fahrstrassenupdate(Block2_nach_Gleis1);
                 Fahrstrassenupdate(Block2_nach_Gleis2);
@@ -206,12 +220,76 @@ namespace MEKB_H0_Anlage
                 Fahrstrassenupdate(Rechts2_nach_Gleis5);
                 Fahrstrassenupdate(Rechts2_nach_Gleis6);
 
+                Fahrstrassenupdate(Block1_nach_Block5);
+                Fahrstrassenupdate(Block5_nach_Block6);
+                Fahrstrassenupdate(Block8_nach_Block6);
+                Fahrstrassenupdate(Block9_nach_Block2);
+
+                Fahrstrassenupdate(Block6_nach_Schatten8);
+                Fahrstrassenupdate(Block6_nach_Schatten9);
+                Fahrstrassenupdate(Block6_nach_Schatten10);
+                Fahrstrassenupdate(Block6_nach_Schatten11);
+
+                Fahrstrassenupdate(Schatten8_nach_Block7);
+                Fahrstrassenupdate(Schatten9_nach_Block7);
+                Fahrstrassenupdate(Schatten10_nach_Block7);
+                Fahrstrassenupdate(Schatten11_nach_Block7);
+
+                Fahrstrassenupdate(Block7_nach_Schatten0);
+                Fahrstrassenupdate(Block7_nach_Schatten1);
+                Fahrstrassenupdate(Block7_nach_Schatten2);
+                Fahrstrassenupdate(Block7_nach_Schatten3);
+                Fahrstrassenupdate(Block7_nach_Schatten4);
+                Fahrstrassenupdate(Block7_nach_Schatten5);
+                Fahrstrassenupdate(Block7_nach_Schatten6);
+                Fahrstrassenupdate(Block7_nach_Schatten7);
+
+                Fahrstrassenupdate(Schatten0_nach_Block8);
+                Fahrstrassenupdate(Schatten1_nach_Block8);
+                Fahrstrassenupdate(Schatten1_nach_Block9);
+                Fahrstrassenupdate(Schatten2_nach_Block9);
+                Fahrstrassenupdate(Schatten3_nach_Block9);
+                Fahrstrassenupdate(Schatten4_nach_Block9);
+                Fahrstrassenupdate(Schatten5_nach_Block9);
+                Fahrstrassenupdate(Schatten6_nach_Block9);
+                Fahrstrassenupdate(Schatten7_nach_Block9);
+
                 FahrstrasseBildUpdate();
             }
 
         }
 
-        
+        private void WeichenCooldown(Object source, ElapsedEventArgs e)
+        {
+            if (z21Start.Verbunden())
+            {
+                foreach (Weiche weiche in Weichenliste)
+                {
+                    if (weiche.ZeitAktiv > 0)
+                    {
+                        weiche.ZeitAktiv -= 100;
+                            this.Invoke(new Action<string>(WriteTextBox), new object[] { weiche.ZeitAktiv.ToString() + weiche.Name });
+
+                        if (weiche.ZeitAktiv <= 0)
+                        {
+                            weiche.ZeitAktiv = 0;                         
+                            bool Abzweig = weiche.Abzweig;
+                            if (weiche.Spiegeln) Abzweig = !Abzweig;
+                            if (Betriebsbereit)
+                            {
+                                z21Start.Z21_SET_TURNOUT(weiche.Adresse, Abzweig, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv
+                                    this.Invoke(new Action<string>(WriteTextBox), new object[] { weiche.ZeitAktiv.ToString() + weiche.Name });
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void WriteTextBox(String text)
+        {
+            LokCtrl1_Ort.Text = text;
+        }
         /// <summary>
         /// Menü Zentrale -> Verbinden
         /// </summary>
@@ -225,12 +303,12 @@ namespace MEKB_H0_Anlage
             Signal_Init = false;
             Weichen_Init = false;
         }
-
         private void Menu_Trennen_Click(object sender, EventArgs e)
         {
             z21Start.DisConnect_Z21();
         }
 
+        #region Weichensteuerung
         private void Weiche1_Click(object sender, EventArgs e)
         {
             ToggleWeiche("Weiche1");
@@ -355,11 +433,11 @@ namespace MEKB_H0_Anlage
         }
         private void Weiche52_Click(object sender, EventArgs e)
         {
-            SetWeiche("Weiche52", true);        //Nur Abzweig, da noch nicht vorhanden
+            ToggleWeiche("Weiche52");        
         }
         private void Weiche53_Click(object sender, EventArgs e)
         {
-            SetWeiche("Weiche53", true);        //Nur Abzweig, da noch nicht vorhanden
+            ToggleWeiche("Weiche53");        
         }
         private void Weiche60_Click(object sender, EventArgs e)
         {
@@ -381,6 +459,22 @@ namespace MEKB_H0_Anlage
         {
             ToggleWeiche("Weiche64");
         }
+        private void Weiche65_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche65");
+        }
+        private void Weiche66_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche66");
+        }
+        private void Weiche67_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche67");
+        }
+        private void Weiche68_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche68");
+        }
         private void Weiche70_Click(object sender, EventArgs e)
         {
             ToggleWeiche("Weiche70");
@@ -401,1074 +495,40 @@ namespace MEKB_H0_Anlage
         {
             ToggleWeiche("Weiche74");
         }
+        private void Weiche75_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche75");
+        }
+        private void Weiche76_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche76");
+        }
+        private void Weiche80_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche80");
+        }
+        private void Weiche81_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche81");
+        }
+        private void Weiche82_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche82");
+        }
+        private void Weiche90_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche90");
+        }
+        private void Weiche91_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche91");
+        }
+        private void Weiche92_Click(object sender, EventArgs e)
+        {
+            ToggleWeiche("Weiche92");
+        }
+        #endregion
 
-        private void Fahrstr_GL1_links_Click(object sender, EventArgs e)
-        {
-            if (Gleis1_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis1_nach_links);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if(!Gleis2_nach_links.GetGesetztStatus() &&
-                   !Gleis3_nach_links.GetGesetztStatus() &&
-                   !Gleis4_nach_links.GetGesetztStatus() &&
-                   !Gleis5_nach_links.GetGesetztStatus() && 
-                   !Gleis6_nach_links.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis1_nach_links);
-                }
-            }
-        }
-        private void Fahrstr_GL2_links_Click(object sender, EventArgs e)
-        {
-            if (Gleis2_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis2_nach_links);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_links.GetGesetztStatus() &&
-                   !Gleis3_nach_links.GetGesetztStatus() &&
-                   !Gleis4_nach_links.GetGesetztStatus() &&
-                   !Gleis5_nach_links.GetGesetztStatus() &&
-                   !Gleis6_nach_links.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis2_nach_links);
-                }
-            }
-        }
-        private void Fahrstr_GL3_links_Click(object sender, EventArgs e)
-        {
-            if (Gleis3_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis3_nach_links);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_links.GetGesetztStatus() &&
-                   !Gleis2_nach_links.GetGesetztStatus() &&
-                   !Gleis4_nach_links.GetGesetztStatus() &&
-                   !Gleis5_nach_links.GetGesetztStatus() &&
-                   !Gleis6_nach_links.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis3_nach_links);
-                }
-            }
-        }
-        private void Fahrstr_GL4_links_Click(object sender, EventArgs e)
-        {
-            if (Gleis4_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis4_nach_links);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_links.GetGesetztStatus() &&
-                   !Gleis2_nach_links.GetGesetztStatus() &&
-                   !Gleis3_nach_links.GetGesetztStatus() &&
-                   !Gleis5_nach_links.GetGesetztStatus() &&
-                   !Gleis6_nach_links.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis4_nach_links);
-                }
-            }
-        }
-        private void Fahrstr_GL5_links_Click(object sender, EventArgs e)
-        {
-            if (Gleis5_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis5_nach_links);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_links.GetGesetztStatus() &&
-                   !Gleis2_nach_links.GetGesetztStatus() &&
-                   !Gleis3_nach_links.GetGesetztStatus() &&
-                   !Gleis4_nach_links.GetGesetztStatus() &&
-                   !Gleis6_nach_links.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis5_nach_links);
-                }
-            }
-        }
-        private void Fahrstr_GL6_links_Click(object sender, EventArgs e)
-        {
-            if (Gleis6_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis6_nach_links);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_links.GetGesetztStatus() &&
-                   !Gleis2_nach_links.GetGesetztStatus() &&
-                   !Gleis3_nach_links.GetGesetztStatus() &&
-                   !Gleis4_nach_links.GetGesetztStatus() &&
-                   !Gleis5_nach_links.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis6_nach_links);
-                }
-            }
-        }
-
-        private void Block2_Einfahrt_Click(object sender, EventArgs e)
-        {   //Einer der Block2-Fahrstrassen aktiv
-            if(Block2_nach_Gleis1.GetGesetztStatus() ||
-               Block2_nach_Gleis2.GetGesetztStatus() ||
-               Block2_nach_Gleis3.GetGesetztStatus() ||
-               Block2_nach_Gleis4.GetGesetztStatus() ||
-               Block2_nach_Gleis5.GetGesetztStatus() ||
-               Block2_nach_Gleis6.GetGesetztStatus()) 
-            {   //Aktive Fahrstrasse ausschalten
-                if (Block2_nach_Gleis1.GetGesetztStatus()) ToggleFahrstrasse(Block2_nach_Gleis1);
-                if (Block2_nach_Gleis2.GetGesetztStatus()) ToggleFahrstrasse(Block2_nach_Gleis2);
-                if (Block2_nach_Gleis3.GetGesetztStatus()) ToggleFahrstrasse(Block2_nach_Gleis3);
-                if (Block2_nach_Gleis4.GetGesetztStatus()) ToggleFahrstrasse(Block2_nach_Gleis4);
-                if (Block2_nach_Gleis5.GetGesetztStatus()) ToggleFahrstrasse(Block2_nach_Gleis5);
-                if (Block2_nach_Gleis6.GetGesetztStatus()) ToggleFahrstrasse(Block2_nach_Gleis6);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Block2_Auswahl.Visible) Block2_Auswahl.Visible = false;
-                else Block2_Auswahl.Visible = true;
-            }
-        }
-        private void Block2_Einfaht_GL1_Click(object sender, EventArgs e)
-        {
-            if (!Gleis1_nach_links.GetGesetztStatus() &&
-                !Gleis2_nach_links.GetGesetztStatus() &&
-                !Gleis3_nach_links.GetGesetztStatus() &&
-                !Gleis4_nach_links.GetGesetztStatus() &&
-                !Gleis5_nach_links.GetGesetztStatus() &&
-                !Gleis6_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Block2_nach_Gleis1);
-                Block2_Auswahl.Visible = false;
-            }
-        }
-        private void Block2_Einfaht_GL2_Click(object sender, EventArgs e)
-        {
-            if (!Gleis1_nach_links.GetGesetztStatus() &&
-                !Gleis2_nach_links.GetGesetztStatus() &&
-                !Gleis3_nach_links.GetGesetztStatus() &&
-                !Gleis4_nach_links.GetGesetztStatus() &&
-                !Gleis5_nach_links.GetGesetztStatus() &&
-                !Gleis6_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Block2_nach_Gleis2);
-                Block2_Auswahl.Visible = false;
-            }
-        }
-        private void Block2_Einfaht_GL3_Click(object sender, EventArgs e)
-        {
-            if (!Gleis3_nach_links.GetGesetztStatus() &&
-                !Gleis4_nach_links.GetGesetztStatus() &&
-                !Gleis5_nach_links.GetGesetztStatus() &&
-                !Gleis6_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Block2_nach_Gleis3);
-                Block2_Auswahl.Visible = false;
-            }
-        }
-        private void Block2_Einfaht_GL4_Click(object sender, EventArgs e)
-        {
-            if (!Gleis3_nach_links.GetGesetztStatus() &&
-                !Gleis4_nach_links.GetGesetztStatus() &&
-                !Gleis5_nach_links.GetGesetztStatus() &&
-                !Gleis6_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Block2_nach_Gleis4);
-                Block2_Auswahl.Visible = false;
-            }
-        }
-        private void Block2_Einfaht_GL5_Click(object sender, EventArgs e)
-        {
-            if (!Gleis3_nach_links.GetGesetztStatus() &&
-                !Gleis4_nach_links.GetGesetztStatus() &&
-                !Gleis5_nach_links.GetGesetztStatus() &&
-                !Gleis6_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Block2_nach_Gleis5);
-                Block2_Auswahl.Visible = false;
-            }
-        }
-        private void Block2_Einfaht_GL6_Click(object sender, EventArgs e)
-        {
-            if (!Gleis3_nach_links.GetGesetztStatus() &&
-                !Gleis4_nach_links.GetGesetztStatus() &&
-                !Gleis5_nach_links.GetGesetztStatus() &&
-                !Gleis6_nach_links.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Block2_nach_Gleis6);
-                Block2_Auswahl.Visible = false;
-            }
-        }
-        
-        private void Fahrstr_GL6_rechts_Click(object sender, EventArgs e)
-        {
-            //Einer der Gl6-rechts-Fahrstrassen aktiv
-            if (Gleis6_nach_rechts1.GetGesetztStatus() ||
-                Gleis6_nach_rechts2.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis6_nach_rechts1.GetGesetztStatus()) ToggleFahrstrasse(Gleis6_nach_rechts1);
-                if (Gleis6_nach_rechts2.GetGesetztStatus()) ToggleFahrstrasse(Gleis6_nach_rechts2);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl6_rechts_Auswahl.Visible) Gl6_rechts_Auswahl.Visible = false;
-                else Gl6_rechts_Auswahl.Visible = true;
-            }
-        }
-        private void Gl6_Ausfahrt_rechts1_Click(object sender, EventArgs e)
-        {
-            if (!Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis6_nach_rechts1);
-                Gl6_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Gl6_Ausfahrt_rechts2_Click(object sender, EventArgs e)
-        {
-            if (!Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis6_nach_rechts2);
-                Gl6_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Fahrstr_GL5_rechts_Click(object sender, EventArgs e)
-        {
-            //Einer der Gl5-rechts Fahrstrassen aktiv
-            if (Gleis5_nach_rechts1.GetGesetztStatus() ||
-                Gleis5_nach_rechts2.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis5_nach_rechts1.GetGesetztStatus()) ToggleFahrstrasse(Gleis5_nach_rechts1);
-                if (Gleis5_nach_rechts2.GetGesetztStatus()) ToggleFahrstrasse(Gleis5_nach_rechts2);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl5_rechts_Auswahl.Visible) Gl5_rechts_Auswahl.Visible = false;
-                else Gl5_rechts_Auswahl.Visible = true;
-            }
-        }
-        private void Gl5_Ausfahrt_rechts1_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis5_nach_rechts1);
-                Gl5_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Gl5_Ausfahrt_rechts2_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis5_nach_rechts2);
-                Gl5_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Fahrstr_GL4_rechts_Click(object sender, EventArgs e)
-        {
-            //Einer der Gl4-rechts Fahrstrassen aktiv
-            if (Gleis4_nach_rechts1.GetGesetztStatus() ||
-                Gleis4_nach_rechts2.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis4_nach_rechts1.GetGesetztStatus()) ToggleFahrstrasse(Gleis4_nach_rechts1);
-                if (Gleis4_nach_rechts2.GetGesetztStatus()) ToggleFahrstrasse(Gleis4_nach_rechts2);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl4_rechts_Auswahl.Visible) Gl4_rechts_Auswahl.Visible = false;
-                else Gl4_rechts_Auswahl.Visible = true;
-            }
-        }
-        private void Gl4_Ausfahrt_rechts1_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis4_nach_rechts1);
-                Gl4_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Gl4_Ausfahrt_rechts2_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis4_nach_rechts2);
-                Gl4_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Fahrstr_GL3_rechts_Click(object sender, EventArgs e)
-        {
-            //Einer der Gl3-rechts Fahrstrassen aktiv
-            if (Gleis3_nach_rechts1.GetGesetztStatus() ||
-                Gleis3_nach_rechts2.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis3_nach_rechts1.GetGesetztStatus()) ToggleFahrstrasse(Gleis3_nach_rechts1);
-                if (Gleis3_nach_rechts2.GetGesetztStatus()) ToggleFahrstrasse(Gleis3_nach_rechts2);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl3_rechts_Auswahl.Visible) Gl3_rechts_Auswahl.Visible = false;
-                else Gl3_rechts_Auswahl.Visible = true;
-            }
-        }
-        private void Gl3_Ausfahrt_rechts1_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis3_nach_rechts1);
-                Gl3_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Gl3_Ausfahrt_rechts2_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis3_nach_rechts2);
-                Gl3_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Fahrstr_GL2_rechts_Click(object sender, EventArgs e)
-        {
-            //Einer der Gl2-rechts Fahrstrassen aktiv
-            if (Gleis2_nach_rechts1.GetGesetztStatus() ||
-                Gleis2_nach_rechts2.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis2_nach_rechts1.GetGesetztStatus()) ToggleFahrstrasse(Gleis2_nach_rechts1);
-                if (Gleis2_nach_rechts2.GetGesetztStatus()) ToggleFahrstrasse(Gleis2_nach_rechts2);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl2_rechts_Auswahl.Visible) Gl2_rechts_Auswahl.Visible = false;
-                else Gl2_rechts_Auswahl.Visible = true;
-            }
-        }
-        private void Gl2_Ausfahrt_rechts1_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis2_nach_rechts1);
-                Gl2_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Gl2_Ausfahrt_rechts2_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis2_nach_rechts2);
-                Gl2_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Fahrstr_GL1_rechts_Click(object sender, EventArgs e)
-        {
-            //Einer der Gl1-rechts Fahrstrassen aktiv
-            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
-                Gleis1_nach_rechts2.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis1_nach_rechts1.GetGesetztStatus()) ToggleFahrstrasse(Gleis1_nach_rechts1);
-                if (Gleis1_nach_rechts2.GetGesetztStatus()) ToggleFahrstrasse(Gleis1_nach_rechts2);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl1_rechts_Auswahl.Visible) Gl1_rechts_Auswahl.Visible = false;
-                else Gl1_rechts_Auswahl.Visible = true;
-            }
-        }
-        private void Gl1_Ausfahrt_rechts1_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis1_nach_rechts1);
-                Gl1_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Gl1_Ausfahrt_rechts2_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis1_nach_rechts2);
-                Gl1_rechts_Auswahl.Visible = false;
-            }
-        }
-        private void Fahrstr_Rechts1_Click(object sender, EventArgs e)
-        {
-            //Einer der Gl1-rechts Fahrstrassen aktiv
-            if (Rechts1_nach_Gleis1.GetGesetztStatus() ||
-                Rechts1_nach_Gleis2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis3.GetGesetztStatus() ||
-                Rechts1_nach_Gleis4.GetGesetztStatus() ||
-                Rechts1_nach_Gleis5.GetGesetztStatus() ||
-                Rechts1_nach_Gleis6.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Rechts1_nach_Gleis1.GetGesetztStatus()) ToggleFahrstrasse(Rechts1_nach_Gleis1);
-                if (Rechts1_nach_Gleis2.GetGesetztStatus()) ToggleFahrstrasse(Rechts1_nach_Gleis2);
-                if (Rechts1_nach_Gleis3.GetGesetztStatus()) ToggleFahrstrasse(Rechts1_nach_Gleis3);
-                if (Rechts1_nach_Gleis4.GetGesetztStatus()) ToggleFahrstrasse(Rechts1_nach_Gleis4);
-                if (Rechts1_nach_Gleis5.GetGesetztStatus()) ToggleFahrstrasse(Rechts1_nach_Gleis5);
-                if (Rechts1_nach_Gleis6.GetGesetztStatus()) ToggleFahrstrasse(Rechts1_nach_Gleis6);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Rechts1_Auswahl.Visible) Rechts1_Auswahl.Visible = false;
-                else Rechts1_Auswahl.Visible = true;
-            }
-        }
-        private void Rechts1_Einfahrt_Gl1_Click(object sender, EventArgs e)
-        {
-            if (!Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts1_nach_Gleis1);
-                Rechts1_Auswahl.Visible = false;
-            }
-        }
-        private void Rechts1_Einfahrt_Gl2_Click(object sender, EventArgs e)
-        {
-            if (!Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts1_nach_Gleis2);
-                Rechts1_Auswahl.Visible = false;
-            }
-        }
-        private void Rechts1_Einfahrt_Gl3_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts1_nach_Gleis3);
-                Rechts1_Auswahl.Visible = false;
-            }
-        }
-        private void Rechts1_Einfahrt_Gl4_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts1_nach_Gleis4);
-                Rechts1_Auswahl.Visible = false;
-            }
-        }
-        private void Rechts1_Einfahrt_Gl5_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts1_nach_Gleis5);
-                Rechts1_Auswahl.Visible = false;
-            }
-        }
-        private void Rechts1_Einfahrt_Gl6_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts1_nach_Gleis6);
-                Rechts1_Auswahl.Visible = false;
-            }
-        }
-        private void Fahrstr_Rechts2_Click(object sender, EventArgs e)
-        {
-            //Einer der Gl1-rechts Fahrstrassen aktiv
-            if (Rechts2_nach_Gleis1.GetGesetztStatus() ||
-                Rechts2_nach_Gleis2.GetGesetztStatus() ||
-                Rechts2_nach_Gleis3.GetGesetztStatus() ||
-                Rechts2_nach_Gleis4.GetGesetztStatus() ||
-                Rechts2_nach_Gleis5.GetGesetztStatus() ||
-                Rechts2_nach_Gleis6.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Rechts2_nach_Gleis1.GetGesetztStatus()) ToggleFahrstrasse(Rechts2_nach_Gleis1);
-                if (Rechts2_nach_Gleis2.GetGesetztStatus()) ToggleFahrstrasse(Rechts2_nach_Gleis2);
-                if (Rechts2_nach_Gleis3.GetGesetztStatus()) ToggleFahrstrasse(Rechts2_nach_Gleis3);
-                if (Rechts2_nach_Gleis4.GetGesetztStatus()) ToggleFahrstrasse(Rechts2_nach_Gleis4);
-                if (Rechts2_nach_Gleis5.GetGesetztStatus()) ToggleFahrstrasse(Rechts2_nach_Gleis5);
-                if (Rechts2_nach_Gleis6.GetGesetztStatus()) ToggleFahrstrasse(Rechts2_nach_Gleis6);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Rechts2_Auswahl.Visible) Rechts2_Auswahl.Visible = false;
-                else Rechts2_Auswahl.Visible = true;
-            }
-        }
-        private void Rechts2_Einfahrt_Gl1_Click(object sender, EventArgs e)
-        {
-            if (!Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts2_nach_Gleis1);
-                Rechts2_Auswahl.Visible = false;
-            }
-        }
-        private void Rechts2_Einfahrt_Gl2_Click(object sender, EventArgs e)
-        {
-            if (!Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts2_nach_Gleis2);
-                Rechts2_Auswahl.Visible = false;
-            }
-        }
-        private void Rechts2_Einfahrt_Gl3_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts2_nach_Gleis3);
-                Rechts2_Auswahl.Visible = false;
-            }
-        }
-        private void Rechts2_Einfahrt_Gl4_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts2_nach_Gleis4);
-                Rechts2_Auswahl.Visible = false;
-            }
-        }
-        private void Rechts2_Einfahrt_Gl5_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts2_nach_Gleis5);
-                Rechts2_Auswahl.Visible = false;
-            }
-        }
-        private void Rechts2_Einfahrt_Gl6_Click(object sender, EventArgs e)
-        {
-            if (!Gleis6_nach_rechts1.GetGesetztStatus() &&
-                !Gleis6_nach_rechts2.GetGesetztStatus() &&
-                !Gleis5_nach_rechts1.GetGesetztStatus() &&
-                !Gleis5_nach_rechts2.GetGesetztStatus() &&
-                !Gleis4_nach_rechts1.GetGesetztStatus() &&
-                !Gleis4_nach_rechts2.GetGesetztStatus() &&
-                !Gleis3_nach_rechts1.GetGesetztStatus() &&
-                !Gleis3_nach_rechts2.GetGesetztStatus() &&
-                !Gleis2_nach_rechts1.GetGesetztStatus() &&
-                !Gleis2_nach_rechts2.GetGesetztStatus() &&
-                !Gleis1_nach_rechts1.GetGesetztStatus() &&
-                !Gleis1_nach_rechts2.GetGesetztStatus() &&
-
-                !Rechts1_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis6.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis5.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis4.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis3.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis2.GetGesetztStatus() &&
-                !Rechts1_nach_Gleis1.GetGesetztStatus() &&
-                !Rechts2_nach_Gleis1.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Rechts2_nach_Gleis6);
-                Rechts2_Auswahl.Visible = false;
-            }
-        }
-        private void LokCtrl1_Strg_Typ_Click(object sender, EventArgs e)
-        {
-            if(LokCtrl1_Strg_Typ.Text == "Manuell")
-            {
-                LokCtrl1_Strg_Typ.Text = "Automatik";
-                LokCtrl1_Strg_Typ.BackColor = Color.FromArgb(128,0,0);
-            }
-            else
-            {
-                LokCtrl1_Strg_Typ.Text = "Manuell";
-                LokCtrl1_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
-            }
-
-        }
-        
         bool Sperrung;
         private void Sperr_GL1_links_Click(object sender, EventArgs e)
         {
@@ -1490,298 +550,7 @@ namespace MEKB_H0_Anlage
             InfoBox.Show();
         }
 
-        private void LokCtrl1_Name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl1_Name.Text });
-            if (ListID == -1) return;
-            int Adresse = Lokliste[ListID].Adresse;
-            LokCtrl1_Adr.Value = Adresse;      
-        }
-        private void LokCtrl2_Name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl2_Name.Text });
-            if (ListID == -1) return;
-            int Adresse = Lokliste[ListID].Adresse;
-            LokCtrl2_Adr.Value = Adresse;
-        }
-        private void LokCtrl3_Name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl3_Name.Text });
-            if (ListID == -1) return;
-            int Adresse = Lokliste[ListID].Adresse;
-            LokCtrl3_Adr.Value = Adresse;
-        }
-        private void LokCtrl4_Name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl4_Name.Text });
-            if (ListID == -1) return;
-            int Adresse = Lokliste[ListID].Adresse;
-            LokCtrl4_Adr.Value = Adresse;
-        }
-        private void LokCtrl5_Name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl5_Name.Text });
-            if (ListID == -1) return;
-            int Adresse = Lokliste[ListID].Adresse;
-            LokCtrl5_Adr.Value = Adresse;
-        }
-        private void LokCtrl6_Name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl6_Name.Text });
-            if (ListID == -1) return;
-            int Adresse = Lokliste[ListID].Adresse;
-            LokCtrl6_Adr.Value = Adresse;
-        }
-        private void LokCtrl7_Name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl7_Name.Text });
-            if (ListID == -1) return;
-            int Adresse = Lokliste[ListID].Adresse;
-            LokCtrl7_Adr.Value = Adresse;
-        }
-        private void LokCtrl8_Name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl8_Name.Text });
-            if (ListID == -1) return;
-            int Adresse = Lokliste[ListID].Adresse;
-            LokCtrl8_Adr.Value = Adresse;
-        }
-        private void LokCtrl9_Name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl9_Name.Text });
-            if (ListID == -1) return;
-            int Adresse = Lokliste[ListID].Adresse;
-            LokCtrl9_Adr.Value = Adresse;
-        }
-        private void LokCtrl10_Name_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl10_Name.Text });
-            if (ListID == -1) return;
-            int Adresse = Lokliste[ListID].Adresse;
-            LokCtrl10_Adr.Value = Adresse;
-        }
-
-        private void LokCtrl1_Adr_ValueChanged(object sender, EventArgs e)
-        {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl1_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1)//Lok nicht gefunden in der Liste
-            {
-                LokCtrl1_Name.Text = String.Format("Lok: {0}", LokCtrl1_Adr.Value);
-                AktiveLoks[0] = new Lok() { Adresse = (int)LokCtrl1_Adr.Value };
-            }
-            else
-            {
-                LokCtrl1_Name.Text = Lokliste[index].Name;
-                AktiveLoks[0] = Lokliste[index];
-            }
-
-            //Update Rest
-            Update_Rufnummern1(sender, e);
-        }
-        private void LokCtrl2_Adr_ValueChanged(object sender, EventArgs e)
-        {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl2_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1)//Lok nicht gefunden in der Liste
-            {
-                LokCtrl2_Name.Text = String.Format("Lok: {0}", LokCtrl2_Adr.Value);
-                AktiveLoks[1] = new Lok() { Adresse = (int)LokCtrl2_Adr.Value };
-            }
-            else
-            {
-                LokCtrl2_Name.Text = Lokliste[index].Name;
-                AktiveLoks[1] = Lokliste[index];
-            }
-
-            //Update Rest
-            Update_Rufnummern2(sender, e);
-        }
-        private void LokCtrl3_Adr_ValueChanged(object sender, EventArgs e)
-        {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl3_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1)//Lok nicht gefunden in der Liste
-            {
-                LokCtrl3_Name.Text = String.Format("Lok: {0}", LokCtrl3_Adr.Value);
-                AktiveLoks[2] = new Lok() { Adresse = (int)LokCtrl3_Adr.Value };
-            }
-            else
-            {
-                LokCtrl3_Name.Text = Lokliste[index].Name;
-                AktiveLoks[2] = Lokliste[index];
-            }
-
-            //Update Rest
-            Update_Rufnummern3(sender, e);
-        }
-        private void LokCtrl4_Adr_ValueChanged(object sender, EventArgs e)
-        {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl4_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1)//Lok nicht gefunden in der Liste
-            {
-                LokCtrl4_Name.Text = String.Format("Lok: {0}", LokCtrl4_Adr.Value);
-                AktiveLoks[3] = new Lok() { Adresse = (int)LokCtrl4_Adr.Value };
-            }
-            else
-            {
-                LokCtrl4_Name.Text = Lokliste[index].Name;
-                AktiveLoks[3] = Lokliste[index];
-            }
-
-            //Update Rest
-            Update_Rufnummern4(sender, e);
-        }
-        private void LokCtrl5_Adr_ValueChanged(object sender, EventArgs e)
-        {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl5_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1)//Lok nicht gefunden in der Liste
-            {
-                LokCtrl5_Name.Text = String.Format("Lok: {0}", LokCtrl5_Adr.Value);
-                AktiveLoks[4] = new Lok() { Adresse = (int)LokCtrl5_Adr.Value };
-            }
-            else
-            {
-                LokCtrl5_Name.Text = Lokliste[index].Name;
-                AktiveLoks[4] = Lokliste[index];
-            }
-
-            //Update Rest
-            Update_Rufnummern5(sender, e);
-        }
-        private void LokCtrl6_Adr_ValueChanged(object sender, EventArgs e)
-        {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl6_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1)//Lok nicht gefunden in der Liste
-            {
-                LokCtrl6_Name.Text = String.Format("Lok: {0}", LokCtrl6_Adr.Value);
-                AktiveLoks[5] = new Lok() { Adresse = (int)LokCtrl6_Adr.Value };
-            }
-            else
-            {
-                LokCtrl6_Name.Text = Lokliste[index].Name;
-                AktiveLoks[5] = Lokliste[index];
-            }
-
-            //Update Rest
-            Update_Rufnummern6(sender, e);
-        }
-        private void LokCtrl7_Adr_ValueChanged(object sender, EventArgs e)
-        {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl7_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1)//Lok nicht gefunden in der Liste
-            {
-                LokCtrl7_Name.Text = String.Format("Lok: {0}", LokCtrl7_Adr.Value);
-                AktiveLoks[6] = new Lok() { Adresse = (int)LokCtrl7_Adr.Value };
-            }
-            else
-            {
-                LokCtrl7_Name.Text = Lokliste[index].Name;
-                AktiveLoks[6] = Lokliste[index];
-            }
-
-            //Update Rest
-            Update_Rufnummern7(sender, e);
-        }
-        private void LokCtrl8_Adr_ValueChanged(object sender, EventArgs e)
-        {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl8_Adr.Value);                   //Finde Lok mit dieser Adresse                   //Finde Lok mit dieser Adresse 
-            if (index == -1)//Lok nicht gefunden in der Liste
-            {
-                LokCtrl8_Name.Text = String.Format("Lok: {0}", LokCtrl8_Adr.Value);
-                AktiveLoks[7] = new Lok() { Adresse = (int)LokCtrl8_Adr.Value };
-            }
-            else
-            {
-                LokCtrl8_Name.Text = Lokliste[index].Name;
-                AktiveLoks[7] = Lokliste[index];
-            }
-
-            //Update Rest
-            Update_Rufnummern8(sender, e);
-        }
-        private void LokCtrl9_Adr_ValueChanged(object sender, EventArgs e)
-        {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl9_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1)//Lok nicht gefunden in der Liste
-            {
-                LokCtrl9_Name.Text = String.Format("Lok: {0}", LokCtrl9_Adr.Value);
-                AktiveLoks[8] = new Lok() { Adresse = (int)LokCtrl9_Adr.Value };
-            }
-            else
-            {
-                LokCtrl9_Name.Text = Lokliste[index].Name;
-                AktiveLoks[8] = Lokliste[index];
-            }
-
-            //Update Rest
-            Update_Rufnummern9(sender, e);
-        }
-        private void LokCtrl10_Adr_ValueChanged(object sender, EventArgs e)
-        {
-            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl10_Adr.Value);                   //Finde Lok mit dieser Adresse 
-            if (index == -1)//Lok nicht gefunden in der Liste
-            {
-                LokCtrl10_Name.Text = String.Format("Lok: {0}", LokCtrl10_Adr.Value);
-                AktiveLoks[9] = new Lok() { Adresse = (int)LokCtrl10_Adr.Value };
-            }
-            else
-            {
-                LokCtrl10_Name.Text = Lokliste[index].Name;
-                AktiveLoks[9] = Lokliste[index];
-            }
-
-            //Update Rest
-            Update_Rufnummern10(sender, e);
-        }
-        private void Update_Rufnummern1(object sender, EventArgs e)
-        {
-            if (LokCtrl1_Adr.Value != 0) LokCtrl1_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl1_Gattung.Text) + LokCtrl1_Adr.Value.ToString();
-            else LokCtrl1_Ruf.Text = "";
-        }
-        private void Update_Rufnummern2(object sender, EventArgs e)
-        {
-            if (LokCtrl2_Adr.Value != 0) LokCtrl2_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl2_Gattung.Text) + LokCtrl2_Adr.Value.ToString();
-            else LokCtrl2_Ruf.Text = "";
-        }
-        private void Update_Rufnummern3(object sender, EventArgs e)
-        {
-            if (LokCtrl3_Adr.Value != 0) LokCtrl3_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl3_Gattung.Text) + LokCtrl3_Adr.Value.ToString();
-            else LokCtrl3_Ruf.Text = "";
-        }
-        private void Update_Rufnummern4(object sender, EventArgs e)
-        {
-            if (LokCtrl4_Adr.Value != 0) LokCtrl4_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl4_Gattung.Text) + LokCtrl4_Adr.Value.ToString();
-            else LokCtrl4_Ruf.Text = "";
-        }
-        private void Update_Rufnummern5(object sender, EventArgs e)
-        {
-            if (LokCtrl5_Adr.Value != 0) LokCtrl5_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl5_Gattung.Text) + LokCtrl5_Adr.Value.ToString();
-            else LokCtrl5_Ruf.Text = "";
-        }
-        private void Update_Rufnummern6(object sender, EventArgs e)
-        {
-            if (LokCtrl6_Adr.Value != 0) LokCtrl6_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl6_Gattung.Text) + LokCtrl6_Adr.Value.ToString();
-            else LokCtrl6_Ruf.Text = "";
-        }
-        private void Update_Rufnummern7(object sender, EventArgs e)
-        {
-            if (LokCtrl7_Adr.Value != 0) LokCtrl7_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl7_Gattung.Text) + LokCtrl7_Adr.Value.ToString();
-            else LokCtrl7_Ruf.Text = "";
-        }
-        private void Update_Rufnummern8(object sender, EventArgs e)
-        {
-            if (LokCtrl8_Adr.Value != 0) LokCtrl8_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl8_Gattung.Text) + LokCtrl8_Adr.Value.ToString();
-            else LokCtrl8_Ruf.Text = "";
-        }
-        private void Update_Rufnummern9(object sender, EventArgs e)
-        {
-            if (LokCtrl9_Adr.Value != 0) LokCtrl9_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl9_Gattung.Text) + LokCtrl9_Adr.Value.ToString();
-            else LokCtrl9_Ruf.Text = "";
-        }
-        private void Update_Rufnummern10(object sender, EventArgs e)
-        {
-            if (LokCtrl10_Adr.Value != 0) LokCtrl10_Ruf.Text = LokKontrolle.Abkuerzung(LokCtrl10_Gattung.Text) + LokCtrl10_Adr.Value.ToString();
-            else LokCtrl10_Ruf.Text = "";
-        }
-
+        #region Signalsteuerung
         private void Signal_Ausfahrt_L1_Click(object sender, EventArgs e)
         {
             int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
@@ -1917,16 +686,360 @@ namespace MEKB_H0_Anlage
                 if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
             }
         }
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        #endregion
+        private void ProgrammBeenden_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Alle Autozüge Stop
-            //Alle Signale Rot
+            StopAlle_Click(sender, e);
+            foreach(Signal signal in Signalliste)
+            {
+                signal.Schalten(0, z21Start);//Alle Signale Rot
+            }
+            z21Start.DisConnect_Z21();
         }
+
+        #region Lok Namensauswahl
+        private void LokCtrl1_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl1_Name.Text });
+            if (ListID == -1) return;
+            int Adresse = Lokliste[ListID].Adresse;
+            LokCtrl1_Adr.Value = Adresse;
+
+        }
+        private void LokCtrl2_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl2_Name.Text });
+            if (ListID == -1) return;
+            int Adresse = Lokliste[ListID].Adresse;
+            LokCtrl2_Adr.Value = Adresse;
+        }
+        private void LokCtrl3_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl3_Name.Text });
+            if (ListID == -1) return;
+            int Adresse = Lokliste[ListID].Adresse;
+            LokCtrl3_Adr.Value = Adresse;
+        }
+        private void LokCtrl4_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl4_Name.Text });
+            if (ListID == -1) return;
+            int Adresse = Lokliste[ListID].Adresse;
+            LokCtrl4_Adr.Value = Adresse;
+        }
+        private void LokCtrl5_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl5_Name.Text });
+            if (ListID == -1) return;
+            int Adresse = Lokliste[ListID].Adresse;
+            LokCtrl5_Adr.Value = Adresse;
+        }
+        private void LokCtrl6_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl6_Name.Text });
+            if (ListID == -1) return;
+            int Adresse = Lokliste[ListID].Adresse;
+            LokCtrl6_Adr.Value = Adresse;
+        }
+        private void LokCtrl7_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl7_Name.Text });
+            if (ListID == -1) return;
+            int Adresse = Lokliste[ListID].Adresse;
+            LokCtrl7_Adr.Value = Adresse;
+        }
+        private void LokCtrl8_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl8_Name.Text });
+            if (ListID == -1) return;
+            int Adresse = Lokliste[ListID].Adresse;
+            LokCtrl8_Adr.Value = Adresse;
+        }
+        private void LokCtrl9_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl9_Name.Text });
+            if (ListID == -1) return;
+            int Adresse = Lokliste[ListID].Adresse;
+            LokCtrl9_Adr.Value = Adresse;
+        }
+        private void LokCtrl10_Name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ListID = Lokliste.IndexOf(new Lok() { Name = LokCtrl10_Name.Text });
+            if (ListID == -1) return;
+            int Adresse = Lokliste[ListID].Adresse;
+            LokCtrl10_Adr.Value = Adresse;
+        }
+        #endregion
+        #region Lok Adresse ändern
+        private void LokCtrl1_Adr_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl1_Adr.Value);                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl1_Name.Text = String.Format("Lok: {0}", LokCtrl1_Adr.Value);
+                AktiveLoks[0] = new Lok() { Adresse = (int)LokCtrl1_Adr.Value };
+            }
+            else
+            {
+                AktiveLoks[0] = Lokliste[index];
+                LokCtrl1_Name.Text = AktiveLoks[0].Name;
+                LokCtrl1_Gattung.Text = AktiveLoks[0].Gattung;
+            }
+            AktiveLoks[0].Automatik = false;
+            LokCtrl1_Strg_Typ.Text = "Manuell";
+            LokCtrl1_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+
+            //Update Rest
+            Update_Rufnummern1(sender, e);
+        }
+        private void LokCtrl2_Adr_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl2_Adr.Value);                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl2_Name.Text = String.Format("Lok: {0}", LokCtrl2_Adr.Value);
+                AktiveLoks[1] = new Lok() { Adresse = (int)LokCtrl2_Adr.Value };
+            }
+            else
+            {
+                AktiveLoks[1] = Lokliste[index];
+                LokCtrl2_Name.Text = AktiveLoks[1].Name;
+                LokCtrl2_Gattung.Text = AktiveLoks[1].Gattung;
+            }
+            AktiveLoks[1].Automatik = false;
+            LokCtrl2_Strg_Typ.Text = "Manuell";
+            LokCtrl2_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+            //Update Rest
+            Update_Rufnummern2(sender, e);
+        }
+        private void LokCtrl3_Adr_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl3_Adr.Value);                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl3_Name.Text = String.Format("Lok: {0}", LokCtrl3_Adr.Value);
+                AktiveLoks[2] = new Lok() { Adresse = (int)LokCtrl3_Adr.Value };
+            }
+            else
+            {
+                AktiveLoks[2] = Lokliste[index];
+                LokCtrl3_Name.Text = AktiveLoks[2].Name;
+                LokCtrl3_Gattung.Text = AktiveLoks[2].Gattung;
+            }
+            AktiveLoks[2].Automatik = false;
+            LokCtrl3_Strg_Typ.Text = "Manuell";
+            LokCtrl3_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+            //Update Rest
+            Update_Rufnummern3(sender, e);
+        }
+        private void LokCtrl4_Adr_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl4_Adr.Value);                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl4_Name.Text = String.Format("Lok: {0}", LokCtrl4_Adr.Value);
+                AktiveLoks[3] = new Lok() { Adresse = (int)LokCtrl4_Adr.Value };
+            }
+            else
+            {
+                AktiveLoks[3] = Lokliste[index];
+                LokCtrl4_Name.Text = AktiveLoks[3].Name;
+                LokCtrl4_Gattung.Text = AktiveLoks[3].Gattung;
+            }
+            AktiveLoks[3].Automatik = false;
+            LokCtrl4_Strg_Typ.Text = "Manuell";
+            LokCtrl4_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+            //Update Rest
+            Update_Rufnummern4(sender, e);
+        }
+        private void LokCtrl5_Adr_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl5_Adr.Value);                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl5_Name.Text = String.Format("Lok: {0}", LokCtrl5_Adr.Value);
+                AktiveLoks[4] = new Lok() { Adresse = (int)LokCtrl5_Adr.Value };
+            }
+            else
+            {
+                AktiveLoks[4] = Lokliste[index];
+                LokCtrl5_Name.Text = AktiveLoks[4].Name;
+                LokCtrl5_Gattung.Text = AktiveLoks[4].Gattung;
+            }
+            AktiveLoks[4].Automatik = false;
+            LokCtrl5_Strg_Typ.Text = "Manuell";
+            LokCtrl5_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+            //Update Rest
+            Update_Rufnummern5(sender, e);
+        }
+        private void LokCtrl6_Adr_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl6_Adr.Value);                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl6_Name.Text = String.Format("Lok: {0}", LokCtrl6_Adr.Value);
+                AktiveLoks[5] = new Lok() { Adresse = (int)LokCtrl6_Adr.Value };
+            }
+            else
+            {
+                AktiveLoks[5] = Lokliste[index];
+                LokCtrl6_Name.Text = AktiveLoks[5].Name;
+                LokCtrl6_Gattung.Text = AktiveLoks[5].Gattung;
+            }
+            AktiveLoks[5].Automatik = false;
+            LokCtrl6_Strg_Typ.Text = "Manuell";
+            LokCtrl6_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+            //Update Rest
+            Update_Rufnummern6(sender, e);
+        }
+        private void LokCtrl7_Adr_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl7_Adr.Value);                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl7_Name.Text = String.Format("Lok: {0}", LokCtrl7_Adr.Value);
+                AktiveLoks[6] = new Lok() { Adresse = (int)LokCtrl7_Adr.Value };
+            }
+            else
+            {
+                AktiveLoks[6] = Lokliste[index];
+                LokCtrl7_Name.Text = AktiveLoks[6].Name;
+                LokCtrl7_Gattung.Text = AktiveLoks[6].Gattung;
+            }
+            AktiveLoks[6].Automatik = false;
+            LokCtrl7_Strg_Typ.Text = "Manuell";
+            LokCtrl7_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+            //Update Rest
+            Update_Rufnummern7(sender, e);
+        }
+        private void LokCtrl8_Adr_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl8_Adr.Value);                   //Finde Lok mit dieser Adresse                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl8_Name.Text = String.Format("Lok: {0}", LokCtrl8_Adr.Value);
+                AktiveLoks[7] = new Lok() { Adresse = (int)LokCtrl8_Adr.Value };
+            }
+            else
+            {
+                AktiveLoks[7] = Lokliste[index];
+                LokCtrl8_Name.Text = AktiveLoks[7].Name;
+                LokCtrl8_Gattung.Text = AktiveLoks[7].Gattung;
+            }
+            AktiveLoks[7].Automatik = false;
+            LokCtrl8_Strg_Typ.Text = "Manuell";
+            LokCtrl8_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+            //Update Rest
+            Update_Rufnummern8(sender, e);
+        }
+        private void LokCtrl9_Adr_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl9_Adr.Value);                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl9_Name.Text = String.Format("Lok: {0}", LokCtrl9_Adr.Value);
+                AktiveLoks[8] = new Lok() { Adresse = (int)LokCtrl9_Adr.Value };
+            }
+            else
+            {
+                AktiveLoks[8] = Lokliste[index];
+                LokCtrl9_Name.Text = AktiveLoks[8].Name;
+                LokCtrl9_Gattung.Text = AktiveLoks[8].Gattung;
+            }
+            AktiveLoks[8].Automatik = false;
+            LokCtrl9_Strg_Typ.Text = "Manuell";
+            LokCtrl9_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+            //Update Rest
+            Update_Rufnummern9(sender, e);
+        }
+        private void LokCtrl10_Adr_ValueChanged(object sender, EventArgs e)
+        {
+            int index = Lokliste.FindIndex(x => x.Adresse == LokCtrl10_Adr.Value);                   //Finde Lok mit dieser Adresse 
+            if (index == -1)//Lok nicht gefunden in der Liste
+            {
+                LokCtrl10_Name.Text = String.Format("Lok: {0}", LokCtrl10_Adr.Value);
+                AktiveLoks[9] = new Lok() { Adresse = (int)LokCtrl10_Adr.Value };
+            }
+            else
+            {
+                AktiveLoks[9] = Lokliste[index];
+                LokCtrl10_Name.Text = AktiveLoks[9].Name;
+                LokCtrl10_Gattung.Text = AktiveLoks[9].Gattung;
+            }
+            AktiveLoks[9].Automatik = false;
+            LokCtrl10_Strg_Typ.Text = "Manuell";
+            LokCtrl10_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+            //Update Rest
+            Update_Rufnummern10(sender, e);
+        }
+        #endregion
+        #region Lok Rufnummern ändern
+        private void Update_Rufnummern1(object sender, EventArgs e)
+        {
+            AktiveLoks[0].Gattung = LokCtrl1_Gattung.Text;
+            if (AktiveLoks[0].Adresse != 0) LokCtrl1_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[0].Gattung) + AktiveLoks[0].Adresse.ToString();
+            else LokCtrl1_Ruf.Text = "";
+        }
+        private void Update_Rufnummern2(object sender, EventArgs e)
+        {
+            AktiveLoks[1].Gattung = LokCtrl2_Gattung.Text;
+            if (AktiveLoks[1].Adresse != 0) LokCtrl2_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[1].Gattung) + AktiveLoks[1].Adresse.ToString();
+            else LokCtrl2_Ruf.Text = "";
+        }
+        private void Update_Rufnummern3(object sender, EventArgs e)
+        {
+            AktiveLoks[2].Gattung = LokCtrl3_Gattung.Text;
+            if (AktiveLoks[2].Adresse != 0) LokCtrl3_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[2].Gattung) + AktiveLoks[2].Adresse.ToString();
+            else LokCtrl3_Ruf.Text = "";
+        }
+        private void Update_Rufnummern4(object sender, EventArgs e)
+        {
+            AktiveLoks[3].Gattung = LokCtrl4_Gattung.Text;
+            if (AktiveLoks[3].Adresse != 0) LokCtrl4_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[3].Gattung) + AktiveLoks[3].Adresse.ToString();
+            else LokCtrl4_Ruf.Text = "";
+        }
+        private void Update_Rufnummern5(object sender, EventArgs e)
+        {
+            AktiveLoks[4].Gattung = LokCtrl5_Gattung.Text;
+            if (AktiveLoks[4].Adresse != 0) LokCtrl5_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[4].Gattung) + AktiveLoks[4].Adresse.ToString();
+            else LokCtrl5_Ruf.Text = "";
+        }
+        private void Update_Rufnummern6(object sender, EventArgs e)
+        {
+            AktiveLoks[5].Gattung = LokCtrl6_Gattung.Text;
+            if (AktiveLoks[5].Adresse != 0) LokCtrl6_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[5].Gattung) + AktiveLoks[5].Adresse.ToString();
+            else LokCtrl6_Ruf.Text = "";
+        }
+        private void Update_Rufnummern7(object sender, EventArgs e)
+        {
+            AktiveLoks[6].Gattung = LokCtrl7_Gattung.Text;
+            if (AktiveLoks[6].Adresse != 0) LokCtrl7_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[6].Gattung) + AktiveLoks[6].Adresse.ToString();
+            else LokCtrl7_Ruf.Text = "";
+        }
+        private void Update_Rufnummern8(object sender, EventArgs e)
+        {
+            AktiveLoks[7].Gattung = LokCtrl8_Gattung.Text;
+            if (AktiveLoks[7].Adresse != 0) LokCtrl8_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[7].Gattung) + AktiveLoks[7].Adresse.ToString();
+            else LokCtrl8_Ruf.Text = "";
+        }
+        private void Update_Rufnummern9(object sender, EventArgs e)
+        {
+            AktiveLoks[8].Gattung = LokCtrl9_Gattung.Text;
+            if (AktiveLoks[8].Adresse != 0) LokCtrl9_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[8].Gattung) + AktiveLoks[8].Adresse.ToString();
+            else LokCtrl9_Ruf.Text = "";
+        }
+        private void Update_Rufnummern10(object sender, EventArgs e)
+        {
+            AktiveLoks[9].Gattung = LokCtrl10_Gattung.Text;
+            if (AktiveLoks[9].Adresse != 0) LokCtrl10_Ruf.Text = LokKontrolle.Abkuerzung(AktiveLoks[9].Gattung) + AktiveLoks[9].Adresse.ToString();
+            else LokCtrl10_Ruf.Text = "";
+        }
+        #endregion
+        #region Lok Fahrpulte öffnen
         private void OpenFahrpult1_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -1946,6 +1059,7 @@ namespace MEKB_H0_Anlage
             AktiveLoks[0].Steuerpult = new ZugSteuerpult(AktiveLoks[0]);
             AktiveLoks[0].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[0].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[0].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[0].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[0].Adresse);
 
@@ -1969,10 +1083,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[1].Steuerpult = new ZugSteuerpult(AktiveLoks[1]);
             AktiveLoks[1].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[1].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[1].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[1].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[1].Adresse);
         }
-
         private void OpenFahrpult3_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -1992,10 +1106,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[2].Steuerpult = new ZugSteuerpult(AktiveLoks[2]);
             AktiveLoks[2].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[2].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[2].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[2].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[2].Adresse);
         }
-
         private void OpenFahrpult4_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2015,10 +1129,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[3].Steuerpult = new ZugSteuerpult(AktiveLoks[3]);
             AktiveLoks[3].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[3].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[3].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[3].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[3].Adresse);
         }
-
         private void OpenFahrpult5_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2038,10 +1152,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[4].Steuerpult = new ZugSteuerpult(AktiveLoks[4]);
             AktiveLoks[4].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[4].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[4].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[4].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[4].Adresse);
         }
-
         private void OpenFahrpult6_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2061,10 +1175,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[5].Steuerpult = new ZugSteuerpult(AktiveLoks[5]);
             AktiveLoks[5].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[5].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[5].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[5].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[5].Adresse);
         }
-
         private void OpenFahrpult7_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2084,10 +1198,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[6].Steuerpult = new ZugSteuerpult(AktiveLoks[6]);
             AktiveLoks[6].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[6].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[6].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[6].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[6].Adresse);
         }
-
         private void OpenFahrpult8_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2107,10 +1221,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[7].Steuerpult = new ZugSteuerpult(AktiveLoks[7]);
             AktiveLoks[7].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[7].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[7].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[7].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[7].Adresse);
         }
-
         private void OpenFahrpult9_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2130,10 +1244,10 @@ namespace MEKB_H0_Anlage
             AktiveLoks[8].Steuerpult = new ZugSteuerpult(AktiveLoks[8]);
             AktiveLoks[8].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[8].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[8].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[8].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[8].Adresse);
         }
-
         private void OpenFahrpult10_Click(object sender, EventArgs e)
         {
             if (!(Weichen_Init & Signal_Init))
@@ -2153,8 +1267,258 @@ namespace MEKB_H0_Anlage
             AktiveLoks[9].Steuerpult = new ZugSteuerpult(AktiveLoks[9]);
             AktiveLoks[9].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             AktiveLoks[9].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLoks[9].Register_CMD_LOKSTATUS(Setze_Lok_Status);
             AktiveLoks[9].Steuerpult.Show();
             z21Start.Z21_GET_LOCO_INFO(AktiveLoks[9].Adresse);
         }
+        #endregion
+        #region Lok Nothalte
+        private void LokCtrlStop1_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[0].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[0].Adresse, 255, AktiveLoks[0].Richtung, AktiveLoks[0].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop2_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[1].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[1].Adresse, 255, AktiveLoks[1].Richtung, AktiveLoks[1].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop3_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[2].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[2].Adresse, 255, AktiveLoks[2].Richtung, AktiveLoks[2].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop4_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[3].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[3].Adresse, 255, AktiveLoks[3].Richtung, AktiveLoks[3].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop5_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[4].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[4].Adresse, 255, AktiveLoks[4].Richtung, AktiveLoks[4].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop6_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[5].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[5].Adresse, 255, AktiveLoks[5].Richtung, AktiveLoks[5].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop7_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[6].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[6].Adresse, 255, AktiveLoks[6].Richtung, AktiveLoks[6].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop8_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[7].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[7].Adresse, 255, AktiveLoks[7].Richtung, AktiveLoks[7].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop9_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[8].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[8].Adresse, 255, AktiveLoks[8].Richtung, AktiveLoks[8].FahrstufenInfo);
+            }
+        }
+        private void LokCtrlStop10_Click(object sender, EventArgs e)
+        {
+            if (AktiveLoks[9].Adresse != 0)
+            {
+                Setze_Lok_Fahrt(AktiveLoks[9].Adresse, 255, AktiveLoks[9].Richtung, AktiveLoks[9].FahrstufenInfo);
+            }
+        }
+        private void StopAlle_Click(object sender, EventArgs e)
+        {
+            LokCtrlStop1_Click(sender, e);
+            LokCtrlStop2_Click(sender, e);
+            LokCtrlStop3_Click(sender, e);
+            LokCtrlStop4_Click(sender, e);
+            LokCtrlStop5_Click(sender, e);
+            LokCtrlStop6_Click(sender, e);
+            LokCtrlStop7_Click(sender, e);
+            LokCtrlStop8_Click(sender, e);
+            LokCtrlStop9_Click(sender, e);
+            LokCtrlStop10_Click(sender, e);
+        }
+        #endregion
+        #region Lok Auto- / Manuellsteuerung
+        private void LokCtrl1_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[0].Automatik)
+            {
+                LokCtrl1_Strg_Typ.Text = "Automatik";
+                LokCtrl1_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[0].Automatik = true;
+            }
+            else
+            {
+                LokCtrl1_Strg_Typ.Text = "Manuell";
+                LokCtrl1_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[0].Automatik = false;
+            }
+        }
+        private void LokCtrl2_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[1].Automatik)
+            {
+                LokCtrl2_Strg_Typ.Text = "Automatik";
+                LokCtrl2_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[1].Automatik = true;
+            }
+            else
+            {
+                LokCtrl2_Strg_Typ.Text = "Manuell";
+                LokCtrl2_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[1].Automatik = false;
+            }
+        }
+        private void LokCtrl3_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[2].Automatik)
+            {
+                LokCtrl3_Strg_Typ.Text = "Automatik";
+                LokCtrl3_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[2].Automatik = true;
+            }
+            else
+            {
+                LokCtrl3_Strg_Typ.Text = "Manuell";
+                LokCtrl3_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[2].Automatik = false;
+            }
+        }
+        private void LokCtrl4_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[3].Automatik)
+            {
+                LokCtrl4_Strg_Typ.Text = "Automatik";
+                LokCtrl4_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[3].Automatik = true;
+            }
+            else
+            {
+                LokCtrl4_Strg_Typ.Text = "Manuell";
+                LokCtrl4_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[3].Automatik = false;
+            }
+        }
+        private void LokCtrl5_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[4].Automatik)
+            {
+                LokCtrl5_Strg_Typ.Text = "Automatik";
+                LokCtrl5_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[4].Automatik = true;
+            }
+            else
+            {
+                LokCtrl5_Strg_Typ.Text = "Manuell";
+                LokCtrl5_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[4].Automatik = false;
+            }
+        }
+        private void LokCtrl6_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[5].Automatik)
+            {
+                LokCtrl6_Strg_Typ.Text = "Automatik";
+                LokCtrl6_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[5].Automatik = true;
+            }
+            else
+            {
+                LokCtrl6_Strg_Typ.Text = "Manuell";
+                LokCtrl6_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[5].Automatik = false;
+            }
+        }
+        private void LokCtrl7_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[6].Automatik)
+            {
+                LokCtrl7_Strg_Typ.Text = "Automatik";
+                LokCtrl7_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[6].Automatik = true;
+            }
+            else
+            {
+                LokCtrl7_Strg_Typ.Text = "Manuell";
+                LokCtrl7_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[6].Automatik = false;
+            }
+        }
+        private void LokCtrl8_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[7].Automatik)
+            {
+                LokCtrl8_Strg_Typ.Text = "Automatik";
+                LokCtrl8_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[7].Automatik = true;
+            }
+            else
+            {
+                LokCtrl8_Strg_Typ.Text = "Manuell";
+                LokCtrl8_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[7].Automatik = false;
+            }
+        }
+        private void LokCtrl9_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[8].Automatik)
+            {
+                LokCtrl9_Strg_Typ.Text = "Automatik";
+                LokCtrl9_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[8].Automatik = true;
+            }
+            else
+            {
+                LokCtrl9_Strg_Typ.Text = "Manuell";
+                LokCtrl9_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[8].Automatik = false;
+            }
+        }
+        private void LokCtrl10_Strg_Typ_Click(object sender, EventArgs e)
+        {
+            if (!AktiveLoks[9].Automatik)
+            {
+                LokCtrl10_Strg_Typ.Text = "Automatik";
+                LokCtrl10_Strg_Typ.BackColor = Color.FromArgb(128, 0, 0);
+                AktiveLoks[9].Automatik = true;
+            }
+            else
+            {
+                LokCtrl10_Strg_Typ.Text = "Manuell";
+                LokCtrl10_Strg_Typ.BackColor = Color.FromArgb(0, 128, 0);
+                AktiveLoks[9].Automatik = false;
+            }
+        }
+        #endregion
+        private void LokEditorOpen_Click(object sender, EventArgs e)
+        {
+            LokEditor lokEditor = new LokEditor();
+            lokEditor.Show();
+        }
+
+        
+
+        
+
+        
     }
 }
