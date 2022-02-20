@@ -2019,7 +2019,7 @@
             this.Weiche67.TabIndex = 785;
             this.Weiche67.TabStop = false;
             this.Hinttext.SetToolTip(this.Weiche67, "Weiche 40\r\nAnaloge Weiche - Hier keine Funktion\r\n");
-            this.Weiche67.Click += new System.EventHandler(this.Weiche67_Click);
+            this.Weiche67.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // AutoSignale
             // 
@@ -3898,7 +3898,7 @@
             this.Weiche60.Size = new System.Drawing.Size(32, 32);
             this.Weiche60.TabIndex = 283;
             this.Weiche60.TabStop = false;
-            this.Weiche60.Click += new System.EventHandler(this.Weiche60_Click);
+            this.Weiche60.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche71
             // 
@@ -3908,7 +3908,7 @@
             this.Weiche71.Size = new System.Drawing.Size(32, 32);
             this.Weiche71.TabIndex = 282;
             this.Weiche71.TabStop = false;
-            this.Weiche71.Click += new System.EventHandler(this.Weiche71_Click);
+            this.Weiche71.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche72
             // 
@@ -3918,7 +3918,7 @@
             this.Weiche72.Size = new System.Drawing.Size(32, 32);
             this.Weiche72.TabIndex = 281;
             this.Weiche72.TabStop = false;
-            this.Weiche72.Click += new System.EventHandler(this.Weiche72_Click);
+            this.Weiche72.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche74
             // 
@@ -3928,7 +3928,7 @@
             this.Weiche74.Size = new System.Drawing.Size(32, 32);
             this.Weiche74.TabIndex = 280;
             this.Weiche74.TabStop = false;
-            this.Weiche74.Click += new System.EventHandler(this.Weiche74_Click);
+            this.Weiche74.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche75
             // 
@@ -3938,7 +3938,7 @@
             this.Weiche75.Size = new System.Drawing.Size(32, 32);
             this.Weiche75.TabIndex = 279;
             this.Weiche75.TabStop = false;
-            this.Weiche75.Click += new System.EventHandler(this.Weiche75_Click);
+            this.Weiche75.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche76
             // 
@@ -3948,7 +3948,7 @@
             this.Weiche76.Size = new System.Drawing.Size(32, 32);
             this.Weiche76.TabIndex = 278;
             this.Weiche76.TabStop = false;
-            this.Weiche76.Click += new System.EventHandler(this.Weiche76_Click);
+            this.Weiche76.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche64
             // 
@@ -3960,7 +3960,7 @@
             this.Weiche64.Size = new System.Drawing.Size(32, 32);
             this.Weiche64.TabIndex = 277;
             this.Weiche64.TabStop = false;
-            this.Weiche64.Click += new System.EventHandler(this.Weiche64_Click);
+            this.Weiche64.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche63
             // 
@@ -3972,7 +3972,7 @@
             this.Weiche63.Size = new System.Drawing.Size(32, 32);
             this.Weiche63.TabIndex = 276;
             this.Weiche63.TabStop = false;
-            this.Weiche63.Click += new System.EventHandler(this.Weiche63_Click);
+            this.Weiche63.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche62
             // 
@@ -3984,7 +3984,7 @@
             this.Weiche62.Size = new System.Drawing.Size(32, 32);
             this.Weiche62.TabIndex = 275;
             this.Weiche62.TabStop = false;
-            this.Weiche62.Click += new System.EventHandler(this.Weiche62_Click);
+            this.Weiche62.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche61
             // 
@@ -3996,7 +3996,7 @@
             this.Weiche61.Size = new System.Drawing.Size(32, 32);
             this.Weiche61.TabIndex = 274;
             this.Weiche61.TabStop = false;
-            this.Weiche61.Click += new System.EventHandler(this.Weiche61_Click);
+            this.Weiche61.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Block9_13
             // 
@@ -4528,7 +4528,7 @@
             this.Weiche52.Size = new System.Drawing.Size(32, 32);
             this.Weiche52.TabIndex = 215;
             this.Weiche52.TabStop = false;
-            this.Weiche52.Click += new System.EventHandler(this.Weiche52_Click);
+            this.Weiche52.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Block1d_3
             // 
@@ -4565,7 +4565,7 @@
             this.Weiche53.Size = new System.Drawing.Size(32, 32);
             this.Weiche53.TabIndex = 211;
             this.Weiche53.TabStop = false;
-            this.Weiche53.Click += new System.EventHandler(this.Weiche53_Click);
+            this.Weiche53.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche50a_7
             // 
@@ -5098,7 +5098,7 @@
             this.Weiche50.Size = new System.Drawing.Size(32, 32);
             this.Weiche50.TabIndex = 148;
             this.Weiche50.TabStop = false;
-            this.Weiche50.Click += new System.EventHandler(this.Weiche50_Click);
+            this.Weiche50.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche51a_2
             // 
@@ -5128,7 +5128,7 @@
             this.Weiche51.Size = new System.Drawing.Size(32, 32);
             this.Weiche51.TabIndex = 145;
             this.Weiche51.TabStop = false;
-            this.Weiche51.Click += new System.EventHandler(this.Weiche51_Click);
+            this.Weiche51.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Block4a_5
             // 
@@ -5946,7 +5946,7 @@
             this.Weiche30.Size = new System.Drawing.Size(32, 32);
             this.Weiche30.TabIndex = 41;
             this.Weiche30.TabStop = false;
-            this.Weiche30.Click += new System.EventHandler(this.Weiche30_Click);
+            this.Weiche30.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche29
             // 
@@ -5957,7 +5957,7 @@
             this.Weiche29.Size = new System.Drawing.Size(32, 32);
             this.Weiche29.TabIndex = 40;
             this.Weiche29.TabStop = false;
-            this.Weiche29.Click += new System.EventHandler(this.Weiche29_Click);
+            this.Weiche29.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche27
             // 
@@ -5969,7 +5969,7 @@
             this.Weiche27.Size = new System.Drawing.Size(32, 32);
             this.Weiche27.TabIndex = 39;
             this.Weiche27.TabStop = false;
-            this.Weiche27.Click += new System.EventHandler(this.Weiche27_Click);
+            this.Weiche27.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche28
             // 
@@ -5980,7 +5980,7 @@
             this.Weiche28.Size = new System.Drawing.Size(32, 32);
             this.Weiche28.TabIndex = 38;
             this.Weiche28.TabStop = false;
-            this.Weiche28.Click += new System.EventHandler(this.Weiche28_Click);
+            this.Weiche28.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Block3a
             // 
@@ -6009,7 +6009,7 @@
             this.Weiche26.Size = new System.Drawing.Size(32, 32);
             this.Weiche26.TabIndex = 35;
             this.Weiche26.TabStop = false;
-            this.Weiche26.Click += new System.EventHandler(this.Weiche26_Click);
+            this.Weiche26.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche25
             // 
@@ -6020,7 +6020,7 @@
             this.Weiche25.Size = new System.Drawing.Size(32, 32);
             this.Weiche25.TabIndex = 34;
             this.Weiche25.TabStop = false;
-            this.Weiche25.Click += new System.EventHandler(this.Weiche25_Click);
+            this.Weiche25.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche23
             // 
@@ -6032,7 +6032,7 @@
             this.Weiche23.Size = new System.Drawing.Size(32, 32);
             this.Weiche23.TabIndex = 33;
             this.Weiche23.TabStop = false;
-            this.Weiche23.Click += new System.EventHandler(this.Weiche23_Click);
+            this.Weiche23.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche21_Gleis1
             // 
@@ -6053,7 +6053,7 @@
             this.Weiche21.Size = new System.Drawing.Size(32, 32);
             this.Weiche21.TabIndex = 31;
             this.Weiche21.TabStop = false;
-            this.Weiche21.Click += new System.EventHandler(this.Weiche21_Click);
+            this.Weiche21.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // GL6_rechts_0
             // 
@@ -6128,7 +6128,7 @@
             this.Weiche8.Size = new System.Drawing.Size(32, 32);
             this.Weiche8.TabIndex = 21;
             this.Weiche8.TabStop = false;
-            this.Weiche8.Click += new System.EventHandler(this.Weiche8_Click);
+            this.Weiche8.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // GL3_links_3
             // 
@@ -6193,7 +6193,7 @@
             this.Weiche5.Size = new System.Drawing.Size(32, 32);
             this.Weiche5.TabIndex = 13;
             this.Weiche5.TabStop = false;
-            this.Weiche5.Click += new System.EventHandler(this.Weiche5_Click);
+            this.Weiche5.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Block1a_1
             // 
@@ -6258,7 +6258,7 @@
             this.Weiche2.Size = new System.Drawing.Size(32, 32);
             this.Weiche2.TabIndex = 6;
             this.Weiche2.TabStop = false;
-            this.Weiche2.Click += new System.EventHandler(this.Weiche2_Click);
+            this.Weiche2.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche1
             // 
@@ -6269,7 +6269,7 @@
             this.Weiche1.Size = new System.Drawing.Size(32, 32);
             this.Weiche1.TabIndex = 5;
             this.Weiche1.TabStop = false;
-            this.Weiche1.Click += new System.EventHandler(this.Weiche1_Click);
+            this.Weiche1.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche3
             // 
@@ -6281,7 +6281,7 @@
             this.Weiche3.Size = new System.Drawing.Size(32, 32);
             this.Weiche3.TabIndex = 4;
             this.Weiche3.TabStop = false;
-            this.Weiche3.Click += new System.EventHandler(this.Weiche3_Click);
+            this.Weiche3.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche4
             // 
@@ -6292,7 +6292,7 @@
             this.Weiche4.Size = new System.Drawing.Size(32, 32);
             this.Weiche4.TabIndex = 3;
             this.Weiche4.TabStop = false;
-            this.Weiche4.Click += new System.EventHandler(this.Weiche4_Click);
+            this.Weiche4.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche6
             // 
@@ -6304,7 +6304,7 @@
             this.Weiche6.Size = new System.Drawing.Size(32, 32);
             this.Weiche6.TabIndex = 2;
             this.Weiche6.TabStop = false;
-            this.Weiche6.Click += new System.EventHandler(this.Weiche6_Click);
+            this.Weiche6.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Fahrstr_GL2_links
             // 
@@ -10312,7 +10312,7 @@
             this.Block6_Auswahl.Controls.Add(this.Block6_Schatten9);
             this.Block6_Auswahl.Controls.Add(this.Block6_Schatten10);
             this.Block6_Auswahl.Controls.Add(this.Block6_Schatten8);
-            this.Block6_Auswahl.Location = new System.Drawing.Point(488, 560);
+            this.Block6_Auswahl.Location = new System.Drawing.Point(576, 896);
             this.Block6_Auswahl.Name = "Block6_Auswahl";
             this.Block6_Auswahl.Size = new System.Drawing.Size(101, 40);
             this.Block6_Auswahl.TabIndex = 779;
@@ -10407,7 +10407,7 @@
             this.Weiche66.Size = new System.Drawing.Size(32, 32);
             this.Weiche66.TabIndex = 784;
             this.Weiche66.TabStop = false;
-            this.Weiche66.Click += new System.EventHandler(this.Weiche66_Click);
+            this.Weiche66.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche66_1
             // 
@@ -10428,7 +10428,7 @@
             this.Weiche65.Size = new System.Drawing.Size(32, 32);
             this.Weiche65.TabIndex = 803;
             this.Weiche65.TabStop = false;
-            this.Weiche65.Click += new System.EventHandler(this.Weiche65_Click);
+            this.Weiche65.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // textBox26
             // 
@@ -10521,7 +10521,7 @@
             this.Weiche73.Size = new System.Drawing.Size(32, 32);
             this.Weiche73.TabIndex = 788;
             this.Weiche73.TabStop = false;
-            this.Weiche73.Click += new System.EventHandler(this.Weiche73_Click);
+            this.Weiche73.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // pictureBox89
             // 
@@ -10614,7 +10614,7 @@
             this.Weiche90.Size = new System.Drawing.Size(32, 32);
             this.Weiche90.TabIndex = 811;
             this.Weiche90.TabStop = false;
-            this.Weiche90.Click += new System.EventHandler(this.Weiche90_Click);
+            this.Weiche90.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche90_Gleis1
             // 
@@ -10653,7 +10653,7 @@
             this.Weiche91.Size = new System.Drawing.Size(32, 32);
             this.Weiche91.TabIndex = 816;
             this.Weiche91.TabStop = false;
-            this.Weiche91.Click += new System.EventHandler(this.Weiche91_Click);
+            this.Weiche91.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche92
             // 
@@ -10665,7 +10665,7 @@
             this.Weiche92.Size = new System.Drawing.Size(32, 32);
             this.Weiche92.TabIndex = 817;
             this.Weiche92.TabStop = false;
-            this.Weiche92.Click += new System.EventHandler(this.Weiche92_Click);
+            this.Weiche92.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche92_Gleis2
             // 
@@ -11216,7 +11216,7 @@
             this.Weiche80.Size = new System.Drawing.Size(32, 32);
             this.Weiche80.TabIndex = 878;
             this.Weiche80.TabStop = false;
-            this.Weiche80.Click += new System.EventHandler(this.Weiche80_Click);
+            this.Weiche80.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche81
             // 
@@ -11226,7 +11226,7 @@
             this.Weiche81.Size = new System.Drawing.Size(32, 32);
             this.Weiche81.TabIndex = 879;
             this.Weiche81.TabStop = false;
-            this.Weiche81.Click += new System.EventHandler(this.Weiche81_Click);
+            this.Weiche81.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche82
             // 
@@ -11236,7 +11236,7 @@
             this.Weiche82.Size = new System.Drawing.Size(32, 32);
             this.Weiche82.TabIndex = 880;
             this.Weiche82.TabStop = false;
-            this.Weiche82.Click += new System.EventHandler(this.Weiche82_Click);
+            this.Weiche82.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // label83
             // 
@@ -11396,7 +11396,7 @@
             this.Weiche70.Size = new System.Drawing.Size(32, 32);
             this.Weiche70.TabIndex = 900;
             this.Weiche70.TabStop = false;
-            this.Weiche70.Click += new System.EventHandler(this.Weiche70_Click);
+            this.Weiche70.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Block7_14
             // 
@@ -11417,7 +11417,7 @@
             this.Weiche68.Size = new System.Drawing.Size(32, 32);
             this.Weiche68.TabIndex = 902;
             this.Weiche68.TabStop = false;
-            this.Weiche68.Click += new System.EventHandler(this.Weiche68_Click);
+            this.Weiche68.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Schatten0_Ausf3
             // 
@@ -11775,7 +11775,7 @@
             // 
             this.Schatten1_Auswahl.Controls.Add(this.Schatten1_Block9);
             this.Schatten1_Auswahl.Controls.Add(this.Schatten1_Block8);
-            this.Schatten1_Auswahl.Location = new System.Drawing.Point(384, 664);
+            this.Schatten1_Auswahl.Location = new System.Drawing.Point(384, 672);
             this.Schatten1_Auswahl.Name = "Schatten1_Auswahl";
             this.Schatten1_Auswahl.Size = new System.Drawing.Size(66, 40);
             this.Schatten1_Auswahl.TabIndex = 930;
@@ -12442,6 +12442,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.Block6_Auswahl);
             this.Controls.Add(this.Sperrung_Schatten7_Einf);
             this.Controls.Add(this.Sperrung_Schatten6_Einf);
             this.Controls.Add(this.Sperrung_Schatten5_Einf);
@@ -12494,7 +12495,6 @@
             this.Controls.Add(this.Schatten1_Auswahl);
             this.Controls.Add(this.Schatten9_Ausf2);
             this.Controls.Add(this.Schatten8_Ausf3);
-            this.Controls.Add(this.Block6_Auswahl);
             this.Controls.Add(this.Fahrstr_Schatten0_Ausf);
             this.Controls.Add(this.label114);
             this.Controls.Add(this.Block8);

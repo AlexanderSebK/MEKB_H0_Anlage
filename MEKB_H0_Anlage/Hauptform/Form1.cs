@@ -302,30 +302,13 @@ namespace MEKB_H0_Anlage
         }
 
         #region Weichensteuerung
-        private void Weiche1_Click(object sender, EventArgs e)
+        private void Weiche_Click(object sender, EventArgs e)
         {
-            ToggleWeiche("Weiche1");
-        }
-        private void Weiche2_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche2");
-        }
-        private void Weiche3_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche3");
-        }
-        private void Weiche4_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche4");
-        }
-        private void Weiche5_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche5");
-        }
-        private void Weiche6_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche6");
-        }
+            if (sender is PictureBox weichenElement)
+            {
+                ToggleWeiche(weichenElement.Name);
+            }
+        }     
         private void DKW7_Click(object sender, EventArgs e)
         {
             MouseEventArgs e2 = (MouseEventArgs)e;
@@ -339,10 +322,6 @@ namespace MEKB_H0_Anlage
             }
 
         }
-        private void Weiche8_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche8");
-        }
         private void DKW9_Click(object sender, EventArgs e)
         {
             MouseEventArgs e2 = (MouseEventArgs)e;
@@ -355,10 +334,6 @@ namespace MEKB_H0_Anlage
                 ToggleWeiche("DKW9_1");
             }
 
-        }
-        private void Weiche21_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche21");
         }
         private void KW22_Click(object sender, EventArgs e)
         {
@@ -376,10 +351,6 @@ namespace MEKB_H0_Anlage
                 if (Weichenliste[ListID].Abzweig) ToggleWeiche("KW22_2");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
             }
         }
-        private void Weiche23_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche23");
-        }
         private void DKW24_Click(object sender, EventArgs e)
         {
             MouseEventArgs e2 = (MouseEventArgs)e;
@@ -392,134 +363,7 @@ namespace MEKB_H0_Anlage
                 ToggleWeiche("DKW24_2");
             }
         }
-        private void Weiche25_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche25");
-        }
-        private void Weiche26_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche26");
-        }
-        private void Weiche27_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche27");
-        }
-        private void Weiche28_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche28");
-        }
-        private void Weiche29_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche29");
-        }
-        private void Weiche30_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche30");
-        }
-        private void Weiche50_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche50");
-        }
-        private void Weiche51_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche51");
-        }
-        private void Weiche52_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche52");        
-        }
-        private void Weiche53_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche53");        
-        }
-        private void Weiche60_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche60");
-        }
-        private void Weiche61_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche61");
-        }
-        private void Weiche62_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche62");
-        }
-        private void Weiche63_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche63");
-        }
-        private void Weiche64_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche64");
-        }
-        private void Weiche65_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche65");
-        }
-        private void Weiche66_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche66");
-        }
-        private void Weiche67_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche67");
-        }
-        private void Weiche68_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche68");
-        }
-        private void Weiche70_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche70");
-        }
-        private void Weiche71_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche71");
-        }
-        private void Weiche72_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche72");
-        }
-        private void Weiche73_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche73");
-        }
-        private void Weiche74_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche74");
-        }
-        private void Weiche75_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche75");
-        }
-        private void Weiche76_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche76");
-        }
-        private void Weiche80_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche80");
-        }
-        private void Weiche81_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche81");
-        }
-        private void Weiche82_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche82");
-        }
-        private void Weiche90_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche90");
-        }
-        private void Weiche91_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche91");
-        }
-        private void Weiche92_Click(object sender, EventArgs e)
-        {
-            ToggleWeiche("Weiche92");
-        }
+        
         #endregion
 
         
