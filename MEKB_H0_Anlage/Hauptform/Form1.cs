@@ -268,8 +268,6 @@ namespace MEKB_H0_Anlage
                     if (weiche.ZeitAktiv > 0)
                     {
                         weiche.ZeitAktiv -= 100;
-                            this.Invoke(new Action<string>(WriteTextBox), new object[] { weiche.ZeitAktiv.ToString() + weiche.Name });
-
                         if (weiche.ZeitAktiv <= 0)
                         {
                             weiche.ZeitAktiv = 0;                         
@@ -278,7 +276,6 @@ namespace MEKB_H0_Anlage
                             if (Betriebsbereit)
                             {
                                 z21Start.Z21_SET_TURNOUT(weiche.Adresse, Abzweig, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv
-                                    this.Invoke(new Action<string>(WriteTextBox), new object[] { weiche.ZeitAktiv.ToString() + weiche.Name });
                             }
                         }
                     }
@@ -286,10 +283,6 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        private void WriteTextBox(String text)
-        {
-            LokCtrl1_Ort.Text = text;
-        }
         /// <summary>
         /// Menü Zentrale -> Verbinden
         /// </summary>
@@ -529,20 +522,7 @@ namespace MEKB_H0_Anlage
         }
         #endregion
 
-        bool Sperrung;
-        private void Sperr_GL1_links_Click(object sender, EventArgs e)
-        {
-            if(Sperrung)
-            {
-                Sperr_GL1_links.Image = MEKB_H0_Anlage.Properties.Resources.SH_2_inaktiv;
-                Sperrung = false;
-            }
-            else
-            {
-                Sperr_GL1_links.Image = MEKB_H0_Anlage.Properties.Resources.SH_2;
-                Sperrung = true;
-            }
-        }
+        
 
         private void UeberSteuerprogrammToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1515,10 +1495,36 @@ namespace MEKB_H0_Anlage
             lokEditor.Show();
         }
 
-        
+        private void AutoSignale_CheckedChanged(object sender, EventArgs e)
+        {
+            if(sender is CheckBox checkBox)
+            {
+                if(checkBox.Checked == true)
+                {
+                    checkBox.BackColor = Color.FromArgb(0, 0, 255);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                }
+                else
+                {
+                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
+                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
+                }
+            }
+        }
 
-        
-
-        
+        private void SperrungSh2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.Checked == true)
+                {
+                    checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2;
+                }
+                else
+                {
+                    checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2_inaktiv;
+                }
+            }
+        }
     }
 }
