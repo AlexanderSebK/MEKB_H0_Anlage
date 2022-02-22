@@ -677,6 +677,12 @@
     <None Include="Resources\Fahrstrasse_oben_deakt.png" />
     <None Include="Resources\Block5_90.png" />
     <None Include="Resources\Block9_90.png" />
+    <None Include="Resources\Signal_2B_0.png" />
+    <None Include="Resources\Signal_2B_180.png" />
+    <None Include="Resources\Signal_2B_HP0_0.png" />
+    <None Include="Resources\Signal_2B_HP0_180.png" />
+    <None Include="Resources\Signal_2B_HP1_0.png" />
+    <None Include="Resources\Signal_2B_HP1_180.png" />
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

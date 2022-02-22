@@ -943,6 +943,26 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Signal_2B_0 {
+            get {
+                object obj = ResourceManager.GetObject("Signal_2B_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Signal_2B_180 {
+            get {
+                object obj = ResourceManager.GetObject("Signal_2B_180", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Signal_2B_270 {
             get {
                 object obj = ResourceManager.GetObject("Signal_2B_270", resourceCulture);
@@ -963,6 +983,26 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Signal_2B_HP0_0 {
+            get {
+                object obj = ResourceManager.GetObject("Signal_2B_HP0_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Signal_2B_HP0_180 {
+            get {
+                object obj = ResourceManager.GetObject("Signal_2B_HP0_180", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Signal_2B_HP0_270 {
             get {
                 object obj = ResourceManager.GetObject("Signal_2B_HP0_270", resourceCulture);
@@ -976,6 +1016,26 @@ namespace MEKB_H0_Anlage.Properties {
         internal static System.Drawing.Bitmap Signal_2B_HP0_90 {
             get {
                 object obj = ResourceManager.GetObject("Signal_2B_HP0_90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Signal_2B_HP1_0 {
+            get {
+                object obj = ResourceManager.GetObject("Signal_2B_HP1_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Signal_2B_HP1_180 {
+            get {
+                object obj = ResourceManager.GetObject("Signal_2B_HP1_180", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

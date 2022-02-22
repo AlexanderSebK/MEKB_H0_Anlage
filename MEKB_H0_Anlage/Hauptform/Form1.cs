@@ -396,8 +396,8 @@ namespace MEKB_H0_Anlage
                 int ListID = Signalliste.IndexOf(new Signal() { Name = SignalElement.Name });
                 if (ListID == -1) return;
 
-                if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(0, z21Start);
-                else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(1, z21Start);
+                if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(Signal.HP0, z21Start);
+                else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(Signal.HP1, z21Start);
             }
         }
         private void Signal_HP0_HP2(object sender, EventArgs e)
@@ -407,13 +407,13 @@ namespace MEKB_H0_Anlage
                 int ListID = Signalliste.IndexOf(new Signal() { Name = SignalElement.Name });
                 if (ListID == -1) return;
 
-                if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(0, z21Start);
-                else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(2, z21Start);
+                if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(Signal.HP0, z21Start);
+                else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(Signal.HP2, z21Start);
             }
         }
         #endregion
 
-        #region Lok Kontroll
+        #region Lok Kontrolle
         private void LokKontroll_Name_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (sender is ComboBox Namensfeld)

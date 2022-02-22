@@ -4094,7 +4094,7 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildKurve0R(zustand), Block8_9);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block8_10);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block8_11);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_12);
+            
         }
         #endregion
         #region Block 9
@@ -4120,7 +4120,6 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildGerade180(zustand), Block9_17);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block9_18);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block9_19);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_20);
         }
         #endregion
 
@@ -4136,16 +4135,18 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(zustand9, FreiesGleis), Kreuzung1_3);
                 DisplayPicture(GetSchaltbildKurve180L(FreiesGleis), Kreuzung1_4);
                 DisplayPicture(GetSchaltbildKreuzung90_135(zustand9, FreiesGleis), Kreuzung1);
+                DisplayPicture(GetSchaltbildGerade180(FreiesGleis), Kreuzung1_5);
             }
             else if (zustand8.Fahrstrasse == true)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, zustand8), Kreuzung1_1);
                 DisplayPicture(GetSchaltbildEckeUL(zustand8), Kreuzung1_2);
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, zustand8), Kreuzung1_3);
-                DisplayPicture(GetSchaltbildKreuzung90_135(FreiesGleis, zustand8), Kreuzung1);
+                DisplayPicture(GetSchaltbildKreuzung90_135(FreiesGleis, zustand8), Kreuzung1);  
                 zustand8.Richtung = !zustand8.Richtung;
                 DisplayPicture(GetSchaltbildKurve180L(zustand8), Kreuzung1_4);
-                
+                DisplayPicture(GetSchaltbildGerade180(zustand8), Kreuzung1_5);
+
             }
             else
             {
@@ -4154,6 +4155,7 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, FreiesGleis), Kreuzung1_3);
                 DisplayPicture(GetSchaltbildKurve180L(FreiesGleis), Kreuzung1_4);
                 DisplayPicture(GetSchaltbildKreuzung90_135(FreiesGleis, FreiesGleis), Kreuzung1);
+                DisplayPicture(GetSchaltbildGerade180(FreiesGleis), Kreuzung1_5);
             }
        
         }
@@ -4511,6 +4513,7 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildKurve0R(FreiesGleis), Weiche53_Gleis0);
                 DisplayPicture(GetSchaltbildEckeOL(FreiesGleis), Weiche53_Gleis1);
                 DisplayPicture(GetSchaltbildKurve225L_EckeUR(meldeZustand, FreiesGleis), Weiche53_Gleis2);
+                DisplayPicture(GetSchaltbildGerade180(FreiesGleis), Weiche53_Gleis3);
 
             }
             else
@@ -4518,6 +4521,7 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildKurve0R(meldeZustand), Weiche53_Gleis0);
                 DisplayPicture(GetSchaltbildEckeOL(meldeZustand), Weiche53_Gleis1);
                 DisplayPicture(GetSchaltbildKurve225L_EckeUR(FreiesGleis, meldeZustand), Weiche53_Gleis2);
+                DisplayPicture(GetSchaltbildGerade180(meldeZustand), Weiche53_Gleis3);
             }
         }
         private void UpdateGleisbild_Weiche60()

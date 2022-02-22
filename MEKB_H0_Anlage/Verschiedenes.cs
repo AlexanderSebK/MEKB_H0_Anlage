@@ -565,6 +565,9 @@ namespace MEKB_H0_Anlage
         public int Adr2_1 { get; set; }
         public int Adr2_2 { get; set; }
 
+        public const int HP0 = 0;
+        public const int HP1 = 1;
+        public const int HP2 = 2;
 
         public string Typ { get; set; }
         /// <summary>
@@ -607,11 +610,11 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Weiche setzen
         /// </summary>
-        /// <param name="new_zustand">Neuer Zustand</param>
+        /// <param name="new_zustand">Schaltzustand von Z21 empfangen (Adresse X Ausgang Y)</param>
         public void MaskenSetzen(int new_zustand)
         {
             if (new_zustand == 0) Zustand = 9;
-            else if (new_zustand == 1) Zustand = Adr1_1;
+            else if (new_zustand == 1) Zustand = Adr1_1; //Adresse 1 ist auf Ausgang 1 gesetzt? -> Zustand für Ausgang 2 übernehmen
             else if (new_zustand == 2) Zustand = Adr1_2;
             else if (new_zustand == 5) Zustand = Adr2_1;
             else if (new_zustand == 6) Zustand = Adr2_2;

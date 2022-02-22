@@ -42,7 +42,6 @@ namespace MEKB_H0_Anlage
                 }) ;  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
             }
         }
-
         public void GetSignalSchaltbild(Signal signal, PictureBox picBox)
         {
             dynamic img;
@@ -65,6 +64,16 @@ namespace MEKB_H0_Anlage
                     default: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_270; break;
                 }
             }
+            
+            else if (signal.Typ.Equals("2B_180"))
+            {
+                switch (signal.Zustand)
+                {
+                    case 0: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_HP0_180; break;
+                    case 1: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_HP1_180; break;
+                    default: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_180; break;
+                }
+            }
             else if (signal.Typ.Equals("3B_90"))
             {
                 switch (signal.Zustand)
@@ -82,6 +91,15 @@ namespace MEKB_H0_Anlage
                     case 0: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_HP0_90; break;
                     case 1: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_HP1_90; break;
                     default: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_90; break;
+                }
+            }
+            else if (signal.Typ.Equals("2B_0"))
+            {
+                switch (signal.Zustand)
+                {
+                    case 0: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_HP0_0; break;
+                    case 1: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_HP1_0; break;
+                    default: img = MEKB_H0_Anlage.Properties.Resources.Signal_2B_0; break;
                 }
             }
             else

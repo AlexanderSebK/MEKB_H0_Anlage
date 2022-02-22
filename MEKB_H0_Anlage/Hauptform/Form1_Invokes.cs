@@ -46,7 +46,6 @@ namespace MEKB_H0_Anlage
             }
 
         }
-
         public void ConnectStatus(bool status,bool init)
         {
             Menu_Trennen.Enabled = status;
@@ -74,7 +73,6 @@ namespace MEKB_H0_Anlage
             }
             z21_Einstellung.ConnectStatus(status);
         }
-
         private void Set_Z21_Strom(int Main, int Prog, int MainFilter)
         {
             StatusBarStrom.Text = String.Format("Stromverbauch: {0} mA", MainFilter);
@@ -263,26 +261,11 @@ namespace MEKB_H0_Anlage
         {
             try
             {
-                switch (signal.Name)
-                {
-                    case "Signal_Ausfahrt_L1": GetSignalSchaltbild(signal, Signal_Ausfahrt_L1); break;
-                    case "Signal_Ausfahrt_L2": GetSignalSchaltbild(signal, Signal_Ausfahrt_L2); break;
-                    case "Signal_Ausfahrt_L3": GetSignalSchaltbild(signal, Signal_Ausfahrt_L3); break;
-                    case "Signal_Ausfahrt_L4": GetSignalSchaltbild(signal, Signal_Ausfahrt_L4); break;
-                    case "Signal_Ausfahrt_L5": GetSignalSchaltbild(signal, Signal_Ausfahrt_L5); break;
-                    case "Signal_Ausfahrt_L6": GetSignalSchaltbild(signal, Signal_Ausfahrt_L6); break;
-                    case "Signal_Ausfahrt_R1": GetSignalSchaltbild(signal, Signal_Ausfahrt_R1); break;
-                    case "Signal_Ausfahrt_R2": GetSignalSchaltbild(signal, Signal_Ausfahrt_R2); break;
-                    case "Signal_Ausfahrt_R3": GetSignalSchaltbild(signal, Signal_Ausfahrt_R3); break;
-                    case "Signal_Ausfahrt_R4": GetSignalSchaltbild(signal, Signal_Ausfahrt_R4); break;
-                    case "Signal_Ausfahrt_R5": GetSignalSchaltbild(signal, Signal_Ausfahrt_R5); break;
-                    case "Signal_Ausfahrt_R6": GetSignalSchaltbild(signal, Signal_Ausfahrt_R6); break;
-                    case "Signal_RTunnel_1":   GetSignalSchaltbild(signal, Signal_RTunnel_1);   break;
-                    case "Signal_RTunnel_2":   GetSignalSchaltbild(signal, Signal_RTunnel_2);   break;
-                    case "Signal_Einfahrt_L":  GetSignalSchaltbild(signal, Signal_Einfahrt_L);  break;
-                    case "Signal_Tunnel_L1":   GetSignalSchaltbild(signal, Signal_Tunnel_L1);   break;
-                    default: break;
-                }
+                //Passendes Signal heraussuchen
+                PictureBox SignalBild = (PictureBox)this.Controls.Find(signal.Name, true)[0];
+                if (SignalBild == null) return; //Nicht gefunden: Abbrechen
+
+                GetSignalSchaltbild(signal, SignalBild);               
             }
             catch
             {
