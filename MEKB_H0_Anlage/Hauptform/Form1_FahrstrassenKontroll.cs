@@ -39,18 +39,12 @@ namespace MEKB_H0_Anlage
         }
         private void Block2_Einfaht_GL1_Click(object sender, EventArgs e)
         {
-            if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                !Gleis2_nach_Block2.GetGesetztStatus() &&
-                !Gleis3_nach_Block2.GetGesetztStatus() &&
-                !Gleis4_nach_Block2.GetGesetztStatus() &&
-                !Gleis5_nach_Block2.GetGesetztStatus() &&
-                !Gleis6_nach_Block2.GetGesetztStatus() && 
-                !Gleis1_nach_Block5.GetGesetztStatus() &&
-                !Gleis2_nach_Block5.GetGesetztStatus() &&
-                !Gleis3_nach_Block5.GetGesetztStatus() &&
-                !Gleis4_nach_Block5.GetGesetztStatus() &&
-                !Gleis5_nach_Block5.GetGesetztStatus() &&
-                !Gleis6_nach_Block5.GetGesetztStatus())
+            if (!Gleis1_nach_Block1.GetGesetztStatus() &&
+                !Gleis2_nach_Block1.GetGesetztStatus() &&
+                !Gleis3_nach_Block1.GetGesetztStatus() &&
+                !Gleis4_nach_Block1.GetGesetztStatus() &&
+                !Gleis5_nach_Block1.GetGesetztStatus() &&
+                !Gleis6_nach_Block1.GetGesetztStatus())
             {
                 ToggleFahrstrasse(Block2_nach_Gleis1);
                 Block2_Auswahl.Visible = false;
@@ -58,18 +52,12 @@ namespace MEKB_H0_Anlage
         }
         private void Block2_Einfaht_GL2_Click(object sender, EventArgs e)
         {
-            if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                !Gleis2_nach_Block2.GetGesetztStatus() &&
-                !Gleis3_nach_Block2.GetGesetztStatus() &&
-                !Gleis4_nach_Block2.GetGesetztStatus() &&
-                !Gleis5_nach_Block2.GetGesetztStatus() &&
-                !Gleis6_nach_Block2.GetGesetztStatus() &&
-                !Gleis1_nach_Block5.GetGesetztStatus() &&
-                !Gleis2_nach_Block5.GetGesetztStatus() &&
-                !Gleis3_nach_Block5.GetGesetztStatus() &&
-                !Gleis4_nach_Block5.GetGesetztStatus() &&
-                !Gleis5_nach_Block5.GetGesetztStatus() &&
-                !Gleis6_nach_Block5.GetGesetztStatus())
+            if (!Gleis1_nach_Block1.GetGesetztStatus() &&
+                !Gleis2_nach_Block1.GetGesetztStatus() &&
+                !Gleis3_nach_Block1.GetGesetztStatus() &&
+                !Gleis4_nach_Block1.GetGesetztStatus() &&
+                !Gleis5_nach_Block1.GetGesetztStatus() &&
+                !Gleis6_nach_Block1.GetGesetztStatus())
             {
                 ToggleFahrstrasse(Block2_nach_Gleis2);
                 Block2_Auswahl.Visible = false;
@@ -77,14 +65,10 @@ namespace MEKB_H0_Anlage
         }
         private void Block2_Einfaht_GL3_Click(object sender, EventArgs e)
         {
-            if (!Gleis3_nach_Block2.GetGesetztStatus() &&
-                !Gleis4_nach_Block2.GetGesetztStatus() &&
-                !Gleis5_nach_Block2.GetGesetztStatus() &&
-                !Gleis6_nach_Block2.GetGesetztStatus() &&
-                !Gleis3_nach_Block5.GetGesetztStatus() &&
-                !Gleis4_nach_Block5.GetGesetztStatus() &&
-                !Gleis5_nach_Block5.GetGesetztStatus() &&
-                !Gleis6_nach_Block5.GetGesetztStatus())
+            if (!Gleis3_nach_Block1.GetGesetztStatus() &&
+                !Gleis4_nach_Block1.GetGesetztStatus() &&
+                !Gleis5_nach_Block1.GetGesetztStatus() &&
+                !Gleis6_nach_Block1.GetGesetztStatus())
             {
                 ToggleFahrstrasse(Block2_nach_Gleis3);
                 Block2_Auswahl.Visible = false;
@@ -92,14 +76,10 @@ namespace MEKB_H0_Anlage
         }
         private void Block2_Einfaht_GL4_Click(object sender, EventArgs e)
         {
-            if (!Gleis3_nach_Block2.GetGesetztStatus() &&
-                !Gleis4_nach_Block2.GetGesetztStatus() &&
-                !Gleis5_nach_Block2.GetGesetztStatus() &&
-                !Gleis6_nach_Block2.GetGesetztStatus() &&
-                !Gleis3_nach_Block5.GetGesetztStatus() &&
-                !Gleis4_nach_Block5.GetGesetztStatus() &&
-                !Gleis5_nach_Block5.GetGesetztStatus() &&
-                !Gleis6_nach_Block5.GetGesetztStatus())
+            if (!Gleis3_nach_Block1.GetGesetztStatus() &&
+                !Gleis4_nach_Block1.GetGesetztStatus() &&
+                !Gleis5_nach_Block1.GetGesetztStatus() &&
+                !Gleis6_nach_Block1.GetGesetztStatus())
             {
                 ToggleFahrstrasse(Block2_nach_Gleis4);
                 Block2_Auswahl.Visible = false;
@@ -107,14 +87,10 @@ namespace MEKB_H0_Anlage
         }
         private void Block2_Einfaht_GL5_Click(object sender, EventArgs e)
         {
-            if (!Gleis3_nach_Block2.GetGesetztStatus() &&
-                !Gleis4_nach_Block2.GetGesetztStatus() &&
-                !Gleis5_nach_Block2.GetGesetztStatus() &&
-                !Gleis6_nach_Block2.GetGesetztStatus() &&
-                !Gleis3_nach_Block5.GetGesetztStatus() &&
-                !Gleis4_nach_Block5.GetGesetztStatus() &&
-                !Gleis5_nach_Block5.GetGesetztStatus() &&
-                !Gleis6_nach_Block5.GetGesetztStatus())
+            if (!Gleis3_nach_Block1.GetGesetztStatus() &&
+                !Gleis4_nach_Block1.GetGesetztStatus() &&
+                !Gleis5_nach_Block1.GetGesetztStatus() &&
+                !Gleis6_nach_Block1.GetGesetztStatus())
             {
                 ToggleFahrstrasse(Block2_nach_Gleis5);
                 Block2_Auswahl.Visible = false;
@@ -122,14 +98,10 @@ namespace MEKB_H0_Anlage
         }
         private void Block2_Einfaht_GL6_Click(object sender, EventArgs e)
         {
-            if (!Gleis3_nach_Block2.GetGesetztStatus() &&
-                !Gleis4_nach_Block2.GetGesetztStatus() &&
-                !Gleis5_nach_Block2.GetGesetztStatus() &&
-                !Gleis6_nach_Block2.GetGesetztStatus() &&
-                !Gleis3_nach_Block5.GetGesetztStatus() &&
-                !Gleis4_nach_Block5.GetGesetztStatus() &&
-                !Gleis5_nach_Block5.GetGesetztStatus() &&
-                !Gleis6_nach_Block5.GetGesetztStatus())
+            if (!Gleis3_nach_Block1.GetGesetztStatus() &&
+                !Gleis4_nach_Block1.GetGesetztStatus() &&
+                !Gleis5_nach_Block1.GetGesetztStatus() &&
+                !Gleis6_nach_Block1.GetGesetztStatus())
             {
                 ToggleFahrstrasse(Block2_nach_Gleis6);
                 Block2_Auswahl.Visible = false;
@@ -137,336 +109,113 @@ namespace MEKB_H0_Anlage
         }
         #endregion
         #region Ausfahrt
-        #region Gleis 1
         private void Fahrstr_GL1_links_Click(object sender, EventArgs e)
         {
-            //Einer der Gl2-links Fahrstrassen aktiv
-            if (Gleis1_nach_Block2.GetGesetztStatus() ||
-                Gleis1_nach_Block5.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis1_nach_Block2.GetGesetztStatus()) ToggleFahrstrasse(Gleis1_nach_Block2);
-                if (Gleis1_nach_Block5.GetGesetztStatus()) ToggleFahrstrasse(Gleis1_nach_Block5);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl1_links_Auswahl.Visible) Gl1_links_Auswahl.Visible = false;
-                else Gl1_links_Auswahl.Visible = true;
-            }
-        }
-        private void Gl1_Ausfahrt_links_Block5_Click(object sender, EventArgs e)
-        {
-            if (Gleis1_nach_Block5.GetGesetztStatus())
+            if (Gleis1_nach_Block1.GetGesetztStatus())
             {
-                ToggleFahrstrasse(Gleis1_nach_Block5);  //Aktiv? auschalten
+                ToggleFahrstrasse(Gleis1_nach_Block1);  //Aktiv? auschalten
             }
             else
             {
                 //Keine Sperrende Fahstraße aktiv
-                if (!Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus() &&
+                if (!Gleis2_nach_Block1.GetGesetztStatus() &&
+                   !Gleis3_nach_Block1.GetGesetztStatus() &&
+                   !Gleis4_nach_Block1.GetGesetztStatus() &&
+                   !Gleis5_nach_Block1.GetGesetztStatus() &&
+                   !Gleis6_nach_Block1.GetGesetztStatus() &&
                    !Block2_nach_Gleis1.GetGesetztStatus() &&
                    !Block2_nach_Gleis2.GetGesetztStatus())
                 {
-                    ToggleFahrstrasse(Gleis1_nach_Block5);
-                    Gl1_links_Auswahl.Visible = false;
+                    ToggleFahrstrasse(Gleis1_nach_Block1);
                 }
             }
         }
-        private void Gl1_Ausfahrt_links_Block2_Click(object sender, EventArgs e)
-        {
-            if (Gleis1_nach_Block2.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis1_nach_Block2);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus() &&
-                   !Block9_nach_Block2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis1_nach_Block2);
-                    Gl1_links_Auswahl.Visible = false;
-                }
-            }
-        }
-        #endregion
-        #region Gleis 2
         private void Fahrstr_GL2_links_Click(object sender, EventArgs e)
         {
-            //Einer der Gl2-links Fahrstrassen aktiv
-            if (Gleis2_nach_Block2.GetGesetztStatus() ||
-                Gleis2_nach_Block5.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis2_nach_Block2.GetGesetztStatus()) ToggleFahrstrasse(Gleis2_nach_Block2);
-                if (Gleis2_nach_Block5.GetGesetztStatus()) ToggleFahrstrasse(Gleis2_nach_Block5);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl2_links_Auswahl.Visible) Gl2_links_Auswahl.Visible = false;
-                else Gl2_links_Auswahl.Visible = true;
-            }
-        }
-        private void Gl2_Ausfahrt_links_Block5_Click(object sender, EventArgs e)
-        {
-            if (Gleis2_nach_Block5.GetGesetztStatus())
+            if (Gleis2_nach_Block1.GetGesetztStatus())
             {
-                ToggleFahrstrasse(Gleis2_nach_Block5);  //Aktiv? auschalten
+                ToggleFahrstrasse(Gleis2_nach_Block1);  //Aktiv? auschalten
             }
             else
             {
                 //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus() &&
+                if (!Gleis1_nach_Block1.GetGesetztStatus() &&
+                   !Gleis3_nach_Block1.GetGesetztStatus() &&
+                   !Gleis4_nach_Block1.GetGesetztStatus() &&
+                   !Gleis5_nach_Block1.GetGesetztStatus() &&
+                   !Gleis6_nach_Block1.GetGesetztStatus() &&
                    !Block2_nach_Gleis1.GetGesetztStatus() &&
                    !Block2_nach_Gleis2.GetGesetztStatus())
                 {
-                    ToggleFahrstrasse(Gleis2_nach_Block5);
-                    Gl2_links_Auswahl.Visible = false;
+                    ToggleFahrstrasse(Gleis2_nach_Block1);
                 }
             }
         }
-        private void Gl2_Ausfahrt_links_Block2_Click(object sender, EventArgs e)
-        {
-            if (Gleis2_nach_Block2.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis2_nach_Block2);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus() &&
-                   !Block9_nach_Block2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis2_nach_Block2);
-                    Gl2_links_Auswahl.Visible = false;
-                }
-            }
-        }
-        #endregion
-        #region Gleis 3
         private void Fahrstr_GL3_links_Click(object sender, EventArgs e)
         {
-            //Einer der Gl3-links Fahrstrassen aktiv
-            if (Gleis3_nach_Block2.GetGesetztStatus() ||
-                Gleis3_nach_Block5.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis3_nach_Block2.GetGesetztStatus()) ToggleFahrstrasse(Gleis3_nach_Block2);
-                if (Gleis3_nach_Block5.GetGesetztStatus()) ToggleFahrstrasse(Gleis3_nach_Block5);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl3_links_Auswahl.Visible) Gl3_links_Auswahl.Visible = false;
-                else Gl3_links_Auswahl.Visible = true;
-            }
-        }
-        private void Gl3_Ausfahrt_links_Block5_Click(object sender, EventArgs e)
-        {
-            if (Gleis3_nach_Block5.GetGesetztStatus())
+            if (Gleis3_nach_Block1.GetGesetztStatus())
             {
-                ToggleFahrstrasse(Gleis3_nach_Block5);  //Aktiv? auschalten
+                ToggleFahrstrasse(Gleis3_nach_Block1);  //Aktiv? auschalten
             }
             else
             {
                 //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus() &&
+                if (!Gleis1_nach_Block1.GetGesetztStatus() &&
+                   !Gleis2_nach_Block1.GetGesetztStatus() &&
+                   !Gleis4_nach_Block1.GetGesetztStatus() &&
+                   !Gleis5_nach_Block1.GetGesetztStatus() &&
+                   !Gleis6_nach_Block1.GetGesetztStatus() &&
                    !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
+                   !Block2_nach_Gleis2.GetGesetztStatus())
                 {
-                    ToggleFahrstrasse(Gleis3_nach_Block5);
-                    Gl3_links_Auswahl.Visible = false;
+                    ToggleFahrstrasse(Gleis3_nach_Block1);
                 }
             }
         }
-        private void Gl3_Ausfahrt_links_Block2_Click(object sender, EventArgs e)
-        {
-            if (Gleis3_nach_Block2.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis3_nach_Block2);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus() &&
-                   !Block9_nach_Block2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis3_nach_Block2);
-                    Gl3_links_Auswahl.Visible = false;
-                }
-            }
-        }
-        #endregion
+
         #region Gleis 4
         private void Fahrstr_GL4_links_Click(object sender, EventArgs e)
         {
-            //Einer der Gl4-links Fahrstrassen aktiv
-            if (Gleis4_nach_Block2.GetGesetztStatus() ||
-                Gleis4_nach_Block5.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis4_nach_Block2.GetGesetztStatus()) ToggleFahrstrasse(Gleis4_nach_Block2);
-                if (Gleis4_nach_Block5.GetGesetztStatus()) ToggleFahrstrasse(Gleis4_nach_Block5);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl4_links_Auswahl.Visible) Gl4_links_Auswahl.Visible = false;
-                else Gl4_links_Auswahl.Visible = true;
-            }
-        }
-        private void Gl4_Ausfahrt_links_Block5_Click(object sender, EventArgs e)
-        {
-            if (Gleis4_nach_Block5.GetGesetztStatus())
+            if (Gleis4_nach_Block1.GetGesetztStatus())
             {
-                ToggleFahrstrasse(Gleis4_nach_Block5);  //Aktiv? auschalten
+                ToggleFahrstrasse(Gleis4_nach_Block1);  //Aktiv? auschalten
             }
             else
             {
                 //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus() &&
+                if (!Gleis1_nach_Block1.GetGesetztStatus() &&
+                   !Gleis2_nach_Block1.GetGesetztStatus() &&
+                   !Gleis3_nach_Block1.GetGesetztStatus() &&
+                   !Gleis5_nach_Block1.GetGesetztStatus() &&
+                   !Gleis6_nach_Block1.GetGesetztStatus() &&
                    !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
+                   !Block2_nach_Gleis2.GetGesetztStatus())
                 {
-                    ToggleFahrstrasse(Gleis4_nach_Block5);
-                    Gl4_links_Auswahl.Visible = false;
+                    ToggleFahrstrasse(Gleis4_nach_Block1);
                 }
             }
         }
-        private void Gl4_Ausfahrt_links_Block2_Click(object sender, EventArgs e)
-        {
-            if (Gleis4_nach_Block2.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis4_nach_Block2);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus() &&
-                   !Block9_nach_Block2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis4_nach_Block2);
-                    Gl4_links_Auswahl.Visible = false;
-                }
-            }
-        }
+        
         #endregion
         #region Gleis 5
         private void Fahrstr_GL5_links_Click(object sender, EventArgs e)
         {
-            //Einer der Gl5-links Fahrstrassen aktiv
-            if (Gleis5_nach_Block2.GetGesetztStatus() ||
-                Gleis5_nach_Block5.GetGesetztStatus())
-            {   //Aktive Fahrstrasse ausschalten
-                if (Gleis5_nach_Block2.GetGesetztStatus()) ToggleFahrstrasse(Gleis5_nach_Block2);
-                if (Gleis5_nach_Block5.GetGesetztStatus()) ToggleFahrstrasse(Gleis5_nach_Block5);
-            }
-            else
-            {   //Gleisauswahl erscheinen lassen
-                if (Gl5_links_Auswahl.Visible) Gl5_links_Auswahl.Visible = false;
-                else Gl5_links_Auswahl.Visible = true;
-            }
-        }
-        private void Gl5_Ausfahrt_links_Block2_Click(object sender, EventArgs e)
-        {
-            if (Gleis5_nach_Block2.GetGesetztStatus())
+            if (Gleis5_nach_Block1.GetGesetztStatus())
             {
-                ToggleFahrstrasse(Gleis5_nach_Block2);  //Aktiv? auschalten
+                ToggleFahrstrasse(Gleis5_nach_Block1);  //Aktiv? auschalten
             }
             else
             {
                 //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus() &&
-                   !Block9_nach_Block2.GetGesetztStatus() &&
+                if (!Gleis1_nach_Block1.GetGesetztStatus() &&
+                   !Gleis2_nach_Block1.GetGesetztStatus() &&
+                   !Gleis3_nach_Block1.GetGesetztStatus() &&
+                   !Gleis4_nach_Block1.GetGesetztStatus() &&
+                   !Gleis6_nach_Block1.GetGesetztStatus() &&
                    !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
+                   !Block2_nach_Gleis2.GetGesetztStatus())
                 {
-                    ToggleFahrstrasse(Gleis5_nach_Block2);
-                    Gl5_links_Auswahl.Visible = false;
-                }
-            }
-        }
-        private void Gl5_Ausfahrt_links_Block5_Click(object sender, EventArgs e)
-        {
-            if (Gleis5_nach_Block5.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis5_nach_Block5);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis5_nach_Block5);
-                    Gl5_links_Auswahl.Visible = false;
+                    ToggleFahrstrasse(Gleis5_nach_Block1);
                 }
             }
         }
@@ -474,11 +223,30 @@ namespace MEKB_H0_Anlage
         #region Gleis 6
         private void Fahrstr_GL6_links_Click(object sender, EventArgs e)
         {
+            if (Gleis6_nach_Block1.GetGesetztStatus())
+            {
+                ToggleFahrstrasse(Gleis6_nach_Block1);  //Aktiv? auschalten
+            }
+            else
+            {
+                //Keine Sperrende Fahstraße aktiv
+                if (!Gleis1_nach_Block1.GetGesetztStatus() &&
+                   !Gleis2_nach_Block1.GetGesetztStatus() &&
+                   !Gleis3_nach_Block1.GetGesetztStatus() &&
+                   !Gleis4_nach_Block1.GetGesetztStatus() &&
+                   !Gleis5_nach_Block1.GetGesetztStatus() &&
+                   !Block2_nach_Gleis1.GetGesetztStatus() &&
+                   !Block2_nach_Gleis2.GetGesetztStatus())
+                {
+                    ToggleFahrstrasse(Gleis6_nach_Block1);
+                }
+            }
+            /*
             //Einer der Gl6-links Fahrstrassen aktiv
-            if (Gleis6_nach_Block2.GetGesetztStatus() ||
+            if (Gleis6_nach_Block1.GetGesetztStatus() ||
                 Gleis6_nach_Block5.GetGesetztStatus())
             {   //Aktive Fahrstrasse ausschalten
-                if (Gleis6_nach_Block2.GetGesetztStatus()) ToggleFahrstrasse(Gleis6_nach_Block2);
+                if (Gleis6_nach_Block1.GetGesetztStatus()) ToggleFahrstrasse(Gleis6_nach_Block1);
                 if (Gleis6_nach_Block5.GetGesetztStatus()) ToggleFahrstrasse(Gleis6_nach_Block5);
             }
             else
@@ -486,69 +254,28 @@ namespace MEKB_H0_Anlage
                 if (Gl6_links_Auswahl.Visible) Gl6_links_Auswahl.Visible = false;
                 else Gl6_links_Auswahl.Visible = true;
             }
+            */
         }
-        private void Gl6_Ausfahrt_links_Block2_Click(object sender, EventArgs e)
+        private void Block1_nach_Block2_Click(object sender, EventArgs e)
         {
-            if (Gleis6_nach_Block2.GetGesetztStatus())
+            if (Block1_nach_Block2.GetGesetztStatus())
             {
-                ToggleFahrstrasse(Gleis6_nach_Block2);  //Aktiv? auschalten
+                ToggleFahrstrasse(Block1_nach_Block2);  //Aktiv? auschalten
             }
             else
             {
                 //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis1_nach_Block5.GetGesetztStatus() &&
-                   !Gleis2_nach_Block5.GetGesetztStatus() &&
-                   !Gleis3_nach_Block5.GetGesetztStatus() &&
-                   !Gleis4_nach_Block5.GetGesetztStatus() &&
-                   !Gleis5_nach_Block5.GetGesetztStatus() &&
-                   !Block9_nach_Block2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
+                if (!Block9_nach_Block2.GetGesetztStatus())
                 {
-                    ToggleFahrstrasse(Gleis6_nach_Block2);
-                    Gl6_links_Auswahl.Visible = false;
+                    ToggleFahrstrasse(Block1_nach_Block2);
                 }
             }
+            Block1_Auswahl.Visible = false;
         }
-        private void Gl6_Ausfahrt_links_Block5_Click(object sender, EventArgs e)
+        private void Block1_nach_Block5_Click(object sender, EventArgs e)
         {
-            if (Gleis6_nach_Block5.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Gleis6_nach_Block5);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis1_nach_Block5.GetGesetztStatus() &&
-                   !Gleis2_nach_Block5.GetGesetztStatus() &&
-                   !Gleis3_nach_Block5.GetGesetztStatus() &&
-                   !Gleis4_nach_Block5.GetGesetztStatus() &&
-                   !Gleis5_nach_Block5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis1.GetGesetztStatus() &&
-                   !Block2_nach_Gleis2.GetGesetztStatus() &&
-                   !Block2_nach_Gleis3.GetGesetztStatus() &&
-                   !Block2_nach_Gleis4.GetGesetztStatus() &&
-                   !Block2_nach_Gleis5.GetGesetztStatus() &&
-                   !Block2_nach_Gleis6.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Gleis6_nach_Block5);
-                    Gl6_links_Auswahl.Visible = false;
-                }
-            }
+            ToggleFahrstrasse(Block1_nach_Block5);  //Aktiv? auschalten    
+            Block1_Auswahl.Visible = false;
         }
         #endregion
         #endregion
@@ -1781,7 +1508,18 @@ namespace MEKB_H0_Anlage
         #region Freie Strecke
         private void Block5_Click(object sender, EventArgs e)
         {
-            ToggleFahrstrasse(Block1_nach_Block5);
+            //Einer der Gl6-links Fahrstrassen aktiv
+            if (Block1_nach_Block2.GetGesetztStatus() ||
+                Block1_nach_Block5.GetGesetztStatus())
+            {   //Aktive Fahrstrasse ausschalten
+                if (Block1_nach_Block2.GetGesetztStatus()) ToggleFahrstrasse(Block1_nach_Block2);
+                if (Block1_nach_Block5.GetGesetztStatus()) ToggleFahrstrasse(Block1_nach_Block5);
+            }
+            else
+            {   //Gleisauswahl erscheinen lassen
+                if (Block1_Auswahl.Visible) Block1_Auswahl.Visible = false;
+                else Block1_Auswahl.Visible = true;
+            }
         }
         private void Block5_Ausfahrt_Click(object sender, EventArgs e)
         {
@@ -1822,12 +1560,7 @@ namespace MEKB_H0_Anlage
             else
             {
                 //Keine Sperrende Fahstraße aktiv
-                if (!Gleis1_nach_Block2.GetGesetztStatus() &&
-                   !Gleis2_nach_Block2.GetGesetztStatus() &&
-                   !Gleis3_nach_Block2.GetGesetztStatus() &&
-                   !Gleis4_nach_Block2.GetGesetztStatus() &&
-                   !Gleis5_nach_Block2.GetGesetztStatus() &&
-                   !Gleis6_nach_Block2.GetGesetztStatus())
+                if (!Block1_nach_Block2.GetGesetztStatus())
                 {
                     ToggleFahrstrasse(Block9_nach_Block2);
                 }

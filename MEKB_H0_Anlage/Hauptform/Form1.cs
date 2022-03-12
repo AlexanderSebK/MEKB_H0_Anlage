@@ -50,12 +50,17 @@ namespace MEKB_H0_Anlage
         private bool Signal_Init;
         private bool Weichen_Init;
 
+        private Logger Log;
+
         #region Hauptform Funktionen
         public Form1()
         {
-            InitializeComponent();                      //Programminitialisieren
+            Log = new Logger("log.txt");
 
+            InitializeComponent();                      //Programminitialisieren
+            
             z21Start = new Z21();                   //Neue Z21-Verbindung anlegen
+            z21Start.SetLog(Log);
             //Callback Funktionen registrieren
             z21Start.Register_LAN_CONNECT_STATUS(SetConnect);
             z21Start.Register_LAN_GET_SERIAL_NUMBER(CallBack_GET_SERIAL_NUMBER);
@@ -211,20 +216,18 @@ namespace MEKB_H0_Anlage
                 {
                     Pointer_Signalliste--;
                 }
-                if(Weichen_Init & Signal_Init) SetConnect(true, true); //Initialisierung abgeschlossen
+                if (Weichen_Init & Signal_Init)
+                {
+                    SetConnect(true, true); //Initialisierung abgeschlossen
+                    Betriebsbereit = true;
+                }
                 //
-                Fahrstrassenupdate(Gleis1_nach_Block2);
-                Fahrstrassenupdate(Gleis2_nach_Block2);
-                Fahrstrassenupdate(Gleis3_nach_Block2);
-                Fahrstrassenupdate(Gleis4_nach_Block2);
-                Fahrstrassenupdate(Gleis5_nach_Block2);
-                Fahrstrassenupdate(Gleis6_nach_Block2);
-                Fahrstrassenupdate(Gleis1_nach_Block5);
-                Fahrstrassenupdate(Gleis2_nach_Block5);
-                Fahrstrassenupdate(Gleis3_nach_Block5);
-                Fahrstrassenupdate(Gleis4_nach_Block5);
-                Fahrstrassenupdate(Gleis5_nach_Block5);
-                Fahrstrassenupdate(Gleis6_nach_Block5);
+                Fahrstrassenupdate(Gleis1_nach_Block1);
+                Fahrstrassenupdate(Gleis2_nach_Block1);
+                Fahrstrassenupdate(Gleis3_nach_Block1);
+                Fahrstrassenupdate(Gleis4_nach_Block1);
+                Fahrstrassenupdate(Gleis5_nach_Block1);
+                Fahrstrassenupdate(Gleis6_nach_Block1);
 
                 Fahrstrassenupdate(Block2_nach_Gleis1);
                 Fahrstrassenupdate(Block2_nach_Gleis2);
@@ -261,6 +264,7 @@ namespace MEKB_H0_Anlage
                 Fahrstrassenupdate(Rechts2_nach_Gleis5);
                 Fahrstrassenupdate(Rechts2_nach_Gleis6);
 
+                Fahrstrassenupdate(Block1_nach_Block2);
                 Fahrstrassenupdate(Block1_nach_Block5);
                 Fahrstrassenupdate(Block5_nach_Block6);
                 Fahrstrassenupdate(Block8_nach_Block6);
@@ -308,13 +312,18 @@ namespace MEKB_H0_Anlage
                     if (weiche.ZeitAktiv > 0)
                     {
                         weiche.ZeitAktiv -= 100;
+                        bool Abzweig = weiche.Abzweig;
+                        if (weiche.Spiegeln) Abzweig = !Abzweig;
+                        z21Start.Z21_SET_TURNOUT(weiche.Adresse, Abzweig, true, true);
+
                         if (weiche.ZeitAktiv <= 0)
                         {
-                            weiche.ZeitAktiv = 0;                         
-                            bool Abzweig = weiche.Abzweig;
-                            if (weiche.Spiegeln) Abzweig = !Abzweig;
+                            weiche.ZeitAktiv = 0;   
+                            
+                            
                             if (Betriebsbereit)
                             {
+                                Log.Info("Deaktiviere Weichenausgang");
                                 z21Start.Z21_SET_TURNOUT(weiche.Adresse, Abzweig, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv
                             }
                         }
