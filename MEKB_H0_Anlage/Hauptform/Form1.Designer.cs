@@ -61,6 +61,7 @@
             this.Weiche40 = new System.Windows.Forms.PictureBox();
             this.Weiche67 = new System.Windows.Forms.PictureBox();
             this.AutoSignale = new System.Windows.Forms.CheckBox();
+            this.SignalFahrstrasse = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -2050,6 +2051,24 @@
             this.Hinttext.SetToolTip(this.AutoSignale, resources.GetString("AutoSignale.ToolTip"));
             this.AutoSignale.UseVisualStyleBackColor = false;
             this.AutoSignale.CheckedChanged += new System.EventHandler(this.AutoSignale_CheckedChanged);
+            // 
+            // SignalFahrstrasse
+            // 
+            this.SignalFahrstrasse.Appearance = System.Windows.Forms.Appearance.Button;
+            this.SignalFahrstrasse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.SignalFahrstrasse.Enabled = false;
+            this.SignalFahrstrasse.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.SignalFahrstrasse.ForeColor = System.Drawing.Color.Silver;
+            this.SignalFahrstrasse.Location = new System.Drawing.Point(144, 16);
+            this.SignalFahrstrasse.Name = "SignalFahrstrasse";
+            this.SignalFahrstrasse.Size = new System.Drawing.Size(96, 24);
+            this.SignalFahrstrasse.TabIndex = 991;
+            this.SignalFahrstrasse.Text = "über Weichen";
+            this.SignalFahrstrasse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Hinttext.SetToolTip(this.SignalFahrstrasse, "über Weichen:\r\nSignale werden über Weichenstellung und Belegung geschaltet\r\n\r\nübe" +
+        "r Fahrstraßen:\r\nSignale werden über setzen der Fahrstraße geschaltet\r\n");
+            this.SignalFahrstrasse.UseVisualStyleBackColor = false;
+            this.SignalFahrstrasse.CheckedChanged += new System.EventHandler(this.SignalFahrstrasse_CheckedChanged);
             // 
             // label1
             // 
@@ -11869,6 +11888,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.SignalFahrstrasse);
             this.groupBox1.Controls.Add(this.StopAlle);
             this.groupBox1.Controls.Add(this.AutoSignale);
             this.groupBox1.Location = new System.Drawing.Point(1040, 504);
@@ -15072,6 +15092,7 @@
         private System.Windows.Forms.PictureBox Signal_Block2;
         private System.Windows.Forms.PictureBox Signal_Block5;
         private System.Windows.Forms.PictureBox Signal_Block8;
+        private System.Windows.Forms.CheckBox SignalFahrstrasse;
     }
 }
 

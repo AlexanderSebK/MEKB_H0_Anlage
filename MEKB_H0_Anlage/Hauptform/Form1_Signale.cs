@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,6 +122,96 @@ namespace MEKB_H0_Anlage
             z21Start.Z21_GET_WEICHE(Adresse);                                       //paket senden "GET Weiche"
             Adresse = Signalliste[ListID].Adresse2;                             //Adresse der Weiche übernehmen
             z21Start.Z21_GET_WEICHE(Adresse);                                       //paket senden "GET Weiche"
+        }
+
+        private void SchalteSignal(string name, int HPx)
+        {
+            int ListID = Signalliste.IndexOf(new Signal() { Name = name });
+            if (ListID != -1)
+            {
+                Signalliste[ListID].Schalten(HPx, z21Start);
+            }
+        }
+
+        private void SignalUpdate(Object source, ElapsedEventArgs e)
+        {
+            if(AutoSignale.Checked)
+            {
+                //Signale auf grün Schalten
+                foreach(Signal signal in Signalliste)
+                {
+                    switch(signal.Name)
+                    {
+                        case "Signal_Ausfahrt_L1":
+                            if (!GetWeiche("Weiche1").Abzweig && !GetWeiche("Weiche4").Abzweig && GetWeiche("Weiche6").Abzweig)
+                                /*if block1 frei*/SchalteSignal("Signal_Ausfahrt_L1", Signal.HP2);
+                            else
+                                SchalteSignal("Signal_Ausfahrt_L1", Signal.HP0);
+                            break;
+                        case "Signal_Ausfahrt_L2":
+                            if (!GetWeiche("Weiche1").Abzweig && !GetWeiche("Weiche4").Abzweig && !GetWeiche("Weiche6").Abzweig)
+                                /*if block1 frei*/SchalteSignal("Signal_Ausfahrt_L2", Signal.HP1);
+                            else
+                                SchalteSignal("Signal_Ausfahrt_L2", Signal.HP0);
+                            break;
+                        case "Signal_Ausfahrt_L3":
+                            if (GetWeiche("Weiche1").Abzweig && GetWeiche("Weiche2").Abzweig && !GetWeiche("Weiche3").Abzweig && !GetWeiche("Weiche5").Abzweig)
+                                /*if block1 frei*/
+                                SchalteSignal("Signal_Ausfahrt_L3", Signal.HP1);
+                            else
+                                SchalteSignal("Signal_Ausfahrt_L3", Signal.HP0);
+                            break;
+                        default: break;
+                    }
+                }            
+            }
+        }
+
+        private void AutoSignalUpdate()
+        {
+            if (AutoSignale.Checked)
+            {
+                //Signale auf grün Schalten
+                foreach (Signal signal in Signalliste)
+                {
+                    int Stellung = AllowedSignalPos(signal.Name);
+
+                    if(signal.Zustand != Stellung) //Schalten bei Unterschied
+                    {
+                        signal.Schalten(Stellung, z21Start);
+                    }
+                }
+            }
+        }
+
+        private int AllowedSignalPos(string SignalName)
+        {
+            if (AutoSignale.Checked)
+            {
+                switch (SignalName)
+                {
+                    case "Signal_Ausfahrt_L1":
+                        if (!GetWeiche("Weiche1").Abzweig && !GetWeiche("Weiche4").Abzweig && GetWeiche("Weiche6").Abzweig)
+                            /*if block1 frei*/
+                            return Signal.HP2;
+                        else
+                            return Signal.HP0;
+                    case "Signal_Ausfahrt_L2":
+                        if (!GetWeiche("Weiche1").Abzweig && !GetWeiche("Weiche4").Abzweig && !GetWeiche("Weiche6").Abzweig)
+                            /*if block1 frei*/
+                            return Signal.HP1;
+                        else
+                            return Signal.HP0;
+                    case "Signal_Ausfahrt_L3":
+                        if (GetWeiche("Weiche1").Abzweig && GetWeiche("Weiche2").Abzweig && !GetWeiche("Weiche3").Abzweig && !GetWeiche("Weiche5").Abzweig)
+                            /*if block1 frei*/
+                            return Signal.HP1;
+                        else
+                            return Signal.HP0;
+                    default: return Signal.HP0;
+                }
+            }//Check AutoSignale
+            return 99; //Automatische Signale inaktiv
         }
     }
 }

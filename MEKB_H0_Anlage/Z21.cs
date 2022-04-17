@@ -597,7 +597,6 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x07, 0x00, 0x40, 0x00, 0xF1, 0x0A, 0xFB };
             sendCommand(SendBytes, 7);           
         }
-
         public void GET_BROADCASTFLAGS()
         {
             byte[] SendBytes = { 0x04, 0x00, 0x51, 0x00 };
@@ -612,13 +611,11 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x08, 0x00, 0x50, 0x00, tempdata[0], tempdata[1], tempdata[2], tempdata[3] };
             if (Connected) Client.Send(SendBytes, 8);
         }
-
         public void Z21_GET_STATUS()
         {
             byte[] SendBytes = { 0x07, 0x00, 0x40, 0x00, 0x21, 0x24, 0x05 };
             sendCommand(SendBytes, 7);
         }
-
         public void Z21_GET_LOCO_INFO(int Adresse)
         {
             byte Header = 0xE3;
@@ -629,7 +626,6 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             if (Connected) Client.Send(SendBytes, 9);
         }
-
         public void Z21_SET_LOCO_DRIVE(int Adresse, int Geschwindigkeit, int Richtung, int Fahrstufe)
         {
             int SendeFahrStufe = Fahrstufe;
@@ -656,13 +652,11 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x0A, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, DB3, XOR };
             if (Connected) Client.Send(SendBytes, 10);
         }
-
         public void Z21_GET_SYSTEMSTATE()
         {
             byte[] SendBytes = { 0x04, 0x00, 0x85, 0x00 };
             if (Connected) Client.Send(SendBytes, 4);
         }
-
         public void Z21_SET_TURNOUT(int Adresse, bool Abzweig, bool Q_Modus, bool aktivieren)
         {
             Adresse--;
@@ -678,7 +672,6 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             sendCommand(SendBytes, 9);
         }
-
         public async Task Z21_SET_WEICHEAsync(int Adresse, bool Abzweig, bool Q_Modus, int time, bool deaktivieren)
         {
             Adresse--;
@@ -736,7 +729,6 @@ namespace MEKB_H0_Anlage
             if (Connected) Client.Send(SendBytes2, 9);
             */
         }
-
         public void Z21_SET_SIGNAL(int Adresse, bool Zustand)
         {
             Adresse--;

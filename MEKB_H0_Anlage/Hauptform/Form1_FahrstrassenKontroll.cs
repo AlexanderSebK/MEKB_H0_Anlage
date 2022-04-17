@@ -172,8 +172,6 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
-
-        #region Gleis 4
         private void Fahrstr_GL4_links_Click(object sender, EventArgs e)
         {
             if (Gleis4_nach_Block1.GetGesetztStatus())
@@ -195,9 +193,6 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
-        
-        #endregion
-        #region Gleis 5
         private void Fahrstr_GL5_links_Click(object sender, EventArgs e)
         {
             if (Gleis5_nach_Block1.GetGesetztStatus())
@@ -219,8 +214,6 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
-        #endregion
-        #region Gleis 6
         private void Fahrstr_GL6_links_Click(object sender, EventArgs e)
         {
             if (Gleis6_nach_Block1.GetGesetztStatus())
@@ -256,29 +249,7 @@ namespace MEKB_H0_Anlage
             }
             */
         }
-        private void Block1_nach_Block2_Click(object sender, EventArgs e)
-        {
-            if (Block1_nach_Block2.GetGesetztStatus())
-            {
-                ToggleFahrstrasse(Block1_nach_Block2);  //Aktiv? auschalten
-            }
-            else
-            {
-                //Keine Sperrende Fahstraße aktiv
-                if (!Block9_nach_Block2.GetGesetztStatus())
-                {
-                    ToggleFahrstrasse(Block1_nach_Block2);
-                }
-            }
-            Block1_Auswahl.Visible = false;
-        }
-        private void Block1_nach_Block5_Click(object sender, EventArgs e)
-        {
-            ToggleFahrstrasse(Block1_nach_Block5);  //Aktiv? auschalten    
-            Block1_Auswahl.Visible = false;
-        }
-        #endregion
-        #endregion
+        #endregion       
         #endregion
         #region Hbf_Rechts
         #region Einfahrt
@@ -1506,6 +1477,29 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region Freie Strecke
+        #region Block1
+        private void Block1_nach_Block2_Click(object sender, EventArgs e)
+        {
+            if (Block1_nach_Block2.GetGesetztStatus())
+            {
+                ToggleFahrstrasse(Block1_nach_Block2);  //Aktiv? auschalten
+            }
+            else
+            {
+                //Keine Sperrende Fahstraße aktiv
+                if (!Block9_nach_Block2.GetGesetztStatus())
+                {
+                    ToggleFahrstrasse(Block1_nach_Block2);
+                }
+            }
+            Block1_Auswahl.Visible = false;
+        }
+        private void Block1_nach_Block5_Click(object sender, EventArgs e)
+        {
+            ToggleFahrstrasse(Block1_nach_Block5);  //Aktiv? auschalten    
+            Block1_Auswahl.Visible = false;
+        }
+        #endregion
         private void Block5_Click(object sender, EventArgs e)
         {
             //Einer der Gl6-links Fahrstrassen aktiv

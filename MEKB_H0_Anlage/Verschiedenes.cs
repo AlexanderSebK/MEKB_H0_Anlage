@@ -163,14 +163,15 @@ namespace MEKB_H0_Anlage
         /// Rückantwort der Z21 analisieren
         /// </summary>
         /// <param name="SchaltCode">Paketinhalt der Z21</param>
-        public void Schalten(int SchaltCode)
+        public bool Schalten(int SchaltCode)
         {
+            bool AlterAbzweig = Abzweig;
             switch (SchaltCode)
             {
                 case 0:
                     Status_Unbekannt = true;
                     break;
-                case 1:
+                case 1:                    
                     Abzweig = true;
                     Status_Unbekannt = false;
                     Status_Error = false;
@@ -185,6 +186,9 @@ namespace MEKB_H0_Anlage
                     break;
             }
             if (Spiegeln) Abzweig = !Abzweig;   //Weiche spiegeln, wenn Paramter gesetzt ist
+
+            if (AlterAbzweig == Abzweig) return false; //Keine Änderungen/Update
+            else return true; //Änderungen
         }
 
         // Method that perform shallow copy  

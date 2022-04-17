@@ -205,6 +205,13 @@ namespace MEKB_H0_Anlage
                 Weichenliste[ListID].ZeitAktiv = Weichenliste[ListID].Schaltzeit;
             }
         }
+
+        private Weiche GetWeiche(string WeichenName)
+        {
+            int ListID = Weichenliste.IndexOf(new Weiche() { Name = WeichenName });
+            if (ListID == -1) return null;
+            return Weichenliste[ListID];
+        }
         #endregion
         /// <summary>
         /// Fahrstraße aktivieren/deaktivieren
@@ -2414,7 +2421,6 @@ namespace MEKB_H0_Anlage
             Block1_nach_Block5.Fahrstr_Weichenliste.Add(weiche);
 
         }
-
         private void SetupBlock1_nach_Block2()
         {
             Weiche weiche;
@@ -2438,7 +2444,6 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block1_nach_Block2.Fahrstr_Weichenliste.Add(weiche);
         }
-
         private void SetupBlock5_nach_Block6()
         {
             Weiche weiche;
@@ -3511,7 +3516,6 @@ namespace MEKB_H0_Anlage
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block1a_1);
         }
-
         private void UpdateGleisbild_Block1c(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
@@ -3728,7 +3732,6 @@ namespace MEKB_H0_Anlage
        
         }
 
-
         #region Schattenbahnhof
         private void UpdateGleisbild_SchattenkleinAusf(List<bool> besetzt, List<Fahrstrasse> Fahrstrassen)
         {
@@ -3753,7 +3756,6 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildEckeOL(zustand11), Schatten11_Ausf4);
             DisplayPicture(GetSchaltbildKurve180R_EckeOL(zustand11, zustand10), Schatten11_Ausf5);
         }
-
         private void UpdateGleisbild_Schatten0Ausf(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
@@ -3761,7 +3763,6 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildKurve270L(zustand), Schatten0_Ausf2);
             DisplayPicture(GetSchaltbildGerade90(zustand), Schatten0_Ausf3);
         }
-
         #endregion
         #region Block (sonder)
         private void UpdateGleisbild_Block5_Block9(bool besetzt_Block5, List<Fahrstrasse> Fahrstrasse_links_Block5, List<Fahrstrasse> Fahrstrasse_rechts_Block5, 
@@ -5133,7 +5134,7 @@ namespace MEKB_H0_Anlage
 
         #endregion
         #region Geraden mit einer Ecke
-            private dynamic GetSchaltbildGerade180_EckeOR(MeldeZustand Zustand_Gerade, MeldeZustand Zustand_Ecke)
+        private dynamic GetSchaltbildGerade180_EckeOR(MeldeZustand Zustand_Gerade, MeldeZustand Zustand_Ecke)
         {
             //Grundgleisbild
             Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade0_EckeOR;

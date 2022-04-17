@@ -128,8 +128,9 @@ namespace MEKB_H0_Anlage
             int index = Weichenliste.FindIndex(x => x.Adresse == Adresse); //Finde Weiche mit dieser Adresse 
             if (index != -1)//Weiche gefunden in der Liste
             {
-                Weichenliste[index].Schalten(Status);
+                bool aenderung = Weichenliste[index].Schalten(Status);
                 UpdateWeicheImGleisplan(Weichenliste[index]);
+                if(aenderung) AutoSignalUpdate();
             }
             else
             {

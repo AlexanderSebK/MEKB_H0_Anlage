@@ -44,6 +44,7 @@ namespace MEKB_H0_Anlage
         private static System.Timers.Timer FlagTimer;
         private static System.Timers.Timer WeichenTimer;
         private static System.Timers.Timer CooldownTimer;
+        private static System.Timers.Timer SignalTimer;
 
         private int Pointer_Weichenliste = 0;
         private int Pointer_Signalliste = 0;
@@ -123,6 +124,14 @@ namespace MEKB_H0_Anlage
             CooldownTimer.AutoReset = true;
             CooldownTimer.Enabled = true;
 
+            /*
+            // 100 MilliSekunden Timer: Signale steuern.
+            SignalTimer = new System.Timers.Timer(500);
+            // Timer mit Funktion "WeichenCooldown" Verbinden
+            SignalTimer.Elapsed += SignalUpdate;
+            SignalTimer.AutoReset = true;
+            SignalTimer.Enabled = true;
+            */
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -405,8 +414,17 @@ namespace MEKB_H0_Anlage
                 int ListID = Signalliste.IndexOf(new Signal() { Name = SignalElement.Name });
                 if (ListID == -1) return;
 
-                if (Signalliste[ListID].Zustand == 1) Signalliste[ListID].Schalten(Signal.HP0, z21Start);
-                else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(Signal.HP1, z21Start);
+                int ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
+
+                if (Signalliste[ListID].Zustand == Signal.HP1)
+                {
+                    Signalliste[ListID].Schalten(Signal.HP0, z21Start);
+                }
+                else if (Signalliste[ListID].Zustand == Signal.HP0)
+                {
+                    if (ErlaubteSignalstellung == Signal.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
+                    Signalliste[ListID].Schalten(Signal.HP1, z21Start);
+                }
             }
         }
         private void Signal_HP0_HP2(object sender, EventArgs e)
@@ -416,8 +434,17 @@ namespace MEKB_H0_Anlage
                 int ListID = Signalliste.IndexOf(new Signal() { Name = SignalElement.Name });
                 if (ListID == -1) return;
 
-                if (Signalliste[ListID].Zustand == 2) Signalliste[ListID].Schalten(Signal.HP0, z21Start);
-                else if (Signalliste[ListID].Zustand == 0) Signalliste[ListID].Schalten(Signal.HP2, z21Start);
+                int ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
+
+                if (Signalliste[ListID].Zustand == 2)
+                {
+                    Signalliste[ListID].Schalten(Signal.HP0, z21Start);
+                }
+                else if (Signalliste[ListID].Zustand == 0)
+                {
+                    if (ErlaubteSignalstellung == Signal.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
+                    Signalliste[ListID].Schalten(Signal.HP2, z21Start);
+                }
             }
         }
         #endregion
@@ -666,11 +693,13 @@ namespace MEKB_H0_Anlage
                 {
                     checkBox.BackColor = Color.FromArgb(0, 0, 255);
                     checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    SignalFahrstrasse.Enabled = true;
                 }
                 else
                 {
                     checkBox.BackColor = Color.FromArgb(64, 64, 64);
                     checkBox.ForeColor = Color.FromArgb(192, 192, 192);
+                    SignalFahrstrasse.Enabled = false;
                 }
             }
         }
@@ -685,6 +714,25 @@ namespace MEKB_H0_Anlage
                 else
                 {
                     checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2_inaktiv;
+                }
+            }
+        }
+
+        private void SignalFahrstrasse_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.Checked == true)
+                {
+                    checkBox.BackColor = Color.FromArgb(0, 0, 255);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    checkBox.Text = "über Fahrstrasse";
+                }
+                else
+                {
+                    checkBox.BackColor = Color.FromArgb(0, 64, 0);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    checkBox.Text = "über Weichen";
                 }
             }
         }
