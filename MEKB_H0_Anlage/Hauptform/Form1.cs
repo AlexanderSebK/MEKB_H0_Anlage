@@ -32,6 +32,7 @@ namespace MEKB_H0_Anlage
     {
         public Z21 z21Start;
         private Z21_Einstellung z21_Einstellung;
+        private Signal_Einstellungen signal_Einstellungen;
         private InfoBox InfoBox;
 
         public List<Weiche> Weichenliste = new List<Weiche>();
@@ -44,14 +45,13 @@ namespace MEKB_H0_Anlage
         private static System.Timers.Timer FlagTimer;
         private static System.Timers.Timer WeichenTimer;
         private static System.Timers.Timer CooldownTimer;
-        private static System.Timers.Timer SignalTimer;
 
         private int Pointer_Weichenliste = 0;
         private int Pointer_Signalliste = 0;
         private bool Signal_Init;
         private bool Weichen_Init;
 
-        private Logger Log;
+        private Logger Log { set; get; }
 
         #region Hauptform Funktionen
         public Form1()
@@ -78,8 +78,8 @@ namespace MEKB_H0_Anlage
             ConnectStatus(false, false);                 //Verbindungsstatus auf getrennt setzen
 
             SetupWeichenListe();                        //Weichenliste aus Datei laden
-            SetupFahrstrassen();                        //Fahstrassen festlegen
             SetupSignalListe();                         //Signalliste festlegen
+            SetupFahrstrassen();                        //Fahstrassen festlegen          
             SetupLokListe();                            //Lok-Daten aus Dateien laden
 
             Betriebsbereit = false;
@@ -124,14 +124,6 @@ namespace MEKB_H0_Anlage
             CooldownTimer.AutoReset = true;
             CooldownTimer.Enabled = true;
 
-            /*
-            // 100 MilliSekunden Timer: Signale steuern.
-            SignalTimer = new System.Timers.Timer(500);
-            // Timer mit Funktion "WeichenCooldown" Verbinden
-            SignalTimer.Elapsed += SignalUpdate;
-            SignalTimer.AutoReset = true;
-            SignalTimer.Enabled = true;
-            */
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -309,6 +301,7 @@ namespace MEKB_H0_Anlage
                 Fahrstrassenupdate(Schatten7_nach_Block9);
 
                 FahrstrasseBildUpdate();
+                //if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate();
             }
 
         }
@@ -693,13 +686,11 @@ namespace MEKB_H0_Anlage
                 {
                     checkBox.BackColor = Color.FromArgb(0, 0, 255);
                     checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                    SignalFahrstrasse.Enabled = true;
                 }
                 else
                 {
                     checkBox.BackColor = Color.FromArgb(64, 64, 64);
                     checkBox.ForeColor = Color.FromArgb(192, 192, 192);
-                    SignalFahrstrasse.Enabled = false;
                 }
             }
         }
@@ -735,6 +726,12 @@ namespace MEKB_H0_Anlage
                     checkBox.Text = "über Weichen";
                 }
             }
+        }
+
+        private void signalsteuergungToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            signal_Einstellungen = new Signal_Einstellungen();
+            signal_Einstellungen.Show();
         }
     }
 }

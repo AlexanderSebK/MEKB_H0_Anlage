@@ -250,7 +250,7 @@ namespace MEKB_H0_Anlage
                 Connected = true;
                 Client.BeginReceive(DataReceived, null);
             }
-            catch (ObjectDisposedException)
+            catch //(ObjectDisposedException)
             {
                 Connected = false;
                 call_LAN_CONNECT_STATUS?.Invoke(false, false);

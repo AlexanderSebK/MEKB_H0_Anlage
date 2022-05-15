@@ -224,6 +224,7 @@ namespace MEKB_H0_Anlage
             {
                 //Fahrstraße deaktivieren
                 fahrstrasse.DeleteFahrstrasse(Weichenliste);
+                if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.Fahrstr_Sig.Name);
             }
             else
             {
@@ -331,6 +332,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis1_nach_links /////////
             Gleis1_nach_Block1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis1_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -363,6 +367,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis2_nach_links /////////
             Gleis2_nach_Block1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis2_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -395,6 +402,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis3_nach_links /////////
             Gleis3_nach_Block1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L3" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis3_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -434,6 +444,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis4_nach_links /////////
             Gleis4_nach_Block1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L4" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis4_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -491,10 +504,13 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis5_nach_links /////////
             Gleis5_nach_Block1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L5" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis5_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-
+            
             weiche = Weichenliste[ListID].Copy();
             weiche.FahrstrasseRichtung_vonZunge = false;
             weiche.FahrstrasseAbzweig = true;
@@ -571,6 +587,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis6_nach_links /////////
             Gleis6_nach_Block1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L6" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis6_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -653,6 +672,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis1 /////////
             Block2_nach_Gleis1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -693,6 +715,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis2 /////////
             Block2_nach_Gleis2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis2.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -733,6 +758,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis3 /////////
             Block2_nach_Gleis3 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis3.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -765,6 +793,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis4 /////////
             Block2_nach_Gleis4 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis4.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -813,6 +844,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis5 /////////
             Block2_nach_Gleis5 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis5.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -885,6 +919,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis6 /////////
             Block2_nach_Gleis6 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis6.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -959,6 +996,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis1_nach_rechts1 /////////
             Gleis1_nach_rechts1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis1_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1006,6 +1046,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis2_nach_rechts1 /////////
             Gleis2_nach_rechts1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis2_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1053,6 +1096,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis3_nach_rechts1 /////////
             Gleis3_nach_rechts1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R3" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis3_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1092,6 +1138,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis4_nach_rechts1 /////////
             Gleis4_nach_rechts1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R4" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis4_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1147,6 +1196,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis5_nach_rechts1 /////////
             Gleis5_nach_rechts1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R5" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis5_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1226,6 +1278,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis6_nach_rechts1 /////////
             Gleis6_nach_rechts1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R6" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis6_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche21" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche21 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1313,6 +1368,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis1_nach_rechts2 /////////
             Gleis1_nach_rechts2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis1_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1360,6 +1418,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis2_nach_rechts2 /////////
             Gleis2_nach_rechts2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis2_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1407,6 +1468,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis3_nach_rechts2 /////////
             Gleis3_nach_rechts2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R3" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis3_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1446,6 +1510,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis4_nach_rechts2 /////////
             Gleis4_nach_rechts2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R4" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis4_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1501,6 +1568,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis5_nach_rechts2 /////////
             Gleis5_nach_rechts2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R5" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis5_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1580,6 +1650,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis6_nach_rechts2 /////////
             Gleis6_nach_rechts2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R6" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis6_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche21" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche21 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1669,6 +1742,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis1 /////////
             Rechts1_nach_Gleis1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1708,6 +1784,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis2 /////////
             Rechts1_nach_Gleis2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis2.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1747,6 +1826,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis3 /////////
             Rechts1_nach_Gleis3 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis3.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1794,6 +1876,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis4 /////////
             Rechts1_nach_Gleis4 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis4.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1857,6 +1942,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis5 /////////
             Rechts1_nach_Gleis5 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis5.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -1944,6 +2032,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis6 /////////
             Rechts1_nach_Gleis6 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis6.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2039,6 +2130,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis1 /////////
             Rechts2_nach_Gleis1 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis1.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2078,6 +2172,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis2 /////////
             Rechts2_nach_Gleis2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis2.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2117,6 +2214,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis3 /////////
             Rechts2_nach_Gleis3 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis3.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2164,6 +2264,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis4 /////////
             Rechts2_nach_Gleis4 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis4.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2227,6 +2330,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis5 /////////
             Rechts2_nach_Gleis5 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis5.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2314,6 +2420,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis6 /////////
             Rechts2_nach_Gleis6 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis6.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2411,6 +2520,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block1_nach_Block5 /////////
             Block1_nach_Block5 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Block5" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Block5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block1_nach_Block5.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche52" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche52 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2427,6 +2539,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block1_nach_Block2 /////////
             Block1_nach_Block2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Block5" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Block5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block1_nach_Block2.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche52" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche52 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2450,6 +2565,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block5_nach_Block6 /////////
             Block5_nach_Block6 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Block6" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Block6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block5_nach_Block6.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche60" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche60 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -2465,6 +2584,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block8_nach_Block6 /////////
             Block8_nach_Block6 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Block8" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Block8 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block8_nach_Block6.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche60" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche60 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -2479,6 +2602,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block9_nach_Block2 /////////
             Block9_nach_Block2 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Block2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Block2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block9_nach_Block2.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche53" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche53 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -2495,6 +2622,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block6_nach Schattenbahnhof Gl. 8 /////////
             Block6_nach_Schatten8 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten_Einf" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block6_nach_Schatten8.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2526,6 +2656,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block6_nach Schattenbahnhof Gl. 9 /////////
             Block6_nach_Schatten9 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten_Einf" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block6_nach_Schatten9.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2557,6 +2690,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block6_nach Schattenbahnhof Gl. 10 /////////
             Block6_nach_Schatten10 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten_Einf" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block6_nach_Schatten10.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2580,6 +2716,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block6_nach Schattenbahnhof Gl. 11 /////////
             Block6_nach_Schatten11 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten_Einf" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block6_nach_Schatten11.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2597,6 +2736,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schattenbahnhof Gl. 11 Ausf/////////
             Schatten11_nach_Block7 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten11" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten11 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten11_nach_Block7.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2628,6 +2770,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schattenbahnhof Gl. 10 Ausf/////////
             Schatten10_nach_Block7 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten10" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten10 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten10_nach_Block7.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2659,6 +2804,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schattenbahnhof Gl. 9 Ausf/////////
             Schatten9_nach_Block7 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten9" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten9 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten9_nach_Block7.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2682,6 +2830,9 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schattenbahnhof Gl. 9 Ausf/////////
             Schatten8_nach_Block7 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten8" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten8 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten8_nach_Block7.Fahrstr_Sig = Signalliste[SigID];
 
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -3032,6 +3183,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten0_nachBlock8 /////////
             Schatten0_nach_Block8 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten0" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten0 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten0_nach_Block8.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche68" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche68 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -3047,6 +3202,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten1_nachBlock8 /////////
             Schatten1_nach_Block8 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten1_nach_Block8.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche68" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche68 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -3070,6 +3229,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten1_nachBlock9 /////////
             Schatten1_nach_Block9 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten1" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten1_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche67" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche67 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -3132,6 +3295,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten2_nachBlock9 /////////
             Schatten2_nach_Block9 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten2" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten2_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche66" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche66 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -3186,6 +3353,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten3_nachBlock9 /////////
             Schatten3_nach_Block9 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten3" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten3_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche65" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche65 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -3232,6 +3403,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten4_nachBlock9 /////////
             Schatten4_nach_Block9 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten4" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten4_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche64" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche64 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -3270,6 +3445,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten4_nachBlock9 /////////
             Schatten5_nach_Block9 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten5" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten5_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche63" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche63 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -3300,6 +3479,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten4_nachBlock9 /////////
             Schatten6_nach_Block9 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten6" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten6_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche62" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche62 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -3322,6 +3505,10 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten4_nachBlock9 /////////
             Schatten7_nach_Block9 = new Fahrstrasse();
+            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten7" });
+            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten7 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten7_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+
             ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche61" });
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche61 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
@@ -3528,10 +3715,14 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_7);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_8);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_9);
-            DisplayPicture(GetSchaltbildKurve270L(zustand),Block1d_0);
-            DisplayPicture(GetSchaltbildEckeUR(zustand),   Block1d_1);
-            DisplayPicture(GetSchaltbildEckeOL(zustand),   Block1d_2);
-            DisplayPicture(GetSchaltbildKurve225L(zustand),Block1d_3);
+        }
+        private void UpdateGleisbild_Block1_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildKurve270L(zustand), Block1_Halt_1);
+            DisplayPicture(GetSchaltbildEckeUR(zustand), Block1_Halt_2);
+            DisplayPicture(GetSchaltbildEckeOL(zustand), Block1_Halt_3);
+            DisplayPicture(GetSchaltbildKurve225L(zustand), Block1_Halt_4);
         }
         #endregion
         #region Block 2
@@ -6681,6 +6872,7 @@ namespace MEKB_H0_Anlage
         /// <param name="fahrstrasse">Fahrstraße zum überprüfen</param>
         private void Fahrstrassenupdate(Fahrstrasse fahrstrasse)
         {
+            bool SafeStatusAlt = fahrstrasse.Safe;
             if (fahrstrasse.GetGesetztStatus())    //Fahrstraße wurde gesetzt
             {
                 fahrstrasse.SetFahrstrasseRichtung(Weichenliste);
@@ -6703,6 +6895,25 @@ namespace MEKB_H0_Anlage
 
                     //Weichen zyklisch nochmal schalten um hängenbleiben zu vermeiden
                     if (Betriebsbereit) fahrstrasse.ControlSetFahrstrasse(Weichenliste, z21Start);
+                }
+            }
+            // Wechseln auf den sicheren Zustand
+            if ((SafeStatusAlt == false) && (fahrstrasse.Safe == true))
+            {
+                // Signal nur Schalten wenn die Option Autoschaltung über Fahrstraße aktiv ist
+                if (fahrstrasse.Fahrstr_Sig.Name != null)
+                {
+                    if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.Fahrstr_Sig.Name);
+                }
+                else
+                {
+                    if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"))
+                    {
+                        AutoSignalUpdate("Signal_Schatten8");
+                        AutoSignalUpdate("Signal_Schatten9");
+                        AutoSignalUpdate("Signal_Schatten10");
+                        AutoSignalUpdate("Signal_Schatten11");
+                    }
                 }
             }
         }
@@ -6736,6 +6947,10 @@ namespace MEKB_H0_Anlage
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
                                                             Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
                                     new List<Fahrstrasse>()); //nach rechts immer aus
+            UpdateGleisbild_Block1_Halt(false, //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
+                                                            Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
+                                    new List<Fahrstrasse>()); //nach rechts immer aus            
             UpdateGleisbild_Block2(false, //Besetzt
                                     new List<Fahrstrasse> { Block1_nach_Block2, Block9_nach_Block2 }, //Nach Links
                                     new List<Fahrstrasse>()); //nach rechts immer aus

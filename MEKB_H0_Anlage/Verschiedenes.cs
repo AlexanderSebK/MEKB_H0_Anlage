@@ -204,8 +204,11 @@ namespace MEKB_H0_Anlage
             Fahrstr_Weichenliste = new List<Weiche>();
             ControlSetPointer = 0;
             SetPointer = 0;
+            Fahrstr_Sig = new Signal();
         }
         public List<Weiche> Fahrstr_Weichenliste { get; set; }
+
+        public Signal Fahrstr_Sig;
         public bool Safe { get; set; }
         private bool FahrstrasseGesetzt { get; set; }
         private bool FahrstrasseAktiv { get; set; }

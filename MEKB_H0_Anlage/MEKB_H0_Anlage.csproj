@@ -116,6 +116,12 @@
     <Compile Include="LokEditor.Designer.cs">
       <DependentUpon>LokEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Signal_Einstellungen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Signal_Einstellungen.Designer.cs">
+      <DependentUpon>Signal_Einstellungen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Z21_CallBacks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +174,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Signal_Einstellungen.resx">
+      <DependentUpon>Signal_Einstellungen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Z21_Einstellung.resx">
       <DependentUpon>Z21_Einstellung.cs</DependentUpon>
     </EmbeddedResource>

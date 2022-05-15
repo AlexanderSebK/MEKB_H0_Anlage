@@ -129,8 +129,7 @@ namespace MEKB_H0_Anlage
             if (index != -1)//Weiche gefunden in der Liste
             {
                 bool aenderung = Weichenliste[index].Schalten(Status);
-                UpdateWeicheImGleisplan(Weichenliste[index]);
-                if(aenderung) AutoSignalUpdate();
+                UpdateWeicheImGleisplan(Weichenliste[index],aenderung); //Mit Signal-Update
             }
             else
             {
@@ -157,7 +156,7 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
-        private void UpdateWeicheImGleisplan(Weiche weiche)
+        private void UpdateWeicheImGleisplan(Weiche weiche, bool signalUpdate = false)
         {
             
             Weiche DKW_2nd = GetDWK_2nd(weiche.Name);     //Zweite Weiche bei DKWs und KWs DisplayPicture(GetSchaltbildGerade90_EckeOR(Zustand, "Frei"), Weiche30_Gleis1);
@@ -165,65 +164,443 @@ namespace MEKB_H0_Anlage
             {
                 switch (weiche.Name)
                 {
-                    case "Weiche1":  DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche1) ; break;
-                    case "Weiche2":  DisplayPicture(GetSchaltbildWeicheR270(weiche),Weiche2) ; break;
-                    case "Weiche3":  DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche3) ; break;
-                    case "Weiche4":  DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche4) ; break;
-                    case "Weiche5":  DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche5) ; break;
-                    case "Weiche6":  DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche6) ; break;
-                    case "Weiche8":  DisplayPicture(GetSchaltbildWeicheL315(weiche),Weiche8) ; break;
+                    case "Weiche1":  DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche1) ;
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Ausfahrt_L1");
+                            AutoSignalUpdate("Signal_Ausfahrt_L2");
+                            AutoSignalUpdate("Signal_Ausfahrt_L3");
+                            AutoSignalUpdate("Signal_Ausfahrt_L4");
+                            AutoSignalUpdate("Signal_Ausfahrt_L5");
+                            AutoSignalUpdate("Signal_Ausfahrt_L6");
+                        }
+                        break;
+                    case "Weiche2":  DisplayPicture(GetSchaltbildWeicheR270(weiche),Weiche2) ;
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Einfahrt_L");
+                            AutoSignalUpdate("Signal_Ausfahrt_L3");
+                            AutoSignalUpdate("Signal_Ausfahrt_L4");
+                            AutoSignalUpdate("Signal_Ausfahrt_L5");
+                            AutoSignalUpdate("Signal_Ausfahrt_L6");
+                        }
+                        break;
+                    case "Weiche3":  DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche3) ;
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Einfahrt_L");
+                            AutoSignalUpdate("Signal_Ausfahrt_L3");
+                            AutoSignalUpdate("Signal_Ausfahrt_L4");
+                            AutoSignalUpdate("Signal_Ausfahrt_L5");
+                            AutoSignalUpdate("Signal_Ausfahrt_L6");
+                        }
+                        break;
+                    case "Weiche4":  DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche4) ;
+                        if (signalUpdate)
+                        {
+                            if (GetWeiche("Weiche3").Abzweig) AutoSignalUpdate("Signal_Einfahrt_L");
+                            AutoSignalUpdate("Signal_Ausfahrt_L1");
+                            AutoSignalUpdate("Signal_Ausfahrt_L2");
+                        }
+                        break;
+                    case "Weiche5":  DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche5) ;
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Einfahrt_L");
+                            AutoSignalUpdate("Signal_Ausfahrt_L3");
+                            AutoSignalUpdate("Signal_Ausfahrt_L4");
+                            AutoSignalUpdate("Signal_Ausfahrt_L5");
+                            AutoSignalUpdate("Signal_Ausfahrt_L6");
+                        }
+                        break;
+                    case "Weiche6":  DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche6) ;
+                        if (signalUpdate)
+                        {
+                            if(GetWeiche("Weiche3").Abzweig) AutoSignalUpdate("Signal_Einfahrt_L");
+                            AutoSignalUpdate("Signal_Ausfahrt_L1");
+                            AutoSignalUpdate("Signal_Ausfahrt_L2");
+                        }
+                        break;
+                    case "Weiche8":  DisplayPicture(GetSchaltbildWeicheL315(weiche),Weiche8) ;
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Einfahrt_L");
+                            AutoSignalUpdate("Signal_Ausfahrt_L5");
+                            AutoSignalUpdate("Signal_Ausfahrt_L6");
+                        }
+                        break;
 
-                    case "Weiche21": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche21); break;
-                    case "Weiche23": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche23); break;
-                    case "Weiche25": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche25); break;
-                    case "Weiche26": DisplayPicture(GetSchaltbildWeicheR270(weiche),Weiche26); break;
-                    case "Weiche27": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche27); break;
-                    case "Weiche28": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche28); break;
-                    case "Weiche29": DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche29); break;
-                    case "Weiche30": DisplayPicture(GetSchaltbildWeicheR270(weiche),Weiche30); break;
+                    case "Weiche21": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche21);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Ausfahrt_R6");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                        }
+                        break;
+                    case "Weiche23": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche23);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Ausfahrt_R5");
+                            AutoSignalUpdate("Signal_Ausfahrt_R6");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                        }
+                        break;
+                    case "Weiche25": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche25);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Ausfahrt_R3");
+                            AutoSignalUpdate("Signal_Ausfahrt_R4");
+                            AutoSignalUpdate("Signal_Ausfahrt_R5");
+                            AutoSignalUpdate("Signal_Ausfahrt_R6");
+                        }
+                        break;
+                    case "Weiche26": DisplayPicture(GetSchaltbildWeicheR270(weiche),Weiche26);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Ausfahrt_R1");
+                            AutoSignalUpdate("Signal_Ausfahrt_R2");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                        }
+                        break;
+                    case "Weiche27": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche27);
+                        if (signalUpdate)
+                        {
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            AutoSignalUpdate("Signal_Ausfahrt_R1");
+                            AutoSignalUpdate("Signal_Ausfahrt_R2");
+                            AutoSignalUpdate("Signal_Ausfahrt_R3");
+                            AutoSignalUpdate("Signal_Ausfahrt_R4");
+                            AutoSignalUpdate("Signal_Ausfahrt_R5");
+                            AutoSignalUpdate("Signal_Ausfahrt_R6");
+                        }
+                        break;
+                    case "Weiche28": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche28);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Ausfahrt_R1");
+                            AutoSignalUpdate("Signal_Ausfahrt_R2");
+                            AutoSignalUpdate("Signal_RTunnel_1");
+                            AutoSignalUpdate("Signal_RTunnel_2");
+                        }
+                        break;
+                    case "Weiche29": DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche29);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Ausfahrt_R1");
+                            AutoSignalUpdate("Signal_Ausfahrt_R2");
+                            AutoSignalUpdate("Signal_RTunnel_1");
+                            AutoSignalUpdate("Signal_RTunnel_2");
+                        }
+                        break;
+                    case "Weiche30": DisplayPicture(GetSchaltbildWeicheR270(weiche),Weiche30);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Ausfahrt_R1");
+                            AutoSignalUpdate("Signal_Ausfahrt_R2");
+                            AutoSignalUpdate("Signal_Ausfahrt_R3");
+                            AutoSignalUpdate("Signal_Ausfahrt_R4");
+                            AutoSignalUpdate("Signal_Ausfahrt_R5");
+                            AutoSignalUpdate("Signal_Ausfahrt_R6");
+                        }
+                        break;
+                    case "Weiche50": DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche50);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Ausfahrt_R1");
+                            AutoSignalUpdate("Signal_Ausfahrt_R2");
+                            AutoSignalUpdate("Signal_Ausfahrt_R3");
+                            AutoSignalUpdate("Signal_Ausfahrt_R4");
+                            AutoSignalUpdate("Signal_Ausfahrt_R5");
+                            AutoSignalUpdate("Signal_Ausfahrt_R6");
+                        }
+                        break;
+                    case "Weiche51": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche51);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_RTunnel_1");
+                            AutoSignalUpdate("Signal_RTunnel_2");
+                        }
+                        break;
+                    case "Weiche52": DisplayPicture(GetSchaltbildWeicheL180(weiche),Weiche52);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Block5");
+                        }
+                        break;
+                    case "Weiche53": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche53);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Block2");
+                            if (GetWeiche("Weiche52").Abzweig) AutoSignalUpdate("Signal_Block5");
+                        }
+                        break;
 
-                    case "Weiche50": DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche50); break;
-                    case "Weiche51": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche51); break;
-                    case "Weiche52": DisplayPicture(GetSchaltbildWeicheL180(weiche),Weiche52); break;
-                    case "Weiche53": DisplayPicture(GetSchaltbildWeicheR225(weiche),Weiche53); break;
+                    case "Weiche60": DisplayPicture(GetSchaltbildWeicheR270(weiche),Weiche60);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Block6");
+                            AutoSignalUpdate("Signal_Block8");
+                        }
+                        break;
+                    case "Weiche61": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche61);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten1");
+                            AutoSignalUpdate("Signal_Schatten2");
+                            AutoSignalUpdate("Signal_Schatten3");
+                            AutoSignalUpdate("Signal_Schatten4");
+                            AutoSignalUpdate("Signal_Schatten5");
+                            AutoSignalUpdate("Signal_Schatten6");
+                            AutoSignalUpdate("Signal_Schatten7");
+                        }
+                        break;
+                    case "Weiche62": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche62);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten1");
+                            AutoSignalUpdate("Signal_Schatten2");
+                            AutoSignalUpdate("Signal_Schatten3");
+                            AutoSignalUpdate("Signal_Schatten4");
+                            AutoSignalUpdate("Signal_Schatten5");
+                            AutoSignalUpdate("Signal_Schatten6");
+                        }
+                        break;
+                    case "Weiche63": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche63);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten1");
+                            AutoSignalUpdate("Signal_Schatten2");
+                            AutoSignalUpdate("Signal_Schatten3");
+                            AutoSignalUpdate("Signal_Schatten4");
+                            AutoSignalUpdate("Signal_Schatten5");
+                        }
+                        break;
+                    case "Weiche64": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche64);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten1");
+                            AutoSignalUpdate("Signal_Schatten2");
+                            AutoSignalUpdate("Signal_Schatten3");
+                            AutoSignalUpdate("Signal_Schatten4");
+                        }
+                        break;
+                    case "Weiche65": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche65);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten1");
+                            AutoSignalUpdate("Signal_Schatten2");
+                            AutoSignalUpdate("Signal_Schatten3");
+                        }
+                        break;
+                    case "Weiche66": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche66);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten1");
+                            AutoSignalUpdate("Signal_Schatten2");
+                        }
+                        break;
+                    case "Weiche67": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche67);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten1");
+                        }
+                        break;
+                    case "Weiche68": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche68);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten0");
+                            AutoSignalUpdate("Signal_Schatten1");
+                        }
+                        break;
 
-                    case "Weiche60": DisplayPicture(GetSchaltbildWeicheR270(weiche),Weiche60); break;
-                    case "Weiche61": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche61); break;
-                    case "Weiche62": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche62); break;
-                    case "Weiche63": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche63); break;
-                    case "Weiche64": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche64); break;
-                    case "Weiche65": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche65); break;
-                    case "Weiche66": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche66); break;
-                    case "Weiche67": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche67); break;
-                    case "Weiche68": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche68); break;
+                    case "Weiche70": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche70);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten8");
+                            AutoSignalUpdate("Signal_Schatten9");
+                            AutoSignalUpdate("Signal_Schatten10");
+                            AutoSignalUpdate("Signal_Schatten11");
+                        }
+                        break;
+                    case "Weiche71": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche71);
+                        if (signalUpdate && !GetWeiche("Weiche70").Abzweig)
+                        {
+                            AutoSignalUpdate("Signal_Schatten8");
+                            AutoSignalUpdate("Signal_Schatten9");
+                            AutoSignalUpdate("Signal_Schatten10");
+                            AutoSignalUpdate("Signal_Schatten11");
+                        }
+                        break; 
+                    case "Weiche72": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche72);
+                        if (signalUpdate && !GetWeiche("Weiche71").Abzweig)
+                        {
+                            AutoSignalUpdate("Signal_Schatten8");
+                            AutoSignalUpdate("Signal_Schatten9");
+                            AutoSignalUpdate("Signal_Schatten10");
+                            AutoSignalUpdate("Signal_Schatten11");
+                        }
+                        break;
+                    case "Weiche73": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche73);
+                        if (signalUpdate && !GetWeiche("Weiche72").Abzweig)
+                        {
+                            AutoSignalUpdate("Signal_Schatten8");
+                            AutoSignalUpdate("Signal_Schatten9");
+                            AutoSignalUpdate("Signal_Schatten10");
+                            AutoSignalUpdate("Signal_Schatten11");
+                        }
+                        break;
+                    case "Weiche74": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche74);
+                        if (signalUpdate && !GetWeiche("Weiche73").Abzweig)
+                        {
+                            AutoSignalUpdate("Signal_Schatten8");
+                            AutoSignalUpdate("Signal_Schatten9");
+                            AutoSignalUpdate("Signal_Schatten10");
+                            AutoSignalUpdate("Signal_Schatten11");
+                        }
+                        break;
+                    case "Weiche75": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche75);
+                        if (signalUpdate && !GetWeiche("Weiche74").Abzweig)
+                        {
+                            AutoSignalUpdate("Signal_Schatten8");
+                            AutoSignalUpdate("Signal_Schatten9");
+                            AutoSignalUpdate("Signal_Schatten10");
+                            AutoSignalUpdate("Signal_Schatten11");
+                        }
+                        break;
+                    case "Weiche76": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche76); 
+                        if (signalUpdate && !GetWeiche("Weiche75").Abzweig)
+                        {
+                            AutoSignalUpdate("Signal_Schatten8");
+                            AutoSignalUpdate("Signal_Schatten9");
+                            AutoSignalUpdate("Signal_Schatten10");
+                            AutoSignalUpdate("Signal_Schatten11");
+                        }
+                        break;
+                    case "Weiche80": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche80);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten8");
+                            AutoSignalUpdate("Signal_Schatten9");
+                            AutoSignalUpdate("Signal_Schatten10");
+                            AutoSignalUpdate("Signal_Schatten11");
+                        }
+                        break;
+                    case "Weiche81": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche81);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten9");
+                            AutoSignalUpdate("Signal_Schatten10");
+                            AutoSignalUpdate("Signal_Schatten11");
+                        }
+                        break;
+                    case "Weiche82": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche82);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten10");
+                            AutoSignalUpdate("Signal_Schatten11");
+                        }
+                        break;
 
-                    case "Weiche70": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche70); break;
-                    case "Weiche71": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche71); break;
-                    case "Weiche72": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche72); break;
-                    case "Weiche73": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche73); break;
-                    case "Weiche74": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche74); break;
-                    case "Weiche75": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche75); break;
-                    case "Weiche76": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche76); break;
+                    case "Weiche90": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche90);
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Schatten_Einf");
+                        }
+                        break;
+                    case "Weiche91": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche91);
+                        if (signalUpdate && GetWeiche("Weiche90").Abzweig)
+                        {
+                            AutoSignalUpdate("Signal_Schatten_Einf");
+                        }
+                        break;
+                    case "Weiche92": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche92);
+                        if (signalUpdate && GetWeiche("Weiche90").Abzweig && !GetWeiche("Weiche91").Abzweig)
+                        {
+                            AutoSignalUpdate("Signal_Schatten_Einf");
+                        }
+                        break;
 
-                    case "Weiche80": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche80); break;
-                    case "Weiche81": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche81); break;
-                    case "Weiche82": DisplayPicture(GetSchaltbildWeicheR180(weiche), Weiche82); break;
-
-                    case "Weiche90": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche90); break;
-                    case "Weiche91": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche91); break;
-                    case "Weiche92": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche92); break;
-
-                    case "DKW7_1":   DisplayPicture(GetSchaltbildDKW90_135(weiche, DKW_2nd),DKW7) ;break;
-                    case "DKW7_2":   DisplayPicture(GetSchaltbildDKW90_135(DKW_2nd, weiche),DKW7) ;break; //Spiegelverkehrt, da der zweite Weichenteil die aktuelle zu Schaltene ist     
+                    case "DKW7_1":   DisplayPicture(GetSchaltbildDKW90_135(weiche, DKW_2nd),DKW7) ;
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Einfahrt_L");
+                            AutoSignalUpdate("Signal_Ausfahrt_L3");
+                            AutoSignalUpdate("Signal_Ausfahrt_L4");
+                            AutoSignalUpdate("Signal_Ausfahrt_L5");
+                            AutoSignalUpdate("Signal_Ausfahrt_L6");
+                        }
+                        break;
+                    case "DKW7_2":   DisplayPicture(GetSchaltbildDKW90_135(DKW_2nd, weiche),DKW7);//Spiegelverkehrt, da der zweite Weichenteil die aktuelle zu Schaltene ist   
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Einfahrt_L");
+                            AutoSignalUpdate("Signal_Ausfahrt_L3");
+                            AutoSignalUpdate("Signal_Ausfahrt_L4");
+                            AutoSignalUpdate("Signal_Ausfahrt_L5");
+                            AutoSignalUpdate("Signal_Ausfahrt_L6");
+                        }
+                        break;   
                         
-                    case "DKW9_1":   DisplayPicture(GetSchaltbildDKW90_135(weiche, DKW_2nd),DKW9) ;break;
-                    case "DKW9_2":   DisplayPicture(GetSchaltbildDKW90_135(DKW_2nd, weiche),DKW9) ;break;  
+                    case "DKW9_1":   DisplayPicture(GetSchaltbildDKW90_135(weiche, DKW_2nd),DKW9) ;
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Einfahrt_L");
+                            AutoSignalUpdate("Signal_Ausfahrt_L5");
+                            AutoSignalUpdate("Signal_Ausfahrt_L6");
+                        }
+                        break;
+                    case "DKW9_2":   DisplayPicture(GetSchaltbildDKW90_135(DKW_2nd, weiche),DKW9) ;
+                        if (signalUpdate)
+                        {
+                            AutoSignalUpdate("Signal_Einfahrt_L");
+                            AutoSignalUpdate("Signal_Ausfahrt_L5");
+                            AutoSignalUpdate("Signal_Ausfahrt_L6");
+                        }
+                        break;  
                         
-                    case "KW22_1":   DisplayPicture(GetSchaltbildKW90_45(weiche, DKW_2nd)  ,KW22) ;break;
-                    case "KW22_2":   DisplayPicture(GetSchaltbildKW90_45(DKW_2nd, weiche)  ,KW22) ;break;
+                    case "KW22_1":   DisplayPicture(GetSchaltbildKW90_45(weiche, DKW_2nd)  ,KW22) ;
+                        if (signalUpdate)
+                        {
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            AutoSignalUpdate("Signal_Ausfahrt_R5");
+                            AutoSignalUpdate("Signal_Ausfahrt_R6");
+                        }
+                        break;
+                    case "KW22_2":   DisplayPicture(GetSchaltbildKW90_45(DKW_2nd, weiche)  ,KW22) ;
+                        if (signalUpdate)
+                        {
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            AutoSignalUpdate("Signal_Ausfahrt_R5");
+                            AutoSignalUpdate("Signal_Ausfahrt_R6");
+                        }
+                        break;
 
-                    case "DKW24_1":  DisplayPicture(GetSchaltbildDKW90_45(weiche, DKW_2nd) ,DKW24); break;
-                    case "DKW24_2":  DisplayPicture(GetSchaltbildDKW90_45(DKW_2nd, weiche), DKW24); break;
+                    case "DKW24_1":  DisplayPicture(GetSchaltbildDKW90_45(weiche, DKW_2nd) ,DKW24);
+                        if (signalUpdate)
+                        {
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            AutoSignalUpdate("Signal_Ausfahrt_R4");
+                            AutoSignalUpdate("Signal_Ausfahrt_R5");
+                            AutoSignalUpdate("Signal_Ausfahrt_R6");
+                        }
+                        break;
+                    case "DKW24_2":  DisplayPicture(GetSchaltbildDKW90_45(DKW_2nd, weiche), DKW24);
+                        if (signalUpdate)
+                        {
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            AutoSignalUpdate("Signal_Ausfahrt_R4");
+                            AutoSignalUpdate("Signal_Ausfahrt_R5");
+                            AutoSignalUpdate("Signal_Ausfahrt_R6");
+                        }
+                        break;
                     default: break;
                 }
             }
