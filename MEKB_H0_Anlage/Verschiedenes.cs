@@ -163,14 +163,15 @@ namespace MEKB_H0_Anlage
         /// Rückantwort der Z21 analisieren
         /// </summary>
         /// <param name="SchaltCode">Paketinhalt der Z21</param>
-        public void Schalten(int SchaltCode)
+        public bool Schalten(int SchaltCode)
         {
+            bool AlterAbzweig = Abzweig;
             switch (SchaltCode)
             {
                 case 0:
                     Status_Unbekannt = true;
                     break;
-                case 1:
+                case 1:                    
                     Abzweig = true;
                     Status_Unbekannt = false;
                     Status_Error = false;
@@ -185,6 +186,9 @@ namespace MEKB_H0_Anlage
                     break;
             }
             if (Spiegeln) Abzweig = !Abzweig;   //Weiche spiegeln, wenn Paramter gesetzt ist
+
+            if (AlterAbzweig == Abzweig) return false; //Keine Änderungen/Update
+            else return true; //Änderungen
         }
 
         // Method that perform shallow copy  
@@ -200,8 +204,11 @@ namespace MEKB_H0_Anlage
             Fahrstr_Weichenliste = new List<Weiche>();
             ControlSetPointer = 0;
             SetPointer = 0;
+            Fahrstr_Sig = new Signal();
         }
         public List<Weiche> Fahrstr_Weichenliste { get; set; }
+
+        public Signal Fahrstr_Sig;
         public bool Safe { get; set; }
         private bool FahrstrasseGesetzt { get; set; }
         private bool FahrstrasseAktiv { get; set; }
@@ -565,6 +572,9 @@ namespace MEKB_H0_Anlage
         public int Adr2_1 { get; set; }
         public int Adr2_2 { get; set; }
 
+        public const int HP0 = 0;
+        public const int HP1 = 1;
+        public const int HP2 = 2;
 
         public string Typ { get; set; }
         /// <summary>
@@ -607,11 +617,11 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Weiche setzen
         /// </summary>
-        /// <param name="new_zustand">Neuer Zustand</param>
+        /// <param name="new_zustand">Schaltzustand von Z21 empfangen (Adresse X Ausgang Y)</param>
         public void MaskenSetzen(int new_zustand)
         {
             if (new_zustand == 0) Zustand = 9;
-            else if (new_zustand == 1) Zustand = Adr1_1;
+            else if (new_zustand == 1) Zustand = Adr1_1; //Adresse 1 ist auf Ausgang 1 gesetzt? -> Zustand für Ausgang 2 übernehmen
             else if (new_zustand == 2) Zustand = Adr1_2;
             else if (new_zustand == 5) Zustand = Adr2_1;
             else if (new_zustand == 6) Zustand = Adr2_2;

@@ -125,7 +125,7 @@
 		<name>Weiche50</name>
         <Adresse>1</Adresse>
         <spiegeln>0</spiegeln>
-    <Zeit>3000</Zeit>
+    <Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche51</name>

@@ -126,7 +126,7 @@
   <metadata name="Statusbar.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="Hinttext.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>235, 17</value>
   </metadata>
   <metadata name="Weiche48.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -153,236 +153,15 @@
   <metadata name="Weiche40.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="Sperr_GL1_links.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button14.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button14.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button15.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button15.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button16.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button16.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button17.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button17.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button18.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button18.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button19.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button19.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button20.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button20.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button21.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button21.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button22.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button22.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button23.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button23.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button24.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button24.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button25.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button25.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
   <metadata name="Weiche67.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Sperre_Einfahrt_Schatten10.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Sperre_Einfahrt_Schatten10.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="Sperre_Einfahrt_Schatten7.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Sperre_Einfahrt_Schatten7.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button33.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button33.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button34.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button34.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="Sperre_Einfahrt_Schatten8.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Sperre_Einfahrt_Schatten8.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="Sperre_Einfahrt_Schatten9.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Sperre_Einfahrt_Schatten9.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="button42.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="button43.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="button44.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button45.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button45.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="button1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="button1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPBAMAAADuVgmRAAAABGdBTUEAALGPC/xhBQAAAAZQTFRFgICA
-        QEBAEVco6wAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABVJREFUGNNjIAIIIgOBISWAHzAwAAAT+gows0AL
-        vgAAAABJRU5ErkJggg==
+  <data name="AutoSignale.ToolTip" xml:space="preserve">
+    <value>Signale schalten automatisch auf "Halt (Hp0)"  sobald der Block blockiert wird, 
+Fahrstraßen geschaltet oder gegenteiliges Signal geschaltet wird.
+
+Signale einer Fahrstraße schalten automatisch auf "Fahrt" sobald die Fahrstrasse 
+gesichert ist
 </value>
   </data>
   <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -934,7 +713,7 @@
   <metadata name="Block9_3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Block8_12.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Kreuzung1_5.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Block8_10.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1039,7 +818,7 @@
   <metadata name="Block5_2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Block9_20.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Weiche53_Gleis3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Block5_1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1153,10 +932,10 @@
   <metadata name="Block1c_3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Block1d_1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Block1_Halt_2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Block1d_2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Block1_Halt_3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Block2_4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1168,7 +947,7 @@
   <metadata name="Weiche53_Gleis1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Block1d_3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Block1_Halt_4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Weiche53_Gleis2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1339,7 +1118,7 @@
   <metadata name="Block2_6.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Block1d_0.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Block1_Halt_1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Weiche50b_7.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -1912,6 +1691,7 @@
   <metadata name="pictureBox443.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="Signal_Ausfahrt_L1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAACm53kpAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -2123,9 +1903,6 @@
     <value>True</value>
   </metadata>
   <metadata name="label112.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Block6_Auswahl.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Block5_17.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -2377,9 +2154,6 @@
   <metadata name="label85.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="label86.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="label92.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -2431,7 +2205,7 @@
   <metadata name="Weiche68_67.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="pictureBox107.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Schatten0_Ausf4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="pictureBox111.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -2473,13 +2247,7 @@
   <metadata name="label127.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Block8.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="label114.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Fahrstr_Schatten0_Ausf.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Intern_Schatten7.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

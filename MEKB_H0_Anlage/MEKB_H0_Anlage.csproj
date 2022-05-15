@@ -27,6 +27,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -74,8 +76,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -105,11 +109,18 @@
     <Compile Include="Hauptform\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="LokEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LokEditor.Designer.cs">
       <DependentUpon>LokEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Signal_Einstellungen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Signal_Einstellungen.Designer.cs">
+      <DependentUpon>Signal_Einstellungen.cs</DependentUpon>
     </Compile>
     <Compile Include="Z21_CallBacks.cs">
       <SubType>Form</SubType>
@@ -163,6 +174,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Signal_Einstellungen.resx">
+      <DependentUpon>Signal_Einstellungen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Z21_Einstellung.resx">
       <DependentUpon>Z21_Einstellung.cs</DependentUpon>
     </EmbeddedResource>
@@ -677,6 +691,12 @@
     <None Include="Resources\Fahrstrasse_oben_deakt.png" />
     <None Include="Resources\Block5_90.png" />
     <None Include="Resources\Block9_90.png" />
+    <None Include="Resources\Signal_2B_0.png" />
+    <None Include="Resources\Signal_2B_180.png" />
+    <None Include="Resources\Signal_2B_HP0_0.png" />
+    <None Include="Resources\Signal_2B_HP0_180.png" />
+    <None Include="Resources\Signal_2B_HP1_0.png" />
+    <None Include="Resources\Signal_2B_HP1_180.png" />
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

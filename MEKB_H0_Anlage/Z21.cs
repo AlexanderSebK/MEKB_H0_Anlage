@@ -61,6 +61,11 @@ namespace MEKB_H0_Anlage
         public UInt16 Z21_Port { get; set; }    //Port Z21 : 21105 (Primär)  / Alt. 21106
         private bool Connected { get; set; }    //Status ob die Z21 Verbunden ist
 
+        private Logger _log;
+
+       
+
+
         //Delegates
         public delegate void LAN_ERROR(int ErrorCode);
         public delegate void LAN_CONNECT_STATUS(bool Status, bool Init);
@@ -181,6 +186,11 @@ namespace MEKB_H0_Anlage
         public void Register_LAN_CAN_DETECTOR(LAN_CAN_DETECTOR function) { call_LAN_CAN_DETECTOR = function; }
 
 
+        public void SetLog(Logger logger)
+        {
+            _log = logger;
+        }
+
         /// <summary>
         /// Starten einer UDP-Verbindung
         /// </summary>
@@ -240,7 +250,7 @@ namespace MEKB_H0_Anlage
                 Connected = true;
                 Client.BeginReceive(DataReceived, null);
             }
-            catch (ObjectDisposedException)
+            catch //(ObjectDisposedException)
             {
                 Connected = false;
                 call_LAN_CONNECT_STATUS?.Invoke(false, false);
@@ -558,29 +568,42 @@ namespace MEKB_H0_Anlage
             }
         }
 
+        private void sendCommand(byte[] Data, int size)
+        {
+            if (Connected)
+            {
+                Client.Send(Data, size);
+
+                string logdata = "PC => Z21: " + BitConverter.ToString(Data);                
+                _log.Info(logdata);
+            }
+        }
+
         
         //Befehle
         public void GET_SERIAL_NUMBER()                 //Daten senden: Seriennummer Abfragen
         {
             byte[] SendBytes = { 0x04, 0x00, 0x10, 0x00 };
-            if(Connected) Client.Send(SendBytes, 4);
+            sendCommand(SendBytes, 4);
+            
         }
-        public void LOGOFF()                
+        public void LOGOFF()
         {
             byte[] SendBytes = { 0x04, 0x00, 0x30, 0x00 };
-            if (Connected) Client.Send(SendBytes, 4);
+            sendCommand(SendBytes, 4);
         }
-
         public void GET_FIRMWARE_VERSION()
         {
             byte[] SendBytes = { 0x07, 0x00, 0x40, 0x00, 0xF1, 0x0A, 0xFB };
-            if (Connected) Client.Send(SendBytes, 7);
+            sendCommand(SendBytes, 7);           
         }
-
         public void GET_BROADCASTFLAGS()
         {
             byte[] SendBytes = { 0x04, 0x00, 0x51, 0x00 };
-            if (Connected) Client.Send(SendBytes, 4);
+            if (Connected)
+            {
+                Client.Send(SendBytes, 4);
+            }
         }
         public void Z21_SET_BROADCASTFLAGS(Flags flags)
         {
@@ -588,7 +611,11 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x08, 0x00, 0x50, 0x00, tempdata[0], tempdata[1], tempdata[2], tempdata[3] };
             if (Connected) Client.Send(SendBytes, 8);
         }
-
+        public void Z21_GET_STATUS()
+        {
+            byte[] SendBytes = { 0x07, 0x00, 0x40, 0x00, 0x21, 0x24, 0x05 };
+            sendCommand(SendBytes, 7);
+        }
         public void Z21_GET_LOCO_INFO(int Adresse)
         {
             byte Header = 0xE3;
@@ -599,7 +626,6 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             if (Connected) Client.Send(SendBytes, 9);
         }
-
         public void Z21_SET_LOCO_DRIVE(int Adresse, int Geschwindigkeit, int Richtung, int Fahrstufe)
         {
             int SendeFahrStufe = Fahrstufe;
@@ -626,13 +652,11 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x0A, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, DB3, XOR };
             if (Connected) Client.Send(SendBytes, 10);
         }
-
         public void Z21_GET_SYSTEMSTATE()
         {
             byte[] SendBytes = { 0x04, 0x00, 0x85, 0x00 };
             if (Connected) Client.Send(SendBytes, 4);
         }
-
         public void Z21_SET_TURNOUT(int Adresse, bool Abzweig, bool Q_Modus, bool aktivieren)
         {
             Adresse--;
@@ -646,9 +670,8 @@ namespace MEKB_H0_Anlage
 
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
-            if (Connected) Client.Send(SendBytes, 9);
+            sendCommand(SendBytes, 9);
         }
-
         public async Task Z21_SET_WEICHEAsync(int Adresse, bool Abzweig, bool Q_Modus, int time, bool deaktivieren)
         {
             Adresse--;
@@ -706,7 +729,6 @@ namespace MEKB_H0_Anlage
             if (Connected) Client.Send(SendBytes2, 9);
             */
         }
-
         public void Z21_SET_SIGNAL(int Adresse, bool Zustand)
         {
             Adresse--;

@@ -4,10 +4,10 @@
 		<Name>Signal_Ausfahrt_L1</Name>
     <Adresse>300</Adresse>
     <Typ>3B_270</Typ>
-		<Adr1Zustand1>0</Adr1Zustand1>
-		<Adr1Zustand2>2</Adr1Zustand2>
-		<Adr2Zustand1>0</Adr2Zustand1>
-		<Adr2Zustand2>0</Adr2Zustand2>
+		<Adr1Zustand1>0</Adr1Zustand1><!--HP0 für Adresse 1 Ausgang 1-->
+		<Adr1Zustand2>2</Adr1Zustand2><!--HP2 für Adresse 1 Ausgang 2-->
+		<Adr2Zustand1>0</Adr2Zustand1><!--Werte egal für Adresse 2 Ausgang 1 -> Adresse 2 wird nicht benutzt-->
+		<Adr2Zustand2>0</Adr2Zustand2><!--Werte egal für Adresse 2 Ausgang 2 -> Adresse 2 wird nicht benutzt-->
 	</Signal>
 	<Signal>
 		<Name>Signal_Ausfahrt_L2</Name>
@@ -145,5 +145,157 @@
     <Adr2Zustand1>0</Adr2Zustand1>
     <Adr2Zustand2>0</Adr2Zustand2>
   </Signal>
-   
+  <Signal>
+    <Name>Signal_Schatten0</Name>
+    <Adresse>317</Adresse>
+    <Typ>2B_270</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten1</Name>
+    <Adresse>318</Adresse>
+    <Typ>2B_270</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten2</Name>
+    <Adresse>319</Adresse>
+    <Typ>2B_270</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten3</Name>
+    <Adresse>320</Adresse>
+    <Typ>2B_270</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten4</Name>
+    <Adresse>321</Adresse>
+    <Typ>2B_270</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten5</Name>
+    <Adresse>322</Adresse>
+    <Typ>2B_270</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten6</Name>
+    <Adresse>323</Adresse>
+    <Typ>2B_270</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten7</Name>
+    <Adresse>324</Adresse>
+    <Typ>2B_270</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten8</Name>
+    <Adresse>325</Adresse>
+    <Typ>2B_90</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten9</Name>
+    <Adresse>326</Adresse>
+    <Typ>2B_90</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten10</Name>
+    <Adresse>327</Adresse>
+    <Typ>2B_90</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten11</Name>
+    <Adresse>328</Adresse>
+    <Typ>2B_90</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Block2</Name>
+    <Adresse>329</Adresse>
+    <Typ>2B_0</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Block5</Name>
+    <Adresse>330</Adresse>
+    <Typ>2B_180</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Block6</Name>
+    <Adresse>331</Adresse>
+    <Typ>2B_90</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Block8</Name>
+    <Adresse>332</Adresse>
+    <Typ>2B_180</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
+  <Signal>
+    <Name>Signal_Schatten_Einf</Name>
+    <Adresse>333</Adresse>
+    <Typ>2B_90</Typ>
+    <Adr1Zustand1>0</Adr1Zustand1>
+    <Adr1Zustand2>1</Adr1Zustand2>
+    <Adr2Zustand1>0</Adr2Zustand1>
+    <Adr2Zustand2>0</Adr2Zustand2>
+  </Signal>
 </Signalliste>
