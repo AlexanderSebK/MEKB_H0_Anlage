@@ -636,6 +636,90 @@ namespace MEKB_H0_Anlage
         }
     }
 
+    public class Belegtmelder : IEquatable<Belegtmelder>
+    {
+        /// <summary>
+        /// Parameter: Name des Signals als String
+        /// </summary>
+        public String Name { get; set; }
+        public int Modulnummer { get; set; }
+        public int Portnummer { get; set; }        
+        public int CoolDownTime { set; get; }
+
+        private bool belegt { set; get; }
+        private int time { set; get; }
+
+        public bool IstBelegt()
+        {
+            if (belegt) return true;
+            else
+            {
+                if (time > 0) return true;
+                else return false;
+            }
+        }
+
+        public void MeldeBesetzt(bool Status)
+        {
+            if(belegt == true)
+            {
+                if(Status == false)
+                {
+                    time = CoolDownTime;
+                }
+            }
+            belegt = Status;
+        }
+
+        public void CoolDown(int ZeitVergangen)
+        {
+            if((!belegt) && (time > 0))
+            {
+                time = time - ZeitVergangen;
+                if (time <= 0) time = 0;
+            }
+        }
+
+
+        /// <summary>
+        /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
+        /// </summary>
+        /// <returns>Name der Weiche</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
+        /// <summary>
+        /// Wird bei Listensuche benötigt: Adresse der Weiche
+        /// </summary>
+        /// <returns>Adresse der Weiche</returns>
+        public override int GetHashCode()
+        {
+            return (Modulnummer * 16) + Portnummer;
+        }
+        /// <summary>
+        /// Wird bei Listensuche benötigt: Weichen vergleichen
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (!(obj is Belegtmelder objAsPart)) return false;
+            else return Equals(objAsPart);
+        }
+        /// <summary>
+        /// Wird bei Listensuche benötigt: Unterfunktion Weichen vergleichen
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Belegtmelder other)
+        {
+            if (other == null) return false;
+            return (this.Name.Equals(other.Name));
+        }
+    }
+
     public struct MeldeZustand
     {
         public MeldeZustand(bool besetzt, bool fahrstrasse, bool sicher, bool richtung)
