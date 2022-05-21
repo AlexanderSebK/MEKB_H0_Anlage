@@ -3212,7 +3212,7 @@
             // 
             // Block7_6
             // 
-            this.Block7_6.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
+            this.Block7_6.Image = global::MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
             this.Block7_6.Location = new System.Drawing.Point(992, 608);
             this.Block7_6.Name = "Block7_6";
             this.Block7_6.Size = new System.Drawing.Size(32, 32);

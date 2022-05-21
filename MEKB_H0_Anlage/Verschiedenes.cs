@@ -646,37 +646,37 @@ namespace MEKB_H0_Anlage
         public int Portnummer { get; set; }        
         public int CoolDownTime { set; get; }
 
-        private bool belegt { set; get; }
-        private int time { set; get; }
+        private bool Belegt { set; get; }
+        private int Time { set; get; }
 
         public bool IstBelegt()
         {
-            if (belegt) return true;
+            if (Belegt) return true;
             else
             {
-                if (time > 0) return true;
+                if (Time > 0) return true;
                 else return false;
             }
         }
 
         public void MeldeBesetzt(bool Status)
         {
-            if(belegt == true)
+            if(Belegt == true)
             {
                 if(Status == false)
                 {
-                    time = CoolDownTime;
+                    Time = CoolDownTime;
                 }
             }
-            belegt = Status;
+            Belegt = Status;
         }
 
         public void CoolDown(int ZeitVergangen)
         {
-            if((!belegt) && (time > 0))
+            if((!Belegt) && (Time > 0))
             {
-                time = time - ZeitVergangen;
-                if (time <= 0) time = 0;
+                Time -= ZeitVergangen;
+                if (Time <= 0) Time = 0;
             }
         }
 

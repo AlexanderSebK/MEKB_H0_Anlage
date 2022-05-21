@@ -1353,6 +1353,16 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Zunge_AbzweigR_0 {
+            get {
+                object obj = ResourceManager.GetObject("Zunge_AbzweigR_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Zunge_AbzweigR_180 {
             get {
                 object obj = ResourceManager.GetObject("Zunge_AbzweigR_180", resourceCulture);

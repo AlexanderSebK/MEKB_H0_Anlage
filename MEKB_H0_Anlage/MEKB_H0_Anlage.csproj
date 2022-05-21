@@ -13,6 +13,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,8 +29,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -116,6 +116,11 @@
     <Compile Include="LokEditor.Designer.cs">
       <DependentUpon>LokEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Signal_Einstellungen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,14 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Signal_Einstellungen.resx">
       <DependentUpon>Signal_Einstellungen.cs</DependentUpon>
     </EmbeddedResource>
@@ -686,7 +686,6 @@
     <None Include="Resources\Kurve180R_EckeOL.png" />
     <None Include="Resources\WeicheR180_Analog.png" />
     <None Include="Resources\WeicheR180_EckeOL_Analog.png" />
-    <None Include="Resources\Zunge_AbzweigR_1801.png" />
     <None Include="Resources\Fahrstrasse_oben.png" />
     <None Include="Resources\Fahrstrasse_oben_deakt.png" />
     <None Include="Resources\Block5_90.png" />
@@ -697,6 +696,10 @@
     <None Include="Resources\Signal_2B_HP0_180.png" />
     <None Include="Resources\Signal_2B_HP1_0.png" />
     <None Include="Resources\Signal_2B_HP1_180.png" />
+    <Content Include="Resources\Zunge_AbzweigR_0.png" />
+    <None Include="Resources\Zunge_AbzweigR_01.png" />
+    <Content Include="Resources\Zunge_AbzweigR_1801.png" />
+    <None Include="Resources\Zunge_AbzweigR_1802.png" />
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
