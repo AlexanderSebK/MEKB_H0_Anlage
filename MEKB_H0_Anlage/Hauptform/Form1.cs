@@ -33,6 +33,7 @@ namespace MEKB_H0_Anlage
         public Z21 z21Start;
         private Z21_Einstellung z21_Einstellung;
         private Signal_Einstellungen signal_Einstellungen;
+        private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
         private InfoBox InfoBox;
 
         public List<Weiche> Weichenliste = new List<Weiche>();
@@ -46,6 +47,7 @@ namespace MEKB_H0_Anlage
         private static System.Timers.Timer FlagTimer;
         private static System.Timers.Timer WeichenTimer;
         private static System.Timers.Timer CooldownTimer;
+        private static System.Timers.Timer BelegtmelderCoolDown;
 
         private int Pointer_Weichenliste = 0;
         private int Pointer_Signalliste = 0;
@@ -125,6 +127,13 @@ namespace MEKB_H0_Anlage
             CooldownTimer.Elapsed += WeichenCooldown;
             CooldownTimer.AutoReset = true;
             CooldownTimer.Enabled = true;
+
+            // 250 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
+            BelegtmelderCoolDown = new System.Timers.Timer(250);
+            // Timer mit Funktion "WeichenCooldown" Verbinden
+            BelegtmelderCoolDown.Elapsed += BelegtmelderCooldown;
+            BelegtmelderCoolDown.AutoReset = true;
+            BelegtmelderCoolDown.Enabled = true;
 
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
         }
@@ -335,6 +344,21 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
+
+        private void BelegtmelderCooldown(Object source, ElapsedEventArgs e)
+        {
+            //Nur ausführen, wenn Verbindung aufgebaut ist
+            if (z21Start.Verbunden())
+            {
+                foreach(Belegtmelder belegtmelder in Belegtmelderliste)
+                {
+                    belegtmelder.CoolDown(250);
+                }
+            }
+        }
+
+        
+
         #endregion
 
         #region Weichensteuerung
@@ -670,6 +694,8 @@ namespace MEKB_H0_Anlage
         }
         #endregion
 
+        
+
         private void StopAlle_Click(object sender, EventArgs e)
         {
             foreach(Lok lok in AktiveLoks)
@@ -734,6 +760,12 @@ namespace MEKB_H0_Anlage
         {
             signal_Einstellungen = new Signal_Einstellungen();
             signal_Einstellungen.Show();
+        }
+
+        private void belegtmeldungToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(Belegtmelderliste);
+            belegtmelder_Ueberwachung.Show();
         }
     }
 }

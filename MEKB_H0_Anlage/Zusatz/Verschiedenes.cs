@@ -122,6 +122,7 @@ namespace MEKB_H0_Anlage
         /// Zeit wie lange der Ausgang noch aktiv ist (ms)
         /// </summary>
         public int ZeitAktiv { get; set; }
+
         /// <summary>
         /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
         /// </summary>
@@ -673,7 +674,7 @@ namespace MEKB_H0_Anlage
 
         public void CoolDown(int ZeitVergangen)
         {
-            if((!Belegt) && (Time > 0))
+            if ((!Belegt) && (Time > 0))
             {
                 Time -= ZeitVergangen;
                 if (Time <= 0) Time = 0;
@@ -716,7 +717,13 @@ namespace MEKB_H0_Anlage
         public bool Equals(Belegtmelder other)
         {
             if (other == null) return false;
-            return (this.Name.Equals(other.Name));
+
+            if(this.Name.Equals("") || other.Name.Equals(""))
+            {
+                if (this.Modulnummer == other.Modulnummer && this.Portnummer == other.Portnummer) return true;
+                else return false;
+            }
+            else return (this.Name.Equals(other.Name));
         }
     }
 

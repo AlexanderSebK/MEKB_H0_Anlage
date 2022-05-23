@@ -164,7 +164,8 @@ namespace MEKB_H0_Anlage
             {
                 switch (weiche.Name)
                 {
-                    case "Weiche1":  DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche1) ;
+                    case "Weiche1":  
+                        DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche1) ;
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Ausfahrt_L1");

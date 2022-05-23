@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Configuration;
 
 
 namespace MEKB_H0_Anlage
@@ -150,7 +144,7 @@ namespace MEKB_H0_Anlage
                 string Name = melder.Element("Name").Value;                                //Belegtmeldername des Elements auslesen
                 int Modulnummer = Int16.Parse(melder.Element("Modulnummer").Value);        //Modulnummer
                 int Portnummer = Int16.Parse(melder.Element("Portnummer").Value);               //Portnummer
-                int CoolDowntime = 600;
+                int CoolDowntime = 6000;
                 Belegtmelderliste.Add(new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime});  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
             }
         }
@@ -3715,23 +3709,27 @@ namespace MEKB_H0_Anlage
         }
         #endregion
         #region Block 1
+        private void UpdateGleisbild_Weiche4_6(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block_BhfAusfahrt_links);
+        }
         private void UpdateGleisbild_Block1a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block1a_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1a_2);
         }
-        private void UpdateGleisbild_Block1c(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        private void UpdateGleisbild_Block1b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_6);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_7);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_8);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_9);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_6);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_7);
         }
         private void UpdateGleisbild_Block1_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
@@ -3755,8 +3753,12 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildGerade270(zustand), Block2_7);
             DisplayPicture(GetSchaltbildGerade270(zustand), Block2_8);
             DisplayPicture(GetSchaltbildGerade270(zustand), Block2_10);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_11);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_12);
+        }
+        private void UpdateGleisbild_Block2_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_Halt_1);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_Halt_2);
         }
         #endregion
         #region Block 3
@@ -4284,7 +4286,8 @@ namespace MEKB_H0_Anlage
         {
             int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche53" });
             if (ListID == -1) return;
-            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);          
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR225(Weichenliste[ListID]), Weiche53);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildKurve0R(FreiesGleis), Weiche53_Gleis0);
@@ -5101,6 +5104,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5130,6 +5135,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5159,6 +5166,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5188,6 +5197,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5217,6 +5228,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5246,6 +5259,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5275,6 +5290,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5306,6 +5323,8 @@ namespace MEKB_H0_Anlage
                 {
                     zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                     farbe = Farbe_Rot;
+                    ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                    return bild; //Bild ausgeben
                 }
                 else
                 {
@@ -5324,6 +5343,8 @@ namespace MEKB_H0_Anlage
                 {
                     zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
                     farbe = Farbe_Rot;
+                    ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                    return bild; //Bild ausgeben
                 }
                 else
                 {
@@ -5355,6 +5376,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5398,6 +5421,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5442,6 +5467,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5486,6 +5513,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5529,6 +5558,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5573,6 +5604,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5619,6 +5652,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5681,6 +5716,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5709,6 +5746,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5737,6 +5776,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5765,6 +5806,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5794,6 +5837,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5958,6 +6003,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6001,6 +6048,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6042,8 +6091,10 @@ namespace MEKB_H0_Anlage
 
             if ((Zustand_Kurve.Besetzt == true) && (Zustand_Kurve.Fahrstrasse == false))
             {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6089,8 +6140,10 @@ namespace MEKB_H0_Anlage
 
             if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_0;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6119,6 +6172,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6147,6 +6202,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6175,6 +6232,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6203,6 +6262,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6231,6 +6292,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6274,6 +6337,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6320,11 +6385,21 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+            if(weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
+            
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6334,6 +6409,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6367,11 +6444,20 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6381,6 +6467,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6413,11 +6501,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6427,6 +6523,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6459,11 +6557,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6507,11 +6613,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6521,6 +6635,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6555,11 +6671,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6569,6 +6693,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6603,11 +6729,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6617,6 +6751,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6650,11 +6786,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6664,6 +6808,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6696,11 +6842,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6947,6 +7101,8 @@ namespace MEKB_H0_Anlage
         /// </summary>
         private void FahrstrasseBildUpdate()
         {
+            UpdateWeichenBelegung();
+
             //Hauptbahnhof - Linker Teil der Gleise
             UpdateGleisbild_GL1_links(false, new List<Fahrstrasse> { Gleis1_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis1 });
             UpdateGleisbild_GL2_links(false, new List<Fahrstrasse> { Gleis2_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis2 });
@@ -6964,19 +7120,27 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_GL6_rechts(false, new List<Fahrstrasse> { Rechts1_nach_Gleis6, Rechts2_nach_Gleis6 } , new List<Fahrstrasse> { Gleis6_nach_rechts1 , Gleis6_nach_rechts2 });
 
             //Gleise im Block 1 aktualisieren
-            UpdateGleisbild_Block1a(false, //Besetzt
+            UpdateGleisbild_Weiche4_6(false, //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1 },//Nach links
                                     new List<Fahrstrasse> { Block2_nach_Gleis1, Block2_nach_Gleis2 });//Nach rechts
 
-            UpdateGleisbild_Block1c(false, //Besetzt
+            UpdateGleisbild_Block1a(GetBelegtStatus("Block1_a"), //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
                                                             Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
                                     new List<Fahrstrasse>()); //nach rechts immer aus
-            UpdateGleisbild_Block1_Halt(false, //Besetzt
+
+            UpdateGleisbild_Block1b(GetBelegtStatus("Block1_b"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
+                                                            Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
+                                    new List<Fahrstrasse>()); //nach rechts immer aus
+            UpdateGleisbild_Block1_Halt(GetBelegtStatus("Block1_Halt"), //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
                                                             Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
                                     new List<Fahrstrasse>()); //nach rechts immer aus            
-            UpdateGleisbild_Block2(false, //Besetzt
+            UpdateGleisbild_Block2(GetBelegtStatus("Block2"), //Besetzt
+                                    new List<Fahrstrasse> { Block1_nach_Block2, Block9_nach_Block2 }, //Nach Links
+                                    new List<Fahrstrasse>()); //nach rechts immer aus
+            UpdateGleisbild_Block2_Halt(GetBelegtStatus("Block2_Halt"), //Besetzt
                                     new List<Fahrstrasse> { Block1_nach_Block2, Block9_nach_Block2 }, //Nach Links
                                     new List<Fahrstrasse>()); //nach rechts immer aus
             //Gleise im Block 2 aktualisieren
@@ -7096,6 +7260,34 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_Schatten0Ausf(false, //Besetzt
                             new List<Fahrstrasse> { Schatten0_nach_Block8 },  
                             new List<Fahrstrasse> ()); 
+        }
+
+
+        private bool GetBelegtStatus(string Abschnitt)
+        {
+            int ListID = Belegtmelderliste.IndexOf(new Belegtmelder() { Name = Abschnitt });
+            if (ListID == -1) return false;
+
+            return Belegtmelderliste[ListID].IstBelegt();
+        }
+
+        void UpdateWeichenBelegung()
+        {
+            foreach (Belegtmelder belegtmelder in Belegtmelderliste)
+            {
+                switch (belegtmelder.Name)
+                {
+                    case "Block2": SetzeWeichenBelegung("Weiche53", belegtmelder.IstBelegt()); break;
+                    default: break;
+                }
+            }
+        }
+
+        void SetzeWeichenBelegung(string Weichenname, bool besetzt)
+        {
+            int ListID = Weichenliste.IndexOf(new Weiche() { Name = Weichenname }); //Weiche mit diesem Namen in der Liste suchen
+            if (ListID == -1) return;                                               //Weiche nicht vorhanden, Funktion abbrechen
+            Weichenliste[ListID].Besetzt = besetzt;
         }
     }
 }
