@@ -203,116 +203,119 @@ namespace MEKB_H0_Anlage
         }
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
-
-            if (z21Start.Verbunden())
+            if (source is System.Timers.Timer timer)
             {
-                GetWeichenStatus(Weichenliste[Pointer_Weichenliste].Name);
-                if (Pointer_Weichenliste <= 0)
+                if (z21Start.Verbunden())
                 {
-                    Pointer_Weichenliste = Weichenliste.Count() - 1;
-                    Weichen_Init = true;
+                    timer.Stop();
+                    GetWeichenStatus(Weichenliste[Pointer_Weichenliste].Name);
+                    if (Pointer_Weichenliste <= 0)
+                    {
+                        Pointer_Weichenliste = Weichenliste.Count() - 1;
+                        Weichen_Init = true;
+                    }
+                    else
+                    {
+                        Pointer_Weichenliste--;
+                    }
+
+
+                    GetSignalStatus(Signalliste[Pointer_Signalliste].Name);
+                    if (Pointer_Signalliste <= 0)
+                    {
+                        Pointer_Signalliste = Signalliste.Count() - 1;
+                        Signal_Init = true;
+                    }
+                    else
+                    {
+                        Pointer_Signalliste--;
+                    }
+                    if (Weichen_Init & Signal_Init)
+                    {
+                        SetConnect(true, true); //Initialisierung abgeschlossen
+                        Betriebsbereit = true;
+                    }
+                    //
+                    Fahrstrassenupdate(Gleis1_nach_Block1);
+                    Fahrstrassenupdate(Gleis2_nach_Block1);
+                    Fahrstrassenupdate(Gleis3_nach_Block1);
+                    Fahrstrassenupdate(Gleis4_nach_Block1);
+                    Fahrstrassenupdate(Gleis5_nach_Block1);
+                    Fahrstrassenupdate(Gleis6_nach_Block1);
+
+                    Fahrstrassenupdate(Block2_nach_Gleis1);
+                    Fahrstrassenupdate(Block2_nach_Gleis2);
+                    Fahrstrassenupdate(Block2_nach_Gleis3);
+                    Fahrstrassenupdate(Block2_nach_Gleis4);
+                    Fahrstrassenupdate(Block2_nach_Gleis5);
+                    Fahrstrassenupdate(Block2_nach_Gleis6);
+
+                    Fahrstrassenupdate(Gleis1_nach_rechts1);
+                    Fahrstrassenupdate(Gleis2_nach_rechts1);
+                    Fahrstrassenupdate(Gleis3_nach_rechts1);
+                    Fahrstrassenupdate(Gleis4_nach_rechts1);
+                    Fahrstrassenupdate(Gleis5_nach_rechts1);
+                    Fahrstrassenupdate(Gleis6_nach_rechts1);
+
+                    Fahrstrassenupdate(Gleis1_nach_rechts2);
+                    Fahrstrassenupdate(Gleis2_nach_rechts2);
+                    Fahrstrassenupdate(Gleis3_nach_rechts2);
+                    Fahrstrassenupdate(Gleis4_nach_rechts2);
+                    Fahrstrassenupdate(Gleis5_nach_rechts2);
+                    Fahrstrassenupdate(Gleis6_nach_rechts2);
+
+                    Fahrstrassenupdate(Rechts1_nach_Gleis1);
+                    Fahrstrassenupdate(Rechts1_nach_Gleis2);
+                    Fahrstrassenupdate(Rechts1_nach_Gleis3);
+                    Fahrstrassenupdate(Rechts1_nach_Gleis4);
+                    Fahrstrassenupdate(Rechts1_nach_Gleis5);
+                    Fahrstrassenupdate(Rechts1_nach_Gleis6);
+
+                    Fahrstrassenupdate(Rechts2_nach_Gleis1);
+                    Fahrstrassenupdate(Rechts2_nach_Gleis2);
+                    Fahrstrassenupdate(Rechts2_nach_Gleis3);
+                    Fahrstrassenupdate(Rechts2_nach_Gleis4);
+                    Fahrstrassenupdate(Rechts2_nach_Gleis5);
+                    Fahrstrassenupdate(Rechts2_nach_Gleis6);
+
+                    Fahrstrassenupdate(Block1_nach_Block2);
+                    Fahrstrassenupdate(Block1_nach_Block5);
+                    Fahrstrassenupdate(Block5_nach_Block6);
+                    Fahrstrassenupdate(Block8_nach_Block6);
+                    Fahrstrassenupdate(Block9_nach_Block2);
+
+                    Fahrstrassenupdate(Block6_nach_Schatten8);
+                    Fahrstrassenupdate(Block6_nach_Schatten9);
+                    Fahrstrassenupdate(Block6_nach_Schatten10);
+                    Fahrstrassenupdate(Block6_nach_Schatten11);
+
+                    Fahrstrassenupdate(Schatten8_nach_Block7);
+                    Fahrstrassenupdate(Schatten9_nach_Block7);
+                    Fahrstrassenupdate(Schatten10_nach_Block7);
+                    Fahrstrassenupdate(Schatten11_nach_Block7);
+
+                    Fahrstrassenupdate(Block7_nach_Schatten0);
+                    Fahrstrassenupdate(Block7_nach_Schatten1);
+                    Fahrstrassenupdate(Block7_nach_Schatten2);
+                    Fahrstrassenupdate(Block7_nach_Schatten3);
+                    Fahrstrassenupdate(Block7_nach_Schatten4);
+                    Fahrstrassenupdate(Block7_nach_Schatten5);
+                    Fahrstrassenupdate(Block7_nach_Schatten6);
+                    Fahrstrassenupdate(Block7_nach_Schatten7);
+
+                    Fahrstrassenupdate(Schatten0_nach_Block8);
+                    Fahrstrassenupdate(Schatten1_nach_Block8);
+                    Fahrstrassenupdate(Schatten1_nach_Block9);
+                    Fahrstrassenupdate(Schatten2_nach_Block9);
+                    Fahrstrassenupdate(Schatten3_nach_Block9);
+                    Fahrstrassenupdate(Schatten4_nach_Block9);
+                    Fahrstrassenupdate(Schatten5_nach_Block9);
+                    Fahrstrassenupdate(Schatten6_nach_Block9);
+                    Fahrstrassenupdate(Schatten7_nach_Block9);
+
+                    FahrstrasseBildUpdate();
+                    timer.Start();
                 }
-                else
-                {
-                    Pointer_Weichenliste--;
-                }
-                
-
-                GetSignalStatus(Signalliste[Pointer_Signalliste].Name);
-                if (Pointer_Signalliste <= 0)
-                {
-                    Pointer_Signalliste = Signalliste.Count() - 1;
-                    Signal_Init = true;
-                }
-                else
-                {
-                    Pointer_Signalliste--;
-                }
-                if (Weichen_Init & Signal_Init)
-                {
-                    SetConnect(true, true); //Initialisierung abgeschlossen
-                    Betriebsbereit = true;
-                }
-                //
-                Fahrstrassenupdate(Gleis1_nach_Block1);
-                Fahrstrassenupdate(Gleis2_nach_Block1);
-                Fahrstrassenupdate(Gleis3_nach_Block1);
-                Fahrstrassenupdate(Gleis4_nach_Block1);
-                Fahrstrassenupdate(Gleis5_nach_Block1);
-                Fahrstrassenupdate(Gleis6_nach_Block1);
-
-                Fahrstrassenupdate(Block2_nach_Gleis1);
-                Fahrstrassenupdate(Block2_nach_Gleis2);
-                Fahrstrassenupdate(Block2_nach_Gleis3);
-                Fahrstrassenupdate(Block2_nach_Gleis4);
-                Fahrstrassenupdate(Block2_nach_Gleis5);
-                Fahrstrassenupdate(Block2_nach_Gleis6);
-
-                Fahrstrassenupdate(Gleis1_nach_rechts1);
-                Fahrstrassenupdate(Gleis2_nach_rechts1);
-                Fahrstrassenupdate(Gleis3_nach_rechts1);
-                Fahrstrassenupdate(Gleis4_nach_rechts1);
-                Fahrstrassenupdate(Gleis5_nach_rechts1);
-                Fahrstrassenupdate(Gleis6_nach_rechts1);
-
-                Fahrstrassenupdate(Gleis1_nach_rechts2);
-                Fahrstrassenupdate(Gleis2_nach_rechts2);
-                Fahrstrassenupdate(Gleis3_nach_rechts2);
-                Fahrstrassenupdate(Gleis4_nach_rechts2);
-                Fahrstrassenupdate(Gleis5_nach_rechts2);
-                Fahrstrassenupdate(Gleis6_nach_rechts2);
-
-                Fahrstrassenupdate(Rechts1_nach_Gleis1);
-                Fahrstrassenupdate(Rechts1_nach_Gleis2);
-                Fahrstrassenupdate(Rechts1_nach_Gleis3);
-                Fahrstrassenupdate(Rechts1_nach_Gleis4);
-                Fahrstrassenupdate(Rechts1_nach_Gleis5);
-                Fahrstrassenupdate(Rechts1_nach_Gleis6);
-
-                Fahrstrassenupdate(Rechts2_nach_Gleis1);
-                Fahrstrassenupdate(Rechts2_nach_Gleis2);
-                Fahrstrassenupdate(Rechts2_nach_Gleis3);
-                Fahrstrassenupdate(Rechts2_nach_Gleis4);
-                Fahrstrassenupdate(Rechts2_nach_Gleis5);
-                Fahrstrassenupdate(Rechts2_nach_Gleis6);
-
-                Fahrstrassenupdate(Block1_nach_Block2);
-                Fahrstrassenupdate(Block1_nach_Block5);
-                Fahrstrassenupdate(Block5_nach_Block6);
-                Fahrstrassenupdate(Block8_nach_Block6);
-                Fahrstrassenupdate(Block9_nach_Block2);
-
-                Fahrstrassenupdate(Block6_nach_Schatten8);
-                Fahrstrassenupdate(Block6_nach_Schatten9);
-                Fahrstrassenupdate(Block6_nach_Schatten10);
-                Fahrstrassenupdate(Block6_nach_Schatten11);
-
-                Fahrstrassenupdate(Schatten8_nach_Block7);
-                Fahrstrassenupdate(Schatten9_nach_Block7);
-                Fahrstrassenupdate(Schatten10_nach_Block7);
-                Fahrstrassenupdate(Schatten11_nach_Block7);
-
-                Fahrstrassenupdate(Block7_nach_Schatten0);
-                Fahrstrassenupdate(Block7_nach_Schatten1);
-                Fahrstrassenupdate(Block7_nach_Schatten2);
-                Fahrstrassenupdate(Block7_nach_Schatten3);
-                Fahrstrassenupdate(Block7_nach_Schatten4);
-                Fahrstrassenupdate(Block7_nach_Schatten5);
-                Fahrstrassenupdate(Block7_nach_Schatten6);
-                Fahrstrassenupdate(Block7_nach_Schatten7);
-
-                Fahrstrassenupdate(Schatten0_nach_Block8);
-                Fahrstrassenupdate(Schatten1_nach_Block8);
-                Fahrstrassenupdate(Schatten1_nach_Block9);
-                Fahrstrassenupdate(Schatten2_nach_Block9);
-                Fahrstrassenupdate(Schatten3_nach_Block9);
-                Fahrstrassenupdate(Schatten4_nach_Block9);
-                Fahrstrassenupdate(Schatten5_nach_Block9);
-                Fahrstrassenupdate(Schatten6_nach_Block9);
-                Fahrstrassenupdate(Schatten7_nach_Block9);
-
-                FahrstrasseBildUpdate();
-                //if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate();
             }
 
         }

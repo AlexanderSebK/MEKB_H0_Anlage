@@ -69,11 +69,6 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            Belegtmelderliste[0].MeldeBesetzt(Pin_Block1_a.Checked);
-        }
-
         private void PinChange(object sender, EventArgs e)
         {
             if (sender is CheckBox box)
@@ -94,5 +89,6 @@ namespace MEKB_H0_Anlage
             UpdateTimer.Stop();
             UpdateTimer.Close();
         }
+
     }
 }
