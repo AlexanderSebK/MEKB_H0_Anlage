@@ -220,7 +220,7 @@ namespace MEKB_H0_Anlage
                     }
 
 
-                    GetSignalStatus(Signalliste[Pointer_Signalliste].Name);
+                    GetSignalStatus_Z21(Signalliste[Pointer_Signalliste].Name);
                     if (Pointer_Signalliste <= 0)
                     {
                         Pointer_Signalliste = Signalliste.Count() - 1;
@@ -403,13 +403,13 @@ namespace MEKB_H0_Anlage
             MouseEventArgs e2 = (MouseEventArgs)e;
             if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
             {
-                int ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+                int ListID = GetWeichenListenID("KW22_2"); 
                 if (ListID == -1) return;
                 if (!Weichenliste[ListID].Abzweig) ToggleWeiche("KW22_1");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
             }
             else                //Auf linke Hälfte der Weiche geklickt
             {
-                int ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+                int ListID = GetWeichenListenID("KW22_1"); 
                 if (ListID == -1) return;
                 if (Weichenliste[ListID].Abzweig) ToggleWeiche("KW22_2");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
             }
@@ -433,7 +433,7 @@ namespace MEKB_H0_Anlage
         {
             if (sender is PictureBox SignalElement)
             {
-                int ListID = Signalliste.IndexOf(new Signal() { Name = SignalElement.Name });
+                int ListID = GetSignalListenID(SignalElement.Name);
                 if (ListID == -1) return;
 
                 int ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
@@ -453,7 +453,7 @@ namespace MEKB_H0_Anlage
         {
             if (sender is PictureBox SignalElement)
             {
-                int ListID = Signalliste.IndexOf(new Signal() { Name = SignalElement.Name });
+                int ListID = GetSignalListenID(SignalElement.Name);
                 if (ListID == -1) return;
 
                 int ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);

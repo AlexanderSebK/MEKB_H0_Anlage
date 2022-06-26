@@ -11,8 +11,10 @@ namespace MEKB_H0_Anlage
 {
     public partial class Form1 : Form
     {
+        public Dictionary<string, int> SignalVerzeichnis;
         public void SetupSignalListe()
         {
+            SignalVerzeichnis = new Dictionary<string, int>();
             XElement XMLFile = XElement.Load("Signalliste.xml");       //XML-Datei öffnen
             var list = XMLFile.Elements("Signal").ToList();             //Alle Elemente des Types Weiche in eine Liste Umwandeln 
 
@@ -42,7 +44,22 @@ namespace MEKB_H0_Anlage
                         Adr2_2 = SAdr22
                 }) ;  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
             }
+            for (int i = 0; i < Signalliste.Count; i++)
+            {
+                SignalVerzeichnis.Add(Signalliste[i].Name, i);
+            }
         }
+
+        int GetSignalListenID(string Signalname)
+        {
+            int ListID;
+            if (SignalVerzeichnis.TryGetValue(Signalname, out ListID))
+            {
+                return ListID;
+            }
+            return -1;
+        }
+
         public void GetSignalSchaltbild(Signal signal, PictureBox picBox)
         {
             dynamic img;
@@ -113,10 +130,10 @@ namespace MEKB_H0_Anlage
                 picBox.Image = img;
             }));
         }
-        private void GetSignalStatus(string Signalname)
-        {          
+        private void GetSignalStatus_Z21(string Signalname)
+        {
 
-            int ListID = Signalliste.IndexOf(new Signal() { Name = Signalname }); //Weiche mit diesem Namen in der Liste suchen
+            int ListID = GetSignalListenID(Signalname); //Weiche mit diesem Namen in der Liste suchen
             if (ListID == -1) return;                                               //Weiche nicht vorhanden, Funktion abbrechen
             int Adresse = Signalliste[ListID].Adresse;                             //Adresse der Weiche übernehmen
             z21Start.Z21_GET_WEICHE(Adresse);                                       //paket senden "GET Weiche"
@@ -124,9 +141,9 @@ namespace MEKB_H0_Anlage
             z21Start.Z21_GET_WEICHE(Adresse);                                       //paket senden "GET Weiche"
         }
 
-        private void SchalteSignal(string name, int HPx)
+        private void SchalteSignal(string Signalname, int HPx)
         {
-            int ListID = Signalliste.IndexOf(new Signal() { Name = name });
+            int ListID = GetSignalListenID(Signalname);
             if (ListID != -1)
             {
                 Signalliste[ListID].Schalten(HPx, z21Start);
@@ -135,7 +152,7 @@ namespace MEKB_H0_Anlage
 
         private int getSignalZustand(string Signalname)
         {
-            int ListID = Signalliste.IndexOf(new Signal() { Name = Signalname });
+            int ListID = GetSignalListenID(Signalname);
             if (ListID != -1)
             {
                 return Signalliste[ListID].Zustand;
@@ -147,7 +164,7 @@ namespace MEKB_H0_Anlage
         {
             if (AutoSignale.Checked)
             {
-                int ListID = Signalliste.IndexOf(new Signal() { Name = Signalname });
+                int ListID = GetSignalListenID(Signalname);
                 if (ListID != -1)
                 {
                     int Stellung = AllowedSignalPos(Signalliste[ListID].Name);
