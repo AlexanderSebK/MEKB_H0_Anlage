@@ -3749,9 +3749,310 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_2);
         }
 
+        private void UpdateGleisbild_Gl2_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl2_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl2_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_2);
+        }
 
+        private void UpdateGleisbild_Gl3_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl3_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl3_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_2);
+        }
+
+        private void UpdateGleisbild_Gl4_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl4_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl4_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_2);
+        }
+
+        private void UpdateGleisbild_Gl5_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl5_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl5_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_2);
+        }
+
+        private void UpdateGleisbild_Gl6_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl6_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl6_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_2);
+        }
+        #endregion
+        #region Schattenbahnhof
+
+        private void UpdateGleisbild_Schatten_Eingl(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_6);
+        }
+        private void UpdateGleisbild_Schatten_Eingl_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl1(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl1_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl2(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl2_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl3(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl3_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl4(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl4_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl5(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl5_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl6(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl6_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl7(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl7_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl8(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl8_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl9(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl9_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_Halt_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_Halt_2);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl10(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl10_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_Halt_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_Halt_2);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl11(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl11_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_Halt_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_Halt_2);
+        }
 
         #endregion
+
         #region Block 1
         private void UpdateGleisbild_Weiche6(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
@@ -3929,10 +4230,13 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildKurve270L(zustand), Block8_6);
             DisplayPicture(GetSchaltbildEckeUR(zustand), Block8_7);
             DisplayPicture(GetSchaltbildEckeOL(zustand), Block8_8);
-            DisplayPicture(GetSchaltbildKurve0R(zustand), Block8_9);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_10);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_11);
-            
+            DisplayPicture(GetSchaltbildKurve0R(zustand), Block8_9);        
+        }
+        private void UpdateGleisbild_Block8_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_Halt_1);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_Halt_2);
         }
         #endregion
         #region Block 9
@@ -3956,8 +4260,12 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildGerade180(zustand), Block9_15);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block9_16);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block9_17);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_18);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_19);
+        }
+        private void UpdateGleisbild_Block9_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_Halt_1);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_Halt_2);
         }
         #endregion
 
@@ -3988,23 +4296,33 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, FreiesGleis), Kreuzung1_1);
-                DisplayPicture(GetSchaltbildEckeUL(FreiesGleis), Kreuzung1_2);
-                DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, FreiesGleis), Kreuzung1_3);
-                DisplayPicture(GetSchaltbildKurve180L(FreiesGleis), Kreuzung1_4);
-                DisplayPicture(GetSchaltbildKreuzung90_135(FreiesGleis, FreiesGleis), Kreuzung1);
-                DisplayPicture(GetSchaltbildGerade180(FreiesGleis), Kreuzung1_5);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(zustand9, FreiesGleis), Kreuzung1_1);
+                DisplayPicture(GetSchaltbildEckeUL(zustand8), Kreuzung1_2);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(zustand9, FreiesGleis), Kreuzung1_3);
+                DisplayPicture(GetSchaltbildKurve180L(zustand8), Kreuzung1_4);
+                DisplayPicture(GetSchaltbildKreuzung90_135(zustand9, zustand8), Kreuzung1);
+                DisplayPicture(GetSchaltbildGerade180(zustand8), Kreuzung1_5);
             }
        
         }
 
         #region Schattenbahnhof
-        private void UpdateGleisbild_SchattenkleinAusf(List<bool> besetzt, List<Fahrstrasse> Fahrstrassen)
+        private void UpdateGleisbild_SchattenkleinAusf(bool besetzt, List<Fahrstrasse> Fahrstrassen)
         {
-            MeldeZustand zustand8 = ErrechneZustand(besetzt[0], new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[0] }); //Gleis8
-            MeldeZustand zustand9 = ErrechneZustand(besetzt[1], new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[1] }); //Gleis9
-            MeldeZustand zustand10 = ErrechneZustand(besetzt[2], new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[2] }); //Gleis10
-            MeldeZustand zustand11 = ErrechneZustand(besetzt[3], new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[3] }); //Gleis11
+            bool besetzt8 = false;
+            bool besetzt9 = false;
+            bool besetzt10 = false;
+            bool besetzt11 = false;
+
+            if (GetWeiche("Weiche80").Abzweig) besetzt8 = besetzt;
+            else if(GetWeiche("Weiche81").Abzweig) besetzt9 = besetzt;
+            else if (GetWeiche("Weiche82").Abzweig) besetzt10 = besetzt;
+            else besetzt11 = besetzt;
+
+            MeldeZustand zustand8 = ErrechneZustand(besetzt8, new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[0] }); //Gleis8
+            MeldeZustand zustand9 = ErrechneZustand(besetzt9, new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[1] }); //Gleis9
+            MeldeZustand zustand10 = ErrechneZustand(besetzt10, new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[2] }); //Gleis10
+            MeldeZustand zustand11 = ErrechneZustand(besetzt11, new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[3] }); //Gleis11
 
             DisplayPicture(GetSchaltbildEckeUR(zustand8), Schatten8_Ausf1);
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand8, zustand9), Schatten8_Ausf2);
@@ -4025,9 +4343,16 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Schatten0Ausf(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildEckeUR(zustand), Schatten0_Ausf1);
-            DisplayPicture(GetSchaltbildKurve270L(zustand), Schatten0_Ausf2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Schatten0_Ausf3);
+            if((GetWeiche("Weiche68").Abzweig) || zustand.Fahrstrasse == true)
+            {
+                DisplayPicture(GetSchaltbildEckeUR(zustand), Schatten0_Ausf1);
+                DisplayPicture(GetSchaltbildKurve270L(zustand), Schatten0_Ausf2);
+                DisplayPicture(GetSchaltbildGerade90(zustand), Schatten0_Ausf3);
+            }
+            else if(zustand.Besetzt == false)
+            {
+
+            }
         }
         #endregion
         #region Block (sonder)
@@ -4489,6 +4814,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche67_68()
         {
+
             int ListW67 = GetWeichenListenID("Weiche67");
             if (ListW67 == -1) return;
             int ListW68 = GetWeichenListenID("Weiche68");
@@ -4508,6 +4834,20 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(FreiesGleis, meldeZustand2, FreiesGleis), Weiche68_67);
             else
                 DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(FreiesGleis, meldeZustand2, meldeZustand1), Weiche68_67);
+            if (Weichenliste[ListW68].Abzweig == true)
+            {
+                DisplayPicture(GetSchaltbildEckeUR(meldeZustand2), Schatten0_Ausf1);
+                DisplayPicture(GetSchaltbildKurve270L(meldeZustand2), Schatten0_Ausf2);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand2), Schatten0_Ausf3);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand2), Schatten0_Ausf4);
+            }
+            else
+            {
+                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Schatten0_Ausf1);
+                DisplayPicture(GetSchaltbildKurve270L(FreiesGleis), Schatten0_Ausf2);
+                DisplayPicture(GetSchaltbildGerade90(FreiesGleis), Schatten0_Ausf3);
+                DisplayPicture(GetSchaltbildGerade90(FreiesGleis), Schatten0_Ausf4);
+            }
 
         }
         private void UpdateGleisbild_Weiche70()
@@ -4661,6 +5001,30 @@ namespace MEKB_H0_Anlage
                     DisplayPicture(GetSchaltbildEckeOL_UR(meldeZustand, meldeZustand2), WeicheEcke76_90);
             }
         }
+        private void UpdateGleisbild_Weiche80()
+        {
+            int ListID = GetWeichenListenID("Weiche80");
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR180(Weichenliste[ListID]), Weiche80);
+        }
+
+        private void UpdateGleisbild_Weiche81()
+        {
+            int ListID = GetWeichenListenID("Weiche81");
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR180(Weichenliste[ListID]), Weiche81);
+        }
+
+        private void UpdateGleisbild_Weiche82()
+        {
+            int ListID = GetWeichenListenID("Weiche82");
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR180(Weichenliste[ListID]), Weiche82);
+        }
+
         private void UpdateGleisbild_Weiche90()
         {
             int ListID = GetWeichenListenID("Weiche90");
@@ -5417,6 +5781,12 @@ namespace MEKB_H0_Anlage
                     zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                     farbe = Farbe_Rot;
                     ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                    if(Zustandschraege.Besetzt == true)
+                    {
+                        zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
+                        farbe = Farbe_Rot;
+                        ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                    }
                     return bild; //Bild ausgeben
                 }
                 else
@@ -5807,7 +6177,7 @@ namespace MEKB_H0_Anlage
 
             if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_0;
                 farbe = Farbe_Rot;
                 ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
                 return bild; //Bild ausgeben
@@ -7252,11 +7622,31 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_GL4_links(GetBelegtStatus("DKW7_W8") && !GetWeiche("DKW7_2").Abzweig, new List<Fahrstrasse> { Gleis4_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis4 });
             UpdateGleisbild_GL5_links(GetBelegtStatus("DKW9") && !GetWeiche("DKW9_2").Abzweig, new List<Fahrstrasse> { Gleis5_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis5 });
             UpdateGleisbild_GL6_links(GetBelegtStatus("DKW9") && GetWeiche("DKW9_2").Abzweig, new List<Fahrstrasse> { Gleis6_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis6 });
-
+            
+            //Hauptbahnhof - Zentrum
             UpdateGleisbild_Gl1_Halt_links(GetBelegtStatus("HBf1_Halt_L"));
             UpdateGleisbild_Gl1_Halt_rechts(GetBelegtStatus("HBf1_Halt_R"));
             UpdateGleisbild_Gl1_Zentrum(GetBelegtStatus("HBf1"));
 
+            UpdateGleisbild_Gl2_Halt_links(GetBelegtStatus("HBf2_Halt_L"));
+            UpdateGleisbild_Gl2_Halt_rechts(GetBelegtStatus("HBf2_Halt_R"));
+            UpdateGleisbild_Gl2_Zentrum(GetBelegtStatus("HBf2"));
+
+            UpdateGleisbild_Gl3_Halt_links(GetBelegtStatus("HBf3_Halt_L"));
+            UpdateGleisbild_Gl3_Halt_rechts(GetBelegtStatus("HBf3_Halt_R"));
+            UpdateGleisbild_Gl3_Zentrum(GetBelegtStatus("HBf3"));
+
+            UpdateGleisbild_Gl4_Halt_links(GetBelegtStatus("HBf4_Halt_L"));
+            UpdateGleisbild_Gl4_Halt_rechts(GetBelegtStatus("HBf4_Halt_R"));
+            UpdateGleisbild_Gl4_Zentrum(GetBelegtStatus("HBf4"));
+
+            UpdateGleisbild_Gl5_Halt_links(GetBelegtStatus("HBf5_Halt_L"));
+            UpdateGleisbild_Gl5_Halt_rechts(GetBelegtStatus("HBf5_Halt_R"));
+            UpdateGleisbild_Gl5_Zentrum(GetBelegtStatus("HBf5"));
+
+            UpdateGleisbild_Gl6_Halt_links(GetBelegtStatus("HBf6_Halt_L"));
+            UpdateGleisbild_Gl6_Halt_rechts(GetBelegtStatus("HBf6_Halt_R"));
+            UpdateGleisbild_Gl6_Zentrum(GetBelegtStatus("HBf6"));
 
             //Hauptbahnhof - Rechter Teil der Gleise
             UpdateGleisbild_GL1_rechts(GetBelegtStatus("W26") && GetWeiche("Weiche26").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis1, Rechts2_nach_Gleis1 } , new List<Fahrstrasse> { Gleis1_nach_rechts1 , Gleis1_nach_rechts2 });
@@ -7265,6 +7655,44 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_GL4_rechts(GetBelegtStatus("DKW24_W23") && !GetWeiche("DKW24_2").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis4, Rechts2_nach_Gleis4 } , new List<Fahrstrasse> { Gleis4_nach_rechts1 , Gleis4_nach_rechts2 });
             UpdateGleisbild_GL5_rechts(GetBelegtStatus("KW22") && !GetWeiche("KW22_2").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis5, Rechts2_nach_Gleis5 } , new List<Fahrstrasse> { Gleis5_nach_rechts1 , Gleis5_nach_rechts2 });
             UpdateGleisbild_GL6_rechts(GetBelegtStatus("HBf6_Halt_R"), new List<Fahrstrasse> { Rechts1_nach_Gleis6, Rechts2_nach_Gleis6 } , new List<Fahrstrasse> { Gleis6_nach_rechts1 , Gleis6_nach_rechts2 });
+
+            //Schattenbahnhof
+            UpdateGleisbild_Schatten_Eingl(GetBelegtStatus("Eingleisen"));
+            UpdateGleisbild_Schatten_Eingl_Halt(GetBelegtStatus("Eingleisen_Halt"));
+
+            UpdateGleisbild_Schatten_Gl1(GetBelegtStatus("Schatten_Gl1"));
+            UpdateGleisbild_Schatten_Gl1_Halt(GetBelegtStatus("Schatten_Gl1_Halt"));
+
+            UpdateGleisbild_Schatten_Gl2(GetBelegtStatus("Schatten_Gl2"));
+            UpdateGleisbild_Schatten_Gl2_Halt(GetBelegtStatus("Schatten_Gl2_Halt"));
+
+            UpdateGleisbild_Schatten_Gl3(GetBelegtStatus("Schatten_Gl3"));
+            UpdateGleisbild_Schatten_Gl3_Halt(GetBelegtStatus("Schatten_Gl3_Halt"));
+
+            UpdateGleisbild_Schatten_Gl4(GetBelegtStatus("Schatten_Gl4"));
+            UpdateGleisbild_Schatten_Gl4_Halt(GetBelegtStatus("Schatten_Gl4_Halt"));
+
+            UpdateGleisbild_Schatten_Gl5(GetBelegtStatus("Schatten_Gl5"));
+            UpdateGleisbild_Schatten_Gl5_Halt(GetBelegtStatus("Schatten_Gl5_Halt"));
+
+            UpdateGleisbild_Schatten_Gl6(GetBelegtStatus("Schatten_Gl6"));
+            UpdateGleisbild_Schatten_Gl6_Halt(GetBelegtStatus("Schatten_Gl6_Halt"));
+
+            UpdateGleisbild_Schatten_Gl7(GetBelegtStatus("Schatten_Gl7"));
+            UpdateGleisbild_Schatten_Gl7_Halt(GetBelegtStatus("Schatten_Gl7_Halt"));
+
+            UpdateGleisbild_Schatten_Gl8(GetBelegtStatus("Schatten_Gl8"));
+            UpdateGleisbild_Schatten_Gl8_Halt(GetBelegtStatus("Schatten_Gl8_Halt"));
+
+            UpdateGleisbild_Schatten_Gl9(GetBelegtStatus("Schatten_Gl9"));
+            UpdateGleisbild_Schatten_Gl9_Halt(GetBelegtStatus("Schatten_Gl9_Halt"));
+
+            UpdateGleisbild_Schatten_Gl10(GetBelegtStatus("Schatten_Gl10"));
+            UpdateGleisbild_Schatten_Gl10_Halt(GetBelegtStatus("Schatten_Gl10_Halt"));
+
+            UpdateGleisbild_Schatten_Gl11(GetBelegtStatus("Schatten_Gl11"));
+            UpdateGleisbild_Schatten_Gl11_Halt(GetBelegtStatus("Schatten_Gl11_Halt"));
+
 
             //Gleise im Block 1 aktualisieren
             UpdateGleisbild_Weiche6(GetBelegtStatus("W6"), //Besetzt
@@ -7336,10 +7764,18 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_Block7(GetBelegtStatus("Block7"), //Besetzt
                                     new List<Fahrstrasse>(),  //nie nach links
                                     new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 }); //nach rechts
-            UpdateGleisbild_Block8(false, //Besetzt
+            UpdateGleisbild_Block8(GetBelegtStatus("Block8"), //Besetzt
                                     new List<Fahrstrasse> { Schatten0_nach_Block8, Schatten1_nach_Block8 },  //nie nach links
                                     new List<Fahrstrasse>()); //nach rechts
-            UpdateGleisbild_Block9(false, //Besetzt
+            UpdateGleisbild_Block8_Halt(GetBelegtStatus("Block8_Halt"), //Besetzt
+                                    new List<Fahrstrasse> { Schatten0_nach_Block8, Schatten1_nach_Block8 },  //nie nach links
+                                    new List<Fahrstrasse>()); //nach rechts
+            UpdateGleisbild_Block9(GetBelegtStatus("Block9"), //Besetzt
+                                    new List<Fahrstrasse>(),  //nie nach links
+                                    new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
+                                                Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
+                                                Schatten7_nach_Block9}); //nach rechts
+            UpdateGleisbild_Block9_Halt(GetBelegtStatus("Block9_Halt"), //Besetzt
                                     new List<Fahrstrasse>(),  //nie nach links
                                     new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                 Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
@@ -7393,11 +7829,15 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_Weiche75();     //Umfeld um Weiche 75
             UpdateGleisbild_Weiche76();     //Umfeld um Weiche 76
 
+            UpdateGleisbild_Weiche80();     //Umfeld um Weiche 80
+            UpdateGleisbild_Weiche81();     //Umfeld um Weiche 81
+            UpdateGleisbild_Weiche82();     //Umfeld um Weiche 82
+
             UpdateGleisbild_Weiche90();     //Umfeld um Weiche 90
             UpdateGleisbild_Weiche91();     //Umfeld um Weiche 91
             UpdateGleisbild_Weiche92();     //Umfeld um Weiche 92
 
-            UpdateKreuzung(false, //Besetzt
+            UpdateKreuzung(GetBelegtStatus("SchattenAusfahrt"), //Besetzt
                             new List<Fahrstrasse> { Block8_nach_Block6 },  //Block8
                             new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                     Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
@@ -7412,10 +7852,8 @@ namespace MEKB_H0_Anlage
                                                 Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
                                                 Schatten7_nach_Block9});  //Block9: Nach rechts
 
-            UpdateGleisbild_SchattenkleinAusf(new List<bool> { false, false, false, false }, new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 });
-            UpdateGleisbild_Schatten0Ausf(false, //Besetzt
-                            new List<Fahrstrasse> { Schatten0_nach_Block8 },  
-                            new List<Fahrstrasse> ()); 
+            UpdateGleisbild_SchattenkleinAusf(GetBelegtStatus("SchattenMitte1"), new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 });
+
             
         }
 
@@ -7472,6 +7910,56 @@ namespace MEKB_H0_Anlage
                     case "W51": SetzeWeichenBelegung("Weiche51", belegtmelder.IstBelegt()); break;               
                     case "W52": SetzeWeichenBelegung("Weiche52", belegtmelder.IstBelegt()); break;
                     case "HBf6_Halt_R": SetzeWeichenBelegung("Weiche21", belegtmelder.IstBelegt()); break;
+                    case "SchattenEinfahrt":
+                        SetzeWeichenBelegung("Weiche91", false);
+                        SetzeWeichenBelegung("Weiche92", false);
+
+                        SetzeWeichenBelegung("Weiche90", belegtmelder.IstBelegt()); if (!GetWeiche("Weiche90").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche91", belegtmelder.IstBelegt()); if (GetWeiche("Weiche91").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche92", belegtmelder.IstBelegt()); break;
+
+                    case "SchattenMitte1":
+                        SetzeWeichenBelegung("Weiche81", false);
+                        SetzeWeichenBelegung("Weiche82", false);
+
+                        SetzeWeichenBelegung("Weiche80", belegtmelder.IstBelegt()); if (GetWeiche("Weiche80").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche81", belegtmelder.IstBelegt()); if (GetWeiche("Weiche81").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche82", belegtmelder.IstBelegt()); break;
+
+                    case "SchattenMitte2":
+                        SetzeWeichenBelegung("Weiche71", false);
+                        SetzeWeichenBelegung("Weiche72", false);
+                        SetzeWeichenBelegung("Weiche73", false);
+                        SetzeWeichenBelegung("Weiche74", false);
+                        SetzeWeichenBelegung("Weiche75", false);
+                        SetzeWeichenBelegung("Weiche76", false);
+
+                        SetzeWeichenBelegung("Weiche70", belegtmelder.IstBelegt()); if (GetWeiche("Weiche70").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche71", belegtmelder.IstBelegt()); if (GetWeiche("Weiche71").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche72", belegtmelder.IstBelegt()); if (GetWeiche("Weiche72").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche73", belegtmelder.IstBelegt()); if (GetWeiche("Weiche73").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche74", belegtmelder.IstBelegt()); if (GetWeiche("Weiche74").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche75", belegtmelder.IstBelegt()); if (GetWeiche("Weiche75").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche76", belegtmelder.IstBelegt()); break;
+                    case "SchattenAusfahrt":
+                        SetzeWeichenBelegung("Weiche62", false);
+                        SetzeWeichenBelegung("Weiche63", false);
+                        SetzeWeichenBelegung("Weiche64", false);
+                        SetzeWeichenBelegung("Weiche65", false);
+                        SetzeWeichenBelegung("Weiche66", false);
+                        SetzeWeichenBelegung("Weiche67", false);
+                        SetzeWeichenBelegung("Weiche68", belegtmelder.IstBelegt());
+
+                        if ((!GetWeiche("Weiche68").Abzweig) && (!GetWeiche("Weiche67").Abzweig))
+                            SetzeWeichenBelegung("Weiche67", belegtmelder.IstBelegt());
+
+                        SetzeWeichenBelegung("Weiche61", belegtmelder.IstBelegt()); if (!GetWeiche("Weiche61").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche62", belegtmelder.IstBelegt()); if (GetWeiche("Weiche62").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche63", belegtmelder.IstBelegt()); if (GetWeiche("Weiche63").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche64", belegtmelder.IstBelegt()); if (GetWeiche("Weiche64").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche65", belegtmelder.IstBelegt()); if (GetWeiche("Weiche65").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche66", belegtmelder.IstBelegt()); if (GetWeiche("Weiche66").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche67", belegtmelder.IstBelegt()); break;
                     default: break;
                 }
             }

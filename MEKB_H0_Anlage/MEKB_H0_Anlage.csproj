@@ -706,6 +706,7 @@
     <None Include="Resources\Signal_2B_HP0_180.png" />
     <None Include="Resources\Signal_2B_HP1_0.png" />
     <None Include="Resources\Signal_2B_HP1_180.png" />
+    <None Include="Resources\Zunge_AbzweigL_0.png" />
     <Content Include="Resources\Zunge_AbzweigR_0.png" />
     <None Include="Resources\Zunge_AbzweigR_01.png" />
     <None Include="Resources\Zunge_AbzweigR_180.png" />
