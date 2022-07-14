@@ -144,6 +144,7 @@ namespace MEKB_H0_Anlage
 
         private void SetupBelegtmelderListe()
         {
+           /*
             BelegtmelderVerzeichnis = new Dictionary<string, int>();
             XElement XMLFile = XElement.Load("Belegtmelderliste.xml");       //XML-Datei öffnen
             
@@ -161,6 +162,7 @@ namespace MEKB_H0_Anlage
             {
                 BelegtmelderVerzeichnis.Add(Belegtmelderliste[i].Name, i);
             }
+           */
         }
         #endregion
         #region Weichen Steuerung
@@ -175,7 +177,7 @@ namespace MEKB_H0_Anlage
             {
                 foreach(Weiche weiche in Weichenliste)
                 {
-                    z21Start.Z21_GET_WEICHE(weiche.Adresse);    //Paket senden "GET Weiche"
+                    z21Start.LAN_X_GET_TURNOUT_INFO(weiche.Adresse);    //Paket senden "GET Weiche"
                     Task.Delay(50);                             //50ms warten
                 }
             }
@@ -185,7 +187,7 @@ namespace MEKB_H0_Anlage
                 if (WeichenVerzeichnis.TryGetValue(Weichenname, out ListID))
                 {
                     int Adresse = Weichenliste[ListID].Adresse;                             //Adresse der Weiche übernehmen
-                    z21Start.Z21_GET_WEICHE(Adresse);                                       //paket senden "GET Weiche"
+                    z21Start.LAN_X_GET_TURNOUT_INFO(Adresse);                                       //paket senden "GET Weiche"
                 }
             }
         }
@@ -208,7 +210,7 @@ namespace MEKB_H0_Anlage
                 if (Betriebsbereit)
                 {
                     Log.Info("Aktiviere Weichenausgang");
-                    z21Start.Z21_SET_TURNOUT(Adresse, Abzweig, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
+                    z21Start.LAN_X_SET_TURNOUT(Adresse, Abzweig, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
                     Weichenliste[ListID].ZeitAktiv = Weichenliste[ListID].Schaltzeit;
                 }
             }
@@ -233,7 +235,7 @@ namespace MEKB_H0_Anlage
                 if (Betriebsbereit)
                 {
                     Log.Info("Aktiviere Weichenausgang");
-                    z21Start.Z21_SET_TURNOUT(Adresse, Abzweig, true, true);             //Q-Modus aktiviert, Schaltausgang aktiv
+                    z21Start.LAN_X_SET_TURNOUT(Adresse, Abzweig, true, true);             //Q-Modus aktiviert, Schaltausgang aktiv
                     Weichenliste[ListID].ZeitAktiv = Weichenliste[ListID].Schaltzeit;   //Setze Status der Weiche als "gerade am schalten"
                 }
             }
@@ -7616,166 +7618,166 @@ namespace MEKB_H0_Anlage
             UpdateWeichenBelegung();
 
             //Hauptbahnhof - Linker Teil der Gleise
-            UpdateGleisbild_GL1_links(GetBelegtStatus("W6") && GetWeiche("Weiche6").Abzweig,  new List<Fahrstrasse> { Gleis1_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis1 });
-            UpdateGleisbild_GL2_links(GetBelegtStatus("W6") && !GetWeiche("Weiche6").Abzweig, new List<Fahrstrasse> { Gleis2_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis2 });
-            UpdateGleisbild_GL3_links(GetBelegtStatus("W5") && !GetWeiche("Weiche5").Abzweig, new List<Fahrstrasse> { Gleis3_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis3 });
-            UpdateGleisbild_GL4_links(GetBelegtStatus("DKW7_W8") && !GetWeiche("DKW7_2").Abzweig, new List<Fahrstrasse> { Gleis4_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis4 });
-            UpdateGleisbild_GL5_links(GetBelegtStatus("DKW9") && !GetWeiche("DKW9_2").Abzweig, new List<Fahrstrasse> { Gleis5_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis5 });
-            UpdateGleisbild_GL6_links(GetBelegtStatus("DKW9") && GetWeiche("DKW9_2").Abzweig, new List<Fahrstrasse> { Gleis6_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis6 });
+            UpdateGleisbild_GL1_links(BelegtmelderListe.GetBelegtStatus("W6") && GetWeiche("Weiche6").Abzweig,  new List<Fahrstrasse> { Gleis1_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis1 });
+            UpdateGleisbild_GL2_links(BelegtmelderListe.GetBelegtStatus("W6") && !GetWeiche("Weiche6").Abzweig, new List<Fahrstrasse> { Gleis2_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis2 });
+            UpdateGleisbild_GL3_links(BelegtmelderListe.GetBelegtStatus("W5") && !GetWeiche("Weiche5").Abzweig, new List<Fahrstrasse> { Gleis3_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis3 });
+            UpdateGleisbild_GL4_links(BelegtmelderListe.GetBelegtStatus("DKW7_W8") && !GetWeiche("DKW7_2").Abzweig, new List<Fahrstrasse> { Gleis4_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis4 });
+            UpdateGleisbild_GL5_links(BelegtmelderListe.GetBelegtStatus("DKW9") && !GetWeiche("DKW9_2").Abzweig, new List<Fahrstrasse> { Gleis5_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis5 });
+            UpdateGleisbild_GL6_links(BelegtmelderListe.GetBelegtStatus("DKW9") && GetWeiche("DKW9_2").Abzweig, new List<Fahrstrasse> { Gleis6_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis6 });
             
             //Hauptbahnhof - Zentrum
-            UpdateGleisbild_Gl1_Halt_links(GetBelegtStatus("HBf1_Halt_L"));
-            UpdateGleisbild_Gl1_Halt_rechts(GetBelegtStatus("HBf1_Halt_R"));
-            UpdateGleisbild_Gl1_Zentrum(GetBelegtStatus("HBf1"));
+            UpdateGleisbild_Gl1_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf1_Halt_L"));
+            UpdateGleisbild_Gl1_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf1_Halt_R"));
+            UpdateGleisbild_Gl1_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf1"));
 
-            UpdateGleisbild_Gl2_Halt_links(GetBelegtStatus("HBf2_Halt_L"));
-            UpdateGleisbild_Gl2_Halt_rechts(GetBelegtStatus("HBf2_Halt_R"));
-            UpdateGleisbild_Gl2_Zentrum(GetBelegtStatus("HBf2"));
+            UpdateGleisbild_Gl2_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf2_Halt_L"));
+            UpdateGleisbild_Gl2_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf2_Halt_R"));
+            UpdateGleisbild_Gl2_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf2"));
 
-            UpdateGleisbild_Gl3_Halt_links(GetBelegtStatus("HBf3_Halt_L"));
-            UpdateGleisbild_Gl3_Halt_rechts(GetBelegtStatus("HBf3_Halt_R"));
-            UpdateGleisbild_Gl3_Zentrum(GetBelegtStatus("HBf3"));
+            UpdateGleisbild_Gl3_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf3_Halt_L"));
+            UpdateGleisbild_Gl3_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf3_Halt_R"));
+            UpdateGleisbild_Gl3_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf3"));
 
-            UpdateGleisbild_Gl4_Halt_links(GetBelegtStatus("HBf4_Halt_L"));
-            UpdateGleisbild_Gl4_Halt_rechts(GetBelegtStatus("HBf4_Halt_R"));
-            UpdateGleisbild_Gl4_Zentrum(GetBelegtStatus("HBf4"));
+            UpdateGleisbild_Gl4_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf4_Halt_L"));
+            UpdateGleisbild_Gl4_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf4_Halt_R"));
+            UpdateGleisbild_Gl4_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf4"));
 
-            UpdateGleisbild_Gl5_Halt_links(GetBelegtStatus("HBf5_Halt_L"));
-            UpdateGleisbild_Gl5_Halt_rechts(GetBelegtStatus("HBf5_Halt_R"));
-            UpdateGleisbild_Gl5_Zentrum(GetBelegtStatus("HBf5"));
+            UpdateGleisbild_Gl5_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf5_Halt_L"));
+            UpdateGleisbild_Gl5_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf5_Halt_R"));
+            UpdateGleisbild_Gl5_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf5"));
 
-            UpdateGleisbild_Gl6_Halt_links(GetBelegtStatus("HBf6_Halt_L"));
-            UpdateGleisbild_Gl6_Halt_rechts(GetBelegtStatus("HBf6_Halt_R"));
-            UpdateGleisbild_Gl6_Zentrum(GetBelegtStatus("HBf6"));
+            UpdateGleisbild_Gl6_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf6_Halt_L"));
+            UpdateGleisbild_Gl6_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf6_Halt_R"));
+            UpdateGleisbild_Gl6_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf6"));
 
             //Hauptbahnhof - Rechter Teil der Gleise
-            UpdateGleisbild_GL1_rechts(GetBelegtStatus("W26") && GetWeiche("Weiche26").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis1, Rechts2_nach_Gleis1 } , new List<Fahrstrasse> { Gleis1_nach_rechts1 , Gleis1_nach_rechts2 });
-            UpdateGleisbild_GL2_rechts(GetBelegtStatus("W26") && !GetWeiche("Weiche26").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis2, Rechts2_nach_Gleis2 } , new List<Fahrstrasse> { Gleis2_nach_rechts1 , Gleis2_nach_rechts2 });
-            UpdateGleisbild_GL3_rechts(GetBelegtStatus("W25") && !GetWeiche("Weiche25").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis3, Rechts2_nach_Gleis3 } , new List<Fahrstrasse> { Gleis3_nach_rechts1 , Gleis3_nach_rechts2 });
-            UpdateGleisbild_GL4_rechts(GetBelegtStatus("DKW24_W23") && !GetWeiche("DKW24_2").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis4, Rechts2_nach_Gleis4 } , new List<Fahrstrasse> { Gleis4_nach_rechts1 , Gleis4_nach_rechts2 });
-            UpdateGleisbild_GL5_rechts(GetBelegtStatus("KW22") && !GetWeiche("KW22_2").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis5, Rechts2_nach_Gleis5 } , new List<Fahrstrasse> { Gleis5_nach_rechts1 , Gleis5_nach_rechts2 });
-            UpdateGleisbild_GL6_rechts(GetBelegtStatus("HBf6_Halt_R"), new List<Fahrstrasse> { Rechts1_nach_Gleis6, Rechts2_nach_Gleis6 } , new List<Fahrstrasse> { Gleis6_nach_rechts1 , Gleis6_nach_rechts2 });
+            UpdateGleisbild_GL1_rechts(BelegtmelderListe.GetBelegtStatus("W26") && GetWeiche("Weiche26").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis1, Rechts2_nach_Gleis1 } , new List<Fahrstrasse> { Gleis1_nach_rechts1 , Gleis1_nach_rechts2 });
+            UpdateGleisbild_GL2_rechts(BelegtmelderListe.GetBelegtStatus("W26") && !GetWeiche("Weiche26").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis2, Rechts2_nach_Gleis2 } , new List<Fahrstrasse> { Gleis2_nach_rechts1 , Gleis2_nach_rechts2 });
+            UpdateGleisbild_GL3_rechts(BelegtmelderListe.GetBelegtStatus("W25") && !GetWeiche("Weiche25").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis3, Rechts2_nach_Gleis3 } , new List<Fahrstrasse> { Gleis3_nach_rechts1 , Gleis3_nach_rechts2 });
+            UpdateGleisbild_GL4_rechts(BelegtmelderListe.GetBelegtStatus("DKW24_W23") && !GetWeiche("DKW24_2").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis4, Rechts2_nach_Gleis4 } , new List<Fahrstrasse> { Gleis4_nach_rechts1 , Gleis4_nach_rechts2 });
+            UpdateGleisbild_GL5_rechts(BelegtmelderListe.GetBelegtStatus("KW22") && !GetWeiche("KW22_2").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis5, Rechts2_nach_Gleis5 } , new List<Fahrstrasse> { Gleis5_nach_rechts1 , Gleis5_nach_rechts2 });
+            UpdateGleisbild_GL6_rechts(BelegtmelderListe.GetBelegtStatus("HBf6_Halt_R"), new List<Fahrstrasse> { Rechts1_nach_Gleis6, Rechts2_nach_Gleis6 } , new List<Fahrstrasse> { Gleis6_nach_rechts1 , Gleis6_nach_rechts2 });
 
             //Schattenbahnhof
-            UpdateGleisbild_Schatten_Eingl(GetBelegtStatus("Eingleisen"));
-            UpdateGleisbild_Schatten_Eingl_Halt(GetBelegtStatus("Eingleisen_Halt"));
+            UpdateGleisbild_Schatten_Eingl(BelegtmelderListe.GetBelegtStatus("Eingleisen"));
+            UpdateGleisbild_Schatten_Eingl_Halt(BelegtmelderListe.GetBelegtStatus("Eingleisen_Halt"));
 
-            UpdateGleisbild_Schatten_Gl1(GetBelegtStatus("Schatten_Gl1"));
-            UpdateGleisbild_Schatten_Gl1_Halt(GetBelegtStatus("Schatten_Gl1_Halt"));
+            UpdateGleisbild_Schatten_Gl1(BelegtmelderListe.GetBelegtStatus("Schatten_Gl1"));
+            UpdateGleisbild_Schatten_Gl1_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl1_Halt"));
 
-            UpdateGleisbild_Schatten_Gl2(GetBelegtStatus("Schatten_Gl2"));
-            UpdateGleisbild_Schatten_Gl2_Halt(GetBelegtStatus("Schatten_Gl2_Halt"));
+            UpdateGleisbild_Schatten_Gl2(BelegtmelderListe.GetBelegtStatus("Schatten_Gl2"));
+            UpdateGleisbild_Schatten_Gl2_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl2_Halt"));
 
-            UpdateGleisbild_Schatten_Gl3(GetBelegtStatus("Schatten_Gl3"));
-            UpdateGleisbild_Schatten_Gl3_Halt(GetBelegtStatus("Schatten_Gl3_Halt"));
+            UpdateGleisbild_Schatten_Gl3(BelegtmelderListe.GetBelegtStatus("Schatten_Gl3"));
+            UpdateGleisbild_Schatten_Gl3_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl3_Halt"));
 
-            UpdateGleisbild_Schatten_Gl4(GetBelegtStatus("Schatten_Gl4"));
-            UpdateGleisbild_Schatten_Gl4_Halt(GetBelegtStatus("Schatten_Gl4_Halt"));
+            UpdateGleisbild_Schatten_Gl4(BelegtmelderListe.GetBelegtStatus("Schatten_Gl4"));
+            UpdateGleisbild_Schatten_Gl4_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl4_Halt"));
 
-            UpdateGleisbild_Schatten_Gl5(GetBelegtStatus("Schatten_Gl5"));
-            UpdateGleisbild_Schatten_Gl5_Halt(GetBelegtStatus("Schatten_Gl5_Halt"));
+            UpdateGleisbild_Schatten_Gl5(BelegtmelderListe.GetBelegtStatus("Schatten_Gl5"));
+            UpdateGleisbild_Schatten_Gl5_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl5_Halt"));
 
-            UpdateGleisbild_Schatten_Gl6(GetBelegtStatus("Schatten_Gl6"));
-            UpdateGleisbild_Schatten_Gl6_Halt(GetBelegtStatus("Schatten_Gl6_Halt"));
+            UpdateGleisbild_Schatten_Gl6(BelegtmelderListe.GetBelegtStatus("Schatten_Gl6"));
+            UpdateGleisbild_Schatten_Gl6_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl6_Halt"));
 
-            UpdateGleisbild_Schatten_Gl7(GetBelegtStatus("Schatten_Gl7"));
-            UpdateGleisbild_Schatten_Gl7_Halt(GetBelegtStatus("Schatten_Gl7_Halt"));
+            UpdateGleisbild_Schatten_Gl7(BelegtmelderListe.GetBelegtStatus("Schatten_Gl7"));
+            UpdateGleisbild_Schatten_Gl7_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl7_Halt"));
 
-            UpdateGleisbild_Schatten_Gl8(GetBelegtStatus("Schatten_Gl8"));
-            UpdateGleisbild_Schatten_Gl8_Halt(GetBelegtStatus("Schatten_Gl8_Halt"));
+            UpdateGleisbild_Schatten_Gl8(BelegtmelderListe.GetBelegtStatus("Schatten_Gl8"));
+            UpdateGleisbild_Schatten_Gl8_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl8_Halt"));
 
-            UpdateGleisbild_Schatten_Gl9(GetBelegtStatus("Schatten_Gl9"));
-            UpdateGleisbild_Schatten_Gl9_Halt(GetBelegtStatus("Schatten_Gl9_Halt"));
+            UpdateGleisbild_Schatten_Gl9(BelegtmelderListe.GetBelegtStatus("Schatten_Gl9"));
+            UpdateGleisbild_Schatten_Gl9_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl9_Halt"));
 
-            UpdateGleisbild_Schatten_Gl10(GetBelegtStatus("Schatten_Gl10"));
-            UpdateGleisbild_Schatten_Gl10_Halt(GetBelegtStatus("Schatten_Gl10_Halt"));
+            UpdateGleisbild_Schatten_Gl10(BelegtmelderListe.GetBelegtStatus("Schatten_Gl10"));
+            UpdateGleisbild_Schatten_Gl10_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl10_Halt"));
 
-            UpdateGleisbild_Schatten_Gl11(GetBelegtStatus("Schatten_Gl11"));
-            UpdateGleisbild_Schatten_Gl11_Halt(GetBelegtStatus("Schatten_Gl11_Halt"));
+            UpdateGleisbild_Schatten_Gl11(BelegtmelderListe.GetBelegtStatus("Schatten_Gl11"));
+            UpdateGleisbild_Schatten_Gl11_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl11_Halt"));
 
 
             //Gleise im Block 1 aktualisieren
-            UpdateGleisbild_Weiche6(GetBelegtStatus("W6"), //Besetzt
+            UpdateGleisbild_Weiche6(BelegtmelderListe.GetBelegtStatus("W6"), //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1 },//Nach links
                                     new List<Fahrstrasse> { Block2_nach_Gleis1, Block2_nach_Gleis2 });//Nach rechts
 
-            UpdateGleisbild_Block1a(GetBelegtStatus("Block1_a"), //Besetzt
+            UpdateGleisbild_Block1a(BelegtmelderListe.GetBelegtStatus("Block1_a"), //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
                                                             Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
                                     new List<Fahrstrasse>()); //nach rechts immer aus
 
-            UpdateGleisbild_Block1b(GetBelegtStatus("Block1_b"), //Besetzt
+            UpdateGleisbild_Block1b(BelegtmelderListe.GetBelegtStatus("Block1_b"), //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
                                                             Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
                                     new List<Fahrstrasse>()); //nach rechts immer aus
-            UpdateGleisbild_Block1_Halt(GetBelegtStatus("Block1_Halt"), //Besetzt
+            UpdateGleisbild_Block1_Halt(BelegtmelderListe.GetBelegtStatus("Block1_Halt"), //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
                                                             Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
                                     new List<Fahrstrasse>()); //nach rechts immer aus            
-            UpdateGleisbild_Block2(GetBelegtStatus("Block2"), //Besetzt
+            UpdateGleisbild_Block2(BelegtmelderListe.GetBelegtStatus("Block2"), //Besetzt
                                     new List<Fahrstrasse> { Block1_nach_Block2, Block9_nach_Block2 }, //Nach Links
                                     new List<Fahrstrasse>()); //nach rechts immer aus
-            UpdateGleisbild_Block2_Halt(GetBelegtStatus("Block2_Halt"), //Besetzt
+            UpdateGleisbild_Block2_Halt(BelegtmelderListe.GetBelegtStatus("Block2_Halt"), //Besetzt
                                     new List<Fahrstrasse> { Block1_nach_Block2, Block9_nach_Block2 }, //Nach Links
                                     new List<Fahrstrasse>()); //nach rechts immer aus
             //Gleise im Block 2 aktualisieren
-            UpdateGleisbild_Weiche5(GetBelegtStatus("W5"), //Besetzt
+            UpdateGleisbild_Weiche5(BelegtmelderListe.GetBelegtStatus("W5"), //Besetzt
                                     new List<Fahrstrasse>  {Gleis3_nach_Block1, Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1},
                                     new List<Fahrstrasse> { Block2_nach_Gleis3, Block2_nach_Gleis4, Block2_nach_Gleis5, Block2_nach_Gleis6 });
             //Gleise im Block 3 aktualisieren
-            UpdateGleisbild_Weiche25(GetBelegtStatus("W25"), //Besetzt
+            UpdateGleisbild_Weiche25(BelegtmelderListe.GetBelegtStatus("W25"), //Besetzt
                                     new List<Fahrstrasse> { Rechts1_nach_Gleis3, Rechts1_nach_Gleis4, Rechts1_nach_Gleis5, Rechts1_nach_Gleis6, //Nach links
                                                             Rechts2_nach_Gleis3, Rechts2_nach_Gleis4, Rechts2_nach_Gleis5, Rechts2_nach_Gleis6 },
                                     new List<Fahrstrasse> { Gleis3_nach_rechts1, Gleis4_nach_rechts1, Gleis5_nach_rechts1, Gleis6_nach_rechts1, //Nach rechts
                                                             Gleis3_nach_rechts2, Gleis4_nach_rechts2, Gleis5_nach_rechts2, Gleis6_nach_rechts2 });
-            UpdateGleisbild_Block3(GetBelegtStatus("Block3"), //Besetzt
+            UpdateGleisbild_Block3(BelegtmelderListe.GetBelegtStatus("Block3"), //Besetzt
                                     new List<Fahrstrasse> (),//Nie nach links
                                     new List<Fahrstrasse> { Gleis1_nach_rechts1, Gleis2_nach_rechts1, Gleis3_nach_rechts1, //Nach rechts
                                                             Gleis4_nach_rechts1, Gleis5_nach_rechts1, Gleis6_nach_rechts1, 
                                                             Gleis1_nach_rechts2, Gleis2_nach_rechts2, Gleis3_nach_rechts2, 
                                                             Gleis4_nach_rechts2, Gleis5_nach_rechts2, Gleis6_nach_rechts2});
             //Gleise im Block 4 aktualisieren                        
-            UpdateGleisbild_Block4(GetBelegtStatus("Block4"), //Besetzt
+            UpdateGleisbild_Block4(BelegtmelderListe.GetBelegtStatus("Block4"), //Besetzt
                                     new List<Fahrstrasse> { Rechts1_nach_Gleis1, Rechts1_nach_Gleis2, Rechts1_nach_Gleis3, //Nach links
                                                             Rechts1_nach_Gleis4, Rechts1_nach_Gleis5, Rechts1_nach_Gleis6, 
                                                             Rechts2_nach_Gleis1, Rechts2_nach_Gleis2, Rechts2_nach_Gleis3, //Nach rechts
                                                             Rechts2_nach_Gleis4, Rechts2_nach_Gleis5, Rechts2_nach_Gleis6 },
                                     new List<Fahrstrasse>());     //nie nach rechts
-            UpdateGleisbild_Weiche26(GetBelegtStatus("W26"), //Besetzt
+            UpdateGleisbild_Weiche26(BelegtmelderListe.GetBelegtStatus("W26"), //Besetzt
                                     new List<Fahrstrasse> { Rechts1_nach_Gleis1, Rechts1_nach_Gleis2, Rechts2_nach_Gleis1, Rechts2_nach_Gleis2 }, //Nach links
                                     new List<Fahrstrasse> { Gleis1_nach_rechts1, Gleis2_nach_rechts1, Gleis1_nach_rechts2, Gleis2_nach_rechts2 });//Nach rechts
-            UpdateGleisbild_Block5a(GetBelegtStatus("Block5_a"), //Besetzt
+            UpdateGleisbild_Block5a(BelegtmelderListe.GetBelegtStatus("Block5_a"), //Besetzt
                                     new List<Fahrstrasse> { Block1_nach_Block5 } ,  //Nach links
                                     new List<Fahrstrasse>());     //nie nach rechts
-            UpdateGleisbild_Block5b(GetBelegtStatus("Block5_b"), //Besetzt
+            UpdateGleisbild_Block5b(BelegtmelderListe.GetBelegtStatus("Block5_b"), //Besetzt
                                     new List<Fahrstrasse> { Block1_nach_Block5 },  //Nach links
                                     new List<Fahrstrasse>());     //nie nach rechts
-            UpdateGleisbild_Block5_Halt(GetBelegtStatus("Block5_Halt"), //Besetzt
+            UpdateGleisbild_Block5_Halt(BelegtmelderListe.GetBelegtStatus("Block5_Halt"), //Besetzt
                                     new List<Fahrstrasse> { Block1_nach_Block5 },  //Nach links
                                     new List<Fahrstrasse>());     //nie nach rechts
 
-            UpdateGleisbild_Block6(GetBelegtStatus("Block6"), //Besetzt
+            UpdateGleisbild_Block6(BelegtmelderListe.GetBelegtStatus("Block6"), //Besetzt
                                     new List<Fahrstrasse> { Block5_nach_Block6, Block8_nach_Block6 },  //Nach links
                                     new List<Fahrstrasse>());     //nie nach rechts
-            UpdateGleisbild_Block6_Halt(GetBelegtStatus("Block6_Halt"), //Besetzt
+            UpdateGleisbild_Block6_Halt(BelegtmelderListe.GetBelegtStatus("Block6_Halt"), //Besetzt
                                     new List<Fahrstrasse> { Block5_nach_Block6, Block8_nach_Block6 },  //Nach links
                                     new List<Fahrstrasse>());     //nie nach rechts
 
-            UpdateGleisbild_Block7(GetBelegtStatus("Block7"), //Besetzt
+            UpdateGleisbild_Block7(BelegtmelderListe.GetBelegtStatus("Block7"), //Besetzt
                                     new List<Fahrstrasse>(),  //nie nach links
                                     new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 }); //nach rechts
-            UpdateGleisbild_Block8(GetBelegtStatus("Block8"), //Besetzt
+            UpdateGleisbild_Block8(BelegtmelderListe.GetBelegtStatus("Block8"), //Besetzt
                                     new List<Fahrstrasse> { Schatten0_nach_Block8, Schatten1_nach_Block8 },  //nie nach links
                                     new List<Fahrstrasse>()); //nach rechts
-            UpdateGleisbild_Block8_Halt(GetBelegtStatus("Block8_Halt"), //Besetzt
+            UpdateGleisbild_Block8_Halt(BelegtmelderListe.GetBelegtStatus("Block8_Halt"), //Besetzt
                                     new List<Fahrstrasse> { Schatten0_nach_Block8, Schatten1_nach_Block8 },  //nie nach links
                                     new List<Fahrstrasse>()); //nach rechts
-            UpdateGleisbild_Block9(GetBelegtStatus("Block9"), //Besetzt
+            UpdateGleisbild_Block9(BelegtmelderListe.GetBelegtStatus("Block9"), //Besetzt
                                     new List<Fahrstrasse>(),  //nie nach links
                                     new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                 Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
                                                 Schatten7_nach_Block9}); //nach rechts
-            UpdateGleisbild_Block9_Halt(GetBelegtStatus("Block9_Halt"), //Besetzt
+            UpdateGleisbild_Block9_Halt(BelegtmelderListe.GetBelegtStatus("Block9_Halt"), //Besetzt
                                     new List<Fahrstrasse>(),  //nie nach links
                                     new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                 Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
@@ -7837,45 +7839,34 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_Weiche91();     //Umfeld um Weiche 91
             UpdateGleisbild_Weiche92();     //Umfeld um Weiche 92
 
-            UpdateKreuzung(GetBelegtStatus("SchattenAusfahrt"), //Besetzt
+            UpdateKreuzung(BelegtmelderListe.GetBelegtStatus("SchattenAusfahrt"), //Besetzt
                             new List<Fahrstrasse> { Block8_nach_Block6 },  //Block8
                             new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                     Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
                                                     Schatten7_nach_Block9}); //Block9
 
-            UpdateGleisbild_Block5_Block9(GetBelegtStatus("Block5_b"), //Block5: Besetzt
+            UpdateGleisbild_Block5_Block9(BelegtmelderListe.GetBelegtStatus("Block5_b"), //Block5: Besetzt
                         new List<Fahrstrasse> { Block1_nach_Block5 },  //Block6: Nach links
                         new List<Fahrstrasse>(), //Block5: nie nach rechts
-                        GetBelegtStatus("Block9"), //Block9: Besetzt
+                        BelegtmelderListe.GetBelegtStatus("Block9"), //Block9: Besetzt
                         new List<Fahrstrasse>(), //Block9: nie nach rechts
                         new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                 Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
                                                 Schatten7_nach_Block9});  //Block9: Nach rechts
 
-            UpdateGleisbild_SchattenkleinAusf(GetBelegtStatus("SchattenMitte1"), new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 });
+            UpdateGleisbild_SchattenkleinAusf(BelegtmelderListe.GetBelegtStatus("SchattenMitte1"), new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 });
 
             
         }
 
-
-        private bool GetBelegtStatus(string Abschnitt)
-        {
-            int ListID;
-            if (BelegtmelderVerzeichnis.TryGetValue(Abschnitt, out ListID))
-            {
-                return Belegtmelderliste[ListID].IstBelegt();
-            }
-            return false;
-        }
-
         void UpdateWeichenBelegung()
         {
-            foreach (Belegtmelder belegtmelder in Belegtmelderliste)
+            foreach (Belegtmelder belegtmelder in BelegtmelderListe.Liste)
             {
                 switch (belegtmelder.Name)
                 {
                     case "Block2": SetzeWeichenBelegung("Weiche53", belegtmelder.IstBelegt()); break;
-                    case "Block6": SetzeWeichenBelegung("Weiche60", belegtmelder.IstBelegt()); break;
+                    case "W60": SetzeWeichenBelegung("Weiche60", belegtmelder.IstBelegt()); break;
                     case "W1_W4": 
                         SetzeWeichenBelegung("Weiche1", belegtmelder.IstBelegt());
                         SetzeWeichenBelegung("Weiche4", belegtmelder.IstBelegt()); break;
@@ -7947,19 +7938,32 @@ namespace MEKB_H0_Anlage
                         SetzeWeichenBelegung("Weiche64", false);
                         SetzeWeichenBelegung("Weiche65", false);
                         SetzeWeichenBelegung("Weiche66", false);
-                        SetzeWeichenBelegung("Weiche67", false);
-                        SetzeWeichenBelegung("Weiche68", belegtmelder.IstBelegt());
-
-                        if ((!GetWeiche("Weiche68").Abzweig) && (!GetWeiche("Weiche67").Abzweig))
-                            SetzeWeichenBelegung("Weiche67", belegtmelder.IstBelegt());
+                       
 
                         SetzeWeichenBelegung("Weiche61", belegtmelder.IstBelegt()); if (!GetWeiche("Weiche61").Abzweig) break;
                         SetzeWeichenBelegung("Weiche62", belegtmelder.IstBelegt()); if (GetWeiche("Weiche62").Abzweig) break;
                         SetzeWeichenBelegung("Weiche63", belegtmelder.IstBelegt()); if (GetWeiche("Weiche63").Abzweig) break;
                         SetzeWeichenBelegung("Weiche64", belegtmelder.IstBelegt()); if (GetWeiche("Weiche64").Abzweig) break;
-                        SetzeWeichenBelegung("Weiche65", belegtmelder.IstBelegt()); if (GetWeiche("Weiche65").Abzweig) break;
-                        SetzeWeichenBelegung("Weiche66", belegtmelder.IstBelegt()); if (GetWeiche("Weiche66").Abzweig) break;
-                        SetzeWeichenBelegung("Weiche67", belegtmelder.IstBelegt()); break;
+                        SetzeWeichenBelegung("Weiche65", belegtmelder.IstBelegt()); 
+                        break;
+                    case "W67_W68":
+                        if (GetWeiche("Weiche68").Abzweig && (!GetWeiche("Weiche67").Abzweig))
+                        {
+                            SetzeWeichenBelegung("Weiche67", false);
+                            SetzeWeichenBelegung("Weiche68", belegtmelder.IstBelegt());
+                        }
+                        else if ((!GetWeiche("Weiche68").Abzweig) && GetWeiche("Weiche67").Abzweig)
+                        {
+                            SetzeWeichenBelegung("Weiche67", belegtmelder.IstBelegt());
+                            SetzeWeichenBelegung("Weiche68", false);
+                        }
+                        else
+                        {
+                            SetzeWeichenBelegung("Weiche67", belegtmelder.IstBelegt());
+                            SetzeWeichenBelegung("Weiche68", belegtmelder.IstBelegt());
+                        }
+
+                        break;
                     default: break;
                 }
             }

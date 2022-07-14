@@ -116,6 +116,7 @@
     <Compile Include="MenuFenster\Belegtmelder_Ueberwachung.Designer.cs">
       <DependentUpon>Belegtmelder_Ueberwachung.cs</DependentUpon>
     </Compile>
+    <Compile Include="Zusatz\Belegtmelder.cs" />
     <Compile Include="Zusatz\Logger.cs" />
     <Compile Include="MenuFenster\LokEditor.cs">
       <SubType>Form</SubType>

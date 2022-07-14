@@ -15,23 +15,24 @@ namespace MEKB_H0_Anlage
     {
         private static System.Timers.Timer UpdateTimer;
 
-        public List<Belegtmelder> Belegtmelderliste = new List<Belegtmelder>();
-        public Belegtmelder_Ueberwachung(List<Belegtmelder> belegtmelders)
+        public BelegtmelderListe belegtmelderListe;
+
+        public Belegtmelder_Ueberwachung(BelegtmelderListe liste)
         {
             InitializeComponent();
-            Belegtmelderliste = belegtmelders;
 
-            // 50 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
+            belegtmelderListe = liste;
+            // 100 MilliSekunden Timer: CooldownTimer
             UpdateTimer = new System.Timers.Timer(100);
-            // Timer mit Funktion "WeichenCooldown" Verbinden
-            UpdateTimer.Elapsed += BelegtmelderCooldown;
+            // Timer mit Funktion "BelegtLEDUpdate" Verbinden
+            UpdateTimer.Elapsed += BelegtLEDUpdate;
             UpdateTimer.AutoReset = true;
             UpdateTimer.Enabled = true;
 
-            foreach (Belegtmelder belegtmelder in Belegtmelderliste)
+            foreach (Belegtmelder belegtmelder in belegtmelderListe.Liste)
             {
-                Control Modul = this.Controls["Modul_"+ belegtmelder.Name];
-                if(Modul is TextBox ModulTextBox)
+                Control Modul = this.Controls["Modul_" + belegtmelder.Name];
+                if (Modul is TextBox ModulTextBox)
                 {
                     ModulTextBox.Text = belegtmelder.Modulnummer.ToString();
                 }
@@ -41,16 +42,17 @@ namespace MEKB_H0_Anlage
                     PortTextBox.Text = belegtmelder.Portnummer.ToString();
                 }
             }
+
         }
 
-        private void BelegtmelderCooldown(Object source, ElapsedEventArgs e)
+        private void BelegtLEDUpdate(Object source, ElapsedEventArgs e)
         {
             this.BeginInvoke((Action<int>)UpdateLightMatrix,1);          
         }
 
         private void UpdateLightMatrix(int i)
         {
-            foreach(Belegtmelder belegtmelder in Belegtmelderliste)
+            foreach(Belegtmelder belegtmelder in belegtmelderListe.Liste)
             {
                 Control ctn = this.Controls[belegtmelder.Name];
                 if(ctn is CheckBox checkBox)
@@ -76,10 +78,12 @@ namespace MEKB_H0_Anlage
                 string Meldeabschnitt = box.Name;
                 Meldeabschnitt = Meldeabschnitt.Remove(0, 4); //Remove Pin_*
 
-                int ListID = Belegtmelderliste.IndexOf(new Belegtmelder() { Name = Meldeabschnitt });
-                if (ListID == -1) return;
-
-                Belegtmelderliste[ListID].MeldeBesetzt(box.Checked);
+                Belegtmelder belegtmelder = belegtmelderListe.GetBelegtmelder(Meldeabschnitt);
+                if(belegtmelder != null)
+                {
+                    belegtmelder.MeldeBesetzt(box.Checked);
+                }
+                
             }
         }
 
@@ -89,6 +93,5 @@ namespace MEKB_H0_Anlage
             UpdateTimer.Stop();
             UpdateTimer.Close();
         }
-
     }
 }

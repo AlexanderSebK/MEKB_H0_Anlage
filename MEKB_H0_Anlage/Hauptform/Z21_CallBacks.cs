@@ -105,5 +105,9 @@ namespace MEKB_H0_Anlage
 
         }
 
+        public void CallBack_LAN_RMBUS_DATACHANGED(byte GruppenIndex, byte[] RMStatus)
+        {
+
+        }
     }
 }

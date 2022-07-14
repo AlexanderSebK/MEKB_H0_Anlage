@@ -39,7 +39,8 @@ namespace MEKB_H0_Anlage
         public List<Weiche> Weichenliste = new List<Weiche>();
         public List<Signal> Signalliste = new List<Signal>();
         public List<Lok> Lokliste = new List<Lok>();
-        public List<Belegtmelder> Belegtmelderliste = new List<Belegtmelder>();
+        //public List<Belegtmelder> Belegtmelderliste = new List<Belegtmelder>();
+        public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
         public Lok[] AktiveLoks = new Lok[12];
 
         public bool Betriebsbereit;
@@ -73,7 +74,7 @@ namespace MEKB_H0_Anlage
             z21Start.Register_LAN_SYSTEMSTATE_DATACHANGED(CallBack_Z21_System_Status);
             z21Start.Register_LAN_GET_BROADCASTFLAGS(CallBack_Z21_Broadcast_Flags);
             z21Start.Register_LAN_X_LOCO_INFO(CallBack_Z21_LokUpdate);
-
+            z21Start.Register_LAN_RMBUS_DATACHANGED(CallBack_LAN_RMBUS_DATACHANGED);
 
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
             z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
@@ -330,7 +331,7 @@ namespace MEKB_H0_Anlage
                         weiche.ZeitAktiv -= 100;
                         bool Abzweig = weiche.Abzweig;
                         if (weiche.Spiegeln) Abzweig = !Abzweig;
-                        z21Start.Z21_SET_TURNOUT(weiche.Adresse, Abzweig, true, true);
+                        z21Start.LAN_X_SET_TURNOUT(weiche.Adresse, Abzweig, true, true);
 
                         if (weiche.ZeitAktiv <= 0)
                         {
@@ -340,7 +341,7 @@ namespace MEKB_H0_Anlage
                             if (Betriebsbereit)
                             {
                                 Log.Info("Deaktiviere Weichenausgang");
-                                z21Start.Z21_SET_TURNOUT(weiche.Adresse, Abzweig, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv
+                                z21Start.LAN_X_SET_TURNOUT(weiche.Adresse, Abzweig, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv
                             }
                         }
                     }
@@ -353,10 +354,7 @@ namespace MEKB_H0_Anlage
             //Nur ausführen, wenn Verbindung aufgebaut ist
             if (z21Start.Verbunden())
             {
-                foreach(Belegtmelder belegtmelder in Belegtmelderliste)
-                {
-                    belegtmelder.CoolDown(250);
-                }
+                BelegtmelderListe.CoolDownUpdate(250);
             }
         }
 
@@ -767,7 +765,7 @@ namespace MEKB_H0_Anlage
 
         private void belegtmeldungToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(Belegtmelderliste);
+            belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
             belegtmelder_Ueberwachung.Show();
         }
     }

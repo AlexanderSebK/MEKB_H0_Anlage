@@ -272,12 +272,12 @@ namespace MEKB_H0_Anlage
                 {
                     if (ListeGlobal[ListID].Spiegeln)
                     {
-                        Z21_Instanz.Z21_SET_TURNOUT(Adresse, !weiche.FahrstrasseAbzweig, true, true);
+                        Z21_Instanz.LAN_X_SET_TURNOUT(Adresse, !weiche.FahrstrasseAbzweig, true, true);
                         ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
                     }
                     else
                     {
-                        Z21_Instanz.Z21_SET_TURNOUT(Adresse, weiche.FahrstrasseAbzweig, true, true);
+                        Z21_Instanz.LAN_X_SET_TURNOUT(Adresse, weiche.FahrstrasseAbzweig, true, true);
                         ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
                     }
                 }
@@ -302,12 +302,12 @@ namespace MEKB_H0_Anlage
 
                     if (ListeGlobal[ListID].Spiegeln)
                     {
-                        Z21_Instanz.Z21_SET_TURNOUT(ListeGlobal[ListID].Adresse, !weiche.FahrstrasseAbzweig, true, true);
+                        Z21_Instanz.LAN_X_SET_TURNOUT(ListeGlobal[ListID].Adresse, !weiche.FahrstrasseAbzweig, true, true);
                         ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
                     }
                     else
                     {
-                        Z21_Instanz.Z21_SET_TURNOUT(ListeGlobal[ListID].Adresse, weiche.FahrstrasseAbzweig, true, true);
+                        Z21_Instanz.LAN_X_SET_TURNOUT(ListeGlobal[ListID].Adresse, weiche.FahrstrasseAbzweig, true, true);
                         ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
                     }
                     ControlSetPointer++;
@@ -630,102 +630,14 @@ namespace MEKB_H0_Anlage
         }
         public void Schalten(int HPx, Z21 z21)
         {
-            if (HPx == Adr1_1) { z21.Z21_SET_SIGNAL(Adresse, false); z21.Z21_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
-            else if (HPx == Adr1_2) {z21.Z21_SET_SIGNAL(Adresse, true); z21.Z21_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
-            else if (HPx == Adr2_1) {z21.Z21_SET_SIGNAL(Adresse2, false); z21.Z21_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
-            else if (HPx == Adr2_2) {z21.Z21_SET_SIGNAL(Adresse2, true); z21.Z21_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
+            if (HPx == Adr1_1) { z21.LAN_X_SET_SIGNAL(Adresse, false); z21.LAN_X_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
+            else if (HPx == Adr1_2) {z21.LAN_X_SET_SIGNAL(Adresse, true); z21.LAN_X_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
+            else if (HPx == Adr2_1) {z21.LAN_X_SET_SIGNAL(Adresse2, false); z21.LAN_X_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
+            else if (HPx == Adr2_2) {z21.LAN_X_SET_SIGNAL(Adresse2, true); z21.LAN_X_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
         }
     }
 
-    public class Belegtmelder : IEquatable<Belegtmelder>
-    {
-        /// <summary>
-        /// Parameter: Name des Signals als String
-        /// </summary>
-        public String Name { get; set; }
-        public int Modulnummer { get; set; }
-        public int Portnummer { get; set; }        
-        public int CoolDownTime { set; get; }
-
-        private bool Belegt { set; get; }
-        private int Time { set; get; }
-
-        public bool IstBelegt()
-        {
-            if (Belegt) return true;
-            else
-            {
-                if (Time > 0) return true;
-                else return false;
-            }
-        }
-
-        public void MeldeBesetzt(bool Status)
-        {
-            if(Belegt == true)
-            {
-                if(Status == false)
-                {
-                    Time = CoolDownTime;
-                }
-            }
-            Belegt = Status;
-        }
-
-        public void CoolDown(int ZeitVergangen)
-        {
-            if ((!Belegt) && (Time > 0))
-            {
-                Time -= ZeitVergangen;
-                if (Time <= 0) Time = 0;
-            }
-        }
-
-
-        /// <summary>
-        /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
-        /// </summary>
-        /// <returns>Name der Weiche</returns>
-        public override string ToString()
-        {
-            return Name;
-        }
-        /// <summary>
-        /// Wird bei Listensuche benötigt: Adresse der Weiche
-        /// </summary>
-        /// <returns>Adresse der Weiche</returns>
-        public override int GetHashCode()
-        {
-            return (Modulnummer * 16) + Portnummer;
-        }
-        /// <summary>
-        /// Wird bei Listensuche benötigt: Weichen vergleichen
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-            if (!(obj is Belegtmelder objAsPart)) return false;
-            else return Equals(objAsPart);
-        }
-        /// <summary>
-        /// Wird bei Listensuche benötigt: Unterfunktion Weichen vergleichen
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public bool Equals(Belegtmelder other)
-        {
-            if (other == null) return false;
-
-            if(this.Name.Equals("") || other.Name.Equals(""))
-            {
-                if (this.Modulnummer == other.Modulnummer && this.Portnummer == other.Portnummer) return true;
-                else return false;
-            }
-            else return (this.Name.Equals(other.Name));
-        }
-    }
+    
 
     public struct MeldeZustand
     {

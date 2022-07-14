@@ -136,9 +136,9 @@ namespace MEKB_H0_Anlage
             int ListID = GetSignalListenID(Signalname); //Weiche mit diesem Namen in der Liste suchen
             if (ListID == -1) return;                                               //Weiche nicht vorhanden, Funktion abbrechen
             int Adresse = Signalliste[ListID].Adresse;                             //Adresse der Weiche übernehmen
-            z21Start.Z21_GET_WEICHE(Adresse);                                       //paket senden "GET Weiche"
+            z21Start.LAN_X_GET_TURNOUT_INFO(Adresse);                                       //paket senden "GET Weiche"
             Adresse = Signalliste[ListID].Adresse2;                             //Adresse der Weiche übernehmen
-            z21Start.Z21_GET_WEICHE(Adresse);                                       //paket senden "GET Weiche"
+            z21Start.LAN_X_GET_TURNOUT_INFO(Adresse);                                       //paket senden "GET Weiche"
         }
 
         private void SchalteSignal(string Signalname, int HPx)

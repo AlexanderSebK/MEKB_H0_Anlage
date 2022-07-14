@@ -420,4 +420,14 @@
     <Modulnummer>11</Modulnummer>
     <Portnummer>4</Portnummer>
   </Belegtmelder>
+  <Belegtmelder>
+    <Name>W60</Name>
+    <Modulnummer>11</Modulnummer>
+    <Portnummer>5</Portnummer>
+  </Belegtmelder>
+  <Belegtmelder>
+    <Name>W68_W67</Name>
+    <Modulnummer>11</Modulnummer>
+    <Portnummer>6</Portnummer>
+  </Belegtmelder>
 </Belegtmelderliste>
