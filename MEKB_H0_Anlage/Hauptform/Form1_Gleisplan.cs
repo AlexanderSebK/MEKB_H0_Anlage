@@ -142,28 +142,6 @@ namespace MEKB_H0_Anlage
 
         public Dictionary<string, int> BelegtmelderVerzeichnis;
 
-        private void SetupBelegtmelderListe()
-        {
-           /*
-            BelegtmelderVerzeichnis = new Dictionary<string, int>();
-            XElement XMLFile = XElement.Load("Belegtmelderliste.xml");       //XML-Datei öffnen
-            
-            var list = XMLFile.Elements("Belegtmelder").ToList();             //Alle Elemente des Types Belegtmelders in eine Liste Umwandeln 
-
-            foreach (XElement melder in list)                            //Alle Elemente der Liste einzeln durchlaufen
-            {
-                string Name = melder.Element("Name").Value;                                //Belegtmeldername des Elements auslesen
-                int Modulnummer = Int16.Parse(melder.Element("Modulnummer").Value);        //Modulnummer
-                int Portnummer = Int16.Parse(melder.Element("Portnummer").Value);               //Portnummer
-                int CoolDowntime = 6000;
-                Belegtmelderliste.Add(new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime});  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
-            }
-            for (int i = 0; i < Belegtmelderliste.Count; i++)
-            {
-                BelegtmelderVerzeichnis.Add(Belegtmelderliste[i].Name, i);
-            }
-           */
-        }
         #endregion
         #region Weichen Steuerung
         /// <summary>

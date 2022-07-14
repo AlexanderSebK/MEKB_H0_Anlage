@@ -39,7 +39,6 @@ namespace MEKB_H0_Anlage
         public List<Weiche> Weichenliste = new List<Weiche>();
         public List<Signal> Signalliste = new List<Signal>();
         public List<Lok> Lokliste = new List<Lok>();
-        //public List<Belegtmelder> Belegtmelderliste = new List<Belegtmelder>();
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
         public Lok[] AktiveLoks = new Lok[12];
 
@@ -85,7 +84,6 @@ namespace MEKB_H0_Anlage
             SetupSignalListe();                         //Signalliste festlegen
             SetupFahrstrassen();                        //Fahstrassen festlegen          
             SetupLokListe();                            //Lok-Daten aus Dateien laden
-            SetupBelegtmelderListe();                   //Belegtmelderliste aus Datei laden
 
             Betriebsbereit = false;
 
