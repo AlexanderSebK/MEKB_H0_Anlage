@@ -13,6 +13,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -64,7 +66,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <LangVersion>7.3</LangVersion>
@@ -74,8 +76,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -105,13 +110,32 @@
     <Compile Include="Hauptform\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="LokEditor.cs">
+    <Compile Include="MenuFenster\Belegtmelder_Ueberwachung.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LokEditor.Designer.cs">
+    <Compile Include="MenuFenster\Belegtmelder_Ueberwachung.Designer.cs">
+      <DependentUpon>Belegtmelder_Ueberwachung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Zusatz\Belegtmelder.cs" />
+    <Compile Include="Zusatz\Logger.cs" />
+    <Compile Include="MenuFenster\LokEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuFenster\LokEditor.Designer.cs">
       <DependentUpon>LokEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Z21_CallBacks.cs">
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MenuFenster\Signal_Einstellungen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuFenster\Signal_Einstellungen.Designer.cs">
+      <DependentUpon>Signal_Einstellungen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hauptform\Z21_CallBacks.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Hauptform\Form1_Gleisplan.cs">
@@ -120,23 +144,24 @@
     <Compile Include="Hauptform\Form1_Invokes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InfoBox.cs">
+    <Compile Include="MenuFenster\InfoBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InfoBox.Designer.cs">
+    <Compile Include="MenuFenster\InfoBox.Designer.cs">
       <DependentUpon>InfoBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Verschiedenes.cs" />
-    <Compile Include="Z21.cs" />
-    <Compile Include="Z21_Einstellung.cs">
+    <Compile Include="Zusatz\Signal.cs" />
+    <Compile Include="Zusatz\Verschiedenes.cs" />
+    <Compile Include="Z21_Bibliothek\Z21.cs" />
+    <Compile Include="MenuFenster\Z21_Einstellung.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Z21_Einstellung.Designer.cs">
+    <Compile Include="MenuFenster\Z21_Einstellung.Designer.cs">
       <DependentUpon>Z21_Einstellung.cs</DependentUpon>
     </Compile>
-    <Compile Include="Z21_Konstanten.cs" />
+    <Compile Include="Z21_Bibliothek\Z21_Konstanten.cs" />
     <Compile Include="ZugSteuerpult.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,23 +172,24 @@
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="InfoBox.resx">
+    <EmbeddedResource Include="MenuFenster\Belegtmelder_Ueberwachung.resx">
+      <DependentUpon>Belegtmelder_Ueberwachung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuFenster\InfoBox.resx">
       <DependentUpon>InfoBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LokEditor.resx">
+    <EmbeddedResource Include="MenuFenster\LokEditor.resx">
       <DependentUpon>LokEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="Z21_Einstellung.resx">
+    <EmbeddedResource Include="MenuFenster\Signal_Einstellungen.resx">
+      <DependentUpon>Signal_Einstellungen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuFenster\Z21_Einstellung.resx">
       <DependentUpon>Z21_Einstellung.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ZugSteuerpult.resx">
@@ -540,9 +566,6 @@
     <None Include="Resources\Zunge_AbzweigR_90.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Zunge_AbzweigR_180.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Zunge_Gerade_45.png" />
   </ItemGroup>
   <ItemGroup>
@@ -657,6 +680,9 @@
     <None Include="Resources\SH_2_inaktiv.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Belegtmelderliste.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Logo.ico" />
     <None Include="Resources\Fahrstrasse_links_deakt.png" />
     <None Include="Resources\Fahrstrasse_rechts_deakt.png" />
@@ -672,11 +698,23 @@
     <None Include="Resources\Kurve180R_EckeOL.png" />
     <None Include="Resources\WeicheR180_Analog.png" />
     <None Include="Resources\WeicheR180_EckeOL_Analog.png" />
-    <None Include="Resources\Zunge_AbzweigR_1801.png" />
     <None Include="Resources\Fahrstrasse_oben.png" />
     <None Include="Resources\Fahrstrasse_oben_deakt.png" />
     <None Include="Resources\Block5_90.png" />
     <None Include="Resources\Block9_90.png" />
+    <None Include="Resources\Signal_2B_0.png" />
+    <None Include="Resources\Signal_2B_180.png" />
+    <None Include="Resources\Signal_2B_HP0_0.png" />
+    <None Include="Resources\Signal_2B_HP0_180.png" />
+    <None Include="Resources\Signal_2B_HP1_0.png" />
+    <None Include="Resources\Signal_2B_HP1_180.png" />
+    <None Include="Resources\Zunge_AbzweigL_0.png" />
+    <Content Include="Resources\Zunge_AbzweigR_0.png" />
+    <None Include="Resources\Zunge_AbzweigR_01.png" />
+    <None Include="Resources\Zunge_AbzweigR_180.png" />
+    <Content Include="Resources\Zunge_AbzweigR_1801.png" />
+    <None Include="Resources\Zunge_AbzweigR_1802.png" />
+    <None Include="Resources\Zunge_AbzweigR_270.png" />
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

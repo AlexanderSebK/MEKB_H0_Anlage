@@ -122,6 +122,7 @@ namespace MEKB_H0_Anlage
         /// Zeit wie lange der Ausgang noch aktiv ist (ms)
         /// </summary>
         public int ZeitAktiv { get; set; }
+
         /// <summary>
         /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
         /// </summary>
@@ -163,14 +164,15 @@ namespace MEKB_H0_Anlage
         /// Rückantwort der Z21 analisieren
         /// </summary>
         /// <param name="SchaltCode">Paketinhalt der Z21</param>
-        public void Schalten(int SchaltCode)
+        public bool Schalten(int SchaltCode)
         {
+            bool AlterAbzweig = Abzweig;
             switch (SchaltCode)
             {
                 case 0:
                     Status_Unbekannt = true;
                     break;
-                case 1:
+                case 1:                    
                     Abzweig = true;
                     Status_Unbekannt = false;
                     Status_Error = false;
@@ -185,6 +187,9 @@ namespace MEKB_H0_Anlage
                     break;
             }
             if (Spiegeln) Abzweig = !Abzweig;   //Weiche spiegeln, wenn Paramter gesetzt ist
+
+            if (AlterAbzweig == Abzweig) return false; //Keine Änderungen/Update
+            else return true; //Änderungen
         }
 
         // Method that perform shallow copy  
@@ -200,8 +205,11 @@ namespace MEKB_H0_Anlage
             Fahrstr_Weichenliste = new List<Weiche>();
             ControlSetPointer = 0;
             SetPointer = 0;
+            Fahrstr_Sig = new Signal();
         }
         public List<Weiche> Fahrstr_Weichenliste { get; set; }
+
+        public Signal Fahrstr_Sig;
         public bool Safe { get; set; }
         private bool FahrstrasseGesetzt { get; set; }
         private bool FahrstrasseAktiv { get; set; }
@@ -264,12 +272,12 @@ namespace MEKB_H0_Anlage
                 {
                     if (ListeGlobal[ListID].Spiegeln)
                     {
-                        Z21_Instanz.Z21_SET_TURNOUT(Adresse, !weiche.FahrstrasseAbzweig, true, true);
+                        Z21_Instanz.LAN_X_SET_TURNOUT(Adresse, !weiche.FahrstrasseAbzweig, true, true);
                         ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
                     }
                     else
                     {
-                        Z21_Instanz.Z21_SET_TURNOUT(Adresse, weiche.FahrstrasseAbzweig, true, true);
+                        Z21_Instanz.LAN_X_SET_TURNOUT(Adresse, weiche.FahrstrasseAbzweig, true, true);
                         ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
                     }
                 }
@@ -294,12 +302,12 @@ namespace MEKB_H0_Anlage
 
                     if (ListeGlobal[ListID].Spiegeln)
                     {
-                        Z21_Instanz.Z21_SET_TURNOUT(ListeGlobal[ListID].Adresse, !weiche.FahrstrasseAbzweig, true, true);
+                        Z21_Instanz.LAN_X_SET_TURNOUT(ListeGlobal[ListID].Adresse, !weiche.FahrstrasseAbzweig, true, true);
                         ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
                     }
                     else
                     {
-                        Z21_Instanz.Z21_SET_TURNOUT(ListeGlobal[ListID].Adresse, weiche.FahrstrasseAbzweig, true, true);
+                        Z21_Instanz.LAN_X_SET_TURNOUT(ListeGlobal[ListID].Adresse, weiche.FahrstrasseAbzweig, true, true);
                         ListeGlobal[ListID].ZeitAktiv = ListeGlobal[ListID].Schaltzeit;
                     }
                     ControlSetPointer++;
@@ -538,93 +546,9 @@ namespace MEKB_H0_Anlage
             return (Lok)this.MemberwiseClone();
         }
     }
-    public class Signal : IEquatable<Signal>
-    {
-        /// <summary>
-        /// Parameter: Name des Signals als String
-        /// </summary>
-        public String Name { get; set; }
-        /// <summary>
-        /// Parameter: Adresse des Signals für HP0/1
-        /// </summary>
-        public int Adresse { get; set; }
-        /// <summary>
-        /// Parameter: 2.Adresse des Signals für HP2/3
-        /// </summary>
-        public int Adresse2 { get; set; }
-        /// <summary>
-        /// Lezte angewählte Adresse (true = 2. Adresse)
-        /// </summary>
-        public bool Letzte_Adresswahl { get; set; }
-        /// <summary>
-        /// Zustand: HPx des Signals 
-        /// </summary>
-        public int Zustand { get; set; }
-        public int Adr1_1 { get; set; }
-        public int Adr1_2 { get; set; }
-        public int Adr2_1 { get; set; }
-        public int Adr2_2 { get; set; }
+    
 
-
-        public string Typ { get; set; }
-        /// <summary>
-        /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
-        /// </summary>
-        /// <returns>Name der Weiche</returns>
-        public override string ToString()
-        {
-            return Name;
-        }
-        /// <summary>
-        /// Wird bei Listensuche benötigt: Adresse der Weiche
-        /// </summary>
-        /// <returns>Adresse der Weiche</returns>
-        public override int GetHashCode()
-        {
-            return Adresse;
-        }
-        /// <summary>
-        /// Wird bei Listensuche benötigt: Weichen vergleichen
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-            if (!(obj is Signal objAsPart)) return false;
-            else return Equals(objAsPart);
-        }
-        /// <summary>
-        /// Wird bei Listensuche benötigt: Unterfunktion Weichen vergleichen
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public bool Equals(Signal other)
-        {
-            if (other == null) return false;
-            return (this.Name.Equals(other.Name));
-        }
-        /// <summary>
-        /// Weiche setzen
-        /// </summary>
-        /// <param name="new_zustand">Neuer Zustand</param>
-        public void MaskenSetzen(int new_zustand)
-        {
-            if (new_zustand == 0) Zustand = 9;
-            else if (new_zustand == 1) Zustand = Adr1_1;
-            else if (new_zustand == 2) Zustand = Adr1_2;
-            else if (new_zustand == 5) Zustand = Adr2_1;
-            else if (new_zustand == 6) Zustand = Adr2_2;
-            else Zustand = 0;
-        }
-        public void Schalten(int HPx, Z21 z21)
-        {
-            if (HPx == Adr1_1) { z21.Z21_SET_SIGNAL(Adresse, false); z21.Z21_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
-            else if (HPx == Adr1_2) {z21.Z21_SET_SIGNAL(Adresse, true); z21.Z21_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
-            else if (HPx == Adr2_1) {z21.Z21_SET_SIGNAL(Adresse2, false); z21.Z21_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
-            else if (HPx == Adr2_2) {z21.Z21_SET_SIGNAL(Adresse2, true); z21.Z21_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
-        }
-    }
+    
 
     public struct MeldeZustand
     {
