@@ -8004,6 +8004,11 @@ namespace MEKB_H0_Anlage
             }
         }
 
+        private void GetBelegtMelderStatus(byte GruppenIndex)
+        {
+            z21Start.LAN_RMBUS_GETDATA(GruppenIndex);
+        }
+
         int GetWeichenListenID(string Weichenname)
         {
             int ListID;

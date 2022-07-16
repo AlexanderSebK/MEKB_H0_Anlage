@@ -726,5 +726,9 @@ namespace MEKB_H0_Anlage
             //int index = Lokliste.FindIndex(x => x.Adresse == Adresse);
 
         }
+        private void UpdateBelegtmeldung(byte GruppenIndex, byte[] RMStatus)
+        {
+            BelegtmelderListe.UpdateBelegtmelder(GruppenIndex, RMStatus);   
+        }
     }
 }

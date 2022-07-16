@@ -708,6 +708,11 @@ namespace MEKB_H0_Anlage
             byte[] SendBytes = { 0x08, 0x00, 0x40, 0x00, Header, DB0, DB1, XOR };
             if (Connected) Client.Send(SendBytes, 8);
         }
+        public void LAN_RMBUS_GETDATA(byte GroupIndex)
+        {
+            byte[] SendBytes = { 0x05, 0x00, 0x81, 0x00, GroupIndex };
+            sendCommand(SendBytes, 5);
+        }
 
         //Schreiben auf Window
     }

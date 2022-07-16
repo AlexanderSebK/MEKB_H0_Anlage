@@ -312,6 +312,9 @@ namespace MEKB_H0_Anlage
                     Fahrstrassenupdate(Schatten7_nach_Block9);
 
                     FahrstrasseBildUpdate();
+
+                    GetBelegtMelderStatus(0);
+
                     timer.Start();
                 }
             }

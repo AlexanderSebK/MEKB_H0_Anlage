@@ -72,8 +72,45 @@ namespace MEKB_H0_Anlage
             }
             return null;
         }
+        public Belegtmelder GetBelegtmelder(int Modul, int Port)
+        {
+            List<Belegtmelder> Portliste = Liste.FindAll(x => x.Modulnummer == Modul);
+            Belegtmelder belegtmelder = Portliste.Find(x => x.Portnummer == Port);
+            return belegtmelder;
+        }
 
+        public void UpdateBelegtmelder(byte GruppenIndex, byte[] RMStatus)
+        {
+            List<bool> PortListe = new List<bool>();
+            for (int i = 0; i < RMStatus.Length; i++)
+            {
+                PortListe.AddRange(ConvertByteToBoolArray(RMStatus[i]));
 
+                for(int a = 0; a < 8;a++)
+                {
+                    int ModulNummer = i + 1;
+                    if (GruppenIndex == 1) ModulNummer = ModulNummer + 10;
+                    int PortNummer = a + 1;
+
+                    Belegtmelder belegtmelder = GetBelegtmelder(ModulNummer, PortNummer);
+                    if (belegtmelder == null) continue;
+                    belegtmelder.MeldeBesetzt(PortListe[a]);
+                }
+                PortListe.Clear();
+            }
+        }
+
+        private static bool[] ConvertByteToBoolArray(byte b)
+        {
+            // prepare the return result
+            bool[] result = new bool[8];
+
+            // check each bit in the byte. if 1 set to true, if 0 set to false
+            for (int i = 0; i < 8; i++)
+                result[i] = (b & (1 << i)) != 0;
+
+            return result;
+        }
 
     }
 
