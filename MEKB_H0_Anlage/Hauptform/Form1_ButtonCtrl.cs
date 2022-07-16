@@ -65,10 +65,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL1_links.Enabled = false;
                 Fahrstr_GL1_links.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L1");
+                if (signal != null)
                 {
-                    if(Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if(signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -90,10 +90,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL2_links.Enabled = false;
                 Fahrstr_GL2_links.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L2" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L2");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -120,10 +120,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL3_links.Enabled = false;
                 Fahrstr_GL3_links.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L3" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L3");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -150,10 +150,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL4_links.Enabled = false;
                 Fahrstr_GL4_links.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L4" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L4");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -180,10 +180,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL5_links.Enabled = false;
                 Fahrstr_GL5_links.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L5" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L5");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -210,10 +210,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL6_links.Enabled = false;
                 Fahrstr_GL6_links.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L6" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L6");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -244,10 +244,10 @@ namespace MEKB_H0_Anlage
             {
                 Block2_Einfahrt.Enabled = false;
                 Block2_Einfahrt.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Einfahrt_L");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
             }
             else
@@ -283,10 +283,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL1_rechts.Enabled = false;
                 Fahrstr_GL1_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R1" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R1"); 
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -323,10 +323,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL2_rechts.Enabled = false;
                 Fahrstr_GL2_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R2" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R2");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -359,10 +359,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL3_rechts.Enabled = false;
                 Fahrstr_GL3_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R3" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R3");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -395,10 +395,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL4_rechts.Enabled = false;
                 Fahrstr_GL4_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R4" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R4");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -431,10 +431,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL5_rechts.Enabled = false;
                 Fahrstr_GL5_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R5" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R5");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -467,10 +467,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_GL6_rechts.Enabled = false;
                 Fahrstr_GL6_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R6" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R6");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -495,10 +495,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_Rechts1.Enabled = false;
                 Fahrstr_Rechts1.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_RTunnel_1"); 
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -523,10 +523,10 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_Rechts2.Enabled = false;
                 Fahrstr_Rechts2.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_RTunnel_2");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }
 
             }
@@ -546,9 +546,9 @@ namespace MEKB_H0_Anlage
                 Block5_Ausfahrt.Enabled = false;
                 Block5_Ausfahrt.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
                 /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }*/
 
             }
@@ -602,11 +602,11 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_Schatten11_Ausf.Enabled = false;
                 Fahrstr_Schatten11_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Schatten11");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
-                }*/
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                }
 
             }
             else
@@ -623,11 +623,11 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_Schatten10_Ausf.Enabled = false;
                 Fahrstr_Schatten10_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Schatten10");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
-                }*/
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                }
 
             }
             else
@@ -644,11 +644,11 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_Schatten9_Ausf.Enabled = false;
                 Fahrstr_Schatten9_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Schatten9");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
-                }*/
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                }
 
             }
             else
@@ -665,11 +665,11 @@ namespace MEKB_H0_Anlage
             {
                 Fahrstr_Schatten8_Ausf.Enabled = false;
                 Fahrstr_Schatten8_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal("Signal_Schatten8");
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
-                }*/
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                }
 
             }
             else
@@ -688,9 +688,9 @@ namespace MEKB_H0_Anlage
                 Fahrstr_Schatten0_Ausf.Enabled = false;
                 Fahrstr_Schatten0_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
                 /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }*/
 
             }
@@ -735,9 +735,9 @@ namespace MEKB_H0_Anlage
                 Fahrstr_Schatten1_Ausf.Enabled = false;
                 Fahrstr_Schatten1_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
                 /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }*/
 
             }
@@ -760,9 +760,9 @@ namespace MEKB_H0_Anlage
                 Fahrstr_Schatten2_Ausf.Enabled = false;
                 Fahrstr_Schatten2_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
                 /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }*/
 
             }
@@ -785,9 +785,9 @@ namespace MEKB_H0_Anlage
                 Fahrstr_Schatten3_Ausf.Enabled = false;
                 Fahrstr_Schatten3_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
                 /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }*/
 
             }
@@ -810,9 +810,9 @@ namespace MEKB_H0_Anlage
                 Fahrstr_Schatten4_Ausf.Enabled = false;
                 Fahrstr_Schatten4_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
                 /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }*/
 
             }
@@ -835,9 +835,9 @@ namespace MEKB_H0_Anlage
                 Fahrstr_Schatten5_Ausf.Enabled = false;
                 Fahrstr_Schatten5_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
                 /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }*/
 
             }
@@ -860,9 +860,9 @@ namespace MEKB_H0_Anlage
                 Fahrstr_Schatten6_Ausf.Enabled = false;
                 Fahrstr_Schatten6_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
                 /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }*/
 
             }
@@ -885,9 +885,9 @@ namespace MEKB_H0_Anlage
                 Fahrstr_Schatten7_Ausf.Enabled = false;
                 Fahrstr_Schatten7_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
                 /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-                if (ListID != -1)
+                if (signal != null)
                 {
-                    if (Signalliste[ListID].Zustand != 0) Signalliste[ListID].Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
                 }*/
 
             }

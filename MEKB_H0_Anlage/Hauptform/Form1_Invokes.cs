@@ -133,24 +133,24 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                index = Signalliste.FindIndex(x => x.Adresse == Adresse);
-                if (index != -1)//Signal gefunden in der 1. Adressen
+                Signal signal = SignalListe.GetSignalErsteAdresse(Adresse);
+                if (signal != null)//Signal gefunden in der 1. Adressen
                 {
-                    if (!Signalliste[index].Letzte_Adresswahl)
+                    if (!signal.Letzte_Adresswahl)
                     {
-                        Signalliste[index].MaskenSetzen(Status);
-                        UpdateSignalImGleisplan(Signalliste[index]);
+                        signal.MaskenSetzen(Status);
+                        UpdateSignalImGleisplan(signal);
                     }
                 }
                 else
                 {
-                    index = Signalliste.FindIndex(x => x.Adresse2 == Adresse);
-                    if (index != -1)//Signal gefunden in der 2. Adressen
+                    signal = SignalListe.GetSignalZweiteAdresse(Adresse);
+                    if (signal != null)//Signal gefunden in der 2. Adressen
                     {
-                        if (Signalliste[index].Letzte_Adresswahl)
+                        if (signal.Letzte_Adresswahl)
                         {
-                            Signalliste[index].MaskenSetzen(Status + 4);
-                            UpdateSignalImGleisplan(Signalliste[index]);
+                            signal.MaskenSetzen(Status + 4);
+                            UpdateSignalImGleisplan(signal);
                         }
                     }
                 }
@@ -164,7 +164,8 @@ namespace MEKB_H0_Anlage
             {
                 switch (weiche.Name)
                 {
-                    case "Weiche1":  DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche1) ;
+                    case "Weiche1":  
+                        DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche1) ;
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Ausfahrt_L1");
@@ -724,6 +725,10 @@ namespace MEKB_H0_Anlage
             }
             //int index = Lokliste.FindIndex(x => x.Adresse == Adresse);
 
+        }
+        private void UpdateBelegtmeldung(byte GruppenIndex, byte[] RMStatus)
+        {
+            BelegtmelderListe.UpdateBelegtmelder(GruppenIndex, RMStatus);   
         }
     }
 }

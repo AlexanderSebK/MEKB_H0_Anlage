@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Configuration;
 
 
 namespace MEKB_H0_Anlage
@@ -109,12 +103,14 @@ namespace MEKB_H0_Anlage
 
         #endregion
         #region Weichen Setup
-        //Graphics Gleisplan = null;    
+        public Dictionary<string, int> WeichenVerzeichnis;
+
         /// <summary>
         /// XML-Datei mit Weichendaten auslesen und damit eine Weichenliste zu erstellen
         /// </summary>
         private void SetupWeichenListe()
         {
+            WeichenVerzeichnis = new Dictionary<string, int>();
             XElement XMLFile = XElement.Load("Weichenliste.xml");       //XML-Datei öffnen
             var optionen = XMLFile.Elements("Optionen").ToList();
             bool Q_M = false;
@@ -136,7 +132,16 @@ namespace MEKB_H0_Anlage
                 if(weiche.Element("Zeit") != null) time = Int16.Parse(weiche.Element("Zeit").Value);
                 Weichenliste.Add(new Weiche() { Name = WName, Adresse = WAdresse, Spiegeln = Wspiegeln, Schaltzeit=time, Q_Modus = Q_M, Deaktivieren=deaktiv });  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
             }
+            for(int i = 0; i < Weichenliste.Count; i++)
+            {
+                WeichenVerzeichnis.Add(Weichenliste[i].Name, i);
+            }
         }
+        #endregion
+        #region Belegtmelder Setup
+
+        public Dictionary<string, int> BelegtmelderVerzeichnis;
+
         #endregion
         #region Weichen Steuerung
         /// <summary>
@@ -150,16 +155,18 @@ namespace MEKB_H0_Anlage
             {
                 foreach(Weiche weiche in Weichenliste)
                 {
-                    z21Start.Z21_GET_WEICHE(weiche.Adresse);    //Paket senden "GET Weiche"
+                    z21Start.LAN_X_GET_TURNOUT_INFO(weiche.Adresse);    //Paket senden "GET Weiche"
                     Task.Delay(50);                             //50ms warten
                 }
             }
             else
             {
-                int ListID = Weichenliste.IndexOf(new Weiche() { Name = Weichenname }); //Weiche mit diesem Namen in der Liste suchen
-                if (ListID == -1) return;                                               //Weiche nicht vorhanden, Funktion abbrechen
-                int Adresse = Weichenliste[ListID].Adresse;                             //Adresse der Weiche übernehmen
-                z21Start.Z21_GET_WEICHE(Adresse);                                       //paket senden "GET Weiche"
+                int ListID;
+                if (WeichenVerzeichnis.TryGetValue(Weichenname, out ListID))
+                {
+                    int Adresse = Weichenliste[ListID].Adresse;                             //Adresse der Weiche übernehmen
+                    z21Start.LAN_X_GET_TURNOUT_INFO(Adresse);                                       //paket senden "GET Weiche"
+                }
             }
         }
         /// <summary>
@@ -169,18 +176,21 @@ namespace MEKB_H0_Anlage
         /// <param name="Abzweig">true: auf Abzweig schalten / false: auf Gerade schalten</param>
         private void SetWeiche(string WeichenName, bool Abzweig)
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = WeichenName });
-            if (ListID == -1) return;
-            if (Weichenliste[ListID].FahrstrasseAktive) return;
+            int ListID;
+            if (WeichenVerzeichnis.TryGetValue(WeichenName, out ListID))
+            { 
+                if (Weichenliste[ListID].FahrstrasseAktive) return;
+                if (Weichenliste[ListID].ZeitAktiv > 0) return; //Weiche noch beim schalten
 
-            int Adresse = Weichenliste[ListID].Adresse;
+                int Adresse = Weichenliste[ListID].Adresse;
 
-            if (Weichenliste[ListID].Spiegeln) Abzweig = !Abzweig;
-            if (Betriebsbereit)
-            {
-                Log.Info("Aktiviere Weichenausgang");
-                z21Start.Z21_SET_TURNOUT(Adresse, Abzweig, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
-                Weichenliste[ListID].ZeitAktiv = Weichenliste[ListID].Schaltzeit;
+                if (Weichenliste[ListID].Spiegeln) Abzweig = !Abzweig;
+                if (Betriebsbereit)
+                {
+                    Log.Info("Aktiviere Weichenausgang");
+                    z21Start.LAN_X_SET_TURNOUT(Adresse, Abzweig, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
+                    Weichenliste[ListID].ZeitAktiv = Weichenliste[ListID].Schaltzeit;
+                }
             }
         }
         /// <summary>
@@ -189,28 +199,34 @@ namespace MEKB_H0_Anlage
         /// <param name="WeichenName">Weichennamen der zu schaltenen Weiche</param>
         private void ToggleWeiche(string WeichenName)
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = WeichenName });
-            if (ListID == -1) return;
-            if (Weichenliste[ListID].FahrstrasseAktive) return;
-
-            int Adresse = Weichenliste[ListID].Adresse;
-            bool Abzweig = Weichenliste[ListID].Abzweig;
-            Abzweig = !Abzweig;     //Toggeln
-
-            if (Weichenliste[ListID].Spiegeln) Abzweig = !Abzweig;
-            if (Betriebsbereit)
+            int ListID;
+            if (WeichenVerzeichnis.TryGetValue(WeichenName, out ListID))
             {
-                Log.Info("Aktiviere Weichenausgang");
-                z21Start.Z21_SET_TURNOUT(Adresse, Abzweig, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
-                Weichenliste[ListID].ZeitAktiv = Weichenliste[ListID].Schaltzeit;
+                if (Weichenliste[ListID].FahrstrasseAktive) return; //Weiche durch Fahrstraße belegt
+                if (Weichenliste[ListID].ZeitAktiv > 0) return; //Weiche noch beim schalten
+
+                int Adresse = Weichenliste[ListID].Adresse;     //Ardesse übernehmen
+                bool Abzweig = Weichenliste[ListID].Abzweig;    //Aktuelle Position lesen
+                Abzweig = !Abzweig;     //Toggeln
+
+                if (Weichenliste[ListID].Spiegeln) Abzweig = !Abzweig;  //Weiche in der Liste als gespiegelt gelistet (wenn Dekoder anders angeschlossen ist)
+                if (Betriebsbereit)
+                {
+                    Log.Info("Aktiviere Weichenausgang");
+                    z21Start.LAN_X_SET_TURNOUT(Adresse, Abzweig, true, true);             //Q-Modus aktiviert, Schaltausgang aktiv
+                    Weichenliste[ListID].ZeitAktiv = Weichenliste[ListID].Schaltzeit;   //Setze Status der Weiche als "gerade am schalten"
+                }
             }
         }
 
         private Weiche GetWeiche(string WeichenName)
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = WeichenName });
-            if (ListID == -1) return null;
-            return Weichenliste[ListID];
+            int ListID;
+            if (WeichenVerzeichnis.TryGetValue(WeichenName, out ListID))
+            {
+                return Weichenliste[ListID];
+            }
+            return null;
         }
         #endregion
         /// <summary>
@@ -236,9 +252,11 @@ namespace MEKB_H0_Anlage
             //Weichenliste durchgehen
             foreach (Weiche weiche in FahrstrassenWeichen)
             {
-                int ListID = Weichenliste.IndexOf(new Weiche() { Name = weiche.Name });//Weiche in der globalen Liste suchen
-                if (ListID == -1) return;   //Weiche nicht gefunden
-                UpdateWeicheImGleisplan(Weichenliste[ListID]); //Weiche im Gleisplan aktualisieren
+                int ListID;
+                if (WeichenVerzeichnis.TryGetValue(weiche.Name, out ListID))
+                {
+                    UpdateWeicheImGleisplan(Weichenliste[ListID]); //Weiche im Gleisplan aktualisieren
+                }
             }
             //Alle Fahrstraßen/Buttons aktualisieren
             UpdateSchalter();
@@ -332,11 +350,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis1_nach_links /////////
             Gleis1_nach_Block1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis1_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L1"); 
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis1_nach_Block1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
+            ListID = GetWeichenListenID("Weiche1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -344,7 +362,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis1_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche4" });
+            ListID = GetWeichenListenID("Weiche4");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -352,7 +370,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis1_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche6" });
+            ListID = GetWeichenListenID("Weiche6");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -367,11 +385,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis2_nach_links /////////
             Gleis2_nach_Block1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis2_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis2_nach_Block1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
+            ListID = GetWeichenListenID("Weiche1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -379,7 +397,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis2_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche4" });
+            ListID = GetWeichenListenID("Weiche4");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -387,7 +405,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis2_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche6" });
+            ListID = GetWeichenListenID("Weiche6");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -402,11 +420,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis3_nach_links /////////
             Gleis3_nach_Block1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L3" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis3_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L3");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis3_nach_Block1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
+            ListID = GetWeichenListenID("Weiche1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -414,15 +432,15 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis3_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
-            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            ListID = GetWeichenListenID("Weiche2");
+            if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
             weiche.FahrstrasseRichtung_vonZunge = true;
             weiche.FahrstrasseAbzweig = true;
             Gleis3_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -430,7 +448,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis3_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche5" });
+            ListID = GetWeichenListenID("Weiche5");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -444,11 +462,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis4_nach_links /////////
             Gleis4_nach_Block1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L4" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis4_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L4");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis4_nach_Block1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
+            ListID = GetWeichenListenID("Weiche1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -457,7 +475,7 @@ namespace MEKB_H0_Anlage
             weiche.Status_Unbekannt = false;
             Gleis4_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
+            ListID = GetWeichenListenID("Weiche2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -465,7 +483,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis4_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -473,7 +491,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis4_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche5" });
+            ListID = GetWeichenListenID("Weiche5");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -481,7 +499,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis4_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_1" });
+            ListID = GetWeichenListenID("DKW7_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -489,7 +507,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis4_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_2" });
+            ListID = GetWeichenListenID("DKW7_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -504,11 +522,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis5_nach_links /////////
             Gleis5_nach_Block1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L5" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis5_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L5");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis5_nach_Block1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
+            ListID = GetWeichenListenID("Weiche1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
             
             weiche = Weichenliste[ListID].Copy();
@@ -517,7 +535,7 @@ namespace MEKB_H0_Anlage
             weiche.Status_Unbekannt = false;
             Gleis5_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
+            ListID = GetWeichenListenID("Weiche2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -525,7 +543,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -533,7 +551,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche5" });
+            ListID = GetWeichenListenID("Weiche5");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -541,7 +559,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_1" });
+            ListID = GetWeichenListenID("DKW7_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -549,7 +567,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_2" });
+            ListID = GetWeichenListenID("DKW7_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -557,7 +575,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche8" });
+            ListID = GetWeichenListenID("Weiche8");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche8 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -565,7 +583,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_1" });
+            ListID = GetWeichenListenID("DKW9_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW9_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -573,7 +591,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_2" });
+            ListID = GetWeichenListenID("DKW9_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW9_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -587,11 +605,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis6_nach_links /////////
             Gleis6_nach_Block1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L6" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis6_nach_Block1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L6");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_L6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis6_nach_Block1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
+            ListID = GetWeichenListenID("Weiche1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -600,7 +618,7 @@ namespace MEKB_H0_Anlage
             weiche.Status_Unbekannt = false;
             Gleis6_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
+            ListID = GetWeichenListenID("Weiche2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -608,7 +626,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -616,7 +634,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche5" });
+            ListID = GetWeichenListenID("Weiche5");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -624,7 +642,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_1" });
+            ListID = GetWeichenListenID("DKW7_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -632,7 +650,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_2" });
+            ListID = GetWeichenListenID("DKW7_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -640,7 +658,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche8" });
+            ListID = GetWeichenListenID("Weiche8");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche8 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -648,7 +666,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_1" });
+            ListID = GetWeichenListenID("DKW9_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW9_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -656,7 +674,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_2" });
+            ListID = GetWeichenListenID("DKW9_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW9_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -672,11 +690,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis1 /////////
             Block2_nach_Gleis1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block2_nach_Gleis1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Einfahrt_L");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
+            ListID = GetWeichenListenID("Weiche2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -685,7 +703,7 @@ namespace MEKB_H0_Anlage
             weiche.Status_Unbekannt = false;
             Block2_nach_Gleis1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -693,7 +711,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche4" });
+            ListID = GetWeichenListenID("Weiche4");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -701,7 +719,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche6" });
+            ListID = GetWeichenListenID("Weiche6");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -715,11 +733,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis2 /////////
             Block2_nach_Gleis2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block2_nach_Gleis2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Einfahrt_L");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
+            ListID = GetWeichenListenID("Weiche2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -728,7 +746,7 @@ namespace MEKB_H0_Anlage
             weiche.Status_Unbekannt = false;
             Block2_nach_Gleis2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -736,7 +754,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche4" });
+            ListID = GetWeichenListenID("Weiche4");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -744,7 +762,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche6" });
+            ListID = GetWeichenListenID("Weiche6");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -758,11 +776,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis3 /////////
             Block2_nach_Gleis3 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block2_nach_Gleis3.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Einfahrt_L");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis3.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
+            ListID = GetWeichenListenID("Weiche2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -771,7 +789,7 @@ namespace MEKB_H0_Anlage
             weiche.Status_Unbekannt = false;
             Block2_nach_Gleis3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -779,7 +797,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block2_nach_Gleis3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche5" });
+            ListID = GetWeichenListenID("Weiche5");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -793,11 +811,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis4 /////////
             Block2_nach_Gleis4 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block2_nach_Gleis4.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Einfahrt_L");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis4.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
+            ListID = GetWeichenListenID("Weiche2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -806,7 +824,7 @@ namespace MEKB_H0_Anlage
             weiche.Status_Unbekannt = false;
             Block2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -814,7 +832,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche5" });
+            ListID = GetWeichenListenID("Weiche5");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -822,7 +840,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_1" });
+            ListID = GetWeichenListenID("DKW7_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -830,7 +848,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_2" });
+            ListID = GetWeichenListenID("DKW7_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -844,11 +862,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis5 /////////
             Block2_nach_Gleis5 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block2_nach_Gleis5.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Einfahrt_L");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis5.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
+            ListID = GetWeichenListenID("Weiche2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -857,7 +875,7 @@ namespace MEKB_H0_Anlage
             weiche.Status_Unbekannt = false;
             Block2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -865,7 +883,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche5" });
+            ListID = GetWeichenListenID("Weiche5");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -873,7 +891,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_1" });
+            ListID = GetWeichenListenID("DKW7_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -881,7 +899,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_2" });
+            ListID = GetWeichenListenID("DKW7_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -889,7 +907,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche8" });
+            ListID = GetWeichenListenID("Weiche8");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche8 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -897,7 +915,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_1" });
+            ListID = GetWeichenListenID("DKW9_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW9_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -905,7 +923,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_2" });
+            ListID = GetWeichenListenID("DKW9_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW9_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -919,11 +937,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block2_nach_Gleis6 /////////
             Block2_nach_Gleis6 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Einfahrt_L" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block2_nach_Gleis6.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Einfahrt_L");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Einfahrt_L nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block2_nach_Gleis6.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
+            ListID = GetWeichenListenID("Weiche2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -932,7 +950,7 @@ namespace MEKB_H0_Anlage
             weiche.Status_Unbekannt = false;
             Block2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -940,7 +958,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche5" });
+            ListID = GetWeichenListenID("Weiche5");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -948,7 +966,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_1" });
+            ListID = GetWeichenListenID("DKW7_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -956,7 +974,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_2" });
+            ListID = GetWeichenListenID("DKW7_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW7_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -964,7 +982,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche8" });
+            ListID = GetWeichenListenID("Weiche8");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche8 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -972,7 +990,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_1" });
+            ListID = GetWeichenListenID("DKW9_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW9_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -980,7 +998,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_2" });
+            ListID = GetWeichenListenID("DKW9_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW9_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -996,11 +1014,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis1_nach_rechts1 /////////
             Gleis1_nach_rechts1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis1_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R1");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis1_nach_rechts1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
+            ListID = GetWeichenListenID("Weiche26");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1008,7 +1026,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis1_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1016,7 +1034,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis1_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1024,7 +1042,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis1_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1032,7 +1050,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis1_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1046,11 +1064,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis2_nach_rechts1 /////////
             Gleis2_nach_rechts1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis2_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis2_nach_rechts1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
+            ListID = GetWeichenListenID("Weiche26");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1058,7 +1076,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis2_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1066,7 +1084,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis2_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1074,7 +1092,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis2_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1082,7 +1100,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis2_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1096,11 +1114,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis3_nach_rechts1 /////////
             Gleis3_nach_rechts1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R3" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis3_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R3");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis3_nach_rechts1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1108,7 +1126,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis3_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1116,7 +1134,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis3_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1124,7 +1142,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis3_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1138,11 +1156,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis4_nach_rechts1 /////////
             Gleis4_nach_rechts1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R4" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis4_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R4");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis4_nach_rechts1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1150,7 +1168,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis4_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1158,7 +1176,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis4_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1166,7 +1184,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis4_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1174,7 +1192,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis4_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1182,7 +1200,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis4_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1196,11 +1214,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis5_nach_rechts1 /////////
             Gleis5_nach_rechts1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R5" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis5_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R5");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis5_nach_rechts1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+            ListID = GetWeichenListenID("KW22_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1208,7 +1226,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+            ListID = GetWeichenListenID("KW22_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1216,7 +1234,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche23" });
+            ListID = GetWeichenListenID("Weiche23");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche23 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1224,7 +1242,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1232,7 +1250,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1240,7 +1258,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1248,7 +1266,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1256,7 +1274,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1264,7 +1282,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1278,11 +1296,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis6_nach_rechts1 /////////
             Gleis6_nach_rechts1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R6" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis6_nach_rechts1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R6");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis6_nach_rechts1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche21" });
+            ListID = GetWeichenListenID("Weiche21");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche21 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1290,7 +1308,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+            ListID = GetWeichenListenID("KW22_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1298,7 +1316,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+            ListID = GetWeichenListenID("KW22_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1306,7 +1324,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche23" });
+            ListID = GetWeichenListenID("Weiche23");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche23 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1314,7 +1332,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1322,7 +1340,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1330,7 +1348,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1338,7 +1356,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1346,7 +1364,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1354,7 +1372,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1368,11 +1386,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis1_nach_rechts2 /////////
             Gleis1_nach_rechts2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis1_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R1");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis1_nach_rechts2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
+            ListID = GetWeichenListenID("Weiche26");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1380,7 +1398,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis1_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1388,7 +1406,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis1_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1396,7 +1414,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis1_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1404,7 +1422,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis1_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1418,11 +1436,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis2_nach_rechts2 /////////
             Gleis2_nach_rechts2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis2_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis2_nach_rechts2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
+            ListID = GetWeichenListenID("Weiche26");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1430,7 +1448,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis2_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1438,7 +1456,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis2_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1446,7 +1464,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis2_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1454,7 +1472,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis2_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1468,11 +1486,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis3_nach_rechts2 /////////
             Gleis3_nach_rechts2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R3" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis3_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R3");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis3_nach_rechts2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1480,7 +1498,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis3_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1488,7 +1506,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis3_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1496,7 +1514,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis3_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1510,11 +1528,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis4_nach_rechts2 /////////
             Gleis4_nach_rechts2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R4" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis4_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R4");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis4_nach_rechts2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1522,7 +1540,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis4_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1530,7 +1548,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis4_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche26");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1538,7 +1556,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis4_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1546,7 +1564,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis4_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1554,7 +1572,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis4_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1568,11 +1586,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis5_nach_rechts2 /////////
             Gleis5_nach_rechts2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R5" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis5_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R5");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis5_nach_rechts2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+            ListID = GetWeichenListenID("KW22_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1580,7 +1598,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+            ListID = GetWeichenListenID("KW22_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1588,7 +1606,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche23" });
+            ListID = GetWeichenListenID("Weiche23");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche23 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1596,7 +1614,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1604,7 +1622,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1612,7 +1630,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1620,7 +1638,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1628,7 +1646,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1636,7 +1654,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1650,11 +1668,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Gleis6_nach_rechts2 /////////
             Gleis6_nach_rechts2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_R6" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Gleis6_nach_rechts2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R6");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Ausfahrt_R6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Gleis6_nach_rechts2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche21" });
+            ListID = GetWeichenListenID("Weiche21");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche21 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1662,7 +1680,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+            ListID = GetWeichenListenID("KW22_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1670,7 +1688,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+            ListID = GetWeichenListenID("KW22_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1678,7 +1696,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche23" });
+            ListID = GetWeichenListenID("Weiche23");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche23 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1686,7 +1704,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1694,7 +1712,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1702,7 +1720,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1710,7 +1728,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1718,7 +1736,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche30 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1726,7 +1744,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche50 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1742,11 +1760,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis1 /////////
             Rechts1_nach_Gleis1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts1_nach_Gleis1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_1");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1754,7 +1772,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1762,7 +1780,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1770,7 +1788,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
+            ListID = GetWeichenListenID("Weiche26");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1784,11 +1802,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis2 /////////
             Rechts1_nach_Gleis2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts1_nach_Gleis2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_1");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1796,7 +1814,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1804,7 +1822,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1812,7 +1830,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
+            ListID = GetWeichenListenID("Weiche26");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1826,11 +1844,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis3 /////////
             Rechts1_nach_Gleis3 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts1_nach_Gleis3.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_1");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis3.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1838,7 +1856,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1846,7 +1864,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1854,7 +1872,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1862,7 +1880,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1876,11 +1894,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis4 /////////
             Rechts1_nach_Gleis4 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts1_nach_Gleis4.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_1");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis4.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1888,7 +1906,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1896,7 +1914,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1904,7 +1922,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1912,7 +1930,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1920,7 +1938,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1928,7 +1946,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1942,11 +1960,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis5 /////////
             Rechts1_nach_Gleis5 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts1_nach_Gleis5.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_1");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis5.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1954,7 +1972,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1962,7 +1980,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1970,7 +1988,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1978,7 +1996,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1986,7 +2004,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -1994,7 +2012,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2002,7 +2020,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche23" });
+            ListID = GetWeichenListenID("Weiche23");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche23 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2010,7 +2028,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+            ListID = GetWeichenListenID("KW22_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2018,7 +2036,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+            ListID = GetWeichenListenID("KW22_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2032,11 +2050,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts1_nach_Gleis6 /////////
             Rechts1_nach_Gleis6 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts1_nach_Gleis6.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_1");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts1_nach_Gleis6.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2044,7 +2062,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2052,7 +2070,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2060,7 +2078,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2068,7 +2086,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2076,7 +2094,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2084,7 +2102,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2092,7 +2110,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche23" });
+            ListID = GetWeichenListenID("Weiche23");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche23 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2100,7 +2118,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+            ListID = GetWeichenListenID("KW22_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2108,7 +2126,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+            ListID = GetWeichenListenID("KW22_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2116,7 +2134,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche21" });
+            ListID = GetWeichenListenID("Weiche21");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche21 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2130,11 +2148,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis1 /////////
             Rechts2_nach_Gleis1 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts2_nach_Gleis1.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis1.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2142,7 +2160,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2150,7 +2168,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2158,7 +2176,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
+            ListID = GetWeichenListenID("Weiche26");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2172,11 +2190,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis2 /////////
             Rechts2_nach_Gleis2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts2_nach_Gleis2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2184,7 +2202,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2192,7 +2210,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2200,7 +2218,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
+            ListID = GetWeichenListenID("Weiche26");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche26 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2214,11 +2232,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis3 /////////
             Rechts2_nach_Gleis3 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts2_nach_Gleis3.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis3.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2226,7 +2244,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2234,7 +2252,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2242,7 +2260,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2250,7 +2268,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2264,11 +2282,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis4 /////////
             Rechts2_nach_Gleis4 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts2_nach_Gleis4.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis4.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2276,7 +2294,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2284,7 +2302,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2292,7 +2310,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2300,7 +2318,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2308,7 +2326,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2316,7 +2334,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2330,11 +2348,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis5 /////////
             Rechts2_nach_Gleis5 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts2_nach_Gleis5.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis5.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2342,7 +2360,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2350,7 +2368,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2358,7 +2376,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2366,7 +2384,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2374,7 +2392,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2382,7 +2400,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2390,7 +2408,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche23" });
+            ListID = GetWeichenListenID("Weiche23");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche23 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2398,7 +2416,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+            ListID = GetWeichenListenID("KW22_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2406,7 +2424,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+            ListID = GetWeichenListenID("KW22_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2420,11 +2438,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// rechts2_nach_Gleis6 /////////
             Rechts2_nach_Gleis6 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_RTunnel_2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Rechts2_nach_Gleis6.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_RTunnel_2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_RTunnel_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Rechts2_nach_Gleis6.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche51 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2432,7 +2450,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche29 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2440,7 +2458,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche28 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2448,7 +2466,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche27 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2456,7 +2474,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche25 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2464,7 +2482,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2472,7 +2490,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2480,7 +2498,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche23" });
+            ListID = GetWeichenListenID("Weiche23");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche23 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2488,7 +2506,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+            ListID = GetWeichenListenID("KW22_1");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2496,7 +2514,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+            ListID = GetWeichenListenID("KW22_2");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: KW22_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2504,7 +2522,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche21" });
+            ListID = GetWeichenListenID("Weiche21");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche21 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2520,11 +2538,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block1_nach_Block5 /////////
             Block1_nach_Block5 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Block5" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Block5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block1_nach_Block5.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Block5");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Block5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block1_nach_Block5.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche52" });
+            ListID = GetWeichenListenID("Weiche52");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche52 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2539,11 +2557,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block1_nach_Block2 /////////
             Block1_nach_Block2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Block5" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Block5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block1_nach_Block2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Block5");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Block5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block1_nach_Block2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche52" });
+            ListID = GetWeichenListenID("Weiche52");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche52 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2551,7 +2569,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block1_nach_Block2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche53" });
+            ListID = GetWeichenListenID("Weiche53");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche53 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2565,11 +2583,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block5_nach_Block6 /////////
             Block5_nach_Block6 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Block6" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Block6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block5_nach_Block6.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Block6");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Block6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block5_nach_Block6.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche60" });
+            ListID = GetWeichenListenID("Weiche60");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche60 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2584,11 +2602,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block8_nach_Block6 /////////
             Block8_nach_Block6 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Block8" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Block8 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block8_nach_Block6.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Block8");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Block8 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block8_nach_Block6.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche60" });
+            ListID = GetWeichenListenID("Weiche60");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche60 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2602,11 +2620,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block9_nach_Block2 /////////
             Block9_nach_Block2 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Block2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Block2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block9_nach_Block2.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Block2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Block2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block9_nach_Block2.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche53" });
+            ListID = GetWeichenListenID("Weiche53");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche53 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2622,11 +2640,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block6_nach Schattenbahnhof Gl. 8 /////////
             Block6_nach_Schatten8 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten_Einf" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block6_nach_Schatten8.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten_Einf");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block6_nach_Schatten8.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            ListID = GetWeichenListenID("Weiche90");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2634,7 +2652,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block6_nach_Schatten8.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche91" });
+            ListID = GetWeichenListenID("Weiche91");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche91 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2642,7 +2660,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block6_nach_Schatten8.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche92" });
+            ListID = GetWeichenListenID("Weiche92");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche92 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2656,11 +2674,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block6_nach Schattenbahnhof Gl. 9 /////////
             Block6_nach_Schatten9 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten_Einf" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block6_nach_Schatten9.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten_Einf");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block6_nach_Schatten9.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            ListID = GetWeichenListenID("Weiche90");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2668,7 +2686,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block6_nach_Schatten9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche91" });
+            ListID = GetWeichenListenID("Weiche91");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche91 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2676,7 +2694,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block6_nach_Schatten9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche92" });
+            ListID = GetWeichenListenID("Weiche92");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche92 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2690,11 +2708,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block6_nach Schattenbahnhof Gl. 10 /////////
             Block6_nach_Schatten10 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten_Einf" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block6_nach_Schatten10.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten_Einf");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block6_nach_Schatten10.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            ListID = GetWeichenListenID("Weiche90");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2702,7 +2720,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Block6_nach_Schatten10.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche91" });
+            ListID = GetWeichenListenID("Weiche91");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche91 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2716,11 +2734,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block6_nach Schattenbahnhof Gl. 11 /////////
             Block6_nach_Schatten11 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten_Einf" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Block6_nach_Schatten11.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten_Einf");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten_Einf nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Block6_nach_Schatten11.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            ListID = GetWeichenListenID("Weiche90");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche90 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2736,11 +2754,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schattenbahnhof Gl. 11 Ausf/////////
             Schatten11_nach_Block7 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten11" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten11 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten11_nach_Block7.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten11");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten11 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten11_nach_Block7.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
+            ListID = GetWeichenListenID("Weiche80");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2748,7 +2766,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten11_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche81" });
+            ListID = GetWeichenListenID("Weiche81");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche81 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2756,7 +2774,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten11_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche82" });
+            ListID = GetWeichenListenID("Weiche82");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche82 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2770,11 +2788,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schattenbahnhof Gl. 10 Ausf/////////
             Schatten10_nach_Block7 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten10" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten10 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten10_nach_Block7.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten10");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten10 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten10_nach_Block7.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
+            ListID = GetWeichenListenID("Weiche80");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2782,7 +2800,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten10_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche81" });
+            ListID = GetWeichenListenID("Weiche81");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche81 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2790,7 +2808,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten10_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche82" });
+            ListID = GetWeichenListenID("Weiche82");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche82 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2804,11 +2822,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schattenbahnhof Gl. 9 Ausf/////////
             Schatten9_nach_Block7 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten9" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten9 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten9_nach_Block7.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten9");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten9 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten9_nach_Block7.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
+            ListID = GetWeichenListenID("Weiche80");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2816,7 +2834,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten9_nach_Block7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche81" });
+            ListID = GetWeichenListenID("Weiche81");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche81 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2830,11 +2848,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schattenbahnhof Gl. 9 Ausf/////////
             Schatten8_nach_Block7 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten8" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten8 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten8_nach_Block7.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten8");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten8 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten8_nach_Block7.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche80" });
+            ListID = GetWeichenListenID("Weiche80");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche80 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2851,7 +2869,7 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block7_nach_Schatten0 /////////
             Block7_nach_Schatten0 = new Fahrstrasse();
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche70" });
+            ListID = GetWeichenListenID("Weiche70");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche70 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2866,7 +2884,7 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block7_nach_Schatten1 /////////
             Block7_nach_Schatten1 = new Fahrstrasse();
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche70" });
+            ListID = GetWeichenListenID("Weiche70");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche70 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2874,7 +2892,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten1.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche71" });
+            ListID = GetWeichenListenID("Weiche71");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche71 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2889,7 +2907,7 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block7_nach_Schatten2 /////////
             Block7_nach_Schatten2 = new Fahrstrasse();
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche70" });
+            ListID = GetWeichenListenID("Weiche70");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche70 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2897,7 +2915,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche71" });
+            ListID = GetWeichenListenID("Weiche71");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche71 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2905,7 +2923,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten2.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche72" });
+            ListID = GetWeichenListenID("Weiche72");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche72 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2919,7 +2937,7 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block7_nach_Schatten3 /////////
             Block7_nach_Schatten3 = new Fahrstrasse();
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche70" });
+            ListID = GetWeichenListenID("Weiche70");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche70 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2927,7 +2945,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche71" });
+            ListID = GetWeichenListenID("Weiche71");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche71 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2935,7 +2953,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche72" });
+            ListID = GetWeichenListenID("Weiche72");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche72 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2943,7 +2961,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten3.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche73" });
+            ListID = GetWeichenListenID("Weiche73");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche73 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2957,7 +2975,7 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block7_nach_Schatten4 /////////
             Block7_nach_Schatten4 = new Fahrstrasse();
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche70" });
+            ListID = GetWeichenListenID("Weiche70");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche70 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2965,7 +2983,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche71" });
+            ListID = GetWeichenListenID("Weiche71");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche71 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2973,7 +2991,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche72" });
+            ListID = GetWeichenListenID("Weiche72");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche72 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2981,7 +2999,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche73" });
+            ListID = GetWeichenListenID("Weiche73");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche73 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -2989,7 +3007,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten4.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche74" });
+            ListID = GetWeichenListenID("Weiche74");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche74 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3003,7 +3021,7 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block7_nach_Schatten5 /////////
             Block7_nach_Schatten5 = new Fahrstrasse();
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche70" });
+            ListID = GetWeichenListenID("Weiche70");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche70 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3011,7 +3029,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche71" });
+            ListID = GetWeichenListenID("Weiche71");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche71 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3019,7 +3037,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche72" });
+            ListID = GetWeichenListenID("Weiche72");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche72 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3027,7 +3045,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche73" });
+            ListID = GetWeichenListenID("Weiche73");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche73 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3035,7 +3053,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche74" });
+            ListID = GetWeichenListenID("Weiche74");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche74 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3043,7 +3061,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten5.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche75" });
+            ListID = GetWeichenListenID("Weiche75");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche75 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3057,7 +3075,7 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block7_nach_Schatten6 /////////
             Block7_nach_Schatten6 = new Fahrstrasse();
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche70" });
+            ListID = GetWeichenListenID("Weiche70");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche70 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3065,7 +3083,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche71" });
+            ListID = GetWeichenListenID("Weiche71");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche71 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3073,7 +3091,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche72" });
+            ListID = GetWeichenListenID("Weiche72");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche72 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3081,7 +3099,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche73" });
+            ListID = GetWeichenListenID("Weiche73");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche73 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3089,7 +3107,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche74" });
+            ListID = GetWeichenListenID("Weiche74");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche74 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3097,7 +3115,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche75" });
+            ListID = GetWeichenListenID("Weiche75");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche75 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3105,7 +3123,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten6.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche76" });
+            ListID = GetWeichenListenID("Weiche76");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche76 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3119,7 +3137,7 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Block7_nach_Schatten7 /////////
             Block7_nach_Schatten7 = new Fahrstrasse();
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche70" });
+            ListID = GetWeichenListenID("Weiche70");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche70 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3127,7 +3145,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche71" });
+            ListID = GetWeichenListenID("Weiche71");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche71 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3135,7 +3153,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche72" });
+            ListID = GetWeichenListenID("Weiche72");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche72 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3143,7 +3161,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche73" });
+            ListID = GetWeichenListenID("Weiche73");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche73 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3151,7 +3169,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche74" });
+            ListID = GetWeichenListenID("Weiche74");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche74 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3159,7 +3177,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche75" });
+            ListID = GetWeichenListenID("Weiche75");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche75 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3167,7 +3185,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Block7_nach_Schatten7.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche76" });
+            ListID = GetWeichenListenID("Weiche76");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche76 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3183,11 +3201,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten0_nachBlock8 /////////
             Schatten0_nach_Block8 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten0" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten0 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten0_nach_Block8.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten0");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten0 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten0_nach_Block8.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche68" });
+            ListID = GetWeichenListenID("Weiche68");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche68 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3202,11 +3220,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten1_nachBlock8 /////////
             Schatten1_nach_Block8 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten1_nach_Block8.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten1");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten1_nach_Block8.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche68" });
+            ListID = GetWeichenListenID("Weiche68");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche68 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3214,7 +3232,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten1_nach_Block8.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche67" });
+            ListID = GetWeichenListenID("Weiche67");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche67 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3229,11 +3247,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten1_nachBlock9 /////////
             Schatten1_nach_Block9 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten1" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten1_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten1");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten1_nach_Block9.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche67" });
+            ListID = GetWeichenListenID("Weiche67");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche67 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3241,7 +3259,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Schatten1_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche66" });
+            ListID = GetWeichenListenID("Weiche66");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche66 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3249,7 +3267,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten1_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche65" });
+            ListID = GetWeichenListenID("Weiche65");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche65 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3257,7 +3275,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten1_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche64" });
+            ListID = GetWeichenListenID("Weiche64");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche64 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3265,7 +3283,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten1_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche63" });
+            ListID = GetWeichenListenID("Weiche63");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche63 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3273,7 +3291,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten1_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche62" });
+            ListID = GetWeichenListenID("Weiche62");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche62 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3281,7 +3299,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten1_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche61" });
+            ListID = GetWeichenListenID("Weiche61");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche61 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3295,11 +3313,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten2_nachBlock9 /////////
             Schatten2_nach_Block9 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten2" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten2_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten2");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten2_nach_Block9.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche66" });
+            ListID = GetWeichenListenID("Weiche66");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche66 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3307,7 +3325,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Schatten2_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche65" });
+            ListID = GetWeichenListenID("Weiche65");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche65 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3315,7 +3333,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten2_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche64" });
+            ListID = GetWeichenListenID("Weiche64");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche64 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3323,7 +3341,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten2_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche63" });
+            ListID = GetWeichenListenID("Weiche63");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche63 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3331,7 +3349,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten2_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche62" });
+            ListID = GetWeichenListenID("Weiche62");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche62 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3339,7 +3357,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten2_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche61" });
+            ListID = GetWeichenListenID("Weiche61");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche61 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3353,11 +3371,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten3_nachBlock9 /////////
             Schatten3_nach_Block9 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten3" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten3_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten3");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten3 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten3_nach_Block9.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche65" });
+            ListID = GetWeichenListenID("Weiche65");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche65 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3365,7 +3383,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Schatten3_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche64" });
+            ListID = GetWeichenListenID("Weiche64");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche64 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3373,7 +3391,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten3_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche63" });
+            ListID = GetWeichenListenID("Weiche63");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche63 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3381,7 +3399,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten3_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche62" });
+            ListID = GetWeichenListenID("Weiche62");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche62 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3389,7 +3407,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten3_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche61" });
+            ListID = GetWeichenListenID("Weiche61");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche61 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3403,11 +3421,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten4_nachBlock9 /////////
             Schatten4_nach_Block9 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten4" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten4_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten4");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten4 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten4_nach_Block9.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche64" });
+            ListID = GetWeichenListenID("Weiche64");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche64 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3415,7 +3433,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Schatten4_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche63" });
+            ListID = GetWeichenListenID("Weiche63");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche63 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3423,7 +3441,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten4_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche62" });
+            ListID = GetWeichenListenID("Weiche62");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche62 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3431,7 +3449,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten4_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche61" });
+            ListID = GetWeichenListenID("Weiche61");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche61 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3445,11 +3463,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten4_nachBlock9 /////////
             Schatten5_nach_Block9 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten5" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten5_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten5");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten5 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten5_nach_Block9.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche63" });
+            ListID = GetWeichenListenID("Weiche63");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche63 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3457,7 +3475,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Schatten5_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche62" });
+            ListID = GetWeichenListenID("Weiche62");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche62 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3465,7 +3483,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = false;
             Schatten5_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche61" });
+            ListID = GetWeichenListenID("Weiche61");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche61 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3479,11 +3497,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten4_nachBlock9 /////////
             Schatten6_nach_Block9 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten6" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten6_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten6");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten6 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten6_nach_Block9.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche62" });
+            ListID = GetWeichenListenID("Weiche62");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche62 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3491,7 +3509,7 @@ namespace MEKB_H0_Anlage
             weiche.FahrstrasseAbzweig = true;
             Schatten6_nach_Block9.Fahrstr_Weichenliste.Add(weiche);
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche61" });
+            ListID = GetWeichenListenID("Weiche61");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche61 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3505,11 +3523,11 @@ namespace MEKB_H0_Anlage
             int ListID;
             ////////// Schatten4_nachBlock9 /////////
             Schatten7_nach_Block9 = new Fahrstrasse();
-            int SigID = Signalliste.IndexOf(new Signal() { Name = "Signal_Schatten7" });
-            if (SigID == -1) { MessageBox.Show("Schwerer Error: Signal_Schatten7 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            Schatten7_nach_Block9.Fahrstr_Sig = Signalliste[SigID];
+            Signal signal = SignalListe.GetSignal("Signal_Schatten7");
+            if (signal == null) { MessageBox.Show("Schwerer Error: Signal_Schatten7 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            Schatten7_nach_Block9.Fahrstr_Sig = signal;
 
-            ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche61" });
+            ListID = GetWeichenListenID("Weiche61");
             if (ListID == -1) { MessageBox.Show("Schwerer Error: Weiche61 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche = Weichenliste[ListID].Copy();
@@ -3521,16 +3539,27 @@ namespace MEKB_H0_Anlage
 
         #endregion
         #region Fahrstraßen bestimmen
+        /// <summary>
+        /// Generiere Statuskonstrukt aus Fahrstraßen und Belegtmeldung
+        /// </summary>
+        /// <param name="besetzt">Belegtstatus des Abschnitts</param>
+        /// <param name="Fahrstrassen_west">Fahrstraßen, die diesen Abschnitt nach westen(links) belegen </param>
+        /// <param name="Fahrstrassen_ost">Fahrstraßen, die diesen Abschnitt nach osten(rechts) belegen</param>
+        /// <returns></returns>
         MeldeZustand ErrechneZustand(bool besetzt, List<Fahrstrasse> Fahrstrassen_west, List<Fahrstrasse> Fahrstrassen_ost)
         {
-            int aktiv_west = 0;
-            int aktiv_ost = 0;
-            int safe_west = 0;
-            int safe_ost = 0;
+            //Zählvariablen für die Fahrstraßen
+            int aktiv_west = 0; //Anzahl aktive Fahrstraßen nach westen
+            int aktiv_ost = 0; //Anzahl aktive Fahrstraßen nach osten
+            int safe_west = 0; //Anzahl sichere Fahrstraßen nach westen
+            int safe_ost = 0; //Anzahl sichere Fahrstraßen nach osten
 
+            //Zwischenvariablen Zustände
             bool richtung = false;
             bool fahrstrasseAktiv = false;
             bool sicher = false;
+
+            //Zählen der Fahrstraßen
             foreach (Fahrstrasse fahrstrasse in Fahrstrassen_west)
             {
                 if (fahrstrasse.GetAktivStatus()) aktiv_west++;
@@ -3542,52 +3571,33 @@ namespace MEKB_H0_Anlage
                 if (fahrstrasse.Safe) safe_ost++;
             }
 
+            //Mehr als eine Fahrstraße aktiv -> Fehler
             if (aktiv_west > 1) return new MeldeZustand(false);
             if (aktiv_ost > 1) return new MeldeZustand(false);
             if (safe_west > 1) return new MeldeZustand(false);
             if (safe_ost > 1) return new MeldeZustand(false);
-
             if ((aktiv_west == 1) && (aktiv_ost == 1)) return new MeldeZustand(false);
 
+            //Fahrstraße nach westen aktiv
             if (aktiv_west == 1) 
             { 
                 richtung = WEST;
                 fahrstrasseAktiv = true;
-                if (safe_west == 1) sicher = true;
+                if (safe_west == 1) sicher = true; //Fahrstraße sicher?
             }
+            //Fahrstraße nach osten aktiv
             if (aktiv_ost == 1) 
             { 
                 richtung = OST;
                 fahrstrasseAktiv = true;
-                if (safe_ost == 1) sicher = true;
+                if (safe_ost == 1) sicher = true; //Fahrstraße sicher?
             }
 
-
+            //Generiere Statuskonstrukt
             return new MeldeZustand(besetzt, fahrstrasseAktiv, sicher, richtung);
         }
-        private string ErrechneWeichenZustand(Weiche weiche, string vonZunge, string zuZunge)
-        {
-            string Zustand = "";
-
-            if (weiche.FahrstrasseSicher) Zustand += "Sicher:";
-            if (weiche.Besetzt) Zustand += " Besetzt";
-            if (weiche.FahrstrasseAktive)
-            {
-                Zustand += " Fahrstrasse";
-                if (weiche.FahrstrasseRichtung_vonZunge) Zustand += vonZunge;
-                else Zustand += zuZunge;
-            }
-            if (!weiche.Besetzt && !weiche.FahrstrasseAktive)
-            {
-                Zustand = "Frei";
-            }
-
-            return Zustand;
-        }
-        private MeldeZustand Frei()
-        {
-            return new MeldeZustand(false, false, false, false);
-        }
+        
+        
         /// <summary>
         /// Involke-Funktion. Verhindert Fehlermeldung beim gleichzeitigen Zugreifen auf ein Bild
         /// </summary>
@@ -3691,30 +3701,360 @@ namespace MEKB_H0_Anlage
         }
         #endregion
         #region Bahnhofseinfahrt links
-        private void UpdateGleisbild_Block_BhfEinfahrtL(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        private void UpdateGleisbild_Weiche5(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block_BhfEinfahrt_Links);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Weiche5_Gleis2);
         }
         #endregion
+        #region Bahnhof
+        private void UpdateGleisbild_Gl1_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl1_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl1_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_2);
+        }
+
+        private void UpdateGleisbild_Gl2_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl2_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl2_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_2);
+        }
+
+        private void UpdateGleisbild_Gl3_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl3_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl3_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_2);
+        }
+
+        private void UpdateGleisbild_Gl4_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl4_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl4_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_2);
+        }
+
+        private void UpdateGleisbild_Gl5_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl5_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl5_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_2);
+        }
+
+        private void UpdateGleisbild_Gl6_Halt_links(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_L1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_L2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_L3);
+        }
+        private void UpdateGleisbild_Gl6_Halt_rechts(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_R1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_R2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_R3);
+        }
+        private void UpdateGleisbild_Gl6_Zentrum(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_2);
+        }
+        #endregion
+        #region Schattenbahnhof
+
+        private void UpdateGleisbild_Schatten_Eingl(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_6);
+        }
+        private void UpdateGleisbild_Schatten_Eingl_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl1(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl1_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl2(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl2_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl3(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl3_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl4(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl4_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl5(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl5_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl6(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl6_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl7(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl7_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl8(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl8_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_Halt_1);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl9(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl9_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_Halt_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_Halt_2);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl10(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl10_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_Halt_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_Halt_2);
+        }
+
+        private void UpdateGleisbild_Schatten_Gl11(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_6);
+        }
+        private void UpdateGleisbild_Schatten_Gl11_Halt(bool besetzt)
+        {
+            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_Halt_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_Halt_2);
+        }
+
+        #endregion
+
         #region Block 1
+        private void UpdateGleisbild_Weiche6(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Weiche6_Gleis4);
+        }
         private void UpdateGleisbild_Block1a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildGerade90(zustand), Block1a_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1a_2);
         }
-        private void UpdateGleisbild_Block1c(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        private void UpdateGleisbild_Block1b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_6);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_7);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_8);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1c_9);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_6);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_7);
         }
         private void UpdateGleisbild_Block1_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
@@ -3738,70 +4078,82 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildGerade270(zustand), Block2_7);
             DisplayPicture(GetSchaltbildGerade270(zustand), Block2_8);
             DisplayPicture(GetSchaltbildGerade270(zustand), Block2_10);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_11);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_12);
+        }
+        private void UpdateGleisbild_Block2_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_Halt_1);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_Halt_2);
         }
         #endregion
         #region Block 3
-        private void UpdateGleisbild_Block3a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        private void UpdateGleisbild_Weiche25(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3a);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Weiche25_Gleis2);
         }
-        private void UpdateGleisbild_Block3b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        private void UpdateGleisbild_Block3(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3b_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block3_5);
         }
         #endregion
         #region Block 4
-        private void UpdateGleisbild_Block4a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        private void UpdateGleisbild_Block4(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4a_5);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4_2);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4_3);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4_4);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Block4_5);
         }
-        private void UpdateGleisbild_Block4b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        private void UpdateGleisbild_Weiche26(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4b_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Weiche26_Gleis2);
         }
         #endregion
         #region Block 5
-        private void UpdateGleisbild_Block5(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        private void UpdateGleisbild_Block5a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {           
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_0);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_1);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_2);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_3);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_4);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_5);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_6);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_7);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_8);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_9);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_10);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_11);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_12);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_13);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_14);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_15);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_16);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_17);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5_18);
-            DisplayPicture(GetSchaltbildKurve180L(zustand), Block5_19);
-            DisplayPicture(GetSchaltbildEckeOR_Sp(zustand), Block5_20);
-            DisplayPicture(GetSchaltbildKurve135L(zustand), Block5_21);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block5_22);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block5_23);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5a_1);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5a_2);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5a_3);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5a_4);
+        }
+        private void UpdateGleisbild_Block5b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_1);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_2);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_3);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_4);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_5);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_6);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_7);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_8);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_9);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_10);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_11);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_12);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_13);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_14);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_15);
+            DisplayPicture(GetSchaltbildKurve180L(zustand), Block5b_16);
+            DisplayPicture(GetSchaltbildEckeOR_Sp(zustand), Block5b_17);
+            DisplayPicture(GetSchaltbildKurve135L(zustand), Block5b_18);
+        }
+        private void UpdateGleisbild_Block5_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block5_Halt_1);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block5_Halt_2);
         }
         #endregion
         #region Block 6
@@ -3817,8 +4169,12 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildGerade270(zustand), Block6_7);
             DisplayPicture(GetSchaltbildGerade270(zustand), Block6_8);
             DisplayPicture(GetSchaltbildGerade270(zustand), Block6_9);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_10);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_11);
+        }
+        private void UpdateGleisbild_Block6_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_Halt1);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_Halt2);
         }
         #endregion
         #region Block 7
@@ -3854,10 +4210,13 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildKurve270L(zustand), Block8_6);
             DisplayPicture(GetSchaltbildEckeUR(zustand), Block8_7);
             DisplayPicture(GetSchaltbildEckeOL(zustand), Block8_8);
-            DisplayPicture(GetSchaltbildKurve0R(zustand), Block8_9);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_10);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_11);
-            
+            DisplayPicture(GetSchaltbildKurve0R(zustand), Block8_9);        
+        }
+        private void UpdateGleisbild_Block8_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_Halt_1);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_Halt_2);
         }
         #endregion
         #region Block 9
@@ -3881,8 +4240,12 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildGerade180(zustand), Block9_15);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block9_16);
             DisplayPicture(GetSchaltbildGerade180(zustand), Block9_17);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_18);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_19);
+        }
+        private void UpdateGleisbild_Block9_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_Halt_1);
+            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_Halt_2);
         }
         #endregion
 
@@ -3913,23 +4276,33 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, FreiesGleis), Kreuzung1_1);
-                DisplayPicture(GetSchaltbildEckeUL(FreiesGleis), Kreuzung1_2);
-                DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, FreiesGleis), Kreuzung1_3);
-                DisplayPicture(GetSchaltbildKurve180L(FreiesGleis), Kreuzung1_4);
-                DisplayPicture(GetSchaltbildKreuzung90_135(FreiesGleis, FreiesGleis), Kreuzung1);
-                DisplayPicture(GetSchaltbildGerade180(FreiesGleis), Kreuzung1_5);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(zustand9, FreiesGleis), Kreuzung1_1);
+                DisplayPicture(GetSchaltbildEckeUL(zustand8), Kreuzung1_2);
+                DisplayPicture(GetSchaltbildGerade90_EckeOR(zustand9, FreiesGleis), Kreuzung1_3);
+                DisplayPicture(GetSchaltbildKurve180L(zustand8), Kreuzung1_4);
+                DisplayPicture(GetSchaltbildKreuzung90_135(zustand9, zustand8), Kreuzung1);
+                DisplayPicture(GetSchaltbildGerade180(zustand8), Kreuzung1_5);
             }
        
         }
 
         #region Schattenbahnhof
-        private void UpdateGleisbild_SchattenkleinAusf(List<bool> besetzt, List<Fahrstrasse> Fahrstrassen)
+        private void UpdateGleisbild_SchattenkleinAusf(bool besetzt, List<Fahrstrasse> Fahrstrassen)
         {
-            MeldeZustand zustand8 = ErrechneZustand(besetzt[0], new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[0] }); //Gleis8
-            MeldeZustand zustand9 = ErrechneZustand(besetzt[1], new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[1] }); //Gleis9
-            MeldeZustand zustand10 = ErrechneZustand(besetzt[2], new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[2] }); //Gleis10
-            MeldeZustand zustand11 = ErrechneZustand(besetzt[3], new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[3] }); //Gleis11
+            bool besetzt8 = false;
+            bool besetzt9 = false;
+            bool besetzt10 = false;
+            bool besetzt11 = false;
+
+            if (GetWeiche("Weiche80").Abzweig) besetzt8 = besetzt;
+            else if(GetWeiche("Weiche81").Abzweig) besetzt9 = besetzt;
+            else if (GetWeiche("Weiche82").Abzweig) besetzt10 = besetzt;
+            else besetzt11 = besetzt;
+
+            MeldeZustand zustand8 = ErrechneZustand(besetzt8, new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[0] }); //Gleis8
+            MeldeZustand zustand9 = ErrechneZustand(besetzt9, new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[1] }); //Gleis9
+            MeldeZustand zustand10 = ErrechneZustand(besetzt10, new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[2] }); //Gleis10
+            MeldeZustand zustand11 = ErrechneZustand(besetzt11, new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[3] }); //Gleis11
 
             DisplayPicture(GetSchaltbildEckeUR(zustand8), Schatten8_Ausf1);
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand8, zustand9), Schatten8_Ausf2);
@@ -3950,9 +4323,16 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Schatten0Ausf(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildEckeUR(zustand), Schatten0_Ausf1);
-            DisplayPicture(GetSchaltbildKurve270L(zustand), Schatten0_Ausf2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Schatten0_Ausf3);
+            if((GetWeiche("Weiche68").Abzweig) || zustand.Fahrstrasse == true)
+            {
+                DisplayPicture(GetSchaltbildEckeUR(zustand), Schatten0_Ausf1);
+                DisplayPicture(GetSchaltbildKurve270L(zustand), Schatten0_Ausf2);
+                DisplayPicture(GetSchaltbildGerade90(zustand), Schatten0_Ausf3);
+            }
+            else if(zustand.Besetzt == false)
+            {
+
+            }
         }
         #endregion
         #region Block (sonder)
@@ -3968,9 +4348,10 @@ namespace MEKB_H0_Anlage
         #region Weichen Gleisfeldumgebung
         private void UpdateGleisbild_Weiche1()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche1" });
+            int ListID = GetWeichenListenID("Weiche1");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheR90(Weichenliste[ListID]), Weiche1);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche1_Gl1);
@@ -3983,9 +4364,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche2()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche2" });
+            int ListID = GetWeichenListenID("Weiche2");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR270(Weichenliste[ListID]), Weiche2);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, meldeZustand), Weiche2_Gleis);
@@ -3998,9 +4380,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche3()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche3" });
+            int ListID = GetWeichenListenID("Weiche3");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheL90(Weichenliste[ListID]), Weiche3);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche3_Gleis);
@@ -4012,9 +4395,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche4()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche4" });
+            int ListID = GetWeichenListenID("Weiche4");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheL270(Weichenliste[ListID]), Weiche4);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche4_Gl1);
@@ -4027,9 +4411,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche5()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche5" });
+            int ListID = GetWeichenListenID("Weiche5");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheR90(Weichenliste[ListID]), Weiche5);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche5_Gleis1);
@@ -4041,9 +4426,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche6()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche6" });
+            int ListID = GetWeichenListenID("Weiche6");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheL90(Weichenliste[ListID]), Weiche6);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildKurve270L(meldeZustand), Weiche6_Gleis2);
@@ -4060,9 +4446,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche8()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche8" });
+            int ListID = GetWeichenListenID("Weiche8");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheL315(Weichenliste[ListID]), Weiche8);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(meldeZustand, FreiesGleis), Weiche8_Gleis1);
@@ -4074,9 +4461,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche21()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche21" });
+            int ListID = GetWeichenListenID("Weiche21");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheL90(Weichenliste[ListID]), Weiche21);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche21_Gleis1);
@@ -4088,9 +4476,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche23()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche23" });
+            int ListID = GetWeichenListenID("Weiche23");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheR45(Weichenliste[ListID]), Weiche23);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche23_Gleis1);
@@ -4102,10 +4491,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche25()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche25" });
+            int ListID = GetWeichenListenID("Weiche25");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
-
+            DisplayPicture(GetSchaltbildWeicheL270(Weichenliste[ListID]), Weiche25);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche25_Gleis1);
@@ -4117,10 +4506,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche26()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche26" });
+            int ListID = GetWeichenListenID("Weiche26");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
-
+            DisplayPicture(GetSchaltbildWeicheR270(Weichenliste[ListID]), Weiche26);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, meldeZustand), Weiche26_Gleis1);
@@ -4132,10 +4521,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche27()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche27" });
+            int ListID = GetWeichenListenID("Weiche27");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
-            
+            DisplayPicture(GetSchaltbildWeicheL90(Weichenliste[ListID]), Weiche27);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche27_Gleis1);
@@ -4147,10 +4536,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche28()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche28" });
+            int ListID = GetWeichenListenID("Weiche28");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
-            
+            DisplayPicture(GetSchaltbildWeicheL270(Weichenliste[ListID]), Weiche28);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche28_Gleis1);
@@ -4162,10 +4551,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche29()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche29" });
+            int ListID = GetWeichenListenID("Weiche29");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
-            
+            DisplayPicture(GetSchaltbildWeicheR90(Weichenliste[ListID]), Weiche29);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche29_Gleis1);
@@ -4177,9 +4566,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche30()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche30" });
+            int ListID = GetWeichenListenID("Weiche30");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR270(Weichenliste[ListID]), Weiche30);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, meldeZustand), Weiche30_Gleis1);
@@ -4191,46 +4581,73 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche50()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche50" });
+            int ListID = GetWeichenListenID("Weiche50");
             if (ListID == -1) return;
-            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);           
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheR90(Weichenliste[ListID]), Weiche50);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildEckeOR(meldeZustand),   Weiche50a_1);
                 DisplayPicture(GetSchaltbildKurve270R(meldeZustand),Weiche50a_2);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50a_3);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50a_4);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50a_5);
-                DisplayPicture(GetSchaltbildKurve90L(meldeZustand), Weiche50a_6);
-                DisplayPicture(GetSchaltbildEckeOL(meldeZustand),Weiche50a_7);
-                DisplayPicture(GetSchaltbildKurve180R(meldeZustand), Weiche50a_8);
-                DisplayPicture(GetSchaltbildKurve0L(meldeZustand), Weiche50a_9);
-                DisplayPicture(GetSchaltbildEckeUL_Sp(meldeZustand), Weiche50a_10);
-                DisplayPicture(GetSchaltbildKurve315L(meldeZustand),Weiche50a_11); // TODO :
-                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50a_12);
-                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50a_13);
-
-                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche50b_1);
-                DisplayPicture(GetSchaltbildKurve90L_EckeUR(FreiesGleis, meldeZustand), Weiche50b_6);
-                DisplayPicture(GetSchaltbildKurve180L_EckeOR(FreiesGleis, meldeZustand), Weiche50b_7);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche50b_1);              
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50b_2);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50b_4);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50b_5);
-                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50b_8);
-                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50b_9);
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(meldeZustand, FreiesGleis), Weiche50b_1);
-                DisplayPicture(GetSchaltbildKurve90L_EckeUR(meldeZustand, FreiesGleis), Weiche50b_6);
-                DisplayPicture(GetSchaltbildKurve180L_EckeOR(meldeZustand, FreiesGleis), Weiche50b_7);
             }
         }
+
+        private void UpdateGleisbild_Tunnel1_Einf(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Tunnel1_Einf);
+        }
+        private void UpdateGleisbild_Tunnel2_Einf(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Tunnel2_Einf);
+        }
+        private void UpdateGleisbild_Tunnel1_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Tunnel1_Halt);
+        }
+        private void UpdateGleisbild_Tunnel2_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Tunnel2_Halt);
+        }
+
+        private void UpdateGleisbild_Tunnel(bool besetzt_Tunnel1, List<Fahrstrasse> Fahrstrasse_Tunnel1,
+                                            bool besetzt_Tunnel2, List<Fahrstrasse> Fahrstrasse_Tunnel2)
+        {
+            MeldeZustand zustand_Tunnel1 = ErrechneZustand(besetzt_Tunnel1, new List<Fahrstrasse>(), Fahrstrasse_Tunnel1);
+            MeldeZustand zustand_Tunnel2 = ErrechneZustand(besetzt_Tunnel2, new List<Fahrstrasse>(), Fahrstrasse_Tunnel2);
+
+            DisplayPicture(GetSchaltbildGerade90( zustand_Tunnel1), Tunnel1_1);
+            DisplayPicture(GetSchaltbildGerade90( zustand_Tunnel1), Tunnel1_2);
+            DisplayPicture(GetSchaltbildKurve90L( zustand_Tunnel1), Tunnel1_3);
+            DisplayPicture(GetSchaltbildEckeOL(   zustand_Tunnel1), Tunnel1_4);
+            DisplayPicture(GetSchaltbildKurve180R(zustand_Tunnel1), Tunnel1_5);
+            DisplayPicture(GetSchaltbildKurve0L(  zustand_Tunnel1), Tunnel1_6);
+            DisplayPicture(GetSchaltbildEckeUL_Sp(zustand_Tunnel1), Tunnel1_7);
+            DisplayPicture(GetSchaltbildKurve315L(zustand_Tunnel1), Tunnel1_8);
+            DisplayPicture(GetSchaltbildGerade270(zustand_Tunnel1), Tunnel1_9);
+
+            DisplayPicture(GetSchaltbildGerade90(zustand_Tunnel2), Tunnel2_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand_Tunnel2), Tunnel2_2);
+            DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand_Tunnel2, zustand_Tunnel1), Tunnel2_3);
+            DisplayPicture(GetSchaltbildKurve180L_EckeOR(zustand_Tunnel2, zustand_Tunnel1), Tunnel2_4);
+            DisplayPicture(GetSchaltbildGerade270(zustand_Tunnel2), Tunnel2_5);
+        }
+
+
         private void UpdateGleisbild_Weiche51()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche51" });
+            int ListID = GetWeichenListenID("Weiche51");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheL90(Weichenliste[ListID]), Weiche51);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche51a_1);
@@ -4248,10 +4665,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche52()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche52" });
+            int ListID = GetWeichenListenID("Weiche52");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
-
+            DisplayPicture(GetSchaltbildWeicheL180(Weichenliste[ListID]), Weiche52);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildEckeUL_Sp(meldeZustand), Weiche52_Gleis3);
@@ -4265,9 +4682,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche53()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche53" });
+            int ListID = GetWeichenListenID("Weiche53");
             if (ListID == -1) return;
-            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);          
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR225(Weichenliste[ListID]), Weiche53);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildKurve0R(FreiesGleis), Weiche53_Gleis0);
@@ -4286,9 +4704,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche60()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche60" });
+            int ListID = GetWeichenListenID("Weiche60");
             if (ListID == -1) return;
-            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);           
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR270(Weichenliste[ListID]), Weiche60);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade270_EckeOR(FreiesGleis, meldeZustand), Weiche60_Gleis1);
@@ -4300,9 +4719,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche61()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche61" });
+            int ListID = GetWeichenListenID("Weiche61");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheL90(Weichenliste[ListID]), Weiche61);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche61_1);
@@ -4316,9 +4736,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche62()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche62" });
+            int ListID = GetWeichenListenID("Weiche62");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheR45(Weichenliste[ListID]), Weiche62);
             if (!Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche62_1);
@@ -4332,9 +4753,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche63()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche63" });
+            int ListID = GetWeichenListenID("Weiche63");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheR45(Weichenliste[ListID]), Weiche63);
             if (!Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche63_1);
@@ -4348,9 +4770,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche64()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche64" });
+            int ListID = GetWeichenListenID("Weiche64");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheR45(Weichenliste[ListID]), Weiche64);
             if (!Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche64_1);
@@ -4364,9 +4787,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche65()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche65" });
+            int ListID = GetWeichenListenID("Weiche65");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheR45(Weichenliste[ListID]), Weiche65);
             if (!Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche65_1);
@@ -4380,9 +4804,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche66()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche66" });
+            int ListID = GetWeichenListenID("Weiche66");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
+            DisplayPicture(GetSchaltbildWeicheR45(Weichenliste[ListID]), Weiche66);
             if (!Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche66_1);
@@ -4394,15 +4819,19 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche67_68()
         {
-            int ListW67 = Weichenliste.IndexOf(new Weiche() { Name = "Weiche67" });
+
+            int ListW67 = GetWeichenListenID("Weiche67");
             if (ListW67 == -1) return;
-            int ListW68 = Weichenliste.IndexOf(new Weiche() { Name = "Weiche68" });
+            int ListW68 = GetWeichenListenID("Weiche68");
             if (ListW68 == -1) return;
 
             MeldeZustand meldeZustand1 = new MeldeZustand(Weichenliste[ListW67], OST);
             MeldeZustand meldeZustand2 = new MeldeZustand(Weichenliste[ListW68], WEST);
 
-            if((Weichenliste[ListW67].Abzweig == false) && (Weichenliste[ListW68].Abzweig == false))
+            DisplayPicture(GetSchaltbildWeicheL270(Weichenliste[ListW67]), Weiche67);
+            DisplayPicture(GetSchaltbildWeicheL90(Weichenliste[ListW68]), Weiche68);
+
+            if ((Weichenliste[ListW67].Abzweig == false) && (Weichenliste[ListW68].Abzweig == false))
                 DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(meldeZustand1, FreiesGleis, FreiesGleis), Weiche68_67);
             else if ((Weichenliste[ListW67].Abzweig == true) && (Weichenliste[ListW68].Abzweig == false))
                 DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(FreiesGleis, FreiesGleis, meldeZustand1), Weiche68_67);
@@ -4410,13 +4839,28 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(FreiesGleis, meldeZustand2, FreiesGleis), Weiche68_67);
             else
                 DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(FreiesGleis, meldeZustand2, meldeZustand1), Weiche68_67);
+            if (Weichenliste[ListW68].Abzweig == true)
+            {
+                DisplayPicture(GetSchaltbildEckeUR(meldeZustand2), Schatten0_Ausf1);
+                DisplayPicture(GetSchaltbildKurve270L(meldeZustand2), Schatten0_Ausf2);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand2), Schatten0_Ausf3);
+                DisplayPicture(GetSchaltbildGerade90(meldeZustand2), Schatten0_Ausf4);
+            }
+            else
+            {
+                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Schatten0_Ausf1);
+                DisplayPicture(GetSchaltbildKurve270L(FreiesGleis), Schatten0_Ausf2);
+                DisplayPicture(GetSchaltbildGerade90(FreiesGleis), Schatten0_Ausf3);
+                DisplayPicture(GetSchaltbildGerade90(FreiesGleis), Schatten0_Ausf4);
+            }
 
         }
         private void UpdateGleisbild_Weiche70()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche70" });
+            int ListID = GetWeichenListenID("Weiche70");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR225(Weichenliste[ListID]), Weiche70);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche70_1);
@@ -4430,9 +4874,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche71()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche71" });
+            int ListID = GetWeichenListenID("Weiche71");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR225(Weichenliste[ListID]), Weiche71);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche71_1);
@@ -4446,9 +4891,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche72()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche72" });
+            int ListID = GetWeichenListenID("Weiche72");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR225(Weichenliste[ListID]), Weiche72);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche72_1);
@@ -4462,9 +4908,10 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche73()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche73" });
+            int ListID = GetWeichenListenID("Weiche73");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR225(Weichenliste[ListID]), Weiche73);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche73_1);
@@ -4478,12 +4925,13 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche74()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche74" });
+            int ListID = GetWeichenListenID("Weiche74");
             if (ListID == -1) return;
-            int ListID2 = Weichenliste.IndexOf(new Weiche() { Name = "Weiche92" });
+            int ListID2 = GetWeichenListenID("Weiche92");
             if (ListID2 == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
             MeldeZustand meldeZustand2 = new MeldeZustand(Weichenliste[ListID2], OST);
+            DisplayPicture(GetSchaltbildWeicheR225(Weichenliste[ListID]), Weiche74);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche74_1);
@@ -4504,12 +4952,13 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche75()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche75" });
+            int ListID = GetWeichenListenID("Weiche75");
             if (ListID == -1) return;
-            int ListID2 = Weichenliste.IndexOf(new Weiche() { Name = "Weiche91" });
+            int ListID2 = GetWeichenListenID("Weiche91");
             if (ListID2 == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
             MeldeZustand meldeZustand2 = new MeldeZustand(Weichenliste[ListID2], OST);
+            DisplayPicture(GetSchaltbildWeicheR225(Weichenliste[ListID]), Weiche75);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche75_1);
@@ -4530,12 +4979,13 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche76()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche76" });
+            int ListID = GetWeichenListenID("Weiche76");
             if (ListID == -1) return;
-            int ListID2 = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            int ListID2 = GetWeichenListenID("Weiche90");
             if (ListID2 == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
             MeldeZustand meldeZustand2 = new MeldeZustand(Weichenliste[ListID2], OST);
+            DisplayPicture(GetSchaltbildWeicheR225(Weichenliste[ListID]), Weiche76);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche76_1);
@@ -4556,9 +5006,33 @@ namespace MEKB_H0_Anlage
                     DisplayPicture(GetSchaltbildEckeOL_UR(meldeZustand, meldeZustand2), WeicheEcke76_90);
             }
         }
+        private void UpdateGleisbild_Weiche80()
+        {
+            int ListID = GetWeichenListenID("Weiche80");
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR180(Weichenliste[ListID]), Weiche80);
+        }
+
+        private void UpdateGleisbild_Weiche81()
+        {
+            int ListID = GetWeichenListenID("Weiche81");
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR180(Weichenliste[ListID]), Weiche81);
+        }
+
+        private void UpdateGleisbild_Weiche82()
+        {
+            int ListID = GetWeichenListenID("Weiche82");
+            if (ListID == -1) return;
+            MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            DisplayPicture(GetSchaltbildWeicheR180(Weichenliste[ListID]), Weiche82);
+        }
+
         private void UpdateGleisbild_Weiche90()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche90" });
+            int ListID = GetWeichenListenID("Weiche90");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
@@ -4572,7 +5046,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche91()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche91" });
+            int ListID = GetWeichenListenID("Weiche91");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
@@ -4586,7 +5060,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_Weiche92()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "Weiche92" });
+            int ListID = GetWeichenListenID("Weiche92");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
@@ -4605,9 +5079,11 @@ namespace MEKB_H0_Anlage
         #region DKW Gleisfeldumgebung
         private void UpdateGleisbild_WeicheDKW7_1()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_1" });
+            int ListID = GetWeichenListenID("DKW7_1");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            Weiche DKW_2nd = GetDWK_2nd(Weichenliste[ListID].Name);
+            DisplayPicture(GetSchaltbildDKW90_135(Weichenliste[ListID], DKW_2nd), DKW7);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, meldeZustand), Weiche7_Gleis2);
@@ -4619,7 +5095,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_WeicheDKW7_2()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_2" });
+            int ListID = GetWeichenListenID("DKW7_2");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
@@ -4633,9 +5109,11 @@ namespace MEKB_H0_Anlage
         }     
         private void UpdateGleisbild_WeicheDKW9_1()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_1" });
+            int ListID = GetWeichenListenID("DKW9_1");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            Weiche DKW_2nd = GetDWK_2nd(Weichenliste[ListID].Name);
+            DisplayPicture(GetSchaltbildDKW90_135(Weichenliste[ListID], DKW_2nd), DKW9);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildKurve270L_EckeOR(FreiesGleis, meldeZustand), Weiche9_Gleis1);
@@ -4650,7 +5128,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_WeicheDKW9_2()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_2" });
+            int ListID = GetWeichenListenID("DKW9_2");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], WEST);
             if (Weichenliste[ListID].Abzweig)
@@ -4666,9 +5144,11 @@ namespace MEKB_H0_Anlage
         }       
         private void UpdateGleisbild_KW22_1()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+            int ListID = GetWeichenListenID("KW22_1");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
+            Weiche DKW_2nd = GetDWK_2nd(Weichenliste[ListID].Name);
+            DisplayPicture(GetSchaltbildKW90_45(Weichenliste[ListID], DKW_2nd), KW22);
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(FreiesGleis, meldeZustand, FreiesGleis), KW22_Gleis2);
@@ -4683,7 +5163,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_KW22_2()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+            int ListID = GetWeichenListenID("KW22_2");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
             
@@ -4698,10 +5178,12 @@ namespace MEKB_H0_Anlage
         }       
         private void UpdateGleisbild_DKW24_1()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" });
+            int ListID = GetWeichenListenID("DKW24_1");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
-            
+            Weiche DKW_2nd = GetDWK_2nd(Weichenliste[ListID].Name);
+            DisplayPicture(GetSchaltbildDKW90_45(Weichenliste[ListID], DKW_2nd), DKW24);
+
             if (Weichenliste[ListID].Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), DKW24_Gleis2);
@@ -4713,7 +5195,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateGleisbild_DKW24_2()
         {
-            int ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" });
+            int ListID = GetWeichenListenID("DKW24_2");
             if (ListID == -1) return;
             MeldeZustand meldeZustand = new MeldeZustand(Weichenliste[ListID], OST);
 
@@ -4731,14 +5213,14 @@ namespace MEKB_H0_Anlage
 
         #region Schaltbild zeichnen
 
-        private void ZeichneFahrstraße(ref Graphics gleisbild, Image Type, Color Farbe)
+        private void ZeichneFahrstraße(ref Graphics gleisbild, Image Type, Color Farbe, Color TargetColor)
         {
             ImageAttributes imageAttributes = new ImageAttributes();
             int width = 32;
             int height = 32;
             ColorMap colorMap = new ColorMap
             {
-                OldColor = Color.FromArgb(255, 255, 255, 0),  // original gelb
+                OldColor = TargetColor, // Color.FromArgb(255, 255, 255, 0),  // original gelb
                 NewColor = Farbe  // opaque blue
             };
             ColorMap[] remapTable = { colorMap };
@@ -4774,7 +5256,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -4802,7 +5284,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -4830,7 +5312,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -4858,7 +5340,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -4886,7 +5368,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -4914,7 +5396,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -4942,7 +5424,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -4970,7 +5452,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildEckeOL_UR(MeldeZustand ZustandOL, MeldeZustand ZustandUR)
@@ -4997,7 +5479,7 @@ namespace MEKB_H0_Anlage
                     if (ZustandOL.Sicher) farbe = Farbe_Gruen;
                     if (ZustandOL.Besetzt) farbe = Farbe_Rot;
                 }
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
 
             if (!ZustandUR.IstFrei())
@@ -5015,7 +5497,7 @@ namespace MEKB_H0_Anlage
                     if (ZustandUR.Sicher) farbe = Farbe_Gruen;
                     if (ZustandUR.Besetzt) farbe = Farbe_Rot;
                 }
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
 
             return bild; //Bild ausgeben
@@ -5044,7 +5526,7 @@ namespace MEKB_H0_Anlage
                     if (ZustandUL.Sicher) farbe = Farbe_Gruen;
                     if (ZustandUL.Besetzt) farbe = Farbe_Rot;
                 }
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
 
             if (!ZustandOR.IstFrei())
@@ -5062,7 +5544,7 @@ namespace MEKB_H0_Anlage
                     if (ZustandOR.Sicher) farbe = Farbe_Gruen;
                     if (ZustandOR.Besetzt) farbe = Farbe_Rot;
                 }
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
 
             return bild; //Bild ausgeben
@@ -5084,6 +5566,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5094,7 +5578,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }     
@@ -5113,6 +5597,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5123,7 +5609,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -5142,6 +5628,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5152,7 +5640,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -5171,6 +5659,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5181,7 +5671,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -5200,6 +5690,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5210,7 +5702,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -5229,6 +5721,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5239,7 +5733,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -5258,6 +5752,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5268,7 +5764,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -5289,6 +5785,14 @@ namespace MEKB_H0_Anlage
                 {
                     zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                     farbe = Farbe_Rot;
+                    ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                    if(Zustandschraege.Besetzt == true)
+                    {
+                        zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
+                        farbe = Farbe_Rot;
+                        ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                    }
+                    return bild; //Bild ausgeben
                 }
                 else
                 {
@@ -5299,7 +5803,7 @@ namespace MEKB_H0_Anlage
                     if (Zustandwaage.Sicher) farbe = Farbe_Gruen;
                     if (Zustandwaage.Besetzt) farbe = Farbe_Rot;
                 }
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
             if(!Zustandschraege.IstFrei())
             {
@@ -5307,6 +5811,8 @@ namespace MEKB_H0_Anlage
                 {
                     zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
                     farbe = Farbe_Rot;
+                    ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                    return bild; //Bild ausgeben
                 }
                 else
                 {
@@ -5317,7 +5823,7 @@ namespace MEKB_H0_Anlage
                     if (Zustandschraege.Sicher) farbe = Farbe_Gruen;
                     if (Zustandschraege.Besetzt) farbe = Farbe_Rot;
                 }
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
 
             return bild; //Bild ausgeben
@@ -5338,6 +5844,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5349,7 +5857,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -5364,7 +5872,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
             return bild; //Bild ausgeben
         }      
@@ -5381,6 +5889,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5392,7 +5902,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -5407,7 +5917,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
 
             return bild; //Bild ausgeben
@@ -5425,6 +5935,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5436,7 +5948,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -5451,7 +5963,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
 
             return bild; //Bild ausgeben
@@ -5469,6 +5981,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5480,7 +5994,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -5495,7 +6009,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
             return bild; //Bild ausgeben
         }
@@ -5512,6 +6026,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5523,7 +6039,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -5538,7 +6054,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
 
             return bild; //Bild ausgeben
@@ -5556,6 +6072,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5567,7 +6085,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -5582,7 +6100,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
 
             return bild; //Bild ausgeben
@@ -5602,6 +6120,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5613,7 +6133,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Gerade.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Gerade.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_OL.Besetzt == true) && (Zustand_OL.Fahrstrasse == false))
@@ -5628,7 +6148,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_OL.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_OL.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_OL.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_OL.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_OL.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
 
             if ((Zustand_UR.Besetzt == true) && (Zustand_UR.Fahrstrasse == false))
@@ -5643,7 +6163,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_UR.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_UR.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_UR.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_UR.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_UR.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
             return bild; //Bild ausgeben
         }
@@ -5662,8 +6182,10 @@ namespace MEKB_H0_Anlage
 
             if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_0;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5674,7 +6196,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve45L(MeldeZustand Zustand)
@@ -5692,6 +6214,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5702,7 +6226,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve90L(MeldeZustand Zustand)
@@ -5720,6 +6244,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5730,7 +6256,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve135L(MeldeZustand Zustand)
@@ -5748,6 +6274,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5758,7 +6286,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild; //Bild ausgeben
         }
@@ -5777,6 +6305,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5787,7 +6317,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve225L(MeldeZustand Zustand)
@@ -5803,8 +6333,10 @@ namespace MEKB_H0_Anlage
 
             if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_0;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5815,7 +6347,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve270L(MeldeZustand Zustand)
@@ -5833,6 +6365,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5843,7 +6377,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve315L(MeldeZustand Zustand)
@@ -5861,6 +6395,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5871,7 +6407,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         #endregion
@@ -5889,6 +6425,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5900,7 +6438,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Kurve.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -5915,7 +6453,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
             return bild; //Bild ausgeben
 
@@ -5933,6 +6471,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5944,7 +6484,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Kurve.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -5959,7 +6499,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
             return bild; //Bild ausgeben
         }
@@ -5976,6 +6516,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -5987,7 +6529,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Kurve.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -6002,7 +6544,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
             return bild; //Bild ausgeben
         }
@@ -6017,8 +6559,10 @@ namespace MEKB_H0_Anlage
 
             if ((Zustand_Kurve.Besetzt == true) && (Zustand_Kurve.Fahrstrasse == false))
             {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6030,7 +6574,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Kurve.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -6045,7 +6589,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
             return bild; //Bild ausgeben
         }
@@ -6064,8 +6608,10 @@ namespace MEKB_H0_Anlage
 
             if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
             {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180;
+                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_0;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6076,7 +6622,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve90R(MeldeZustand Zustand)
@@ -6094,6 +6640,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6104,7 +6652,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve180R(MeldeZustand Zustand)
@@ -6122,6 +6670,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6132,7 +6682,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve270R(MeldeZustand Zustand)
@@ -6150,6 +6700,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6160,7 +6712,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         private dynamic GetSchaltbildKurve225R(MeldeZustand Zustand)
@@ -6178,6 +6730,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6188,7 +6742,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand.Sicher) farbe = Farbe_Gruen;
                 if (Zustand.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild; //Bild ausgeben
         }
         #endregion
@@ -6206,6 +6760,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6217,7 +6773,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Kurve.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -6232,7 +6788,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
             return bild; //Bild ausgeben
         }
@@ -6249,6 +6805,8 @@ namespace MEKB_H0_Anlage
             {
                 zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
                 farbe = Farbe_Rot;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6260,7 +6818,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Kurve.Besetzt) farbe = Farbe_Rot;
             }
 
-            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            if (!Zustand_Kurve.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
 
             if ((Zustand_Ecke.Besetzt == true) && (Zustand_Ecke.Fahrstrasse == false))
@@ -6275,7 +6833,7 @@ namespace MEKB_H0_Anlage
                 if (Zustand_Ecke.Fahrstrasse) farbe = Farbe_Gelb;
                 if (Zustand_Ecke.Sicher) farbe = Farbe_Gruen;
                 if (Zustand_Ecke.Besetzt) farbe = Farbe_Rot;
-                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+                if (!Zustand_Ecke.IstFrei()) ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             }
             return bild; //Bild ausgeben
         }
@@ -6295,11 +6853,21 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+            if(weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
+            
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6309,6 +6877,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6326,7 +6896,7 @@ namespace MEKB_H0_Anlage
                 if (weiche.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (weiche.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         private dynamic GetSchaltbildWeicheL180(Weiche weiche)
@@ -6342,11 +6912,20 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6356,6 +6935,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6373,7 +6954,7 @@ namespace MEKB_H0_Anlage
                 if (weiche.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (weiche.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         private dynamic GetSchaltbildWeicheL270(Weiche weiche)
@@ -6388,11 +6969,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6402,6 +6991,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6419,7 +7010,7 @@ namespace MEKB_H0_Anlage
                 if (weiche.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (weiche.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         private dynamic GetSchaltbildWeicheL315(Weiche weiche)
@@ -6434,11 +7025,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6448,6 +7047,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6465,7 +7066,7 @@ namespace MEKB_H0_Anlage
                 if (weiche.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (weiche.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         #endregion
@@ -6482,11 +7083,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6496,6 +7105,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6513,7 +7124,7 @@ namespace MEKB_H0_Anlage
                 if (weiche.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (weiche.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
 
             return bild;
         }
@@ -6530,11 +7141,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6544,6 +7163,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6562,7 +7183,7 @@ namespace MEKB_H0_Anlage
                 if (weiche.Besetzt) farbe = Farbe_Rot;
             }
 
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         private dynamic GetSchaltbildWeicheR180(Weiche weiche)
@@ -6578,11 +7199,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6592,6 +7221,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6609,7 +7240,7 @@ namespace MEKB_H0_Anlage
                 if (weiche.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (weiche.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         private dynamic GetSchaltbildWeicheR225(Weiche weiche)
@@ -6625,11 +7256,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6639,6 +7278,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6656,7 +7297,7 @@ namespace MEKB_H0_Anlage
                 if (weiche.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (weiche.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         private dynamic GetSchaltbildWeicheR270(Weiche weiche)
@@ -6671,11 +7312,19 @@ namespace MEKB_H0_Anlage
             if (weiche.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
 
             //Weichenzunge zeichnen
-            if (weiche.Abzweig) gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270, 0, 0);   //Abzweig
-            else gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90, 0, 0);                    //Gerade
-
             Image zeichenmuster;
             Color farbe = Farbe_Grau;
+            if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
+            else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+            if (weiche.ZeitAktiv > 0)
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Grau, Farbe_Weis);
+            }
+            else
+            {
+                ZeichneFahrstraße(ref gleis, zeichenmuster, Farbe_Weis, Farbe_Weis);
+            }
+
             if ((weiche.Besetzt == false) && (weiche.FahrstrasseAktive == false))
             {
                 return bild;
@@ -6685,6 +7334,8 @@ namespace MEKB_H0_Anlage
                 farbe = Farbe_Rot;
                 if (weiche.Abzweig) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
                 else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
+                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
+                return bild; //Bild ausgeben
             }
             else
             {
@@ -6702,7 +7353,7 @@ namespace MEKB_H0_Anlage
                 if (weiche.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (weiche.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         #endregion
@@ -6724,7 +7375,22 @@ namespace MEKB_H0_Anlage
             if ((DKW1.Abzweig == false) && (DKW2.Abzweig == true)) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Error, 0, 0); return bild; }
             if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
             if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
-            ZeichneFahrstraße(ref gleis, zunge, Farbe_Weis);
+            if ((DKW1.Besetzt == true || DKW2.Besetzt == true) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
+            {
+                ZeichneFahrstraße(ref gleis, zunge, Farbe_Rot, Farbe_Weis);
+                return bild; //Bild ausgeben
+            }
+            else
+            {
+                if ((DKW1.ZeitAktiv > 0) || (DKW2.ZeitAktiv > 0))
+                {
+                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Grau, Farbe_Weis);
+                }
+                else
+                {
+                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Weis, Farbe_Weis);
+                }
+            }
 
             Image zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
             Color farbe = Farbe_Grau;
@@ -6755,7 +7421,7 @@ namespace MEKB_H0_Anlage
                 if (DKW1.FahrstrasseSicher || DKW2.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (DKW1.Besetzt || DKW2.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         private dynamic GetSchaltbildDKW90_45(Weiche DKW1, Weiche DKW2)
@@ -6775,7 +7441,22 @@ namespace MEKB_H0_Anlage
             if ((DKW1.Abzweig == false) && (DKW2.Abzweig == true)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
             if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
             if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
-            ZeichneFahrstraße(ref gleis, zunge, Farbe_Weis);
+            if ((DKW1.Besetzt == true || DKW2.Besetzt == true) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
+            {
+                ZeichneFahrstraße(ref gleis, zunge, Farbe_Rot, Farbe_Weis);
+                return bild; //Bild ausgeben
+            }
+            else
+            {
+                if ((DKW1.ZeitAktiv > 0) || (DKW2.ZeitAktiv > 0))
+                {
+                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Grau, Farbe_Weis);
+                }
+                else
+                {
+                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Weis, Farbe_Weis);
+                }
+            }
 
             Image zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
             Color farbe = Farbe_Grau;
@@ -6808,7 +7489,7 @@ namespace MEKB_H0_Anlage
                 if (DKW1.FahrstrasseSicher || DKW2.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (DKW1.Besetzt || DKW2.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         private dynamic GetSchaltbildDKW90_135(Weiche DKW1, Weiche DKW2)
@@ -6828,7 +7509,22 @@ namespace MEKB_H0_Anlage
             if ((DKW1.Abzweig == false) && (DKW2.Abzweig == true)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
             if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
             if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
-            ZeichneFahrstraße(ref gleis, zunge, Farbe_Weis);
+            if ((DKW1.Besetzt == true || DKW2.Besetzt == true) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
+            {
+                ZeichneFahrstraße(ref gleis, zunge, Farbe_Rot, Farbe_Weis);
+                return bild; //Bild ausgeben
+            }
+            else
+            {
+                if ((DKW1.ZeitAktiv > 0) || (DKW2.ZeitAktiv > 0))
+                {
+                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Grau, Farbe_Weis);
+                }
+                else
+                {
+                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Weis, Farbe_Weis);
+                }
+            }
 
             Image zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
             Color farbe = Farbe_Grau;
@@ -6861,7 +7557,7 @@ namespace MEKB_H0_Anlage
                 if (DKW1.FahrstrasseSicher || DKW2.FahrstrasseSicher) farbe = Farbe_Gruen;
                 if (DKW1.Besetzt || DKW2.Besetzt) farbe = Farbe_Rot;
             }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe);
+            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
             return bild;
         }
         #endregion
@@ -6888,7 +7584,7 @@ namespace MEKB_H0_Anlage
                     //Jede Weiche in der Fahrstraßenliste durchlaufen
                     foreach (Weiche weiche in fahrstrasse.Fahrstr_Weichenliste)
                     {
-                        int ListID = Weichenliste.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
+                        int ListID = GetWeichenListenID(weiche.Name);   //Weiche in Globale Liste suchen
                         if (ListID == -1) return;   //Weichen nicht gefunden - Funktion abbrechen
                         UpdateWeicheImGleisplan(Weichenliste[ListID]);  //Weichenbild aktualisieren
                     }
@@ -6922,79 +7618,191 @@ namespace MEKB_H0_Anlage
         /// </summary>
         private void FahrstrasseBildUpdate()
         {
+            UpdateWeichenBelegung();
+
             //Hauptbahnhof - Linker Teil der Gleise
-            UpdateGleisbild_GL1_links(false, new List<Fahrstrasse> { Gleis1_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis1 });
-            UpdateGleisbild_GL2_links(false, new List<Fahrstrasse> { Gleis2_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis2 });
-            UpdateGleisbild_GL3_links(false, new List<Fahrstrasse> { Gleis3_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis3 });
-            UpdateGleisbild_GL4_links(false, new List<Fahrstrasse> { Gleis4_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis4 });
-            UpdateGleisbild_GL5_links(false, new List<Fahrstrasse> { Gleis5_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis5 });
-            UpdateGleisbild_GL6_links(false, new List<Fahrstrasse> { Gleis6_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis6 });
+            UpdateGleisbild_GL1_links(BelegtmelderListe.GetBelegtStatus("W6") && GetWeiche("Weiche6").Abzweig,  new List<Fahrstrasse> { Gleis1_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis1 });
+            UpdateGleisbild_GL2_links(BelegtmelderListe.GetBelegtStatus("W6") && !GetWeiche("Weiche6").Abzweig, new List<Fahrstrasse> { Gleis2_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis2 });
+            UpdateGleisbild_GL3_links(BelegtmelderListe.GetBelegtStatus("W5") && !GetWeiche("Weiche5").Abzweig, new List<Fahrstrasse> { Gleis3_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis3 });
+            UpdateGleisbild_GL4_links(BelegtmelderListe.GetBelegtStatus("DKW7_W8") && !GetWeiche("DKW7_2").Abzweig, new List<Fahrstrasse> { Gleis4_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis4 });
+            UpdateGleisbild_GL5_links(BelegtmelderListe.GetBelegtStatus("DKW9") && !GetWeiche("DKW9_2").Abzweig, new List<Fahrstrasse> { Gleis5_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis5 });
+            UpdateGleisbild_GL6_links(BelegtmelderListe.GetBelegtStatus("DKW9") && GetWeiche("DKW9_2").Abzweig, new List<Fahrstrasse> { Gleis6_nach_Block1}, new List<Fahrstrasse> { Block2_nach_Gleis6 });
+            
+            //Hauptbahnhof - Zentrum
+            UpdateGleisbild_Gl1_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf1_Halt_L"));
+            UpdateGleisbild_Gl1_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf1_Halt_R"));
+            UpdateGleisbild_Gl1_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf1"));
+
+            UpdateGleisbild_Gl2_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf2_Halt_L"));
+            UpdateGleisbild_Gl2_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf2_Halt_R"));
+            UpdateGleisbild_Gl2_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf2"));
+
+            UpdateGleisbild_Gl3_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf3_Halt_L"));
+            UpdateGleisbild_Gl3_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf3_Halt_R"));
+            UpdateGleisbild_Gl3_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf3"));
+
+            UpdateGleisbild_Gl4_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf4_Halt_L"));
+            UpdateGleisbild_Gl4_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf4_Halt_R"));
+            UpdateGleisbild_Gl4_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf4"));
+
+            UpdateGleisbild_Gl5_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf5_Halt_L"));
+            UpdateGleisbild_Gl5_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf5_Halt_R"));
+            UpdateGleisbild_Gl5_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf5"));
+
+            UpdateGleisbild_Gl6_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf6_Halt_L"));
+            UpdateGleisbild_Gl6_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf6_Halt_R"));
+            UpdateGleisbild_Gl6_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf6"));
 
             //Hauptbahnhof - Rechter Teil der Gleise
-            UpdateGleisbild_GL1_rechts(false, new List<Fahrstrasse> { Rechts1_nach_Gleis1, Rechts2_nach_Gleis1 } , new List<Fahrstrasse> { Gleis1_nach_rechts1 , Gleis1_nach_rechts2 });
-            UpdateGleisbild_GL2_rechts(false, new List<Fahrstrasse> { Rechts1_nach_Gleis2, Rechts2_nach_Gleis2 } , new List<Fahrstrasse> { Gleis2_nach_rechts1 , Gleis2_nach_rechts2 });
-            UpdateGleisbild_GL3_rechts(false, new List<Fahrstrasse> { Rechts1_nach_Gleis3, Rechts2_nach_Gleis3 } , new List<Fahrstrasse> { Gleis3_nach_rechts1 , Gleis3_nach_rechts2 });
-            UpdateGleisbild_GL4_rechts(false, new List<Fahrstrasse> { Rechts1_nach_Gleis4, Rechts2_nach_Gleis4 } , new List<Fahrstrasse> { Gleis4_nach_rechts1 , Gleis4_nach_rechts2 });
-            UpdateGleisbild_GL5_rechts(false, new List<Fahrstrasse> { Rechts1_nach_Gleis5, Rechts2_nach_Gleis5 } , new List<Fahrstrasse> { Gleis5_nach_rechts1 , Gleis5_nach_rechts2 });
-            UpdateGleisbild_GL6_rechts(false, new List<Fahrstrasse> { Rechts1_nach_Gleis6, Rechts2_nach_Gleis6 } , new List<Fahrstrasse> { Gleis6_nach_rechts1 , Gleis6_nach_rechts2 });
+            UpdateGleisbild_GL1_rechts(BelegtmelderListe.GetBelegtStatus("W26") && GetWeiche("Weiche26").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis1, Rechts2_nach_Gleis1 } , new List<Fahrstrasse> { Gleis1_nach_rechts1 , Gleis1_nach_rechts2 });
+            UpdateGleisbild_GL2_rechts(BelegtmelderListe.GetBelegtStatus("W26") && !GetWeiche("Weiche26").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis2, Rechts2_nach_Gleis2 } , new List<Fahrstrasse> { Gleis2_nach_rechts1 , Gleis2_nach_rechts2 });
+            UpdateGleisbild_GL3_rechts(BelegtmelderListe.GetBelegtStatus("W25") && !GetWeiche("Weiche25").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis3, Rechts2_nach_Gleis3 } , new List<Fahrstrasse> { Gleis3_nach_rechts1 , Gleis3_nach_rechts2 });
+            UpdateGleisbild_GL4_rechts(BelegtmelderListe.GetBelegtStatus("DKW24_W23") && !GetWeiche("DKW24_2").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis4, Rechts2_nach_Gleis4 } , new List<Fahrstrasse> { Gleis4_nach_rechts1 , Gleis4_nach_rechts2 });
+            UpdateGleisbild_GL5_rechts(BelegtmelderListe.GetBelegtStatus("KW22") && !GetWeiche("KW22_2").Abzweig, new List<Fahrstrasse> { Rechts1_nach_Gleis5, Rechts2_nach_Gleis5 } , new List<Fahrstrasse> { Gleis5_nach_rechts1 , Gleis5_nach_rechts2 });
+            UpdateGleisbild_GL6_rechts(BelegtmelderListe.GetBelegtStatus("HBf6_Halt_R"), new List<Fahrstrasse> { Rechts1_nach_Gleis6, Rechts2_nach_Gleis6 } , new List<Fahrstrasse> { Gleis6_nach_rechts1 , Gleis6_nach_rechts2 });
+
+            //Schattenbahnhof
+            UpdateGleisbild_Schatten_Eingl(BelegtmelderListe.GetBelegtStatus("Eingleisen"));
+            UpdateGleisbild_Schatten_Eingl_Halt(BelegtmelderListe.GetBelegtStatus("Eingleisen_Halt"));
+
+            UpdateGleisbild_Schatten_Gl1(BelegtmelderListe.GetBelegtStatus("Schatten_Gl1"));
+            UpdateGleisbild_Schatten_Gl1_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl1_Halt"));
+
+            UpdateGleisbild_Schatten_Gl2(BelegtmelderListe.GetBelegtStatus("Schatten_Gl2"));
+            UpdateGleisbild_Schatten_Gl2_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl2_Halt"));
+
+            UpdateGleisbild_Schatten_Gl3(BelegtmelderListe.GetBelegtStatus("Schatten_Gl3"));
+            UpdateGleisbild_Schatten_Gl3_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl3_Halt"));
+
+            UpdateGleisbild_Schatten_Gl4(BelegtmelderListe.GetBelegtStatus("Schatten_Gl4"));
+            UpdateGleisbild_Schatten_Gl4_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl4_Halt"));
+
+            UpdateGleisbild_Schatten_Gl5(BelegtmelderListe.GetBelegtStatus("Schatten_Gl5"));
+            UpdateGleisbild_Schatten_Gl5_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl5_Halt"));
+
+            UpdateGleisbild_Schatten_Gl6(BelegtmelderListe.GetBelegtStatus("Schatten_Gl6"));
+            UpdateGleisbild_Schatten_Gl6_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl6_Halt"));
+
+            UpdateGleisbild_Schatten_Gl7(BelegtmelderListe.GetBelegtStatus("Schatten_Gl7"));
+            UpdateGleisbild_Schatten_Gl7_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl7_Halt"));
+
+            UpdateGleisbild_Schatten_Gl8(BelegtmelderListe.GetBelegtStatus("Schatten_Gl8"));
+            UpdateGleisbild_Schatten_Gl8_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl8_Halt"));
+
+            UpdateGleisbild_Schatten_Gl9(BelegtmelderListe.GetBelegtStatus("Schatten_Gl9"));
+            UpdateGleisbild_Schatten_Gl9_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl9_Halt"));
+
+            UpdateGleisbild_Schatten_Gl10(BelegtmelderListe.GetBelegtStatus("Schatten_Gl10"));
+            UpdateGleisbild_Schatten_Gl10_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl10_Halt"));
+
+            UpdateGleisbild_Schatten_Gl11(BelegtmelderListe.GetBelegtStatus("Schatten_Gl11"));
+            UpdateGleisbild_Schatten_Gl11_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl11_Halt"));
+
+            //Tunnel
+            UpdateGleisbild_Tunnel1_Einf(BelegtmelderListe.GetBelegtStatus("Tunnel1_Einfahrt"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts1, Gleis2_nach_rechts1, Gleis3_nach_rechts1, //Nach rechts
+                                                            Gleis4_nach_rechts1, Gleis5_nach_rechts1, Gleis6_nach_rechts1});
+            UpdateGleisbild_Tunnel2_Einf(BelegtmelderListe.GetBelegtStatus("Tunnel2_Einfahrt"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts2, Gleis2_nach_rechts2, Gleis3_nach_rechts2, //Nach rechts
+                                                            Gleis4_nach_rechts2, Gleis5_nach_rechts2, Gleis6_nach_rechts2});
+
+            UpdateGleisbild_Tunnel(BelegtmelderListe.GetBelegtStatus("Tunnel1"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts1, Gleis2_nach_rechts1, Gleis3_nach_rechts1, //Nach rechts
+                                                            Gleis4_nach_rechts1, Gleis5_nach_rechts1, Gleis6_nach_rechts1},
+                                   BelegtmelderListe.GetBelegtStatus("Tunnel2"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts2, Gleis2_nach_rechts2, Gleis3_nach_rechts2, //Nach rechts
+                                                            Gleis4_nach_rechts2, Gleis5_nach_rechts2, Gleis6_nach_rechts2});
+
+            UpdateGleisbild_Tunnel1_Halt(BelegtmelderListe.GetBelegtStatus("Tunnel1_Halt"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts1, Gleis2_nach_rechts1, Gleis3_nach_rechts1, //Nach rechts
+                                                            Gleis4_nach_rechts1, Gleis5_nach_rechts1, Gleis6_nach_rechts1});
+            UpdateGleisbild_Tunnel2_Halt(BelegtmelderListe.GetBelegtStatus("Tunnel2_Halt"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts2, Gleis2_nach_rechts2, Gleis3_nach_rechts2, //Nach rechts
+                                                            Gleis4_nach_rechts2, Gleis5_nach_rechts2, Gleis6_nach_rechts2});
+
 
             //Gleise im Block 1 aktualisieren
-            UpdateGleisbild_Block1a(false, //Besetzt
+            UpdateGleisbild_Weiche6(BelegtmelderListe.GetBelegtStatus("W6"), //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1 },//Nach links
                                     new List<Fahrstrasse> { Block2_nach_Gleis1, Block2_nach_Gleis2 });//Nach rechts
 
-            UpdateGleisbild_Block1c(false, //Besetzt
+            UpdateGleisbild_Block1a(BelegtmelderListe.GetBelegtStatus("Block1_a"), //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
                                                             Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
                                     new List<Fahrstrasse>()); //nach rechts immer aus
-            UpdateGleisbild_Block1_Halt(false, //Besetzt
+
+            UpdateGleisbild_Block1b(BelegtmelderListe.GetBelegtStatus("Block1_b"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
+                                                            Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
+                                    new List<Fahrstrasse>()); //nach rechts immer aus
+            UpdateGleisbild_Block1_Halt(BelegtmelderListe.GetBelegtStatus("Block1_Halt"), //Besetzt
                                     new List<Fahrstrasse> { Gleis1_nach_Block1, Gleis2_nach_Block1, Gleis3_nach_Block1, //Nach links
                                                             Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1 },
                                     new List<Fahrstrasse>()); //nach rechts immer aus            
-            UpdateGleisbild_Block2(false, //Besetzt
+            UpdateGleisbild_Block2(BelegtmelderListe.GetBelegtStatus("Block2"), //Besetzt
+                                    new List<Fahrstrasse> { Block1_nach_Block2, Block9_nach_Block2 }, //Nach Links
+                                    new List<Fahrstrasse>()); //nach rechts immer aus
+            UpdateGleisbild_Block2_Halt(BelegtmelderListe.GetBelegtStatus("Block2_Halt"), //Besetzt
                                     new List<Fahrstrasse> { Block1_nach_Block2, Block9_nach_Block2 }, //Nach Links
                                     new List<Fahrstrasse>()); //nach rechts immer aus
             //Gleise im Block 2 aktualisieren
-            UpdateGleisbild_Block_BhfEinfahrtL(false, //Besetzt
+            UpdateGleisbild_Weiche5(BelegtmelderListe.GetBelegtStatus("W5"), //Besetzt
                                     new List<Fahrstrasse>  {Gleis3_nach_Block1, Gleis4_nach_Block1, Gleis5_nach_Block1, Gleis6_nach_Block1},
                                     new List<Fahrstrasse> { Block2_nach_Gleis3, Block2_nach_Gleis4, Block2_nach_Gleis5, Block2_nach_Gleis6 });
             //Gleise im Block 3 aktualisieren
-            UpdateGleisbild_Block3a(false, //Besetzt
+            UpdateGleisbild_Weiche25(BelegtmelderListe.GetBelegtStatus("W25"), //Besetzt
                                     new List<Fahrstrasse> { Rechts1_nach_Gleis3, Rechts1_nach_Gleis4, Rechts1_nach_Gleis5, Rechts1_nach_Gleis6, //Nach links
                                                             Rechts2_nach_Gleis3, Rechts2_nach_Gleis4, Rechts2_nach_Gleis5, Rechts2_nach_Gleis6 },
                                     new List<Fahrstrasse> { Gleis3_nach_rechts1, Gleis4_nach_rechts1, Gleis5_nach_rechts1, Gleis6_nach_rechts1, //Nach rechts
                                                             Gleis3_nach_rechts2, Gleis4_nach_rechts2, Gleis5_nach_rechts2, Gleis6_nach_rechts2 });
-            UpdateGleisbild_Block3b(false, //Besetzt
+            UpdateGleisbild_Block3(BelegtmelderListe.GetBelegtStatus("Block3"), //Besetzt
                                     new List<Fahrstrasse> (),//Nie nach links
                                     new List<Fahrstrasse> { Gleis1_nach_rechts1, Gleis2_nach_rechts1, Gleis3_nach_rechts1, //Nach rechts
                                                             Gleis4_nach_rechts1, Gleis5_nach_rechts1, Gleis6_nach_rechts1, 
                                                             Gleis1_nach_rechts2, Gleis2_nach_rechts2, Gleis3_nach_rechts2, 
                                                             Gleis4_nach_rechts2, Gleis5_nach_rechts2, Gleis6_nach_rechts2});
             //Gleise im Block 4 aktualisieren                        
-            UpdateGleisbild_Block4a(false, //Besetzt
+            UpdateGleisbild_Block4(BelegtmelderListe.GetBelegtStatus("Block4"), //Besetzt
                                     new List<Fahrstrasse> { Rechts1_nach_Gleis1, Rechts1_nach_Gleis2, Rechts1_nach_Gleis3, //Nach links
                                                             Rechts1_nach_Gleis4, Rechts1_nach_Gleis5, Rechts1_nach_Gleis6, 
                                                             Rechts2_nach_Gleis1, Rechts2_nach_Gleis2, Rechts2_nach_Gleis3, //Nach rechts
                                                             Rechts2_nach_Gleis4, Rechts2_nach_Gleis5, Rechts2_nach_Gleis6 },
                                     new List<Fahrstrasse>());     //nie nach rechts
-            UpdateGleisbild_Block4b(false, //Besetzt
+            UpdateGleisbild_Weiche26(BelegtmelderListe.GetBelegtStatus("W26"), //Besetzt
                                     new List<Fahrstrasse> { Rechts1_nach_Gleis1, Rechts1_nach_Gleis2, Rechts2_nach_Gleis1, Rechts2_nach_Gleis2 }, //Nach links
                                     new List<Fahrstrasse> { Gleis1_nach_rechts1, Gleis2_nach_rechts1, Gleis1_nach_rechts2, Gleis2_nach_rechts2 });//Nach rechts
-            UpdateGleisbild_Block5(false, //Besetzt
+            UpdateGleisbild_Block5a(BelegtmelderListe.GetBelegtStatus("Block5_a"), //Besetzt
                                     new List<Fahrstrasse> { Block1_nach_Block5 } ,  //Nach links
                                     new List<Fahrstrasse>());     //nie nach rechts
+            UpdateGleisbild_Block5b(BelegtmelderListe.GetBelegtStatus("Block5_b"), //Besetzt
+                                    new List<Fahrstrasse> { Block1_nach_Block5 },  //Nach links
+                                    new List<Fahrstrasse>());     //nie nach rechts
+            UpdateGleisbild_Block5_Halt(BelegtmelderListe.GetBelegtStatus("Block5_Halt"), //Besetzt
+                                    new List<Fahrstrasse> { Block1_nach_Block5 },  //Nach links
+                                    new List<Fahrstrasse>());     //nie nach rechts
 
-            UpdateGleisbild_Block6(false, //Besetzt
+            UpdateGleisbild_Block6(BelegtmelderListe.GetBelegtStatus("Block6"), //Besetzt
+                                    new List<Fahrstrasse> { Block5_nach_Block6, Block8_nach_Block6 },  //Nach links
+                                    new List<Fahrstrasse>());     //nie nach rechts
+            UpdateGleisbild_Block6_Halt(BelegtmelderListe.GetBelegtStatus("Block6_Halt"), //Besetzt
                                     new List<Fahrstrasse> { Block5_nach_Block6, Block8_nach_Block6 },  //Nach links
                                     new List<Fahrstrasse>());     //nie nach rechts
 
-            UpdateGleisbild_Block7(false, //Besetzt
+            UpdateGleisbild_Block7(BelegtmelderListe.GetBelegtStatus("Block7"), //Besetzt
                                     new List<Fahrstrasse>(),  //nie nach links
                                     new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 }); //nach rechts
-            UpdateGleisbild_Block8(false, //Besetzt
+            UpdateGleisbild_Block8(BelegtmelderListe.GetBelegtStatus("Block8"), //Besetzt
                                     new List<Fahrstrasse> { Schatten0_nach_Block8, Schatten1_nach_Block8 },  //nie nach links
                                     new List<Fahrstrasse>()); //nach rechts
-            UpdateGleisbild_Block9(false, //Besetzt
+            UpdateGleisbild_Block8_Halt(BelegtmelderListe.GetBelegtStatus("Block8_Halt"), //Besetzt
+                                    new List<Fahrstrasse> { Schatten0_nach_Block8, Schatten1_nach_Block8 },  //nie nach links
+                                    new List<Fahrstrasse>()); //nach rechts
+            UpdateGleisbild_Block9(BelegtmelderListe.GetBelegtStatus("Block9"), //Besetzt
+                                    new List<Fahrstrasse>(),  //nie nach links
+                                    new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
+                                                Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
+                                                Schatten7_nach_Block9}); //nach rechts
+            UpdateGleisbild_Block9_Halt(BelegtmelderListe.GetBelegtStatus("Block9_Halt"), //Besetzt
                                     new List<Fahrstrasse>(),  //nie nach links
                                     new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                 Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
@@ -7048,29 +7856,167 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_Weiche75();     //Umfeld um Weiche 75
             UpdateGleisbild_Weiche76();     //Umfeld um Weiche 76
 
+            UpdateGleisbild_Weiche80();     //Umfeld um Weiche 80
+            UpdateGleisbild_Weiche81();     //Umfeld um Weiche 81
+            UpdateGleisbild_Weiche82();     //Umfeld um Weiche 82
+
             UpdateGleisbild_Weiche90();     //Umfeld um Weiche 90
             UpdateGleisbild_Weiche91();     //Umfeld um Weiche 91
             UpdateGleisbild_Weiche92();     //Umfeld um Weiche 92
 
-            UpdateKreuzung(false, //Besetzt
+            UpdateKreuzung(BelegtmelderListe.GetBelegtStatus("SchattenAusfahrt"), //Besetzt
                             new List<Fahrstrasse> { Block8_nach_Block6 },  //Block8
                             new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                     Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
                                                     Schatten7_nach_Block9}); //Block9
 
-            UpdateGleisbild_Block5_Block9(false, //Block5: Besetzt
+            UpdateGleisbild_Block5_Block9(BelegtmelderListe.GetBelegtStatus("Block5_b"), //Block5: Besetzt
                         new List<Fahrstrasse> { Block1_nach_Block5 },  //Block6: Nach links
                         new List<Fahrstrasse>(), //Block5: nie nach rechts
-                        false, //Block9: Besetzt
+                        BelegtmelderListe.GetBelegtStatus("Block9"), //Block9: Besetzt
                         new List<Fahrstrasse>(), //Block9: nie nach rechts
                         new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                 Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
                                                 Schatten7_nach_Block9});  //Block9: Nach rechts
 
-            UpdateGleisbild_SchattenkleinAusf(new List<bool> { false, false, false, false }, new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 });
-            UpdateGleisbild_Schatten0Ausf(false, //Besetzt
-                            new List<Fahrstrasse> { Schatten0_nach_Block8 },  
-                            new List<Fahrstrasse> ()); 
+            UpdateGleisbild_SchattenkleinAusf(BelegtmelderListe.GetBelegtStatus("SchattenMitte1"), new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 });
+
+            
+        }
+
+        void UpdateWeichenBelegung()
+        {
+            foreach (Belegtmelder belegtmelder in BelegtmelderListe.Liste)
+            {
+                switch (belegtmelder.Name)
+                {
+                    case "Block2": SetzeWeichenBelegung("Weiche53", belegtmelder.IstBelegt()); break;
+                    case "W60": SetzeWeichenBelegung("Weiche60", belegtmelder.IstBelegt()); break;
+                    case "W1_W4": 
+                        SetzeWeichenBelegung("Weiche1", belegtmelder.IstBelegt());
+                        SetzeWeichenBelegung("Weiche4", belegtmelder.IstBelegt()); break;
+                    case "W2_W3":
+                        SetzeWeichenBelegung("Weiche2", belegtmelder.IstBelegt());
+                        SetzeWeichenBelegung("Weiche3", belegtmelder.IstBelegt()); break;
+                    case "W5": SetzeWeichenBelegung("Weiche5", belegtmelder.IstBelegt()); break;
+                    case "W6": SetzeWeichenBelegung("Weiche6", belegtmelder.IstBelegt()); break;
+                    case "DKW7_W8": 
+                        SetzeWeichenBelegung("Weiche8", belegtmelder.IstBelegt()); 
+                        SetzeWeichenBelegung("DKW7_1", belegtmelder.IstBelegt()); 
+                        SetzeWeichenBelegung("DKW7_2", belegtmelder.IstBelegt()); break;
+                    case "DKW9":
+                        SetzeWeichenBelegung("DKW9_1", belegtmelder.IstBelegt());
+                        SetzeWeichenBelegung("DKW9_2", belegtmelder.IstBelegt()); break;
+                    case "KW22":
+                        SetzeWeichenBelegung("KW22_1", belegtmelder.IstBelegt());
+                        SetzeWeichenBelegung("KW22_2", belegtmelder.IstBelegt()); break;
+                    case "DKW24_W23":
+                        SetzeWeichenBelegung("Weiche23", belegtmelder.IstBelegt());
+                        SetzeWeichenBelegung("DKW24_1", belegtmelder.IstBelegt());
+                        SetzeWeichenBelegung("DKW24_2", belegtmelder.IstBelegt()); break;
+                    case "W25": SetzeWeichenBelegung("Weiche25", belegtmelder.IstBelegt()); break;
+                    case "W26": SetzeWeichenBelegung("Weiche26", belegtmelder.IstBelegt()); break;
+                    case "W28_W29":
+                        SetzeWeichenBelegung("Weiche28", belegtmelder.IstBelegt());
+                        SetzeWeichenBelegung("Weiche29", belegtmelder.IstBelegt()); break;
+                    case "W27_W30":
+                        SetzeWeichenBelegung("Weiche27", belegtmelder.IstBelegt());
+                        SetzeWeichenBelegung("Weiche30", belegtmelder.IstBelegt()); break;
+                    case "W50": SetzeWeichenBelegung("Weiche50", belegtmelder.IstBelegt()); break;
+                    case "W51": SetzeWeichenBelegung("Weiche51", belegtmelder.IstBelegt()); break;               
+                    case "W52": SetzeWeichenBelegung("Weiche52", belegtmelder.IstBelegt()); break;
+                    case "HBf6_Halt_R": SetzeWeichenBelegung("Weiche21", belegtmelder.IstBelegt()); break;
+                    case "SchattenEinfahrt":
+                        SetzeWeichenBelegung("Weiche91", false);
+                        SetzeWeichenBelegung("Weiche92", false);
+
+                        SetzeWeichenBelegung("Weiche90", belegtmelder.IstBelegt()); if (!GetWeiche("Weiche90").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche91", belegtmelder.IstBelegt()); if (GetWeiche("Weiche91").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche92", belegtmelder.IstBelegt()); break;
+
+                    case "SchattenMitte1":
+                        SetzeWeichenBelegung("Weiche81", false);
+                        SetzeWeichenBelegung("Weiche82", false);
+
+                        SetzeWeichenBelegung("Weiche80", belegtmelder.IstBelegt()); if (GetWeiche("Weiche80").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche81", belegtmelder.IstBelegt()); if (GetWeiche("Weiche81").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche82", belegtmelder.IstBelegt()); break;
+
+                    case "SchattenMitte2":
+                        SetzeWeichenBelegung("Weiche71", false);
+                        SetzeWeichenBelegung("Weiche72", false);
+                        SetzeWeichenBelegung("Weiche73", false);
+                        SetzeWeichenBelegung("Weiche74", false);
+                        SetzeWeichenBelegung("Weiche75", false);
+                        SetzeWeichenBelegung("Weiche76", false);
+
+                        SetzeWeichenBelegung("Weiche70", belegtmelder.IstBelegt()); if (GetWeiche("Weiche70").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche71", belegtmelder.IstBelegt()); if (GetWeiche("Weiche71").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche72", belegtmelder.IstBelegt()); if (GetWeiche("Weiche72").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche73", belegtmelder.IstBelegt()); if (GetWeiche("Weiche73").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche74", belegtmelder.IstBelegt()); if (GetWeiche("Weiche74").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche75", belegtmelder.IstBelegt()); if (GetWeiche("Weiche75").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche76", belegtmelder.IstBelegt()); break;
+                    case "SchattenAusfahrt":
+                        SetzeWeichenBelegung("Weiche62", false);
+                        SetzeWeichenBelegung("Weiche63", false);
+                        SetzeWeichenBelegung("Weiche64", false);
+                        SetzeWeichenBelegung("Weiche65", false);
+                        SetzeWeichenBelegung("Weiche66", false);
+                       
+
+                        SetzeWeichenBelegung("Weiche61", belegtmelder.IstBelegt()); if (!GetWeiche("Weiche61").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche62", belegtmelder.IstBelegt()); if (GetWeiche("Weiche62").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche63", belegtmelder.IstBelegt()); if (GetWeiche("Weiche63").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche64", belegtmelder.IstBelegt()); if (GetWeiche("Weiche64").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche65", belegtmelder.IstBelegt()); if (GetWeiche("Weiche65").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche66", belegtmelder.IstBelegt());
+                        break;
+                    case "W67_W68":
+                        if (GetWeiche("Weiche68").Abzweig && (!GetWeiche("Weiche67").Abzweig))
+                        {
+                            SetzeWeichenBelegung("Weiche67", false);
+                            SetzeWeichenBelegung("Weiche68", belegtmelder.IstBelegt());
+                        }
+                        else if ((!GetWeiche("Weiche68").Abzweig) && GetWeiche("Weiche67").Abzweig)
+                        {
+                            SetzeWeichenBelegung("Weiche67", belegtmelder.IstBelegt());
+                            SetzeWeichenBelegung("Weiche68", false);
+                        }
+                        else
+                        {
+                            SetzeWeichenBelegung("Weiche67", belegtmelder.IstBelegt());
+                            SetzeWeichenBelegung("Weiche68", belegtmelder.IstBelegt());
+                        }
+
+                        break;
+                    default: break;
+                }
+            }
+        }
+
+        void SetzeWeichenBelegung(string Weichenname, bool besetzt)
+        {
+            int ListID;
+            if (WeichenVerzeichnis.TryGetValue(Weichenname, out ListID))
+            {
+                Weichenliste[ListID].Besetzt = besetzt;
+            }
+        }
+
+        private void GetBelegtMelderStatus(byte GruppenIndex)
+        {
+            z21Start.LAN_RMBUS_GETDATA(GruppenIndex);
+        }
+
+        int GetWeichenListenID(string Weichenname)
+        {
+            int ListID;
+            if (WeichenVerzeichnis.TryGetValue(Weichenname, out ListID))
+            {
+                return ListID;
+            }
+            return -1;
         }
     }
 }

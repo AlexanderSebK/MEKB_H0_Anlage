@@ -33,11 +33,13 @@ namespace MEKB_H0_Anlage
         public Z21 z21Start;
         private Z21_Einstellung z21_Einstellung;
         private Signal_Einstellungen signal_Einstellungen;
+        private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
         private InfoBox InfoBox;
 
         public List<Weiche> Weichenliste = new List<Weiche>();
-        public List<Signal> Signalliste = new List<Signal>();
+        public SignalListe SignalListe = new SignalListe("Signalliste.xml");
         public List<Lok> Lokliste = new List<Lok>();
+        public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
         public Lok[] AktiveLoks = new Lok[12];
 
         public bool Betriebsbereit;
@@ -45,6 +47,7 @@ namespace MEKB_H0_Anlage
         private static System.Timers.Timer FlagTimer;
         private static System.Timers.Timer WeichenTimer;
         private static System.Timers.Timer CooldownTimer;
+        private static System.Timers.Timer BelegtmelderCoolDown;
 
         private int Pointer_Weichenliste = 0;
         private int Pointer_Signalliste = 0;
@@ -70,7 +73,7 @@ namespace MEKB_H0_Anlage
             z21Start.Register_LAN_SYSTEMSTATE_DATACHANGED(CallBack_Z21_System_Status);
             z21Start.Register_LAN_GET_BROADCASTFLAGS(CallBack_Z21_Broadcast_Flags);
             z21Start.Register_LAN_X_LOCO_INFO(CallBack_Z21_LokUpdate);
-
+            z21Start.Register_LAN_RMBUS_DATACHANGED(CallBack_LAN_RMBUS_DATACHANGED);
 
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
             z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
@@ -78,7 +81,6 @@ namespace MEKB_H0_Anlage
             ConnectStatus(false, false);                 //Verbindungsstatus auf getrennt setzen
 
             SetupWeichenListe();                        //Weichenliste aus Datei laden
-            SetupSignalListe();                         //Signalliste festlegen
             SetupFahrstrassen();                        //Fahstrassen festlegen          
             SetupLokListe();                            //Lok-Daten aus Dateien laden
 
@@ -99,7 +101,7 @@ namespace MEKB_H0_Anlage
         private void Form1_Shown(object sender, EventArgs e)
         {
             Pointer_Weichenliste = Weichenliste.Count() - 1;
-            Pointer_Signalliste = Signalliste.Count() - 1;
+            Pointer_Signalliste = SignalListe.Liste.Count() - 1;
             Signal_Init = false;
             Weichen_Init = false;
 
@@ -124,12 +126,19 @@ namespace MEKB_H0_Anlage
             CooldownTimer.AutoReset = true;
             CooldownTimer.Enabled = true;
 
+            // 250 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
+            BelegtmelderCoolDown = new System.Timers.Timer(250);
+            // Timer mit Funktion "WeichenCooldown" Verbinden
+            BelegtmelderCoolDown.Elapsed += BelegtmelderCooldown;
+            BelegtmelderCoolDown.AutoReset = true;
+            BelegtmelderCoolDown.Enabled = true;
+
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             StopAlle_Click(sender, e);
-            foreach (Signal signal in Signalliste)
+            foreach (Signal signal in SignalListe.Liste)
             {
                 signal.Schalten(0, z21Start);//Alle Signale Rot
             }
@@ -152,7 +161,7 @@ namespace MEKB_H0_Anlage
         {
             z21Start.Connect_Z21();
             Pointer_Weichenliste = Weichenliste.Count() - 1;
-            Pointer_Signalliste = Signalliste.Count() - 1;
+            Pointer_Signalliste = SignalListe.Liste.Count() - 1;
             Signal_Init = false;
             Weichen_Init = false;
         }
@@ -192,116 +201,122 @@ namespace MEKB_H0_Anlage
         }
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
-
-            if (z21Start.Verbunden())
+            if (source is System.Timers.Timer timer)
             {
-                GetWeichenStatus(Weichenliste[Pointer_Weichenliste].Name);
-                if (Pointer_Weichenliste <= 0)
+                if (z21Start.Verbunden())
                 {
-                    Pointer_Weichenliste = Weichenliste.Count() - 1;
-                    Weichen_Init = true;
+                    timer.Stop();
+                    GetWeichenStatus(Weichenliste[Pointer_Weichenliste].Name);
+                    if (Pointer_Weichenliste <= 0)
+                    {
+                        Pointer_Weichenliste = Weichenliste.Count() - 1;
+                        Weichen_Init = true;
+                    }
+                    else
+                    {
+                        Pointer_Weichenliste--;
+                    }
+
+
+                    GetSignalStatus_Z21(SignalListe.Liste[Pointer_Signalliste].Name);
+                    if (Pointer_Signalliste <= 0)
+                    {
+                        Pointer_Signalliste = SignalListe.Liste.Count() - 1;
+                        Signal_Init = true;
+                    }
+                    else
+                    {
+                        Pointer_Signalliste--;
+                    }
+                    if (Weichen_Init & Signal_Init)
+                    {
+                        SetConnect(true, true); //Initialisierung abgeschlossen
+                        Betriebsbereit = true;
+                    }
+                    //
+                    Fahrstrassenupdate(Gleis1_nach_Block1);
+                    Fahrstrassenupdate(Gleis2_nach_Block1);
+                    Fahrstrassenupdate(Gleis3_nach_Block1);
+                    Fahrstrassenupdate(Gleis4_nach_Block1);
+                    Fahrstrassenupdate(Gleis5_nach_Block1);
+                    Fahrstrassenupdate(Gleis6_nach_Block1);
+
+                    Fahrstrassenupdate(Block2_nach_Gleis1);
+                    Fahrstrassenupdate(Block2_nach_Gleis2);
+                    Fahrstrassenupdate(Block2_nach_Gleis3);
+                    Fahrstrassenupdate(Block2_nach_Gleis4);
+                    Fahrstrassenupdate(Block2_nach_Gleis5);
+                    Fahrstrassenupdate(Block2_nach_Gleis6);
+
+                    Fahrstrassenupdate(Gleis1_nach_rechts1);
+                    Fahrstrassenupdate(Gleis2_nach_rechts1);
+                    Fahrstrassenupdate(Gleis3_nach_rechts1);
+                    Fahrstrassenupdate(Gleis4_nach_rechts1);
+                    Fahrstrassenupdate(Gleis5_nach_rechts1);
+                    Fahrstrassenupdate(Gleis6_nach_rechts1);
+
+                    Fahrstrassenupdate(Gleis1_nach_rechts2);
+                    Fahrstrassenupdate(Gleis2_nach_rechts2);
+                    Fahrstrassenupdate(Gleis3_nach_rechts2);
+                    Fahrstrassenupdate(Gleis4_nach_rechts2);
+                    Fahrstrassenupdate(Gleis5_nach_rechts2);
+                    Fahrstrassenupdate(Gleis6_nach_rechts2);
+
+                    Fahrstrassenupdate(Rechts1_nach_Gleis1);
+                    Fahrstrassenupdate(Rechts1_nach_Gleis2);
+                    Fahrstrassenupdate(Rechts1_nach_Gleis3);
+                    Fahrstrassenupdate(Rechts1_nach_Gleis4);
+                    Fahrstrassenupdate(Rechts1_nach_Gleis5);
+                    Fahrstrassenupdate(Rechts1_nach_Gleis6);
+
+                    Fahrstrassenupdate(Rechts2_nach_Gleis1);
+                    Fahrstrassenupdate(Rechts2_nach_Gleis2);
+                    Fahrstrassenupdate(Rechts2_nach_Gleis3);
+                    Fahrstrassenupdate(Rechts2_nach_Gleis4);
+                    Fahrstrassenupdate(Rechts2_nach_Gleis5);
+                    Fahrstrassenupdate(Rechts2_nach_Gleis6);
+
+                    Fahrstrassenupdate(Block1_nach_Block2);
+                    Fahrstrassenupdate(Block1_nach_Block5);
+                    Fahrstrassenupdate(Block5_nach_Block6);
+                    Fahrstrassenupdate(Block8_nach_Block6);
+                    Fahrstrassenupdate(Block9_nach_Block2);
+
+                    Fahrstrassenupdate(Block6_nach_Schatten8);
+                    Fahrstrassenupdate(Block6_nach_Schatten9);
+                    Fahrstrassenupdate(Block6_nach_Schatten10);
+                    Fahrstrassenupdate(Block6_nach_Schatten11);
+
+                    Fahrstrassenupdate(Schatten8_nach_Block7);
+                    Fahrstrassenupdate(Schatten9_nach_Block7);
+                    Fahrstrassenupdate(Schatten10_nach_Block7);
+                    Fahrstrassenupdate(Schatten11_nach_Block7);
+
+                    Fahrstrassenupdate(Block7_nach_Schatten0);
+                    Fahrstrassenupdate(Block7_nach_Schatten1);
+                    Fahrstrassenupdate(Block7_nach_Schatten2);
+                    Fahrstrassenupdate(Block7_nach_Schatten3);
+                    Fahrstrassenupdate(Block7_nach_Schatten4);
+                    Fahrstrassenupdate(Block7_nach_Schatten5);
+                    Fahrstrassenupdate(Block7_nach_Schatten6);
+                    Fahrstrassenupdate(Block7_nach_Schatten7);
+
+                    Fahrstrassenupdate(Schatten0_nach_Block8);
+                    Fahrstrassenupdate(Schatten1_nach_Block8);
+                    Fahrstrassenupdate(Schatten1_nach_Block9);
+                    Fahrstrassenupdate(Schatten2_nach_Block9);
+                    Fahrstrassenupdate(Schatten3_nach_Block9);
+                    Fahrstrassenupdate(Schatten4_nach_Block9);
+                    Fahrstrassenupdate(Schatten5_nach_Block9);
+                    Fahrstrassenupdate(Schatten6_nach_Block9);
+                    Fahrstrassenupdate(Schatten7_nach_Block9);
+
+                    FahrstrasseBildUpdate();
+
+                    GetBelegtMelderStatus(0);
+
+                    timer.Start();
                 }
-                else
-                {
-                    Pointer_Weichenliste--;
-                }
-                
-
-                GetSignalStatus(Signalliste[Pointer_Signalliste].Name);
-                if (Pointer_Signalliste <= 0)
-                {
-                    Pointer_Signalliste = Signalliste.Count() - 1;
-                    Signal_Init = true;
-                }
-                else
-                {
-                    Pointer_Signalliste--;
-                }
-                if (Weichen_Init & Signal_Init)
-                {
-                    SetConnect(true, true); //Initialisierung abgeschlossen
-                    Betriebsbereit = true;
-                }
-                //
-                Fahrstrassenupdate(Gleis1_nach_Block1);
-                Fahrstrassenupdate(Gleis2_nach_Block1);
-                Fahrstrassenupdate(Gleis3_nach_Block1);
-                Fahrstrassenupdate(Gleis4_nach_Block1);
-                Fahrstrassenupdate(Gleis5_nach_Block1);
-                Fahrstrassenupdate(Gleis6_nach_Block1);
-
-                Fahrstrassenupdate(Block2_nach_Gleis1);
-                Fahrstrassenupdate(Block2_nach_Gleis2);
-                Fahrstrassenupdate(Block2_nach_Gleis3);
-                Fahrstrassenupdate(Block2_nach_Gleis4);
-                Fahrstrassenupdate(Block2_nach_Gleis5);
-                Fahrstrassenupdate(Block2_nach_Gleis6);
-
-                Fahrstrassenupdate(Gleis1_nach_rechts1);
-                Fahrstrassenupdate(Gleis2_nach_rechts1);
-                Fahrstrassenupdate(Gleis3_nach_rechts1);
-                Fahrstrassenupdate(Gleis4_nach_rechts1);
-                Fahrstrassenupdate(Gleis5_nach_rechts1);
-                Fahrstrassenupdate(Gleis6_nach_rechts1);
-
-                Fahrstrassenupdate(Gleis1_nach_rechts2);
-                Fahrstrassenupdate(Gleis2_nach_rechts2);
-                Fahrstrassenupdate(Gleis3_nach_rechts2);
-                Fahrstrassenupdate(Gleis4_nach_rechts2);
-                Fahrstrassenupdate(Gleis5_nach_rechts2);
-                Fahrstrassenupdate(Gleis6_nach_rechts2);
-
-                Fahrstrassenupdate(Rechts1_nach_Gleis1);
-                Fahrstrassenupdate(Rechts1_nach_Gleis2);
-                Fahrstrassenupdate(Rechts1_nach_Gleis3);
-                Fahrstrassenupdate(Rechts1_nach_Gleis4);
-                Fahrstrassenupdate(Rechts1_nach_Gleis5);
-                Fahrstrassenupdate(Rechts1_nach_Gleis6);
-
-                Fahrstrassenupdate(Rechts2_nach_Gleis1);
-                Fahrstrassenupdate(Rechts2_nach_Gleis2);
-                Fahrstrassenupdate(Rechts2_nach_Gleis3);
-                Fahrstrassenupdate(Rechts2_nach_Gleis4);
-                Fahrstrassenupdate(Rechts2_nach_Gleis5);
-                Fahrstrassenupdate(Rechts2_nach_Gleis6);
-
-                Fahrstrassenupdate(Block1_nach_Block2);
-                Fahrstrassenupdate(Block1_nach_Block5);
-                Fahrstrassenupdate(Block5_nach_Block6);
-                Fahrstrassenupdate(Block8_nach_Block6);
-                Fahrstrassenupdate(Block9_nach_Block2);
-
-                Fahrstrassenupdate(Block6_nach_Schatten8);
-                Fahrstrassenupdate(Block6_nach_Schatten9);
-                Fahrstrassenupdate(Block6_nach_Schatten10);
-                Fahrstrassenupdate(Block6_nach_Schatten11);
-
-                Fahrstrassenupdate(Schatten8_nach_Block7);
-                Fahrstrassenupdate(Schatten9_nach_Block7);
-                Fahrstrassenupdate(Schatten10_nach_Block7);
-                Fahrstrassenupdate(Schatten11_nach_Block7);
-
-                Fahrstrassenupdate(Block7_nach_Schatten0);
-                Fahrstrassenupdate(Block7_nach_Schatten1);
-                Fahrstrassenupdate(Block7_nach_Schatten2);
-                Fahrstrassenupdate(Block7_nach_Schatten3);
-                Fahrstrassenupdate(Block7_nach_Schatten4);
-                Fahrstrassenupdate(Block7_nach_Schatten5);
-                Fahrstrassenupdate(Block7_nach_Schatten6);
-                Fahrstrassenupdate(Block7_nach_Schatten7);
-
-                Fahrstrassenupdate(Schatten0_nach_Block8);
-                Fahrstrassenupdate(Schatten1_nach_Block8);
-                Fahrstrassenupdate(Schatten1_nach_Block9);
-                Fahrstrassenupdate(Schatten2_nach_Block9);
-                Fahrstrassenupdate(Schatten3_nach_Block9);
-                Fahrstrassenupdate(Schatten4_nach_Block9);
-                Fahrstrassenupdate(Schatten5_nach_Block9);
-                Fahrstrassenupdate(Schatten6_nach_Block9);
-                Fahrstrassenupdate(Schatten7_nach_Block9);
-
-                FahrstrasseBildUpdate();
-                //if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate();
             }
 
         }
@@ -316,7 +331,7 @@ namespace MEKB_H0_Anlage
                         weiche.ZeitAktiv -= 100;
                         bool Abzweig = weiche.Abzweig;
                         if (weiche.Spiegeln) Abzweig = !Abzweig;
-                        z21Start.Z21_SET_TURNOUT(weiche.Adresse, Abzweig, true, true);
+                        z21Start.LAN_X_SET_TURNOUT(weiche.Adresse, Abzweig, true, true);
 
                         if (weiche.ZeitAktiv <= 0)
                         {
@@ -326,13 +341,25 @@ namespace MEKB_H0_Anlage
                             if (Betriebsbereit)
                             {
                                 Log.Info("Deaktiviere Weichenausgang");
-                                z21Start.Z21_SET_TURNOUT(weiche.Adresse, Abzweig, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv
+                                z21Start.LAN_X_SET_TURNOUT(weiche.Adresse, Abzweig, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv
                             }
                         }
                     }
                 }
             }
         }
+
+        private void BelegtmelderCooldown(Object source, ElapsedEventArgs e)
+        {
+            //Nur ausführen, wenn Verbindung aufgebaut ist
+            if (z21Start.Verbunden())
+            {
+                BelegtmelderListe.CoolDownUpdate(250);
+            }
+        }
+
+        
+
         #endregion
 
         #region Weichensteuerung
@@ -374,13 +401,13 @@ namespace MEKB_H0_Anlage
             MouseEventArgs e2 = (MouseEventArgs)e;
             if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
             {
-                int ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" });
+                int ListID = GetWeichenListenID("KW22_2"); 
                 if (ListID == -1) return;
                 if (!Weichenliste[ListID].Abzweig) ToggleWeiche("KW22_1");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
             }
             else                //Auf linke Hälfte der Weiche geklickt
             {
-                int ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" });
+                int ListID = GetWeichenListenID("KW22_1"); 
                 if (ListID == -1) return;
                 if (Weichenliste[ListID].Abzweig) ToggleWeiche("KW22_2");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
             }
@@ -404,19 +431,19 @@ namespace MEKB_H0_Anlage
         {
             if (sender is PictureBox SignalElement)
             {
-                int ListID = Signalliste.IndexOf(new Signal() { Name = SignalElement.Name });
-                if (ListID == -1) return;
+                Signal signal = SignalListe.GetSignal(SignalElement.Name);
+                if (signal == null) return;
 
                 int ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
 
-                if (Signalliste[ListID].Zustand == Signal.HP1)
+                if (signal.Zustand == Signal.HP1)
                 {
-                    Signalliste[ListID].Schalten(Signal.HP0, z21Start);
+                    signal.Schalten(Signal.HP0, z21Start);
                 }
-                else if (Signalliste[ListID].Zustand == Signal.HP0)
+                else if (signal.Zustand == Signal.HP0)
                 {
                     if (ErlaubteSignalstellung == Signal.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
-                    Signalliste[ListID].Schalten(Signal.HP1, z21Start);
+                    signal.Schalten(Signal.HP1, z21Start);
                 }
             }
         }
@@ -424,19 +451,19 @@ namespace MEKB_H0_Anlage
         {
             if (sender is PictureBox SignalElement)
             {
-                int ListID = Signalliste.IndexOf(new Signal() { Name = SignalElement.Name });
-                if (ListID == -1) return;
+                Signal signal = SignalListe.GetSignal(SignalElement.Name);
+                if (signal == null) return;
 
                 int ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
 
-                if (Signalliste[ListID].Zustand == 2)
+                if (signal.Zustand == 2)
                 {
-                    Signalliste[ListID].Schalten(Signal.HP0, z21Start);
+                    signal.Schalten(Signal.HP0, z21Start);
                 }
-                else if (Signalliste[ListID].Zustand == 0)
+                else if (signal.Zustand == 0)
                 {
                     if (ErlaubteSignalstellung == Signal.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
-                    Signalliste[ListID].Schalten(Signal.HP2, z21Start);
+                    signal.Schalten(Signal.HP2, z21Start);
                 }
             }
         }
@@ -668,6 +695,8 @@ namespace MEKB_H0_Anlage
         }
         #endregion
 
+        
+
         private void StopAlle_Click(object sender, EventArgs e)
         {
             foreach(Lok lok in AktiveLoks)
@@ -732,6 +761,12 @@ namespace MEKB_H0_Anlage
         {
             signal_Einstellungen = new Signal_Einstellungen();
             signal_Einstellungen.Show();
+        }
+
+        private void belegtmeldungToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
+            belegtmelder_Ueberwachung.Show();
         }
     }
 }
