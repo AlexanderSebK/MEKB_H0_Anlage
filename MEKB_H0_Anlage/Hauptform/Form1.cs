@@ -37,7 +37,7 @@ namespace MEKB_H0_Anlage
         private InfoBox InfoBox;
 
         public List<Weiche> Weichenliste = new List<Weiche>();
-        public List<Signal> Signalliste = new List<Signal>();
+        public SignalListe SignalListe = new SignalListe("Signalliste.xml");
         public List<Lok> Lokliste = new List<Lok>();
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
         public Lok[] AktiveLoks = new Lok[12];
@@ -81,7 +81,6 @@ namespace MEKB_H0_Anlage
             ConnectStatus(false, false);                 //Verbindungsstatus auf getrennt setzen
 
             SetupWeichenListe();                        //Weichenliste aus Datei laden
-            SetupSignalListe();                         //Signalliste festlegen
             SetupFahrstrassen();                        //Fahstrassen festlegen          
             SetupLokListe();                            //Lok-Daten aus Dateien laden
 
@@ -102,7 +101,7 @@ namespace MEKB_H0_Anlage
         private void Form1_Shown(object sender, EventArgs e)
         {
             Pointer_Weichenliste = Weichenliste.Count() - 1;
-            Pointer_Signalliste = Signalliste.Count() - 1;
+            Pointer_Signalliste = SignalListe.Liste.Count() - 1;
             Signal_Init = false;
             Weichen_Init = false;
 
@@ -139,7 +138,7 @@ namespace MEKB_H0_Anlage
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             StopAlle_Click(sender, e);
-            foreach (Signal signal in Signalliste)
+            foreach (Signal signal in SignalListe.Liste)
             {
                 signal.Schalten(0, z21Start);//Alle Signale Rot
             }
@@ -162,7 +161,7 @@ namespace MEKB_H0_Anlage
         {
             z21Start.Connect_Z21();
             Pointer_Weichenliste = Weichenliste.Count() - 1;
-            Pointer_Signalliste = Signalliste.Count() - 1;
+            Pointer_Signalliste = SignalListe.Liste.Count() - 1;
             Signal_Init = false;
             Weichen_Init = false;
         }
@@ -219,10 +218,10 @@ namespace MEKB_H0_Anlage
                     }
 
 
-                    GetSignalStatus_Z21(Signalliste[Pointer_Signalliste].Name);
+                    GetSignalStatus_Z21(SignalListe.Liste[Pointer_Signalliste].Name);
                     if (Pointer_Signalliste <= 0)
                     {
-                        Pointer_Signalliste = Signalliste.Count() - 1;
+                        Pointer_Signalliste = SignalListe.Liste.Count() - 1;
                         Signal_Init = true;
                     }
                     else
@@ -429,19 +428,19 @@ namespace MEKB_H0_Anlage
         {
             if (sender is PictureBox SignalElement)
             {
-                int ListID = GetSignalListenID(SignalElement.Name);
-                if (ListID == -1) return;
+                Signal signal = SignalListe.GetSignal(SignalElement.Name);
+                if (signal == null) return;
 
                 int ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
 
-                if (Signalliste[ListID].Zustand == Signal.HP1)
+                if (signal.Zustand == Signal.HP1)
                 {
-                    Signalliste[ListID].Schalten(Signal.HP0, z21Start);
+                    signal.Schalten(Signal.HP0, z21Start);
                 }
-                else if (Signalliste[ListID].Zustand == Signal.HP0)
+                else if (signal.Zustand == Signal.HP0)
                 {
                     if (ErlaubteSignalstellung == Signal.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
-                    Signalliste[ListID].Schalten(Signal.HP1, z21Start);
+                    signal.Schalten(Signal.HP1, z21Start);
                 }
             }
         }
@@ -449,19 +448,19 @@ namespace MEKB_H0_Anlage
         {
             if (sender is PictureBox SignalElement)
             {
-                int ListID = GetSignalListenID(SignalElement.Name);
-                if (ListID == -1) return;
+                Signal signal = SignalListe.GetSignal(SignalElement.Name);
+                if (signal == null) return;
 
                 int ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
 
-                if (Signalliste[ListID].Zustand == 2)
+                if (signal.Zustand == 2)
                 {
-                    Signalliste[ListID].Schalten(Signal.HP0, z21Start);
+                    signal.Schalten(Signal.HP0, z21Start);
                 }
-                else if (Signalliste[ListID].Zustand == 0)
+                else if (signal.Zustand == 0)
                 {
                     if (ErlaubteSignalstellung == Signal.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
-                    Signalliste[ListID].Schalten(Signal.HP2, z21Start);
+                    signal.Schalten(Signal.HP2, z21Start);
                 }
             }
         }

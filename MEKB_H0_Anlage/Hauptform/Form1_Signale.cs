@@ -11,10 +11,9 @@ namespace MEKB_H0_Anlage
 {
     public partial class Form1 : Form
     {
-        public Dictionary<string, int> SignalVerzeichnis;
         public void SetupSignalListe()
         {
-            SignalVerzeichnis = new Dictionary<string, int>();
+            /*SignalVerzeichnis = new Dictionary<string, int>();
             XElement XMLFile = XElement.Load("Signalliste.xml");       //XML-Datei öffnen
             var list = XMLFile.Elements("Signal").ToList();             //Alle Elemente des Types Weiche in eine Liste Umwandeln 
 
@@ -47,9 +46,9 @@ namespace MEKB_H0_Anlage
             for (int i = 0; i < Signalliste.Count; i++)
             {
                 SignalVerzeichnis.Add(Signalliste[i].Name, i);
-            }
+            }*/
         }
-
+        /*
         int GetSignalListenID(string Signalname)
         {
             int ListID;
@@ -59,7 +58,7 @@ namespace MEKB_H0_Anlage
             }
             return -1;
         }
-
+        */
         public void GetSignalSchaltbild(Signal signal, PictureBox picBox)
         {
             dynamic img;
@@ -133,29 +132,29 @@ namespace MEKB_H0_Anlage
         private void GetSignalStatus_Z21(string Signalname)
         {
 
-            int ListID = GetSignalListenID(Signalname); //Weiche mit diesem Namen in der Liste suchen
-            if (ListID == -1) return;                                               //Weiche nicht vorhanden, Funktion abbrechen
-            int Adresse = Signalliste[ListID].Adresse;                             //Adresse der Weiche übernehmen
+            Signal signal = SignalListe.GetSignal(Signalname); //Weiche mit diesem Namen in der Liste suchen
+            if (signal == null) return;                                               //Weiche nicht vorhanden, Funktion abbrechen
+            int Adresse = signal.Adresse;                             //Adresse der Weiche übernehmen
             z21Start.LAN_X_GET_TURNOUT_INFO(Adresse);                                       //paket senden "GET Weiche"
-            Adresse = Signalliste[ListID].Adresse2;                             //Adresse der Weiche übernehmen
+            Adresse = signal.Adresse2;                             //Adresse der Weiche übernehmen
             z21Start.LAN_X_GET_TURNOUT_INFO(Adresse);                                       //paket senden "GET Weiche"
         }
 
         private void SchalteSignal(string Signalname, int HPx)
         {
-            int ListID = GetSignalListenID(Signalname);
-            if (ListID != -1)
+            Signal signal = SignalListe.GetSignal(Signalname);
+            if (signal != null)
             {
-                Signalliste[ListID].Schalten(HPx, z21Start);
+                signal.Schalten(HPx, z21Start);
             }
         }
 
         private int getSignalZustand(string Signalname)
         {
-            int ListID = GetSignalListenID(Signalname);
-            if (ListID != -1)
+            Signal signal = SignalListe.GetSignal(Signalname);
+            if (signal != null)
             {
-                return Signalliste[ListID].Zustand;
+                return signal.Zustand;
             }
             return -1;
         }
@@ -164,24 +163,24 @@ namespace MEKB_H0_Anlage
         {
             if (AutoSignale.Checked)
             {
-                int ListID = GetSignalListenID(Signalname);
-                if (ListID != -1)
+                Signal signal = SignalListe.GetSignal(Signalname);
+                if (signal != null)
                 {
-                    int Stellung = AllowedSignalPos(Signalliste[ListID].Name);
+                    int Stellung = AllowedSignalPos(signal.Name);
 
-                    if (Signalliste[ListID].Zustand != Stellung) //Schalten bei Unterschied
+                    if (signal.Zustand != Stellung) //Schalten bei Unterschied
                     {
                         if (Stellung != Signal.HP0)
                         {
                             //Autoschalten auf Fahrt, wenn Option es erlaubt
                             if (Config.ReadConfig("AutoSignalFahrt").Equals("true"))
                             {
-                                Signalliste[ListID].Schalten(Stellung, z21Start);
+                                signal.Schalten(Stellung, z21Start);
                             }
                         }
                         else //Schalten auf Halt
                         {
-                            Signalliste[ListID].Schalten(Stellung, z21Start);
+                            signal.Schalten(Stellung, z21Start);
                         }
                     }
                 }             

@@ -133,24 +133,24 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                index = Signalliste.FindIndex(x => x.Adresse == Adresse);
-                if (index != -1)//Signal gefunden in der 1. Adressen
+                Signal signal = SignalListe.GetSignalErsteAdresse(Adresse);
+                if (signal != null)//Signal gefunden in der 1. Adressen
                 {
-                    if (!Signalliste[index].Letzte_Adresswahl)
+                    if (!signal.Letzte_Adresswahl)
                     {
-                        Signalliste[index].MaskenSetzen(Status);
-                        UpdateSignalImGleisplan(Signalliste[index]);
+                        signal.MaskenSetzen(Status);
+                        UpdateSignalImGleisplan(signal);
                     }
                 }
                 else
                 {
-                    index = Signalliste.FindIndex(x => x.Adresse2 == Adresse);
-                    if (index != -1)//Signal gefunden in der 2. Adressen
+                    signal = SignalListe.GetSignalZweiteAdresse(Adresse);
+                    if (signal != null)//Signal gefunden in der 2. Adressen
                     {
-                        if (Signalliste[index].Letzte_Adresswahl)
+                        if (signal.Letzte_Adresswahl)
                         {
-                            Signalliste[index].MaskenSetzen(Status + 4);
-                            UpdateSignalImGleisplan(Signalliste[index]);
+                            signal.MaskenSetzen(Status + 4);
+                            UpdateSignalImGleisplan(signal);
                         }
                     }
                 }

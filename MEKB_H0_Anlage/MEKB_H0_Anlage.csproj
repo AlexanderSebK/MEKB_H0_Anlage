@@ -152,6 +152,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Zusatz\Signal.cs" />
     <Compile Include="Zusatz\Verschiedenes.cs" />
     <Compile Include="Z21_Bibliothek\Z21.cs" />
     <Compile Include="MenuFenster\Z21_Einstellung.cs">
