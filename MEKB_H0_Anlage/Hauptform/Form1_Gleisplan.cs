@@ -4589,34 +4589,59 @@ namespace MEKB_H0_Anlage
             {
                 DisplayPicture(GetSchaltbildEckeOR(meldeZustand),   Weiche50a_1);
                 DisplayPicture(GetSchaltbildKurve270R(meldeZustand),Weiche50a_2);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50a_3);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50a_4);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50a_5);
-                DisplayPicture(GetSchaltbildKurve90L(meldeZustand), Weiche50a_6);
-                DisplayPicture(GetSchaltbildEckeOL(meldeZustand),Weiche50a_7);
-                DisplayPicture(GetSchaltbildKurve180R(meldeZustand), Weiche50a_8);
-                DisplayPicture(GetSchaltbildKurve0L(meldeZustand), Weiche50a_9);
-                DisplayPicture(GetSchaltbildEckeUL_Sp(meldeZustand), Weiche50a_10);
-                DisplayPicture(GetSchaltbildKurve315L(meldeZustand),Weiche50a_11); // TODO :
-                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50a_12);
-                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50a_13);
-
-                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche50b_1);
-                DisplayPicture(GetSchaltbildKurve90L_EckeUR(FreiesGleis, meldeZustand), Weiche50b_6);
-                DisplayPicture(GetSchaltbildKurve180L_EckeOR(FreiesGleis, meldeZustand), Weiche50b_7);
+                DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche50b_1);              
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50b_2);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50b_4);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche50b_5);
-                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50b_8);
-                DisplayPicture(GetSchaltbildGerade270(meldeZustand), Weiche50b_9);
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(meldeZustand, FreiesGleis), Weiche50b_1);
-                DisplayPicture(GetSchaltbildKurve90L_EckeUR(meldeZustand, FreiesGleis), Weiche50b_6);
-                DisplayPicture(GetSchaltbildKurve180L_EckeOR(meldeZustand, FreiesGleis), Weiche50b_7);
             }
         }
+
+        private void UpdateGleisbild_Tunnel1_Einf(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Tunnel1_Einf);
+        }
+        private void UpdateGleisbild_Tunnel2_Einf(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade90(zustand), Tunnel2_Einf);
+        }
+        private void UpdateGleisbild_Tunnel1_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Tunnel1_Halt);
+        }
+        private void UpdateGleisbild_Tunnel2_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
+        {
+            MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
+            DisplayPicture(GetSchaltbildGerade270(zustand), Tunnel2_Halt);
+        }
+
+        private void UpdateGleisbild_Tunnel(bool besetzt_Tunnel1, List<Fahrstrasse> Fahrstrasse_Tunnel1,
+                                            bool besetzt_Tunnel2, List<Fahrstrasse> Fahrstrasse_Tunnel2)
+        {
+            MeldeZustand zustand_Tunnel1 = ErrechneZustand(besetzt_Tunnel1, new List<Fahrstrasse>(), Fahrstrasse_Tunnel1);
+            MeldeZustand zustand_Tunnel2 = ErrechneZustand(besetzt_Tunnel2, new List<Fahrstrasse>(), Fahrstrasse_Tunnel2);
+
+            DisplayPicture(GetSchaltbildGerade90( zustand_Tunnel1), Tunnel1_1);
+            DisplayPicture(GetSchaltbildGerade90( zustand_Tunnel1), Tunnel1_2);
+            DisplayPicture(GetSchaltbildKurve90L( zustand_Tunnel1), Tunnel1_3);
+            DisplayPicture(GetSchaltbildEckeOL(   zustand_Tunnel1), Tunnel1_4);
+            DisplayPicture(GetSchaltbildKurve180R(zustand_Tunnel1), Tunnel1_5);
+            DisplayPicture(GetSchaltbildKurve0L(  zustand_Tunnel1), Tunnel1_6);
+            DisplayPicture(GetSchaltbildEckeUL_Sp(zustand_Tunnel1), Tunnel1_7);
+            DisplayPicture(GetSchaltbildKurve315L(zustand_Tunnel1), Tunnel1_8);
+            DisplayPicture(GetSchaltbildGerade270(zustand_Tunnel1), Tunnel1_9);
+
+            DisplayPicture(GetSchaltbildGerade90(zustand_Tunnel2), Tunnel2_1);
+            DisplayPicture(GetSchaltbildGerade90(zustand_Tunnel2), Tunnel2_2);
+            DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand_Tunnel2, zustand_Tunnel1), Tunnel2_3);
+            DisplayPicture(GetSchaltbildKurve180L_EckeOR(zustand_Tunnel2, zustand_Tunnel1), Tunnel2_4);
+            DisplayPicture(GetSchaltbildGerade270(zustand_Tunnel2), Tunnel2_5);
+        }
+
+
         private void UpdateGleisbild_Weiche51()
         {
             int ListID = GetWeichenListenID("Weiche51");
@@ -7673,6 +7698,28 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_Schatten_Gl11(BelegtmelderListe.GetBelegtStatus("Schatten_Gl11"));
             UpdateGleisbild_Schatten_Gl11_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl11_Halt"));
 
+            //Tunnel
+            UpdateGleisbild_Tunnel1_Einf(BelegtmelderListe.GetBelegtStatus("Tunnel1_Einfahrt"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts1, Gleis2_nach_rechts1, Gleis3_nach_rechts1, //Nach rechts
+                                                            Gleis4_nach_rechts1, Gleis5_nach_rechts1, Gleis6_nach_rechts1});
+            UpdateGleisbild_Tunnel2_Einf(BelegtmelderListe.GetBelegtStatus("Tunnel2_Einfahrt"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts2, Gleis2_nach_rechts2, Gleis3_nach_rechts2, //Nach rechts
+                                                            Gleis4_nach_rechts2, Gleis5_nach_rechts2, Gleis6_nach_rechts2});
+
+            UpdateGleisbild_Tunnel(BelegtmelderListe.GetBelegtStatus("Tunnel1"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts1, Gleis2_nach_rechts1, Gleis3_nach_rechts1, //Nach rechts
+                                                            Gleis4_nach_rechts1, Gleis5_nach_rechts1, Gleis6_nach_rechts1},
+                                   BelegtmelderListe.GetBelegtStatus("Tunnel2"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts2, Gleis2_nach_rechts2, Gleis3_nach_rechts2, //Nach rechts
+                                                            Gleis4_nach_rechts2, Gleis5_nach_rechts2, Gleis6_nach_rechts2});
+
+            UpdateGleisbild_Tunnel1_Halt(BelegtmelderListe.GetBelegtStatus("Tunnel1_Halt"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts1, Gleis2_nach_rechts1, Gleis3_nach_rechts1, //Nach rechts
+                                                            Gleis4_nach_rechts1, Gleis5_nach_rechts1, Gleis6_nach_rechts1});
+            UpdateGleisbild_Tunnel2_Halt(BelegtmelderListe.GetBelegtStatus("Tunnel2_Halt"), //Besetzt
+                                    new List<Fahrstrasse> { Gleis1_nach_rechts2, Gleis2_nach_rechts2, Gleis3_nach_rechts2, //Nach rechts
+                                                            Gleis4_nach_rechts2, Gleis5_nach_rechts2, Gleis6_nach_rechts2});
+
 
             //Gleise im Block 1 aktualisieren
             UpdateGleisbild_Weiche6(BelegtmelderListe.GetBelegtStatus("W6"), //Besetzt
@@ -7922,7 +7969,8 @@ namespace MEKB_H0_Anlage
                         SetzeWeichenBelegung("Weiche62", belegtmelder.IstBelegt()); if (GetWeiche("Weiche62").Abzweig) break;
                         SetzeWeichenBelegung("Weiche63", belegtmelder.IstBelegt()); if (GetWeiche("Weiche63").Abzweig) break;
                         SetzeWeichenBelegung("Weiche64", belegtmelder.IstBelegt()); if (GetWeiche("Weiche64").Abzweig) break;
-                        SetzeWeichenBelegung("Weiche65", belegtmelder.IstBelegt()); 
+                        SetzeWeichenBelegung("Weiche65", belegtmelder.IstBelegt()); if (GetWeiche("Weiche65").Abzweig) break;
+                        SetzeWeichenBelegung("Weiche66", belegtmelder.IstBelegt());
                         break;
                     case "W67_W68":
                         if (GetWeiche("Weiche68").Abzweig && (!GetWeiche("Weiche67").Abzweig))

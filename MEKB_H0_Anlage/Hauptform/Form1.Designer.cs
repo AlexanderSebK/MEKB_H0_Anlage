@@ -337,8 +337,8 @@
             this.Weiche53_Gleis2 = new System.Windows.Forms.PictureBox();
             this.Weiche53_Gleis0 = new System.Windows.Forms.PictureBox();
             this.Weiche53 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_7 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_10 = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_4 = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_7 = new System.Windows.Forms.PictureBox();
             this.Weiche50a_1 = new System.Windows.Forms.PictureBox();
             this.Weiche9_Gleis3 = new System.Windows.Forms.PictureBox();
             this.Betrieb_Gl33_1 = new System.Windows.Forms.PictureBox();
@@ -364,23 +364,23 @@
             this.Betrieb_Gl23_2 = new System.Windows.Forms.PictureBox();
             this.pictureBox152 = new System.Windows.Forms.PictureBox();
             this.pictureBox151 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_3 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_4 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_5 = new System.Windows.Forms.PictureBox();
-            this.Weiche50b_2 = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_Einf = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_1 = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_2 = new System.Windows.Forms.PictureBox();
+            this.Tunnel2_Einf = new System.Windows.Forms.PictureBox();
             this.Weiche51a_3 = new System.Windows.Forms.PictureBox();
             this.Weiche51b_2 = new System.Windows.Forms.PictureBox();
-            this.Weiche50b_4 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_13 = new System.Windows.Forms.PictureBox();
-            this.Weiche50b_9 = new System.Windows.Forms.PictureBox();
-            this.Weiche50b_5 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_12 = new System.Windows.Forms.PictureBox();
-            this.Weiche50b_8 = new System.Windows.Forms.PictureBox();
+            this.Tunnel2_1 = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_Halt = new System.Windows.Forms.PictureBox();
+            this.Tunnel2_Halt = new System.Windows.Forms.PictureBox();
+            this.Tunnel2_2 = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_9 = new System.Windows.Forms.PictureBox();
+            this.Tunnel2_5 = new System.Windows.Forms.PictureBox();
             this.Weiche50a_2 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_9 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_8 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_6 = new System.Windows.Forms.PictureBox();
-            this.Weiche50b_6 = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_6 = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_5 = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_3 = new System.Windows.Forms.PictureBox();
+            this.Tunnel2_3 = new System.Windows.Forms.PictureBox();
             this.Weiche9_Gleis1 = new System.Windows.Forms.PictureBox();
             this.Betrieb_Gl27_2 = new System.Windows.Forms.PictureBox();
             this.Betrieb_Gl25_3 = new System.Windows.Forms.PictureBox();
@@ -392,8 +392,8 @@
             this.Betrieb_Gl23_5 = new System.Windows.Forms.PictureBox();
             this.Block2_6 = new System.Windows.Forms.PictureBox();
             this.Block1_Halt_1 = new System.Windows.Forms.PictureBox();
-            this.Weiche50b_7 = new System.Windows.Forms.PictureBox();
-            this.Weiche50a_11 = new System.Windows.Forms.PictureBox();
+            this.Tunnel2_4 = new System.Windows.Forms.PictureBox();
+            this.Tunnel1_8 = new System.Windows.Forms.PictureBox();
             this.Weiche50b_1 = new System.Windows.Forms.PictureBox();
             this.Weiche50 = new System.Windows.Forms.PictureBox();
             this.Weiche51a_2 = new System.Windows.Forms.PictureBox();
@@ -1313,8 +1313,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche9_Gleis3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl33_1)).BeginInit();
@@ -1340,23 +1340,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl23_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox152)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox151)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_Einf)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_Einf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche51a_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche51b_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_Halt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_Halt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche9_Gleis1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl27_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl25_3)).BeginInit();
@@ -1368,8 +1368,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl23_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block2_6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block1_Halt_1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche50)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche51a_2)).BeginInit();
@@ -4624,23 +4624,23 @@
             this.Weiche53.TabStop = false;
             this.Weiche53.Click += new System.EventHandler(this.Weiche_Click);
             // 
-            // Weiche50a_7
+            // Tunnel1_4
             // 
-            this.Weiche50a_7.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
-            this.Weiche50a_7.Location = new System.Drawing.Point(1856, 192);
-            this.Weiche50a_7.Name = "Weiche50a_7";
-            this.Weiche50a_7.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_7.TabIndex = 210;
-            this.Weiche50a_7.TabStop = false;
+            this.Tunnel1_4.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
+            this.Tunnel1_4.Location = new System.Drawing.Point(1856, 192);
+            this.Tunnel1_4.Name = "Tunnel1_4";
+            this.Tunnel1_4.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_4.TabIndex = 210;
+            this.Tunnel1_4.TabStop = false;
             // 
-            // Weiche50a_10
+            // Tunnel1_7
             // 
-            this.Weiche50a_10.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
-            this.Weiche50a_10.Location = new System.Drawing.Point(1856, 96);
-            this.Weiche50a_10.Name = "Weiche50a_10";
-            this.Weiche50a_10.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_10.TabIndex = 209;
-            this.Weiche50a_10.TabStop = false;
+            this.Tunnel1_7.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
+            this.Tunnel1_7.Location = new System.Drawing.Point(1856, 96);
+            this.Tunnel1_7.Name = "Tunnel1_7";
+            this.Tunnel1_7.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_7.TabIndex = 209;
+            this.Tunnel1_7.TabStop = false;
             // 
             // Weiche50a_1
             // 
@@ -4867,41 +4867,41 @@
             this.pictureBox151.TabIndex = 184;
             this.pictureBox151.TabStop = false;
             // 
-            // Weiche50a_3
+            // Tunnel1_Einf
             // 
-            this.Weiche50a_3.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.Weiche50a_3.Location = new System.Drawing.Point(1728, 192);
-            this.Weiche50a_3.Name = "Weiche50a_3";
-            this.Weiche50a_3.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_3.TabIndex = 183;
-            this.Weiche50a_3.TabStop = false;
+            this.Tunnel1_Einf.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Tunnel1_Einf.Location = new System.Drawing.Point(1728, 192);
+            this.Tunnel1_Einf.Name = "Tunnel1_Einf";
+            this.Tunnel1_Einf.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_Einf.TabIndex = 183;
+            this.Tunnel1_Einf.TabStop = false;
             // 
-            // Weiche50a_4
+            // Tunnel1_1
             // 
-            this.Weiche50a_4.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.Weiche50a_4.Location = new System.Drawing.Point(1760, 192);
-            this.Weiche50a_4.Name = "Weiche50a_4";
-            this.Weiche50a_4.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_4.TabIndex = 182;
-            this.Weiche50a_4.TabStop = false;
+            this.Tunnel1_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Tunnel1_1.Location = new System.Drawing.Point(1760, 192);
+            this.Tunnel1_1.Name = "Tunnel1_1";
+            this.Tunnel1_1.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_1.TabIndex = 182;
+            this.Tunnel1_1.TabStop = false;
             // 
-            // Weiche50a_5
+            // Tunnel1_2
             // 
-            this.Weiche50a_5.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.Weiche50a_5.Location = new System.Drawing.Point(1792, 192);
-            this.Weiche50a_5.Name = "Weiche50a_5";
-            this.Weiche50a_5.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_5.TabIndex = 181;
-            this.Weiche50a_5.TabStop = false;
+            this.Tunnel1_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Tunnel1_2.Location = new System.Drawing.Point(1792, 192);
+            this.Tunnel1_2.Name = "Tunnel1_2";
+            this.Tunnel1_2.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_2.TabIndex = 181;
+            this.Tunnel1_2.TabStop = false;
             // 
-            // Weiche50b_2
+            // Tunnel2_Einf
             // 
-            this.Weiche50b_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.Weiche50b_2.Location = new System.Drawing.Point(1728, 160);
-            this.Weiche50b_2.Name = "Weiche50b_2";
-            this.Weiche50b_2.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50b_2.TabIndex = 180;
-            this.Weiche50b_2.TabStop = false;
+            this.Tunnel2_Einf.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Tunnel2_Einf.Location = new System.Drawing.Point(1728, 160);
+            this.Tunnel2_Einf.Name = "Tunnel2_Einf";
+            this.Tunnel2_Einf.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel2_Einf.TabIndex = 180;
+            this.Tunnel2_Einf.TabStop = false;
             // 
             // Weiche51a_3
             // 
@@ -4921,59 +4921,59 @@
             this.Weiche51b_2.TabIndex = 178;
             this.Weiche51b_2.TabStop = false;
             // 
-            // Weiche50b_4
+            // Tunnel2_1
             // 
-            this.Weiche50b_4.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.Weiche50b_4.Location = new System.Drawing.Point(1760, 160);
-            this.Weiche50b_4.Name = "Weiche50b_4";
-            this.Weiche50b_4.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50b_4.TabIndex = 177;
-            this.Weiche50b_4.TabStop = false;
+            this.Tunnel2_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Tunnel2_1.Location = new System.Drawing.Point(1760, 160);
+            this.Tunnel2_1.Name = "Tunnel2_1";
+            this.Tunnel2_1.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel2_1.TabIndex = 177;
+            this.Tunnel2_1.TabStop = false;
             // 
-            // Weiche50a_13
+            // Tunnel1_Halt
             // 
-            this.Weiche50a_13.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.Weiche50a_13.Location = new System.Drawing.Point(1760, 96);
-            this.Weiche50a_13.Name = "Weiche50a_13";
-            this.Weiche50a_13.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_13.TabIndex = 176;
-            this.Weiche50a_13.TabStop = false;
+            this.Tunnel1_Halt.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Tunnel1_Halt.Location = new System.Drawing.Point(1760, 96);
+            this.Tunnel1_Halt.Name = "Tunnel1_Halt";
+            this.Tunnel1_Halt.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_Halt.TabIndex = 176;
+            this.Tunnel1_Halt.TabStop = false;
             // 
-            // Weiche50b_9
+            // Tunnel2_Halt
             // 
-            this.Weiche50b_9.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.Weiche50b_9.Location = new System.Drawing.Point(1760, 128);
-            this.Weiche50b_9.Name = "Weiche50b_9";
-            this.Weiche50b_9.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50b_9.TabIndex = 175;
-            this.Weiche50b_9.TabStop = false;
+            this.Tunnel2_Halt.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Tunnel2_Halt.Location = new System.Drawing.Point(1760, 128);
+            this.Tunnel2_Halt.Name = "Tunnel2_Halt";
+            this.Tunnel2_Halt.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel2_Halt.TabIndex = 175;
+            this.Tunnel2_Halt.TabStop = false;
             // 
-            // Weiche50b_5
+            // Tunnel2_2
             // 
-            this.Weiche50b_5.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.Weiche50b_5.Location = new System.Drawing.Point(1792, 160);
-            this.Weiche50b_5.Name = "Weiche50b_5";
-            this.Weiche50b_5.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50b_5.TabIndex = 174;
-            this.Weiche50b_5.TabStop = false;
+            this.Tunnel2_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Tunnel2_2.Location = new System.Drawing.Point(1792, 160);
+            this.Tunnel2_2.Name = "Tunnel2_2";
+            this.Tunnel2_2.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel2_2.TabIndex = 174;
+            this.Tunnel2_2.TabStop = false;
             // 
-            // Weiche50a_12
+            // Tunnel1_9
             // 
-            this.Weiche50a_12.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.Weiche50a_12.Location = new System.Drawing.Point(1792, 96);
-            this.Weiche50a_12.Name = "Weiche50a_12";
-            this.Weiche50a_12.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_12.TabIndex = 173;
-            this.Weiche50a_12.TabStop = false;
+            this.Tunnel1_9.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Tunnel1_9.Location = new System.Drawing.Point(1792, 96);
+            this.Tunnel1_9.Name = "Tunnel1_9";
+            this.Tunnel1_9.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_9.TabIndex = 173;
+            this.Tunnel1_9.TabStop = false;
             // 
-            // Weiche50b_8
+            // Tunnel2_5
             // 
-            this.Weiche50b_8.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
-            this.Weiche50b_8.Location = new System.Drawing.Point(1792, 128);
-            this.Weiche50b_8.Name = "Weiche50b_8";
-            this.Weiche50b_8.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50b_8.TabIndex = 172;
-            this.Weiche50b_8.TabStop = false;
+            this.Tunnel2_5.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade90;
+            this.Tunnel2_5.Location = new System.Drawing.Point(1792, 128);
+            this.Tunnel2_5.Name = "Tunnel2_5";
+            this.Tunnel2_5.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel2_5.TabIndex = 172;
+            this.Tunnel2_5.TabStop = false;
             // 
             // Weiche50a_2
             // 
@@ -4984,41 +4984,41 @@
             this.Weiche50a_2.TabIndex = 171;
             this.Weiche50a_2.TabStop = false;
             // 
-            // Weiche50a_9
+            // Tunnel1_6
             // 
-            this.Weiche50a_9.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve0L;
-            this.Weiche50a_9.Location = new System.Drawing.Point(1856, 128);
-            this.Weiche50a_9.Name = "Weiche50a_9";
-            this.Weiche50a_9.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_9.TabIndex = 170;
-            this.Weiche50a_9.TabStop = false;
+            this.Tunnel1_6.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve0L;
+            this.Tunnel1_6.Location = new System.Drawing.Point(1856, 128);
+            this.Tunnel1_6.Name = "Tunnel1_6";
+            this.Tunnel1_6.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_6.TabIndex = 170;
+            this.Tunnel1_6.TabStop = false;
             // 
-            // Weiche50a_8
+            // Tunnel1_5
             // 
-            this.Weiche50a_8.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve180R;
-            this.Weiche50a_8.Location = new System.Drawing.Point(1856, 160);
-            this.Weiche50a_8.Name = "Weiche50a_8";
-            this.Weiche50a_8.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_8.TabIndex = 169;
-            this.Weiche50a_8.TabStop = false;
+            this.Tunnel1_5.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve180R;
+            this.Tunnel1_5.Location = new System.Drawing.Point(1856, 160);
+            this.Tunnel1_5.Name = "Tunnel1_5";
+            this.Tunnel1_5.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_5.TabIndex = 169;
+            this.Tunnel1_5.TabStop = false;
             // 
-            // Weiche50a_6
+            // Tunnel1_3
             // 
-            this.Weiche50a_6.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90L;
-            this.Weiche50a_6.Location = new System.Drawing.Point(1824, 192);
-            this.Weiche50a_6.Name = "Weiche50a_6";
-            this.Weiche50a_6.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_6.TabIndex = 168;
-            this.Weiche50a_6.TabStop = false;
+            this.Tunnel1_3.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90L;
+            this.Tunnel1_3.Location = new System.Drawing.Point(1824, 192);
+            this.Tunnel1_3.Name = "Tunnel1_3";
+            this.Tunnel1_3.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_3.TabIndex = 168;
+            this.Tunnel1_3.TabStop = false;
             // 
-            // Weiche50b_6
+            // Tunnel2_3
             // 
-            this.Weiche50b_6.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90L_EckeUR;
-            this.Weiche50b_6.Location = new System.Drawing.Point(1824, 160);
-            this.Weiche50b_6.Name = "Weiche50b_6";
-            this.Weiche50b_6.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50b_6.TabIndex = 167;
-            this.Weiche50b_6.TabStop = false;
+            this.Tunnel2_3.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90L_EckeUR;
+            this.Tunnel2_3.Location = new System.Drawing.Point(1824, 160);
+            this.Tunnel2_3.Name = "Tunnel2_3";
+            this.Tunnel2_3.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel2_3.TabIndex = 167;
+            this.Tunnel2_3.TabStop = false;
             // 
             // Weiche9_Gleis1
             // 
@@ -5119,23 +5119,23 @@
             this.Block1_Halt_1.TabIndex = 152;
             this.Block1_Halt_1.TabStop = false;
             // 
-            // Weiche50b_7
+            // Tunnel2_4
             // 
-            this.Weiche50b_7.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90R_EckeOR;
-            this.Weiche50b_7.Location = new System.Drawing.Point(1824, 128);
-            this.Weiche50b_7.Name = "Weiche50b_7";
-            this.Weiche50b_7.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50b_7.TabIndex = 151;
-            this.Weiche50b_7.TabStop = false;
+            this.Tunnel2_4.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90R_EckeOR;
+            this.Tunnel2_4.Location = new System.Drawing.Point(1824, 128);
+            this.Tunnel2_4.Name = "Tunnel2_4";
+            this.Tunnel2_4.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel2_4.TabIndex = 151;
+            this.Tunnel2_4.TabStop = false;
             // 
-            // Weiche50a_11
+            // Tunnel1_8
             // 
-            this.Weiche50a_11.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90R;
-            this.Weiche50a_11.Location = new System.Drawing.Point(1824, 96);
-            this.Weiche50a_11.Name = "Weiche50a_11";
-            this.Weiche50a_11.Size = new System.Drawing.Size(32, 32);
-            this.Weiche50a_11.TabIndex = 150;
-            this.Weiche50a_11.TabStop = false;
+            this.Tunnel1_8.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve90R;
+            this.Tunnel1_8.Location = new System.Drawing.Point(1824, 96);
+            this.Tunnel1_8.Name = "Tunnel1_8";
+            this.Tunnel1_8.Size = new System.Drawing.Size(32, 32);
+            this.Tunnel1_8.TabIndex = 150;
+            this.Tunnel1_8.TabStop = false;
             // 
             // Weiche50b_1
             // 
@@ -9228,7 +9228,7 @@
             this.Rechts2_Auswahl.Controls.Add(this.Rechts2_Einfahrt_Gl2);
             this.Rechts2_Auswahl.Controls.Add(this.Rechts2_Einfahrt_Gl4);
             this.Rechts2_Auswahl.Controls.Add(this.Rechts2_Einfahrt_Gl1);
-            this.Rechts2_Auswahl.Location = new System.Drawing.Point(1760, 152);
+            this.Rechts2_Auswahl.Location = new System.Drawing.Point(1760, 151);
             this.Rechts2_Auswahl.Name = "Rechts2_Auswahl";
             this.Rechts2_Auswahl.Size = new System.Drawing.Size(101, 61);
             this.Rechts2_Auswahl.TabIndex = 654;
@@ -13157,8 +13157,8 @@
             this.Controls.Add(this.Weiche53_Gleis2);
             this.Controls.Add(this.Weiche53_Gleis0);
             this.Controls.Add(this.Weiche53);
-            this.Controls.Add(this.Weiche50a_7);
-            this.Controls.Add(this.Weiche50a_10);
+            this.Controls.Add(this.Tunnel1_4);
+            this.Controls.Add(this.Tunnel1_7);
             this.Controls.Add(this.Weiche50a_1);
             this.Controls.Add(this.Weiche9_Gleis3);
             this.Controls.Add(this.Betrieb_Gl33_1);
@@ -13184,23 +13184,23 @@
             this.Controls.Add(this.Betrieb_Gl23_2);
             this.Controls.Add(this.pictureBox152);
             this.Controls.Add(this.pictureBox151);
-            this.Controls.Add(this.Weiche50a_3);
-            this.Controls.Add(this.Weiche50a_4);
-            this.Controls.Add(this.Weiche50a_5);
-            this.Controls.Add(this.Weiche50b_2);
+            this.Controls.Add(this.Tunnel1_Einf);
+            this.Controls.Add(this.Tunnel1_1);
+            this.Controls.Add(this.Tunnel1_2);
+            this.Controls.Add(this.Tunnel2_Einf);
             this.Controls.Add(this.Weiche51a_3);
             this.Controls.Add(this.Weiche51b_2);
-            this.Controls.Add(this.Weiche50b_4);
-            this.Controls.Add(this.Weiche50a_13);
-            this.Controls.Add(this.Weiche50b_9);
-            this.Controls.Add(this.Weiche50b_5);
-            this.Controls.Add(this.Weiche50a_12);
-            this.Controls.Add(this.Weiche50b_8);
+            this.Controls.Add(this.Tunnel2_1);
+            this.Controls.Add(this.Tunnel1_Halt);
+            this.Controls.Add(this.Tunnel2_Halt);
+            this.Controls.Add(this.Tunnel2_2);
+            this.Controls.Add(this.Tunnel1_9);
+            this.Controls.Add(this.Tunnel2_5);
             this.Controls.Add(this.Weiche50a_2);
-            this.Controls.Add(this.Weiche50a_9);
-            this.Controls.Add(this.Weiche50a_8);
-            this.Controls.Add(this.Weiche50a_6);
-            this.Controls.Add(this.Weiche50b_6);
+            this.Controls.Add(this.Tunnel1_6);
+            this.Controls.Add(this.Tunnel1_5);
+            this.Controls.Add(this.Tunnel1_3);
+            this.Controls.Add(this.Tunnel2_3);
             this.Controls.Add(this.Weiche9_Gleis1);
             this.Controls.Add(this.Betrieb_Gl27_2);
             this.Controls.Add(this.Betrieb_Gl25_3);
@@ -13216,8 +13216,8 @@
             this.Controls.Add(this.Weiche43);
             this.Controls.Add(this.Block2_6);
             this.Controls.Add(this.Block1_Halt_1);
-            this.Controls.Add(this.Weiche50b_7);
-            this.Controls.Add(this.Weiche50a_11);
+            this.Controls.Add(this.Tunnel2_4);
+            this.Controls.Add(this.Tunnel1_8);
             this.Controls.Add(this.Weiche50b_1);
             this.Controls.Add(this.Weiche50);
             this.Controls.Add(this.Weiche51a_2);
@@ -13623,8 +13623,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche9_Gleis3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl33_1)).EndInit();
@@ -13650,23 +13650,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl23_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox152)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox151)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_Einf)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_Einf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche51a_3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche51b_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_Halt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_Halt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche9_Gleis1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl27_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl25_3)).EndInit();
@@ -13678,8 +13678,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl23_5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block2_6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block1_Halt_1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche50a_11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel2_4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tunnel1_8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche50b_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche50)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche51a_2)).EndInit();
@@ -14215,8 +14215,8 @@
         private System.Windows.Forms.PictureBox Weiche51;
         private System.Windows.Forms.PictureBox Weiche50;
         private System.Windows.Forms.PictureBox Weiche50b_1;
-        private System.Windows.Forms.PictureBox Weiche50a_11;
-        private System.Windows.Forms.PictureBox Weiche50b_7;
+        private System.Windows.Forms.PictureBox Tunnel1_8;
+        private System.Windows.Forms.PictureBox Tunnel2_4;
         private System.Windows.Forms.PictureBox Block1_Halt_1;
         private System.Windows.Forms.PictureBox Block2_6;
         private System.Windows.Forms.PictureBox Weiche43;
@@ -14233,23 +14233,23 @@
         private System.Windows.Forms.PictureBox Betrieb_Gl27_2;
         private System.Windows.Forms.PictureBox Weiche9_Gleis1;
         private System.Windows.Forms.ToolTip Hinttext;
-        private System.Windows.Forms.PictureBox Weiche50b_6;
-        private System.Windows.Forms.PictureBox Weiche50a_6;
-        private System.Windows.Forms.PictureBox Weiche50a_8;
-        private System.Windows.Forms.PictureBox Weiche50a_9;
+        private System.Windows.Forms.PictureBox Tunnel2_3;
+        private System.Windows.Forms.PictureBox Tunnel1_3;
+        private System.Windows.Forms.PictureBox Tunnel1_5;
+        private System.Windows.Forms.PictureBox Tunnel1_6;
         private System.Windows.Forms.PictureBox Weiche50a_2;
-        private System.Windows.Forms.PictureBox Weiche50a_3;
-        private System.Windows.Forms.PictureBox Weiche50a_4;
-        private System.Windows.Forms.PictureBox Weiche50a_5;
-        private System.Windows.Forms.PictureBox Weiche50b_2;
+        private System.Windows.Forms.PictureBox Tunnel1_Einf;
+        private System.Windows.Forms.PictureBox Tunnel1_1;
+        private System.Windows.Forms.PictureBox Tunnel1_2;
+        private System.Windows.Forms.PictureBox Tunnel2_Einf;
         private System.Windows.Forms.PictureBox Weiche51a_3;
         private System.Windows.Forms.PictureBox Weiche51b_2;
-        private System.Windows.Forms.PictureBox Weiche50b_4;
-        private System.Windows.Forms.PictureBox Weiche50a_13;
-        private System.Windows.Forms.PictureBox Weiche50b_9;
-        private System.Windows.Forms.PictureBox Weiche50b_5;
-        private System.Windows.Forms.PictureBox Weiche50a_12;
-        private System.Windows.Forms.PictureBox Weiche50b_8;
+        private System.Windows.Forms.PictureBox Tunnel2_1;
+        private System.Windows.Forms.PictureBox Tunnel1_Halt;
+        private System.Windows.Forms.PictureBox Tunnel2_Halt;
+        private System.Windows.Forms.PictureBox Tunnel2_2;
+        private System.Windows.Forms.PictureBox Tunnel1_9;
+        private System.Windows.Forms.PictureBox Tunnel2_5;
         private System.Windows.Forms.PictureBox pictureBox151;
         private System.Windows.Forms.PictureBox pictureBox152;
         private System.Windows.Forms.PictureBox Betrieb_Gl23_2;
@@ -14275,8 +14275,8 @@
         private System.Windows.Forms.PictureBox Betrieb_Gl33_1;
         private System.Windows.Forms.PictureBox Weiche9_Gleis3;
         private System.Windows.Forms.PictureBox Weiche50a_1;
-        private System.Windows.Forms.PictureBox Weiche50a_10;
-        private System.Windows.Forms.PictureBox Weiche50a_7;
+        private System.Windows.Forms.PictureBox Tunnel1_7;
+        private System.Windows.Forms.PictureBox Tunnel1_4;
         private System.Windows.Forms.PictureBox Weiche53;
         private System.Windows.Forms.PictureBox Weiche53_Gleis0;
         private System.Windows.Forms.PictureBox Weiche53_Gleis2;

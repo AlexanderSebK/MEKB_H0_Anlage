@@ -385,6 +385,14 @@
             this.Pin_Tunnel2_Halt = new System.Windows.Forms.CheckBox();
             this.Modul_Tunnel2_Halt = new System.Windows.Forms.TextBox();
             this.Tunnel2_Halt = new System.Windows.Forms.CheckBox();
+            this.Port_W60 = new System.Windows.Forms.TextBox();
+            this.Pin_W60 = new System.Windows.Forms.CheckBox();
+            this.Modul_W60 = new System.Windows.Forms.TextBox();
+            this.W60 = new System.Windows.Forms.CheckBox();
+            this.Port_W67_W68 = new System.Windows.Forms.TextBox();
+            this.Pin_W67_W68 = new System.Windows.Forms.CheckBox();
+            this.Modul_W67_W68 = new System.Windows.Forms.TextBox();
+            this.W67_W68 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Block1_a
@@ -4268,11 +4276,107 @@
             this.Tunnel2_Halt.UseVisualStyleBackColor = false;
             this.Tunnel2_Halt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
             // 
+            // Port_W60
+            // 
+            this.Port_W60.Location = new System.Drawing.Point(616, 481);
+            this.Port_W60.Name = "Port_W60";
+            this.Port_W60.ReadOnly = true;
+            this.Port_W60.Size = new System.Drawing.Size(40, 20);
+            this.Port_W60.TabIndex = 431;
+            this.Port_W60.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Pin_W60
+            // 
+            this.Pin_W60.AutoSize = true;
+            this.Pin_W60.Location = new System.Drawing.Point(664, 483);
+            this.Pin_W60.Name = "Pin_W60";
+            this.Pin_W60.Size = new System.Drawing.Size(15, 14);
+            this.Pin_W60.TabIndex = 430;
+            this.Pin_W60.UseVisualStyleBackColor = true;
+            this.Pin_W60.CheckStateChanged += new System.EventHandler(this.PinChange);
+            // 
+            // Modul_W60
+            // 
+            this.Modul_W60.Location = new System.Drawing.Point(568, 481);
+            this.Modul_W60.Name = "Modul_W60";
+            this.Modul_W60.ReadOnly = true;
+            this.Modul_W60.Size = new System.Drawing.Size(40, 20);
+            this.Modul_W60.TabIndex = 429;
+            this.Modul_W60.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W60
+            // 
+            this.W60.Appearance = System.Windows.Forms.Appearance.Button;
+            this.W60.BackColor = System.Drawing.Color.DarkRed;
+            this.W60.FlatAppearance.BorderSize = 0;
+            this.W60.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.W60.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.W60.Location = new System.Drawing.Point(480, 479);
+            this.W60.Name = "W60";
+            this.W60.Size = new System.Drawing.Size(80, 24);
+            this.W60.TabIndex = 428;
+            this.W60.Text = "W60";
+            this.W60.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.W60.UseVisualStyleBackColor = false;
+            this.W60.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
+            // 
+            // Port_W67_W68
+            // 
+            this.Port_W67_W68.Location = new System.Drawing.Point(616, 516);
+            this.Port_W67_W68.Name = "Port_W67_W68";
+            this.Port_W67_W68.ReadOnly = true;
+            this.Port_W67_W68.Size = new System.Drawing.Size(40, 20);
+            this.Port_W67_W68.TabIndex = 435;
+            this.Port_W67_W68.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Pin_W67_W68
+            // 
+            this.Pin_W67_W68.AutoSize = true;
+            this.Pin_W67_W68.Location = new System.Drawing.Point(664, 518);
+            this.Pin_W67_W68.Name = "Pin_W67_W68";
+            this.Pin_W67_W68.Size = new System.Drawing.Size(15, 14);
+            this.Pin_W67_W68.TabIndex = 434;
+            this.Pin_W67_W68.UseVisualStyleBackColor = true;
+            this.Pin_W67_W68.CheckStateChanged += new System.EventHandler(this.PinChange);
+            // 
+            // Modul_W67_W68
+            // 
+            this.Modul_W67_W68.Location = new System.Drawing.Point(568, 516);
+            this.Modul_W67_W68.Name = "Modul_W67_W68";
+            this.Modul_W67_W68.ReadOnly = true;
+            this.Modul_W67_W68.Size = new System.Drawing.Size(40, 20);
+            this.Modul_W67_W68.TabIndex = 433;
+            this.Modul_W67_W68.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W67_W68
+            // 
+            this.W67_W68.Appearance = System.Windows.Forms.Appearance.Button;
+            this.W67_W68.BackColor = System.Drawing.Color.DarkRed;
+            this.W67_W68.FlatAppearance.BorderSize = 0;
+            this.W67_W68.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.W67_W68.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.W67_W68.Location = new System.Drawing.Point(480, 514);
+            this.W67_W68.Name = "W67_W68";
+            this.W67_W68.Size = new System.Drawing.Size(80, 24);
+            this.W67_W68.TabIndex = 432;
+            this.W67_W68.Text = "W67_W68";
+            this.W67_W68.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.W67_W68.UseVisualStyleBackColor = false;
+            this.W67_W68.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
+            // 
             // Belegtmelder_Ueberwachung
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1179, 549);
+            this.Controls.Add(this.Port_W67_W68);
+            this.Controls.Add(this.Pin_W67_W68);
+            this.Controls.Add(this.Modul_W67_W68);
+            this.Controls.Add(this.W67_W68);
+            this.Controls.Add(this.Port_W60);
+            this.Controls.Add(this.Pin_W60);
+            this.Controls.Add(this.Modul_W60);
+            this.Controls.Add(this.W60);
             this.Controls.Add(this.Port_Tunnel2_Einfahrt);
             this.Controls.Add(this.Modul_Tunnel2_Einfahrt);
             this.Controls.Add(this.Pin_Tunnel2_Einfahrt);
@@ -4997,5 +5101,13 @@
         private System.Windows.Forms.CheckBox Pin_Tunnel2_Halt;
         private System.Windows.Forms.TextBox Modul_Tunnel2_Halt;
         private System.Windows.Forms.CheckBox Tunnel2_Halt;
+        private System.Windows.Forms.TextBox Port_W60;
+        private System.Windows.Forms.CheckBox Pin_W60;
+        private System.Windows.Forms.TextBox Modul_W60;
+        private System.Windows.Forms.CheckBox W60;
+        private System.Windows.Forms.TextBox Port_W67_W68;
+        private System.Windows.Forms.CheckBox Pin_W67_W68;
+        private System.Windows.Forms.TextBox Modul_W67_W68;
+        private System.Windows.Forms.CheckBox W67_W68;
     }
 }
