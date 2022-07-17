@@ -168,6 +168,7 @@
     <Compile Include="ZugSteuerpult.Designer.cs">
       <DependentUpon>ZugSteuerpult.cs</DependentUpon>
     </Compile>
+    <Compile Include="Zusatz\Weichen.cs" />
     <EmbeddedResource Include="Hauptform\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>

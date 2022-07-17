@@ -125,11 +125,11 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateWeiche(int Adresse, int Status)
         {
-            int index = Weichenliste.FindIndex(x => x.Adresse == Adresse); //Finde Weiche mit dieser Adresse 
-            if (index != -1)//Weiche gefunden in der Liste
+            Weiche weiche = WeichenListe.GetWeiche(Adresse); //Finde Weiche mit dieser Adresse 
+            if (weiche != null)//Weiche gefunden in der Liste
             {
-                bool aenderung = Weichenliste[index].Schalten(Status);
-                UpdateWeicheImGleisplan(Weichenliste[index],aenderung); //Mit Signal-Update
+                bool aenderung = weiche.Schalten(Status);
+                UpdateWeicheImGleisplan(weiche, aenderung); //Mit Signal-Update
             }
             else
             {
@@ -199,7 +199,7 @@ namespace MEKB_H0_Anlage
                     case "Weiche4":  DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche4) ;
                         if (signalUpdate)
                         {
-                            if (GetWeiche("Weiche3").Abzweig) AutoSignalUpdate("Signal_Einfahrt_L");
+                            if (WeichenListe.GetWeiche("Weiche3").Abzweig) AutoSignalUpdate("Signal_Einfahrt_L");
                             AutoSignalUpdate("Signal_Ausfahrt_L1");
                             AutoSignalUpdate("Signal_Ausfahrt_L2");
                         }
@@ -217,7 +217,7 @@ namespace MEKB_H0_Anlage
                     case "Weiche6":  DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche6) ;
                         if (signalUpdate)
                         {
-                            if(GetWeiche("Weiche3").Abzweig) AutoSignalUpdate("Signal_Einfahrt_L");
+                            if(WeichenListe.GetWeiche("Weiche3").Abzweig) AutoSignalUpdate("Signal_Einfahrt_L");
                             AutoSignalUpdate("Signal_Ausfahrt_L1");
                             AutoSignalUpdate("Signal_Ausfahrt_L2");
                         }
@@ -235,8 +235,8 @@ namespace MEKB_H0_Anlage
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Ausfahrt_R6");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
                         }
                         break;
                     case "Weiche23": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche23);
@@ -244,8 +244,8 @@ namespace MEKB_H0_Anlage
                         {
                             AutoSignalUpdate("Signal_Ausfahrt_R5");
                             AutoSignalUpdate("Signal_Ausfahrt_R6");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
                         }
                         break;
                     case "Weiche25": DisplayPicture(GetSchaltbildWeicheL270(weiche),Weiche25);
@@ -262,15 +262,15 @@ namespace MEKB_H0_Anlage
                         {
                             AutoSignalUpdate("Signal_Ausfahrt_R1");
                             AutoSignalUpdate("Signal_Ausfahrt_R2");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
                         }
                         break;
                     case "Weiche27": DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche27);
                         if (signalUpdate)
                         {
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
                             AutoSignalUpdate("Signal_Ausfahrt_R1");
                             AutoSignalUpdate("Signal_Ausfahrt_R2");
                             AutoSignalUpdate("Signal_Ausfahrt_R3");
@@ -336,7 +336,7 @@ namespace MEKB_H0_Anlage
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Block2");
-                            if (GetWeiche("Weiche52").Abzweig) AutoSignalUpdate("Signal_Block5");
+                            if (WeichenListe.GetWeiche("Weiche52").Abzweig) AutoSignalUpdate("Signal_Block5");
                         }
                         break;
 
@@ -428,7 +428,7 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche71": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche71);
-                        if (signalUpdate && !GetWeiche("Weiche70").Abzweig)
+                        if (signalUpdate && !WeichenListe.GetWeiche("Weiche70").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
                             AutoSignalUpdate("Signal_Schatten9");
@@ -437,7 +437,7 @@ namespace MEKB_H0_Anlage
                         }
                         break; 
                     case "Weiche72": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche72);
-                        if (signalUpdate && !GetWeiche("Weiche71").Abzweig)
+                        if (signalUpdate && !WeichenListe.GetWeiche("Weiche71").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
                             AutoSignalUpdate("Signal_Schatten9");
@@ -446,7 +446,7 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche73": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche73);
-                        if (signalUpdate && !GetWeiche("Weiche72").Abzweig)
+                        if (signalUpdate && !WeichenListe.GetWeiche("Weiche72").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
                             AutoSignalUpdate("Signal_Schatten9");
@@ -455,7 +455,7 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche74": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche74);
-                        if (signalUpdate && !GetWeiche("Weiche73").Abzweig)
+                        if (signalUpdate && !WeichenListe.GetWeiche("Weiche73").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
                             AutoSignalUpdate("Signal_Schatten9");
@@ -464,7 +464,7 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche75": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche75);
-                        if (signalUpdate && !GetWeiche("Weiche74").Abzweig)
+                        if (signalUpdate && !WeichenListe.GetWeiche("Weiche74").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
                             AutoSignalUpdate("Signal_Schatten9");
@@ -473,7 +473,7 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche76": DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche76); 
-                        if (signalUpdate && !GetWeiche("Weiche75").Abzweig)
+                        if (signalUpdate && !WeichenListe.GetWeiche("Weiche75").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
                             AutoSignalUpdate("Signal_Schatten9");
@@ -513,13 +513,13 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche91": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche91);
-                        if (signalUpdate && GetWeiche("Weiche90").Abzweig)
+                        if (signalUpdate && WeichenListe.GetWeiche("Weiche90").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten_Einf");
                         }
                         break;
                     case "Weiche92": DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche92);
-                        if (signalUpdate && GetWeiche("Weiche90").Abzweig && !GetWeiche("Weiche91").Abzweig)
+                        if (signalUpdate && WeichenListe.GetWeiche("Weiche90").Abzweig && !WeichenListe.GetWeiche("Weiche91").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten_Einf");
                         }
@@ -566,8 +566,8 @@ namespace MEKB_H0_Anlage
                     case "KW22_1":   DisplayPicture(GetSchaltbildKW90_45(weiche, DKW_2nd)  ,KW22) ;
                         if (signalUpdate)
                         {
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
                             AutoSignalUpdate("Signal_Ausfahrt_R5");
                             AutoSignalUpdate("Signal_Ausfahrt_R6");
                         }
@@ -575,8 +575,8 @@ namespace MEKB_H0_Anlage
                     case "KW22_2":   DisplayPicture(GetSchaltbildKW90_45(DKW_2nd, weiche)  ,KW22) ;
                         if (signalUpdate)
                         {
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
                             AutoSignalUpdate("Signal_Ausfahrt_R5");
                             AutoSignalUpdate("Signal_Ausfahrt_R6");
                         }
@@ -585,8 +585,8 @@ namespace MEKB_H0_Anlage
                     case "DKW24_1":  DisplayPicture(GetSchaltbildDKW90_45(weiche, DKW_2nd) ,DKW24);
                         if (signalUpdate)
                         {
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
                             AutoSignalUpdate("Signal_Ausfahrt_R4");
                             AutoSignalUpdate("Signal_Ausfahrt_R5");
                             AutoSignalUpdate("Signal_Ausfahrt_R6");
@@ -595,8 +595,8 @@ namespace MEKB_H0_Anlage
                     case "DKW24_2":  DisplayPicture(GetSchaltbildDKW90_45(DKW_2nd, weiche), DKW24);
                         if (signalUpdate)
                         {
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
-                            if (GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
+                            if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_2");
                             AutoSignalUpdate("Signal_Ausfahrt_R4");
                             AutoSignalUpdate("Signal_Ausfahrt_R5");
                             AutoSignalUpdate("Signal_Ausfahrt_R6");
@@ -612,29 +612,20 @@ namespace MEKB_H0_Anlage
         }      
         private Weiche GetDWK_2nd(String name)
         {
-            int ListID;
+            Weiche DKW_2nd;
             switch(name)
             {
-                case "DKW7_1": ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_2" }); break;
-                case "DKW7_2": ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW7_1" }); break;
-                case "DKW9_1": ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_2" }); break;
-                case "DKW9_2": ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW9_1" }); break;
-                case "KW22_1": ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_2" }); break;
-                case "KW22_2": ListID = Weichenliste.IndexOf(new Weiche() { Name = "KW22_1" }); break;
-                case "DKW24_1": ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_2" }); break;
-                case "DKW24_2": ListID = Weichenliste.IndexOf(new Weiche() { Name = "DKW24_1" }); break;
-                default: ListID = -1;break;
+                case "DKW7_1": DKW_2nd = WeichenListe.GetWeiche("DKW7_2"); break;
+                case "DKW7_2": DKW_2nd = WeichenListe.GetWeiche("DKW7_1"); break;
+                case "DKW9_1": DKW_2nd = WeichenListe.GetWeiche("DKW9_2"); break;
+                case "DKW9_2": DKW_2nd = WeichenListe.GetWeiche("DKW9_1"); break;
+                case "KW22_1": DKW_2nd = WeichenListe.GetWeiche("KW22_2"); break;
+                case "KW22_2": DKW_2nd = WeichenListe.GetWeiche("KW22_1"); break;
+                case "DKW24_1": DKW_2nd = WeichenListe.GetWeiche("DKW24_2"); break;
+                case "DKW24_2": DKW_2nd = WeichenListe.GetWeiche("DKW24_1"); break;
+                default: DKW_2nd = new Weiche() { Status_Error = true, Name = "Fehler" }; break;
             }
-            if(ListID == -1)
-            {
-                Weiche Fehler = new Weiche() { Status_Error = true, Name = "Fehler" };
-                return Fehler;
-            }
-            else
-            {
-                return Weichenliste[ListID];
-            }
-
+            return DKW_2nd;
         }
         private void UpdateSignalImGleisplan(Signal signal)
         {

@@ -1868,7 +1868,7 @@
             this.belegtmeldungToolStripMenuItem.Name = "belegtmeldungToolStripMenuItem";
             this.belegtmeldungToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.belegtmeldungToolStripMenuItem.Text = "Belegtmeldung";
-            this.belegtmeldungToolStripMenuItem.Click += new System.EventHandler(this.belegtmeldungToolStripMenuItem_Click);
+            this.belegtmeldungToolStripMenuItem.Click += new System.EventHandler(this.BelegtmeldungToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -1883,7 +1883,7 @@
             this.signalsteuergungToolStripMenuItem.Name = "signalsteuergungToolStripMenuItem";
             this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.signalsteuergungToolStripMenuItem.Text = "Signalsteuergung";
-            this.signalsteuergungToolStripMenuItem.Click += new System.EventHandler(this.signalsteuergungToolStripMenuItem_Click);
+            this.signalsteuergungToolStripMenuItem.Click += new System.EventHandler(this.SignalsteuergungToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
