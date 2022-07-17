@@ -3225,6 +3225,7 @@
             this.Block7_2.Size = new System.Drawing.Size(32, 32);
             this.Block7_2.TabIndex = 394;
             this.Block7_2.TabStop = false;
+            this.Block7_2.Tag = "Gerade0";
             // 
             // Block7_1
             // 
@@ -3234,6 +3235,7 @@
             this.Block7_1.Size = new System.Drawing.Size(32, 32);
             this.Block7_1.TabIndex = 392;
             this.Block7_1.TabStop = false;
+            this.Block7_1.Tag = "Gerade0";
             // 
             // Block7_6
             // 
@@ -3297,6 +3299,7 @@
             this.SchattenGl11_4.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl11_4.TabIndex = 384;
             this.SchattenGl11_4.TabStop = false;
+            this.SchattenGl11_4.Tag = "Gerade90";
             // 
             // Block6_Halt2
             // 
@@ -3306,6 +3309,7 @@
             this.Block6_Halt2.Size = new System.Drawing.Size(32, 32);
             this.Block6_Halt2.TabIndex = 383;
             this.Block6_Halt2.TabStop = false;
+            this.Block6_Halt2.Tag = "Gerade270";
             // 
             // SchattenGl11_3
             // 
@@ -3315,6 +3319,7 @@
             this.SchattenGl11_3.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl11_3.TabIndex = 380;
             this.SchattenGl11_3.TabStop = false;
+            this.SchattenGl11_3.Tag = "Gerade90";
             // 
             // SchattenGl11_2
             // 
@@ -3324,6 +3329,7 @@
             this.SchattenGl11_2.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl11_2.TabIndex = 379;
             this.SchattenGl11_2.TabStop = false;
+            this.SchattenGl11_2.Tag = "Gerade90";
             // 
             // SchattenGl11_1
             // 
@@ -3333,6 +3339,7 @@
             this.SchattenGl11_1.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl11_1.TabIndex = 378;
             this.SchattenGl11_1.TabStop = false;
+            this.SchattenGl11_1.Tag = "Gerade90";
             // 
             // Block6_14
             // 
@@ -3351,6 +3358,7 @@
             this.Block6_1.Size = new System.Drawing.Size(32, 32);
             this.Block6_1.TabIndex = 376;
             this.Block6_1.TabStop = false;
+            this.Block6_1.Tag = "Gerade270";
             // 
             // Block6_3
             // 
@@ -3360,6 +3368,7 @@
             this.Block6_3.Size = new System.Drawing.Size(32, 32);
             this.Block6_3.TabIndex = 375;
             this.Block6_3.TabStop = false;
+            this.Block6_3.Tag = "Gerade270";
             // 
             // Block6_2
             // 
@@ -3369,6 +3378,7 @@
             this.Block6_2.Size = new System.Drawing.Size(32, 32);
             this.Block6_2.TabIndex = 374;
             this.Block6_2.TabStop = false;
+            this.Block6_2.Tag = "Gerade270";
             // 
             // Block6_6
             // 
@@ -3378,6 +3388,7 @@
             this.Block6_6.Size = new System.Drawing.Size(32, 32);
             this.Block6_6.TabIndex = 372;
             this.Block6_6.TabStop = false;
+            this.Block6_6.Tag = "Gerade270";
             // 
             // Block6_5
             // 
@@ -3387,6 +3398,7 @@
             this.Block6_5.Size = new System.Drawing.Size(32, 32);
             this.Block6_5.TabIndex = 371;
             this.Block6_5.TabStop = false;
+            this.Block6_5.Tag = "Gerade270";
             // 
             // Block6_4
             // 
@@ -3396,6 +3408,7 @@
             this.Block6_4.Size = new System.Drawing.Size(32, 32);
             this.Block6_4.TabIndex = 370;
             this.Block6_4.TabStop = false;
+            this.Block6_4.Tag = "Gerade270";
             // 
             // SchattenGl7_Halt_1
             // 
@@ -3450,6 +3463,7 @@
             this.Block8_1.Size = new System.Drawing.Size(32, 32);
             this.Block8_1.TabIndex = 363;
             this.Block8_1.TabStop = false;
+            this.Block8_1.Tag = "Gerade90";
             // 
             // Block8_3
             // 
@@ -3459,6 +3473,7 @@
             this.Block8_3.Size = new System.Drawing.Size(32, 32);
             this.Block8_3.TabIndex = 362;
             this.Block8_3.TabStop = false;
+            this.Block8_3.Tag = "Gerade90";
             // 
             // Block8_4
             // 
@@ -3468,6 +3483,7 @@
             this.Block8_4.Size = new System.Drawing.Size(32, 32);
             this.Block8_4.TabIndex = 361;
             this.Block8_4.TabStop = false;
+            this.Block8_4.Tag = "Gerade90";
             // 
             // Block8_5
             // 
@@ -3477,6 +3493,7 @@
             this.Block8_5.Size = new System.Drawing.Size(32, 32);
             this.Block8_5.TabIndex = 360;
             this.Block8_5.TabStop = false;
+            this.Block8_5.Tag = "Gerade90";
             // 
             // SchattenGl1_1
             // 
@@ -3675,6 +3692,7 @@
             this.Block5_Halt_1.Size = new System.Drawing.Size(32, 32);
             this.Block5_Halt_1.TabIndex = 319;
             this.Block5_Halt_1.TabStop = false;
+            this.Block5_Halt_1.Tag = "Gerade270";
             // 
             // Block5b_13
             // 
@@ -3684,6 +3702,7 @@
             this.Block5b_13.Size = new System.Drawing.Size(32, 32);
             this.Block5b_13.TabIndex = 316;
             this.Block5b_13.TabStop = false;
+            this.Block5b_13.Tag = "Gerade180";
             // 
             // Block9_6
             // 
@@ -3693,6 +3712,7 @@
             this.Block9_6.Size = new System.Drawing.Size(32, 32);
             this.Block9_6.TabIndex = 315;
             this.Block9_6.TabStop = false;
+            this.Block9_6.Tag = "Gerade0";
             // 
             // Block5b_12
             // 
@@ -3702,6 +3722,7 @@
             this.Block5b_12.Size = new System.Drawing.Size(32, 32);
             this.Block5b_12.TabIndex = 314;
             this.Block5b_12.TabStop = false;
+            this.Block5b_12.Tag = "Gerade180";
             // 
             // Block9_7
             // 
@@ -3711,6 +3732,7 @@
             this.Block9_7.Size = new System.Drawing.Size(32, 32);
             this.Block9_7.TabIndex = 313;
             this.Block9_7.TabStop = false;
+            this.Block9_7.Tag = "Gerade0";
             // 
             // Block5b_11
             // 
@@ -3720,6 +3742,7 @@
             this.Block5b_11.Size = new System.Drawing.Size(32, 32);
             this.Block5b_11.TabIndex = 312;
             this.Block5b_11.TabStop = false;
+            this.Block5b_11.Tag = "Gerade180";
             // 
             // Block9_8
             // 
@@ -3729,6 +3752,7 @@
             this.Block9_8.Size = new System.Drawing.Size(32, 32);
             this.Block9_8.TabIndex = 311;
             this.Block9_8.TabStop = false;
+            this.Block9_8.Tag = "Gerade0";
             // 
             // Block5b_10
             // 
@@ -3738,6 +3762,7 @@
             this.Block5b_10.Size = new System.Drawing.Size(32, 32);
             this.Block5b_10.TabIndex = 310;
             this.Block5b_10.TabStop = false;
+            this.Block5b_10.Tag = "Gerade180";
             // 
             // Block9_9
             // 
@@ -3747,6 +3772,7 @@
             this.Block9_9.Size = new System.Drawing.Size(32, 32);
             this.Block9_9.TabIndex = 309;
             this.Block9_9.TabStop = false;
+            this.Block9_9.Tag = "Gerade0";
             // 
             // Block5b_9
             // 
@@ -3756,6 +3782,7 @@
             this.Block5b_9.Size = new System.Drawing.Size(32, 32);
             this.Block5b_9.TabIndex = 308;
             this.Block5b_9.TabStop = false;
+            this.Block5b_9.Tag = "Gerade180";
             // 
             // Block9_10
             // 
@@ -3765,6 +3792,7 @@
             this.Block9_10.Size = new System.Drawing.Size(32, 32);
             this.Block9_10.TabIndex = 307;
             this.Block9_10.TabStop = false;
+            this.Block9_10.Tag = "Gerade0";
             // 
             // Block5b_8
             // 
@@ -3774,6 +3802,7 @@
             this.Block5b_8.Size = new System.Drawing.Size(32, 32);
             this.Block5b_8.TabIndex = 306;
             this.Block5b_8.TabStop = false;
+            this.Block5b_8.Tag = "Gerade180";
             // 
             // Block9_11
             // 
@@ -3783,6 +3812,7 @@
             this.Block9_11.Size = new System.Drawing.Size(32, 32);
             this.Block9_11.TabIndex = 305;
             this.Block9_11.TabStop = false;
+            this.Block9_11.Tag = "Gerade0";
             // 
             // Block5b_7
             // 
@@ -3792,6 +3822,7 @@
             this.Block5b_7.Size = new System.Drawing.Size(32, 32);
             this.Block5b_7.TabIndex = 304;
             this.Block5b_7.TabStop = false;
+            this.Block5b_7.Tag = "Gerade180";
             // 
             // Block9_12
             // 
@@ -3801,6 +3832,7 @@
             this.Block9_12.Size = new System.Drawing.Size(32, 32);
             this.Block9_12.TabIndex = 303;
             this.Block9_12.TabStop = false;
+            this.Block9_12.Tag = "Gerade0";
             // 
             // Block5b_6
             // 
@@ -3810,6 +3842,7 @@
             this.Block5b_6.Size = new System.Drawing.Size(32, 32);
             this.Block5b_6.TabIndex = 302;
             this.Block5b_6.TabStop = false;
+            this.Block5b_6.Tag = "Gerade180";
             // 
             // Block5b_16
             // 
@@ -3855,6 +3888,7 @@
             this.Kreuzung1_5.Size = new System.Drawing.Size(32, 32);
             this.Kreuzung1_5.TabIndex = 297;
             this.Kreuzung1_5.TabStop = false;
+            this.Kreuzung1_5.Tag = "Gerade180";
             // 
             // Block8_Halt_1
             // 
@@ -3864,6 +3898,7 @@
             this.Block8_Halt_1.Size = new System.Drawing.Size(32, 32);
             this.Block8_Halt_1.TabIndex = 296;
             this.Block8_Halt_1.TabStop = false;
+            this.Block8_Halt_1.Tag = "Gerade180";
             // 
             // Block8_9
             // 
@@ -3891,6 +3926,7 @@
             this.Block5_Halt_2.Size = new System.Drawing.Size(32, 32);
             this.Block5_Halt_2.TabIndex = 291;
             this.Block5_Halt_2.TabStop = false;
+            this.Block5_Halt_2.Tag = "Gerade270";
             // 
             // Kreuzung1_3
             // 
@@ -3909,6 +3945,7 @@
             this.SchattenGl11_Halt_1.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl11_Halt_1.TabIndex = 289;
             this.SchattenGl11_Halt_1.TabStop = false;
+            this.SchattenGl11_Halt_1.Tag = "Gerade90";
             // 
             // Block7_12
             // 
@@ -4063,6 +4100,7 @@
             this.Block9_13.Size = new System.Drawing.Size(32, 32);
             this.Block9_13.TabIndex = 273;
             this.Block9_13.TabStop = false;
+            this.Block9_13.Tag = "Gerade0";
             // 
             // Block5b_5
             // 
@@ -4072,6 +4110,7 @@
             this.Block5b_5.Size = new System.Drawing.Size(32, 32);
             this.Block5b_5.TabIndex = 272;
             this.Block5b_5.TabStop = false;
+            this.Block5b_5.Tag = "Gerade180";
             // 
             // Block9_14
             // 
@@ -4081,6 +4120,7 @@
             this.Block9_14.Size = new System.Drawing.Size(32, 32);
             this.Block9_14.TabIndex = 271;
             this.Block9_14.TabStop = false;
+            this.Block9_14.Tag = "Gerade0";
             // 
             // Block5b_4
             // 
@@ -4090,6 +4130,7 @@
             this.Block5b_4.Size = new System.Drawing.Size(32, 32);
             this.Block5b_4.TabIndex = 270;
             this.Block5b_4.TabStop = false;
+            this.Block5b_4.Tag = "Gerade180";
             // 
             // Block9_15
             // 
@@ -4099,6 +4140,7 @@
             this.Block9_15.Size = new System.Drawing.Size(32, 32);
             this.Block9_15.TabIndex = 269;
             this.Block9_15.TabStop = false;
+            this.Block9_15.Tag = "Gerade0";
             // 
             // Block5b_3
             // 
@@ -4108,6 +4150,7 @@
             this.Block5b_3.Size = new System.Drawing.Size(32, 32);
             this.Block5b_3.TabIndex = 268;
             this.Block5b_3.TabStop = false;
+            this.Block5b_3.Tag = "Gerade180";
             // 
             // Block9_16
             // 
@@ -4117,6 +4160,7 @@
             this.Block9_16.Size = new System.Drawing.Size(32, 32);
             this.Block9_16.TabIndex = 267;
             this.Block9_16.TabStop = false;
+            this.Block9_16.Tag = "Gerade0";
             // 
             // Block5b_2
             // 
@@ -4126,6 +4170,7 @@
             this.Block5b_2.Size = new System.Drawing.Size(32, 32);
             this.Block5b_2.TabIndex = 266;
             this.Block5b_2.TabStop = false;
+            this.Block5b_2.Tag = "Gerade180";
             // 
             // Block9_17
             // 
@@ -4135,6 +4180,7 @@
             this.Block9_17.Size = new System.Drawing.Size(32, 32);
             this.Block9_17.TabIndex = 265;
             this.Block9_17.TabStop = false;
+            this.Block9_17.Tag = "Gerade0";
             // 
             // Block5b_1
             // 
@@ -4144,6 +4190,7 @@
             this.Block5b_1.Size = new System.Drawing.Size(32, 32);
             this.Block5b_1.TabIndex = 264;
             this.Block5b_1.TabStop = false;
+            this.Block5b_1.Tag = "Gerade180";
             // 
             // Block9_Halt_1
             // 
@@ -4153,6 +4200,7 @@
             this.Block9_Halt_1.Size = new System.Drawing.Size(32, 32);
             this.Block9_Halt_1.TabIndex = 263;
             this.Block9_Halt_1.TabStop = false;
+            this.Block9_Halt_1.Tag = "Gerade0";
             // 
             // Block5a_4
             // 
@@ -4162,6 +4210,7 @@
             this.Block5a_4.Size = new System.Drawing.Size(32, 32);
             this.Block5a_4.TabIndex = 262;
             this.Block5a_4.TabStop = false;
+            this.Block5a_4.Tag = "Gerade180";
             // 
             // Block9_Halt_2
             // 
@@ -4171,6 +4220,7 @@
             this.Block9_Halt_2.Size = new System.Drawing.Size(32, 32);
             this.Block9_Halt_2.TabIndex = 261;
             this.Block9_Halt_2.TabStop = false;
+            this.Block9_Halt_2.Tag = "Gerade0";
             // 
             // Block5a_3
             // 
@@ -4180,6 +4230,7 @@
             this.Block5a_3.Size = new System.Drawing.Size(32, 32);
             this.Block5a_3.TabIndex = 260;
             this.Block5a_3.TabStop = false;
+            this.Block5a_3.Tag = "Gerade180";
             // 
             // Weiche53_Gleis3
             // 
@@ -4189,6 +4240,7 @@
             this.Weiche53_Gleis3.Size = new System.Drawing.Size(32, 32);
             this.Weiche53_Gleis3.TabIndex = 259;
             this.Weiche53_Gleis3.TabStop = false;
+            this.Weiche53_Gleis3.Tag = "Gerade0";
             // 
             // Block5a_2
             // 
@@ -4198,6 +4250,7 @@
             this.Block5a_2.Size = new System.Drawing.Size(32, 32);
             this.Block5a_2.TabIndex = 258;
             this.Block5a_2.TabStop = false;
+            this.Block5a_2.Tag = "Gerade180";
             // 
             // Block5a_1
             // 
@@ -4207,6 +4260,7 @@
             this.Block5a_1.Size = new System.Drawing.Size(32, 32);
             this.Block5a_1.TabIndex = 257;
             this.Block5a_1.TabStop = false;
+            this.Block5a_1.Tag = "Gerade180";
             // 
             // Drehscheibe
             // 
@@ -4315,6 +4369,7 @@
             this.Block2_3.Size = new System.Drawing.Size(32, 32);
             this.Block2_3.TabIndex = 245;
             this.Block2_3.TabStop = false;
+            this.Block2_3.Tag = "Gerade225";
             // 
             // Betrieb_Gl21_4
             // 
@@ -4405,6 +4460,7 @@
             this.Block2_Halt_1.Size = new System.Drawing.Size(32, 32);
             this.Block2_Halt_1.TabIndex = 235;
             this.Block2_Halt_1.TabStop = false;
+            this.Block2_Halt_1.Tag = "Gerade270";
             // 
             // Block2_Halt_2
             // 
@@ -4414,6 +4470,7 @@
             this.Block2_Halt_2.Size = new System.Drawing.Size(32, 32);
             this.Block2_Halt_2.TabIndex = 234;
             this.Block2_Halt_2.TabStop = false;
+            this.Block2_Halt_2.Tag = "Gerade270";
             // 
             // Block2_7
             // 
@@ -4423,6 +4480,7 @@
             this.Block2_7.Size = new System.Drawing.Size(32, 32);
             this.Block2_7.TabIndex = 233;
             this.Block2_7.TabStop = false;
+            this.Block2_7.Tag = "Gerade270";
             // 
             // Block2_8
             // 
@@ -4432,6 +4490,7 @@
             this.Block2_8.Size = new System.Drawing.Size(32, 32);
             this.Block2_8.TabIndex = 232;
             this.Block2_8.TabStop = false;
+            this.Block2_8.Tag = "Gerade270";
             // 
             // Block2_9
             // 
@@ -4441,6 +4500,7 @@
             this.Block2_9.Size = new System.Drawing.Size(32, 32);
             this.Block2_9.TabIndex = 231;
             this.Block2_9.TabStop = false;
+            this.Block2_9.Tag = "Gerade270";
             // 
             // Block2_10
             // 
@@ -4450,6 +4510,7 @@
             this.Block2_10.Size = new System.Drawing.Size(32, 32);
             this.Block2_10.TabIndex = 230;
             this.Block2_10.TabStop = false;
+            this.Block2_10.Tag = "Gerade270";
             // 
             // Block1a_2
             // 
@@ -4459,6 +4520,7 @@
             this.Block1a_2.Size = new System.Drawing.Size(32, 32);
             this.Block1a_2.TabIndex = 229;
             this.Block1a_2.TabStop = false;
+            this.Block1a_2.Tag = "Gerade90";
             // 
             // Block1a_1
             // 
@@ -4468,6 +4530,7 @@
             this.Block1a_1.Size = new System.Drawing.Size(32, 32);
             this.Block1a_1.TabIndex = 228;
             this.Block1a_1.TabStop = false;
+            this.Block1a_1.Tag = "Gerade90";
             // 
             // Block1b_7
             // 
@@ -4477,6 +4540,7 @@
             this.Block1b_7.Size = new System.Drawing.Size(32, 32);
             this.Block1b_7.TabIndex = 227;
             this.Block1b_7.TabStop = false;
+            this.Block1b_7.Tag = "Gerade90";
             // 
             // Block1b_6
             // 
@@ -4486,6 +4550,7 @@
             this.Block1b_6.Size = new System.Drawing.Size(32, 32);
             this.Block1b_6.TabIndex = 226;
             this.Block1b_6.TabStop = false;
+            this.Block1b_6.Tag = "Gerade90";
             // 
             // Block1b_5
             // 
@@ -4495,6 +4560,7 @@
             this.Block1b_5.Size = new System.Drawing.Size(32, 32);
             this.Block1b_5.TabIndex = 225;
             this.Block1b_5.TabStop = false;
+            this.Block1b_5.Tag = "Gerade90";
             // 
             // Block1b_4
             // 
@@ -4504,6 +4570,7 @@
             this.Block1b_4.Size = new System.Drawing.Size(32, 32);
             this.Block1b_4.TabIndex = 224;
             this.Block1b_4.TabStop = false;
+            this.Block1b_4.Tag = "Gerade90";
             // 
             // Block1b_3
             // 
@@ -4513,6 +4580,7 @@
             this.Block1b_3.Size = new System.Drawing.Size(32, 32);
             this.Block1b_3.TabIndex = 223;
             this.Block1b_3.TabStop = false;
+            this.Block1b_3.Tag = "Gerade90";
             // 
             // Block1b_2
             // 
@@ -4522,6 +4590,7 @@
             this.Block1b_2.Size = new System.Drawing.Size(32, 32);
             this.Block1b_2.TabIndex = 222;
             this.Block1b_2.TabStop = false;
+            this.Block1b_2.Tag = "Gerade90";
             // 
             // Block1b_1
             // 
@@ -4531,6 +4600,7 @@
             this.Block1b_1.Size = new System.Drawing.Size(32, 32);
             this.Block1b_1.TabIndex = 221;
             this.Block1b_1.TabStop = false;
+            this.Block1b_1.Tag = "Gerade90";
             // 
             // Block1_Halt_2
             // 
@@ -4875,6 +4945,7 @@
             this.Tunnel1_Einf.Size = new System.Drawing.Size(32, 32);
             this.Tunnel1_Einf.TabIndex = 183;
             this.Tunnel1_Einf.TabStop = false;
+            this.Tunnel1_Einf.Tag = "Gerade90";
             // 
             // Tunnel1_1
             // 
@@ -4884,6 +4955,7 @@
             this.Tunnel1_1.Size = new System.Drawing.Size(32, 32);
             this.Tunnel1_1.TabIndex = 182;
             this.Tunnel1_1.TabStop = false;
+            this.Tunnel1_1.Tag = "Gerade90";
             // 
             // Tunnel1_2
             // 
@@ -4893,6 +4965,7 @@
             this.Tunnel1_2.Size = new System.Drawing.Size(32, 32);
             this.Tunnel1_2.TabIndex = 181;
             this.Tunnel1_2.TabStop = false;
+            this.Tunnel1_2.Tag = "Gerade90";
             // 
             // Tunnel2_Einf
             // 
@@ -4902,6 +4975,7 @@
             this.Tunnel2_Einf.Size = new System.Drawing.Size(32, 32);
             this.Tunnel2_Einf.TabIndex = 180;
             this.Tunnel2_Einf.TabStop = false;
+            this.Tunnel2_Einf.Tag = "Gerade90";
             // 
             // Weiche51a_3
             // 
@@ -4911,6 +4985,7 @@
             this.Weiche51a_3.Size = new System.Drawing.Size(32, 32);
             this.Weiche51a_3.TabIndex = 179;
             this.Weiche51a_3.TabStop = false;
+            this.Weiche51a_3.Tag = "Gerade90";
             // 
             // Weiche51b_2
             // 
@@ -4920,6 +4995,7 @@
             this.Weiche51b_2.Size = new System.Drawing.Size(32, 32);
             this.Weiche51b_2.TabIndex = 178;
             this.Weiche51b_2.TabStop = false;
+            this.Weiche51b_2.Tag = "Gerade90";
             // 
             // Tunnel2_1
             // 
@@ -4929,6 +5005,7 @@
             this.Tunnel2_1.Size = new System.Drawing.Size(32, 32);
             this.Tunnel2_1.TabIndex = 177;
             this.Tunnel2_1.TabStop = false;
+            this.Tunnel2_1.Tag = "Gerade90";
             // 
             // Tunnel1_Halt
             // 
@@ -4938,6 +5015,7 @@
             this.Tunnel1_Halt.Size = new System.Drawing.Size(32, 32);
             this.Tunnel1_Halt.TabIndex = 176;
             this.Tunnel1_Halt.TabStop = false;
+            this.Tunnel1_Halt.Tag = "Gerade180";
             // 
             // Tunnel2_Halt
             // 
@@ -4947,6 +5025,7 @@
             this.Tunnel2_Halt.Size = new System.Drawing.Size(32, 32);
             this.Tunnel2_Halt.TabIndex = 175;
             this.Tunnel2_Halt.TabStop = false;
+            this.Tunnel2_Halt.Tag = "Gerade180";
             // 
             // Tunnel2_2
             // 
@@ -4956,6 +5035,7 @@
             this.Tunnel2_2.Size = new System.Drawing.Size(32, 32);
             this.Tunnel2_2.TabIndex = 174;
             this.Tunnel2_2.TabStop = false;
+            this.Tunnel2_2.Tag = "Gerade90";
             // 
             // Tunnel1_9
             // 
@@ -4965,6 +5045,7 @@
             this.Tunnel1_9.Size = new System.Drawing.Size(32, 32);
             this.Tunnel1_9.TabIndex = 173;
             this.Tunnel1_9.TabStop = false;
+            this.Tunnel1_9.Tag = "Gerade180";
             // 
             // Tunnel2_5
             // 
@@ -4974,6 +5055,7 @@
             this.Tunnel2_5.Size = new System.Drawing.Size(32, 32);
             this.Tunnel2_5.TabIndex = 172;
             this.Tunnel2_5.TabStop = false;
+            this.Tunnel2_5.Tag = "Gerade180";
             // 
             // Weiche50a_2
             // 
@@ -5195,6 +5277,7 @@
             this.Block4_5.Size = new System.Drawing.Size(32, 32);
             this.Block4_5.TabIndex = 144;
             this.Block4_5.TabStop = false;
+            this.Block4_5.Tag = "Gerade90";
             // 
             // Block3_1
             // 
@@ -5204,6 +5287,7 @@
             this.Block3_1.Size = new System.Drawing.Size(32, 32);
             this.Block3_1.TabIndex = 143;
             this.Block3_1.TabStop = false;
+            this.Block3_1.Tag = "Gerade90";
             // 
             // Block4_4
             // 
@@ -5213,6 +5297,7 @@
             this.Block4_4.Size = new System.Drawing.Size(32, 32);
             this.Block4_4.TabIndex = 142;
             this.Block4_4.TabStop = false;
+            this.Block4_4.Tag = "Gerade90";
             // 
             // Block3_2
             // 
@@ -5222,6 +5307,7 @@
             this.Block3_2.Size = new System.Drawing.Size(32, 32);
             this.Block3_2.TabIndex = 141;
             this.Block3_2.TabStop = false;
+            this.Block3_2.Tag = "Gerade90";
             // 
             // Block4_3
             // 
@@ -5231,6 +5317,7 @@
             this.Block4_3.Size = new System.Drawing.Size(32, 32);
             this.Block4_3.TabIndex = 140;
             this.Block4_3.TabStop = false;
+            this.Block4_3.Tag = "Gerade90";
             // 
             // Block3_3
             // 
@@ -5240,6 +5327,7 @@
             this.Block3_3.Size = new System.Drawing.Size(32, 32);
             this.Block3_3.TabIndex = 139;
             this.Block3_3.TabStop = false;
+            this.Block3_3.Tag = "Gerade90";
             // 
             // Block4_2
             // 
@@ -5249,6 +5337,7 @@
             this.Block4_2.Size = new System.Drawing.Size(32, 32);
             this.Block4_2.TabIndex = 138;
             this.Block4_2.TabStop = false;
+            this.Block4_2.Tag = "Gerade90";
             // 
             // Block3_4
             // 
@@ -5258,6 +5347,7 @@
             this.Block3_4.Size = new System.Drawing.Size(32, 32);
             this.Block3_4.TabIndex = 137;
             this.Block3_4.TabStop = false;
+            this.Block3_4.Tag = "Gerade90";
             // 
             // Block4_1
             // 
@@ -5267,6 +5357,7 @@
             this.Block4_1.Size = new System.Drawing.Size(32, 32);
             this.Block4_1.TabIndex = 136;
             this.Block4_1.TabStop = false;
+            this.Block4_1.Tag = "Gerade90";
             // 
             // Block3_5
             // 
@@ -5276,6 +5367,7 @@
             this.Block3_5.Size = new System.Drawing.Size(32, 32);
             this.Block3_5.TabIndex = 135;
             this.Block3_5.TabStop = false;
+            this.Block3_5.Tag = "Gerade90";
             // 
             // pictureBox101
             // 
@@ -5498,6 +5590,7 @@
             this.Bhf_Gl5_Halt_L1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_Halt_L1.TabIndex = 105;
             this.Bhf_Gl5_Halt_L1.TabStop = false;
+            this.Bhf_Gl5_Halt_L1.Tag = "Gerade90";
             // 
             // Bhf_Gl5_Halt_L2
             // 
@@ -5507,6 +5600,7 @@
             this.Bhf_Gl5_Halt_L2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_Halt_L2.TabIndex = 104;
             this.Bhf_Gl5_Halt_L2.TabStop = false;
+            this.Bhf_Gl5_Halt_L2.Tag = "Gerade90";
             // 
             // Bhf_Gl5_Halt_L3
             // 
@@ -5516,6 +5610,7 @@
             this.Bhf_Gl5_Halt_L3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_Halt_L3.TabIndex = 103;
             this.Bhf_Gl5_Halt_L3.TabStop = false;
+            this.Bhf_Gl5_Halt_L3.Tag = "Gerade90";
             // 
             // GL5_rechts_0
             // 
@@ -5525,6 +5620,7 @@
             this.GL5_rechts_0.Size = new System.Drawing.Size(32, 32);
             this.GL5_rechts_0.TabIndex = 102;
             this.GL5_rechts_0.TabStop = false;
+            this.GL5_rechts_0.Tag = "Gerade90";
             // 
             // GL4_links_2
             // 
@@ -5534,6 +5630,7 @@
             this.GL4_links_2.Size = new System.Drawing.Size(32, 32);
             this.GL4_links_2.TabIndex = 101;
             this.GL4_links_2.TabStop = false;
+            this.GL4_links_2.Tag = "Gerade90";
             // 
             // GL4_links_1
             // 
@@ -5543,6 +5640,7 @@
             this.GL4_links_1.Size = new System.Drawing.Size(32, 32);
             this.GL4_links_1.TabIndex = 100;
             this.GL4_links_1.TabStop = false;
+            this.GL4_links_1.Tag = "Gerade90";
             // 
             // GL4_links_0
             // 
@@ -5552,6 +5650,7 @@
             this.GL4_links_0.Size = new System.Drawing.Size(32, 32);
             this.GL4_links_0.TabIndex = 99;
             this.GL4_links_0.TabStop = false;
+            this.GL4_links_0.Tag = "Gerade90";
             // 
             // Bhf_Gl4_Halt_L1
             // 
@@ -5561,6 +5660,7 @@
             this.Bhf_Gl4_Halt_L1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_Halt_L1.TabIndex = 98;
             this.Bhf_Gl4_Halt_L1.TabStop = false;
+            this.Bhf_Gl4_Halt_L1.Tag = "Gerade90";
             // 
             // Bhf_Gl4_Halt_L2
             // 
@@ -5570,6 +5670,7 @@
             this.Bhf_Gl4_Halt_L2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_Halt_L2.TabIndex = 97;
             this.Bhf_Gl4_Halt_L2.TabStop = false;
+            this.Bhf_Gl4_Halt_L2.Tag = "Gerade90";
             // 
             // Bhf_Gl4_Halt_L3
             // 
@@ -5579,6 +5680,7 @@
             this.Bhf_Gl4_Halt_L3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_Halt_L3.TabIndex = 96;
             this.Bhf_Gl4_Halt_L3.TabStop = false;
+            this.Bhf_Gl4_Halt_L3.Tag = "Gerade90";
             // 
             // GL4_rechts_0
             // 
@@ -5588,6 +5690,7 @@
             this.GL4_rechts_0.Size = new System.Drawing.Size(32, 32);
             this.GL4_rechts_0.TabIndex = 95;
             this.GL4_rechts_0.TabStop = false;
+            this.GL4_rechts_0.Tag = "Gerade90";
             // 
             // GL4_rechts_1
             // 
@@ -5597,6 +5700,7 @@
             this.GL4_rechts_1.Size = new System.Drawing.Size(32, 32);
             this.GL4_rechts_1.TabIndex = 94;
             this.GL4_rechts_1.TabStop = false;
+            this.GL4_rechts_1.Tag = "Gerade90";
             // 
             // GL4_rechts_2
             // 
@@ -5606,6 +5710,7 @@
             this.GL4_rechts_2.Size = new System.Drawing.Size(32, 32);
             this.GL4_rechts_2.TabIndex = 93;
             this.GL4_rechts_2.TabStop = false;
+            this.GL4_rechts_2.Tag = "Gerade90";
             // 
             // Weiche7_Gleis1
             // 
@@ -5624,6 +5729,7 @@
             this.GL3_links_2.Size = new System.Drawing.Size(32, 32);
             this.GL3_links_2.TabIndex = 91;
             this.GL3_links_2.TabStop = false;
+            this.GL3_links_2.Tag = "Gerade90";
             // 
             // GL1_links_2
             // 
@@ -5633,6 +5739,7 @@
             this.GL1_links_2.Size = new System.Drawing.Size(32, 32);
             this.GL1_links_2.TabIndex = 90;
             this.GL1_links_2.TabStop = false;
+            this.GL1_links_2.Tag = "Gerade90";
             // 
             // GL2_links_2
             // 
@@ -5642,6 +5749,7 @@
             this.GL2_links_2.Size = new System.Drawing.Size(32, 32);
             this.GL2_links_2.TabIndex = 89;
             this.GL2_links_2.TabStop = false;
+            this.GL2_links_2.Tag = "Gerade90";
             // 
             // GL3_links_1
             // 
@@ -5651,6 +5759,7 @@
             this.GL3_links_1.Size = new System.Drawing.Size(32, 32);
             this.GL3_links_1.TabIndex = 88;
             this.GL3_links_1.TabStop = false;
+            this.GL3_links_1.Tag = "Gerade90";
             // 
             // GL1_links_1
             // 
@@ -5660,6 +5769,7 @@
             this.GL1_links_1.Size = new System.Drawing.Size(32, 32);
             this.GL1_links_1.TabIndex = 87;
             this.GL1_links_1.TabStop = false;
+            this.GL1_links_1.Tag = "Gerade90";
             // 
             // GL2_links_1
             // 
@@ -5669,6 +5779,7 @@
             this.GL2_links_1.Size = new System.Drawing.Size(32, 32);
             this.GL2_links_1.TabIndex = 86;
             this.GL2_links_1.TabStop = false;
+            this.GL2_links_1.Tag = "Gerade90";
             // 
             // GL3_links_0
             // 
@@ -5678,6 +5789,7 @@
             this.GL3_links_0.Size = new System.Drawing.Size(32, 32);
             this.GL3_links_0.TabIndex = 84;
             this.GL3_links_0.TabStop = false;
+            this.GL3_links_0.Tag = "Gerade90";
             // 
             // GL1_links_0
             // 
@@ -5687,6 +5799,7 @@
             this.GL1_links_0.Size = new System.Drawing.Size(32, 32);
             this.GL1_links_0.TabIndex = 83;
             this.GL1_links_0.TabStop = false;
+            this.GL1_links_0.Tag = "Gerade90";
             // 
             // GL2_links_0
             // 
@@ -5696,6 +5809,7 @@
             this.GL2_links_0.Size = new System.Drawing.Size(32, 32);
             this.GL2_links_0.TabIndex = 82;
             this.GL2_links_0.TabStop = false;
+            this.GL2_links_0.Tag = "Gerade90";
             // 
             // Bhf_Gl3_Halt_L1
             // 
@@ -5705,6 +5819,7 @@
             this.Bhf_Gl3_Halt_L1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_Halt_L1.TabIndex = 80;
             this.Bhf_Gl3_Halt_L1.TabStop = false;
+            this.Bhf_Gl3_Halt_L1.Tag = "Gerade90";
             // 
             // Bhf_Gl1_Halt_L1
             // 
@@ -5714,6 +5829,7 @@
             this.Bhf_Gl1_Halt_L1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_Halt_L1.TabIndex = 79;
             this.Bhf_Gl1_Halt_L1.TabStop = false;
+            this.Bhf_Gl1_Halt_L1.Tag = "Gerade90";
             // 
             // Bhf_Gl2_Halt_L1
             // 
@@ -5723,6 +5839,7 @@
             this.Bhf_Gl2_Halt_L1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_Halt_L1.TabIndex = 78;
             this.Bhf_Gl2_Halt_L1.TabStop = false;
+            this.Bhf_Gl2_Halt_L1.Tag = "Gerade90";
             // 
             // Bhf_Gl3_Halt_L2
             // 
@@ -5732,6 +5849,7 @@
             this.Bhf_Gl3_Halt_L2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_Halt_L2.TabIndex = 76;
             this.Bhf_Gl3_Halt_L2.TabStop = false;
+            this.Bhf_Gl3_Halt_L2.Tag = "Gerade90";
             // 
             // Bhf_Gl1_Halt_L2
             // 
@@ -5741,6 +5859,7 @@
             this.Bhf_Gl1_Halt_L2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_Halt_L2.TabIndex = 75;
             this.Bhf_Gl1_Halt_L2.TabStop = false;
+            this.Bhf_Gl1_Halt_L2.Tag = "Gerade90";
             // 
             // Bhf_Gl2_Halt_L2
             // 
@@ -5750,6 +5869,7 @@
             this.Bhf_Gl2_Halt_L2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_Halt_L2.TabIndex = 74;
             this.Bhf_Gl2_Halt_L2.TabStop = false;
+            this.Bhf_Gl2_Halt_L2.Tag = "Gerade90";
             // 
             // Bhf_Gl3_Halt_L3
             // 
@@ -5759,6 +5879,7 @@
             this.Bhf_Gl3_Halt_L3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_Halt_L3.TabIndex = 72;
             this.Bhf_Gl3_Halt_L3.TabStop = false;
+            this.Bhf_Gl3_Halt_L3.Tag = "Gerade90";
             // 
             // Bhf_Gl1_Halt_L3
             // 
@@ -5768,6 +5889,7 @@
             this.Bhf_Gl1_Halt_L3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_Halt_L3.TabIndex = 71;
             this.Bhf_Gl1_Halt_L3.TabStop = false;
+            this.Bhf_Gl1_Halt_L3.Tag = "Gerade90";
             // 
             // Bhf_Gl2_Halt_L3
             // 
@@ -5777,6 +5899,7 @@
             this.Bhf_Gl2_Halt_L3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_Halt_L3.TabIndex = 70;
             this.Bhf_Gl2_Halt_L3.TabStop = false;
+            this.Bhf_Gl2_Halt_L3.Tag = "Gerade90";
             // 
             // GL3_rechts_0
             // 
@@ -5786,6 +5909,7 @@
             this.GL3_rechts_0.Size = new System.Drawing.Size(32, 32);
             this.GL3_rechts_0.TabIndex = 68;
             this.GL3_rechts_0.TabStop = false;
+            this.GL3_rechts_0.Tag = "Gerade90";
             // 
             // GL1_rechts_0
             // 
@@ -5795,6 +5919,7 @@
             this.GL1_rechts_0.Size = new System.Drawing.Size(32, 32);
             this.GL1_rechts_0.TabIndex = 67;
             this.GL1_rechts_0.TabStop = false;
+            this.GL1_rechts_0.Tag = "Gerade90";
             // 
             // GL2_rechts_0
             // 
@@ -5804,6 +5929,7 @@
             this.GL2_rechts_0.Size = new System.Drawing.Size(32, 32);
             this.GL2_rechts_0.TabIndex = 66;
             this.GL2_rechts_0.TabStop = false;
+            this.GL2_rechts_0.Tag = "Gerade90";
             // 
             // GL3_rechts_1
             // 
@@ -5813,6 +5939,7 @@
             this.GL3_rechts_1.Size = new System.Drawing.Size(32, 32);
             this.GL3_rechts_1.TabIndex = 64;
             this.GL3_rechts_1.TabStop = false;
+            this.GL3_rechts_1.Tag = "Gerade90";
             // 
             // GL1_rechts_1
             // 
@@ -5822,6 +5949,7 @@
             this.GL1_rechts_1.Size = new System.Drawing.Size(32, 32);
             this.GL1_rechts_1.TabIndex = 63;
             this.GL1_rechts_1.TabStop = false;
+            this.GL1_rechts_1.Tag = "Gerade90";
             // 
             // GL2_rechts_1
             // 
@@ -5831,6 +5959,7 @@
             this.GL2_rechts_1.Size = new System.Drawing.Size(32, 32);
             this.GL2_rechts_1.TabIndex = 62;
             this.GL2_rechts_1.TabStop = false;
+            this.GL2_rechts_1.Tag = "Gerade90";
             // 
             // GL3_rechts_2
             // 
@@ -5840,6 +5969,7 @@
             this.GL3_rechts_2.Size = new System.Drawing.Size(32, 32);
             this.GL3_rechts_2.TabIndex = 60;
             this.GL3_rechts_2.TabStop = false;
+            this.GL3_rechts_2.Tag = "Gerade90";
             // 
             // GL1_rechts_2
             // 
@@ -5849,6 +5979,7 @@
             this.GL1_rechts_2.Size = new System.Drawing.Size(32, 32);
             this.GL1_rechts_2.TabIndex = 59;
             this.GL1_rechts_2.TabStop = false;
+            this.GL1_rechts_2.Tag = "Gerade90";
             // 
             // GL2_rechts_2
             // 
@@ -5858,6 +5989,7 @@
             this.GL2_rechts_2.Size = new System.Drawing.Size(32, 32);
             this.GL2_rechts_2.TabIndex = 58;
             this.GL2_rechts_2.TabStop = false;
+            this.GL2_rechts_2.Tag = "Gerade90";
             // 
             // GL3_rechts_3
             // 
@@ -5867,6 +5999,7 @@
             this.GL3_rechts_3.Size = new System.Drawing.Size(32, 32);
             this.GL3_rechts_3.TabIndex = 56;
             this.GL3_rechts_3.TabStop = false;
+            this.GL3_rechts_3.Tag = "Gerade90";
             // 
             // GL1_rechts_3
             // 
@@ -5876,6 +6009,7 @@
             this.GL1_rechts_3.Size = new System.Drawing.Size(32, 32);
             this.GL1_rechts_3.TabIndex = 55;
             this.GL1_rechts_3.TabStop = false;
+            this.GL1_rechts_3.Tag = "Gerade90";
             // 
             // GL2_rechts_3
             // 
@@ -5885,6 +6019,7 @@
             this.GL2_rechts_3.Size = new System.Drawing.Size(32, 32);
             this.GL2_rechts_3.TabIndex = 54;
             this.GL2_rechts_3.TabStop = false;
+            this.GL2_rechts_3.Tag = "Gerade90";
             // 
             // DKW24_Gleis1
             // 
@@ -6047,6 +6182,7 @@
             this.Weiche25_Gleis2.Size = new System.Drawing.Size(32, 32);
             this.Weiche25_Gleis2.TabIndex = 37;
             this.Weiche25_Gleis2.TabStop = false;
+            this.Weiche25_Gleis2.Tag = "Gerade90";
             // 
             // Weiche26_Gleis2
             // 
@@ -6056,6 +6192,7 @@
             this.Weiche26_Gleis2.Size = new System.Drawing.Size(32, 32);
             this.Weiche26_Gleis2.TabIndex = 36;
             this.Weiche26_Gleis2.TabStop = false;
+            this.Weiche26_Gleis2.Tag = "Gerade90";
             // 
             // Weiche26
             // 
@@ -6120,6 +6257,7 @@
             this.GL6_rechts_0.Size = new System.Drawing.Size(32, 32);
             this.GL6_rechts_0.TabIndex = 30;
             this.GL6_rechts_0.TabStop = false;
+            this.GL6_rechts_0.Tag = "Gerade90";
             // 
             // Bhf_Gl6_Halt_L3
             // 
@@ -6129,6 +6267,7 @@
             this.Bhf_Gl6_Halt_L3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_Halt_L3.TabIndex = 29;
             this.Bhf_Gl6_Halt_L3.TabStop = false;
+            this.Bhf_Gl6_Halt_L3.Tag = "Gerade90";
             // 
             // Bhf_Gl6_Halt_L2
             // 
@@ -6138,6 +6277,7 @@
             this.Bhf_Gl6_Halt_L2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_Halt_L2.TabIndex = 28;
             this.Bhf_Gl6_Halt_L2.TabStop = false;
+            this.Bhf_Gl6_Halt_L2.Tag = "Gerade90";
             // 
             // Bhf_Gl6_Halt_L1
             // 
@@ -6147,6 +6287,7 @@
             this.Bhf_Gl6_Halt_L1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_Halt_L1.TabIndex = 27;
             this.Bhf_Gl6_Halt_L1.TabStop = false;
+            this.Bhf_Gl6_Halt_L1.Tag = "Gerade90";
             // 
             // Weiche9_Gleis2
             // 
@@ -6156,6 +6297,7 @@
             this.Weiche9_Gleis2.Size = new System.Drawing.Size(32, 32);
             this.Weiche9_Gleis2.TabIndex = 26;
             this.Weiche9_Gleis2.TabStop = false;
+            this.Weiche9_Gleis2.Tag = "Gerade90";
             // 
             // GL6_links_0
             // 
@@ -6165,6 +6307,7 @@
             this.GL6_links_0.Size = new System.Drawing.Size(32, 32);
             this.GL6_links_0.TabIndex = 25;
             this.GL6_links_0.TabStop = false;
+            this.GL6_links_0.Tag = "Gerade90";
             // 
             // GL5_links_0
             // 
@@ -6174,6 +6317,7 @@
             this.GL5_links_0.Size = new System.Drawing.Size(32, 32);
             this.GL5_links_0.TabIndex = 22;
             this.GL5_links_0.TabStop = false;
+            this.GL5_links_0.Tag = "Gerade90";
             // 
             // Weiche8
             // 
@@ -6195,6 +6339,7 @@
             this.GL3_links_3.Size = new System.Drawing.Size(32, 32);
             this.GL3_links_3.TabIndex = 19;
             this.GL3_links_3.TabStop = false;
+            this.GL3_links_3.Tag = "Gerade90";
             // 
             // GL1_links_3
             // 
@@ -6204,6 +6349,7 @@
             this.GL1_links_3.Size = new System.Drawing.Size(32, 32);
             this.GL1_links_3.TabIndex = 18;
             this.GL1_links_3.TabStop = false;
+            this.GL1_links_3.Tag = "Gerade90";
             // 
             // GL2_links_3
             // 
@@ -6213,6 +6359,7 @@
             this.GL2_links_3.Size = new System.Drawing.Size(32, 32);
             this.GL2_links_3.TabIndex = 17;
             this.GL2_links_3.TabStop = false;
+            this.GL2_links_3.Tag = "Gerade90";
             // 
             // Weiche7_Gleis2
             // 
@@ -6260,6 +6407,7 @@
             this.Weiche6_Gleis4.Size = new System.Drawing.Size(32, 32);
             this.Weiche6_Gleis4.TabIndex = 12;
             this.Weiche6_Gleis4.TabStop = false;
+            this.Weiche6_Gleis4.Tag = "Gerade90";
             // 
             // Weiche4_Gl1
             // 
@@ -6564,6 +6712,7 @@
             this.Bhf_Gl5_1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_1.TabIndex = 558;
             this.Bhf_Gl5_1.TabStop = false;
+            this.Bhf_Gl5_1.Tag = "Gerade90";
             // 
             // Bhf_Gl5_a
             // 
@@ -6573,6 +6722,7 @@
             this.Bhf_Gl5_a.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_a.TabIndex = 557;
             this.Bhf_Gl5_a.TabStop = false;
+            this.Bhf_Gl5_a.Tag = "Gerade90";
             // 
             // Bhf_Gl5_b
             // 
@@ -6582,6 +6732,7 @@
             this.Bhf_Gl5_b.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_b.TabIndex = 556;
             this.Bhf_Gl5_b.TabStop = false;
+            this.Bhf_Gl5_b.Tag = "Gerade90";
             // 
             // Bhf_Gl4_1
             // 
@@ -6591,6 +6742,7 @@
             this.Bhf_Gl4_1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_1.TabIndex = 555;
             this.Bhf_Gl4_1.TabStop = false;
+            this.Bhf_Gl4_1.Tag = "Gerade90";
             // 
             // Bhf_Gl4_a
             // 
@@ -6600,6 +6752,7 @@
             this.Bhf_Gl4_a.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_a.TabIndex = 554;
             this.Bhf_Gl4_a.TabStop = false;
+            this.Bhf_Gl4_a.Tag = "Gerade90";
             // 
             // Bhf_Gl4_b
             // 
@@ -6609,6 +6762,7 @@
             this.Bhf_Gl4_b.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_b.TabIndex = 553;
             this.Bhf_Gl4_b.TabStop = false;
+            this.Bhf_Gl4_b.Tag = "Gerade90";
             // 
             // Bhf_Gl3_1
             // 
@@ -6618,6 +6772,7 @@
             this.Bhf_Gl3_1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_1.TabIndex = 552;
             this.Bhf_Gl3_1.TabStop = false;
+            this.Bhf_Gl3_1.Tag = "Gerade90";
             // 
             // Bhf_Gl1_1
             // 
@@ -6627,6 +6782,7 @@
             this.Bhf_Gl1_1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_1.TabIndex = 551;
             this.Bhf_Gl1_1.TabStop = false;
+            this.Bhf_Gl1_1.Tag = "Gerade90";
             // 
             // Bhf_Gl2_1
             // 
@@ -6636,6 +6792,7 @@
             this.Bhf_Gl2_1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_1.TabIndex = 550;
             this.Bhf_Gl2_1.TabStop = false;
+            this.Bhf_Gl2_1.Tag = "Gerade90";
             // 
             // Bhf_Gl3_a
             // 
@@ -6645,6 +6802,7 @@
             this.Bhf_Gl3_a.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_a.TabIndex = 549;
             this.Bhf_Gl3_a.TabStop = false;
+            this.Bhf_Gl3_a.Tag = "Gerade90";
             // 
             // Bhf_Gl1_a
             // 
@@ -6654,6 +6812,7 @@
             this.Bhf_Gl1_a.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_a.TabIndex = 548;
             this.Bhf_Gl1_a.TabStop = false;
+            this.Bhf_Gl1_a.Tag = "Gerade90";
             // 
             // Bhf_Gl2_a
             // 
@@ -6663,6 +6822,7 @@
             this.Bhf_Gl2_a.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_a.TabIndex = 547;
             this.Bhf_Gl2_a.TabStop = false;
+            this.Bhf_Gl2_a.Tag = "Gerade90";
             // 
             // Bhf_Gl3_b
             // 
@@ -6672,6 +6832,7 @@
             this.Bhf_Gl3_b.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_b.TabIndex = 546;
             this.Bhf_Gl3_b.TabStop = false;
+            this.Bhf_Gl3_b.Tag = "Gerade90";
             // 
             // Bhf_Gl1_b
             // 
@@ -6681,6 +6842,7 @@
             this.Bhf_Gl1_b.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_b.TabIndex = 545;
             this.Bhf_Gl1_b.TabStop = false;
+            this.Bhf_Gl1_b.Tag = "Gerade90";
             // 
             // Bhf_Gl2_b
             // 
@@ -6690,6 +6852,7 @@
             this.Bhf_Gl2_b.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_b.TabIndex = 544;
             this.Bhf_Gl2_b.TabStop = false;
+            this.Bhf_Gl2_b.Tag = "Gerade90";
             // 
             // Bhf_Gl6_b
             // 
@@ -6699,6 +6862,7 @@
             this.Bhf_Gl6_b.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_b.TabIndex = 543;
             this.Bhf_Gl6_b.TabStop = false;
+            this.Bhf_Gl6_b.Tag = "Gerade90";
             // 
             // Bhf_Gl6_a
             // 
@@ -6708,6 +6872,7 @@
             this.Bhf_Gl6_a.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_a.TabIndex = 542;
             this.Bhf_Gl6_a.TabStop = false;
+            this.Bhf_Gl6_a.Tag = "Gerade90";
             // 
             // Bhf_Gl6_1
             // 
@@ -6717,6 +6882,7 @@
             this.Bhf_Gl6_1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_1.TabIndex = 541;
             this.Bhf_Gl6_1.TabStop = false;
+            this.Bhf_Gl6_1.Tag = "Gerade90";
             // 
             // Bhf_Gl5_c
             // 
@@ -6726,6 +6892,7 @@
             this.Bhf_Gl5_c.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_c.TabIndex = 576;
             this.Bhf_Gl5_c.TabStop = false;
+            this.Bhf_Gl5_c.Tag = "Gerade90";
             // 
             // Bhf_Gl5_d
             // 
@@ -6735,6 +6902,7 @@
             this.Bhf_Gl5_d.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_d.TabIndex = 575;
             this.Bhf_Gl5_d.TabStop = false;
+            this.Bhf_Gl5_d.Tag = "Gerade90";
             // 
             // Bhf_Gl5_e
             // 
@@ -6744,6 +6912,7 @@
             this.Bhf_Gl5_e.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_e.TabIndex = 574;
             this.Bhf_Gl5_e.TabStop = false;
+            this.Bhf_Gl5_e.Tag = "Gerade90";
             // 
             // Bhf_Gl4_c
             // 
@@ -6753,6 +6922,7 @@
             this.Bhf_Gl4_c.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_c.TabIndex = 573;
             this.Bhf_Gl4_c.TabStop = false;
+            this.Bhf_Gl4_c.Tag = "Gerade90";
             // 
             // Bhf_Gl4_d
             // 
@@ -6762,6 +6932,7 @@
             this.Bhf_Gl4_d.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_d.TabIndex = 572;
             this.Bhf_Gl4_d.TabStop = false;
+            this.Bhf_Gl4_d.Tag = "Gerade90";
             // 
             // Bhf_Gl4_e
             // 
@@ -6771,6 +6942,7 @@
             this.Bhf_Gl4_e.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_e.TabIndex = 571;
             this.Bhf_Gl4_e.TabStop = false;
+            this.Bhf_Gl4_e.Tag = "Gerade90";
             // 
             // Bhf_Gl3_c
             // 
@@ -6780,6 +6952,7 @@
             this.Bhf_Gl3_c.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_c.TabIndex = 570;
             this.Bhf_Gl3_c.TabStop = false;
+            this.Bhf_Gl3_c.Tag = "Gerade90";
             // 
             // Bhf_Gl1_c
             // 
@@ -6789,6 +6962,7 @@
             this.Bhf_Gl1_c.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_c.TabIndex = 569;
             this.Bhf_Gl1_c.TabStop = false;
+            this.Bhf_Gl1_c.Tag = "Gerade90";
             // 
             // Bhf_Gl2_c
             // 
@@ -6798,6 +6972,7 @@
             this.Bhf_Gl2_c.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_c.TabIndex = 568;
             this.Bhf_Gl2_c.TabStop = false;
+            this.Bhf_Gl2_c.Tag = "Gerade90";
             // 
             // Bhf_Gl3_d
             // 
@@ -6807,6 +6982,7 @@
             this.Bhf_Gl3_d.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_d.TabIndex = 567;
             this.Bhf_Gl3_d.TabStop = false;
+            this.Bhf_Gl3_d.Tag = "Gerade90";
             // 
             // Bhf_Gl1_d
             // 
@@ -6816,6 +6992,7 @@
             this.Bhf_Gl1_d.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_d.TabIndex = 566;
             this.Bhf_Gl1_d.TabStop = false;
+            this.Bhf_Gl1_d.Tag = "Gerade90";
             // 
             // Bhf_Gl2_d
             // 
@@ -6825,6 +7002,7 @@
             this.Bhf_Gl2_d.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_d.TabIndex = 565;
             this.Bhf_Gl2_d.TabStop = false;
+            this.Bhf_Gl2_d.Tag = "Gerade90";
             // 
             // Bhf_Gl3_e
             // 
@@ -6834,6 +7012,7 @@
             this.Bhf_Gl3_e.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_e.TabIndex = 564;
             this.Bhf_Gl3_e.TabStop = false;
+            this.Bhf_Gl3_e.Tag = "Gerade90";
             // 
             // Bhf_Gl1_e
             // 
@@ -6843,6 +7022,7 @@
             this.Bhf_Gl1_e.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_e.TabIndex = 563;
             this.Bhf_Gl1_e.TabStop = false;
+            this.Bhf_Gl1_e.Tag = "Gerade90";
             // 
             // Bhf_Gl2_e
             // 
@@ -6852,6 +7032,7 @@
             this.Bhf_Gl2_e.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_e.TabIndex = 562;
             this.Bhf_Gl2_e.TabStop = false;
+            this.Bhf_Gl2_e.Tag = "Gerade90";
             // 
             // Bhf_Gl6_e
             // 
@@ -6861,6 +7042,7 @@
             this.Bhf_Gl6_e.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_e.TabIndex = 561;
             this.Bhf_Gl6_e.TabStop = false;
+            this.Bhf_Gl6_e.Tag = "Gerade90";
             // 
             // Bhf_Gl6_d
             // 
@@ -6870,6 +7052,7 @@
             this.Bhf_Gl6_d.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_d.TabIndex = 560;
             this.Bhf_Gl6_d.TabStop = false;
+            this.Bhf_Gl6_d.Tag = "Gerade90";
             // 
             // Bhf_Gl6_c
             // 
@@ -6879,6 +7062,7 @@
             this.Bhf_Gl6_c.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_c.TabIndex = 559;
             this.Bhf_Gl6_c.TabStop = false;
+            this.Bhf_Gl6_c.Tag = "Gerade90";
             // 
             // Bhf_Gl5_2
             // 
@@ -6888,6 +7072,7 @@
             this.Bhf_Gl5_2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_2.TabIndex = 594;
             this.Bhf_Gl5_2.TabStop = false;
+            this.Bhf_Gl5_2.Tag = "Gerade90";
             // 
             // Bhf_Gl5_Halt_R3
             // 
@@ -6897,6 +7082,7 @@
             this.Bhf_Gl5_Halt_R3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_Halt_R3.TabIndex = 593;
             this.Bhf_Gl5_Halt_R3.TabStop = false;
+            this.Bhf_Gl5_Halt_R3.Tag = "Gerade90";
             // 
             // Bhf_Gl5_Halt_R2
             // 
@@ -6906,6 +7092,7 @@
             this.Bhf_Gl5_Halt_R2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_Halt_R2.TabIndex = 592;
             this.Bhf_Gl5_Halt_R2.TabStop = false;
+            this.Bhf_Gl5_Halt_R2.Tag = "Gerade90";
             // 
             // Bhf_Gl4_2
             // 
@@ -6915,6 +7102,7 @@
             this.Bhf_Gl4_2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_2.TabIndex = 591;
             this.Bhf_Gl4_2.TabStop = false;
+            this.Bhf_Gl4_2.Tag = "Gerade90";
             // 
             // Bhf_Gl4_Halt_R3
             // 
@@ -6924,6 +7112,7 @@
             this.Bhf_Gl4_Halt_R3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_Halt_R3.TabIndex = 590;
             this.Bhf_Gl4_Halt_R3.TabStop = false;
+            this.Bhf_Gl4_Halt_R3.Tag = "Gerade90";
             // 
             // Bhf_Gl4_Halt_R2
             // 
@@ -6933,6 +7122,7 @@
             this.Bhf_Gl4_Halt_R2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_Halt_R2.TabIndex = 589;
             this.Bhf_Gl4_Halt_R2.TabStop = false;
+            this.Bhf_Gl4_Halt_R2.Tag = "Gerade90";
             // 
             // Bhf_Gl3_2
             // 
@@ -6942,6 +7132,7 @@
             this.Bhf_Gl3_2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_2.TabIndex = 588;
             this.Bhf_Gl3_2.TabStop = false;
+            this.Bhf_Gl3_2.Tag = "Gerade90";
             // 
             // Bhf_Gl1_2
             // 
@@ -6951,6 +7142,7 @@
             this.Bhf_Gl1_2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_2.TabIndex = 587;
             this.Bhf_Gl1_2.TabStop = false;
+            this.Bhf_Gl1_2.Tag = "Gerade90";
             // 
             // Bhf_Gl2_2
             // 
@@ -6960,6 +7152,7 @@
             this.Bhf_Gl2_2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_2.TabIndex = 586;
             this.Bhf_Gl2_2.TabStop = false;
+            this.Bhf_Gl2_2.Tag = "Gerade90";
             // 
             // Bhf_Gl3_Halt_R3
             // 
@@ -6969,6 +7162,7 @@
             this.Bhf_Gl3_Halt_R3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_Halt_R3.TabIndex = 585;
             this.Bhf_Gl3_Halt_R3.TabStop = false;
+            this.Bhf_Gl3_Halt_R3.Tag = "Gerade90";
             // 
             // Bhf_Gl1_Halt_R3
             // 
@@ -6978,6 +7172,7 @@
             this.Bhf_Gl1_Halt_R3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_Halt_R3.TabIndex = 584;
             this.Bhf_Gl1_Halt_R3.TabStop = false;
+            this.Bhf_Gl1_Halt_R3.Tag = "Gerade90";
             // 
             // Bhf_Gl2_Halt_R3
             // 
@@ -6987,6 +7182,7 @@
             this.Bhf_Gl2_Halt_R3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_Halt_R3.TabIndex = 583;
             this.Bhf_Gl2_Halt_R3.TabStop = false;
+            this.Bhf_Gl2_Halt_R3.Tag = "Gerade90";
             // 
             // Bhf_Gl3_Halt_R2
             // 
@@ -6996,6 +7192,7 @@
             this.Bhf_Gl3_Halt_R2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_Halt_R2.TabIndex = 582;
             this.Bhf_Gl3_Halt_R2.TabStop = false;
+            this.Bhf_Gl3_Halt_R2.Tag = "Gerade90";
             // 
             // Bhf_Gl1_Halt_R2
             // 
@@ -7005,6 +7202,7 @@
             this.Bhf_Gl1_Halt_R2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_Halt_R2.TabIndex = 581;
             this.Bhf_Gl1_Halt_R2.TabStop = false;
+            this.Bhf_Gl1_Halt_R2.Tag = "Gerade90";
             // 
             // Bhf_Gl2_Halt_R2
             // 
@@ -7014,6 +7212,7 @@
             this.Bhf_Gl2_Halt_R2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_Halt_R2.TabIndex = 580;
             this.Bhf_Gl2_Halt_R2.TabStop = false;
+            this.Bhf_Gl2_Halt_R2.Tag = "Gerade90";
             // 
             // Bhf_Gl6_Halt_R2
             // 
@@ -7023,6 +7222,7 @@
             this.Bhf_Gl6_Halt_R2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_Halt_R2.TabIndex = 579;
             this.Bhf_Gl6_Halt_R2.TabStop = false;
+            this.Bhf_Gl6_Halt_R2.Tag = "Gerade90";
             // 
             // Bhf_Gl6_Halt_R3
             // 
@@ -7032,6 +7232,7 @@
             this.Bhf_Gl6_Halt_R3.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_Halt_R3.TabIndex = 578;
             this.Bhf_Gl6_Halt_R3.TabStop = false;
+            this.Bhf_Gl6_Halt_R3.Tag = "Gerade90";
             // 
             // Bhf_Gl6_2
             // 
@@ -7041,6 +7242,7 @@
             this.Bhf_Gl6_2.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_2.TabIndex = 577;
             this.Bhf_Gl6_2.TabStop = false;
+            this.Bhf_Gl6_2.Tag = "Gerade90";
             // 
             // Bhf_Gl5_Halt_R1
             // 
@@ -7050,6 +7252,7 @@
             this.Bhf_Gl5_Halt_R1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl5_Halt_R1.TabIndex = 600;
             this.Bhf_Gl5_Halt_R1.TabStop = false;
+            this.Bhf_Gl5_Halt_R1.Tag = "Gerade90";
             // 
             // Bhf_Gl4_Halt_R1
             // 
@@ -7059,6 +7262,7 @@
             this.Bhf_Gl4_Halt_R1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl4_Halt_R1.TabIndex = 599;
             this.Bhf_Gl4_Halt_R1.TabStop = false;
+            this.Bhf_Gl4_Halt_R1.Tag = "Gerade90";
             // 
             // Bhf_Gl3_Halt_R1
             // 
@@ -7068,6 +7272,7 @@
             this.Bhf_Gl3_Halt_R1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl3_Halt_R1.TabIndex = 598;
             this.Bhf_Gl3_Halt_R1.TabStop = false;
+            this.Bhf_Gl3_Halt_R1.Tag = "Gerade90";
             // 
             // Bhf_Gl1_Halt_R1
             // 
@@ -7077,6 +7282,7 @@
             this.Bhf_Gl1_Halt_R1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl1_Halt_R1.TabIndex = 597;
             this.Bhf_Gl1_Halt_R1.TabStop = false;
+            this.Bhf_Gl1_Halt_R1.Tag = "Gerade90";
             // 
             // Bhf_Gl2_Halt_R1
             // 
@@ -7086,6 +7292,7 @@
             this.Bhf_Gl2_Halt_R1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl2_Halt_R1.TabIndex = 596;
             this.Bhf_Gl2_Halt_R1.TabStop = false;
+            this.Bhf_Gl2_Halt_R1.Tag = "Gerade90";
             // 
             // Bhf_Gl6_Halt_R1
             // 
@@ -7095,6 +7302,7 @@
             this.Bhf_Gl6_Halt_R1.Size = new System.Drawing.Size(32, 32);
             this.Bhf_Gl6_Halt_R1.TabIndex = 595;
             this.Bhf_Gl6_Halt_R1.TabStop = false;
+            this.Bhf_Gl6_Halt_R1.Tag = "Gerade90";
             // 
             // panel1
             // 
@@ -9698,6 +9906,7 @@
             this.Block6_8.Size = new System.Drawing.Size(32, 32);
             this.Block6_8.TabIndex = 714;
             this.Block6_8.TabStop = false;
+            this.Block6_8.Tag = "Gerade270";
             // 
             // Block6_7
             // 
@@ -9707,6 +9916,7 @@
             this.Block6_7.Size = new System.Drawing.Size(32, 32);
             this.Block6_7.TabIndex = 713;
             this.Block6_7.TabStop = false;
+            this.Block6_7.Tag = "Gerade270";
             // 
             // SchattenGl7_2
             // 
@@ -9864,6 +10074,7 @@
             this.Block6_9.Size = new System.Drawing.Size(32, 32);
             this.Block6_9.TabIndex = 725;
             this.Block6_9.TabStop = false;
+            this.Block6_9.Tag = "Gerade270";
             // 
             // SchattenGl7_1
             // 
@@ -10445,6 +10656,7 @@
             this.Block5b_14.Size = new System.Drawing.Size(32, 32);
             this.Block5b_14.TabIndex = 780;
             this.Block5b_14.TabStop = false;
+            this.Block5b_14.Tag = "Gerade180";
             // 
             // Block5b_15
             // 
@@ -10454,6 +10666,7 @@
             this.Block5b_15.Size = new System.Drawing.Size(32, 32);
             this.Block5b_15.TabIndex = 781;
             this.Block5b_15.TabStop = false;
+            this.Block5b_15.Tag = "Gerade180";
             // 
             // Block9_4
             // 
@@ -10463,6 +10676,7 @@
             this.Block9_4.Size = new System.Drawing.Size(32, 32);
             this.Block9_4.TabIndex = 782;
             this.Block9_4.TabStop = false;
+            this.Block9_4.Tag = "Gerade0";
             // 
             // Block9_5
             // 
@@ -10472,6 +10686,7 @@
             this.Block9_5.Size = new System.Drawing.Size(32, 32);
             this.Block9_5.TabIndex = 783;
             this.Block9_5.TabStop = false;
+            this.Block9_5.Tag = "Gerade0";
             // 
             // Weiche66
             // 
@@ -10709,6 +10924,7 @@
             this.SchattenGl11_5.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl11_5.TabIndex = 814;
             this.SchattenGl11_5.TabStop = false;
+            this.SchattenGl11_5.Tag = "Gerade90";
             // 
             // SchattenGl11_6
             // 
@@ -10718,6 +10934,7 @@
             this.SchattenGl11_6.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl11_6.TabIndex = 815;
             this.SchattenGl11_6.TabStop = false;
+            this.SchattenGl11_6.Tag = "Gerade90";
             // 
             // Weiche91
             // 
@@ -10760,6 +10977,7 @@
             this.pictureBox114.Size = new System.Drawing.Size(32, 32);
             this.pictureBox114.TabIndex = 820;
             this.pictureBox114.TabStop = false;
+            this.pictureBox114.Tag = "Gerade90";
             // 
             // textBox27
             // 
@@ -10797,6 +11015,7 @@
             this.SchattenGl8_1.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl8_1.TabIndex = 825;
             this.SchattenGl8_1.TabStop = false;
+            this.SchattenGl8_1.Tag = "Gerade90";
             // 
             // SchattenGl8_2
             // 
@@ -10806,6 +11025,7 @@
             this.SchattenGl8_2.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl8_2.TabIndex = 826;
             this.SchattenGl8_2.TabStop = false;
+            this.SchattenGl8_2.Tag = "Gerade90";
             // 
             // SchattenGl8_3
             // 
@@ -10815,6 +11035,7 @@
             this.SchattenGl8_3.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl8_3.TabIndex = 827;
             this.SchattenGl8_3.TabStop = false;
+            this.SchattenGl8_3.Tag = "Gerade90";
             // 
             // SchattenGl8_4
             // 
@@ -10824,6 +11045,7 @@
             this.SchattenGl8_4.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl8_4.TabIndex = 828;
             this.SchattenGl8_4.TabStop = false;
+            this.SchattenGl8_4.Tag = "Gerade90";
             // 
             // SchattenGl8_5
             // 
@@ -10833,6 +11055,7 @@
             this.SchattenGl8_5.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl8_5.TabIndex = 829;
             this.SchattenGl8_5.TabStop = false;
+            this.SchattenGl8_5.Tag = "Gerade90";
             // 
             // SchattenGl8_6
             // 
@@ -10842,6 +11065,7 @@
             this.SchattenGl8_6.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl8_6.TabIndex = 830;
             this.SchattenGl8_6.TabStop = false;
+            this.SchattenGl8_6.Tag = "Gerade90";
             // 
             // SchattenGl8_Halt_1
             // 
@@ -10851,6 +11075,7 @@
             this.SchattenGl8_Halt_1.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl8_Halt_1.TabIndex = 831;
             this.SchattenGl8_Halt_1.TabStop = false;
+            this.SchattenGl8_Halt_1.Tag = "Gerade90";
             // 
             // Schatten8_Ausf1
             // 
@@ -10925,6 +11150,7 @@
             this.Block8_2.Size = new System.Drawing.Size(32, 32);
             this.Block8_2.TabIndex = 839;
             this.Block8_2.TabStop = false;
+            this.Block8_2.Tag = "Gerade90";
             // 
             // Block8_Halt_2
             // 
@@ -10934,6 +11160,7 @@
             this.Block8_Halt_2.Size = new System.Drawing.Size(32, 32);
             this.Block8_Halt_2.TabIndex = 840;
             this.Block8_Halt_2.TabStop = false;
+            this.Block8_Halt_2.Tag = "Gerade180";
             // 
             // Weiche92_Gleis1
             // 
@@ -10961,6 +11188,7 @@
             this.SchattenGl10_5.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl10_5.TabIndex = 848;
             this.SchattenGl10_5.TabStop = false;
+            this.SchattenGl10_5.Tag = "Gerade90";
             // 
             // SchattenGl10_4
             // 
@@ -10970,6 +11198,7 @@
             this.SchattenGl10_4.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl10_4.TabIndex = 847;
             this.SchattenGl10_4.TabStop = false;
+            this.SchattenGl10_4.Tag = "Gerade90";
             // 
             // SchattenGl10_3
             // 
@@ -10979,6 +11208,7 @@
             this.SchattenGl10_3.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl10_3.TabIndex = 846;
             this.SchattenGl10_3.TabStop = false;
+            this.SchattenGl10_3.Tag = "Gerade90";
             // 
             // SchattenGl10_2
             // 
@@ -10988,6 +11218,7 @@
             this.SchattenGl10_2.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl10_2.TabIndex = 845;
             this.SchattenGl10_2.TabStop = false;
+            this.SchattenGl10_2.Tag = "Gerade90";
             // 
             // SchattenGl10_1
             // 
@@ -10997,6 +11228,7 @@
             this.SchattenGl10_1.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl10_1.TabIndex = 844;
             this.SchattenGl10_1.TabStop = false;
+            this.SchattenGl10_1.Tag = "Gerade90";
             // 
             // SchattenGl10_6
             // 
@@ -11006,6 +11238,7 @@
             this.SchattenGl10_6.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl10_6.TabIndex = 843;
             this.SchattenGl10_6.TabStop = false;
+            this.SchattenGl10_6.Tag = "Gerade90";
             // 
             // SchattenGl9_5
             // 
@@ -11015,6 +11248,7 @@
             this.SchattenGl9_5.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl9_5.TabIndex = 854;
             this.SchattenGl9_5.TabStop = false;
+            this.SchattenGl9_5.Tag = "Gerade90";
             // 
             // SchattenGl9_4
             // 
@@ -11024,6 +11258,7 @@
             this.SchattenGl9_4.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl9_4.TabIndex = 853;
             this.SchattenGl9_4.TabStop = false;
+            this.SchattenGl9_4.Tag = "Gerade90";
             // 
             // SchattenGl9_3
             // 
@@ -11033,6 +11268,7 @@
             this.SchattenGl9_3.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl9_3.TabIndex = 852;
             this.SchattenGl9_3.TabStop = false;
+            this.SchattenGl9_3.Tag = "Gerade90";
             // 
             // SchattenGl9_2
             // 
@@ -11042,6 +11278,7 @@
             this.SchattenGl9_2.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl9_2.TabIndex = 851;
             this.SchattenGl9_2.TabStop = false;
+            this.SchattenGl9_2.Tag = "Gerade90";
             // 
             // SchattenGl9_1
             // 
@@ -11051,6 +11288,7 @@
             this.SchattenGl9_1.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl9_1.TabIndex = 850;
             this.SchattenGl9_1.TabStop = false;
+            this.SchattenGl9_1.Tag = "Gerade90";
             // 
             // SchattenGl9_6
             // 
@@ -11060,6 +11298,7 @@
             this.SchattenGl9_6.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl9_6.TabIndex = 849;
             this.SchattenGl9_6.TabStop = false;
+            this.SchattenGl9_6.Tag = "Gerade90";
             // 
             // SchattenGl10_Halt_2
             // 
@@ -11069,6 +11308,7 @@
             this.SchattenGl10_Halt_2.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl10_Halt_2.TabIndex = 860;
             this.SchattenGl10_Halt_2.TabStop = false;
+            this.SchattenGl10_Halt_2.Tag = "Gerade90";
             // 
             // SchattenGl10_Halt_1
             // 
@@ -11078,6 +11318,7 @@
             this.SchattenGl10_Halt_1.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl10_Halt_1.TabIndex = 859;
             this.SchattenGl10_Halt_1.TabStop = false;
+            this.SchattenGl10_Halt_1.Tag = "Gerade90";
             // 
             // Schatten10_Ausf1
             // 
@@ -11087,6 +11328,7 @@
             this.Schatten10_Ausf1.Size = new System.Drawing.Size(32, 32);
             this.Schatten10_Ausf1.TabIndex = 858;
             this.Schatten10_Ausf1.TabStop = false;
+            this.Schatten10_Ausf1.Tag = "Gerade90";
             // 
             // Schatten11_Ausf1
             // 
@@ -11096,6 +11338,7 @@
             this.Schatten11_Ausf1.Size = new System.Drawing.Size(32, 32);
             this.Schatten11_Ausf1.TabIndex = 857;
             this.Schatten11_Ausf1.TabStop = false;
+            this.Schatten11_Ausf1.Tag = "Gerade90";
             // 
             // SchattenGl11_Halt_2
             // 
@@ -11105,6 +11348,7 @@
             this.SchattenGl11_Halt_2.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl11_Halt_2.TabIndex = 856;
             this.SchattenGl11_Halt_2.TabStop = false;
+            this.SchattenGl11_Halt_2.Tag = "Gerade90";
             // 
             // Schatten11_Ausf2
             // 
@@ -11114,6 +11358,7 @@
             this.Schatten11_Ausf2.Size = new System.Drawing.Size(32, 32);
             this.Schatten11_Ausf2.TabIndex = 855;
             this.Schatten11_Ausf2.TabStop = false;
+            this.Schatten11_Ausf2.Tag = "Gerade90";
             // 
             // SchattenGl9_Halt_1
             // 
@@ -11123,6 +11368,7 @@
             this.SchattenGl9_Halt_1.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl9_Halt_1.TabIndex = 862;
             this.SchattenGl9_Halt_1.TabStop = false;
+            this.SchattenGl9_Halt_1.Tag = "Gerade90";
             // 
             // SchattenGl9_Halt_2
             // 
@@ -11132,6 +11378,7 @@
             this.SchattenGl9_Halt_2.Size = new System.Drawing.Size(32, 32);
             this.SchattenGl9_Halt_2.TabIndex = 861;
             this.SchattenGl9_Halt_2.TabStop = false;
+            this.SchattenGl9_Halt_2.Tag = "Gerade90";
             // 
             // Block7_11
             // 
@@ -11141,6 +11388,7 @@
             this.Block7_11.Size = new System.Drawing.Size(32, 32);
             this.Block7_11.TabIndex = 864;
             this.Block7_11.TabStop = false;
+            this.Block7_11.Tag = "Gerade90";
             // 
             // Block7_10
             // 
@@ -11150,6 +11398,7 @@
             this.Block7_10.Size = new System.Drawing.Size(32, 32);
             this.Block7_10.TabIndex = 863;
             this.Block7_10.TabStop = false;
+            this.Block7_10.Tag = "Gerade90";
             // 
             // Block7_9
             // 
@@ -11159,6 +11408,7 @@
             this.Block7_9.Size = new System.Drawing.Size(32, 32);
             this.Block7_9.TabIndex = 866;
             this.Block7_9.TabStop = false;
+            this.Block7_9.Tag = "Gerade90";
             // 
             // Block7_8
             // 
@@ -11168,6 +11418,7 @@
             this.Block7_8.Size = new System.Drawing.Size(32, 32);
             this.Block7_8.TabIndex = 865;
             this.Block7_8.TabStop = false;
+            this.Block7_8.Tag = "Gerade90";
             // 
             // Fahrstr_Schatten11_Ausf
             // 
@@ -11283,6 +11534,7 @@
             this.Block6_Halt1.Size = new System.Drawing.Size(32, 32);
             this.Block6_Halt1.TabIndex = 877;
             this.Block6_Halt1.TabStop = false;
+            this.Block6_Halt1.Tag = "Gerade270";
             // 
             // Weiche80
             // 
@@ -11639,6 +11891,7 @@
             this.Block7_3.Size = new System.Drawing.Size(32, 32);
             this.Block7_3.TabIndex = 919;
             this.Block7_3.TabStop = false;
+            this.Block7_3.Tag = "Gerade0";
             // 
             // label126
             // 

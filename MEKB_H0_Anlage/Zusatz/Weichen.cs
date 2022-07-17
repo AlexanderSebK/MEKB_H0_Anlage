@@ -60,7 +60,6 @@ namespace MEKB_H0_Anlage
             }
         }
 
-
         public Weiche GetWeiche(string Abschnitt)
         {
             if (Verzeichnis.TryGetValue(Abschnitt, out int ListID))

@@ -3317,44 +3317,44 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_GL1_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_0);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_links_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_links_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_links_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_links_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_links_3);
         }
         private void UpdateGleisbild_GL2_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_0);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_links_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_links_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_links_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_links_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_links_3);
         }
         private void UpdateGleisbild_GL3_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_0);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_links_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_links_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_links_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_links_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_links_3);
         }
         private void UpdateGleisbild_GL4_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_links_0);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_links_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_links_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_links_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_links_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_links_2);
         }
         private void UpdateGleisbild_GL5_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL5_links_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL5_links_0);
 
         }
         private void UpdateGleisbild_GL6_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL6_links_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL6_links_0);
             DisplayPicture(GetSchaltbildKurve270R(zustand), GL6_links_1);
         }
         #endregion
@@ -3362,179 +3362,179 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_GL1_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_0);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL1_rechts_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_3);
             DisplayPicture(GetSchaltbildKurve90R(zustand), GL1_rechts_4);
             DisplayPicture(GetSchaltbildEckeUL(zustand), GL1_rechts_5);
         }
         private void UpdateGleisbild_GL2_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_0);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL2_rechts_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_rechts_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_rechts_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_rechts_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_rechts_3);
         }
         private void UpdateGleisbild_GL3_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_0);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL3_rechts_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_rechts_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_rechts_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_rechts_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_rechts_3);
         }
         private void UpdateGleisbild_GL4_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_rechts_0);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_rechts_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL4_rechts_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_rechts_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_rechts_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_rechts_2);
         }       
         private void UpdateGleisbild_GL5_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL5_rechts_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL5_rechts_0);
         }
         private void UpdateGleisbild_GL6_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), GL6_rechts_0);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL6_rechts_0);
         }
         #endregion
         #region Bahnhofseinfahrt links
         private void UpdateGleisbild_Weiche5(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Weiche5_Gleis2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Weiche5_Gleis2);
         }
         #endregion
         #region Bahnhof
         private void UpdateGleisbild_Gl1_Halt_links(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_L1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_L2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_L3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_L1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_L2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_L3);
         }
         private void UpdateGleisbild_Gl1_Halt_rechts(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_R1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_R2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_Halt_R3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_R1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_R2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_R3);
         }
         private void UpdateGleisbild_Gl1_Zentrum(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl1_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_2);
         }
 
         private void UpdateGleisbild_Gl2_Halt_links(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_L1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_L2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_L3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_L1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_L2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_L3);
         }
         private void UpdateGleisbild_Gl2_Halt_rechts(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_R1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_R2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_Halt_R3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_R1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_R2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_R3);
         }
         private void UpdateGleisbild_Gl2_Zentrum(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl2_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_2);
         }
 
         private void UpdateGleisbild_Gl3_Halt_links(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_L1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_L2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_L3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_L1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_L2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_L3);
         }
         private void UpdateGleisbild_Gl3_Halt_rechts(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_R1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_R2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_Halt_R3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_R1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_R2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_R3);
         }
         private void UpdateGleisbild_Gl3_Zentrum(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl3_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_2);
         }
 
         private void UpdateGleisbild_Gl4_Halt_links(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_L1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_L2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_L3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_L1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_L2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_L3);
         }
         private void UpdateGleisbild_Gl4_Halt_rechts(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_R1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_R2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_Halt_R3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_R1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_R2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_R3);
         }
         private void UpdateGleisbild_Gl4_Zentrum(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl4_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_2);
         }
 
         private void UpdateGleisbild_Gl5_Halt_links(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_L1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_L2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_L3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_L1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_L2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_L3);
         }
         private void UpdateGleisbild_Gl5_Halt_rechts(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_R1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_R2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_Halt_R3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_R1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_R2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_R3);
         }
         private void UpdateGleisbild_Gl5_Zentrum(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl5_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_2);
         }
 
         private void UpdateGleisbild_Gl6_Halt_links(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_L1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_L2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_L3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_L1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_L2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_L3);
         }
         private void UpdateGleisbild_Gl6_Halt_rechts(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_R1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_R2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_Halt_R3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_R1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_R2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_R3);
         }
         private void UpdateGleisbild_Gl6_Zentrum(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Bhf_Gl6_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_2);
         }
         #endregion
         #region Schattenbahnhof
@@ -3542,196 +3542,196 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Schatten_Eingl(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenEingl_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenEingl_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenEingl_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenEingl_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenEingl_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenEingl_6);
         }
         private void UpdateGleisbild_Schatten_Eingl_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenEingl_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenEingl_Halt_1);
         }
 
         private void UpdateGleisbild_Schatten_Gl1(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl1_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl1_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl1_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl1_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl1_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl1_6);
         }
         private void UpdateGleisbild_Schatten_Gl1_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl1_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl1_Halt_1);
         }
 
         private void UpdateGleisbild_Schatten_Gl2(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl2_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl2_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl2_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl2_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl2_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl2_6);
         }
         private void UpdateGleisbild_Schatten_Gl2_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl2_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl2_Halt_1);
         }
 
         private void UpdateGleisbild_Schatten_Gl3(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl3_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl3_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl3_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl3_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl3_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl3_6);
         }
         private void UpdateGleisbild_Schatten_Gl3_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl3_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl3_Halt_1);
         }
 
         private void UpdateGleisbild_Schatten_Gl4(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl4_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl4_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl4_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl4_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl4_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl4_6);
         }
         private void UpdateGleisbild_Schatten_Gl4_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl4_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl4_Halt_1);
         }
 
         private void UpdateGleisbild_Schatten_Gl5(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl5_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl5_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl5_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl5_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl5_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl5_6);
         }
         private void UpdateGleisbild_Schatten_Gl5_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl5_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl5_Halt_1);
         }
 
         private void UpdateGleisbild_Schatten_Gl6(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl6_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl6_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl6_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl6_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl6_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl6_6);
         }
         private void UpdateGleisbild_Schatten_Gl6_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl6_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl6_Halt_1);
         }
 
         private void UpdateGleisbild_Schatten_Gl7(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl7_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl7_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl7_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl7_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl7_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl7_6);
         }
         private void UpdateGleisbild_Schatten_Gl7_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl7_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl7_Halt_1);
         }
 
         private void UpdateGleisbild_Schatten_Gl8(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_6);
         }
         private void UpdateGleisbild_Schatten_Gl8_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl8_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_Halt_1);
         }
 
         private void UpdateGleisbild_Schatten_Gl9(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_6);
         }
         private void UpdateGleisbild_Schatten_Gl9_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_Halt_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl9_Halt_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_Halt_2);
         }
 
         private void UpdateGleisbild_Schatten_Gl10(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_6);
         }
         private void UpdateGleisbild_Schatten_Gl10_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_Halt_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl10_Halt_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_Halt_2);
         }
 
         private void UpdateGleisbild_Schatten_Gl11(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_6);
         }
         private void UpdateGleisbild_Schatten_Gl11_Halt(bool besetzt)
         {
             MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_Halt_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), SchattenGl11_Halt_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_Halt_2);
         }
 
         #endregion
@@ -3740,24 +3740,24 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Weiche6(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Weiche6_Gleis4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Weiche6_Gleis4);
         }
         private void UpdateGleisbild_Block1a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1a_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1a_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1a_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1a_2);
         }
         private void UpdateGleisbild_Block1b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_5);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_6);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block1b_7);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_7);
         }
         private void UpdateGleisbild_Block1_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
@@ -3774,80 +3774,80 @@ namespace MEKB_H0_Anlage
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             DisplayPicture(GetSchaltbildEckeOL_Sp(zustand), Block2_1);
             DisplayPicture(GetSchaltbildEckeUR_Sp(zustand), Block2_2);
-            DisplayPicture(GetSchaltbildGerade225(zustand), Block2_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_3);
             DisplayPicture(GetSchaltbildEckeOL_Sp(zustand), Block2_4);
             DisplayPicture(GetSchaltbildEckeUR_Sp(zustand), Block2_5);
             DisplayPicture(GetSchaltbildKurve225R(zustand), Block2_6);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_7);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_8);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_10);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_7);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_8);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_10);
         }
         private void UpdateGleisbild_Block2_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_Halt_1);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block2_Halt_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_Halt_2);
         }
         #endregion
         #region Block 3
         private void UpdateGleisbild_Weiche25(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Weiche25_Gleis2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Weiche25_Gleis2);
         }
         private void UpdateGleisbild_Block3(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block3_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block3_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block3_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block3_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block3_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block3_5);
         }
         #endregion
         #region Block 4
         private void UpdateGleisbild_Block4(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block4_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block4_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block4_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block4_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block4_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block4_5);
         }
         private void UpdateGleisbild_Weiche26(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Weiche26_Gleis2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Weiche26_Gleis2);
         }
         #endregion
         #region Block 5
         private void UpdateGleisbild_Block5a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {           
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5a_1);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5a_2);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5a_3);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5a_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5a_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5a_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5a_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5a_4);
         }
         private void UpdateGleisbild_Block5b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_1);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_2);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_3);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_4);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_5);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_6);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_7);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_8);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_9);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_10);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_11);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_12);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_13);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_14);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block5b_15);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_7);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_8);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_9);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_10);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_11);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_12);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_13);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_14);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_15);
             DisplayPicture(GetSchaltbildKurve180L(zustand), Block5b_16);
             DisplayPicture(GetSchaltbildEckeOR_Sp(zustand), Block5b_17);
             DisplayPicture(GetSchaltbildKurve135L(zustand), Block5b_18);
@@ -3855,46 +3855,46 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Block5_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block5_Halt_1);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block5_Halt_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5_Halt_2);
         }
         #endregion
         #region Block 6
         private void UpdateGleisbild_Block6(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_1);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_2);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_3);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_4);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_5);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_6);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_7);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_8);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_9);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_7);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_8);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_9);
         }
         private void UpdateGleisbild_Block6_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_Halt1);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block6_Halt2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_Halt1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_Halt2);
         }
         #endregion
         #region Block 7
         private void UpdateGleisbild_Block7(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block7_1);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block7_2);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block7_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_3);
             DisplayPicture(GetSchaltbildKurve0L(zustand),   Block7_4);
             DisplayPicture(GetSchaltbildEckeOR_Sp(zustand), Block7_5);
             DisplayPicture(GetSchaltbildEckeUL_Sp(zustand), Block7_6);
             DisplayPicture(GetSchaltbildKurve315L(zustand), Block7_7);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block7_8);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block7_9);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block7_10);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Block7_11);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_8);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_9);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_10);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_11);
             DisplayPicture(GetSchaltbildKurve225R(zustand), Block7_12);
             DisplayPicture(GetSchaltbildEckeUR_Sp(zustand), Block7_13);
             DisplayPicture(GetSchaltbildEckeOL_Sp(zustand), Block7_14);
@@ -3905,11 +3905,11 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Block8(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block8_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block8_2);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block8_3);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block8_4);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Block8_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_5);
             DisplayPicture(GetSchaltbildKurve270L(zustand), Block8_6);
             DisplayPicture(GetSchaltbildEckeUR(zustand), Block8_7);
             DisplayPicture(GetSchaltbildEckeOL(zustand), Block8_8);
@@ -3918,8 +3918,8 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Block8_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_Halt_1);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block8_Halt_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_Halt_2);
         }
         #endregion
         #region Block 9
@@ -3929,26 +3929,26 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildKurve135L(zustand), Block9_1);
             DisplayPicture(GetSchaltbildEckeUL_Sp(zustand), Block9_2);
             DisplayPicture(GetSchaltbildKurve180L(zustand), Block9_3);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_4);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_5);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_6);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_7);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_8);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_9);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_10);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_11);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_12);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_13);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_14);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_15);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_16);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_17);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_7);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_8);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_9);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_10);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_11);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_12);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_13);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_14);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_15);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_16);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_17);
         }
         private void UpdateGleisbild_Block9_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_Halt_1);
-            DisplayPicture(GetSchaltbildGerade180(zustand), Block9_Halt_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_Halt_2);
         }
         #endregion
 
@@ -3964,7 +3964,7 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(zustand9, FreiesGleis), Kreuzung1_3);
                 DisplayPicture(GetSchaltbildKurve180L(FreiesGleis), Kreuzung1_4);
                 DisplayPicture(GetSchaltbildKreuzung90_135(zustand9, FreiesGleis), Kreuzung1);
-                DisplayPicture(GetSchaltbildGerade180(FreiesGleis), Kreuzung1_5);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Kreuzung1_5);
             }
             else if (zustand8.Fahrstrasse == true)
             {
@@ -3974,7 +3974,7 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildKreuzung90_135(FreiesGleis, zustand8), Kreuzung1);  
                 zustand8.Richtung = !zustand8.Richtung;
                 DisplayPicture(GetSchaltbildKurve180L(zustand8), Kreuzung1_4);
-                DisplayPicture(GetSchaltbildGerade180(zustand8), Kreuzung1_5);
+                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_5);
 
             }
             else
@@ -3984,7 +3984,7 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(zustand9, FreiesGleis), Kreuzung1_3);
                 DisplayPicture(GetSchaltbildKurve180L(zustand8), Kreuzung1_4);
                 DisplayPicture(GetSchaltbildKreuzung90_135(zustand9, zustand8), Kreuzung1);
-                DisplayPicture(GetSchaltbildGerade180(zustand8), Kreuzung1_5);
+                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_5);
             }
        
         }
@@ -4014,11 +4014,11 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand9, zustand10), Schatten9_Ausf1);
             DisplayPicture(GetSchaltbildEckeOL(zustand9), Schatten9_Ausf2);
 
-            DisplayPicture(GetSchaltbildGerade90(zustand10), Schatten10_Ausf1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand10, Schatten10_Ausf1);
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand10, zustand11), Schatten10_Ausf2);
 
-            DisplayPicture(GetSchaltbildGerade90(zustand11), Schatten11_Ausf1);
-            DisplayPicture(GetSchaltbildGerade90(zustand11), Schatten11_Ausf2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand11, Schatten11_Ausf1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand11, Schatten11_Ausf2);
             DisplayPicture(GetSchaltbildKurve90L(zustand11), Schatten11_Ausf3);
             DisplayPicture(GetSchaltbildEckeOL(zustand11), Schatten11_Ausf4);
             DisplayPicture(GetSchaltbildKurve180R_EckeOL(zustand11, zustand10), Schatten11_Ausf5);
@@ -4030,7 +4030,7 @@ namespace MEKB_H0_Anlage
             {
                 DisplayPicture(GetSchaltbildEckeUR(zustand), Schatten0_Ausf1);
                 DisplayPicture(GetSchaltbildKurve270L(zustand), Schatten0_Ausf2);
-                DisplayPicture(GetSchaltbildGerade90(zustand), Schatten0_Ausf3);
+                GleisbildZeichnung.ZeichneSchaltbild(zustand, Schatten0_Ausf3);
             }
             else if(zustand.Besetzt == false)
             {
@@ -4303,22 +4303,22 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Tunnel1_Einf(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Tunnel1_Einf);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Tunnel1_Einf);
         }
         private void UpdateGleisbild_Tunnel2_Einf(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade90(zustand), Tunnel2_Einf);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Tunnel2_Einf);
         }
         private void UpdateGleisbild_Tunnel1_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Tunnel1_Halt);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Tunnel1_Halt);
         }
         private void UpdateGleisbild_Tunnel2_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildGerade270(zustand), Tunnel2_Halt);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Tunnel2_Halt);
         }
 
         private void UpdateGleisbild_Tunnel(bool besetzt_Tunnel1, List<Fahrstrasse> Fahrstrasse_Tunnel1,
@@ -4327,21 +4327,21 @@ namespace MEKB_H0_Anlage
             MeldeZustand zustand_Tunnel1 = ErrechneZustand(besetzt_Tunnel1, new List<Fahrstrasse>(), Fahrstrasse_Tunnel1);
             MeldeZustand zustand_Tunnel2 = ErrechneZustand(besetzt_Tunnel2, new List<Fahrstrasse>(), Fahrstrasse_Tunnel2);
 
-            DisplayPicture(GetSchaltbildGerade90( zustand_Tunnel1), Tunnel1_1);
-            DisplayPicture(GetSchaltbildGerade90( zustand_Tunnel1), Tunnel1_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_2);
             DisplayPicture(GetSchaltbildKurve90L( zustand_Tunnel1), Tunnel1_3);
             DisplayPicture(GetSchaltbildEckeOL(   zustand_Tunnel1), Tunnel1_4);
             DisplayPicture(GetSchaltbildKurve180R(zustand_Tunnel1), Tunnel1_5);
             DisplayPicture(GetSchaltbildKurve0L(  zustand_Tunnel1), Tunnel1_6);
             DisplayPicture(GetSchaltbildEckeUL_Sp(zustand_Tunnel1), Tunnel1_7);
             DisplayPicture(GetSchaltbildKurve315L(zustand_Tunnel1), Tunnel1_8);
-            DisplayPicture(GetSchaltbildGerade270(zustand_Tunnel1), Tunnel1_9);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_9);
 
-            DisplayPicture(GetSchaltbildGerade90(zustand_Tunnel2), Tunnel2_1);
-            DisplayPicture(GetSchaltbildGerade90(zustand_Tunnel2), Tunnel2_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel2, Tunnel2_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel2, Tunnel2_2);
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand_Tunnel2, zustand_Tunnel1), Tunnel2_3);
             DisplayPicture(GetSchaltbildKurve180L_EckeOR(zustand_Tunnel2, zustand_Tunnel1), Tunnel2_4);
-            DisplayPicture(GetSchaltbildGerade270(zustand_Tunnel2), Tunnel2_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel2, Tunnel2_5);
         }
 
 
@@ -4355,14 +4355,14 @@ namespace MEKB_H0_Anlage
             {
                 DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche51a_1);
                 DisplayPicture(GetSchaltbildKurve270L(meldeZustand), Weiche51a_2);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche51a_3);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche51a_3);
                 
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche51b_1);
 
             }
             else
             {
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand), Weiche51b_2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche51b_2);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche51b_1);
             }
         }
@@ -4394,7 +4394,7 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildKurve0R(FreiesGleis), Weiche53_Gleis0);
                 DisplayPicture(GetSchaltbildEckeOL(FreiesGleis), Weiche53_Gleis1);
                 DisplayPicture(GetSchaltbildKurve225L_EckeUR(meldeZustand, FreiesGleis), Weiche53_Gleis2);
-                DisplayPicture(GetSchaltbildGerade180(FreiesGleis), Weiche53_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche53_Gleis3);
 
             }
             else
@@ -4402,7 +4402,7 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildKurve0R(meldeZustand), Weiche53_Gleis0);
                 DisplayPicture(GetSchaltbildEckeOL(meldeZustand), Weiche53_Gleis1);
                 DisplayPicture(GetSchaltbildKurve225L_EckeUR(FreiesGleis, meldeZustand), Weiche53_Gleis2);
-                DisplayPicture(GetSchaltbildGerade180(meldeZustand), Weiche53_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche53_Gleis3);
             }
         }
         private void UpdateGleisbild_Weiche60()
@@ -4546,15 +4546,15 @@ namespace MEKB_H0_Anlage
             {
                 DisplayPicture(GetSchaltbildEckeUR(meldeZustand2), Schatten0_Ausf1);
                 DisplayPicture(GetSchaltbildKurve270L(meldeZustand2), Schatten0_Ausf2);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand2), Schatten0_Ausf3);
-                DisplayPicture(GetSchaltbildGerade90(meldeZustand2), Schatten0_Ausf4);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand2, Schatten0_Ausf3);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand2, Schatten0_Ausf4);
             }
             else
             {
                 DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Schatten0_Ausf1);
                 DisplayPicture(GetSchaltbildKurve270L(FreiesGleis), Schatten0_Ausf2);
-                DisplayPicture(GetSchaltbildGerade90(FreiesGleis), Schatten0_Ausf3);
-                DisplayPicture(GetSchaltbildGerade90(FreiesGleis), Schatten0_Ausf4);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Schatten0_Ausf3);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Schatten0_Ausf4);
             }
 
         }
@@ -5253,225 +5253,7 @@ namespace MEKB_H0_Anlage
             return bild; //Bild ausgeben
         }
         #endregion
-        #region nur Geraden
-        private dynamic GetSchaltbildGerade0(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade0; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }     
-        private dynamic GetSchaltbildGerade45(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade45; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildGerade90(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade90; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildGerade180(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade0; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_0;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_unten;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_0_oben;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildGerade225(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade45; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildGerade135(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade135; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_135_rechts;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_135_links;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildGerade270(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Gerade90; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        #endregion
         #region Kruezung
         private dynamic GetSchaltbildKreuzung90_135(MeldeZustand Zustandwaage, MeldeZustand Zustandschraege)
         {
@@ -7492,8 +7274,8 @@ namespace MEKB_H0_Anlage
                                     new List<Fahrstrasse>());     //nie nach rechts
 
             UpdateGleisbild_Block7(BelegtmelderListe.GetBelegtStatus("Block7"), //Besetzt
-                                    new List<Fahrstrasse>(),  //nie nach links
-                                    new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 }); //nach rechts
+                                    new List<Fahrstrasse> { Schatten8_nach_Block7, Schatten9_nach_Block7, Schatten10_nach_Block7, Schatten11_nach_Block7 },  //nie nach links
+                                    new List<Fahrstrasse>()); //nach rechts
             UpdateGleisbild_Block8(BelegtmelderListe.GetBelegtStatus("Block8"), //Besetzt
                                     new List<Fahrstrasse> { Schatten0_nach_Block8, Schatten1_nach_Block8 },  //nie nach links
                                     new List<Fahrstrasse>()); //nach rechts
@@ -7501,15 +7283,16 @@ namespace MEKB_H0_Anlage
                                     new List<Fahrstrasse> { Schatten0_nach_Block8, Schatten1_nach_Block8 },  //nie nach links
                                     new List<Fahrstrasse>()); //nach rechts
             UpdateGleisbild_Block9(BelegtmelderListe.GetBelegtStatus("Block9"), //Besetzt
-                                    new List<Fahrstrasse>(),  //nie nach links
                                     new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                 Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
-                                                Schatten7_nach_Block9}); //nach rechts
+                                                Schatten7_nach_Block9},//nach rechts
+                                    new List<Fahrstrasse>());  //nie nach rechts
             UpdateGleisbild_Block9_Halt(BelegtmelderListe.GetBelegtStatus("Block9_Halt"), //Besetzt
-                                    new List<Fahrstrasse>(),  //nie nach links
                                     new List<Fahrstrasse> { Schatten1_nach_Block9, Schatten2_nach_Block9, Schatten3_nach_Block9,
                                                 Schatten4_nach_Block9, Schatten5_nach_Block9, Schatten6_nach_Block9,
-                                                Schatten7_nach_Block9}); //nach rechts
+                                                Schatten7_nach_Block9},//nach rechts
+                                    new List<Fahrstrasse>());  //nie nach rechts
+                                     
 
 
             UpdateGleisbild_Weiche1();  //Umfeld um Weiche 1

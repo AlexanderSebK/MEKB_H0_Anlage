@@ -117,6 +117,8 @@
       <DependentUpon>Belegtmelder_Ueberwachung.cs</DependentUpon>
     </Compile>
     <Compile Include="Zusatz\Belegtmelder.cs" />
+    <Compile Include="Zusatz\Fahrstrassen.cs" />
+    <Compile Include="Zusatz\GleisbildZeichnung.cs" />
     <Compile Include="Zusatz\Logger.cs" />
     <Compile Include="MenuFenster\LokEditor.cs">
       <SubType>Form</SubType>

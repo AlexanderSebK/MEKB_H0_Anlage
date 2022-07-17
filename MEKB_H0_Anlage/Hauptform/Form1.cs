@@ -21,6 +21,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Configuration;
+using System.Diagnostics;
 
 
 namespace MEKB_H0_Anlage
@@ -36,6 +37,7 @@ namespace MEKB_H0_Anlage
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
         private InfoBox InfoBox;
 
+        private GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung();
 
         public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
         public SignalListe SignalListe = new SignalListe("Signalliste.xml");
@@ -235,6 +237,8 @@ namespace MEKB_H0_Anlage
                         SetConnect(true, true); //Initialisierung abgeschlossen
                         Betriebsbereit = true;
                     }
+                    Stopwatch stopWatch = new Stopwatch();
+                    stopWatch.Start();
                     //
                     Fahrstrassenupdate(Gleis1_nach_Block1);
                     Fahrstrassenupdate(Gleis2_nach_Block1);
@@ -312,12 +316,14 @@ namespace MEKB_H0_Anlage
                     Fahrstrassenupdate(Schatten5_nach_Block9);
                     Fahrstrassenupdate(Schatten6_nach_Block9);
                     Fahrstrassenupdate(Schatten7_nach_Block9);
-
+                    
                     FahrstrasseBildUpdate();
 
                     GetBelegtMelderStatus(0);
-
+                    stopWatch.Stop();
+                    TimeSpan ts = stopWatch.Elapsed;
                     timer.Start();
+                    //Messung vor Verbesserung: 100~120ms
                 }
             }
 
