@@ -4786,7 +4786,7 @@
             this.Weiche50a_1.Size = new System.Drawing.Size(32, 32);
             this.Weiche50a_1.TabIndex = 208;
             this.Weiche50a_1.TabStop = false;
-            this.Weiche50a_1.Tag = "Ecke_OR";
+            this.Weiche50a_1.Tag = "Ecke_OR_SP";
             // 
             // Weiche9_Gleis3
             // 
@@ -4796,7 +4796,7 @@
             this.Weiche9_Gleis3.Size = new System.Drawing.Size(32, 32);
             this.Weiche9_Gleis3.TabIndex = 207;
             this.Weiche9_Gleis3.TabStop = false;
-            this.Weiche9_Gleis3.Tag = "Ecke_OR";
+            this.Weiche9_Gleis3.Tag = "Ecke_OR_SP";
             // 
             // Betrieb_Gl33_1
             // 
@@ -6462,6 +6462,7 @@
             this.Weiche5_Gleis2.Size = new System.Drawing.Size(32, 32);
             this.Weiche5_Gleis2.TabIndex = 15;
             this.Weiche5_Gleis2.TabStop = false;
+            this.Weiche5_Gleis2.Tag = "Gerade_270";
             // 
             // Weiche5_Gleis1
             // 
