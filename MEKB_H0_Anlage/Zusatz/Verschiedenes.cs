@@ -222,40 +222,5 @@ namespace MEKB_H0_Anlage
 
     
 
-    public struct MeldeZustand
-    {
-        public MeldeZustand(bool besetzt, bool fahrstrasse, bool sicher, bool richtung)
-        {
-            Besetzt = besetzt;
-            Fahrstrasse = fahrstrasse;
-            Sicher = sicher;
-            Richtung = richtung;
-        }
-
-        public MeldeZustand(Weiche weiche, bool richtung)
-        {
-            Besetzt = weiche.Besetzt;
-            Fahrstrasse = weiche.FahrstrasseAktive;
-            Sicher = weiche.FahrstrasseSicher;
-            Richtung = weiche.FahrstrasseRichtung_vonZunge ^ richtung;
-        }
-
-        public MeldeZustand(bool StatusALL)
-        {
-            Besetzt = StatusALL;
-            Fahrstrasse = StatusALL;
-            Sicher = StatusALL;
-            Richtung = StatusALL;
-        }
-
-        public bool Besetzt { get; set; }
-        public bool Fahrstrasse { get; set; }
-        public bool Sicher { get; set; }
-        public bool Richtung { get; set; }
-
-        public bool IstFrei()
-        {
-            return !(Besetzt || Fahrstrasse);
-        }
-    }
+    
 }

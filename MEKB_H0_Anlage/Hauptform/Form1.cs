@@ -37,7 +37,7 @@ namespace MEKB_H0_Anlage
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
         private InfoBox InfoBox;
 
-        private GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung();
+        public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
 
         public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
         public SignalListe SignalListe = new SignalListe("Signalliste.xml");

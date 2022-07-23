@@ -721,6 +721,9 @@
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Standard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Weichenliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

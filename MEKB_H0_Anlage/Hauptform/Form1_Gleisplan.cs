@@ -3355,7 +3355,7 @@ namespace MEKB_H0_Anlage
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, GL6_links_0);
-            DisplayPicture(GetSchaltbildKurve270R(zustand), GL6_links_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL6_links_1);
         }
         #endregion
         #region Bahnhofsausfahrt rechts
@@ -3366,8 +3366,8 @@ namespace MEKB_H0_Anlage
             GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_1);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_2);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_3);
-            DisplayPicture(GetSchaltbildKurve90R(zustand), GL1_rechts_4);
-            DisplayPicture(GetSchaltbildEckeUL(zustand), GL1_rechts_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_5);
         }
         private void UpdateGleisbild_GL2_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
@@ -3762,22 +3762,22 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Block1_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildKurve270L(zustand), Block1_Halt_1);
-            DisplayPicture(GetSchaltbildEckeUR(zustand), Block1_Halt_2);
-            DisplayPicture(GetSchaltbildEckeOL(zustand), Block1_Halt_3);
-            DisplayPicture(GetSchaltbildKurve225L(zustand), Block1_Halt_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1_Halt_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1_Halt_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1_Halt_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1_Halt_4);
         }
         #endregion
         #region Block 2
         private void UpdateGleisbild_Block2(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildEckeOL_Sp(zustand), Block2_1);
-            DisplayPicture(GetSchaltbildEckeUR_Sp(zustand), Block2_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_2);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_3);
-            DisplayPicture(GetSchaltbildEckeOL_Sp(zustand), Block2_4);
-            DisplayPicture(GetSchaltbildEckeUR_Sp(zustand), Block2_5);
-            DisplayPicture(GetSchaltbildKurve225R(zustand), Block2_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_6);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_7);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_8);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_10);
@@ -3848,9 +3848,9 @@ namespace MEKB_H0_Anlage
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_13);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_14);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_15);
-            DisplayPicture(GetSchaltbildKurve180L(zustand), Block5b_16);
-            DisplayPicture(GetSchaltbildEckeOR_Sp(zustand), Block5b_17);
-            DisplayPicture(GetSchaltbildKurve135L(zustand), Block5b_18);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_16);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_17);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5b_18);
         }
         private void UpdateGleisbild_Block5_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
@@ -3887,17 +3887,17 @@ namespace MEKB_H0_Anlage
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_1);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_2);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_3);
-            DisplayPicture(GetSchaltbildKurve0L(zustand),   Block7_4);
-            DisplayPicture(GetSchaltbildEckeOR_Sp(zustand), Block7_5);
-            DisplayPicture(GetSchaltbildEckeUL_Sp(zustand), Block7_6);
-            DisplayPicture(GetSchaltbildKurve315L(zustand), Block7_7);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand,   Block7_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_7);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_8);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_9);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_10);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_11);
-            DisplayPicture(GetSchaltbildKurve225R(zustand), Block7_12);
-            DisplayPicture(GetSchaltbildEckeUR_Sp(zustand), Block7_13);
-            DisplayPicture(GetSchaltbildEckeOL_Sp(zustand), Block7_14);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_12);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_13);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_14);
 
         }
         #endregion
@@ -3910,10 +3910,10 @@ namespace MEKB_H0_Anlage
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_3);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_4);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_5);
-            DisplayPicture(GetSchaltbildKurve270L(zustand), Block8_6);
-            DisplayPicture(GetSchaltbildEckeUR(zustand), Block8_7);
-            DisplayPicture(GetSchaltbildEckeOL(zustand), Block8_8);
-            DisplayPicture(GetSchaltbildKurve0R(zustand), Block8_9);        
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_7);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_8);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_9);        
         }
         private void UpdateGleisbild_Block8_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
@@ -3926,9 +3926,9 @@ namespace MEKB_H0_Anlage
         private void UpdateGleisbild_Block9(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            DisplayPicture(GetSchaltbildKurve135L(zustand), Block9_1);
-            DisplayPicture(GetSchaltbildEckeUL_Sp(zustand), Block9_2);
-            DisplayPicture(GetSchaltbildKurve180L(zustand), Block9_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_3);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_4);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_5);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_6);
@@ -3960,29 +3960,29 @@ namespace MEKB_H0_Anlage
             if (zustand9.Fahrstrasse == true)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(zustand9, FreiesGleis), Kreuzung1_1);
-                DisplayPicture(GetSchaltbildEckeUL(FreiesGleis), Kreuzung1_2);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Kreuzung1_2);
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(zustand9, FreiesGleis), Kreuzung1_3);
-                DisplayPicture(GetSchaltbildKurve180L(FreiesGleis), Kreuzung1_4);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Kreuzung1_4);
                 DisplayPicture(GetSchaltbildKreuzung90_135(zustand9, FreiesGleis), Kreuzung1);
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Kreuzung1_5);
             }
             else if (zustand8.Fahrstrasse == true)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, zustand8), Kreuzung1_1);
-                DisplayPicture(GetSchaltbildEckeUL(zustand8), Kreuzung1_2);
+                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_2);
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(FreiesGleis, zustand8), Kreuzung1_3);
                 DisplayPicture(GetSchaltbildKreuzung90_135(FreiesGleis, zustand8), Kreuzung1);  
                 zustand8.Richtung = !zustand8.Richtung;
-                DisplayPicture(GetSchaltbildKurve180L(zustand8), Kreuzung1_4);
+                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_4);
                 GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_5);
 
             }
             else
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(zustand9, FreiesGleis), Kreuzung1_1);
-                DisplayPicture(GetSchaltbildEckeUL(zustand8), Kreuzung1_2);
+                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_2);
                 DisplayPicture(GetSchaltbildGerade90_EckeOR(zustand9, FreiesGleis), Kreuzung1_3);
-                DisplayPicture(GetSchaltbildKurve180L(zustand8), Kreuzung1_4);
+                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_4);
                 DisplayPicture(GetSchaltbildKreuzung90_135(zustand9, zustand8), Kreuzung1);
                 GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_5);
             }
@@ -4007,36 +4007,23 @@ namespace MEKB_H0_Anlage
             MeldeZustand zustand10 = ErrechneZustand(besetzt10, new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[2] }); //Gleis10
             MeldeZustand zustand11 = ErrechneZustand(besetzt11, new List<Fahrstrasse>(), new List<Fahrstrasse> { Fahrstrassen[3] }); //Gleis11
 
-            DisplayPicture(GetSchaltbildEckeUR(zustand8), Schatten8_Ausf1);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand8, Schatten8_Ausf1);
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand8, zustand9), Schatten8_Ausf2);
-            DisplayPicture(GetSchaltbildEckeOL(zustand8), Schatten8_Ausf3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand8, Schatten8_Ausf3);
 
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand9, zustand10), Schatten9_Ausf1);
-            DisplayPicture(GetSchaltbildEckeOL(zustand9), Schatten9_Ausf2);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand9, Schatten9_Ausf2);
 
             GleisbildZeichnung.ZeichneSchaltbild(zustand10, Schatten10_Ausf1);
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand10, zustand11), Schatten10_Ausf2);
 
             GleisbildZeichnung.ZeichneSchaltbild(zustand11, Schatten11_Ausf1);
             GleisbildZeichnung.ZeichneSchaltbild(zustand11, Schatten11_Ausf2);
-            DisplayPicture(GetSchaltbildKurve90L(zustand11), Schatten11_Ausf3);
-            DisplayPicture(GetSchaltbildEckeOL(zustand11), Schatten11_Ausf4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand11, Schatten11_Ausf3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand11, Schatten11_Ausf4);
             DisplayPicture(GetSchaltbildKurve180R_EckeOL(zustand11, zustand10), Schatten11_Ausf5);
         }
-        private void UpdateGleisbild_Schatten0Ausf(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_rechts)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_rechts);
-            if((WeichenListe.GetWeiche("Weiche68").Abzweig) || zustand.Fahrstrasse == true)
-            {
-                DisplayPicture(GetSchaltbildEckeUR(zustand), Schatten0_Ausf1);
-                DisplayPicture(GetSchaltbildKurve270L(zustand), Schatten0_Ausf2);
-                GleisbildZeichnung.ZeichneSchaltbild(zustand, Schatten0_Ausf3);
-            }
-            else if(zustand.Besetzt == false)
-            {
-
-            }
-        }
+        
         #endregion
         #region Block (sonder)
         private void UpdateGleisbild_Block5_Block9(bool besetzt_Block5, List<Fahrstrasse> Fahrstrasse_links_Block5, List<Fahrstrasse> Fahrstrasse_rechts_Block5, 
@@ -4135,14 +4122,14 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche6);
             if (weiche.Abzweig)
             {
-                DisplayPicture(GetSchaltbildKurve270L(meldeZustand), Weiche6_Gleis2);
-                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche6_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche6_Gleis2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche6_Gleis3);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche6_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildKurve270L(FreiesGleis), Weiche6_Gleis2);
-                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Weiche6_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche6_Gleis2);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche6_Gleis3);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche6_Gleis1);
             }
 
@@ -4290,8 +4277,8 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildWeicheR90(weiche), Weiche50);
             if (weiche.Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeOR(meldeZustand),   Weiche50a_1);
-                DisplayPicture(GetSchaltbildKurve270R(meldeZustand),Weiche50a_2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche50a_1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche50a_2);
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche50b_1);              
             }
             else
@@ -4329,12 +4316,12 @@ namespace MEKB_H0_Anlage
 
             GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_1);
             GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_2);
-            DisplayPicture(GetSchaltbildKurve90L( zustand_Tunnel1), Tunnel1_3);
-            DisplayPicture(GetSchaltbildEckeOL(   zustand_Tunnel1), Tunnel1_4);
-            DisplayPicture(GetSchaltbildKurve180R(zustand_Tunnel1), Tunnel1_5);
-            DisplayPicture(GetSchaltbildKurve0L(  zustand_Tunnel1), Tunnel1_6);
-            DisplayPicture(GetSchaltbildEckeUL_Sp(zustand_Tunnel1), Tunnel1_7);
-            DisplayPicture(GetSchaltbildKurve315L(zustand_Tunnel1), Tunnel1_8);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_3);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_4);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_5);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_6);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_7);
+            GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_8);
             GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel1, Tunnel1_9);
 
             GleisbildZeichnung.ZeichneSchaltbild(zustand_Tunnel2, Tunnel2_1);
@@ -4353,8 +4340,8 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche51);
             if (weiche.Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche51a_1);
-                DisplayPicture(GetSchaltbildKurve270L(meldeZustand), Weiche51a_2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche51a_1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche51a_2);
                 GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche51a_3);
                 
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche51b_1);
@@ -4374,12 +4361,12 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildWeicheL180(weiche), Weiche52);
             if (weiche.Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeUL_Sp(meldeZustand), Weiche52_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche52_Gleis3);
                 DisplayPicture(GetSchaltbildGerade180_EckeOR(FreiesGleis, meldeZustand), Weiche52_Gleis1);
             }
             else
             {
-                DisplayPicture(GetSchaltbildEckeUL_Sp(FreiesGleis), Weiche52_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche52_Gleis3);
                 DisplayPicture(GetSchaltbildGerade180_EckeOR(meldeZustand, FreiesGleis), Weiche52_Gleis1);
             }
         }
@@ -4391,16 +4378,16 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildWeicheR225(weiche), Weiche53);
             if (weiche.Abzweig)
             {
-                DisplayPicture(GetSchaltbildKurve0R(FreiesGleis), Weiche53_Gleis0);
-                DisplayPicture(GetSchaltbildEckeOL(FreiesGleis), Weiche53_Gleis1);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche53_Gleis0);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche53_Gleis1);
                 DisplayPicture(GetSchaltbildKurve225L_EckeUR(meldeZustand, FreiesGleis), Weiche53_Gleis2);
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche53_Gleis3);
 
             }
             else
             {
-                DisplayPicture(GetSchaltbildKurve0R(meldeZustand), Weiche53_Gleis0);
-                DisplayPicture(GetSchaltbildEckeOL(meldeZustand), Weiche53_Gleis1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche53_Gleis0);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche53_Gleis1);
                 DisplayPicture(GetSchaltbildKurve225L_EckeUR(FreiesGleis, meldeZustand), Weiche53_Gleis2);
                 GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche53_Gleis3);
             }
@@ -4428,12 +4415,12 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildWeicheL90(weiche), Weiche61);
             if (weiche.Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche61_1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche61_1);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche61_2);
             }
             else
             {
-                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Weiche61_1);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche61_1);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, FreiesGleis), Weiche61_2);
             }
         }
@@ -4445,12 +4432,12 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche62);
             if (!weiche.Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche62_1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche62_1);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche62_2);
             }
             else
             {
-                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Weiche62_1);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche62_1);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, FreiesGleis), Weiche62_2);
             }
         }
@@ -4462,12 +4449,12 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche63);
             if (!weiche.Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche63_1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche63_1);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche63_2);
             }
             else
             {
-                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Weiche63_1);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche63_1);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, FreiesGleis), Weiche63_2);
             }
         }
@@ -4479,12 +4466,12 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche64);
             if (!weiche.Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche64_1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche64_1);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche64_2);
             }
             else
             {
-                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Weiche64_1);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche64_1);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, FreiesGleis), Weiche64_2);
             }
         }
@@ -4496,12 +4483,12 @@ namespace MEKB_H0_Anlage
             DisplayPicture(GetSchaltbildWeicheR45(weiche), Weiche65);
             if (!weiche.Abzweig)
             {
-                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), Weiche65_1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche65_1);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche65_2);
             }
             else
             {
-                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Weiche65_1);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche65_1);
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, FreiesGleis), Weiche65_2);
             }
         }
@@ -4544,15 +4531,15 @@ namespace MEKB_H0_Anlage
                 DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(FreiesGleis, meldeZustand2, meldeZustand1), Weiche68_67);
             if (weiche68.Abzweig == true)
             {
-                DisplayPicture(GetSchaltbildEckeUR(meldeZustand2), Schatten0_Ausf1);
-                DisplayPicture(GetSchaltbildKurve270L(meldeZustand2), Schatten0_Ausf2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand2, Schatten0_Ausf1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand2, Schatten0_Ausf2);
                 GleisbildZeichnung.ZeichneSchaltbild(meldeZustand2, Schatten0_Ausf3);
                 GleisbildZeichnung.ZeichneSchaltbild(meldeZustand2, Schatten0_Ausf4);
             }
             else
             {
-                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), Schatten0_Ausf1);
-                DisplayPicture(GetSchaltbildKurve270L(FreiesGleis), Schatten0_Ausf2);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Schatten0_Ausf1);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Schatten0_Ausf2);
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Schatten0_Ausf3);
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Schatten0_Ausf4);
             }
@@ -4567,12 +4554,12 @@ namespace MEKB_H0_Anlage
             if (weiche.Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche70_1);
-                DisplayPicture(GetSchaltbildEckeOL(FreiesGleis), Weiche70_2);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche70_2);
             }
             else
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche70_1);
-                DisplayPicture(GetSchaltbildEckeOL(meldeZustand), Weiche70_2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche70_2);
             }
         }
         private void UpdateGleisbild_Weiche71()
@@ -4584,12 +4571,12 @@ namespace MEKB_H0_Anlage
             if (weiche.Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche71_1);
-                DisplayPicture(GetSchaltbildEckeOL(FreiesGleis), Weiche71_2);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche71_2);
             }
             else
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche71_1);
-                DisplayPicture(GetSchaltbildEckeOL(meldeZustand), Weiche71_2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche71_2);
             }
         }
         private void UpdateGleisbild_Weiche72()
@@ -4601,12 +4588,12 @@ namespace MEKB_H0_Anlage
             if (weiche.Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche72_1);
-                DisplayPicture(GetSchaltbildEckeOL(FreiesGleis), Weiche72_2);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche72_2);
             }
             else
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche72_1);
-                DisplayPicture(GetSchaltbildEckeOL(meldeZustand), Weiche72_2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche72_2);
             }
         }
         private void UpdateGleisbild_Weiche73()
@@ -4618,12 +4605,12 @@ namespace MEKB_H0_Anlage
             if (weiche.Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche73_1);
-                DisplayPicture(GetSchaltbildEckeOL(FreiesGleis), Weiche73_2);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche73_2);
             }
             else
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche73_1);
-                DisplayPicture(GetSchaltbildEckeOL(meldeZustand), Weiche73_2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche73_2);
             }
         }
         private void UpdateGleisbild_Weiche74()
@@ -4692,7 +4679,7 @@ namespace MEKB_H0_Anlage
             if (weiche76.Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(meldeZustand, FreiesGleis), Weiche76_1);
-                DisplayPicture(GetSchaltbildKurve90L(FreiesGleis), Weiche76_2);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche76_2);
                 if (!weiche90.Abzweig)
                     DisplayPicture(GetSchaltbildEckeOL_UR(FreiesGleis, FreiesGleis), WeicheEcke76_90);
                 else
@@ -4701,7 +4688,7 @@ namespace MEKB_H0_Anlage
             else
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUR(FreiesGleis, meldeZustand), Weiche76_1);
-                DisplayPicture(GetSchaltbildKurve90L(meldeZustand), Weiche76_2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche76_2);
                 meldeZustand.Richtung = !meldeZustand.Richtung;
                 if (!weiche90.Abzweig)
                     DisplayPicture(GetSchaltbildEckeOL_UR(meldeZustand, FreiesGleis), WeicheEcke76_90);
@@ -4769,12 +4756,12 @@ namespace MEKB_H0_Anlage
             if (weiche.Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(meldeZustand, FreiesGleis), Weiche92_Gleis1);
-                DisplayPicture(GetSchaltbildKurve270L(FreiesGleis), Weiche92_Gleis2);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche92_Gleis2);
             }
             else
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL(FreiesGleis, meldeZustand), Weiche92_Gleis1);
-                DisplayPicture(GetSchaltbildKurve270L(meldeZustand), Weiche92_Gleis2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche92_Gleis2);
             }
         }
 
@@ -4820,12 +4807,12 @@ namespace MEKB_H0_Anlage
             if (weiche.Abzweig)
             {
                 DisplayPicture(GetSchaltbildKurve270L_EckeOR(FreiesGleis, meldeZustand), Weiche9_Gleis1);
-                DisplayPicture(GetSchaltbildEckeUL(meldeZustand), Weiche9_Gleis4);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche9_Gleis4);
             }
             else
             {
                 DisplayPicture(GetSchaltbildKurve270L_EckeOR(meldeZustand, FreiesGleis), Weiche9_Gleis1);
-                DisplayPicture(GetSchaltbildEckeUL(FreiesGleis), Weiche9_Gleis4);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche9_Gleis4);
             }
 
         }
@@ -4837,12 +4824,12 @@ namespace MEKB_H0_Anlage
             if (weiche.Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(FreiesGleis, meldeZustand), Weiche9_Gleis2);
-                DisplayPicture(GetSchaltbildEckeOR(meldeZustand), Weiche9_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche9_Gleis3);
             }
             else
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeUL(meldeZustand, FreiesGleis), Weiche9_Gleis2);
-                DisplayPicture(GetSchaltbildEckeOR(FreiesGleis), Weiche9_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche9_Gleis3);
             }
         }       
         private void UpdateGleisbild_KW22_1()
@@ -4855,12 +4842,12 @@ namespace MEKB_H0_Anlage
             if (weiche.Abzweig)
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(FreiesGleis, meldeZustand, FreiesGleis), KW22_Gleis2);
-                DisplayPicture(GetSchaltbildEckeUR(meldeZustand), KW22_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, KW22_Gleis3);
             }
             else
             {
                 DisplayPicture(GetSchaltbildGerade90_EckeOL_UR(meldeZustand, FreiesGleis, FreiesGleis), KW22_Gleis2);
-                DisplayPicture(GetSchaltbildEckeUR(FreiesGleis), KW22_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, KW22_Gleis3);
             }
 
         }
@@ -4935,229 +4922,7 @@ namespace MEKB_H0_Anlage
         }
 
         #region nur Ecken
-        private dynamic GetSchaltbildEckeUR(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeUR; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                return bild;
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildEckeOR(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeOR; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                return bild;
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildEckeOL(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeOL; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                return bild;
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildEckeUL(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeUL; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                return bild;
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildEckeUR_Sp(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeUR; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                return bild;
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_rechts;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUR_links;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildEckeOR_Sp(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeOR; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                return bild;
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_rechts;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOR_links;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildEckeOL_Sp(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeOL; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                return bild;
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_rechts;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeOL_links;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildEckeUL_Sp(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.EckeUL; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                return bild;
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_rechts;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_EckeUL_links;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
         private dynamic GetSchaltbildEckeOL_UR(MeldeZustand ZustandOL, MeldeZustand ZustandUR)
         {
             //Grundgleisbild
@@ -5653,249 +5418,7 @@ namespace MEKB_H0_Anlage
             return bild; //Bild ausgeben
         }
         #endregion
-        #region Kurve Links
-        private dynamic GetSchaltbildKurve0L(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve0L; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
 
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_0;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0L_unten;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0L_oben;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve45L(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve180R; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_unten;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_oben;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve90L(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve90L; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_links;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_rechts;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve135L(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve270R; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_rechts;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_links;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve180L(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve180L; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_180;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180L_unten;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180L_oben;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve225L(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve0R; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_0;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0R_unten;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0R_oben;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve270L(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve270L; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_links;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_rechts;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve315L(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve90R; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90R_rechts;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90R_links;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        #endregion
         #region Kurve Links mit Ecke
         private dynamic GetSchaltbildKurve90L_EckeUR(MeldeZustand Zustand_Kurve, MeldeZustand Zustand_Ecke)
         {
@@ -6079,158 +5602,7 @@ namespace MEKB_H0_Anlage
             return bild; //Bild ausgeben
         }
         #endregion
-        #region Kurve Rechts
-        private dynamic GetSchaltbildKurve0R(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve0R; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_0;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0R_unten;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve0R_oben;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve90R(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve90R; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90R_links;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90R_rechts;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve180R(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve180R; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_180;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_unten;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve180R_oben;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve270R(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve270R; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_links;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_rechts;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        private dynamic GetSchaltbildKurve225R(MeldeZustand Zustand)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kurve270L; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            if (Zustand.IstFrei()) return bild;
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
-                farbe = Farbe_Rot;
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if (Zustand.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_rechts;
-                else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_links;
-
-                if (Zustand.Fahrstrasse) farbe = Farbe_Gelb;
-                if (Zustand.Sicher) farbe = Farbe_Gruen;
-                if (Zustand.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild; //Bild ausgeben
-        }
-        #endregion
+        
         #region Kurve Rechts mit Ecke
         private dynamic GetSchaltbildKurve90R_EckeOR(MeldeZustand Zustand_Kurve, MeldeZustand Zustand_Ecke)
         {
@@ -7494,7 +6866,5 @@ namespace MEKB_H0_Anlage
         {
             z21Start.LAN_RMBUS_GETDATA(GruppenIndex);
         }
-
-        
     }
 }
