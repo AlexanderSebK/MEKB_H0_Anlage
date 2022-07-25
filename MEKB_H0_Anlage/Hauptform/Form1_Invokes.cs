@@ -526,7 +526,16 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche81":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche81, true);
+                        Weiche weiche80 = WeichenListe.GetWeiche("Weiche80");
+                        if (weiche80.Abzweig)
+                        {
+                            MeldeZustand meldeZustand = new MeldeZustand(weiche80, Weiche80.Tag.ToString().EndsWith("_Gegen"));
+                            GleisbildZeichnung.ZeichneSchaltbild(weiche, meldeZustand, Weiche81, true);
+                        }
+                        else
+                        {
+                            GleisbildZeichnung.ZeichneSchaltbild(weiche, FreiesGleis, Weiche81, true);
+                        }
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten9");
@@ -535,7 +544,16 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche82":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche82, true);
+                        Weiche weiche81 = WeichenListe.GetWeiche("Weiche81");
+                        if (weiche81.Abzweig)
+                        {
+                            MeldeZustand meldeZustand = new MeldeZustand(weiche81, Weiche81.Tag.ToString().EndsWith("_Gegen"));
+                            GleisbildZeichnung.ZeichneSchaltbild(weiche, meldeZustand, Weiche82, true);
+                        }
+                        else
+                        {
+                            GleisbildZeichnung.ZeichneSchaltbild(weiche, FreiesGleis, Weiche82, true);
+                        }
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten10");

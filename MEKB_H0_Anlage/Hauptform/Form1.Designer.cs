@@ -969,7 +969,6 @@
             this.Block6_Halt1 = new System.Windows.Forms.PictureBox();
             this.Weiche80 = new System.Windows.Forms.PictureBox();
             this.Weiche81 = new System.Windows.Forms.PictureBox();
-            this.Weiche82 = new System.Windows.Forms.PictureBox();
             this.label83 = new System.Windows.Forms.Label();
             this.label84 = new System.Windows.Forms.Label();
             this.label85 = new System.Windows.Forms.Label();
@@ -1020,8 +1019,6 @@
             this.Intern_Schatten1 = new System.Windows.Forms.Button();
             this.Intern_Schatten3 = new System.Windows.Forms.Button();
             this.Intern_Schatten0 = new System.Windows.Forms.Button();
-            this.Schatten8_Ausf3 = new System.Windows.Forms.PictureBox();
-            this.Schatten9_Ausf2 = new System.Windows.Forms.PictureBox();
             this.Schatten1_Auswahl = new System.Windows.Forms.Panel();
             this.Schatten1_Block9 = new System.Windows.Forms.Button();
             this.Schatten1_Block8 = new System.Windows.Forms.Button();
@@ -1082,6 +1079,7 @@
             this.Signal_Block2 = new System.Windows.Forms.PictureBox();
             this.Signal_Block5 = new System.Windows.Forms.PictureBox();
             this.Signal_Block8 = new System.Windows.Forms.PictureBox();
+            this.Weiche82 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1706,7 +1704,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Block6_Halt1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche80)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche81)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche82)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche70)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block7_14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche68)).BeginInit();
@@ -1728,8 +1725,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox53)).BeginInit();
             this.SchattenIntern_Auswahl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Schatten8_Ausf3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Schatten9_Ausf2)).BeginInit();
             this.Schatten1_Auswahl.SuspendLayout();
             this.Block1_Auswahl.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1750,6 +1745,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche82)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -3292,6 +3288,7 @@
             this.Schatten11_Ausf5.Size = new System.Drawing.Size(32, 32);
             this.Schatten11_Ausf5.TabIndex = 388;
             this.Schatten11_Ausf5.TabStop = false;
+            this.Schatten11_Ausf5.Tag = "KurveL_315+Ecke_OL";
             // 
             // Schatten11_Ausf3
             // 
@@ -6576,7 +6573,7 @@
             this.Weiche6_Gleis1.Size = new System.Drawing.Size(32, 32);
             this.Weiche6_Gleis1.TabIndex = 8;
             this.Weiche6_Gleis1.TabStop = false;
-            this.Weiche6_Gleis1.Tag = "Gerade_90+Ecke_OL";
+            this.Weiche6_Gleis1.Tag = "Gerade_90+Ecke_OL_SP";
             // 
             // Weiche3_Gleis
             // 
@@ -11735,19 +11732,8 @@
             this.Weiche81.Size = new System.Drawing.Size(32, 32);
             this.Weiche81.TabIndex = 879;
             this.Weiche81.TabStop = false;
-            this.Weiche81.Tag = "WeicheR_180";
+            this.Weiche81.Tag = "WeicheR_180+Ecke_OL_SP";
             this.Weiche81.Click += new System.EventHandler(this.Weiche_Click);
-            // 
-            // Weiche82
-            // 
-            this.Weiche82.Image = global::MEKB_H0_Anlage.Properties.Resources.WeicheR180_EckeOL_Analog;
-            this.Weiche82.Location = new System.Drawing.Point(992, 832);
-            this.Weiche82.Name = "Weiche82";
-            this.Weiche82.Size = new System.Drawing.Size(32, 32);
-            this.Weiche82.TabIndex = 880;
-            this.Weiche82.TabStop = false;
-            this.Weiche82.Tag = "WeicheR_180";
-            this.Weiche82.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // label83
             // 
@@ -12280,26 +12266,6 @@
             this.Intern_Schatten0.Text = "Eingleisen";
             this.Intern_Schatten0.UseVisualStyleBackColor = true;
             this.Intern_Schatten0.Click += new System.EventHandler(this.Intern_Schatten0_Click);
-            // 
-            // Schatten8_Ausf3
-            // 
-            this.Schatten8_Ausf3.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
-            this.Schatten8_Ausf3.Location = new System.Drawing.Point(992, 800);
-            this.Schatten8_Ausf3.Name = "Schatten8_Ausf3";
-            this.Schatten8_Ausf3.Size = new System.Drawing.Size(8, 8);
-            this.Schatten8_Ausf3.TabIndex = 928;
-            this.Schatten8_Ausf3.TabStop = false;
-            this.Schatten8_Ausf3.Tag = "Ecke_OL";
-            // 
-            // Schatten9_Ausf2
-            // 
-            this.Schatten9_Ausf2.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOL;
-            this.Schatten9_Ausf2.Location = new System.Drawing.Point(992, 832);
-            this.Schatten9_Ausf2.Name = "Schatten9_Ausf2";
-            this.Schatten9_Ausf2.Size = new System.Drawing.Size(8, 8);
-            this.Schatten9_Ausf2.TabIndex = 929;
-            this.Schatten9_Ausf2.TabStop = false;
-            this.Schatten9_Ausf2.Tag = "Ecke_OL";
             // 
             // Schatten1_Auswahl
             // 
@@ -12977,6 +12943,17 @@
             this.Signal_Block8.TabStop = false;
             this.Signal_Block8.Click += new System.EventHandler(this.Signal_HP0_HP1);
             // 
+            // Weiche82
+            // 
+            this.Weiche82.Image = global::MEKB_H0_Anlage.Properties.Resources.WeicheR180_EckeOL_Analog;
+            this.Weiche82.Location = new System.Drawing.Point(992, 832);
+            this.Weiche82.Name = "Weiche82";
+            this.Weiche82.Size = new System.Drawing.Size(32, 32);
+            this.Weiche82.TabIndex = 880;
+            this.Weiche82.TabStop = false;
+            this.Weiche82.Tag = "WeicheR_180+Ecke_OL_SP";
+            this.Weiche82.Click += new System.EventHandler(this.Weiche_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -13045,8 +13022,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.SchattenIntern_Auswahl);
             this.Controls.Add(this.Schatten1_Auswahl);
-            this.Controls.Add(this.Schatten9_Ausf2);
-            this.Controls.Add(this.Schatten8_Ausf3);
             this.Controls.Add(this.Fahrstr_Schatten0_Ausf);
             this.Controls.Add(this.label114);
             this.Controls.Add(this.Block8);
@@ -14471,7 +14446,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Block6_Halt1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche80)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche81)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche82)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche70)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block7_14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche68)).EndInit();
@@ -14493,8 +14467,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox53)).EndInit();
             this.SchattenIntern_Auswahl.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Schatten8_Ausf3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Schatten9_Ausf2)).EndInit();
             this.Schatten1_Auswahl.ResumeLayout(false);
             this.Block1_Auswahl.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -14515,6 +14487,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Weiche82)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -15453,7 +15426,6 @@
         private System.Windows.Forms.PictureBox Block6_Halt1;
         private System.Windows.Forms.PictureBox Weiche80;
         private System.Windows.Forms.PictureBox Weiche81;
-        private System.Windows.Forms.PictureBox Weiche82;
         private System.Windows.Forms.Label label83;
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.Label label85;
@@ -15504,8 +15476,6 @@
         private System.Windows.Forms.Button Intern_Schatten1;
         private System.Windows.Forms.Button Intern_Schatten3;
         private System.Windows.Forms.Button Intern_Schatten0;
-        private System.Windows.Forms.PictureBox Schatten8_Ausf3;
-        private System.Windows.Forms.PictureBox Schatten9_Ausf2;
         private System.Windows.Forms.Panel Schatten1_Auswahl;
         private System.Windows.Forms.Button Schatten1_Block9;
         private System.Windows.Forms.Button Schatten1_Block8;
@@ -15574,6 +15544,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem überwachungToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem belegtmeldungToolStripMenuItem;
+        private System.Windows.Forms.PictureBox Weiche82;
     }
 }
 

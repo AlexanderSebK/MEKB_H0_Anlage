@@ -4009,10 +4009,10 @@ namespace MEKB_H0_Anlage
 
             GleisbildZeichnung.ZeichneSchaltbild(zustand8, Schatten8_Ausf1);
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand8, zustand9), Schatten8_Ausf2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand8, Schatten8_Ausf3);
+            //GleisbildZeichnung.ZeichneSchaltbild(zustand8, Schatten8_Ausf3);
 
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand9, zustand10), Schatten9_Ausf1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand9, Schatten9_Ausf2);
+            //GleisbildZeichnung.ZeichneSchaltbild(zustand9, Schatten9_Ausf2);
 
             GleisbildZeichnung.ZeichneSchaltbild(zustand10, Schatten10_Ausf1);
             DisplayPicture(GetSchaltbildKurve90L_EckeUR(zustand10, zustand11), Schatten10_Ausf2);
@@ -4710,13 +4710,37 @@ namespace MEKB_H0_Anlage
             Weiche weiche = WeichenListe.GetWeiche("Weiche81");
             if (weiche == null) return;
             GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche81);
+
+            Weiche weiche80 = WeichenListe.GetWeiche("Weiche80");
+            Weiche weiche81 = WeichenListe.GetWeiche("Weiche81");
+            if (weiche80 == null) return;
+            if (weiche81 == null) return;
+            if (weiche81.Abzweig)
+            {
+                MeldeZustand meldeZustand = new MeldeZustand(weiche80, Weiche80.Tag.ToString().EndsWith("_Gegen"));
+                GleisbildZeichnung.ZeichneSchaltbild(weiche81, meldeZustand, Weiche81);
+            }
+            else
+            {
+                GleisbildZeichnung.ZeichneSchaltbild(weiche81, FreiesGleis, Weiche81);
+            }
         }
 
         private void UpdateGleisbild_Weiche82()
         {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche82");
-            if (weiche == null) return;
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche82);
+            Weiche weiche82 = WeichenListe.GetWeiche("Weiche82");
+            Weiche weiche81 = WeichenListe.GetWeiche("Weiche81");
+            if (weiche82 == null) return;
+            if (weiche81 == null) return;
+            if (weiche81.Abzweig)
+            {
+                MeldeZustand meldeZustand = new MeldeZustand(weiche81, Weiche81.Tag.ToString().EndsWith("_Gegen"));
+                GleisbildZeichnung.ZeichneSchaltbild(weiche82, meldeZustand, Weiche82);
+            }
+            else
+            {
+                GleisbildZeichnung.ZeichneSchaltbild(weiche82, FreiesGleis, Weiche82);
+            }
         }
 
         private void UpdateGleisbild_Weiche90()
