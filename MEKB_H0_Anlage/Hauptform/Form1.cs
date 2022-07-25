@@ -117,7 +117,7 @@ namespace MEKB_H0_Anlage
             FlagTimer.Enabled = true;
 
             // 100 MilliSekunden Timer: Weichen und Fahrstraßen Update.
-            WeichenTimer = new System.Timers.Timer(100);
+            WeichenTimer = new System.Timers.Timer(50);
             // Timer mit Funktion "OnTimedWeichenEvent" Verbinden
             WeichenTimer.Elapsed += OnTimedWeichenEvent;
             WeichenTimer.AutoReset = true;

@@ -12,13 +12,6 @@ namespace MEKB_H0_Anlage
 
     public class GleisbildZeichnung
     {
-        #region Farben
-        private readonly Color Farbe_Gelb = Color.FromArgb(255, 255, 255, 0);
-        private readonly Color Farbe_Gruen = Color.FromArgb(255, 0, 255, 0);
-        private readonly Color Farbe_Rot = Color.FromArgb(255, 255, 0, 0);
-        private readonly Color Farbe_Grau = Color.FromArgb(255, 128, 128, 128);
-        private readonly Color Farbe_Weis = Color.FromArgb(255, 255, 255, 255);
-        #endregion
 
         #region Design-Position
         private const int Gerade = 0;
@@ -26,28 +19,41 @@ namespace MEKB_H0_Anlage
         private const int KurveL = 2;
         private const int Prellbock = 3;
         private const int Ecke = 4;
+        private const int WeicheR = 5;
+        private const int WeicheL = 6;
+        private const int Dreiweg = 7;
+        private const int Kreuzung = 8;
+        private const int KW = 9;
+        private const int DKW = 10;
+        private const int Zunge_G = 11;
+        private const int Zunge_R = 12;
+        private const int Zunge_L = 13;
+        private const int ZungeAktiv_G = 14;
+        private const int ZungeAktiv_R = 15;
+        private const int ZungeAktiv_L = 16;
+        private const int Belegt_Gerade = 17;
+        private const int Belegt_KurveR = 18;
+        private const int Belegt_KurveL = 19;
+        private const int FahrstrRes_Gerade = 20;
+        private const int FahrstrRes_KurveR = 21;
+        private const int FahrstrRes_KurveL = 22;
+        private const int FahrstrRes_Ecke = 23;
+        private const int FahrstrBelegt_Gerade = 24;
+        private const int FahrstrBelegt_KurveR = 25;
+        private const int FahrstrBelegt_KurveL = 26;
+        private const int FahrstrBelegt_Ecke = 27;
+        private const int FahrstrRangier_Gerade = 28;
+        private const int FahrstrRangier_KurveR = 29;
+        private const int FahrstrRangier_KurveL = 30;
+        private const int FahrstrRangier_Ecke = 31;
+        private const int FahrstrSicher_Gerade = 32;
+        private const int FahrstrSicher_KurveR = 33;
+        private const int FahrstrSicher_KurveL = 34;
+        private const int FahrstrSicher_Ecke = 35;
 
-        private const int Belegt_Gerade = 14;
-        private const int Belegt_KurveR = 15;
-        private const int Belegt_KurveL = 16;
-        private const int FahrstrRes_Gerade = 17;
-        private const int FahrstrRes_KurveR = 18;
-        private const int FahrstrRes_KurveL = 19;
-        private const int FahrstrRes_Ecke = 20;
-        private const int FahrstrBelegt_Gerade = 21;
-        private const int FahrstrBelegt_KurveR = 22;
-        private const int FahrstrBelegt_KurveL = 23;
-        private const int FahrstrBelegt_Ecke = 24;
-        private const int FahrstrRangier_Gerade = 25;
-        private const int FahrstrRangier_KurveR = 26;
-        private const int FahrstrRangier_KurveL = 27;
-        private const int FahrstrRangier_Ecke = 28;
-        private const int FahrstrSicher_Gerade = 29;
-        private const int FahrstrSicher_KurveR = 30;
-        private const int FahrstrSicher_KurveL = 31;
-        private const int FahrstrSicher_Ecke = 32;
-
-        private const int Sonder = 33;
+        private const int Sonder = 36;
+        private const int Fehler = 0;
+        private const int Unbekannt = 1;
         private const int Error = 3;
         private const int EmptyImage = 7;
 
@@ -77,12 +83,12 @@ namespace MEKB_H0_Anlage
             Bitmap Design = new Bitmap(Dateienpfad);
 
             // Clone a portion of the Bitmap object.
-            RectangleF cloneRect = new RectangleF(0, 0, 32, 32);
+            RectangleF cloneRect;
             System.Drawing.Imaging.PixelFormat format =  Design.PixelFormat;
 
             Katalog = new List<List<Bitmap>>();
 
-            for (int reihe = 0; reihe < 34; reihe++)
+            for (int reihe = 0; reihe < (Design.Height/32); reihe++)
             {
                 List<Bitmap> Typ = new List<Bitmap>();
                 for (int spalte = 0; spalte < 8; spalte++)
@@ -97,15 +103,16 @@ namespace MEKB_H0_Anlage
             GleisZustand = new Dictionary<string, MeldeZustand>();
         }
 
-        public void ZeichneSchaltbild(MeldeZustand Zustand, PictureBox picBox)
+
+        public void ZeichneSchaltbild(MeldeZustand Zustand, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
             ////////////////////////////////////////////////////
             // Prüfen ob Element aktualisiert werden muss / kann
             ////////////////////////////////////////////////////
             if (picBox.Tag == null) return; // Kein Typdefiniert
             if (GleisZustand.ContainsKey(picBox.Name)) 
-            {
-                if (GleisZustand[picBox.Name].Equals(Zustand)) return; // Nicht nötig neu zu Zeichnen
+            {              
+                if ((!ErzwingeZeichnen) && GleisZustand[picBox.Name].Equals(Zustand)) return; // Nicht nötig neu zu Zeichnen
             }
             else // Element nicht gefunden
             {
@@ -115,11 +122,16 @@ namespace MEKB_H0_Anlage
             ////////////////////////////////////////////////////
             // Grundgelisbild laden
             ////////////////////////////////////////////////////
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-            Bitmap bild = new Bitmap(BasisSchiene(picBox.Tag.ToString())); //Gleisbild
-            Graphics gleis  = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
+            Bitmap bild;
+            try
+            {
+                bild = new Bitmap(BasisSchiene(picBox.Tag.ToString())); //Gleisbild   
+            }
+            catch
+            {
+                return;
+            }
+            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
             if (Zustand.IstFrei())
             {
                 DisplayPicture(bild, picBox); //Zeichne Bild und beende Funktion
@@ -136,7 +148,6 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                zeichenmuster = FahrstrassenMarkierung(picBox.Tag.ToString(), Zustand.Richtung);
                 if (Zustand.Fahrstrasse) ZeichneFahrstraße(ref gleis, FahrstrassenMarkierung(picBox.Tag.ToString(), Zustand.Richtung, 0));
                 if (Zustand.Sicher) ZeichneFahrstraße(ref gleis, FahrstrassenMarkierung(picBox.Tag.ToString(), Zustand.Richtung, 3));
                 if (Zustand.Besetzt) ZeichneFahrstraße(ref gleis, FahrstrassenMarkierung(picBox.Tag.ToString(), Zustand.Richtung, 1));
@@ -146,6 +157,159 @@ namespace MEKB_H0_Anlage
             return;
         }
 
+        public void ZeichneSchaltbild(MeldeZustand Zustand, MeldeZustand Zustand2, PictureBox picBox, bool ErzwingeZeichnen = false)
+        {
+            ////////////////////////////////////////////////////
+            // Prüfen ob Element aktualisiert werden muss / kann
+            ////////////////////////////////////////////////////
+            if (picBox.Tag == null) return; // Kein Typdefiniert
+            if (GleisZustand.ContainsKey(picBox.Name))
+            {
+                if ((!ErzwingeZeichnen) && 
+                    GleisZustand[picBox.Name].Equals(Zustand) &&
+                    GleisZustand[picBox.Name + "Zustand2"].Equals(Zustand2)) return; // Nicht nötig neu zu Zeichnen
+            }
+            else // Element nicht gefunden
+            {
+                GleisZustand.Add(picBox.Name, Zustand); // Element hinzufügen
+                GleisZustand.Add(picBox.Name + "Zustand2", Zustand2); // Element hinzufügen
+            }
+
+            if (!picBox.Tag.ToString().Contains('+')) return;
+
+            string[] Gleistypen = picBox.Tag.ToString().Split('+');
+
+            ////////////////////////////////////////////////////
+            // Grundgelisbild laden
+            ////////////////////////////////////////////////////
+            Bitmap bild = new Bitmap(BasisSchiene(Gleistypen[0])); //Gleisbild
+            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
+            ZeichneFahrstraße(ref gleis, BasisSchiene(Gleistypen[1]));
+
+
+            ////////////////////////////////////////////////////
+            // Belegtmeldung / Fahrstrasse zeichnen
+            ////////////////////////////////////////////////////
+            if (!Zustand.IstFrei())
+            {           
+                if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
+                {
+                    ZeichneFahrstraße(ref gleis, BelegtMarkierung(Gleistypen[0]));
+                }
+                else
+                {
+                    if (Zustand.Fahrstrasse) ZeichneFahrstraße(ref gleis, FahrstrassenMarkierung(Gleistypen[0], Zustand.Richtung, 0));
+                    if (Zustand.Sicher) ZeichneFahrstraße(ref gleis, FahrstrassenMarkierung(Gleistypen[0], Zustand.Richtung, 3));
+                    if (Zustand.Besetzt) ZeichneFahrstraße(ref gleis, FahrstrassenMarkierung(Gleistypen[0], Zustand.Richtung, 1));
+                }
+            }
+            if (!Zustand2.IstFrei())
+            {
+                if ((Zustand2.Besetzt == true) && (Zustand2.Fahrstrasse == false))
+                {
+                    ZeichneFahrstraße(ref gleis, BelegtMarkierung(Gleistypen[1]));
+                }
+                else
+                {
+                    if (Zustand2.Fahrstrasse) ZeichneFahrstraße(ref gleis, FahrstrassenMarkierung(Gleistypen[1], Zustand2.Richtung, 0));
+                    if (Zustand2.Sicher) ZeichneFahrstraße(ref gleis, FahrstrassenMarkierung(Gleistypen[1], Zustand2.Richtung, 3));
+                    if (Zustand2.Besetzt) ZeichneFahrstraße(ref gleis, FahrstrassenMarkierung(Gleistypen[1], Zustand2.Richtung, 1));
+                }
+            }
+            DisplayPicture(bild, picBox); //Zeichne Bild und beende Funktion
+            GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
+            GleisZustand[picBox.Name + "Zustand2"] = Zustand2; //Neuen Zustand übernehmen
+            return;
+        }
+
+
+        public void ZeichneSchaltbild(Weiche weiche, PictureBox picBox, bool ErzwingeZeichnen = false)
+        {
+            ////////////////////////////////////////////////////
+            // Prüfen ob Element aktualisiert werden muss / kann
+            ////////////////////////////////////////////////////
+            if (picBox.Tag == null) return; // Kein Typdefiniert
+
+            // Tag startet mit dieser Bezeichnung
+            List<String> ErlaubteTags = new List<string>(){ "Weiche", "DKW", "KW", "DreiwegWeiche" };
+            bool TagVorhanden = false;
+            foreach(String Tag in ErlaubteTags)
+            {
+                if (picBox.Tag.ToString().StartsWith(Tag)) TagVorhanden = true;
+            }
+            if (!TagVorhanden) return;
+
+            MeldeZustand Zustand = new MeldeZustand(weiche);
+            if (GleisZustand.ContainsKey(picBox.Name))
+            {
+                if ((!ErzwingeZeichnen) && GleisZustand[picBox.Name].Equals(Zustand)) return; // Nicht nötig neu zu Zeichnen
+            }
+            else // Element nicht gefunden
+            {
+                GleisZustand.Add(picBox.Name, Zustand); // Element hinzufügen
+            }
+
+            ////////////////////////////////////////////////////
+            // Grundgleisbild laden
+            ////////////////////////////////////////////////////
+            Bitmap bild;
+            try
+            {
+                bild = new Bitmap(BasisSchiene(picBox.Tag.ToString())); //Gleisbild   
+            }
+            catch
+            {
+                return;
+            }
+            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
+
+            ////////////////////////////////////////////////////
+            // Zunge zeichnen
+            ////////////////////////////////////////////////////
+
+            if (weiche.Status_Error)
+            {
+                ZeichneFahrstraße(ref gleis, Katalog[Sonder][Fehler]);
+                DisplayPicture(bild, picBox); //Zeichne Bild und beende Funktion
+                Zustand.UpdateNoetig = true;
+                GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
+                return;
+            }
+            if (weiche.Status_Unbekannt)
+            {
+                ZeichneFahrstraße(ref gleis, Katalog[Sonder][Unbekannt]);
+                DisplayPicture(bild, picBox); //Zeichne Bild und beende Funktion
+                Zustand.UpdateNoetig = true;
+                GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
+                return;
+            }
+            ZeichneFahrstraße(ref gleis, WeichenZunge(picBox.Tag.ToString(), weiche.Abzweig, weiche.ZeitAktiv > 0));
+             
+
+            if (Zustand.IstFrei())
+            {
+                DisplayPicture(bild, picBox); //Zeichne Bild und beende Funktion
+                GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
+                return;
+            }
+
+            ////////////////////////////////////////////////////
+            // Belegtmeldung / Fahrstrasse zeichnen
+            ////////////////////////////////////////////////////
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
+            {
+                ZeichneFahrstraße(ref gleis, WeicheBelegtMarkierung(picBox.Tag.ToString(), weiche.Abzweig));
+            }
+            else
+            {
+                if (Zustand.Fahrstrasse) ZeichneFahrstraße(ref gleis, WeicheFahrstrassenMarkierung(picBox.Tag.ToString(), Zustand.Richtung, 0, weiche.Abzweig));
+                if (Zustand.Sicher) ZeichneFahrstraße(ref gleis, WeicheFahrstrassenMarkierung(picBox.Tag.ToString(), Zustand.Richtung, 3, weiche.Abzweig));
+                if (Zustand.Besetzt) ZeichneFahrstraße(ref gleis, WeicheFahrstrassenMarkierung(picBox.Tag.ToString(), Zustand.Richtung, 1, weiche.Abzweig));
+            }
+            DisplayPicture(bild, picBox); //Zeichne Bild und beende Funktion
+            GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
+            return;
+        }
 
         private void ZeichneFahrstraße(ref Graphics gleisbild, Image Type)
         {
@@ -155,12 +319,19 @@ namespace MEKB_H0_Anlage
 
         private Bitmap BasisSchiene(string Gleistyp)
         {
+            if (Gleistyp.EndsWith("_Gegen"))
+            {
+                Gleistyp = Gleistyp.Substring(0, Gleistyp.Length - 6);
+            }
+
             List<Bitmap> Winkelauswahl;
             if (Gleistyp.StartsWith("Gerade")) Winkelauswahl = Katalog[Gerade];
             else if (Gleistyp.StartsWith("KurveR")) Winkelauswahl = Katalog[KurveR];
             else if (Gleistyp.StartsWith("KurveL")) Winkelauswahl = Katalog[KurveL];
             else if (Gleistyp.StartsWith("Prellbock")) Winkelauswahl = Katalog[Prellbock];
             else if (Gleistyp.StartsWith("Ecke")) Winkelauswahl = Katalog[Ecke];
+            else if (Gleistyp.StartsWith("WeicheR")) Winkelauswahl = Katalog[WeicheR];
+            else if (Gleistyp.StartsWith("WeicheL")) Winkelauswahl = Katalog[WeicheL];
             else
             {
                 return Katalog[Sonder][Error];
@@ -191,6 +362,10 @@ namespace MEKB_H0_Anlage
         }  
         private Bitmap BelegtMarkierung(string Gleistyp)
         {
+            if (Gleistyp.EndsWith("_Gegen"))
+            {
+                Gleistyp = Gleistyp.Substring(0, Gleistyp.Length - 6);
+            }
             List<Bitmap> Winkelauswahl;
             if (Gleistyp.StartsWith("Gerade")) Winkelauswahl = Katalog[Belegt_Gerade];
             else if (Gleistyp.StartsWith("KurveR")) Winkelauswahl = Katalog[Belegt_KurveR];
@@ -216,7 +391,103 @@ namespace MEKB_H0_Anlage
                 return Katalog[Sonder][Error];
             }
         }
-        
+
+        private Bitmap WeichenZunge(string Gleistyp, bool Abzweig, bool Aktiv)
+        {
+            if (Gleistyp.EndsWith("_Gegen"))
+            {
+                Gleistyp = Gleistyp.Substring(0, Gleistyp.Length - 6);
+            }
+            List<Bitmap> Winkelauswahl;
+            if(Abzweig)
+            {
+                if (Gleistyp.StartsWith("WeicheR"))
+                {
+                    if (Aktiv) Winkelauswahl = Katalog[ZungeAktiv_R];
+                    else Winkelauswahl = Katalog[Zunge_R];
+                }
+                else if (Gleistyp.StartsWith("WeicheL"))
+                {
+                    if (Aktiv) Winkelauswahl = Katalog[ZungeAktiv_L];
+                    else Winkelauswahl = Katalog[Zunge_L];
+                }
+                else
+                {
+                    return Katalog[Sonder][Error];
+                }
+            }
+            else
+            {
+                if (Gleistyp.StartsWith("WeicheR"))
+                {
+                    if (Aktiv) Winkelauswahl = Katalog[ZungeAktiv_G];
+                    else Winkelauswahl = Katalog[Zunge_G];
+                }
+                else if (Gleistyp.StartsWith("WeicheL"))
+                {
+                    if (Aktiv) Winkelauswahl = Katalog[ZungeAktiv_G];
+                    else Winkelauswahl = Katalog[Zunge_G];
+                }
+                else
+                {
+                    return Katalog[Sonder][Error];
+                }
+            }
+            if (Gleistyp.EndsWith("_0")) return Winkelauswahl[0];
+            else if (Gleistyp.EndsWith("_45")) return Winkelauswahl[1];
+            else if (Gleistyp.EndsWith("_90")) return Winkelauswahl[2];
+            else if (Gleistyp.EndsWith("_135")) return Winkelauswahl[3];
+            else if (Gleistyp.EndsWith("_180")) return Winkelauswahl[4];
+            else if (Gleistyp.EndsWith("_225")) return Winkelauswahl[5];
+            else if (Gleistyp.EndsWith("_270")) return Winkelauswahl[6];
+            else if (Gleistyp.EndsWith("_315")) return Winkelauswahl[7];
+
+            else
+            {
+                return Katalog[Sonder][Error];
+            }
+        }
+
+        private Bitmap WeicheBelegtMarkierung(string Gleistyp, bool Abzweig)
+        {
+            if (Gleistyp.EndsWith("_Gegen"))
+            {
+                Gleistyp = Gleistyp.Substring(0, Gleistyp.Length - 6);
+            }
+            List<Bitmap> Winkelauswahl;
+            if (Abzweig)
+            {
+                if (Gleistyp.StartsWith("WeicheR")) Winkelauswahl = Katalog[Belegt_KurveR];
+                else if (Gleistyp.StartsWith("WeicheL")) Winkelauswahl = Katalog[Belegt_KurveL];
+                else
+                {
+                    return Katalog[Sonder][Error];
+                }
+            }
+            else
+            {
+                if (Gleistyp.StartsWith("WeicheR")) Winkelauswahl = Katalog[Belegt_Gerade];
+                else if (Gleistyp.StartsWith("WeicheL")) Winkelauswahl = Katalog[Belegt_Gerade];
+                else
+                {
+                    return Katalog[Sonder][Error];
+                }
+            }
+            if (Gleistyp.EndsWith("_0")) return Winkelauswahl[0];
+            else if (Gleistyp.EndsWith("_45")) return Winkelauswahl[1];
+            else if (Gleistyp.EndsWith("_90")) return Winkelauswahl[2];
+            else if (Gleistyp.EndsWith("_135")) return Winkelauswahl[3];
+            else if (Gleistyp.EndsWith("_180")) return Winkelauswahl[4];
+            else if (Gleistyp.EndsWith("_225")) return Winkelauswahl[5];
+            else if (Gleistyp.EndsWith("_270")) return Winkelauswahl[6];
+            else if (Gleistyp.EndsWith("_315")) return Winkelauswahl[7];
+
+            else
+            {
+                return Katalog[Sonder][Error];
+            }
+        }
+
         /// <summary>
         /// Fahrstrasse(reserviert) aus dem Katalog suchen
         /// </summary>
@@ -226,6 +497,10 @@ namespace MEKB_H0_Anlage
         /// <returns>Bild aus der Datei</returns>
         private Bitmap FahrstrassenMarkierung(string Gleistyp, bool Richtung, int typ = 0)
         {
+            if (Gleistyp.EndsWith("_Gegen"))
+            {
+                Gleistyp = Gleistyp.Substring(0, Gleistyp.Length - 6);
+            }
             List<Bitmap> Winkelauswahl;
             if (Gleistyp.StartsWith("Gerade"))
             {
@@ -379,6 +654,141 @@ namespace MEKB_H0_Anlage
             return Katalog[Sonder][Error];
         }
 
+        /// <summary>
+        /// Fahrstrasse(reserviert) aus dem Katalog suchen
+        /// </summary>
+        /// <param name="Gleistyp">GleisTyp</param>
+        /// <param name="Richtung">true = Mit normale Fahrrichtung</param>
+        /// <param name="typ">0 = Reserviert; 1 = Belegt; 2 = Rangier; 3 = Sicher</param>
+        /// <returns>Bild aus der Datei</returns>
+        private Bitmap WeicheFahrstrassenMarkierung(string Gleistyp, bool Richtung, int typ, bool Abzweig)
+        {
+            if (Gleistyp.EndsWith("_Gegen"))
+            {
+                Gleistyp = Gleistyp.Substring(0, Gleistyp.Length - 6);
+            }
+            List<Bitmap> Winkelauswahl;
+            if (!Abzweig)
+            {
+                if (typ == 0) Winkelauswahl = Katalog[FahrstrRes_Gerade];
+                else if (typ == 1) Winkelauswahl = Katalog[FahrstrBelegt_Gerade];
+                else if (typ == 2) Winkelauswahl = Katalog[FahrstrRangier_Gerade];
+                else if (typ == 3) Winkelauswahl = Katalog[FahrstrSicher_Gerade];
+                else return Katalog[Sonder][Error];
+                if (Richtung)
+                {
+                    if (Gleistyp.EndsWith("_0")) return Winkelauswahl[0];
+                    else if (Gleistyp.EndsWith("_45")) return Winkelauswahl[1];
+                    else if (Gleistyp.EndsWith("_90")) return Winkelauswahl[2];
+                    else if (Gleistyp.EndsWith("_135")) return Winkelauswahl[3];
+                    else if (Gleistyp.EndsWith("_180")) return Winkelauswahl[4];
+                    else if (Gleistyp.EndsWith("_225")) return Winkelauswahl[5];
+                    else if (Gleistyp.EndsWith("_270")) return Winkelauswahl[6];
+                    else if (Gleistyp.EndsWith("_315")) return Winkelauswahl[7];
+                }
+                else
+                {
+                    if (Gleistyp.EndsWith("_0")) return Winkelauswahl[4];
+                    else if (Gleistyp.EndsWith("_45")) return Winkelauswahl[5];
+                    else if (Gleistyp.EndsWith("_90")) return Winkelauswahl[6];
+                    else if (Gleistyp.EndsWith("_135")) return Winkelauswahl[7];
+                    else if (Gleistyp.EndsWith("_180")) return Winkelauswahl[0];
+                    else if (Gleistyp.EndsWith("_225")) return Winkelauswahl[1];
+                    else if (Gleistyp.EndsWith("_270")) return Winkelauswahl[2];
+                    else if (Gleistyp.EndsWith("_315")) return Winkelauswahl[3];
+                }
+            }
+            else if (Gleistyp.StartsWith("WeicheR"))
+            {
+                if (Richtung)
+                {
+                    if (typ == 0) Winkelauswahl = Katalog[FahrstrRes_KurveR];
+                    else if (typ == 1) Winkelauswahl = Katalog[FahrstrBelegt_KurveR];
+                    else if (typ == 2) Winkelauswahl = Katalog[FahrstrRangier_KurveR];
+                    else if (typ == 3) Winkelauswahl = Katalog[FahrstrSicher_KurveR];
+                    else return Katalog[Sonder][Error];
+                }
+                else
+                {
+                    if (typ == 0) Winkelauswahl = Katalog[FahrstrRes_KurveL];
+                    else if (typ == 1) Winkelauswahl = Katalog[FahrstrBelegt_KurveL];
+                    else if (typ == 2) Winkelauswahl = Katalog[FahrstrRangier_KurveL];
+                    else if (typ == 3) Winkelauswahl = Katalog[FahrstrSicher_KurveL];
+                    else return Katalog[Sonder][Error];
+                }
+                if (Richtung)
+                {
+                    if (Gleistyp.EndsWith("_0")) return Winkelauswahl[0];
+                    else if (Gleistyp.EndsWith("_45")) return Winkelauswahl[1];
+                    else if (Gleistyp.EndsWith("_90")) return Winkelauswahl[2];
+                    else if (Gleistyp.EndsWith("_135")) return Winkelauswahl[3];
+                    else if (Gleistyp.EndsWith("_180")) return Winkelauswahl[4];
+                    else if (Gleistyp.EndsWith("_225")) return Winkelauswahl[5];
+                    else if (Gleistyp.EndsWith("_270")) return Winkelauswahl[6];
+                    else if (Gleistyp.EndsWith("_315")) return Winkelauswahl[7];
+                }
+                else
+                {
+                    if (Gleistyp.EndsWith("_0")) return Winkelauswahl[3];
+                    else if (Gleistyp.EndsWith("_45")) return Winkelauswahl[4];
+                    else if (Gleistyp.EndsWith("_90")) return Winkelauswahl[5];
+                    else if (Gleistyp.EndsWith("_135")) return Winkelauswahl[6];
+                    else if (Gleistyp.EndsWith("_180")) return Winkelauswahl[7];
+                    else if (Gleistyp.EndsWith("_225")) return Winkelauswahl[0];
+                    else if (Gleistyp.EndsWith("_270")) return Winkelauswahl[1];
+                    else if (Gleistyp.EndsWith("_315")) return Winkelauswahl[2];
+                }
+            }
+            else if (Gleistyp.StartsWith("WeicheL"))
+            {
+                if (Richtung)
+                {
+                    if (typ == 0) Winkelauswahl = Katalog[FahrstrRes_KurveL];
+                    else if (typ == 1) Winkelauswahl = Katalog[FahrstrBelegt_KurveL];
+                    else if (typ == 2) Winkelauswahl = Katalog[FahrstrRangier_KurveL];
+                    else if (typ == 3) Winkelauswahl = Katalog[FahrstrSicher_KurveL];
+                    else return Katalog[Sonder][Error];
+                }
+                else
+                {
+                    if (typ == 0) Winkelauswahl = Katalog[FahrstrRes_KurveR];
+                    else if (typ == 1) Winkelauswahl = Katalog[FahrstrBelegt_KurveR];
+                    else if (typ == 2) Winkelauswahl = Katalog[FahrstrRangier_KurveR];
+                    else if (typ == 3) Winkelauswahl = Katalog[FahrstrSicher_KurveR];
+                    else return Katalog[Sonder][Error];
+                }
+                if (Richtung)
+                {
+                    if (Gleistyp.EndsWith("_0")) return Winkelauswahl[0];
+                    else if (Gleistyp.EndsWith("_45")) return Winkelauswahl[1];
+                    else if (Gleistyp.EndsWith("_90")) return Winkelauswahl[2];
+                    else if (Gleistyp.EndsWith("_135")) return Winkelauswahl[3];
+                    else if (Gleistyp.EndsWith("_180")) return Winkelauswahl[4];
+                    else if (Gleistyp.EndsWith("_225")) return Winkelauswahl[5];
+                    else if (Gleistyp.EndsWith("_270")) return Winkelauswahl[6];
+                    else if (Gleistyp.EndsWith("_315")) return Winkelauswahl[7];
+                }
+                else
+                {
+                    if (Gleistyp.EndsWith("_0")) return Winkelauswahl[5];
+                    else if (Gleistyp.EndsWith("_45")) return Winkelauswahl[6];
+                    else if (Gleistyp.EndsWith("_90")) return Winkelauswahl[7];
+                    else if (Gleistyp.EndsWith("_135")) return Winkelauswahl[0];
+                    else if (Gleistyp.EndsWith("_180")) return Winkelauswahl[1];
+                    else if (Gleistyp.EndsWith("_225")) return Winkelauswahl[2];
+                    else if (Gleistyp.EndsWith("_270")) return Winkelauswahl[3];
+                    else if (Gleistyp.EndsWith("_315")) return Winkelauswahl[4];
+                }
+            }
+            
+            else
+            {
+                return Katalog[Sonder][Error];
+            }
+
+            return Katalog[Sonder][Error];
+        }
+
 
         /// <summary>
         /// Involke-Funktion. Verhindert Fehlermeldung beim gleichzeitigen Zugreifen auf ein Bild
@@ -404,14 +814,16 @@ namespace MEKB_H0_Anlage
             Fahrstrasse = fahrstrasse;
             Sicher = sicher;
             Richtung = richtung;
+            UpdateNoetig = false;
         }
 
-        public MeldeZustand(Weiche weiche, bool richtung)
+        public MeldeZustand(Weiche weiche, bool richtung=false)
         {
             Besetzt = weiche.Besetzt;
             Fahrstrasse = weiche.FahrstrasseAktive;
             Sicher = weiche.FahrstrasseSicher;
             Richtung = weiche.FahrstrasseRichtung_vonZunge ^ richtung;
+            UpdateNoetig = false;
         }
 
         public MeldeZustand(bool StatusALL)
@@ -420,12 +832,14 @@ namespace MEKB_H0_Anlage
             Fahrstrasse = StatusALL;
             Sicher = StatusALL;
             Richtung = StatusALL;
+            UpdateNoetig = false;
         }
 
         public bool Besetzt { get; set; }
         public bool Fahrstrasse { get; set; }
         public bool Sicher { get; set; }
         public bool Richtung { get; set; }
+        public bool UpdateNoetig { get; set; }
 
         public bool IstFrei()
         {
