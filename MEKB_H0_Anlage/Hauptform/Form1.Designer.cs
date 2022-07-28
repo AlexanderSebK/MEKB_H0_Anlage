@@ -2779,6 +2779,7 @@
             this.KW22_Gleis2.Size = new System.Drawing.Size(32, 32);
             this.KW22_Gleis2.TabIndex = 459;
             this.KW22_Gleis2.TabStop = false;
+            this.KW22_Gleis2.Tag = "Gerade_270+Ecke_OL+Ecke_UR";
             // 
             // pictureBox407
             // 
@@ -3053,6 +3054,7 @@
             this.WeicheEcke76_90.Size = new System.Drawing.Size(32, 32);
             this.WeicheEcke76_90.TabIndex = 426;
             this.WeicheEcke76_90.TabStop = false;
+            this.WeicheEcke76_90.Tag = "Ecke_OL_SP+Ecke_UR_SP";
             // 
             // Block5b_17
             // 
@@ -3082,6 +3084,7 @@
             this.Weiche61_2.Size = new System.Drawing.Size(32, 32);
             this.Weiche61_2.TabIndex = 420;
             this.Weiche61_2.TabStop = false;
+            this.Weiche61_2.Tag = "Gerade_90+Ecke_OL_SP";
             // 
             // Weiche62_2
             // 
@@ -3091,6 +3094,7 @@
             this.Weiche62_2.Size = new System.Drawing.Size(32, 32);
             this.Weiche62_2.TabIndex = 419;
             this.Weiche62_2.TabStop = false;
+            this.Weiche62_2.Tag = "Gerade_90+Ecke_OL_SP";
             // 
             // Weiche63_2
             // 
@@ -3100,6 +3104,7 @@
             this.Weiche63_2.Size = new System.Drawing.Size(32, 32);
             this.Weiche63_2.TabIndex = 418;
             this.Weiche63_2.TabStop = false;
+            this.Weiche63_2.Tag = "Gerade_90+Ecke_OL_SP";
             // 
             // Weiche64_2
             // 
@@ -3109,6 +3114,7 @@
             this.Weiche64_2.Size = new System.Drawing.Size(32, 32);
             this.Weiche64_2.TabIndex = 417;
             this.Weiche64_2.TabStop = false;
+            this.Weiche64_2.Tag = "Gerade_90+Ecke_OL_SP";
             // 
             // Weiche61_1
             // 
@@ -3967,7 +3973,7 @@
             this.Weiche60_Gleis1.Size = new System.Drawing.Size(32, 32);
             this.Weiche60_Gleis1.TabIndex = 294;
             this.Weiche60_Gleis1.TabStop = false;
-            this.Weiche60_Gleis1.Tag = "Gerade_270+Ecke_OR";
+            this.Weiche60_Gleis1.Tag = "Gerade_270+Ecke_OR_SP";
             // 
             // Block5_Halt_2
             // 
@@ -3987,6 +3993,7 @@
             this.Kreuzung1_3.Size = new System.Drawing.Size(32, 32);
             this.Kreuzung1_3.TabIndex = 290;
             this.Kreuzung1_3.TabStop = false;
+            this.Kreuzung1_3.Tag = "Gerade_90+Ecke_OR";
             // 
             // SchattenGl11_Halt_1
             // 
@@ -4036,6 +4043,7 @@
             this.Kreuzung1_1.Size = new System.Drawing.Size(32, 32);
             this.Kreuzung1_1.TabIndex = 284;
             this.Kreuzung1_1.TabStop = false;
+            this.Kreuzung1_1.Tag = "Gerade_90+Ecke_UL_SP";
             // 
             // Weiche60
             // 
@@ -4046,7 +4054,7 @@
             this.Weiche60.Size = new System.Drawing.Size(32, 32);
             this.Weiche60.TabIndex = 283;
             this.Weiche60.TabStop = false;
-            this.Weiche60.Tag = "WeicheR_90";
+            this.Weiche60.Tag = "WeicheR_90_Gegen";
             this.Weiche60.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche71
@@ -4114,7 +4122,7 @@
             this.Weiche64.Size = new System.Drawing.Size(32, 32);
             this.Weiche64.TabIndex = 277;
             this.Weiche64.TabStop = false;
-            this.Weiche64.Tag = "WeicheR_315";
+            this.Weiche64.Tag = "WeicheR_315_Gegen";
             this.Weiche64.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche63
@@ -4127,7 +4135,7 @@
             this.Weiche63.Size = new System.Drawing.Size(32, 32);
             this.Weiche63.TabIndex = 276;
             this.Weiche63.TabStop = false;
-            this.Weiche63.Tag = "WeicheR_315";
+            this.Weiche63.Tag = "WeicheR_315_Gegen";
             this.Weiche63.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche62
@@ -4140,7 +4148,7 @@
             this.Weiche62.Size = new System.Drawing.Size(32, 32);
             this.Weiche62.TabIndex = 275;
             this.Weiche62.TabStop = false;
-            this.Weiche62.Tag = "WeicheR_315";
+            this.Weiche62.Tag = "WeicheR_315_Gegen";
             this.Weiche62.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche61
@@ -4153,7 +4161,7 @@
             this.Weiche61.Size = new System.Drawing.Size(32, 32);
             this.Weiche61.TabIndex = 274;
             this.Weiche61.TabStop = false;
-            this.Weiche61.Tag = "WeicheL_270";
+            this.Weiche61.Tag = "WeicheL_270_Gegen";
             this.Weiche61.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Block9_13
@@ -4488,6 +4496,7 @@
             this.Weiche52_Gleis1.Size = new System.Drawing.Size(32, 32);
             this.Weiche52_Gleis1.TabIndex = 239;
             this.Weiche52_Gleis1.TabStop = false;
+            this.Weiche52_Gleis1.Tag = "Gerade_180+Ecke_OR_SP";
             // 
             // Weiche52_Gleis3
             // 
@@ -4748,7 +4757,7 @@
             this.Weiche53_Gleis2.Size = new System.Drawing.Size(32, 32);
             this.Weiche53_Gleis2.TabIndex = 213;
             this.Weiche53_Gleis2.TabStop = false;
-            this.Weiche53_Gleis2.Tag = "KurveR_225+Ecke_UR";
+            this.Weiche53_Gleis2.Tag = "KurveL_225+Ecke_UR_SP";
             // 
             // Weiche53_Gleis0
             // 
@@ -5201,6 +5210,7 @@
             this.Weiche9_Gleis1.Size = new System.Drawing.Size(32, 32);
             this.Weiche9_Gleis1.TabIndex = 166;
             this.Weiche9_Gleis1.TabStop = false;
+            this.Weiche9_Gleis1.Tag = "KurveL_90+Ecke_OR";
             // 
             // Betrieb_Gl27_2
             // 
@@ -6419,7 +6429,7 @@
             this.Weiche9_Gleis2.Size = new System.Drawing.Size(32, 32);
             this.Weiche9_Gleis2.TabIndex = 26;
             this.Weiche9_Gleis2.TabStop = false;
-            this.Weiche9_Gleis2.Tag = "Gerade270+Ecke_UL";
+            this.Weiche9_Gleis2.Tag = "Gerade_270+Ecke_UL";
             // 
             // GL6_links_0
             // 
@@ -10851,7 +10861,7 @@
             this.Weiche66.Size = new System.Drawing.Size(32, 32);
             this.Weiche66.TabIndex = 784;
             this.Weiche66.TabStop = false;
-            this.Weiche66.Tag = "WeicheR_315";
+            this.Weiche66.Tag = "WeicheR_315_Gegen";
             this.Weiche66.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche66_1
@@ -10862,6 +10872,7 @@
             this.Weiche66_1.Size = new System.Drawing.Size(32, 32);
             this.Weiche66_1.TabIndex = 786;
             this.Weiche66_1.TabStop = false;
+            this.Weiche66_1.Tag = "Gerade_90+Ecke_OL_SP";
             // 
             // Weiche65
             // 
@@ -10873,7 +10884,7 @@
             this.Weiche65.Size = new System.Drawing.Size(32, 32);
             this.Weiche65.TabIndex = 803;
             this.Weiche65.TabStop = false;
-            this.Weiche65.Tag = "WeicheR_315";
+            this.Weiche65.Tag = "WeicheR_315_Gegen";
             this.Weiche65.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // textBox26
@@ -11004,6 +11015,7 @@
             this.Weiche65_2.Size = new System.Drawing.Size(32, 32);
             this.Weiche65_2.TabIndex = 804;
             this.Weiche65_2.TabStop = false;
+            this.Weiche65_2.Tag = "Gerade_90+Ecke_OL_SP";
             // 
             // Weiche71_1
             // 
@@ -11013,7 +11025,7 @@
             this.Weiche71_1.Size = new System.Drawing.Size(32, 32);
             this.Weiche71_1.TabIndex = 805;
             this.Weiche71_1.TabStop = false;
-            this.Weiche71_1.Tag = "Gerade_90";
+            this.Weiche71_1.Tag = "Gerade_90+Ecke_UR";
             // 
             // Weiche72_1
             // 
@@ -11023,7 +11035,7 @@
             this.Weiche72_1.Size = new System.Drawing.Size(32, 32);
             this.Weiche72_1.TabIndex = 806;
             this.Weiche72_1.TabStop = false;
-            this.Weiche72_1.Tag = "Gerade_90";
+            this.Weiche72_1.Tag = "Gerade_90+Ecke_UR";
             // 
             // Weiche73_1
             // 
@@ -11033,6 +11045,7 @@
             this.Weiche73_1.Size = new System.Drawing.Size(32, 32);
             this.Weiche73_1.TabIndex = 807;
             this.Weiche73_1.TabStop = false;
+            this.Weiche73_1.Tag = "Gerade_90+Ecke_UR";
             // 
             // Weiche74_1
             // 
@@ -11042,6 +11055,7 @@
             this.Weiche74_1.Size = new System.Drawing.Size(32, 32);
             this.Weiche74_1.TabIndex = 808;
             this.Weiche74_1.TabStop = false;
+            this.Weiche74_1.Tag = "Gerade_90+Ecke_UR";
             // 
             // Weiche75_1
             // 
@@ -11051,6 +11065,7 @@
             this.Weiche75_1.Size = new System.Drawing.Size(32, 32);
             this.Weiche75_1.TabIndex = 809;
             this.Weiche75_1.TabStop = false;
+            this.Weiche75_1.Tag = "Gerade_90+Ecke_UR";
             // 
             // Weiche76_1
             // 
@@ -11060,6 +11075,7 @@
             this.Weiche76_1.Size = new System.Drawing.Size(32, 32);
             this.Weiche76_1.TabIndex = 810;
             this.Weiche76_1.TabStop = false;
+            this.Weiche76_1.Tag = "Gerade_90+Ecke_UR";
             // 
             // Weiche90
             // 
@@ -11168,6 +11184,7 @@
             this.WeicheEcke75_91.Size = new System.Drawing.Size(32, 32);
             this.WeicheEcke75_91.TabIndex = 823;
             this.WeicheEcke75_91.TabStop = false;
+            this.WeicheEcke75_91.Tag = "Ecke_OL_SP+Ecke_UR_SP";
             // 
             // WeicheEcke74_92
             // 
@@ -11177,6 +11194,7 @@
             this.WeicheEcke74_92.Size = new System.Drawing.Size(32, 32);
             this.WeicheEcke74_92.TabIndex = 824;
             this.WeicheEcke74_92.TabStop = false;
+            this.WeicheEcke74_92.Tag = "Ecke_OL_SP+Ecke_UR_SP";
             // 
             // SchattenGl8_1
             // 
@@ -11266,7 +11284,7 @@
             this.Schatten8_Ausf2.Size = new System.Drawing.Size(32, 32);
             this.Schatten8_Ausf2.TabIndex = 832;
             this.Schatten8_Ausf2.TabStop = false;
-            this.Schatten8_Ausf2.Tag = "KurveL_270+Ecke_UR";
+            this.Schatten8_Ausf2.Tag = "KurveL_270+Ecke_UR_SP";
             // 
             // Schatten10_Ausf2
             // 
@@ -11276,7 +11294,7 @@
             this.Schatten10_Ausf2.Size = new System.Drawing.Size(32, 32);
             this.Schatten10_Ausf2.TabIndex = 834;
             this.Schatten10_Ausf2.TabStop = false;
-            this.Schatten10_Ausf2.Tag = "KurveL_270+Ecke_UR";
+            this.Schatten10_Ausf2.Tag = "KurveL_270+Ecke_UR_SP";
             // 
             // Schatten9_Ausf1
             // 
@@ -11286,7 +11304,7 @@
             this.Schatten9_Ausf1.Size = new System.Drawing.Size(32, 32);
             this.Schatten9_Ausf1.TabIndex = 835;
             this.Schatten9_Ausf1.TabStop = false;
-            this.Schatten9_Ausf1.Tag = "KurveL_270+Ecke_UR";
+            this.Schatten9_Ausf1.Tag = "KurveL_270+Ecke_UR_SP";
             // 
             // label81
             // 
@@ -11916,7 +11934,7 @@
             this.Weiche68.Size = new System.Drawing.Size(32, 32);
             this.Weiche68.TabIndex = 902;
             this.Weiche68.TabStop = false;
-            this.Weiche68.Tag = "WeicheL_270";
+            this.Weiche68.Tag = "WeicheL_270_Gegen";
             this.Weiche68.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Schatten0_Ausf3
@@ -11957,6 +11975,7 @@
             this.Weiche68_67.Size = new System.Drawing.Size(32, 32);
             this.Weiche68_67.TabIndex = 906;
             this.Weiche68_67.TabStop = false;
+            this.Weiche68_67.Tag = "Gerade_90+Ecke_OL_SP+Ecke_UR";
             // 
             // Schatten0_Ausf4
             // 
@@ -12055,7 +12074,7 @@
             this.Weiche70_1.Size = new System.Drawing.Size(32, 32);
             this.Weiche70_1.TabIndex = 916;
             this.Weiche70_1.TabStop = false;
-            this.Weiche70_1.Tag = "Gerade_90";
+            this.Weiche70_1.Tag = "Gerade_90+Ecke_UR";
             // 
             // textBox31
             // 
@@ -12174,7 +12193,7 @@
             this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten1);
             this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten3);
             this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten0);
-            this.SchattenIntern_Auswahl.Location = new System.Drawing.Point(894, 416);
+            this.SchattenIntern_Auswahl.Location = new System.Drawing.Point(976, 800);
             this.SchattenIntern_Auswahl.Name = "SchattenIntern_Auswahl";
             this.SchattenIntern_Auswahl.Size = new System.Drawing.Size(66, 155);
             this.SchattenIntern_Auswahl.TabIndex = 927;

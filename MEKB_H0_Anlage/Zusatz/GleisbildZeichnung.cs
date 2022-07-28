@@ -216,7 +216,8 @@ namespace MEKB_H0_Anlage
             {
                 GleisZustand.Add(picBox.Name, Zustand); // Element hinzufügen
             }
-            if(!ZeichneGleis(Zustand, picBox.Tag.ToString(), out Bitmap bild))
+            if (picBox.Tag.ToString().Contains('+')) return;
+            if (!ZeichneGleis(Zustand, picBox.Tag.ToString(), out Bitmap bild))
             {
                 return; //Bild nicht Zeichnen, da Fehler
             }
@@ -295,7 +296,7 @@ namespace MEKB_H0_Anlage
             BildHinzufuegen(ref gleis, bild2); // Zweites Gleisbild darüberzeichnen
             GleisZustand[picBox.Name + "Zustand2"] = Zustand2; //Neuen Zustand übernehmen
 
-            if (!ZeichneGleis(Zustand2, Gleistypen[2], out Bitmap bild3)) // Zweites Gleisbild zeichnen
+            if (!ZeichneGleis(Zustand3, Gleistypen[2], out Bitmap bild3)) // Zweites Gleisbild zeichnen
             {
                 return;  //Bild nicht Zeichnen, da Fehler
             }
@@ -322,8 +323,9 @@ namespace MEKB_H0_Anlage
                 GleisZustand.Add(picBox.Name, Zustand); // Element hinzufügen
             }
             if (weiche.Status_Error || weiche.Status_Error) Zustand.UpdateNoetig = true;
+            if (picBox.Tag.ToString().Contains('+')) return;
 
-            if(!ZeichneWeiche(weiche, picBox.Tag.ToString(), out Bitmap bild))
+            if (!ZeichneWeiche(weiche, picBox.Tag.ToString(), out Bitmap bild))
             {
                 return;  //Bild nicht Zeichnen, da Fehler
             }
