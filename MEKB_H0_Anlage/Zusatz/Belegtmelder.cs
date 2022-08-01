@@ -17,12 +17,10 @@ namespace MEKB_H0_Anlage
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Belegtmelder>();
         } 
-
         public BelegtmelderListe(string Dateiname)
         {
             DateiImportieren(Dateiname);
         }
-
         public void DateiImportieren(string Dateiname)
         {
             Liste = new List<Belegtmelder>();
@@ -44,7 +42,6 @@ namespace MEKB_H0_Anlage
                 Verzeichnis.Add(Liste[i].Name, i);
             }
         }
-
         public void CoolDownUpdate(int time)
         {
             foreach (Belegtmelder belegtmelder in Liste)
@@ -52,7 +49,6 @@ namespace MEKB_H0_Anlage
                 belegtmelder.CoolDown(time);
             }
         }
-
         public bool GetBelegtStatus(string Abschnitt)
         {
             int ListID;
@@ -62,7 +58,6 @@ namespace MEKB_H0_Anlage
             }
             return false;
         }
-
         public Belegtmelder GetBelegtmelder(string Abschnitt)
         {
             int ListID;
@@ -78,7 +73,6 @@ namespace MEKB_H0_Anlage
             Belegtmelder belegtmelder = Portliste.Find(x => x.Portnummer == Port);
             return belegtmelder;
         }
-
         public void UpdateBelegtmelder(byte GruppenIndex, byte[] RMStatus)
         {
             List<bool> PortListe = new List<bool>();
@@ -99,7 +93,6 @@ namespace MEKB_H0_Anlage
                 PortListe.Clear();
             }
         }
-
         public bool BlockFrei(string Blockname)
         {
             if (Blockname == null) return false;
@@ -156,6 +149,10 @@ namespace MEKB_H0_Anlage
             return !Erg;    //Invertieretes Ergebnis übergeben 
         }
 
+        public void StatusAnfordernBelegtmelder(Z21 z21, byte GruppenIndex)
+        {
+            z21.LAN_RMBUS_GETDATA(GruppenIndex);
+        }
         private static bool[] ConvertByteToBoolArray(byte b)
         {
             // prepare the return result

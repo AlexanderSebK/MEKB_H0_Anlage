@@ -583,7 +583,8 @@ namespace MEKB_H0_Anlage
                         }
                         break;
 
-                    case "DKW7_1":   DisplayPicture(GetSchaltbildDKW90_135(weiche, DKW_2nd),DKW7) ;
+                    case "DKW7_1":
+                        GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd,DKW7, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Einfahrt_L");
@@ -593,7 +594,8 @@ namespace MEKB_H0_Anlage
                             AutoSignalUpdate("Signal_Ausfahrt_L6");
                         }
                         break;
-                    case "DKW7_2":   DisplayPicture(GetSchaltbildDKW90_135(DKW_2nd, weiche),DKW7);//Spiegelverkehrt, da der zweite Weichenteil die aktuelle zu Schaltene ist   
+                    case "DKW7_2":
+                        GleisbildZeichnung.ZeichneSchaltbild(DKW_2nd, weiche, DKW7, true);//Spiegelverkehrt, da der zweite Weichenteil die aktuelle zu Schaltene ist   
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Einfahrt_L");
@@ -604,7 +606,8 @@ namespace MEKB_H0_Anlage
                         }
                         break;   
                         
-                    case "DKW9_1":   DisplayPicture(GetSchaltbildDKW90_135(weiche, DKW_2nd),DKW9) ;
+                    case "DKW9_1":
+                        GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, DKW9, true) ;
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Einfahrt_L");
@@ -612,7 +615,8 @@ namespace MEKB_H0_Anlage
                             AutoSignalUpdate("Signal_Ausfahrt_L6");
                         }
                         break;
-                    case "DKW9_2":   DisplayPicture(GetSchaltbildDKW90_135(DKW_2nd, weiche),DKW9) ;
+                    case "DKW9_2":
+                        GleisbildZeichnung.ZeichneSchaltbild(DKW_2nd, weiche, DKW9, true) ;
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Einfahrt_L");
@@ -621,7 +625,8 @@ namespace MEKB_H0_Anlage
                         }
                         break;  
                         
-                    case "KW22_1":   DisplayPicture(GetSchaltbildKW90_45(weiche, DKW_2nd)  ,KW22) ;
+                    case "KW22_1":
+                        GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, KW22, true);
                         if (signalUpdate)
                         {
                             if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
@@ -630,7 +635,8 @@ namespace MEKB_H0_Anlage
                             AutoSignalUpdate("Signal_Ausfahrt_R6");
                         }
                         break;
-                    case "KW22_2":   DisplayPicture(GetSchaltbildKW90_45(DKW_2nd, weiche)  ,KW22) ;
+                    case "KW22_2":
+                        GleisbildZeichnung.ZeichneSchaltbild(DKW_2nd, weiche, KW22, true);
                         if (signalUpdate)
                         {
                             if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
@@ -640,7 +646,8 @@ namespace MEKB_H0_Anlage
                         }
                         break;
 
-                    case "DKW24_1":  DisplayPicture(GetSchaltbildDKW90_45(weiche, DKW_2nd) ,DKW24);
+                    case "DKW24_1":
+                        GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, DKW24, true);
                         if (signalUpdate)
                         {
                             if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
@@ -650,7 +657,8 @@ namespace MEKB_H0_Anlage
                             AutoSignalUpdate("Signal_Ausfahrt_R6");
                         }
                         break;
-                    case "DKW24_2":  DisplayPicture(GetSchaltbildDKW90_45(DKW_2nd, weiche), DKW24);
+                    case "DKW24_2":
+                        GleisbildZeichnung.ZeichneSchaltbild(DKW_2nd, weiche, DKW24, true);
                         if (signalUpdate)
                         {
                             if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");

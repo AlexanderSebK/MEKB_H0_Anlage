@@ -15,16 +15,9 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public partial class Form1 : Form
     {
-        const bool WEST = true;
-        const bool OST = false;
+
         MeldeZustand FreiesGleis = new MeldeZustand(false);
-        #region Farben
-        private readonly Color Farbe_Gelb = Color.FromArgb(255, 255, 255, 0);
-        private readonly Color Farbe_Gruen = Color.FromArgb(255, 0, 255, 0);
-        private readonly Color Farbe_Rot = Color.FromArgb(255, 255, 0, 0);
-        private readonly Color Farbe_Grau = Color.FromArgb(255, 128, 128, 128);
-        private readonly Color Farbe_Weis = Color.FromArgb(255, 255, 255, 255);
-        #endregion
+
         #region Fahrstraßen Instanzen
         private Fahrstrasse Gleis1_nach_Block1 { set; get; }
         private Fahrstrasse Gleis2_nach_Block1 { set; get; }
@@ -64,7 +57,6 @@ namespace MEKB_H0_Anlage
         private Fahrstrasse Rechts2_nach_Gleis5 { set; get; }
         private Fahrstrasse Rechts2_nach_Gleis6 { set; get; }
 
-        private Fahrstrasse Block1_nach_Schatten { set; get; }
         private Fahrstrasse Block1_nach_Block2 { set; get; }
 
         private Fahrstrasse Block1_nach_Block5 { set; get; }
@@ -359,7 +351,7 @@ namespace MEKB_H0_Anlage
             weiche = WeichenListe.GetWeiche("DKW7_1").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseRichtung_vonZunge = false;
             weiche.FahrstrasseAbzweig = true;
             Gleis4_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
@@ -412,7 +404,7 @@ namespace MEKB_H0_Anlage
             weiche = WeichenListe.GetWeiche("DKW7_1").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseRichtung_vonZunge = false;
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
@@ -433,7 +425,7 @@ namespace MEKB_H0_Anlage
             weiche = WeichenListe.GetWeiche("DKW9_1").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW9_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseRichtung_vonZunge = false;
             weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
@@ -485,7 +477,7 @@ namespace MEKB_H0_Anlage
             weiche = WeichenListe.GetWeiche("DKW7_1").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseRichtung_vonZunge = false;
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
@@ -506,7 +498,7 @@ namespace MEKB_H0_Anlage
             weiche = WeichenListe.GetWeiche("DKW9_1").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW9_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-            weiche.FahrstrasseRichtung_vonZunge = true;
+            weiche.FahrstrasseRichtung_vonZunge = false;
             weiche.FahrstrasseAbzweig = true;
             Gleis6_nach_Block1.Fahrstr_Weichenliste.Add(weiche);
 
@@ -660,7 +652,7 @@ namespace MEKB_H0_Anlage
             weiche = WeichenListe.GetWeiche("DKW7_1").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseRichtung_vonZunge = true;
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
@@ -705,7 +697,7 @@ namespace MEKB_H0_Anlage
             weiche = WeichenListe.GetWeiche("DKW7_1").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW7_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseRichtung_vonZunge = true;
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
@@ -726,7 +718,7 @@ namespace MEKB_H0_Anlage
             weiche = WeichenListe.GetWeiche("DKW9_1").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW9_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseRichtung_vonZunge = true;
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
@@ -770,7 +762,7 @@ namespace MEKB_H0_Anlage
 
             weiche = WeichenListe.GetWeiche("DKW7_1").Copy();
 
-            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseRichtung_vonZunge = true;
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
@@ -791,7 +783,7 @@ namespace MEKB_H0_Anlage
             weiche = WeichenListe.GetWeiche("DKW9_1").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW9_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-            weiche.FahrstrasseRichtung_vonZunge = false;
+            weiche.FahrstrasseRichtung_vonZunge = true;
             weiche.FahrstrasseAbzweig = true;
             Block2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
@@ -942,14 +934,14 @@ namespace MEKB_H0_Anlage
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis4_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = false;
+            weiche.FahrstrasseAbzweig = true;
             Gleis4_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche25").Copy();
@@ -993,14 +985,14 @@ namespace MEKB_H0_Anlage
             if (weiche == null) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("KW22_2").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: KW22_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = false;
+            weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche23").Copy();
@@ -1014,14 +1006,14 @@ namespace MEKB_H0_Anlage
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche25").Copy();
@@ -1072,14 +1064,14 @@ namespace MEKB_H0_Anlage
             if (weiche == null) { MessageBox.Show("Schwerer Error: KW22_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("KW22_2").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: KW22_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche23").Copy();
@@ -1093,14 +1085,14 @@ namespace MEKB_H0_Anlage
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW24_1 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
             if (weiche == null) { MessageBox.Show("Schwerer Error: DKW24_2 nicht gefunden", "Schwerer Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts1.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche25").Copy();
@@ -1284,7 +1276,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis4_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
@@ -1292,7 +1284,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = false;
+            weiche.FahrstrasseAbzweig = true;
             Gleis4_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche25").Copy();
@@ -1341,7 +1333,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("KW22_2").Copy();
@@ -1349,7 +1341,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = false;
+            weiche.FahrstrasseAbzweig = true;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche23").Copy();
@@ -1365,7 +1357,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
@@ -1373,7 +1365,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis5_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche25").Copy();
@@ -1430,7 +1422,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("KW22_2").Copy();
@@ -1438,7 +1430,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche23").Copy();
@@ -1454,7 +1446,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
@@ -1462,7 +1454,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = false;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Gleis6_nach_rechts2.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche25").Copy();
@@ -1684,7 +1676,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
@@ -1692,7 +1684,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = false;
+            weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
         }
         private void SetupRechts1_nach_Gleis5()
@@ -1749,7 +1741,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
@@ -1757,7 +1749,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche23").Copy();
@@ -1773,7 +1765,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("KW22_2").Copy();
@@ -1781,7 +1773,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = false;
+            weiche.FahrstrasseAbzweig = true;
             Rechts1_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
         }
         private void SetupRechts1_nach_Gleis6()
@@ -1838,7 +1830,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
@@ -1846,7 +1838,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche23").Copy();
@@ -1862,7 +1854,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("KW22_2").Copy();
@@ -1870,7 +1862,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts1_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche21").Copy();
@@ -2066,7 +2058,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
@@ -2074,7 +2066,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = false;
+            weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis4.Fahrstr_Weichenliste.Add(weiche);
         }
         private void SetupRechts2_nach_Gleis5()
@@ -2131,7 +2123,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
@@ -2139,7 +2131,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche23").Copy();
@@ -2155,7 +2147,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("KW22_2").Copy();
@@ -2163,7 +2155,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = false;
+            weiche.FahrstrasseAbzweig = true;
             Rechts2_nach_Gleis5.Fahrstr_Weichenliste.Add(weiche);
         }
         private void SetupRechts2_nach_Gleis6()
@@ -2220,7 +2212,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("DKW24_2").Copy();
@@ -2228,7 +2220,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche23").Copy();
@@ -2244,7 +2236,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("KW22_2").Copy();
@@ -2252,7 +2244,7 @@ namespace MEKB_H0_Anlage
 
             
             weiche.FahrstrasseRichtung_vonZunge = true;
-            weiche.FahrstrasseAbzweig = true;
+            weiche.FahrstrasseAbzweig = false;
             Rechts2_nach_Gleis6.Fahrstr_Weichenliste.Add(weiche);
 
             weiche = WeichenListe.GetWeiche("Weiche21").Copy();
@@ -3284,14 +3276,14 @@ namespace MEKB_H0_Anlage
             //Fahrstraße nach westen aktiv
             if (aktiv_west == 1) 
             { 
-                richtung = WEST;
+                richtung = true; //In Fahrtrichtung
                 fahrstrasseAktiv = true;
                 if (safe_west == 1) sicher = true; //Fahrstraße sicher?
             }
             //Fahrstraße nach osten aktiv
             if (aktiv_ost == 1) 
-            { 
-                richtung = OST;
+            {
+                richtung = false;  //Gegenfahrtrichtung
                 fahrstrasseAktiv = true;
                 if (safe_ost == 1) sicher = true; //Fahrstraße sicher?
             }
@@ -3301,18 +3293,7 @@ namespace MEKB_H0_Anlage
         }
         
         
-        /// <summary>
-        /// Involke-Funktion. Verhindert Fehlermeldung beim gleichzeitigen Zugreifen auf ein Bild
-        /// </summary>
-        /// <param name="img">Neues Bild zum Anzeiegen</param>
-        /// <param name="picBox">Instanz der PictureBox</param>
-        public void DisplayPicture(Bitmap img, PictureBox picBox)
-        {
-            picBox.Invoke(new EventHandler(delegate
-            {
-                picBox.Image = img;
-            }));
-        }
+
         #region Bahnhofsausfahrt links
         private void UpdateGleisbild_GL1_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_mit, List<Fahrstrasse> Fahrstrasse_gegen)
         {
@@ -3963,7 +3944,7 @@ namespace MEKB_H0_Anlage
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Kreuzung1_2);
                 GleisbildZeichnung.ZeichneSchaltbild(zustand9, FreiesGleis, Kreuzung1_3);
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Kreuzung1_4);
-                DisplayPicture(GetSchaltbildKreuzung90_135(zustand9, FreiesGleis), Kreuzung1);
+                GleisbildZeichnung.ZeichneSchaltbild(zustand9, FreiesGleis, Kreuzung1);
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Kreuzung1_5);
             }
             else if (zustand8.Fahrstrasse == true)
@@ -3971,7 +3952,7 @@ namespace MEKB_H0_Anlage
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, zustand8, Kreuzung1_1);
                 GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_2);
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, zustand8, Kreuzung1_3);
-                DisplayPicture(GetSchaltbildKreuzung90_135(FreiesGleis, zustand8), Kreuzung1);  
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, zustand8, Kreuzung1);  
                 zustand8.Richtung = !zustand8.Richtung;
                 GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_4);
                 GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_5);
@@ -3983,7 +3964,7 @@ namespace MEKB_H0_Anlage
                 GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_2);
                 GleisbildZeichnung.ZeichneSchaltbild(zustand9, FreiesGleis, Kreuzung1_3);
                 GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_4);
-                DisplayPicture(GetSchaltbildKreuzung90_135(zustand9, zustand8), Kreuzung1);
+                GleisbildZeichnung.ZeichneSchaltbild(zustand9, zustand8, Kreuzung1);
                 GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_5);
             }
        
@@ -4792,9 +4773,9 @@ namespace MEKB_H0_Anlage
         {
             Weiche weiche = WeichenListe.GetWeiche("DKW7_1");
             if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, OST);
+            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW7.Tag.ToString().EndsWith("_Gegen"));
             Weiche DKW_2nd = GetDWK_2nd(weiche.Name);
-            DisplayPicture(GetSchaltbildDKW90_135(weiche, DKW_2nd), DKW7);
+            GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, DKW7);
             if (weiche.Abzweig)
             {
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche7_Gleis2);
@@ -4808,7 +4789,7 @@ namespace MEKB_H0_Anlage
         {
             Weiche weiche = WeichenListe.GetWeiche("DKW7_2");
             if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, WEST);
+            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW7.Tag.ToString().EndsWith("_Gegen"));
             if (weiche.Abzweig)
             {
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche7_Gleis1);
@@ -4822,9 +4803,9 @@ namespace MEKB_H0_Anlage
         {
             Weiche weiche = WeichenListe.GetWeiche("DKW9_1");
             if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, OST);
+            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW9.Tag.ToString().EndsWith("_Gegen"));
             Weiche DKW_2nd = GetDWK_2nd(weiche.Name);
-            DisplayPicture(GetSchaltbildDKW90_135(weiche, DKW_2nd), DKW9);
+            GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, DKW9);
             if (weiche.Abzweig)
             {
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche9_Gleis1);
@@ -4841,7 +4822,7 @@ namespace MEKB_H0_Anlage
         {
             Weiche weiche = WeichenListe.GetWeiche("DKW9_2");
             if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, WEST);
+            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW9.Tag.ToString().EndsWith("_Gegen"));
             if (weiche.Abzweig)
             {
                 GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche9_Gleis2);
@@ -4857,18 +4838,18 @@ namespace MEKB_H0_Anlage
         {
             Weiche weiche = WeichenListe.GetWeiche("KW22_1");
             if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, OST);
+            MeldeZustand meldeZustand = new MeldeZustand(weiche, KW22.Tag.ToString().EndsWith("_Gegen"));
             Weiche DKW_2nd = GetDWK_2nd(weiche.Name);
-            DisplayPicture(GetSchaltbildKW90_45(weiche, DKW_2nd), KW22);
+            GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, KW22);
             if (weiche.Abzweig)
             {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, FreiesGleis, KW22_Gleis2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, FreiesGleis, KW22_Gleis2);
                 GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, KW22_Gleis3);
             }
             else
             {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, FreiesGleis, KW22_Gleis2);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, KW22_Gleis3);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, FreiesGleis, KW22_Gleis2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, KW22_Gleis3);
             }
 
         }
@@ -4876,342 +4857,53 @@ namespace MEKB_H0_Anlage
         {
             Weiche weiche = WeichenListe.GetWeiche("KW22_2");
             if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, OST);
+            MeldeZustand meldeZustand = new MeldeZustand(weiche, KW22.Tag.ToString().EndsWith("_Gegen"));
             
             if (weiche.Abzweig)
             {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, KW22_Gleis1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, KW22_Gleis1);
             }
             else
             {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, KW22_Gleis1);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, KW22_Gleis1);
             }
         }       
         private void UpdateGleisbild_DKW24_1()
         {
             Weiche weiche = WeichenListe.GetWeiche("DKW24_1");
             if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, OST);
+            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW24.Tag.ToString().EndsWith("_Gegen"));
             Weiche DKW_2nd = GetDWK_2nd(weiche.Name);
-            DisplayPicture(GetSchaltbildDKW90_45(weiche, DKW_2nd), DKW24);
+            GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, DKW24);
 
             if (weiche.Abzweig)
             {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, DKW24_Gleis2);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, DKW24_Gleis2);
             }
             else
             {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, DKW24_Gleis2);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, DKW24_Gleis2);
             }
         }
         private void UpdateGleisbild_DKW24_2()
         {
             Weiche weiche = WeichenListe.GetWeiche("DKW24_2");
             if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, OST);
+            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW24.Tag.ToString().EndsWith("_Gegen"));
 
             if (weiche.Abzweig)
             {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, DKW24_Gleis1);
+                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, DKW24_Gleis1);
             }
             else
             {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, DKW24_Gleis1);
+                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, DKW24_Gleis1);
             }
         }
         #endregion
-        #endregion
-
-        #region Schaltbild zeichnen
-
-        private void ZeichneFahrstraße(ref Graphics gleisbild, Image Type, Color Farbe, Color TargetColor)
-        {
-            ImageAttributes imageAttributes = new ImageAttributes();
-            int width = 32;
-            int height = 32;
-            ColorMap colorMap = new ColorMap
-            {
-                OldColor = TargetColor, // Color.FromArgb(255, 255, 255, 0),  // original gelb
-                NewColor = Farbe  // opaque blue
-            };
-            ColorMap[] remapTable = { colorMap };
-            imageAttributes.SetRemapTable(remapTable, ColorAdjustType.Bitmap);
-
-
-            gleisbild.DrawImage(Type, new Rectangle(0, 0, width, height), 0, 0, width, height, GraphicsUnit.Pixel, imageAttributes);
-
-        }
-
-
-        #region Kruezung
-        private dynamic GetSchaltbildKreuzung90_135(MeldeZustand Zustandwaage, MeldeZustand Zustandschraege)
-        {
-            //Grundgleisbild
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.Kreuzung90_135; //Gleisbild
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            Image zeichenmuster;
-            Color farbe = Farbe_Grau;
-
-            if (!Zustandwaage.IstFrei())
-            {
-                if ((Zustandwaage.Besetzt == true) && (Zustandwaage.Fahrstrasse == false))
-                {
-                    zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
-                    farbe = Farbe_Rot;
-                    ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                    if(Zustandschraege.Besetzt == true)
-                    {
-                        zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
-                        farbe = Farbe_Rot;
-                        ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                    }
-                    return bild; //Bild ausgeben
-                }
-                else
-                {
-                    if (Zustandwaage.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
-                    else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
-
-                    if (Zustandwaage.Fahrstrasse) farbe = Farbe_Gelb;
-                    if (Zustandwaage.Sicher) farbe = Farbe_Gruen;
-                    if (Zustandwaage.Besetzt) farbe = Farbe_Rot;
-                }
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            }
-            if(!Zustandschraege.IstFrei())
-            {
-                if ((Zustandschraege.Besetzt == true) && (Zustandschraege.Fahrstrasse == false))
-                {
-                    zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
-                    farbe = Farbe_Rot;
-                    ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Weis);
-                    return bild; //Bild ausgeben
-                }
-                else
-                {
-                    if (Zustandschraege.Richtung == WEST) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_135_links;
-                    else zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_135_rechts;
-
-                    if (Zustandschraege.Fahrstrasse) farbe = Farbe_Gelb;
-                    if (Zustandschraege.Sicher) farbe = Farbe_Gruen;
-                    if (Zustandschraege.Besetzt) farbe = Farbe_Rot;
-                }
-                ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            }
-
-            return bild; //Bild ausgeben
-        }
-
         #endregion
 
         
-
-        #region DKW
-        private dynamic GetSchaltbildKW90_45(Weiche DKW1, Weiche DKW2)
-        {
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.WeicheKW90_45_Analog;
-            Graphics gleis = Graphics.FromImage(bild);
-
-            //Bei Fehler: Error-Symbol laden und Funktion abbrechen
-            if (DKW1.Status_Error || DKW2.Status_Error) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Error, 0, 0); return bild; }
-
-            //Bei Unebkannt: Unebkannt-Symbol laden und Funktion abbrechen
-            if (DKW1.Status_Unbekannt || DKW2.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
-
-            //Weichenzunge zeichnen
-            Image zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
-            if ((DKW1.Abzweig == true) && (DKW2.Abzweig == true)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
-            if ((DKW1.Abzweig == false) && (DKW2.Abzweig == true)) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Error, 0, 0); return bild; }
-            if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
-            if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
-            if ((DKW1.Besetzt == true || DKW2.Besetzt == true) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
-            {
-                ZeichneFahrstraße(ref gleis, zunge, Farbe_Rot, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if ((DKW1.ZeitAktiv > 0) || (DKW2.ZeitAktiv > 0))
-                {
-                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Grau, Farbe_Weis);
-                }
-                else
-                {
-                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Weis, Farbe_Weis);
-                }
-            }
-
-            Image zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
-            Color farbe = Farbe_Grau;
-            if (((DKW1.Besetzt == false) || (DKW2.Besetzt == false)) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
-            {
-                return bild;
-            }
-            else if (((DKW1.Besetzt == true) || (DKW2.Besetzt == true)) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
-            {
-                farbe = Farbe_Rot;
-                zeichenmuster = zunge;
-            }
-            else
-            {
-                if (DKW1.FahrstrasseRichtung_vonZunge)
-                {
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == true)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_links;
-                    if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
-                }
-                else
-                {
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == true)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts;
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_rechts;
-                    if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
-                }
-                if (DKW1.FahrstrasseAktive || DKW2.FahrstrasseAktive) farbe = Farbe_Gelb;
-                if (DKW1.FahrstrasseSicher || DKW2.FahrstrasseSicher) farbe = Farbe_Gruen;
-                if (DKW1.Besetzt || DKW2.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild;
-        }
-        private dynamic GetSchaltbildDKW90_45(Weiche DKW1, Weiche DKW2)
-        {
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.WeicheDKW90_45_Analog;
-            Graphics gleis = Graphics.FromImage(bild);
-
-            //Bei Fehler: Error-Symbol laden und Funktion abbrechen
-            if (DKW1.Status_Error || DKW2.Status_Error) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Error, 0, 0); return bild; }
-
-            //Bei Unebkannt: Unebkannt-Symbol laden und Funktion abbrechen
-            if (DKW1.Status_Unbekannt || DKW2.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
-
-            //Weichenzunge zeichnen
-            Image zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
-            if ((DKW1.Abzweig == true) && (DKW2.Abzweig == true)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
-            if ((DKW1.Abzweig == false) && (DKW2.Abzweig == true)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_270;
-            if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigL_90;
-            if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
-            if ((DKW1.Besetzt == true || DKW2.Besetzt == true) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
-            {
-                ZeichneFahrstraße(ref gleis, zunge, Farbe_Rot, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if ((DKW1.ZeitAktiv > 0) || (DKW2.ZeitAktiv > 0))
-                {
-                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Grau, Farbe_Weis);
-                }
-                else
-                {
-                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Weis, Farbe_Weis);
-                }
-            }
-
-            Image zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
-            Color farbe = Farbe_Grau;
-            if (((DKW1.Besetzt == false) || (DKW2.Besetzt == false)) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
-            {
-                return bild;
-            }
-            else if (((DKW1.Besetzt == true) || (DKW2.Besetzt == true)) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
-            {
-                farbe = Farbe_Rot;
-                zeichenmuster = zunge;
-            }
-            else
-            {
-                if (DKW1.FahrstrasseRichtung_vonZunge)
-                {
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == true)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
-                    if ((DKW1.Abzweig == false) && (DKW2.Abzweig == true)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_links;
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_links;
-                    if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
-                }
-                else
-                {
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == true)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_rechts;
-                    if ((DKW1.Abzweig == false) && (DKW2.Abzweig == true)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270L_rechts;
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90L_rechts;
-                    if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
-                }
-                if (DKW1.FahrstrasseAktive || DKW2.FahrstrasseAktive) farbe = Farbe_Gelb;
-                if (DKW1.FahrstrasseSicher || DKW2.FahrstrasseSicher) farbe = Farbe_Gruen;
-                if (DKW1.Besetzt || DKW2.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild;
-        }
-        private dynamic GetSchaltbildDKW90_135(Weiche DKW1, Weiche DKW2)
-        {
-            Bitmap bild = MEKB_H0_Anlage.Properties.Resources.WeicheDKW90_135_Analog;
-            Graphics gleis = Graphics.FromImage(bild);
-
-            //Bei Fehler: Error-Symbol laden und Funktion abbrechen
-            if (DKW1.Status_Error || DKW2.Status_Error) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Error, 0, 0); return bild; }
-
-            //Bei Unebkannt: Unebkannt-Symbol laden und Funktion abbrechen
-            if (DKW1.Status_Unbekannt || DKW2.Status_Unbekannt) { gleis.DrawImage(MEKB_H0_Anlage.Properties.Resources.Unbekannt, 0, 0); return bild; }
-
-            //Weichenzunge zeichnen
-            Image zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_45;
-            if ((DKW1.Abzweig == true) && (DKW2.Abzweig == true)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_135;
-            if ((DKW1.Abzweig == false) && (DKW2.Abzweig == true)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_90;
-            if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_AbzweigR_270;
-            if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zunge = MEKB_H0_Anlage.Properties.Resources.Zunge_Gerade_90;
-            if ((DKW1.Besetzt == true || DKW2.Besetzt == true) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
-            {
-                ZeichneFahrstraße(ref gleis, zunge, Farbe_Rot, Farbe_Weis);
-                return bild; //Bild ausgeben
-            }
-            else
-            {
-                if ((DKW1.ZeitAktiv > 0) || (DKW2.ZeitAktiv > 0))
-                {
-                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Grau, Farbe_Weis);
-                }
-                else
-                {
-                    ZeichneFahrstraße(ref gleis, zunge, Farbe_Weis, Farbe_Weis);
-                }
-            }
-
-            Image zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_225_links;
-            Color farbe = Farbe_Grau;
-            if (((DKW1.Besetzt == false) || (DKW2.Besetzt == false)) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
-            {
-                return bild;
-            }
-            else if (((DKW1.Besetzt == true) || (DKW2.Besetzt == true)) && ((DKW1.FahrstrasseAktive == false) || (DKW2.FahrstrasseAktive == false)))
-            {
-                farbe = Farbe_Rot;
-                zeichenmuster = zunge;
-            }
-            else
-            {
-                if (DKW1.FahrstrasseRichtung_vonZunge)
-                {
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == true)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_135_links;
-                    if ((DKW1.Abzweig == false) && (DKW2.Abzweig == true)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90R_links;
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_links;
-                    if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_links;
-                }
-                else
-                {
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == true)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_135_rechts;
-                    if ((DKW1.Abzweig == false) && (DKW2.Abzweig == true)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve90R_rechts;
-                    if ((DKW1.Abzweig == true) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_Kurve270R_rechts;
-                    if ((DKW1.Abzweig == false) && (DKW2.Abzweig == false)) zeichenmuster = MEKB_H0_Anlage.Properties.Resources.Fahrstr_90_rechts;
-                }
-                if (DKW1.FahrstrasseAktive || DKW2.FahrstrasseAktive) farbe = Farbe_Gelb;
-                if (DKW1.FahrstrasseSicher || DKW2.FahrstrasseSicher) farbe = Farbe_Gruen;
-                if (DKW1.Besetzt || DKW2.Besetzt) farbe = Farbe_Rot;
-            }
-            ZeichneFahrstraße(ref gleis, zeichenmuster, farbe, Farbe_Gelb);
-            return bild;
-        }
-        #endregion
-        #endregion
         /// <summary>
         /// Weichenliste der Fahrstraße durchlaufen und mit aktueller Weichenstellung vergleichen
         /// </summary>
@@ -5656,9 +5348,5 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        private void GetBelegtMelderStatus(byte GruppenIndex)
-        {
-            z21Start.LAN_RMBUS_GETDATA(GruppenIndex);
-        }
     }
 }

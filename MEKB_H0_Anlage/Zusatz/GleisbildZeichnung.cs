@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace MEKB_H0_Anlage
 {
@@ -142,7 +143,7 @@ namespace MEKB_H0_Anlage
 
         private bool ZeichneWeiche(Weiche weiche, string Typ, out Bitmap bild)
         {
-            List<String> ErlaubteTags = new List<string>() { "Weiche", "DKW", "KW", "DreiwegWeiche" };
+            List<String> ErlaubteTags = new List<string>() { "Weiche" };
             bool TagVorhanden = false;
             foreach (String Tag in ErlaubteTags)
             {
@@ -204,6 +205,197 @@ namespace MEKB_H0_Anlage
 
         }
 
+        private bool ZeichneWeiche(Weiche weiche, Weiche weiche2, string Typ, out Bitmap bild)
+        {
+            List<String> ErlaubteTags = new List<string>() { "DKW", "KW", "DreiwegWeiche" };
+            bool TagVorhanden = false;
+            foreach (String Tag in ErlaubteTags)
+            {
+                if (Typ.StartsWith(Tag)) TagVorhanden = true;
+            }
+            if (!TagVorhanden)
+            {
+                bild = Katalog[Sonder][Error];
+                return false;
+            }
+            // Argument "_Gegen" wird nicht gebraucht
+            if (Typ.EndsWith("_Gegen"))
+            {
+                Typ = Typ.Substring(0, Typ.Length - 6);
+            }
+
+            try
+            {
+                bild = new Bitmap(BasisSchiene(Typ)); //Gleisbild   
+            }
+            catch
+            {
+                bild = new Bitmap(32, 32);
+                return false;
+            }
+            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
+
+            ////////////////////////////////////////////////////
+            // Zunge zeichnen
+            ////////////////////////////////////////////////////
+
+            if (weiche.Status_Error)
+            {
+                BildHinzufuegen(ref gleis, Katalog[Sonder][Fehler]);
+                return true;
+            }
+            if (weiche.Status_Unbekannt)
+            {
+                BildHinzufuegen(ref gleis, Katalog[Sonder][Unbekannt]);
+                return true;
+            }
+            if (Typ.StartsWith("KW"))
+            {
+                if((weiche.Abzweig)&&(!weiche2.Abzweig))
+                {
+                    BildHinzufuegen(ref gleis, Katalog[Sonder][Fehler]);
+                    return true;
+                }
+            }
+            bool Stellung;
+            if (Typ.StartsWith("DreiwegWeiche"))
+            {
+                if ((weiche.Abzweig) && (weiche2.Abzweig))
+                {
+                    BildHinzufuegen(ref gleis, Katalog[Sonder][Fehler]);
+                    return true;
+                }
+                else if(weiche.Abzweig)
+                {
+                    Typ = Regex.Replace(Typ, "DreiwegWeiche", "WeicheR");
+                    Stellung = true;
+                    BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, weiche.ZeitAktiv > 0));
+                }
+                else if (weiche.Abzweig)
+                {
+                    Typ = Regex.Replace(Typ, "DreiwegWeiche", "WeicheL");
+                    Stellung = true;
+                    BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, weiche2.ZeitAktiv > 0));
+                }
+                else
+                {
+                    Typ = Regex.Replace(Typ, "DreiwegWeiche", "WeicheR");
+                    Stellung = false;
+                    BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, weiche.ZeitAktiv > 0));
+                }
+            }
+
+            // DKW, KW (Illegale Stellung zuvor abgefangen
+            if ((weiche.Abzweig) && (weiche2.Abzweig))
+            {
+                if(Typ.StartsWith("DKW")) Typ = Regex.Replace(Typ, "DKW", "WeicheR");
+                else Typ = Regex.Replace(Typ, "KW", "WeicheR");
+                Stellung = false;
+                Typ = DreheGleisUmMinus45(Typ);
+            }
+            else if ((!weiche.Abzweig) && (weiche2.Abzweig))
+            {
+                if (Typ.StartsWith("DKW")) Typ = Regex.Replace(Typ, "DKW", "WeicheR");
+                else Typ = Regex.Replace(Typ, "KW", "WeicheR");
+                Stellung = true;               
+            }
+            else if ((weiche.Abzweig) && (!weiche2.Abzweig))
+            {
+                if (Typ.StartsWith("DKW")) Typ = Regex.Replace(Typ, "DKW", "WeicheL");
+                else Typ = Regex.Replace(Typ, "KW", "WeicheL");
+                Stellung = true;
+                Typ = DreheGleisUmMinus45(Typ);
+            }
+            else
+            {
+                if (Typ.StartsWith("DKW")) Typ = Regex.Replace(Typ, "DKW", "WeicheL");
+                else Typ = Regex.Replace(Typ, "KW", "WeicheL");
+                Stellung = false;
+            }
+            BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, (weiche.ZeitAktiv > 0)|| (weiche2.ZeitAktiv > 0)));
+
+            MeldeZustand Zustand = new MeldeZustand(weiche);
+            if (Zustand.IstFrei())
+            {
+                return true;
+            }
+
+            ////////////////////////////////////////////////////
+            // Belegtmeldung / Fahrstrasse zeichnen
+            ////////////////////////////////////////////////////
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
+            {
+                BildHinzufuegen(ref gleis, WeicheBelegtMarkierung(Typ, Stellung));
+            }
+            else
+            {
+                if (Zustand.Fahrstrasse) BildHinzufuegen(ref gleis, WeicheFahrstrassenMarkierung(Typ, Zustand.Richtung, 0, Stellung));
+                if (Zustand.Sicher) BildHinzufuegen(ref gleis, WeicheFahrstrassenMarkierung(Typ, Zustand.Richtung, 3, Stellung));
+                if (Zustand.Besetzt) BildHinzufuegen(ref gleis, WeicheFahrstrassenMarkierung(Typ, Zustand.Richtung, 1, Stellung));
+            }
+            return true;
+
+        }
+
+        private bool ZeichneKruezung(MeldeZustand Zustand, MeldeZustand Zustand2, string Typ, out Bitmap bild)
+        {
+            if (!Typ.StartsWith("Kreuzung"))
+            {
+                bild = Katalog[Sonder][Error];
+                return false;
+            }
+                
+            // Argument "_Gegen" wird nicht gebraucht
+            if (Typ.EndsWith("_Gegen"))
+            {
+                Typ = Typ.Substring(0, Typ.Length - 6);
+            }
+
+            try
+            {
+                bild = new Bitmap(BasisSchiene(Typ)); //Gleisbild   
+            }
+            catch
+            {
+                bild = new Bitmap(32, 32);
+                return false;
+            }
+            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
+
+            if (Zustand.IstFrei() && Zustand2.IstFrei())
+            {
+                return true;
+            }
+
+            String Strang1 = Regex.Replace(Typ, "Kreuzung", "Gerade");
+            String Strang2 = DreheGleisUmMinus45(Strang1);
+
+            ////////////////////////////////////////////////////
+            // Belegtmeldung / Fahrstrasse zeichnen
+            ////////////////////////////////////////////////////
+            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
+            {
+                BildHinzufuegen(ref gleis, BelegtMarkierung(Strang1));
+            }
+            else
+            {
+                if (Zustand.Fahrstrasse) BildHinzufuegen(ref gleis, FahrstrassenMarkierung(Strang1, Zustand.Richtung, 0));
+                if (Zustand.Sicher) BildHinzufuegen(ref gleis, FahrstrassenMarkierung(Strang1, Zustand.Richtung, 3));
+                if (Zustand.Besetzt) BildHinzufuegen(ref gleis, FahrstrassenMarkierung(Strang1, Zustand.Richtung, 1));
+            }
+            if ((Zustand2.Besetzt == true) && (Zustand2.Fahrstrasse == false))
+            {
+                BildHinzufuegen(ref gleis, BelegtMarkierung(Strang2));
+            }
+            else
+            {
+                if (Zustand2.Fahrstrasse) BildHinzufuegen(ref gleis, FahrstrassenMarkierung(Strang2, Zustand2.Richtung, 0));
+                if (Zustand2.Sicher) BildHinzufuegen(ref gleis, FahrstrassenMarkierung(Strang2, Zustand2.Richtung, 3));
+                if (Zustand2.Besetzt) BildHinzufuegen(ref gleis, FahrstrassenMarkierung(Strang2, Zustand2.Richtung, 1));
+            }
+            return true;
+        }
+
 
         public void ZeichneSchaltbild(MeldeZustand Zustand, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
@@ -241,7 +433,17 @@ namespace MEKB_H0_Anlage
                 GleisZustand.Add(picBox.Name + "Zustand2", Zustand2); // Element hinzufügen
             }
 
-
+            if (picBox.Tag.ToString().StartsWith("Kreuzung"))
+            {
+                if (!ZeichneKruezung(Zustand, Zustand2, picBox.Tag.ToString(), out Bitmap bildKreuzung)) // Erstes Gleisbild zeichnen
+                {
+                    return;  //Bild nicht Zeichnen, da Fehler
+                }
+                GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
+                GleisZustand[picBox.Name + "Zustand2"] = Zustand2; //Neuen Zustand übernehmen
+                DisplayPicture(bildKreuzung, picBox); //Zeichne Bild
+                return;
+            }
             if (!picBox.Tag.ToString().Contains('+')) return;
             string[] Gleistypen = picBox.Tag.ToString().Split('+');
 
@@ -371,98 +573,51 @@ namespace MEKB_H0_Anlage
             DisplayPicture(bild, picBox); //Zeichne Bild
         }
 
-        public void ZeichneSchaltbild1(Weiche weiche, PictureBox picBox, bool ErzwingeZeichnen = false)
+        public void ZeichneSchaltbild(Weiche weiche, Weiche weiche2, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
             ////////////////////////////////////////////////////
             // Prüfen ob Element aktualisiert werden muss / kann
             ////////////////////////////////////////////////////
             if (picBox.Tag == null) return; // Kein Typdefiniert
 
-            // Tag startet mit dieser Bezeichnung
-            List<String> ErlaubteTags = new List<string>(){ "Weiche", "DKW", "KW", "DreiwegWeiche" };
-            bool TagVorhanden = false;
-            foreach(String Tag in ErlaubteTags)
-            {
-                if (picBox.Tag.ToString().StartsWith(Tag)) TagVorhanden = true;
-            }
-            if (!TagVorhanden) return;
 
             MeldeZustand Zustand = new MeldeZustand(weiche);
+            MeldeZustand Zustand2 = new MeldeZustand(weiche2);
             if (GleisZustand.ContainsKey(picBox.Name))
             {
-                if ((!ErzwingeZeichnen) && GleisZustand[picBox.Name].Equals(Zustand)) return; // Nicht nötig neu zu Zeichnen
+                if ((!ErzwingeZeichnen) && 
+                    GleisZustand[picBox.Name].Equals(Zustand) &&
+                    GleisZustand[picBox.Name+"2nd"].Equals(Zustand2)) return; // Nicht nötig neu zu Zeichnen
             }
             else // Element nicht gefunden
             {
                 GleisZustand.Add(picBox.Name, Zustand); // Element hinzufügen
+                GleisZustand.Add(picBox.Name + "2nd", Zustand2); // Element hinzufügen
             }
+            if (weiche.Status_Error || weiche.Status_Error) Zustand.UpdateNoetig = true;
+            if (picBox.Tag.ToString().Contains('+')) return;
 
-            ////////////////////////////////////////////////////
-            // Grundgleisbild laden
-            ////////////////////////////////////////////////////
-            Bitmap bild;
-            try
+            if (!ZeichneWeiche(weiche, weiche2, picBox.Tag.ToString(), out Bitmap bild))
             {
-                bild = new Bitmap(BasisSchiene(picBox.Tag.ToString())); //Gleisbild   
+                return;  //Bild nicht Zeichnen, da Fehler
             }
-            catch
-            {
-                return;
-            }
-            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
-
-            ////////////////////////////////////////////////////
-            // Zunge zeichnen
-            ////////////////////////////////////////////////////
-
-            if (weiche.Status_Error)
-            {
-                BildHinzufuegen(ref gleis, Katalog[Sonder][Fehler]);
-                DisplayPicture(bild, picBox); //Zeichne Bild und beende Funktion
-                Zustand.UpdateNoetig = true;
-                GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
-                return;
-            }
-            if (weiche.Status_Unbekannt)
-            {
-                BildHinzufuegen(ref gleis, Katalog[Sonder][Unbekannt]);
-                DisplayPicture(bild, picBox); //Zeichne Bild und beende Funktion
-                Zustand.UpdateNoetig = true;
-                GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
-                return;
-            }
-            BildHinzufuegen(ref gleis, WeichenZunge(picBox.Tag.ToString(), weiche.Abzweig, weiche.ZeitAktiv > 0));
-             
-
-            if (Zustand.IstFrei())
-            {
-                DisplayPicture(bild, picBox); //Zeichne Bild und beende Funktion
-                GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
-                return;
-            }
-
-            ////////////////////////////////////////////////////
-            // Belegtmeldung / Fahrstrasse zeichnen
-            ////////////////////////////////////////////////////
-            if ((Zustand.Besetzt == true) && (Zustand.Fahrstrasse == false))
-            {
-                BildHinzufuegen(ref gleis, WeicheBelegtMarkierung(picBox.Tag.ToString(), weiche.Abzweig));
-            }
-            else
-            {
-                if (Zustand.Fahrstrasse) BildHinzufuegen(ref gleis, WeicheFahrstrassenMarkierung(picBox.Tag.ToString(), Zustand.Richtung, 0, weiche.Abzweig));
-                if (Zustand.Sicher) BildHinzufuegen(ref gleis, WeicheFahrstrassenMarkierung(picBox.Tag.ToString(), Zustand.Richtung, 3, weiche.Abzweig));
-                if (Zustand.Besetzt) BildHinzufuegen(ref gleis, WeicheFahrstrassenMarkierung(picBox.Tag.ToString(), Zustand.Richtung, 1, weiche.Abzweig));
-            }
-            DisplayPicture(bild, picBox); //Zeichne Bild und beende Funktion
             GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
-            return;
+            GleisZustand[picBox.Name + "2nd"] = Zustand2; //Neuen Zustand übernehmen
+
+            DisplayPicture(bild, picBox); //Zeichne Bild
         }
 
         private void BildHinzufuegen(ref Graphics gleisbild, Image Type)
         {
             if (Type == null) Type = Katalog[Sonder][Error];
-            gleisbild.DrawImage(Type, new Rectangle(0, 0, 32, 32));
+            try
+            { 
+                gleisbild.DrawImage(Type, new Rectangle(0, 0, 32, 32));
+            }
+            catch
+            {
+                Type = Katalog[Sonder][Error];
+            }
         }
 
         private Bitmap BasisSchiene(string Gleistyp)
@@ -480,6 +635,10 @@ namespace MEKB_H0_Anlage
             else if (Gleistyp.StartsWith("Ecke")) Winkelauswahl = Katalog[Ecke];
             else if (Gleistyp.StartsWith("WeicheR")) Winkelauswahl = Katalog[WeicheR];
             else if (Gleistyp.StartsWith("WeicheL")) Winkelauswahl = Katalog[WeicheL];
+            else if (Gleistyp.StartsWith("Kreuzung")) Winkelauswahl = Katalog[Kreuzung];
+            else if (Gleistyp.StartsWith("KW")) Winkelauswahl = Katalog[KW];
+            else if (Gleistyp.StartsWith("DKW")) Winkelauswahl = Katalog[DKW];
+            else if (Gleistyp.StartsWith("DreiwegWeiche")) Winkelauswahl = Katalog[Dreiweg];
             else
             {
                 return Katalog[Sonder][Error];
@@ -937,6 +1096,18 @@ namespace MEKB_H0_Anlage
             return Katalog[Sonder][Error];
         }
 
+        private string DreheGleisUmMinus45(string Gleistyp)
+        {
+            if (Gleistyp.EndsWith("_0")) return Regex.Replace(Gleistyp, "_0", "_315");
+            else if (Gleistyp.EndsWith("_45")) return Regex.Replace(Gleistyp, "_45", "_0");
+            else if (Gleistyp.EndsWith("_90")) return Regex.Replace(Gleistyp, "_90", "_45");
+            else if (Gleistyp.EndsWith("_135")) return Regex.Replace(Gleistyp, "_135", "_90");
+            else if (Gleistyp.EndsWith("_180")) return Regex.Replace(Gleistyp, "_180", "_135");
+            else if (Gleistyp.EndsWith("_225")) return Regex.Replace(Gleistyp, "_225", "_180");
+            else if (Gleistyp.EndsWith("_270")) return Regex.Replace(Gleistyp, "_270", "_225");
+            else if (Gleistyp.EndsWith("_315")) return Regex.Replace(Gleistyp, "_315", "_275");
+            return Gleistyp;
+        }
 
         /// <summary>
         /// Involke-Funktion. Verhindert Fehlermeldung beim gleichzeitigen Zugreifen auf ein Bild

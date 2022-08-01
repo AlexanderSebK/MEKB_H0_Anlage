@@ -1080,6 +1080,7 @@
             this.Signal_Block5 = new System.Windows.Forms.PictureBox();
             this.Signal_Block8 = new System.Windows.Forms.PictureBox();
             this.Weiche82 = new System.Windows.Forms.PictureBox();
+            this.TestWeiche = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1746,6 +1747,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche82)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TestWeiche)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -3025,6 +3027,7 @@
             this.Kreuzung1.Size = new System.Drawing.Size(32, 32);
             this.Kreuzung1.TabIndex = 430;
             this.Kreuzung1.TabStop = false;
+            this.Kreuzung1.Tag = "Kreuzung_90";
             // 
             // Block5_Block9
             // 
@@ -3074,7 +3077,7 @@
             this.Kreuzung1_2.Size = new System.Drawing.Size(32, 32);
             this.Kreuzung1_2.TabIndex = 421;
             this.Kreuzung1_2.TabStop = false;
-            this.Kreuzung1_2.Tag = "Ecke_UL";
+            this.Kreuzung1_2.Tag = "Ecke_UL_SP";
             // 
             // Weiche61_2
             // 
@@ -5210,7 +5213,7 @@
             this.Weiche9_Gleis1.Size = new System.Drawing.Size(32, 32);
             this.Weiche9_Gleis1.TabIndex = 166;
             this.Weiche9_Gleis1.TabStop = false;
-            this.Weiche9_Gleis1.Tag = "KurveL_90+Ecke_OR";
+            this.Weiche9_Gleis1.Tag = "KurveR_315+Ecke_OR_SP";
             // 
             // Betrieb_Gl27_2
             // 
@@ -5618,6 +5621,7 @@
             this.DKW9.Size = new System.Drawing.Size(32, 32);
             this.DKW9.TabIndex = 114;
             this.DKW9.TabStop = false;
+            this.DKW9.Tag = "DKW_270";
             this.DKW9.Click += new System.EventHandler(this.DKW9_Click);
             // 
             // DKW7
@@ -5630,6 +5634,7 @@
             this.DKW7.Size = new System.Drawing.Size(32, 32);
             this.DKW7.TabIndex = 113;
             this.DKW7.TabStop = false;
+            this.DKW7.Tag = "DKW_270";
             this.DKW7.Click += new System.EventHandler(this.DKW7_Click);
             // 
             // KW22
@@ -5642,6 +5647,7 @@
             this.KW22.Size = new System.Drawing.Size(32, 32);
             this.KW22.TabIndex = 112;
             this.KW22.TabStop = false;
+            this.KW22.Tag = "KW_135_Gegen";
             this.KW22.Click += new System.EventHandler(this.KW22_Click);
             // 
             // DKW24
@@ -5654,6 +5660,7 @@
             this.DKW24.Size = new System.Drawing.Size(32, 32);
             this.DKW24.TabIndex = 110;
             this.DKW24.TabStop = false;
+            this.DKW24.Tag = "DKW_135_Gegen";
             this.DKW24.Click += new System.EventHandler(this.DKW24_Click);
             // 
             // KW22_Gleis1
@@ -5664,7 +5671,7 @@
             this.KW22_Gleis1.Size = new System.Drawing.Size(32, 32);
             this.KW22_Gleis1.TabIndex = 109;
             this.KW22_Gleis1.TabStop = false;
-            this.KW22_Gleis1.Tag = "Gerade_270+Ecke_UR";
+            this.KW22_Gleis1.Tag = "Gerade_270+Ecke_UR_SP";
             // 
             // GL6_links_1
             // 
@@ -6144,7 +6151,7 @@
             this.DKW24_Gleis1.Size = new System.Drawing.Size(32, 32);
             this.DKW24_Gleis1.TabIndex = 53;
             this.DKW24_Gleis1.TabStop = false;
-            this.DKW24_Gleis1.Tag = "Gerade_270+Ecke_UR";
+            this.DKW24_Gleis1.Tag = "Gerade_270+Ecke_UR_SP";
             // 
             // Weiche25_Gleis1
             // 
@@ -6183,6 +6190,7 @@
             this.DKW24_Gleis2.Size = new System.Drawing.Size(32, 32);
             this.DKW24_Gleis2.TabIndex = 49;
             this.DKW24_Gleis2.TabStop = false;
+            this.DKW24_Gleis2.Tag = "Gerade_270+Ecke_OL";
             // 
             // Weiche23_Gleis1
             // 
@@ -6211,6 +6219,7 @@
             this.Weiche8_Gleis1.Size = new System.Drawing.Size(32, 32);
             this.Weiche8_Gleis1.TabIndex = 46;
             this.Weiche8_Gleis1.TabStop = false;
+            this.Weiche8_Gleis1.Tag = "Gerade_270+Ecke_OR_SP";
             // 
             // Weiche28_Gleis1
             // 
@@ -6502,6 +6511,7 @@
             this.Weiche7_Gleis2.Size = new System.Drawing.Size(32, 32);
             this.Weiche7_Gleis2.TabIndex = 16;
             this.Weiche7_Gleis2.TabStop = false;
+            this.Weiche7_Gleis2.Tag = "Gerade_270+Ecke_OR_SP";
             // 
             // Weiche5_Gleis2
             // 
@@ -12973,11 +12983,24 @@
             this.Weiche82.Tag = "WeicheR_180+Ecke_OL_SP";
             this.Weiche82.Click += new System.EventHandler(this.Weiche_Click);
             // 
+            // TestWeiche
+            // 
+            this.TestWeiche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.TestWeiche.Image = global::MEKB_H0_Anlage.Properties.Resources.WeicheDKW90_135_Analog;
+            this.TestWeiche.Location = new System.Drawing.Point(936, 464);
+            this.TestWeiche.Margin = new System.Windows.Forms.Padding(0);
+            this.TestWeiche.Name = "TestWeiche";
+            this.TestWeiche.Size = new System.Drawing.Size(32, 32);
+            this.TestWeiche.TabIndex = 991;
+            this.TestWeiche.TabStop = false;
+            this.TestWeiche.Tag = "DKW_135_Gegen";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.TestWeiche);
             this.Controls.Add(this.Signal_Block8);
             this.Controls.Add(this.Signal_Block5);
             this.Controls.Add(this.Signal_Block2);
@@ -14507,6 +14530,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche82)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TestWeiche)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -15564,6 +15588,7 @@
         private System.Windows.Forms.ToolStripMenuItem überwachungToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem belegtmeldungToolStripMenuItem;
         private System.Windows.Forms.PictureBox Weiche82;
+        private System.Windows.Forms.PictureBox TestWeiche;
     }
 }
 

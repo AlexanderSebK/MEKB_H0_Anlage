@@ -319,7 +319,7 @@ namespace MEKB_H0_Anlage
                     
                     FahrstrasseBildUpdate();
 
-                    GetBelegtMelderStatus(0);
+                    BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
                     stopWatch.Stop();
                     TimeSpan ts = stopWatch.Elapsed;
                     timer.Start();
@@ -397,7 +397,7 @@ namespace MEKB_H0_Anlage
             {
                 Weiche weiche = WeichenListe.GetWeiche("KW22_2");
                 if (weiche == null) return;
-                if (!weiche.Abzweig) WeichenListe.ToggleWeiche("KW22_1");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
+                if (weiche.Abzweig) WeichenListe.ToggleWeiche("KW22_1");     //Nur Schalten wenn andere Zunge auf Abzweig
             }
             else                //Auf linke Hälfte der Weiche geklickt
             {
