@@ -200,4 +200,12 @@ namespace MEKB_H0_Anlage
         }
 
     }
+
+    public class FahrstrassenConfig
+    {
+        public FahrstrassenConfig()
+        {
+
+        }
+    }
 }
