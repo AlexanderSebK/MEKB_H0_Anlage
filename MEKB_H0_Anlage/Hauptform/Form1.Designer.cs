@@ -1080,7 +1080,6 @@
             this.Signal_Block5 = new System.Windows.Forms.PictureBox();
             this.Signal_Block8 = new System.Windows.Forms.PictureBox();
             this.Weiche82 = new System.Windows.Forms.PictureBox();
-            this.TestWeiche = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1747,7 +1746,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche82)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TestWeiche)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -12983,24 +12981,11 @@
             this.Weiche82.Tag = "WeicheR_180+Ecke_OL_SP";
             this.Weiche82.Click += new System.EventHandler(this.Weiche_Click);
             // 
-            // TestWeiche
-            // 
-            this.TestWeiche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.TestWeiche.Image = global::MEKB_H0_Anlage.Properties.Resources.WeicheDKW90_135_Analog;
-            this.TestWeiche.Location = new System.Drawing.Point(936, 464);
-            this.TestWeiche.Margin = new System.Windows.Forms.Padding(0);
-            this.TestWeiche.Name = "TestWeiche";
-            this.TestWeiche.Size = new System.Drawing.Size(32, 32);
-            this.TestWeiche.TabIndex = 991;
-            this.TestWeiche.TabStop = false;
-            this.TestWeiche.Tag = "DKW_135_Gegen";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 961);
-            this.Controls.Add(this.TestWeiche);
             this.Controls.Add(this.Signal_Block8);
             this.Controls.Add(this.Signal_Block5);
             this.Controls.Add(this.Signal_Block2);
@@ -14530,7 +14515,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Block8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche82)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TestWeiche)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -15588,7 +15572,6 @@
         private System.Windows.Forms.ToolStripMenuItem überwachungToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem belegtmeldungToolStripMenuItem;
         private System.Windows.Forms.PictureBox Weiche82;
-        private System.Windows.Forms.PictureBox TestWeiche;
     }
 }
 
