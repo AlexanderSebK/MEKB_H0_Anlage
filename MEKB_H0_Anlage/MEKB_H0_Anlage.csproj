@@ -117,6 +117,8 @@
       <DependentUpon>Belegtmelder_Ueberwachung.cs</DependentUpon>
     </Compile>
     <Compile Include="Zusatz\Belegtmelder.cs" />
+    <Compile Include="Zusatz\Fahrstrassen.cs" />
+    <Compile Include="Zusatz\GleisbildZeichnung.cs" />
     <Compile Include="Zusatz\Logger.cs" />
     <Compile Include="MenuFenster\LokEditor.cs">
       <SubType>Form</SubType>
@@ -168,6 +170,7 @@
     <Compile Include="ZugSteuerpult.Designer.cs">
       <DependentUpon>ZugSteuerpult.cs</DependentUpon>
     </Compile>
+    <Compile Include="Zusatz\Weichen.cs" />
     <EmbeddedResource Include="Hauptform\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -716,6 +719,9 @@
     <None Include="Resources\Zunge_AbzweigR_1802.png" />
     <None Include="Resources\Zunge_AbzweigR_270.png" />
     <Content Include="Signalliste.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Standard.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Weichenliste.xml">

@@ -21,6 +21,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using System.Configuration;
+using System.Diagnostics;
 
 
 namespace MEKB_H0_Anlage
@@ -36,7 +37,9 @@ namespace MEKB_H0_Anlage
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
         private InfoBox InfoBox;
 
-        public List<Weiche> Weichenliste = new List<Weiche>();
+        public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
+
+        public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
         public SignalListe SignalListe = new SignalListe("Signalliste.xml");
         public List<Lok> Lokliste = new List<Lok>();
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
@@ -78,9 +81,10 @@ namespace MEKB_H0_Anlage
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
             z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
 
+            WeichenListe.DigitalzentraleVerknuepfen(z21Start);
+
             ConnectStatus(false, false);                 //Verbindungsstatus auf getrennt setzen
 
-            SetupWeichenListe();                        //Weichenliste aus Datei laden
             SetupFahrstrassen();                        //Fahstrassen festlegen          
             SetupLokListe();                            //Lok-Daten aus Dateien laden
 
@@ -100,7 +104,7 @@ namespace MEKB_H0_Anlage
         }
         private void Form1_Shown(object sender, EventArgs e)
         {
-            Pointer_Weichenliste = Weichenliste.Count() - 1;
+            Pointer_Weichenliste = WeichenListe.Liste.Count() - 1;
             Pointer_Signalliste = SignalListe.Liste.Count() - 1;
             Signal_Init = false;
             Weichen_Init = false;
@@ -113,7 +117,7 @@ namespace MEKB_H0_Anlage
             FlagTimer.Enabled = true;
 
             // 100 MilliSekunden Timer: Weichen und Fahrstraßen Update.
-            WeichenTimer = new System.Timers.Timer(100);
+            WeichenTimer = new System.Timers.Timer(50);
             // Timer mit Funktion "OnTimedWeichenEvent" Verbinden
             WeichenTimer.Elapsed += OnTimedWeichenEvent;
             WeichenTimer.AutoReset = true;
@@ -160,7 +164,7 @@ namespace MEKB_H0_Anlage
         private void Menu_Verbinden_Click(object sender, EventArgs e)
         {
             z21Start.Connect_Z21();
-            Pointer_Weichenliste = Weichenliste.Count() - 1;
+            Pointer_Weichenliste = WeichenListe.Liste.Count() - 1;
             Pointer_Signalliste = SignalListe.Liste.Count() - 1;
             Signal_Init = false;
             Weichen_Init = false;
@@ -206,10 +210,10 @@ namespace MEKB_H0_Anlage
                 if (z21Start.Verbunden())
                 {
                     timer.Stop();
-                    GetWeichenStatus(Weichenliste[Pointer_Weichenliste].Name);
+                    WeichenListe.WeichenStatus(WeichenListe.Liste[Pointer_Weichenliste].Name);
                     if (Pointer_Weichenliste <= 0)
                     {
-                        Pointer_Weichenliste = Weichenliste.Count() - 1;
+                        Pointer_Weichenliste = WeichenListe.Liste.Count() - 1;
                         Weichen_Init = true;
                     }
                     else
@@ -233,6 +237,8 @@ namespace MEKB_H0_Anlage
                         SetConnect(true, true); //Initialisierung abgeschlossen
                         Betriebsbereit = true;
                     }
+                    Stopwatch stopWatch = new Stopwatch();
+                    stopWatch.Start();
                     //
                     Fahrstrassenupdate(Gleis1_nach_Block1);
                     Fahrstrassenupdate(Gleis2_nach_Block1);
@@ -310,12 +316,14 @@ namespace MEKB_H0_Anlage
                     Fahrstrassenupdate(Schatten5_nach_Block9);
                     Fahrstrassenupdate(Schatten6_nach_Block9);
                     Fahrstrassenupdate(Schatten7_nach_Block9);
-
+                    
                     FahrstrasseBildUpdate();
 
-                    GetBelegtMelderStatus(0);
-
+                    BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
+                    stopWatch.Stop();
+                    TimeSpan ts = stopWatch.Elapsed;
                     timer.Start();
+                    //Messung vor Verbesserung: 100~120ms
                 }
             }
 
@@ -324,27 +332,9 @@ namespace MEKB_H0_Anlage
         {
             if (z21Start.Verbunden())
             {
-                foreach (Weiche weiche in Weichenliste)
+                if (Betriebsbereit)
                 {
-                    if (weiche.ZeitAktiv > 0)
-                    {
-                        weiche.ZeitAktiv -= 100;
-                        bool Abzweig = weiche.Abzweig;
-                        if (weiche.Spiegeln) Abzweig = !Abzweig;
-                        z21Start.LAN_X_SET_TURNOUT(weiche.Adresse, Abzweig, true, true);
-
-                        if (weiche.ZeitAktiv <= 0)
-                        {
-                            weiche.ZeitAktiv = 0;   
-                            
-                            
-                            if (Betriebsbereit)
-                            {
-                                Log.Info("Deaktiviere Weichenausgang");
-                                z21Start.LAN_X_SET_TURNOUT(weiche.Adresse, Abzweig, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv
-                            }
-                        }
-                    }
+                    WeichenListe.WeichenschaltungsUeberwachung(100);
                 }
             }
         }
@@ -365,51 +355,55 @@ namespace MEKB_H0_Anlage
         #region Weichensteuerung
         private void Weiche_Click(object sender, EventArgs e)
         {
+            if (!Betriebsbereit) return;
             if (sender is PictureBox weichenElement)
             {
-                ToggleWeiche(weichenElement.Name);
+                WeichenListe.ToggleWeiche(weichenElement.Name);
             }
         }     
         private void DKW7_Click(object sender, EventArgs e)
         {
+            if (!Betriebsbereit) return;
             MouseEventArgs e2 = (MouseEventArgs)e;
             if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
             {
-                ToggleWeiche("DKW7_2");
+                WeichenListe.ToggleWeiche("DKW7_2");
             }
             else                //Auf linke Hälfte der Weiche geklickt
             {
-                ToggleWeiche("DKW7_1");
+                WeichenListe.ToggleWeiche("DKW7_1");
             }
 
         }
         private void DKW9_Click(object sender, EventArgs e)
         {
+            if (!Betriebsbereit) return;
             MouseEventArgs e2 = (MouseEventArgs)e;
             if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
             {
-                ToggleWeiche("DKW9_2");
+                WeichenListe.ToggleWeiche("DKW9_2");
             }
             else                //Auf linke Hälfte der Weiche geklickt
             {
-                ToggleWeiche("DKW9_1");
+                WeichenListe.ToggleWeiche("DKW9_1");
             }
 
         }
         private void KW22_Click(object sender, EventArgs e)
         {
+            if (!Betriebsbereit) return;
             MouseEventArgs e2 = (MouseEventArgs)e;
             if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
             {
-                int ListID = GetWeichenListenID("KW22_2"); 
-                if (ListID == -1) return;
-                if (!Weichenliste[ListID].Abzweig) ToggleWeiche("KW22_1");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
+                Weiche weiche = WeichenListe.GetWeiche("KW22_2");
+                if (weiche == null) return;
+                if (weiche.Abzweig) WeichenListe.ToggleWeiche("KW22_1");     //Nur Schalten wenn andere Zunge auf Abzweig
             }
             else                //Auf linke Hälfte der Weiche geklickt
             {
-                int ListID = GetWeichenListenID("KW22_1"); 
-                if (ListID == -1) return;
-                if (Weichenliste[ListID].Abzweig) ToggleWeiche("KW22_2");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
+                Weiche weiche = WeichenListe.GetWeiche("KW22_1");
+                if (weiche == null) return;
+                if (!weiche.Abzweig) WeichenListe.ToggleWeiche("KW22_2");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
             }
         }
         private void DKW24_Click(object sender, EventArgs e)
@@ -417,11 +411,11 @@ namespace MEKB_H0_Anlage
             MouseEventArgs e2 = (MouseEventArgs)e;
             if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
             {
-                ToggleWeiche("DKW24_1");
+                WeichenListe.ToggleWeiche("DKW24_1");
             }
             else                //Auf linke Hälfte der Weiche geklickt
             {
-                ToggleWeiche("DKW24_2");
+                WeichenListe.ToggleWeiche("DKW24_2");
             }
         }
         #endregion
@@ -434,16 +428,16 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal(SignalElement.Name);
                 if (signal == null) return;
 
-                int ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
+                SignalZustand ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
 
-                if (signal.Zustand == Signal.HP1)
+                if (signal.Zustand == SignalZustand.HP1)
                 {
-                    signal.Schalten(Signal.HP0, z21Start);
+                    signal.Schalten(SignalZustand.HP0, z21Start);
                 }
-                else if (signal.Zustand == Signal.HP0)
+                else if (signal.Zustand == SignalZustand.HP0)
                 {
-                    if (ErlaubteSignalstellung == Signal.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
-                    signal.Schalten(Signal.HP1, z21Start);
+                    if (ErlaubteSignalstellung == SignalZustand.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
+                    signal.Schalten(SignalZustand.HP1, z21Start);
                 }
             }
         }
@@ -454,16 +448,16 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal(SignalElement.Name);
                 if (signal == null) return;
 
-                int ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
+                SignalZustand ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
 
-                if (signal.Zustand == 2)
+                if (signal.Zustand == SignalZustand.HP2)
                 {
-                    signal.Schalten(Signal.HP0, z21Start);
+                    signal.Schalten(SignalZustand.HP0, z21Start);
                 }
                 else if (signal.Zustand == 0)
                 {
-                    if (ErlaubteSignalstellung == Signal.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
-                    signal.Schalten(Signal.HP2, z21Start);
+                    if (ErlaubteSignalstellung == SignalZustand.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
+                    signal.Schalten(SignalZustand.HP2, z21Start);
                 }
             }
         }
@@ -757,13 +751,13 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        private void signalsteuergungToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SignalsteuergungToolStripMenuItem_Click(object sender, EventArgs e)
         {
             signal_Einstellungen = new Signal_Einstellungen();
             signal_Einstellungen.Show();
         }
 
-        private void belegtmeldungToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BelegtmeldungToolStripMenuItem_Click(object sender, EventArgs e)
         {
             belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
             belegtmelder_Ueberwachung.Show();
