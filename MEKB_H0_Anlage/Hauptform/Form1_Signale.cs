@@ -155,7 +155,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis1_nach_Block1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis1_nach_Block1").Safe)
                                 /*if block1 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -171,7 +171,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis2_nach_Block1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis2_nach_Block1").Safe)
                                 /*if block1 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -188,7 +188,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis3_nach_Block1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis3_nach_Block1").Safe)
                                 /*if block1 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -207,7 +207,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis4_nach_Block1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis4_nach_Block1").Safe)
                                 /*if block1 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -229,7 +229,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis5_nach_Block1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis5_nach_Block1").Safe)
                                 /*if block1 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -251,7 +251,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis6_nach_Block1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis6_nach_Block1").Safe)
                                 /*if block1 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -307,22 +307,22 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Block2_nach_Gleis1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block2_nach_Gleis1").Safe)
                                 /*if Gleis1 frei*/
                                 return SignalZustand.HP2;
-                            if (Block2_nach_Gleis2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block2_nach_Gleis2").Safe)
                                 /*if Gleis2 frei*/
                                 return SignalZustand.HP2;
-                            if (Block2_nach_Gleis3.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block2_nach_Gleis3").Safe)
                                 /*if Gleis3 frei*/
                                 return SignalZustand.HP2;
-                            if (Block2_nach_Gleis4.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block2_nach_Gleis4").Safe)
                                 /*if Gleis4 frei*/
                                 return SignalZustand.HP2;
-                            if (Block2_nach_Gleis5.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block2_nach_Gleis5").Safe)
                                 /*if Gleis5 frei*/
                                 return SignalZustand.HP2;
-                            if (Block2_nach_Gleis6.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block2_nach_Gleis6").Safe)
                                 /*if Gleis6 frei*/
                                 return SignalZustand.HP2;
                         }

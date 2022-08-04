@@ -40,10 +40,24 @@ namespace MEKB_H0_Anlage
         public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
 
         public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
-        public SignalListe SignalListe = new SignalListe("Signalliste.xml");
-        public List<Lok> Lokliste = new List<Lok>();
+        public SignalListe SignalListe = new SignalListe("Signalliste.xml");      
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
+        public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
+
+        public List<Lok> Lokliste = new List<Lok>();
         public Lok[] AktiveLoks = new Lok[12];
+
+        public FahrstrassenKonfig TestBlock1 = new FahrstrassenKonfig()
+        {
+            Name = "Gleis1_nach_Block1",
+            Eingangssignal = "Signal_Ausfahrt_L1",
+            WeichenConfig = new List<WeichenKonfig>()
+            {
+                new WeichenKonfig("Weiche1",false,false),
+                new WeichenKonfig("Weiche4",false,true),
+                new WeichenKonfig("Weiche6",true,false)
+            }
+        };
 
         public bool Betriebsbereit;
 
@@ -104,6 +118,8 @@ namespace MEKB_H0_Anlage
         }
         private void Form1_Shown(object sender, EventArgs e)
         {
+            
+
             Pointer_Weichenliste = WeichenListe.Liste.Count() - 1;
             Pointer_Signalliste = SignalListe.Liste.Count() - 1;
             Signal_Init = false;
@@ -203,6 +219,7 @@ namespace MEKB_H0_Anlage
             }
 
         }
+        public delegate void InvokeDelegate();
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
             if (source is System.Timers.Timer timer)
@@ -239,20 +256,12 @@ namespace MEKB_H0_Anlage
                     }
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
-                    //
-                    Fahrstrassenupdate(Gleis1_nach_Block1);
-                    Fahrstrassenupdate(Gleis2_nach_Block1);
-                    Fahrstrassenupdate(Gleis3_nach_Block1);
-                    Fahrstrassenupdate(Gleis4_nach_Block1);
-                    Fahrstrassenupdate(Gleis5_nach_Block1);
-                    Fahrstrassenupdate(Gleis6_nach_Block1);
 
-                    Fahrstrassenupdate(Block2_nach_Gleis1);
-                    Fahrstrassenupdate(Block2_nach_Gleis2);
-                    Fahrstrassenupdate(Block2_nach_Gleis3);
-                    Fahrstrassenupdate(Block2_nach_Gleis4);
-                    Fahrstrassenupdate(Block2_nach_Gleis5);
-                    Fahrstrassenupdate(Block2_nach_Gleis6);
+                    foreach(Fahrstrasse fahrstrasse in FahrstrassenListe.Liste)
+                    {
+                        Fahrstrassenupdate(fahrstrasse);
+                    }
+                    
 
                     Fahrstrassenupdate(Gleis1_nach_rechts1);
                     Fahrstrassenupdate(Gleis2_nach_rechts1);
@@ -318,12 +327,11 @@ namespace MEKB_H0_Anlage
                     Fahrstrassenupdate(Schatten7_nach_Block9);
                     
                     FahrstrasseBildUpdate();
-
                     BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
                     stopWatch.Stop();
                     TimeSpan ts = stopWatch.Elapsed;
                     timer.Start();
-                    //Messung vor Verbesserung: 100~120ms
+                    //Messung vor Verbesserung: 100~120ms => 2ms
                 }
             }
 

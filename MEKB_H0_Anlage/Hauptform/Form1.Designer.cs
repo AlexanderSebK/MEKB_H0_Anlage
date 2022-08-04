@@ -130,7 +130,7 @@
             this.Betrieb_Gl39_5 = new System.Windows.Forms.PictureBox();
             this.Betrieb_Gl37_4 = new System.Windows.Forms.PictureBox();
             this.Betrieb_Gl33_4 = new System.Windows.Forms.PictureBox();
-            this.Fahrstr_GL1_links = new System.Windows.Forms.Button();
+            this.Gleis1_nach_Block1_Button = new System.Windows.Forms.Button();
             this.Weiche34 = new System.Windows.Forms.PictureBox();
             this.Weiche36 = new System.Windows.Forms.PictureBox();
             this.Weiche33 = new System.Windows.Forms.PictureBox();
@@ -524,7 +524,7 @@
             this.Weiche3 = new System.Windows.Forms.PictureBox();
             this.Weiche4 = new System.Windows.Forms.PictureBox();
             this.Weiche6 = new System.Windows.Forms.PictureBox();
-            this.Fahrstr_GL2_links = new System.Windows.Forms.Button();
+            this.Gleis2_nach_Block1_Button = new System.Windows.Forms.Button();
             this.Fahrstr_GL3_links = new System.Windows.Forms.Button();
             this.Fahrstr_GL4_links = new System.Windows.Forms.Button();
             this.Fahrstr_GL5_links = new System.Windows.Forms.Button();
@@ -2725,24 +2725,24 @@
             this.Betrieb_Gl33_4.TabIndex = 511;
             this.Betrieb_Gl33_4.TabStop = false;
             // 
-            // Fahrstr_GL1_links
+            // Gleis1_nach_Block1_Button
             // 
-            this.Fahrstr_GL1_links.BackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL1_links.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.Fahrstr_GL1_links.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.Fahrstr_GL1_links.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL1_links.FlatAppearance.BorderSize = 0;
-            this.Fahrstr_GL1_links.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL1_links.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL1_links.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Fahrstr_GL1_links.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Fahrstr_GL1_links.Location = new System.Drawing.Point(736, 104);
-            this.Fahrstr_GL1_links.Margin = new System.Windows.Forms.Padding(0);
-            this.Fahrstr_GL1_links.Name = "Fahrstr_GL1_links";
-            this.Fahrstr_GL1_links.Size = new System.Drawing.Size(16, 16);
-            this.Fahrstr_GL1_links.TabIndex = 510;
-            this.Fahrstr_GL1_links.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL1_links.Click += new System.EventHandler(this.Fahrstr_GL1_links_Click);
+            this.Gleis1_nach_Block1_Button.BackColor = System.Drawing.Color.Yellow;
+            this.Gleis1_nach_Block1_Button.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Gleis1_nach_Block1_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Gleis1_nach_Block1_Button.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Gleis1_nach_Block1_Button.FlatAppearance.BorderSize = 0;
+            this.Gleis1_nach_Block1_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Gleis1_nach_Block1_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Gleis1_nach_Block1_Button.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Gleis1_nach_Block1_Button.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Gleis1_nach_Block1_Button.Location = new System.Drawing.Point(736, 104);
+            this.Gleis1_nach_Block1_Button.Margin = new System.Windows.Forms.Padding(0);
+            this.Gleis1_nach_Block1_Button.Name = "Gleis1_nach_Block1_Button";
+            this.Gleis1_nach_Block1_Button.Size = new System.Drawing.Size(16, 16);
+            this.Gleis1_nach_Block1_Button.TabIndex = 510;
+            this.Gleis1_nach_Block1_Button.UseVisualStyleBackColor = false;
+            this.Gleis1_nach_Block1_Button.Click += new System.EventHandler(this.Fahrstr_GL1_links_Click);
             // 
             // Weiche34
             // 
@@ -6665,24 +6665,24 @@
             this.Weiche6.Tag = "WeicheL_270_Gegen";
             this.Weiche6.Click += new System.EventHandler(this.Weiche_Click);
             // 
-            // Fahrstr_GL2_links
+            // Gleis2_nach_Block1_Button
             // 
-            this.Fahrstr_GL2_links.BackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL2_links.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.Fahrstr_GL2_links.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.Fahrstr_GL2_links.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL2_links.FlatAppearance.BorderSize = 0;
-            this.Fahrstr_GL2_links.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL2_links.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL2_links.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Fahrstr_GL2_links.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Fahrstr_GL2_links.Location = new System.Drawing.Point(736, 136);
-            this.Fahrstr_GL2_links.Margin = new System.Windows.Forms.Padding(0);
-            this.Fahrstr_GL2_links.Name = "Fahrstr_GL2_links";
-            this.Fahrstr_GL2_links.Size = new System.Drawing.Size(16, 16);
-            this.Fahrstr_GL2_links.TabIndex = 528;
-            this.Fahrstr_GL2_links.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL2_links.Click += new System.EventHandler(this.Fahrstr_GL2_links_Click);
+            this.Gleis2_nach_Block1_Button.BackColor = System.Drawing.Color.Yellow;
+            this.Gleis2_nach_Block1_Button.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Gleis2_nach_Block1_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Gleis2_nach_Block1_Button.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Gleis2_nach_Block1_Button.FlatAppearance.BorderSize = 0;
+            this.Gleis2_nach_Block1_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Gleis2_nach_Block1_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Gleis2_nach_Block1_Button.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Gleis2_nach_Block1_Button.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Gleis2_nach_Block1_Button.Location = new System.Drawing.Point(736, 136);
+            this.Gleis2_nach_Block1_Button.Margin = new System.Windows.Forms.Padding(0);
+            this.Gleis2_nach_Block1_Button.Name = "Gleis2_nach_Block1_Button";
+            this.Gleis2_nach_Block1_Button.Size = new System.Drawing.Size(16, 16);
+            this.Gleis2_nach_Block1_Button.TabIndex = 528;
+            this.Gleis2_nach_Block1_Button.UseVisualStyleBackColor = false;
+            this.Gleis2_nach_Block1_Button.Click += new System.EventHandler(this.Fahrstr_GL2_links_Click);
             // 
             // Fahrstr_GL3_links
             // 
@@ -13265,8 +13265,8 @@
             this.Controls.Add(this.Fahrstr_GL5_links);
             this.Controls.Add(this.Fahrstr_GL4_links);
             this.Controls.Add(this.Fahrstr_GL3_links);
-            this.Controls.Add(this.Fahrstr_GL2_links);
-            this.Controls.Add(this.Fahrstr_GL1_links);
+            this.Controls.Add(this.Gleis2_nach_Block1_Button);
+            this.Controls.Add(this.Gleis1_nach_Block1_Button);
             this.Controls.Add(this.Signal_Ausfahrt_L6);
             this.Controls.Add(this.Signal_Ausfahrt_L5);
             this.Controls.Add(this.Signal_Ausfahrt_L3);
@@ -14984,7 +14984,7 @@
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.Button Fahrstr_GL1_links;
+        private System.Windows.Forms.Button Gleis1_nach_Block1_Button;
         private System.Windows.Forms.PictureBox Betrieb_Gl33_4;
         private System.Windows.Forms.PictureBox Betrieb_Gl39_5;
         private System.Windows.Forms.PictureBox Betrieb_Gl37_4;
@@ -15002,7 +15002,7 @@
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Button Block1;
-        private System.Windows.Forms.Button Fahrstr_GL2_links;
+        private System.Windows.Forms.Button Gleis2_nach_Block1_Button;
         private System.Windows.Forms.Button Fahrstr_GL3_links;
         private System.Windows.Forms.Button Fahrstr_GL4_links;
         private System.Windows.Forms.Button Fahrstr_GL5_links;
