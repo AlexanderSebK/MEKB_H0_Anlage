@@ -95,9 +95,6 @@
     <Compile Include="Hauptform\Form1_ButtonCtrl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Hauptform\Form1_FahrstrassenKontroll.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Hauptform\Form1_Signale.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -684,6 +681,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Belegtmelderliste.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fahrstrassenliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Logo.ico" />

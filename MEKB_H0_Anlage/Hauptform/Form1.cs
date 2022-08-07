@@ -40,11 +40,13 @@ namespace MEKB_H0_Anlage
         public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
 
         public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
-        public SignalListe SignalListe = new SignalListe("Signalliste.xml");
-        public List<Lok> Lokliste = new List<Lok>();
+        public SignalListe SignalListe = new SignalListe("Signalliste.xml");      
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
-        public Lok[] AktiveLoks = new Lok[12];
+        public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
 
+        public List<Lok> Lokliste = new List<Lok>();
+        public Lok[] AktiveLoks = new Lok[12];
+        
         public bool Betriebsbereit;
 
         private static System.Timers.Timer FlagTimer;
@@ -104,6 +106,8 @@ namespace MEKB_H0_Anlage
         }
         private void Form1_Shown(object sender, EventArgs e)
         {
+            
+
             Pointer_Weichenliste = WeichenListe.Liste.Count() - 1;
             Pointer_Signalliste = SignalListe.Liste.Count() - 1;
             Signal_Init = false;
@@ -203,6 +207,7 @@ namespace MEKB_H0_Anlage
             }
 
         }
+        public delegate void InvokeDelegate();
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
             if (source is System.Timers.Timer timer)
@@ -221,7 +226,6 @@ namespace MEKB_H0_Anlage
                         Pointer_Weichenliste--;
                     }
 
-
                     GetSignalStatus_Z21(SignalListe.Liste[Pointer_Signalliste].Name);
                     if (Pointer_Signalliste <= 0)
                     {
@@ -239,91 +243,18 @@ namespace MEKB_H0_Anlage
                     }
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
-                    //
-                    Fahrstrassenupdate(Gleis1_nach_Block1);
-                    Fahrstrassenupdate(Gleis2_nach_Block1);
-                    Fahrstrassenupdate(Gleis3_nach_Block1);
-                    Fahrstrassenupdate(Gleis4_nach_Block1);
-                    Fahrstrassenupdate(Gleis5_nach_Block1);
-                    Fahrstrassenupdate(Gleis6_nach_Block1);
 
-                    Fahrstrassenupdate(Block2_nach_Gleis1);
-                    Fahrstrassenupdate(Block2_nach_Gleis2);
-                    Fahrstrassenupdate(Block2_nach_Gleis3);
-                    Fahrstrassenupdate(Block2_nach_Gleis4);
-                    Fahrstrassenupdate(Block2_nach_Gleis5);
-                    Fahrstrassenupdate(Block2_nach_Gleis6);
-
-                    Fahrstrassenupdate(Gleis1_nach_rechts1);
-                    Fahrstrassenupdate(Gleis2_nach_rechts1);
-                    Fahrstrassenupdate(Gleis3_nach_rechts1);
-                    Fahrstrassenupdate(Gleis4_nach_rechts1);
-                    Fahrstrassenupdate(Gleis5_nach_rechts1);
-                    Fahrstrassenupdate(Gleis6_nach_rechts1);
-
-                    Fahrstrassenupdate(Gleis1_nach_rechts2);
-                    Fahrstrassenupdate(Gleis2_nach_rechts2);
-                    Fahrstrassenupdate(Gleis3_nach_rechts2);
-                    Fahrstrassenupdate(Gleis4_nach_rechts2);
-                    Fahrstrassenupdate(Gleis5_nach_rechts2);
-                    Fahrstrassenupdate(Gleis6_nach_rechts2);
-
-                    Fahrstrassenupdate(Rechts1_nach_Gleis1);
-                    Fahrstrassenupdate(Rechts1_nach_Gleis2);
-                    Fahrstrassenupdate(Rechts1_nach_Gleis3);
-                    Fahrstrassenupdate(Rechts1_nach_Gleis4);
-                    Fahrstrassenupdate(Rechts1_nach_Gleis5);
-                    Fahrstrassenupdate(Rechts1_nach_Gleis6);
-
-                    Fahrstrassenupdate(Rechts2_nach_Gleis1);
-                    Fahrstrassenupdate(Rechts2_nach_Gleis2);
-                    Fahrstrassenupdate(Rechts2_nach_Gleis3);
-                    Fahrstrassenupdate(Rechts2_nach_Gleis4);
-                    Fahrstrassenupdate(Rechts2_nach_Gleis5);
-                    Fahrstrassenupdate(Rechts2_nach_Gleis6);
-
-                    Fahrstrassenupdate(Block1_nach_Block2);
-                    Fahrstrassenupdate(Block1_nach_Block5);
-                    Fahrstrassenupdate(Block5_nach_Block6);
-                    Fahrstrassenupdate(Block8_nach_Block6);
-                    Fahrstrassenupdate(Block9_nach_Block2);
-
-                    Fahrstrassenupdate(Block6_nach_Schatten8);
-                    Fahrstrassenupdate(Block6_nach_Schatten9);
-                    Fahrstrassenupdate(Block6_nach_Schatten10);
-                    Fahrstrassenupdate(Block6_nach_Schatten11);
-
-                    Fahrstrassenupdate(Schatten8_nach_Block7);
-                    Fahrstrassenupdate(Schatten9_nach_Block7);
-                    Fahrstrassenupdate(Schatten10_nach_Block7);
-                    Fahrstrassenupdate(Schatten11_nach_Block7);
-
-                    Fahrstrassenupdate(Block7_nach_Schatten0);
-                    Fahrstrassenupdate(Block7_nach_Schatten1);
-                    Fahrstrassenupdate(Block7_nach_Schatten2);
-                    Fahrstrassenupdate(Block7_nach_Schatten3);
-                    Fahrstrassenupdate(Block7_nach_Schatten4);
-                    Fahrstrassenupdate(Block7_nach_Schatten5);
-                    Fahrstrassenupdate(Block7_nach_Schatten6);
-                    Fahrstrassenupdate(Block7_nach_Schatten7);
-
-                    Fahrstrassenupdate(Schatten0_nach_Block8);
-                    Fahrstrassenupdate(Schatten1_nach_Block8);
-                    Fahrstrassenupdate(Schatten1_nach_Block9);
-                    Fahrstrassenupdate(Schatten2_nach_Block9);
-                    Fahrstrassenupdate(Schatten3_nach_Block9);
-                    Fahrstrassenupdate(Schatten4_nach_Block9);
-                    Fahrstrassenupdate(Schatten5_nach_Block9);
-                    Fahrstrassenupdate(Schatten6_nach_Block9);
-                    Fahrstrassenupdate(Schatten7_nach_Block9);
+                    foreach(Fahrstrasse fahrstrasse in FahrstrassenListe.Liste)
+                    {
+                        Fahrstrassenupdate(fahrstrasse);
+                    }
                     
                     FahrstrasseBildUpdate();
-
                     BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
                     stopWatch.Stop();
                     TimeSpan ts = stopWatch.Elapsed;
                     timer.Start();
-                    //Messung vor Verbesserung: 100~120ms
+                    //Messung vor Verbesserung: 100~120ms => 2ms
                 }
             }
 
@@ -762,5 +693,124 @@ namespace MEKB_H0_Anlage
             belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
             belegtmelder_Ueberwachung.Show();
         }
+
+        private void FahrstrassenButton_Click(object sender, EventArgs e)
+        {
+            Fahrstrasse fahrstrasse;
+            bool Abbau = false;
+            if (sender is Button button)
+            {
+                if (button.Tag == null) return;
+                string ZielFahrstrasse = button.Tag.ToString();
+                if (ZielFahrstrasse.EndsWith("-"))
+                {
+                    Abbau = true;
+                    ZielFahrstrasse = ZielFahrstrasse.Substring(0, ZielFahrstrasse.Length - 1);
+                }
+                fahrstrasse = FahrstrassenListe.GetFahrstrasse(ZielFahrstrasse);
+
+                if (fahrstrasse == null) return;
+                if (fahrstrasse.Fahrstr_GleicherEingang.Count >= 1)
+                {
+                    if (FahrstrassenListe.FahrstrasseGleicheGesetzt(fahrstrasse.Name))
+                    {
+                        foreach (string GruppenItem in fahrstrasse.Fahrstr_GleicherEingang)
+                        {
+                            Fahrstrasse GruppenFahrstrasse = FahrstrassenListe.GetFahrstrasse(GruppenItem);
+                            if (GruppenFahrstrasse.GetGesetztStatus())
+                            {
+                                ToggleFahrstrasse(GruppenFahrstrasse);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (Abbau)
+                        {
+                            if (!FahrstrassenListe.FahrstrasseBlockiert(fahrstrasse.Name))
+                            {
+                                ToggleFahrstrasse(fahrstrasse);
+                                LoescheButtons(fahrstrasse.Fahrstr_GleicherEingang);
+                                Button clickedButton = button;
+                                clickedButton.Dispose();
+                            }
+                        }
+                        else
+                        {
+                            GeneriereButtons(fahrstrasse.Fahrstr_GleicherEingang, button.Location.X, button.Location.Y);
+                        }
+                    }
+                }
+                else
+                {
+                    if (fahrstrasse.GetGesetztStatus())
+                    {
+                        ToggleFahrstrasse(fahrstrasse);  //Aktiv? auschalten
+                    }
+                    else
+                    {
+                        //Keine Sperrende Fahstraße aktiv
+                        if (!FahrstrassenListe.FahrstrasseBlockiert(fahrstrasse.Name))
+                        {
+                            ToggleFahrstrasse(fahrstrasse);
+                        }
+                    }
+                }
+            }
+        }
+        private void GeneriereButtons(List<string> Fahrstrassen, int X, int Y)
+        {
+            X += 20;
+
+            //Wenn Buttons schon existieren -> löschen
+            Control Modul = this.Controls[Fahrstrassen[0] + "_Auswahl"];
+            if (Modul is Button button)
+            {
+                LoescheButtons(Fahrstrassen);
+                return;
+            }
+
+            foreach (string Fahrstrassenname in Fahrstrassen)
+            {
+                Button newButton = new Button
+                {
+                    Name = Fahrstrassenname + "_Auswahl",
+                    Tag = Fahrstrassenname + "-",
+                    Size = new Size(100, 20),
+                    Location = new Point(X, Y),
+                    Enabled = !FahrstrassenListe.FahrstrasseBlockiert(Fahrstrassenname)
+                };
+                Y += 20;
+                newButton.Click += new System.EventHandler(this.FahrstrassenButton_Click);
+                newButton.BringToFront();
+
+                if (Fahrstrassenname.Contains('_'))
+                {
+                    string[] text = Fahrstrassenname.Split('_');
+                    newButton.Text = text[2];
+                }
+                else
+                {
+                    newButton.Text = Fahrstrassenname;
+                }
+
+                this.Controls.Add(newButton);
+                newButton.BringToFront();
+            }
+        }
+        private void LoescheButtons(List<string> Fahrstrassen)
+        {
+            foreach (string Fahrstrassenname in Fahrstrassen)
+            {
+                Control Modul = this.Controls[Fahrstrassenname + "_Auswahl"];
+                if (Modul is Button)
+                {
+                    this.Controls.Remove(Modul);
+                }
+            }
+
+        }
+
+
     }
 }

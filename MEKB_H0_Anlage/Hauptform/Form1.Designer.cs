@@ -130,7 +130,7 @@
             this.Betrieb_Gl39_5 = new System.Windows.Forms.PictureBox();
             this.Betrieb_Gl37_4 = new System.Windows.Forms.PictureBox();
             this.Betrieb_Gl33_4 = new System.Windows.Forms.PictureBox();
-            this.Fahrstr_GL1_links = new System.Windows.Forms.Button();
+            this.Gleis1_nach_Block1_Button = new System.Windows.Forms.Button();
             this.Weiche34 = new System.Windows.Forms.PictureBox();
             this.Weiche36 = new System.Windows.Forms.PictureBox();
             this.Weiche33 = new System.Windows.Forms.PictureBox();
@@ -524,19 +524,12 @@
             this.Weiche3 = new System.Windows.Forms.PictureBox();
             this.Weiche4 = new System.Windows.Forms.PictureBox();
             this.Weiche6 = new System.Windows.Forms.PictureBox();
-            this.Fahrstr_GL2_links = new System.Windows.Forms.Button();
+            this.Gleis2_nach_Block1_Button = new System.Windows.Forms.Button();
             this.Fahrstr_GL3_links = new System.Windows.Forms.Button();
             this.Fahrstr_GL4_links = new System.Windows.Forms.Button();
             this.Fahrstr_GL5_links = new System.Windows.Forms.Button();
             this.Fahrstr_GL6_links = new System.Windows.Forms.Button();
             this.Block2_Einfahrt = new System.Windows.Forms.Button();
-            this.Block2_Auswahl = new System.Windows.Forms.Panel();
-            this.Block2_Einfaht_GL6 = new System.Windows.Forms.Button();
-            this.Block2_Einfaht_GL3 = new System.Windows.Forms.Button();
-            this.Block2_Einfaht_GL5 = new System.Windows.Forms.Button();
-            this.Block2_Einfaht_GL2 = new System.Windows.Forms.Button();
-            this.Block2_Einfaht_GL4 = new System.Windows.Forms.Button();
-            this.Block2_Einfaht_GL1 = new System.Windows.Forms.Button();
             this.Bhf_Gl5_1 = new System.Windows.Forms.PictureBox();
             this.Bhf_Gl5_a = new System.Windows.Forms.PictureBox();
             this.Bhf_Gl5_b = new System.Windows.Forms.PictureBox();
@@ -740,40 +733,8 @@
             this.Fahrstr_Rechts2 = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
-            this.Gl6_rechts_Auswahl = new System.Windows.Forms.Panel();
-            this.Gl6_Ausfahrt_rechts2 = new System.Windows.Forms.Button();
-            this.Gl6_Ausfahrt_rechts1 = new System.Windows.Forms.Button();
-            this.Gl5_rechts_Auswahl = new System.Windows.Forms.Panel();
-            this.Gl5_Ausfahrt_rechts2 = new System.Windows.Forms.Button();
-            this.Gl5_Ausfahrt_rechts1 = new System.Windows.Forms.Button();
-            this.Gl4_rechts_Auswahl = new System.Windows.Forms.Panel();
-            this.Gl4_Ausfahrt_rechts2 = new System.Windows.Forms.Button();
-            this.Gl4_Ausfahrt_rechts1 = new System.Windows.Forms.Button();
-            this.Gl3_rechts_Auswahl = new System.Windows.Forms.Panel();
-            this.Gl3_Ausfahrt_rechts2 = new System.Windows.Forms.Button();
-            this.Gl3_Ausfahrt_rechts1 = new System.Windows.Forms.Button();
-            this.Gl2_rechts_Auswahl = new System.Windows.Forms.Panel();
-            this.Gl2_Ausfahrt_rechts2 = new System.Windows.Forms.Button();
-            this.Gl2_Ausfahrt_rechts1 = new System.Windows.Forms.Button();
-            this.Gl1_rechts_Auswahl = new System.Windows.Forms.Panel();
-            this.Gl1_Ausfahrt_rechts2 = new System.Windows.Forms.Button();
-            this.Gl1_Ausfahrt_rechts1 = new System.Windows.Forms.Button();
             this.label68 = new System.Windows.Forms.Label();
             this.innen = new System.Windows.Forms.Label();
-            this.Rechts1_Auswahl = new System.Windows.Forms.Panel();
-            this.Rechts1_Einfahrt_Gl6 = new System.Windows.Forms.Button();
-            this.Rechts1_Einfahrt_Gl3 = new System.Windows.Forms.Button();
-            this.Rechts1_Einfahrt_Gl5 = new System.Windows.Forms.Button();
-            this.Rechts1_Einfahrt_Gl2 = new System.Windows.Forms.Button();
-            this.Rechts1_Einfahrt_Gl4 = new System.Windows.Forms.Button();
-            this.Rechts1_Einfahrt_Gl1 = new System.Windows.Forms.Button();
-            this.Rechts2_Auswahl = new System.Windows.Forms.Panel();
-            this.Rechts2_Einfahrt_Gl6 = new System.Windows.Forms.Button();
-            this.Rechts2_Einfahrt_Gl3 = new System.Windows.Forms.Button();
-            this.Rechts2_Einfahrt_Gl5 = new System.Windows.Forms.Button();
-            this.Rechts2_Einfahrt_Gl2 = new System.Windows.Forms.Button();
-            this.Rechts2_Einfahrt_Gl4 = new System.Windows.Forms.Button();
-            this.Rechts2_Einfahrt_Gl1 = new System.Windows.Forms.Button();
             this.Signal_Ausfahrt_L1 = new System.Windows.Forms.PictureBox();
             this.Signal_Ausfahrt_L2 = new System.Windows.Forms.PictureBox();
             this.Signal_Ausfahrt_L4 = new System.Windows.Forms.PictureBox();
@@ -876,11 +837,6 @@
             this.label112 = new System.Windows.Forms.Label();
             this.Block5 = new System.Windows.Forms.Button();
             this.Block9 = new System.Windows.Forms.Button();
-            this.Block6_Auswahl = new System.Windows.Forms.Panel();
-            this.Block6_Schatten11 = new System.Windows.Forms.Button();
-            this.Block6_Schatten9 = new System.Windows.Forms.Button();
-            this.Block6_Schatten10 = new System.Windows.Forms.Button();
-            this.Block6_Schatten8 = new System.Windows.Forms.Button();
             this.Block5b_14 = new System.Windows.Forms.PictureBox();
             this.Block5b_15 = new System.Windows.Forms.PictureBox();
             this.Block9_4 = new System.Windows.Forms.PictureBox();
@@ -1010,21 +966,6 @@
             this.Block8 = new System.Windows.Forms.Button();
             this.label114 = new System.Windows.Forms.Label();
             this.Fahrstr_Schatten0_Ausf = new System.Windows.Forms.Button();
-            this.SchattenIntern_Auswahl = new System.Windows.Forms.Panel();
-            this.Intern_Schatten7 = new System.Windows.Forms.Button();
-            this.Intern_Schatten6 = new System.Windows.Forms.Button();
-            this.Intern_Schatten5 = new System.Windows.Forms.Button();
-            this.Intern_Schatten2 = new System.Windows.Forms.Button();
-            this.Intern_Schatten4 = new System.Windows.Forms.Button();
-            this.Intern_Schatten1 = new System.Windows.Forms.Button();
-            this.Intern_Schatten3 = new System.Windows.Forms.Button();
-            this.Intern_Schatten0 = new System.Windows.Forms.Button();
-            this.Schatten1_Auswahl = new System.Windows.Forms.Panel();
-            this.Schatten1_Block9 = new System.Windows.Forms.Button();
-            this.Schatten1_Block8 = new System.Windows.Forms.Button();
-            this.Block1_Auswahl = new System.Windows.Forms.Panel();
-            this.Btn_Block1_Nach_Block5 = new System.Windows.Forms.Button();
-            this.Btn_Block1_Nach_Block2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Sperrung_Gl2_links = new System.Windows.Forms.CheckBox();
             this.Sperrung_Gl1_links = new System.Windows.Forms.CheckBox();
@@ -1498,7 +1439,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche6)).BeginInit();
-            this.Block2_Auswahl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Bhf_Gl5_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bhf_Gl5_a)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bhf_Gl5_b)).BeginInit();
@@ -1572,14 +1512,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.LokCtrl3_Adr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LokCtrl2_Adr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LokCtrl1_Adr)).BeginInit();
-            this.Gl6_rechts_Auswahl.SuspendLayout();
-            this.Gl5_rechts_Auswahl.SuspendLayout();
-            this.Gl4_rechts_Auswahl.SuspendLayout();
-            this.Gl3_rechts_Auswahl.SuspendLayout();
-            this.Gl2_rechts_Auswahl.SuspendLayout();
-            this.Gl1_rechts_Auswahl.SuspendLayout();
-            this.Rechts1_Auswahl.SuspendLayout();
-            this.Rechts2_Auswahl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L4)).BeginInit();
@@ -1627,7 +1559,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl2_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl1_6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl21_3)).BeginInit();
-            this.Block6_Auswahl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Block5b_14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5b_15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_4)).BeginInit();
@@ -1724,9 +1655,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Block7_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox53)).BeginInit();
-            this.SchattenIntern_Auswahl.SuspendLayout();
-            this.Schatten1_Auswahl.SuspendLayout();
-            this.Block1_Auswahl.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Schatten0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Schatten1)).BeginInit();
@@ -2725,24 +2653,25 @@
             this.Betrieb_Gl33_4.TabIndex = 511;
             this.Betrieb_Gl33_4.TabStop = false;
             // 
-            // Fahrstr_GL1_links
+            // Gleis1_nach_Block1_Button
             // 
-            this.Fahrstr_GL1_links.BackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL1_links.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.Fahrstr_GL1_links.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.Fahrstr_GL1_links.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL1_links.FlatAppearance.BorderSize = 0;
-            this.Fahrstr_GL1_links.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL1_links.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL1_links.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Fahrstr_GL1_links.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Fahrstr_GL1_links.Location = new System.Drawing.Point(736, 104);
-            this.Fahrstr_GL1_links.Margin = new System.Windows.Forms.Padding(0);
-            this.Fahrstr_GL1_links.Name = "Fahrstr_GL1_links";
-            this.Fahrstr_GL1_links.Size = new System.Drawing.Size(16, 16);
-            this.Fahrstr_GL1_links.TabIndex = 510;
-            this.Fahrstr_GL1_links.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL1_links.Click += new System.EventHandler(this.Fahrstr_GL1_links_Click);
+            this.Gleis1_nach_Block1_Button.BackColor = System.Drawing.Color.Yellow;
+            this.Gleis1_nach_Block1_Button.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Gleis1_nach_Block1_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Gleis1_nach_Block1_Button.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Gleis1_nach_Block1_Button.FlatAppearance.BorderSize = 0;
+            this.Gleis1_nach_Block1_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Gleis1_nach_Block1_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Gleis1_nach_Block1_Button.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Gleis1_nach_Block1_Button.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Gleis1_nach_Block1_Button.Location = new System.Drawing.Point(736, 104);
+            this.Gleis1_nach_Block1_Button.Margin = new System.Windows.Forms.Padding(0);
+            this.Gleis1_nach_Block1_Button.Name = "Gleis1_nach_Block1_Button";
+            this.Gleis1_nach_Block1_Button.Size = new System.Drawing.Size(16, 16);
+            this.Gleis1_nach_Block1_Button.TabIndex = 510;
+            this.Gleis1_nach_Block1_Button.Tag = "Gleis1_nach_Block1";
+            this.Gleis1_nach_Block1_Button.UseVisualStyleBackColor = false;
+            this.Gleis1_nach_Block1_Button.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Weiche34
             // 
@@ -5365,7 +5294,7 @@
             this.Weiche51b_1.Size = new System.Drawing.Size(32, 32);
             this.Weiche51b_1.TabIndex = 146;
             this.Weiche51b_1.TabStop = false;
-            this.Weiche51b_1.Tag = "Gerade_90+Ecke_OL";
+            this.Weiche51b_1.Tag = "Gerade_90+Ecke_OL_SP";
             // 
             // Weiche51
             // 
@@ -6665,24 +6594,25 @@
             this.Weiche6.Tag = "WeicheL_270_Gegen";
             this.Weiche6.Click += new System.EventHandler(this.Weiche_Click);
             // 
-            // Fahrstr_GL2_links
+            // Gleis2_nach_Block1_Button
             // 
-            this.Fahrstr_GL2_links.BackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL2_links.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
-            this.Fahrstr_GL2_links.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.Fahrstr_GL2_links.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL2_links.FlatAppearance.BorderSize = 0;
-            this.Fahrstr_GL2_links.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL2_links.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.Fahrstr_GL2_links.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Fahrstr_GL2_links.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Fahrstr_GL2_links.Location = new System.Drawing.Point(736, 136);
-            this.Fahrstr_GL2_links.Margin = new System.Windows.Forms.Padding(0);
-            this.Fahrstr_GL2_links.Name = "Fahrstr_GL2_links";
-            this.Fahrstr_GL2_links.Size = new System.Drawing.Size(16, 16);
-            this.Fahrstr_GL2_links.TabIndex = 528;
-            this.Fahrstr_GL2_links.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL2_links.Click += new System.EventHandler(this.Fahrstr_GL2_links_Click);
+            this.Gleis2_nach_Block1_Button.BackColor = System.Drawing.Color.Yellow;
+            this.Gleis2_nach_Block1_Button.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+            this.Gleis2_nach_Block1_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Gleis2_nach_Block1_Button.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.Gleis2_nach_Block1_Button.FlatAppearance.BorderSize = 0;
+            this.Gleis2_nach_Block1_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.Gleis2_nach_Block1_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.Gleis2_nach_Block1_Button.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Gleis2_nach_Block1_Button.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Gleis2_nach_Block1_Button.Location = new System.Drawing.Point(736, 136);
+            this.Gleis2_nach_Block1_Button.Margin = new System.Windows.Forms.Padding(0);
+            this.Gleis2_nach_Block1_Button.Name = "Gleis2_nach_Block1_Button";
+            this.Gleis2_nach_Block1_Button.Size = new System.Drawing.Size(16, 16);
+            this.Gleis2_nach_Block1_Button.TabIndex = 528;
+            this.Gleis2_nach_Block1_Button.Tag = "Gleis2_nach_Block1";
+            this.Gleis2_nach_Block1_Button.UseVisualStyleBackColor = false;
+            this.Gleis2_nach_Block1_Button.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_GL3_links
             // 
@@ -6700,8 +6630,9 @@
             this.Fahrstr_GL3_links.Name = "Fahrstr_GL3_links";
             this.Fahrstr_GL3_links.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_GL3_links.TabIndex = 529;
+            this.Fahrstr_GL3_links.Tag = "Gleis3_nach_Block1";
             this.Fahrstr_GL3_links.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL3_links.Click += new System.EventHandler(this.Fahrstr_GL3_links_Click);
+            this.Fahrstr_GL3_links.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_GL4_links
             // 
@@ -6719,8 +6650,9 @@
             this.Fahrstr_GL4_links.Name = "Fahrstr_GL4_links";
             this.Fahrstr_GL4_links.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_GL4_links.TabIndex = 530;
+            this.Fahrstr_GL4_links.Tag = "Gleis4_nach_Block1";
             this.Fahrstr_GL4_links.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL4_links.Click += new System.EventHandler(this.Fahrstr_GL4_links_Click);
+            this.Fahrstr_GL4_links.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_GL5_links
             // 
@@ -6738,8 +6670,9 @@
             this.Fahrstr_GL5_links.Name = "Fahrstr_GL5_links";
             this.Fahrstr_GL5_links.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_GL5_links.TabIndex = 531;
+            this.Fahrstr_GL5_links.Tag = "Gleis5_nach_Block1";
             this.Fahrstr_GL5_links.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL5_links.Click += new System.EventHandler(this.Fahrstr_GL5_links_Click);
+            this.Fahrstr_GL5_links.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_GL6_links
             // 
@@ -6757,8 +6690,9 @@
             this.Fahrstr_GL6_links.Name = "Fahrstr_GL6_links";
             this.Fahrstr_GL6_links.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_GL6_links.TabIndex = 532;
+            this.Fahrstr_GL6_links.Tag = "Gleis6_nach_Block1";
             this.Fahrstr_GL6_links.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL6_links.Click += new System.EventHandler(this.Fahrstr_GL6_links_Click);
+            this.Fahrstr_GL6_links.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Block2_Einfahrt
             // 
@@ -6776,87 +6710,9 @@
             this.Block2_Einfahrt.Name = "Block2_Einfahrt";
             this.Block2_Einfahrt.Size = new System.Drawing.Size(16, 16);
             this.Block2_Einfahrt.TabIndex = 533;
+            this.Block2_Einfahrt.Tag = "Block2_nach_Gleis1";
             this.Block2_Einfahrt.UseVisualStyleBackColor = false;
-            this.Block2_Einfahrt.Click += new System.EventHandler(this.Block2_Einfahrt_Click);
-            // 
-            // Block2_Auswahl
-            // 
-            this.Block2_Auswahl.Controls.Add(this.Block2_Einfaht_GL6);
-            this.Block2_Auswahl.Controls.Add(this.Block2_Einfaht_GL3);
-            this.Block2_Auswahl.Controls.Add(this.Block2_Einfaht_GL5);
-            this.Block2_Auswahl.Controls.Add(this.Block2_Einfaht_GL2);
-            this.Block2_Auswahl.Controls.Add(this.Block2_Einfaht_GL4);
-            this.Block2_Auswahl.Controls.Add(this.Block2_Einfaht_GL1);
-            this.Block2_Auswahl.Location = new System.Drawing.Point(320, 192);
-            this.Block2_Auswahl.Name = "Block2_Auswahl";
-            this.Block2_Auswahl.Size = new System.Drawing.Size(101, 61);
-            this.Block2_Auswahl.TabIndex = 1;
-            this.Block2_Auswahl.Visible = false;
-            // 
-            // Block2_Einfaht_GL6
-            // 
-            this.Block2_Einfaht_GL6.Location = new System.Drawing.Point(49, 38);
-            this.Block2_Einfaht_GL6.Margin = new System.Windows.Forms.Padding(0);
-            this.Block2_Einfaht_GL6.Name = "Block2_Einfaht_GL6";
-            this.Block2_Einfaht_GL6.Size = new System.Drawing.Size(50, 20);
-            this.Block2_Einfaht_GL6.TabIndex = 539;
-            this.Block2_Einfaht_GL6.Text = "Gleis6";
-            this.Block2_Einfaht_GL6.UseVisualStyleBackColor = true;
-            this.Block2_Einfaht_GL6.Click += new System.EventHandler(this.Block2_Einfaht_GL6_Click);
-            // 
-            // Block2_Einfaht_GL3
-            // 
-            this.Block2_Einfaht_GL3.Location = new System.Drawing.Point(0, 38);
-            this.Block2_Einfaht_GL3.Margin = new System.Windows.Forms.Padding(0);
-            this.Block2_Einfaht_GL3.Name = "Block2_Einfaht_GL3";
-            this.Block2_Einfaht_GL3.Size = new System.Drawing.Size(50, 20);
-            this.Block2_Einfaht_GL3.TabIndex = 536;
-            this.Block2_Einfaht_GL3.Text = "Gleis3";
-            this.Block2_Einfaht_GL3.UseVisualStyleBackColor = true;
-            this.Block2_Einfaht_GL3.Click += new System.EventHandler(this.Block2_Einfaht_GL3_Click);
-            // 
-            // Block2_Einfaht_GL5
-            // 
-            this.Block2_Einfaht_GL5.Location = new System.Drawing.Point(49, 19);
-            this.Block2_Einfaht_GL5.Margin = new System.Windows.Forms.Padding(0);
-            this.Block2_Einfaht_GL5.Name = "Block2_Einfaht_GL5";
-            this.Block2_Einfaht_GL5.Size = new System.Drawing.Size(50, 20);
-            this.Block2_Einfaht_GL5.TabIndex = 538;
-            this.Block2_Einfaht_GL5.Text = "Gleis5";
-            this.Block2_Einfaht_GL5.UseVisualStyleBackColor = true;
-            this.Block2_Einfaht_GL5.Click += new System.EventHandler(this.Block2_Einfaht_GL5_Click);
-            // 
-            // Block2_Einfaht_GL2
-            // 
-            this.Block2_Einfaht_GL2.Location = new System.Drawing.Point(0, 19);
-            this.Block2_Einfaht_GL2.Margin = new System.Windows.Forms.Padding(0);
-            this.Block2_Einfaht_GL2.Name = "Block2_Einfaht_GL2";
-            this.Block2_Einfaht_GL2.Size = new System.Drawing.Size(50, 20);
-            this.Block2_Einfaht_GL2.TabIndex = 535;
-            this.Block2_Einfaht_GL2.Text = "Gleis2";
-            this.Block2_Einfaht_GL2.UseVisualStyleBackColor = true;
-            this.Block2_Einfaht_GL2.Click += new System.EventHandler(this.Block2_Einfaht_GL2_Click);
-            // 
-            // Block2_Einfaht_GL4
-            // 
-            this.Block2_Einfaht_GL4.Location = new System.Drawing.Point(49, 0);
-            this.Block2_Einfaht_GL4.Margin = new System.Windows.Forms.Padding(0);
-            this.Block2_Einfaht_GL4.Name = "Block2_Einfaht_GL4";
-            this.Block2_Einfaht_GL4.Size = new System.Drawing.Size(50, 20);
-            this.Block2_Einfaht_GL4.TabIndex = 537;
-            this.Block2_Einfaht_GL4.Text = "Gleis4";
-            this.Block2_Einfaht_GL4.UseVisualStyleBackColor = true;
-            this.Block2_Einfaht_GL4.Click += new System.EventHandler(this.Block2_Einfaht_GL4_Click);
-            // 
-            // Block2_Einfaht_GL1
-            // 
-            this.Block2_Einfaht_GL1.Location = new System.Drawing.Point(0, 0);
-            this.Block2_Einfaht_GL1.Name = "Block2_Einfaht_GL1";
-            this.Block2_Einfaht_GL1.Size = new System.Drawing.Size(50, 20);
-            this.Block2_Einfaht_GL1.TabIndex = 534;
-            this.Block2_Einfaht_GL1.Text = "Gleis1";
-            this.Block2_Einfaht_GL1.UseVisualStyleBackColor = true;
-            this.Block2_Einfaht_GL1.Click += new System.EventHandler(this.Block2_Einfaht_GL1_Click);
+            this.Block2_Einfahrt.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Bhf_Gl5_1
             // 
@@ -9093,8 +8949,9 @@
             this.Fahrstr_GL6_rechts.Name = "Fahrstr_GL6_rechts";
             this.Fahrstr_GL6_rechts.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_GL6_rechts.TabIndex = 629;
+            this.Fahrstr_GL6_rechts.Tag = "Gleis6_nach_TunnelAussen";
             this.Fahrstr_GL6_rechts.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL6_rechts.Click += new System.EventHandler(this.Fahrstr_GL6_rechts_Click);
+            this.Fahrstr_GL6_rechts.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_GL5_rechts
             // 
@@ -9112,8 +8969,9 @@
             this.Fahrstr_GL5_rechts.Name = "Fahrstr_GL5_rechts";
             this.Fahrstr_GL5_rechts.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_GL5_rechts.TabIndex = 630;
+            this.Fahrstr_GL5_rechts.Tag = "Gleis5_nach_TunnelAussen";
             this.Fahrstr_GL5_rechts.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL5_rechts.Click += new System.EventHandler(this.Fahrstr_GL5_rechts_Click);
+            this.Fahrstr_GL5_rechts.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_GL4_rechts
             // 
@@ -9131,8 +8989,9 @@
             this.Fahrstr_GL4_rechts.Name = "Fahrstr_GL4_rechts";
             this.Fahrstr_GL4_rechts.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_GL4_rechts.TabIndex = 631;
+            this.Fahrstr_GL4_rechts.Tag = "Gleis4_nach_TunnelAussen";
             this.Fahrstr_GL4_rechts.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL4_rechts.Click += new System.EventHandler(this.Fahrstr_GL4_rechts_Click);
+            this.Fahrstr_GL4_rechts.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_GL3_rechts
             // 
@@ -9150,8 +9009,9 @@
             this.Fahrstr_GL3_rechts.Name = "Fahrstr_GL3_rechts";
             this.Fahrstr_GL3_rechts.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_GL3_rechts.TabIndex = 632;
+            this.Fahrstr_GL3_rechts.Tag = "Gleis3_nach_TunnelAussen";
             this.Fahrstr_GL3_rechts.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL3_rechts.Click += new System.EventHandler(this.Fahrstr_GL3_rechts_Click);
+            this.Fahrstr_GL3_rechts.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_GL2_rechts
             // 
@@ -9169,8 +9029,9 @@
             this.Fahrstr_GL2_rechts.Name = "Fahrstr_GL2_rechts";
             this.Fahrstr_GL2_rechts.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_GL2_rechts.TabIndex = 633;
+            this.Fahrstr_GL2_rechts.Tag = "Gleis2_nach_TunnelAussen";
             this.Fahrstr_GL2_rechts.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL2_rechts.Click += new System.EventHandler(this.Fahrstr_GL2_rechts_Click);
+            this.Fahrstr_GL2_rechts.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_GL1_rechts
             // 
@@ -9188,8 +9049,9 @@
             this.Fahrstr_GL1_rechts.Name = "Fahrstr_GL1_rechts";
             this.Fahrstr_GL1_rechts.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_GL1_rechts.TabIndex = 634;
+            this.Fahrstr_GL1_rechts.Tag = "Gleis1_nach_TunnelAussen";
             this.Fahrstr_GL1_rechts.UseVisualStyleBackColor = false;
-            this.Fahrstr_GL1_rechts.Click += new System.EventHandler(this.Fahrstr_GL1_rechts_Click);
+            this.Fahrstr_GL1_rechts.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // textBox2
             // 
@@ -9257,8 +9119,9 @@
             this.Fahrstr_Rechts1.Name = "Fahrstr_Rechts1";
             this.Fahrstr_Rechts1.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Rechts1.TabIndex = 641;
+            this.Fahrstr_Rechts1.Tag = "TunnelAussen_nach_Gleis1";
             this.Fahrstr_Rechts1.UseVisualStyleBackColor = false;
-            this.Fahrstr_Rechts1.Click += new System.EventHandler(this.Fahrstr_Rechts1_Click);
+            this.Fahrstr_Rechts1.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_Rechts2
             // 
@@ -9276,8 +9139,9 @@
             this.Fahrstr_Rechts2.Name = "Fahrstr_Rechts2";
             this.Fahrstr_Rechts2.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Rechts2.TabIndex = 642;
+            this.Fahrstr_Rechts2.Tag = "TunnelInnen_nach_Gleis1";
             this.Fahrstr_Rechts2.UseVisualStyleBackColor = false;
-            this.Fahrstr_Rechts2.Click += new System.EventHandler(this.Fahrstr_Rechts2_Click);
+            this.Fahrstr_Rechts2.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // textBox7
             // 
@@ -9292,198 +9156,6 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(160, 20);
             this.textBox8.TabIndex = 644;
-            // 
-            // Gl6_rechts_Auswahl
-            // 
-            this.Gl6_rechts_Auswahl.Controls.Add(this.Gl6_Ausfahrt_rechts2);
-            this.Gl6_rechts_Auswahl.Controls.Add(this.Gl6_Ausfahrt_rechts1);
-            this.Gl6_rechts_Auswahl.Location = new System.Drawing.Point(1104, 312);
-            this.Gl6_rechts_Auswahl.Name = "Gl6_rechts_Auswahl";
-            this.Gl6_rechts_Auswahl.Size = new System.Drawing.Size(50, 42);
-            this.Gl6_rechts_Auswahl.TabIndex = 645;
-            this.Gl6_rechts_Auswahl.Visible = false;
-            // 
-            // Gl6_Ausfahrt_rechts2
-            // 
-            this.Gl6_Ausfahrt_rechts2.Location = new System.Drawing.Point(0, 0);
-            this.Gl6_Ausfahrt_rechts2.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl6_Ausfahrt_rechts2.Name = "Gl6_Ausfahrt_rechts2";
-            this.Gl6_Ausfahrt_rechts2.Size = new System.Drawing.Size(50, 20);
-            this.Gl6_Ausfahrt_rechts2.TabIndex = 647;
-            this.Gl6_Ausfahrt_rechts2.Text = "innen";
-            this.Gl6_Ausfahrt_rechts2.UseVisualStyleBackColor = true;
-            this.Gl6_Ausfahrt_rechts2.Click += new System.EventHandler(this.Gl6_Ausfahrt_rechts2_Click);
-            // 
-            // Gl6_Ausfahrt_rechts1
-            // 
-            this.Gl6_Ausfahrt_rechts1.Location = new System.Drawing.Point(0, 19);
-            this.Gl6_Ausfahrt_rechts1.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl6_Ausfahrt_rechts1.Name = "Gl6_Ausfahrt_rechts1";
-            this.Gl6_Ausfahrt_rechts1.Size = new System.Drawing.Size(50, 20);
-            this.Gl6_Ausfahrt_rechts1.TabIndex = 646;
-            this.Gl6_Ausfahrt_rechts1.Text = "außen";
-            this.Gl6_Ausfahrt_rechts1.UseVisualStyleBackColor = true;
-            this.Gl6_Ausfahrt_rechts1.Click += new System.EventHandler(this.Gl6_Ausfahrt_rechts1_Click);
-            // 
-            // Gl5_rechts_Auswahl
-            // 
-            this.Gl5_rechts_Auswahl.Controls.Add(this.Gl5_Ausfahrt_rechts2);
-            this.Gl5_rechts_Auswahl.Controls.Add(this.Gl5_Ausfahrt_rechts1);
-            this.Gl5_rechts_Auswahl.Location = new System.Drawing.Point(1104, 280);
-            this.Gl5_rechts_Auswahl.Name = "Gl5_rechts_Auswahl";
-            this.Gl5_rechts_Auswahl.Size = new System.Drawing.Size(50, 42);
-            this.Gl5_rechts_Auswahl.TabIndex = 646;
-            this.Gl5_rechts_Auswahl.Visible = false;
-            // 
-            // Gl5_Ausfahrt_rechts2
-            // 
-            this.Gl5_Ausfahrt_rechts2.Location = new System.Drawing.Point(0, 0);
-            this.Gl5_Ausfahrt_rechts2.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl5_Ausfahrt_rechts2.Name = "Gl5_Ausfahrt_rechts2";
-            this.Gl5_Ausfahrt_rechts2.Size = new System.Drawing.Size(50, 20);
-            this.Gl5_Ausfahrt_rechts2.TabIndex = 647;
-            this.Gl5_Ausfahrt_rechts2.Text = "innen";
-            this.Gl5_Ausfahrt_rechts2.UseVisualStyleBackColor = true;
-            this.Gl5_Ausfahrt_rechts2.Click += new System.EventHandler(this.Gl5_Ausfahrt_rechts2_Click);
-            // 
-            // Gl5_Ausfahrt_rechts1
-            // 
-            this.Gl5_Ausfahrt_rechts1.Location = new System.Drawing.Point(0, 19);
-            this.Gl5_Ausfahrt_rechts1.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl5_Ausfahrt_rechts1.Name = "Gl5_Ausfahrt_rechts1";
-            this.Gl5_Ausfahrt_rechts1.Size = new System.Drawing.Size(50, 20);
-            this.Gl5_Ausfahrt_rechts1.TabIndex = 646;
-            this.Gl5_Ausfahrt_rechts1.Text = "außen";
-            this.Gl5_Ausfahrt_rechts1.UseVisualStyleBackColor = true;
-            this.Gl5_Ausfahrt_rechts1.Click += new System.EventHandler(this.Gl5_Ausfahrt_rechts1_Click);
-            // 
-            // Gl4_rechts_Auswahl
-            // 
-            this.Gl4_rechts_Auswahl.Controls.Add(this.Gl4_Ausfahrt_rechts2);
-            this.Gl4_rechts_Auswahl.Controls.Add(this.Gl4_Ausfahrt_rechts1);
-            this.Gl4_rechts_Auswahl.Location = new System.Drawing.Point(1104, 216);
-            this.Gl4_rechts_Auswahl.Name = "Gl4_rechts_Auswahl";
-            this.Gl4_rechts_Auswahl.Size = new System.Drawing.Size(50, 42);
-            this.Gl4_rechts_Auswahl.TabIndex = 647;
-            this.Gl4_rechts_Auswahl.Visible = false;
-            // 
-            // Gl4_Ausfahrt_rechts2
-            // 
-            this.Gl4_Ausfahrt_rechts2.Location = new System.Drawing.Point(0, 0);
-            this.Gl4_Ausfahrt_rechts2.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl4_Ausfahrt_rechts2.Name = "Gl4_Ausfahrt_rechts2";
-            this.Gl4_Ausfahrt_rechts2.Size = new System.Drawing.Size(50, 20);
-            this.Gl4_Ausfahrt_rechts2.TabIndex = 647;
-            this.Gl4_Ausfahrt_rechts2.Text = "innen";
-            this.Gl4_Ausfahrt_rechts2.UseVisualStyleBackColor = true;
-            this.Gl4_Ausfahrt_rechts2.Click += new System.EventHandler(this.Gl4_Ausfahrt_rechts2_Click);
-            // 
-            // Gl4_Ausfahrt_rechts1
-            // 
-            this.Gl4_Ausfahrt_rechts1.Location = new System.Drawing.Point(0, 19);
-            this.Gl4_Ausfahrt_rechts1.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl4_Ausfahrt_rechts1.Name = "Gl4_Ausfahrt_rechts1";
-            this.Gl4_Ausfahrt_rechts1.Size = new System.Drawing.Size(50, 20);
-            this.Gl4_Ausfahrt_rechts1.TabIndex = 646;
-            this.Gl4_Ausfahrt_rechts1.Text = "außen";
-            this.Gl4_Ausfahrt_rechts1.UseVisualStyleBackColor = true;
-            this.Gl4_Ausfahrt_rechts1.Click += new System.EventHandler(this.Gl4_Ausfahrt_rechts1_Click);
-            // 
-            // Gl3_rechts_Auswahl
-            // 
-            this.Gl3_rechts_Auswahl.Controls.Add(this.Gl3_Ausfahrt_rechts2);
-            this.Gl3_rechts_Auswahl.Controls.Add(this.Gl3_Ausfahrt_rechts1);
-            this.Gl3_rechts_Auswahl.Location = new System.Drawing.Point(1104, 184);
-            this.Gl3_rechts_Auswahl.Name = "Gl3_rechts_Auswahl";
-            this.Gl3_rechts_Auswahl.Size = new System.Drawing.Size(50, 42);
-            this.Gl3_rechts_Auswahl.TabIndex = 648;
-            this.Gl3_rechts_Auswahl.Visible = false;
-            // 
-            // Gl3_Ausfahrt_rechts2
-            // 
-            this.Gl3_Ausfahrt_rechts2.Location = new System.Drawing.Point(0, 0);
-            this.Gl3_Ausfahrt_rechts2.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl3_Ausfahrt_rechts2.Name = "Gl3_Ausfahrt_rechts2";
-            this.Gl3_Ausfahrt_rechts2.Size = new System.Drawing.Size(50, 20);
-            this.Gl3_Ausfahrt_rechts2.TabIndex = 647;
-            this.Gl3_Ausfahrt_rechts2.Text = "innen";
-            this.Gl3_Ausfahrt_rechts2.UseVisualStyleBackColor = true;
-            this.Gl3_Ausfahrt_rechts2.Click += new System.EventHandler(this.Gl3_Ausfahrt_rechts2_Click);
-            // 
-            // Gl3_Ausfahrt_rechts1
-            // 
-            this.Gl3_Ausfahrt_rechts1.Location = new System.Drawing.Point(0, 19);
-            this.Gl3_Ausfahrt_rechts1.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl3_Ausfahrt_rechts1.Name = "Gl3_Ausfahrt_rechts1";
-            this.Gl3_Ausfahrt_rechts1.Size = new System.Drawing.Size(50, 20);
-            this.Gl3_Ausfahrt_rechts1.TabIndex = 646;
-            this.Gl3_Ausfahrt_rechts1.Text = "außen";
-            this.Gl3_Ausfahrt_rechts1.UseVisualStyleBackColor = true;
-            this.Gl3_Ausfahrt_rechts1.Click += new System.EventHandler(this.Gl3_Ausfahrt_rechts1_Click);
-            // 
-            // Gl2_rechts_Auswahl
-            // 
-            this.Gl2_rechts_Auswahl.Controls.Add(this.Gl2_Ausfahrt_rechts2);
-            this.Gl2_rechts_Auswahl.Controls.Add(this.Gl2_Ausfahrt_rechts1);
-            this.Gl2_rechts_Auswahl.Location = new System.Drawing.Point(1104, 152);
-            this.Gl2_rechts_Auswahl.Name = "Gl2_rechts_Auswahl";
-            this.Gl2_rechts_Auswahl.Size = new System.Drawing.Size(50, 42);
-            this.Gl2_rechts_Auswahl.TabIndex = 649;
-            this.Gl2_rechts_Auswahl.Visible = false;
-            // 
-            // Gl2_Ausfahrt_rechts2
-            // 
-            this.Gl2_Ausfahrt_rechts2.Location = new System.Drawing.Point(0, 0);
-            this.Gl2_Ausfahrt_rechts2.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl2_Ausfahrt_rechts2.Name = "Gl2_Ausfahrt_rechts2";
-            this.Gl2_Ausfahrt_rechts2.Size = new System.Drawing.Size(50, 20);
-            this.Gl2_Ausfahrt_rechts2.TabIndex = 647;
-            this.Gl2_Ausfahrt_rechts2.Text = "innen";
-            this.Gl2_Ausfahrt_rechts2.UseVisualStyleBackColor = true;
-            this.Gl2_Ausfahrt_rechts2.Click += new System.EventHandler(this.Gl2_Ausfahrt_rechts2_Click);
-            // 
-            // Gl2_Ausfahrt_rechts1
-            // 
-            this.Gl2_Ausfahrt_rechts1.Location = new System.Drawing.Point(0, 19);
-            this.Gl2_Ausfahrt_rechts1.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl2_Ausfahrt_rechts1.Name = "Gl2_Ausfahrt_rechts1";
-            this.Gl2_Ausfahrt_rechts1.Size = new System.Drawing.Size(50, 20);
-            this.Gl2_Ausfahrt_rechts1.TabIndex = 646;
-            this.Gl2_Ausfahrt_rechts1.Text = "außen";
-            this.Gl2_Ausfahrt_rechts1.UseVisualStyleBackColor = true;
-            this.Gl2_Ausfahrt_rechts1.Click += new System.EventHandler(this.Gl2_Ausfahrt_rechts1_Click);
-            // 
-            // Gl1_rechts_Auswahl
-            // 
-            this.Gl1_rechts_Auswahl.Controls.Add(this.Gl1_Ausfahrt_rechts2);
-            this.Gl1_rechts_Auswahl.Controls.Add(this.Gl1_Ausfahrt_rechts1);
-            this.Gl1_rechts_Auswahl.Location = new System.Drawing.Point(1104, 120);
-            this.Gl1_rechts_Auswahl.Name = "Gl1_rechts_Auswahl";
-            this.Gl1_rechts_Auswahl.Size = new System.Drawing.Size(50, 42);
-            this.Gl1_rechts_Auswahl.TabIndex = 650;
-            this.Gl1_rechts_Auswahl.Visible = false;
-            // 
-            // Gl1_Ausfahrt_rechts2
-            // 
-            this.Gl1_Ausfahrt_rechts2.Location = new System.Drawing.Point(0, 0);
-            this.Gl1_Ausfahrt_rechts2.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl1_Ausfahrt_rechts2.Name = "Gl1_Ausfahrt_rechts2";
-            this.Gl1_Ausfahrt_rechts2.Size = new System.Drawing.Size(50, 20);
-            this.Gl1_Ausfahrt_rechts2.TabIndex = 647;
-            this.Gl1_Ausfahrt_rechts2.Text = "innen";
-            this.Gl1_Ausfahrt_rechts2.UseVisualStyleBackColor = true;
-            this.Gl1_Ausfahrt_rechts2.Click += new System.EventHandler(this.Gl1_Ausfahrt_rechts2_Click);
-            // 
-            // Gl1_Ausfahrt_rechts1
-            // 
-            this.Gl1_Ausfahrt_rechts1.Location = new System.Drawing.Point(0, 19);
-            this.Gl1_Ausfahrt_rechts1.Margin = new System.Windows.Forms.Padding(0);
-            this.Gl1_Ausfahrt_rechts1.Name = "Gl1_Ausfahrt_rechts1";
-            this.Gl1_Ausfahrt_rechts1.Size = new System.Drawing.Size(50, 20);
-            this.Gl1_Ausfahrt_rechts1.TabIndex = 646;
-            this.Gl1_Ausfahrt_rechts1.Text = "außen";
-            this.Gl1_Ausfahrt_rechts1.UseVisualStyleBackColor = true;
-            this.Gl1_Ausfahrt_rechts1.Click += new System.EventHandler(this.Gl1_Ausfahrt_rechts1_Click);
             // 
             // label68
             // 
@@ -9502,164 +9174,6 @@
             this.innen.Size = new System.Drawing.Size(33, 13);
             this.innen.TabIndex = 652;
             this.innen.Text = "innen";
-            // 
-            // Rechts1_Auswahl
-            // 
-            this.Rechts1_Auswahl.Controls.Add(this.Rechts1_Einfahrt_Gl6);
-            this.Rechts1_Auswahl.Controls.Add(this.Rechts1_Einfahrt_Gl3);
-            this.Rechts1_Auswahl.Controls.Add(this.Rechts1_Einfahrt_Gl5);
-            this.Rechts1_Auswahl.Controls.Add(this.Rechts1_Einfahrt_Gl2);
-            this.Rechts1_Auswahl.Controls.Add(this.Rechts1_Einfahrt_Gl4);
-            this.Rechts1_Auswahl.Controls.Add(this.Rechts1_Einfahrt_Gl1);
-            this.Rechts1_Auswahl.Location = new System.Drawing.Point(1760, 120);
-            this.Rechts1_Auswahl.Name = "Rechts1_Auswahl";
-            this.Rechts1_Auswahl.Size = new System.Drawing.Size(101, 61);
-            this.Rechts1_Auswahl.TabIndex = 653;
-            this.Rechts1_Auswahl.Visible = false;
-            // 
-            // Rechts1_Einfahrt_Gl6
-            // 
-            this.Rechts1_Einfahrt_Gl6.Location = new System.Drawing.Point(49, 38);
-            this.Rechts1_Einfahrt_Gl6.Margin = new System.Windows.Forms.Padding(0);
-            this.Rechts1_Einfahrt_Gl6.Name = "Rechts1_Einfahrt_Gl6";
-            this.Rechts1_Einfahrt_Gl6.Size = new System.Drawing.Size(50, 20);
-            this.Rechts1_Einfahrt_Gl6.TabIndex = 539;
-            this.Rechts1_Einfahrt_Gl6.Text = "Gleis6";
-            this.Rechts1_Einfahrt_Gl6.UseVisualStyleBackColor = true;
-            this.Rechts1_Einfahrt_Gl6.Click += new System.EventHandler(this.Rechts1_Einfahrt_Gl6_Click);
-            // 
-            // Rechts1_Einfahrt_Gl3
-            // 
-            this.Rechts1_Einfahrt_Gl3.Location = new System.Drawing.Point(0, 38);
-            this.Rechts1_Einfahrt_Gl3.Margin = new System.Windows.Forms.Padding(0);
-            this.Rechts1_Einfahrt_Gl3.Name = "Rechts1_Einfahrt_Gl3";
-            this.Rechts1_Einfahrt_Gl3.Size = new System.Drawing.Size(50, 20);
-            this.Rechts1_Einfahrt_Gl3.TabIndex = 536;
-            this.Rechts1_Einfahrt_Gl3.Text = "Gleis3";
-            this.Rechts1_Einfahrt_Gl3.UseVisualStyleBackColor = true;
-            this.Rechts1_Einfahrt_Gl3.Click += new System.EventHandler(this.Rechts1_Einfahrt_Gl3_Click);
-            // 
-            // Rechts1_Einfahrt_Gl5
-            // 
-            this.Rechts1_Einfahrt_Gl5.Location = new System.Drawing.Point(49, 19);
-            this.Rechts1_Einfahrt_Gl5.Margin = new System.Windows.Forms.Padding(0);
-            this.Rechts1_Einfahrt_Gl5.Name = "Rechts1_Einfahrt_Gl5";
-            this.Rechts1_Einfahrt_Gl5.Size = new System.Drawing.Size(50, 20);
-            this.Rechts1_Einfahrt_Gl5.TabIndex = 538;
-            this.Rechts1_Einfahrt_Gl5.Text = "Gleis5";
-            this.Rechts1_Einfahrt_Gl5.UseVisualStyleBackColor = true;
-            this.Rechts1_Einfahrt_Gl5.Click += new System.EventHandler(this.Rechts1_Einfahrt_Gl5_Click);
-            // 
-            // Rechts1_Einfahrt_Gl2
-            // 
-            this.Rechts1_Einfahrt_Gl2.Location = new System.Drawing.Point(0, 19);
-            this.Rechts1_Einfahrt_Gl2.Margin = new System.Windows.Forms.Padding(0);
-            this.Rechts1_Einfahrt_Gl2.Name = "Rechts1_Einfahrt_Gl2";
-            this.Rechts1_Einfahrt_Gl2.Size = new System.Drawing.Size(50, 20);
-            this.Rechts1_Einfahrt_Gl2.TabIndex = 535;
-            this.Rechts1_Einfahrt_Gl2.Text = "Gleis2";
-            this.Rechts1_Einfahrt_Gl2.UseVisualStyleBackColor = true;
-            this.Rechts1_Einfahrt_Gl2.Click += new System.EventHandler(this.Rechts1_Einfahrt_Gl2_Click);
-            // 
-            // Rechts1_Einfahrt_Gl4
-            // 
-            this.Rechts1_Einfahrt_Gl4.Location = new System.Drawing.Point(49, 0);
-            this.Rechts1_Einfahrt_Gl4.Margin = new System.Windows.Forms.Padding(0);
-            this.Rechts1_Einfahrt_Gl4.Name = "Rechts1_Einfahrt_Gl4";
-            this.Rechts1_Einfahrt_Gl4.Size = new System.Drawing.Size(50, 20);
-            this.Rechts1_Einfahrt_Gl4.TabIndex = 537;
-            this.Rechts1_Einfahrt_Gl4.Text = "Gleis4";
-            this.Rechts1_Einfahrt_Gl4.UseVisualStyleBackColor = true;
-            this.Rechts1_Einfahrt_Gl4.Click += new System.EventHandler(this.Rechts1_Einfahrt_Gl4_Click);
-            // 
-            // Rechts1_Einfahrt_Gl1
-            // 
-            this.Rechts1_Einfahrt_Gl1.Location = new System.Drawing.Point(0, 0);
-            this.Rechts1_Einfahrt_Gl1.Name = "Rechts1_Einfahrt_Gl1";
-            this.Rechts1_Einfahrt_Gl1.Size = new System.Drawing.Size(50, 20);
-            this.Rechts1_Einfahrt_Gl1.TabIndex = 534;
-            this.Rechts1_Einfahrt_Gl1.Text = "Gleis1";
-            this.Rechts1_Einfahrt_Gl1.UseVisualStyleBackColor = true;
-            this.Rechts1_Einfahrt_Gl1.Click += new System.EventHandler(this.Rechts1_Einfahrt_Gl1_Click);
-            // 
-            // Rechts2_Auswahl
-            // 
-            this.Rechts2_Auswahl.Controls.Add(this.Rechts2_Einfahrt_Gl6);
-            this.Rechts2_Auswahl.Controls.Add(this.Rechts2_Einfahrt_Gl3);
-            this.Rechts2_Auswahl.Controls.Add(this.Rechts2_Einfahrt_Gl5);
-            this.Rechts2_Auswahl.Controls.Add(this.Rechts2_Einfahrt_Gl2);
-            this.Rechts2_Auswahl.Controls.Add(this.Rechts2_Einfahrt_Gl4);
-            this.Rechts2_Auswahl.Controls.Add(this.Rechts2_Einfahrt_Gl1);
-            this.Rechts2_Auswahl.Location = new System.Drawing.Point(1760, 151);
-            this.Rechts2_Auswahl.Name = "Rechts2_Auswahl";
-            this.Rechts2_Auswahl.Size = new System.Drawing.Size(101, 61);
-            this.Rechts2_Auswahl.TabIndex = 654;
-            this.Rechts2_Auswahl.Visible = false;
-            // 
-            // Rechts2_Einfahrt_Gl6
-            // 
-            this.Rechts2_Einfahrt_Gl6.Location = new System.Drawing.Point(49, 38);
-            this.Rechts2_Einfahrt_Gl6.Margin = new System.Windows.Forms.Padding(0);
-            this.Rechts2_Einfahrt_Gl6.Name = "Rechts2_Einfahrt_Gl6";
-            this.Rechts2_Einfahrt_Gl6.Size = new System.Drawing.Size(50, 20);
-            this.Rechts2_Einfahrt_Gl6.TabIndex = 539;
-            this.Rechts2_Einfahrt_Gl6.Text = "Gleis6";
-            this.Rechts2_Einfahrt_Gl6.UseVisualStyleBackColor = true;
-            this.Rechts2_Einfahrt_Gl6.Click += new System.EventHandler(this.Rechts2_Einfahrt_Gl6_Click);
-            // 
-            // Rechts2_Einfahrt_Gl3
-            // 
-            this.Rechts2_Einfahrt_Gl3.Location = new System.Drawing.Point(0, 38);
-            this.Rechts2_Einfahrt_Gl3.Margin = new System.Windows.Forms.Padding(0);
-            this.Rechts2_Einfahrt_Gl3.Name = "Rechts2_Einfahrt_Gl3";
-            this.Rechts2_Einfahrt_Gl3.Size = new System.Drawing.Size(50, 20);
-            this.Rechts2_Einfahrt_Gl3.TabIndex = 536;
-            this.Rechts2_Einfahrt_Gl3.Text = "Gleis3";
-            this.Rechts2_Einfahrt_Gl3.UseVisualStyleBackColor = true;
-            this.Rechts2_Einfahrt_Gl3.Click += new System.EventHandler(this.Rechts2_Einfahrt_Gl3_Click);
-            // 
-            // Rechts2_Einfahrt_Gl5
-            // 
-            this.Rechts2_Einfahrt_Gl5.Location = new System.Drawing.Point(49, 19);
-            this.Rechts2_Einfahrt_Gl5.Margin = new System.Windows.Forms.Padding(0);
-            this.Rechts2_Einfahrt_Gl5.Name = "Rechts2_Einfahrt_Gl5";
-            this.Rechts2_Einfahrt_Gl5.Size = new System.Drawing.Size(50, 20);
-            this.Rechts2_Einfahrt_Gl5.TabIndex = 538;
-            this.Rechts2_Einfahrt_Gl5.Text = "Gleis5";
-            this.Rechts2_Einfahrt_Gl5.UseVisualStyleBackColor = true;
-            this.Rechts2_Einfahrt_Gl5.Click += new System.EventHandler(this.Rechts2_Einfahrt_Gl5_Click);
-            // 
-            // Rechts2_Einfahrt_Gl2
-            // 
-            this.Rechts2_Einfahrt_Gl2.Location = new System.Drawing.Point(0, 19);
-            this.Rechts2_Einfahrt_Gl2.Margin = new System.Windows.Forms.Padding(0);
-            this.Rechts2_Einfahrt_Gl2.Name = "Rechts2_Einfahrt_Gl2";
-            this.Rechts2_Einfahrt_Gl2.Size = new System.Drawing.Size(50, 20);
-            this.Rechts2_Einfahrt_Gl2.TabIndex = 535;
-            this.Rechts2_Einfahrt_Gl2.Text = "Gleis2";
-            this.Rechts2_Einfahrt_Gl2.UseVisualStyleBackColor = true;
-            this.Rechts2_Einfahrt_Gl2.Click += new System.EventHandler(this.Rechts2_Einfahrt_Gl2_Click);
-            // 
-            // Rechts2_Einfahrt_Gl4
-            // 
-            this.Rechts2_Einfahrt_Gl4.Location = new System.Drawing.Point(49, 0);
-            this.Rechts2_Einfahrt_Gl4.Margin = new System.Windows.Forms.Padding(0);
-            this.Rechts2_Einfahrt_Gl4.Name = "Rechts2_Einfahrt_Gl4";
-            this.Rechts2_Einfahrt_Gl4.Size = new System.Drawing.Size(50, 20);
-            this.Rechts2_Einfahrt_Gl4.TabIndex = 537;
-            this.Rechts2_Einfahrt_Gl4.Text = "Gleis4";
-            this.Rechts2_Einfahrt_Gl4.UseVisualStyleBackColor = true;
-            this.Rechts2_Einfahrt_Gl4.Click += new System.EventHandler(this.Rechts2_Einfahrt_Gl4_Click);
-            // 
-            // Rechts2_Einfahrt_Gl1
-            // 
-            this.Rechts2_Einfahrt_Gl1.Location = new System.Drawing.Point(0, 0);
-            this.Rechts2_Einfahrt_Gl1.Name = "Rechts2_Einfahrt_Gl1";
-            this.Rechts2_Einfahrt_Gl1.Size = new System.Drawing.Size(50, 20);
-            this.Rechts2_Einfahrt_Gl1.TabIndex = 534;
-            this.Rechts2_Einfahrt_Gl1.Text = "Gleis1";
-            this.Rechts2_Einfahrt_Gl1.UseVisualStyleBackColor = true;
-            this.Rechts2_Einfahrt_Gl1.Click += new System.EventHandler(this.Rechts2_Einfahrt_Gl1_Click);
             // 
             // Signal_Ausfahrt_L1
             // 
@@ -10377,8 +9891,9 @@
             this.Fahrstr_Schatten7_Ausf.Name = "Fahrstr_Schatten7_Ausf";
             this.Fahrstr_Schatten7_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten7_Ausf.TabIndex = 744;
+            this.Fahrstr_Schatten7_Ausf.Tag = "Schatten7_nach_Block9";
             this.Fahrstr_Schatten7_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten7_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten7_Ausf_Click);
+            this.Fahrstr_Schatten7_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_Schatten6_Ausf
             // 
@@ -10396,8 +9911,9 @@
             this.Fahrstr_Schatten6_Ausf.Name = "Fahrstr_Schatten6_Ausf";
             this.Fahrstr_Schatten6_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten6_Ausf.TabIndex = 745;
+            this.Fahrstr_Schatten6_Ausf.Tag = "Schatten6_nach_Block9";
             this.Fahrstr_Schatten6_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten6_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten6_Ausf_Click);
+            this.Fahrstr_Schatten6_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_Schatten5_Ausf
             // 
@@ -10415,8 +9931,9 @@
             this.Fahrstr_Schatten5_Ausf.Name = "Fahrstr_Schatten5_Ausf";
             this.Fahrstr_Schatten5_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten5_Ausf.TabIndex = 746;
+            this.Fahrstr_Schatten5_Ausf.Tag = "Schatten5_nach_Block9";
             this.Fahrstr_Schatten5_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten5_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten5_Ausf_Click);
+            this.Fahrstr_Schatten5_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_Schatten4_Ausf
             // 
@@ -10434,8 +9951,9 @@
             this.Fahrstr_Schatten4_Ausf.Name = "Fahrstr_Schatten4_Ausf";
             this.Fahrstr_Schatten4_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten4_Ausf.TabIndex = 747;
+            this.Fahrstr_Schatten4_Ausf.Tag = "Schatten4_nach_Block9";
             this.Fahrstr_Schatten4_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten4_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten4_Ausf_Click);
+            this.Fahrstr_Schatten4_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_Schatten2_Ausf
             // 
@@ -10453,8 +9971,9 @@
             this.Fahrstr_Schatten2_Ausf.Name = "Fahrstr_Schatten2_Ausf";
             this.Fahrstr_Schatten2_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten2_Ausf.TabIndex = 748;
+            this.Fahrstr_Schatten2_Ausf.Tag = "Schatten2_nach_Block9";
             this.Fahrstr_Schatten2_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten2_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten2_Ausf_Click);
+            this.Fahrstr_Schatten2_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_Schatten1_Ausf
             // 
@@ -10472,8 +9991,9 @@
             this.Fahrstr_Schatten1_Ausf.Name = "Fahrstr_Schatten1_Ausf";
             this.Fahrstr_Schatten1_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten1_Ausf.TabIndex = 749;
+            this.Fahrstr_Schatten1_Ausf.Tag = "Schatten1_nach_Block8";
             this.Fahrstr_Schatten1_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten1_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten1_Ausf_Click);
+            this.Fahrstr_Schatten1_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // label94
             // 
@@ -10693,8 +10213,9 @@
             this.Block5_Ausfahrt.Name = "Block5_Ausfahrt";
             this.Block5_Ausfahrt.Size = new System.Drawing.Size(16, 16);
             this.Block5_Ausfahrt.TabIndex = 771;
+            this.Block5_Ausfahrt.Tag = "Block5_nach_Block6";
             this.Block5_Ausfahrt.UseVisualStyleBackColor = false;
-            this.Block5_Ausfahrt.Click += new System.EventHandler(this.Block5_Ausfahrt_Click);
+            this.Block5_Ausfahrt.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Block6
             // 
@@ -10712,8 +10233,9 @@
             this.Block6.Name = "Block6";
             this.Block6.Size = new System.Drawing.Size(16, 16);
             this.Block6.TabIndex = 772;
+            this.Block6.Tag = "Block6_nach_Schatten8";
             this.Block6.UseVisualStyleBackColor = false;
-            this.Block6.Click += new System.EventHandler(this.Block6_Click);
+            this.Block6.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // label112
             // 
@@ -10741,8 +10263,9 @@
             this.Block5.Name = "Block5";
             this.Block5.Size = new System.Drawing.Size(16, 16);
             this.Block5.TabIndex = 774;
+            this.Block5.Tag = "Block1_nach_Block5";
             this.Block5.UseVisualStyleBackColor = false;
-            this.Block5.Click += new System.EventHandler(this.Block5_Click);
+            this.Block5.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Block9
             // 
@@ -10761,63 +10284,9 @@
             this.Block9.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Block9.Size = new System.Drawing.Size(16, 16);
             this.Block9.TabIndex = 775;
+            this.Block9.Tag = "Block9_nach_Block2";
             this.Block9.UseVisualStyleBackColor = false;
-            this.Block9.Click += new System.EventHandler(this.Block9_Click);
-            // 
-            // Block6_Auswahl
-            // 
-            this.Block6_Auswahl.Controls.Add(this.Block6_Schatten11);
-            this.Block6_Auswahl.Controls.Add(this.Block6_Schatten9);
-            this.Block6_Auswahl.Controls.Add(this.Block6_Schatten10);
-            this.Block6_Auswahl.Controls.Add(this.Block6_Schatten8);
-            this.Block6_Auswahl.Location = new System.Drawing.Point(576, 880);
-            this.Block6_Auswahl.Name = "Block6_Auswahl";
-            this.Block6_Auswahl.Size = new System.Drawing.Size(101, 40);
-            this.Block6_Auswahl.TabIndex = 779;
-            this.Block6_Auswahl.Visible = false;
-            // 
-            // Block6_Schatten11
-            // 
-            this.Block6_Schatten11.Location = new System.Drawing.Point(49, 19);
-            this.Block6_Schatten11.Margin = new System.Windows.Forms.Padding(0);
-            this.Block6_Schatten11.Name = "Block6_Schatten11";
-            this.Block6_Schatten11.Size = new System.Drawing.Size(50, 20);
-            this.Block6_Schatten11.TabIndex = 538;
-            this.Block6_Schatten11.Text = "Gleis11";
-            this.Block6_Schatten11.UseVisualStyleBackColor = true;
-            this.Block6_Schatten11.Click += new System.EventHandler(this.Block6_Schatten11_Click);
-            // 
-            // Block6_Schatten9
-            // 
-            this.Block6_Schatten9.Location = new System.Drawing.Point(0, 19);
-            this.Block6_Schatten9.Margin = new System.Windows.Forms.Padding(0);
-            this.Block6_Schatten9.Name = "Block6_Schatten9";
-            this.Block6_Schatten9.Size = new System.Drawing.Size(50, 20);
-            this.Block6_Schatten9.TabIndex = 535;
-            this.Block6_Schatten9.Text = "Gleis 9";
-            this.Block6_Schatten9.UseVisualStyleBackColor = true;
-            this.Block6_Schatten9.Click += new System.EventHandler(this.Block6_Schatten9_Click);
-            // 
-            // Block6_Schatten10
-            // 
-            this.Block6_Schatten10.Location = new System.Drawing.Point(49, 0);
-            this.Block6_Schatten10.Margin = new System.Windows.Forms.Padding(0);
-            this.Block6_Schatten10.Name = "Block6_Schatten10";
-            this.Block6_Schatten10.Size = new System.Drawing.Size(50, 20);
-            this.Block6_Schatten10.TabIndex = 537;
-            this.Block6_Schatten10.Text = "Gleis10";
-            this.Block6_Schatten10.UseVisualStyleBackColor = true;
-            this.Block6_Schatten10.Click += new System.EventHandler(this.Block6_Schatten10_Click);
-            // 
-            // Block6_Schatten8
-            // 
-            this.Block6_Schatten8.Location = new System.Drawing.Point(0, 0);
-            this.Block6_Schatten8.Name = "Block6_Schatten8";
-            this.Block6_Schatten8.Size = new System.Drawing.Size(50, 20);
-            this.Block6_Schatten8.TabIndex = 534;
-            this.Block6_Schatten8.Text = "Gleis 8";
-            this.Block6_Schatten8.UseVisualStyleBackColor = true;
-            this.Block6_Schatten8.Click += new System.EventHandler(this.Block6_Schatten8_Click);
+            this.Block9.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Block5b_14
             // 
@@ -11340,8 +10809,9 @@
             this.Fahrstr_Schatten3_Ausf.Name = "Fahrstr_Schatten3_Ausf";
             this.Fahrstr_Schatten3_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten3_Ausf.TabIndex = 838;
+            this.Fahrstr_Schatten3_Ausf.Tag = "Schatten3_nach_Block9";
             this.Fahrstr_Schatten3_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten3_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten3_Ausf_Click);
+            this.Fahrstr_Schatten3_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Block8_2
             // 
@@ -11639,8 +11109,9 @@
             this.Fahrstr_Schatten11_Ausf.Name = "Fahrstr_Schatten11_Ausf";
             this.Fahrstr_Schatten11_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten11_Ausf.TabIndex = 868;
+            this.Fahrstr_Schatten11_Ausf.Tag = "Schatten11_nach_Eingleisen";
             this.Fahrstr_Schatten11_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten11_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten11_Ausf_Click);
+            this.Fahrstr_Schatten11_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_Schatten10_Ausf
             // 
@@ -11658,8 +11129,9 @@
             this.Fahrstr_Schatten10_Ausf.Name = "Fahrstr_Schatten10_Ausf";
             this.Fahrstr_Schatten10_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten10_Ausf.TabIndex = 869;
+            this.Fahrstr_Schatten10_Ausf.Tag = "Schatten10_nach_Eingleisen";
             this.Fahrstr_Schatten10_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten10_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten10_Ausf_Click);
+            this.Fahrstr_Schatten10_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_Schatten9_Ausf
             // 
@@ -11677,8 +11149,9 @@
             this.Fahrstr_Schatten9_Ausf.Name = "Fahrstr_Schatten9_Ausf";
             this.Fahrstr_Schatten9_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten9_Ausf.TabIndex = 870;
+            this.Fahrstr_Schatten9_Ausf.Tag = "Schatten9_nach_Eingleisen";
             this.Fahrstr_Schatten9_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten9_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten9_Ausf_Click);
+            this.Fahrstr_Schatten9_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // Fahrstr_Schatten8_Ausf
             // 
@@ -11696,8 +11169,9 @@
             this.Fahrstr_Schatten8_Ausf.Name = "Fahrstr_Schatten8_Ausf";
             this.Fahrstr_Schatten8_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten8_Ausf.TabIndex = 871;
+            this.Fahrstr_Schatten8_Ausf.Tag = "Schatten8_nach_Eingleisen";
             this.Fahrstr_Schatten8_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten8_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten8_Ausf_Click);
+            this.Fahrstr_Schatten8_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // textBox28
             // 
@@ -12158,8 +11632,9 @@
             this.Block8.Name = "Block8";
             this.Block8.Size = new System.Drawing.Size(16, 16);
             this.Block8.TabIndex = 924;
+            this.Block8.Tag = "Block8_nach_Block6";
             this.Block8.UseVisualStyleBackColor = false;
-            this.Block8.Click += new System.EventHandler(this.Block8_Click);
+            this.Block8.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // label114
             // 
@@ -12188,174 +11663,9 @@
             this.Fahrstr_Schatten0_Ausf.Name = "Fahrstr_Schatten0_Ausf";
             this.Fahrstr_Schatten0_Ausf.Size = new System.Drawing.Size(16, 16);
             this.Fahrstr_Schatten0_Ausf.TabIndex = 926;
+            this.Fahrstr_Schatten0_Ausf.Tag = "Eingleisen_nach_Block8";
             this.Fahrstr_Schatten0_Ausf.UseVisualStyleBackColor = false;
-            this.Fahrstr_Schatten0_Ausf.Click += new System.EventHandler(this.Fahrstr_Schatten0_Ausf_Click);
-            // 
-            // SchattenIntern_Auswahl
-            // 
-            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten7);
-            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten6);
-            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten5);
-            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten2);
-            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten4);
-            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten1);
-            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten3);
-            this.SchattenIntern_Auswahl.Controls.Add(this.Intern_Schatten0);
-            this.SchattenIntern_Auswahl.Location = new System.Drawing.Point(976, 800);
-            this.SchattenIntern_Auswahl.Name = "SchattenIntern_Auswahl";
-            this.SchattenIntern_Auswahl.Size = new System.Drawing.Size(66, 155);
-            this.SchattenIntern_Auswahl.TabIndex = 927;
-            this.SchattenIntern_Auswahl.Visible = false;
-            // 
-            // Intern_Schatten7
-            // 
-            this.Intern_Schatten7.Location = new System.Drawing.Point(0, 133);
-            this.Intern_Schatten7.Margin = new System.Windows.Forms.Padding(0);
-            this.Intern_Schatten7.Name = "Intern_Schatten7";
-            this.Intern_Schatten7.Size = new System.Drawing.Size(64, 20);
-            this.Intern_Schatten7.TabIndex = 930;
-            this.Intern_Schatten7.Text = "Gleis 7";
-            this.Intern_Schatten7.UseVisualStyleBackColor = true;
-            this.Intern_Schatten7.Click += new System.EventHandler(this.Intern_Schatten7_Click);
-            // 
-            // Intern_Schatten6
-            // 
-            this.Intern_Schatten6.Location = new System.Drawing.Point(0, 114);
-            this.Intern_Schatten6.Margin = new System.Windows.Forms.Padding(0);
-            this.Intern_Schatten6.Name = "Intern_Schatten6";
-            this.Intern_Schatten6.Size = new System.Drawing.Size(64, 20);
-            this.Intern_Schatten6.TabIndex = 930;
-            this.Intern_Schatten6.Text = "Gleis 6";
-            this.Intern_Schatten6.UseVisualStyleBackColor = true;
-            this.Intern_Schatten6.Click += new System.EventHandler(this.Intern_Schatten6_Click);
-            // 
-            // Intern_Schatten5
-            // 
-            this.Intern_Schatten5.Location = new System.Drawing.Point(0, 95);
-            this.Intern_Schatten5.Margin = new System.Windows.Forms.Padding(0);
-            this.Intern_Schatten5.Name = "Intern_Schatten5";
-            this.Intern_Schatten5.Size = new System.Drawing.Size(64, 20);
-            this.Intern_Schatten5.TabIndex = 929;
-            this.Intern_Schatten5.Text = "Gleis 5";
-            this.Intern_Schatten5.UseVisualStyleBackColor = true;
-            this.Intern_Schatten5.Click += new System.EventHandler(this.Intern_Schatten5_Click);
-            // 
-            // Intern_Schatten2
-            // 
-            this.Intern_Schatten2.Location = new System.Drawing.Point(0, 38);
-            this.Intern_Schatten2.Margin = new System.Windows.Forms.Padding(0);
-            this.Intern_Schatten2.Name = "Intern_Schatten2";
-            this.Intern_Schatten2.Size = new System.Drawing.Size(64, 20);
-            this.Intern_Schatten2.TabIndex = 928;
-            this.Intern_Schatten2.Text = "Gleis 2";
-            this.Intern_Schatten2.UseVisualStyleBackColor = true;
-            this.Intern_Schatten2.Click += new System.EventHandler(this.Intern_Schatten2_Click);
-            // 
-            // Intern_Schatten4
-            // 
-            this.Intern_Schatten4.Location = new System.Drawing.Point(0, 76);
-            this.Intern_Schatten4.Margin = new System.Windows.Forms.Padding(0);
-            this.Intern_Schatten4.Name = "Intern_Schatten4";
-            this.Intern_Schatten4.Size = new System.Drawing.Size(64, 20);
-            this.Intern_Schatten4.TabIndex = 538;
-            this.Intern_Schatten4.Text = "Gleis 4";
-            this.Intern_Schatten4.UseVisualStyleBackColor = true;
-            this.Intern_Schatten4.Click += new System.EventHandler(this.Intern_Schatten4_Click);
-            // 
-            // Intern_Schatten1
-            // 
-            this.Intern_Schatten1.Location = new System.Drawing.Point(0, 19);
-            this.Intern_Schatten1.Margin = new System.Windows.Forms.Padding(0);
-            this.Intern_Schatten1.Name = "Intern_Schatten1";
-            this.Intern_Schatten1.Size = new System.Drawing.Size(64, 20);
-            this.Intern_Schatten1.TabIndex = 535;
-            this.Intern_Schatten1.Text = "Gleis 1";
-            this.Intern_Schatten1.UseVisualStyleBackColor = true;
-            this.Intern_Schatten1.Click += new System.EventHandler(this.Intern_Schatten1_Click);
-            // 
-            // Intern_Schatten3
-            // 
-            this.Intern_Schatten3.Location = new System.Drawing.Point(0, 57);
-            this.Intern_Schatten3.Margin = new System.Windows.Forms.Padding(0);
-            this.Intern_Schatten3.Name = "Intern_Schatten3";
-            this.Intern_Schatten3.Size = new System.Drawing.Size(64, 20);
-            this.Intern_Schatten3.TabIndex = 537;
-            this.Intern_Schatten3.Text = "Gleis 3";
-            this.Intern_Schatten3.UseVisualStyleBackColor = true;
-            this.Intern_Schatten3.Click += new System.EventHandler(this.Intern_Schatten3_Click);
-            // 
-            // Intern_Schatten0
-            // 
-            this.Intern_Schatten0.Location = new System.Drawing.Point(0, 0);
-            this.Intern_Schatten0.Name = "Intern_Schatten0";
-            this.Intern_Schatten0.Size = new System.Drawing.Size(64, 20);
-            this.Intern_Schatten0.TabIndex = 534;
-            this.Intern_Schatten0.Text = "Eingleisen";
-            this.Intern_Schatten0.UseVisualStyleBackColor = true;
-            this.Intern_Schatten0.Click += new System.EventHandler(this.Intern_Schatten0_Click);
-            // 
-            // Schatten1_Auswahl
-            // 
-            this.Schatten1_Auswahl.Controls.Add(this.Schatten1_Block9);
-            this.Schatten1_Auswahl.Controls.Add(this.Schatten1_Block8);
-            this.Schatten1_Auswahl.Location = new System.Drawing.Point(384, 656);
-            this.Schatten1_Auswahl.Name = "Schatten1_Auswahl";
-            this.Schatten1_Auswahl.Size = new System.Drawing.Size(66, 40);
-            this.Schatten1_Auswahl.TabIndex = 930;
-            this.Schatten1_Auswahl.Visible = false;
-            // 
-            // Schatten1_Block9
-            // 
-            this.Schatten1_Block9.Location = new System.Drawing.Point(0, 19);
-            this.Schatten1_Block9.Margin = new System.Windows.Forms.Padding(0);
-            this.Schatten1_Block9.Name = "Schatten1_Block9";
-            this.Schatten1_Block9.Size = new System.Drawing.Size(64, 20);
-            this.Schatten1_Block9.TabIndex = 535;
-            this.Schatten1_Block9.Text = "Block 9";
-            this.Schatten1_Block9.UseVisualStyleBackColor = true;
-            this.Schatten1_Block9.Click += new System.EventHandler(this.Schatten1_Block9_Click);
-            // 
-            // Schatten1_Block8
-            // 
-            this.Schatten1_Block8.Location = new System.Drawing.Point(0, 0);
-            this.Schatten1_Block8.Name = "Schatten1_Block8";
-            this.Schatten1_Block8.Size = new System.Drawing.Size(64, 20);
-            this.Schatten1_Block8.TabIndex = 534;
-            this.Schatten1_Block8.Text = "Block 8";
-            this.Schatten1_Block8.UseVisualStyleBackColor = true;
-            this.Schatten1_Block8.Click += new System.EventHandler(this.Schatten1_Block8_Click);
-            // 
-            // Block1_Auswahl
-            // 
-            this.Block1_Auswahl.Controls.Add(this.Btn_Block1_Nach_Block5);
-            this.Block1_Auswahl.Controls.Add(this.Btn_Block1_Nach_Block2);
-            this.Block1_Auswahl.Location = new System.Drawing.Point(56, 176);
-            this.Block1_Auswahl.Name = "Block1_Auswahl";
-            this.Block1_Auswahl.Size = new System.Drawing.Size(50, 42);
-            this.Block1_Auswahl.TabIndex = 931;
-            this.Block1_Auswahl.Visible = false;
-            // 
-            // Btn_Block1_Nach_Block5
-            // 
-            this.Btn_Block1_Nach_Block5.Location = new System.Drawing.Point(0, 0);
-            this.Btn_Block1_Nach_Block5.Margin = new System.Windows.Forms.Padding(0);
-            this.Btn_Block1_Nach_Block5.Name = "Btn_Block1_Nach_Block5";
-            this.Btn_Block1_Nach_Block5.Size = new System.Drawing.Size(50, 20);
-            this.Btn_Block1_Nach_Block5.TabIndex = 647;
-            this.Btn_Block1_Nach_Block5.Text = "Block5";
-            this.Btn_Block1_Nach_Block5.UseVisualStyleBackColor = true;
-            this.Btn_Block1_Nach_Block5.Click += new System.EventHandler(this.Block1_nach_Block5_Click);
-            // 
-            // Btn_Block1_Nach_Block2
-            // 
-            this.Btn_Block1_Nach_Block2.Location = new System.Drawing.Point(0, 19);
-            this.Btn_Block1_Nach_Block2.Margin = new System.Windows.Forms.Padding(0);
-            this.Btn_Block1_Nach_Block2.Name = "Btn_Block1_Nach_Block2";
-            this.Btn_Block1_Nach_Block2.Size = new System.Drawing.Size(50, 20);
-            this.Btn_Block1_Nach_Block2.TabIndex = 646;
-            this.Btn_Block1_Nach_Block2.Text = "Block2";
-            this.Btn_Block1_Nach_Block2.UseVisualStyleBackColor = true;
-            this.Btn_Block1_Nach_Block2.Click += new System.EventHandler(this.Block1_nach_Block2_Click);
+            this.Fahrstr_Schatten0_Ausf.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
             // groupBox1
             // 
@@ -13003,7 +12313,6 @@
             this.Controls.Add(this.Signal_Schatten2);
             this.Controls.Add(this.Signal_Schatten1);
             this.Controls.Add(this.Signal_Schatten0);
-            this.Controls.Add(this.Block6_Auswahl);
             this.Controls.Add(this.Sperrung_Schatten7_Einf);
             this.Controls.Add(this.Sperrung_Schatten6_Einf);
             this.Controls.Add(this.Sperrung_Schatten5_Einf);
@@ -13028,18 +12337,12 @@
             this.Controls.Add(this.Sperrung_Schatten2_Ausf);
             this.Controls.Add(this.Sperrung_Schatten1_Ausf);
             this.Controls.Add(this.Sperrung_Schatten0_Ausf);
-            this.Controls.Add(this.Gl6_rechts_Auswahl);
-            this.Controls.Add(this.Gl5_rechts_Auswahl);
             this.Controls.Add(this.Sperrung_Gl6_rechts);
             this.Controls.Add(this.Sperrung_Gl5_rechts);
-            this.Controls.Add(this.Gl3_rechts_Auswahl);
             this.Controls.Add(this.Sperrung_Gl4_rechts);
-            this.Controls.Add(this.Gl2_rechts_Auswahl);
             this.Controls.Add(this.Sperrung_Gl3_rechts);
-            this.Controls.Add(this.Gl1_rechts_Auswahl);
             this.Controls.Add(this.Sperrung_Gl2_rechts);
             this.Controls.Add(this.Sperrung_Gl1_rechts);
-            this.Controls.Add(this.Block1_Auswahl);
             this.Controls.Add(this.Sperrung_Gl6_links);
             this.Controls.Add(this.Sperrung_Gl5_links);
             this.Controls.Add(this.Sperrung_Gl4_links);
@@ -13047,8 +12350,6 @@
             this.Controls.Add(this.Sperrung_Gl1_links);
             this.Controls.Add(this.Sperrung_Gl2_links);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.SchattenIntern_Auswahl);
-            this.Controls.Add(this.Schatten1_Auswahl);
             this.Controls.Add(this.Fahrstr_Schatten0_Ausf);
             this.Controls.Add(this.label114);
             this.Controls.Add(this.Block8);
@@ -13237,9 +12538,6 @@
             this.Controls.Add(this.pictureBox15);
             this.Controls.Add(this.pictureBox16);
             this.Controls.Add(this.Bahnsteig_Gl1);
-            this.Controls.Add(this.Rechts2_Auswahl);
-            this.Controls.Add(this.Rechts1_Auswahl);
-            this.Controls.Add(this.Gl4_rechts_Auswahl);
             this.Controls.Add(this.Fahrstr_Rechts2);
             this.Controls.Add(this.Fahrstr_Rechts1);
             this.Controls.Add(this.Block2_Einfahrt);
@@ -13257,7 +12555,6 @@
             this.Controls.Add(this.Signal_Ausfahrt_R3);
             this.Controls.Add(this.Signal_Ausfahrt_R2);
             this.Controls.Add(this.Signal_Ausfahrt_R1);
-            this.Controls.Add(this.Block2_Auswahl);
             this.Controls.Add(this.Signal_Einfahrt_L);
             this.Controls.Add(this.Block1);
             this.Controls.Add(this.Signal_Tunnel_L1);
@@ -13265,8 +12562,8 @@
             this.Controls.Add(this.Fahrstr_GL5_links);
             this.Controls.Add(this.Fahrstr_GL4_links);
             this.Controls.Add(this.Fahrstr_GL3_links);
-            this.Controls.Add(this.Fahrstr_GL2_links);
-            this.Controls.Add(this.Fahrstr_GL1_links);
+            this.Controls.Add(this.Gleis2_nach_Block1_Button);
+            this.Controls.Add(this.Gleis1_nach_Block1_Button);
             this.Controls.Add(this.Signal_Ausfahrt_L6);
             this.Controls.Add(this.Signal_Ausfahrt_L5);
             this.Controls.Add(this.Signal_Ausfahrt_L3);
@@ -14266,7 +13563,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche6)).EndInit();
-            this.Block2_Auswahl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Bhf_Gl5_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bhf_Gl5_a)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bhf_Gl5_b)).EndInit();
@@ -14341,14 +13637,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.LokCtrl3_Adr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LokCtrl2_Adr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LokCtrl1_Adr)).EndInit();
-            this.Gl6_rechts_Auswahl.ResumeLayout(false);
-            this.Gl5_rechts_Auswahl.ResumeLayout(false);
-            this.Gl4_rechts_Auswahl.ResumeLayout(false);
-            this.Gl3_rechts_Auswahl.ResumeLayout(false);
-            this.Gl2_rechts_Auswahl.ResumeLayout(false);
-            this.Gl1_rechts_Auswahl.ResumeLayout(false);
-            this.Rechts1_Auswahl.ResumeLayout(false);
-            this.Rechts2_Auswahl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Ausfahrt_L4)).EndInit();
@@ -14396,7 +13684,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl2_5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl1_6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl21_3)).EndInit();
-            this.Block6_Auswahl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Block5b_14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5b_15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_4)).EndInit();
@@ -14493,9 +13780,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Block7_3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox53)).EndInit();
-            this.SchattenIntern_Auswahl.ResumeLayout(false);
-            this.Schatten1_Auswahl.ResumeLayout(false);
-            this.Block1_Auswahl.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Schatten0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Signal_Schatten1)).EndInit();
@@ -14984,7 +14268,7 @@
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.Button Fahrstr_GL1_links;
+        private System.Windows.Forms.Button Gleis1_nach_Block1_Button;
         private System.Windows.Forms.PictureBox Betrieb_Gl33_4;
         private System.Windows.Forms.PictureBox Betrieb_Gl39_5;
         private System.Windows.Forms.PictureBox Betrieb_Gl37_4;
@@ -15002,19 +14286,12 @@
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Button Block1;
-        private System.Windows.Forms.Button Fahrstr_GL2_links;
+        private System.Windows.Forms.Button Gleis2_nach_Block1_Button;
         private System.Windows.Forms.Button Fahrstr_GL3_links;
         private System.Windows.Forms.Button Fahrstr_GL4_links;
         private System.Windows.Forms.Button Fahrstr_GL5_links;
         private System.Windows.Forms.Button Fahrstr_GL6_links;
         private System.Windows.Forms.Button Block2_Einfahrt;
-        private System.Windows.Forms.Panel Block2_Auswahl;
-        private System.Windows.Forms.Button Block2_Einfaht_GL6;
-        private System.Windows.Forms.Button Block2_Einfaht_GL3;
-        private System.Windows.Forms.Button Block2_Einfaht_GL5;
-        private System.Windows.Forms.Button Block2_Einfaht_GL2;
-        private System.Windows.Forms.Button Block2_Einfaht_GL4;
-        private System.Windows.Forms.Button Block2_Einfaht_GL1;
         private System.Windows.Forms.PictureBox Bhf_Gl5_1;
         private System.Windows.Forms.PictureBox Bhf_Gl5_a;
         private System.Windows.Forms.PictureBox Bhf_Gl5_b;
@@ -15159,43 +14436,11 @@
         private System.Windows.Forms.Button Fahrstr_Rechts2;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.Panel Gl6_rechts_Auswahl;
-        private System.Windows.Forms.Button Gl6_Ausfahrt_rechts2;
-        private System.Windows.Forms.Button Gl6_Ausfahrt_rechts1;
-        private System.Windows.Forms.Panel Gl5_rechts_Auswahl;
-        private System.Windows.Forms.Button Gl5_Ausfahrt_rechts2;
-        private System.Windows.Forms.Button Gl5_Ausfahrt_rechts1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem Z21MenuEinstellungen;
         private System.Windows.Forms.ToolStripMenuItem WeichenMenuEinstellungen;
-        private System.Windows.Forms.Panel Gl4_rechts_Auswahl;
-        private System.Windows.Forms.Button Gl4_Ausfahrt_rechts2;
-        private System.Windows.Forms.Button Gl4_Ausfahrt_rechts1;
-        private System.Windows.Forms.Panel Gl3_rechts_Auswahl;
-        private System.Windows.Forms.Button Gl3_Ausfahrt_rechts2;
-        private System.Windows.Forms.Button Gl3_Ausfahrt_rechts1;
-        private System.Windows.Forms.Panel Gl2_rechts_Auswahl;
-        private System.Windows.Forms.Button Gl2_Ausfahrt_rechts2;
-        private System.Windows.Forms.Button Gl2_Ausfahrt_rechts1;
-        private System.Windows.Forms.Panel Gl1_rechts_Auswahl;
-        private System.Windows.Forms.Button Gl1_Ausfahrt_rechts2;
-        private System.Windows.Forms.Button Gl1_Ausfahrt_rechts1;
         private System.Windows.Forms.Label label68;
         private System.Windows.Forms.Label innen;
-        private System.Windows.Forms.Panel Rechts1_Auswahl;
-        private System.Windows.Forms.Button Rechts1_Einfahrt_Gl6;
-        private System.Windows.Forms.Button Rechts1_Einfahrt_Gl3;
-        private System.Windows.Forms.Button Rechts1_Einfahrt_Gl5;
-        private System.Windows.Forms.Button Rechts1_Einfahrt_Gl2;
-        private System.Windows.Forms.Button Rechts1_Einfahrt_Gl4;
-        private System.Windows.Forms.Button Rechts1_Einfahrt_Gl1;
-        private System.Windows.Forms.Panel Rechts2_Auswahl;
-        private System.Windows.Forms.Button Rechts2_Einfahrt_Gl6;
-        private System.Windows.Forms.Button Rechts2_Einfahrt_Gl3;
-        private System.Windows.Forms.Button Rechts2_Einfahrt_Gl5;
-        private System.Windows.Forms.Button Rechts2_Einfahrt_Gl2;
-        private System.Windows.Forms.Button Rechts2_Einfahrt_Gl4;
-        private System.Windows.Forms.Button Rechts2_Einfahrt_Gl1;
         private System.Windows.Forms.ToolStripMenuItem uberSteuerprogrammToolStripMenuItem;
         private System.Windows.Forms.ComboBox LokCtrl1_Name;
         private System.Windows.Forms.ComboBox LokCtrl10_Name;
@@ -15359,11 +14604,6 @@
         private System.Windows.Forms.Label label112;
         private System.Windows.Forms.Button Block5;
         private System.Windows.Forms.Button Block9;
-        private System.Windows.Forms.Panel Block6_Auswahl;
-        private System.Windows.Forms.Button Block6_Schatten11;
-        private System.Windows.Forms.Button Block6_Schatten9;
-        private System.Windows.Forms.Button Block6_Schatten10;
-        private System.Windows.Forms.Button Block6_Schatten8;
         private System.Windows.Forms.PictureBox Block5b_14;
         private System.Windows.Forms.PictureBox Block5b_15;
         private System.Windows.Forms.PictureBox Block9_4;
@@ -15494,21 +14734,6 @@
         private System.Windows.Forms.Button Block8;
         private System.Windows.Forms.Label label114;
         private System.Windows.Forms.Button Fahrstr_Schatten0_Ausf;
-        private System.Windows.Forms.Panel SchattenIntern_Auswahl;
-        private System.Windows.Forms.Button Intern_Schatten7;
-        private System.Windows.Forms.Button Intern_Schatten6;
-        private System.Windows.Forms.Button Intern_Schatten5;
-        private System.Windows.Forms.Button Intern_Schatten2;
-        private System.Windows.Forms.Button Intern_Schatten4;
-        private System.Windows.Forms.Button Intern_Schatten1;
-        private System.Windows.Forms.Button Intern_Schatten3;
-        private System.Windows.Forms.Button Intern_Schatten0;
-        private System.Windows.Forms.Panel Schatten1_Auswahl;
-        private System.Windows.Forms.Button Schatten1_Block9;
-        private System.Windows.Forms.Button Schatten1_Block8;
-        private System.Windows.Forms.Panel Block1_Auswahl;
-        private System.Windows.Forms.Button Btn_Block1_Nach_Block5;
-        private System.Windows.Forms.Button Btn_Block1_Nach_Block2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox AutoSignale;
         private System.Windows.Forms.CheckBox Sperrung_Gl2_links;
