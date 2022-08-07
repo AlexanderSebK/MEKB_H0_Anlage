@@ -9,8 +9,6 @@ namespace MEKB_H0_Anlage
 {
     public partial class Form1 : Form
     {
-        
-
         private void UpdateSchalter()
         {
             UpdateButton_Fahrstr_GL1_links();
@@ -30,7 +28,7 @@ namespace MEKB_H0_Anlage
 
             UpdateButton_Fahrstr_Rechts1_nach_Hbf();
             UpdateButton_Fahrstr_Rechts2_nach_Hbf();
-            UpdateButton_Fahrstr_RechtsSubButtons_nach_Hbf();
+            
 
             UpdateButton_Fahrstr_Block5_Ausf();
             UpdateButton_Fahrstr_Block8_Ausf();
@@ -42,8 +40,6 @@ namespace MEKB_H0_Anlage
             UpdateButton_Fahrstr_Schatten8_Ausf();
 
             UpdateButton_Fahrstr_Schatten0_Ausf();
-            UpdateButton_Fahrstr_Schatten1Sub8_Ausf();
-            UpdateButton_Fahrstr_Schatten1Sub9_Ausf();
             UpdateButton_Fahrstr_Schatten1_Ausf();
             UpdateButton_Fahrstr_Schatten2_Ausf();
             UpdateButton_Fahrstr_Schatten3_Ausf();
@@ -166,23 +162,6 @@ namespace MEKB_H0_Anlage
         }       
         private void UpdateButton_Fahrstr_Block2_Einfahrt()
         {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Block2_nach_Gleis1"))
-            {
-                Block2_Einfaht_GL1.Enabled = false;
-            }
-            else
-            {
-                Block2_Einfaht_GL1.Enabled = true;
-            }
-            if (FahrstrassenListe.FahrstrasseBlockiert("Block2_nach_Gleis2"))
-            {
-                Block2_Einfaht_GL2.Enabled = false;
-            }
-            else
-            {
-                Block2_Einfaht_GL2.Enabled = true;
-            }
-
             if (FahrstrassenListe.FahrstrasseBlockiert("Block2_nach_Gleis3") ||
                 FahrstrassenListe.FahrstrasseBlockiert("Block2_nach_Gleis4") ||
                 FahrstrassenListe.FahrstrasseBlockiert("Block2_nach_Gleis5") ||
@@ -205,28 +184,7 @@ namespace MEKB_H0_Anlage
 
         private void UpdateButton_Fahrstr_GL1_rechts()
         {
-            if (Gleis2_nach_rechts1.GetGesetztStatus() ||
-                Gleis2_nach_rechts2.GetGesetztStatus() ||
-                Gleis3_nach_rechts1.GetGesetztStatus() ||
-                Gleis3_nach_rechts2.GetGesetztStatus() ||
-                Gleis4_nach_rechts1.GetGesetztStatus() ||
-                Gleis4_nach_rechts2.GetGesetztStatus() ||
-                Gleis5_nach_rechts1.GetGesetztStatus() ||
-                Gleis5_nach_rechts2.GetGesetztStatus() ||
-                Gleis6_nach_rechts1.GetGesetztStatus() ||
-                Gleis6_nach_rechts2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis1.GetGesetztStatus() ||
-                Rechts1_nach_Gleis2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis3.GetGesetztStatus() ||
-                Rechts1_nach_Gleis4.GetGesetztStatus() ||
-                Rechts1_nach_Gleis5.GetGesetztStatus() ||
-                Rechts1_nach_Gleis6.GetGesetztStatus() ||
-                Rechts2_nach_Gleis1.GetGesetztStatus() ||
-                Rechts2_nach_Gleis2.GetGesetztStatus() ||
-                Rechts2_nach_Gleis3.GetGesetztStatus() ||
-                Rechts2_nach_Gleis4.GetGesetztStatus() ||
-                Rechts2_nach_Gleis5.GetGesetztStatus() ||
-                Rechts2_nach_Gleis6.GetGesetztStatus() )
+            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis1_nach_TunnelAussen"))
             {
                 Fahrstr_GL1_rechts.Enabled = false;
                 Fahrstr_GL1_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -245,28 +203,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_GL2_rechts()
         {
-            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
-                Gleis1_nach_rechts2.GetGesetztStatus() ||
-                Gleis3_nach_rechts1.GetGesetztStatus() ||
-                Gleis3_nach_rechts2.GetGesetztStatus() ||
-                Gleis4_nach_rechts1.GetGesetztStatus() ||
-                Gleis4_nach_rechts2.GetGesetztStatus() ||
-                Gleis5_nach_rechts1.GetGesetztStatus() ||
-                Gleis5_nach_rechts2.GetGesetztStatus() ||
-                Gleis6_nach_rechts1.GetGesetztStatus() ||
-                Gleis6_nach_rechts2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis1.GetGesetztStatus() ||
-                Rechts1_nach_Gleis2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis3.GetGesetztStatus() ||
-                Rechts1_nach_Gleis4.GetGesetztStatus() ||
-                Rechts1_nach_Gleis5.GetGesetztStatus() ||
-                Rechts1_nach_Gleis6.GetGesetztStatus() ||
-                Rechts2_nach_Gleis1.GetGesetztStatus() ||
-                Rechts2_nach_Gleis2.GetGesetztStatus() ||
-                Rechts2_nach_Gleis3.GetGesetztStatus() ||
-                Rechts2_nach_Gleis4.GetGesetztStatus() ||
-                Rechts2_nach_Gleis5.GetGesetztStatus() ||
-                Rechts2_nach_Gleis6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis2_nach_TunnelAussen"))
             {
                 Fahrstr_GL2_rechts.Enabled = false;
                 Fahrstr_GL2_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -285,24 +222,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_GL3_rechts()
         {
-            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
-                Gleis1_nach_rechts2.GetGesetztStatus() ||
-                Gleis2_nach_rechts1.GetGesetztStatus() ||
-                Gleis2_nach_rechts2.GetGesetztStatus() ||
-                Gleis4_nach_rechts1.GetGesetztStatus() ||
-                Gleis4_nach_rechts2.GetGesetztStatus() ||
-                Gleis5_nach_rechts1.GetGesetztStatus() ||
-                Gleis5_nach_rechts2.GetGesetztStatus() ||
-                Gleis6_nach_rechts1.GetGesetztStatus() ||
-                Gleis6_nach_rechts2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis3.GetGesetztStatus() ||
-                Rechts1_nach_Gleis4.GetGesetztStatus() ||
-                Rechts1_nach_Gleis5.GetGesetztStatus() ||
-                Rechts1_nach_Gleis6.GetGesetztStatus() ||
-                Rechts2_nach_Gleis3.GetGesetztStatus() ||
-                Rechts2_nach_Gleis4.GetGesetztStatus() ||
-                Rechts2_nach_Gleis5.GetGesetztStatus() ||
-                Rechts2_nach_Gleis6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis3_nach_TunnelAussen"))
             {
                 Fahrstr_GL3_rechts.Enabled = false;
                 Fahrstr_GL3_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -321,24 +241,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_GL4_rechts()
         {
-            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
-                Gleis1_nach_rechts2.GetGesetztStatus() ||
-                Gleis2_nach_rechts1.GetGesetztStatus() ||
-                Gleis2_nach_rechts2.GetGesetztStatus() ||
-                Gleis3_nach_rechts1.GetGesetztStatus() ||
-                Gleis3_nach_rechts2.GetGesetztStatus() ||
-                Gleis5_nach_rechts1.GetGesetztStatus() ||
-                Gleis5_nach_rechts2.GetGesetztStatus() ||
-                Gleis6_nach_rechts1.GetGesetztStatus() ||
-                Gleis6_nach_rechts2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis3.GetGesetztStatus() ||
-                Rechts1_nach_Gleis4.GetGesetztStatus() ||
-                Rechts1_nach_Gleis5.GetGesetztStatus() ||
-                Rechts1_nach_Gleis6.GetGesetztStatus() ||
-                Rechts2_nach_Gleis3.GetGesetztStatus() ||
-                Rechts2_nach_Gleis4.GetGesetztStatus() ||
-                Rechts2_nach_Gleis5.GetGesetztStatus() ||
-                Rechts2_nach_Gleis6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis4_nach_TunnelAussen"))
             {
                 Fahrstr_GL4_rechts.Enabled = false;
                 Fahrstr_GL4_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -357,24 +260,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_GL5_rechts()
         {
-            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
-                Gleis1_nach_rechts2.GetGesetztStatus() ||
-                Gleis2_nach_rechts1.GetGesetztStatus() ||
-                Gleis2_nach_rechts2.GetGesetztStatus() ||
-                Gleis3_nach_rechts1.GetGesetztStatus() ||
-                Gleis3_nach_rechts2.GetGesetztStatus() ||
-                Gleis4_nach_rechts1.GetGesetztStatus() ||
-                Gleis4_nach_rechts2.GetGesetztStatus() ||
-                Gleis6_nach_rechts1.GetGesetztStatus() ||
-                Gleis6_nach_rechts2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis3.GetGesetztStatus() ||
-                Rechts1_nach_Gleis4.GetGesetztStatus() ||
-                Rechts1_nach_Gleis5.GetGesetztStatus() ||
-                Rechts1_nach_Gleis6.GetGesetztStatus() ||
-                Rechts2_nach_Gleis3.GetGesetztStatus() ||
-                Rechts2_nach_Gleis4.GetGesetztStatus() ||
-                Rechts2_nach_Gleis5.GetGesetztStatus() ||
-                Rechts2_nach_Gleis6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis5_nach_TunnelAussen"))
             {
                 Fahrstr_GL5_rechts.Enabled = false;
                 Fahrstr_GL5_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -393,24 +279,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_GL6_rechts()
         {
-            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
-                Gleis1_nach_rechts2.GetGesetztStatus() ||
-                Gleis2_nach_rechts1.GetGesetztStatus() ||
-                Gleis2_nach_rechts2.GetGesetztStatus() ||
-                Gleis3_nach_rechts1.GetGesetztStatus() ||
-                Gleis3_nach_rechts2.GetGesetztStatus() ||
-                Gleis4_nach_rechts1.GetGesetztStatus() ||
-                Gleis4_nach_rechts2.GetGesetztStatus() ||
-                Gleis5_nach_rechts1.GetGesetztStatus() ||
-                Gleis5_nach_rechts2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis3.GetGesetztStatus() ||
-                Rechts1_nach_Gleis4.GetGesetztStatus() ||
-                Rechts1_nach_Gleis5.GetGesetztStatus() ||
-                Rechts1_nach_Gleis6.GetGesetztStatus() ||
-                Rechts2_nach_Gleis3.GetGesetztStatus() ||
-                Rechts2_nach_Gleis4.GetGesetztStatus() ||
-                Rechts2_nach_Gleis5.GetGesetztStatus() ||
-                Rechts2_nach_Gleis6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis6_nach_TunnelAussen"))
             {
                 Fahrstr_GL6_rechts.Enabled = false;
                 Fahrstr_GL6_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -429,16 +298,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Rechts1_nach_Hbf()
         {
-            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
-                Gleis1_nach_rechts2.GetGesetztStatus() ||
-                Gleis2_nach_rechts1.GetGesetztStatus() ||
-                Gleis2_nach_rechts2.GetGesetztStatus() ||
-                Rechts2_nach_Gleis1.GetGesetztStatus() ||
-                Rechts2_nach_Gleis2.GetGesetztStatus() ||
-                Rechts2_nach_Gleis3.GetGesetztStatus() ||
-                Rechts2_nach_Gleis4.GetGesetztStatus() ||
-                Rechts2_nach_Gleis5.GetGesetztStatus() ||
-                Rechts2_nach_Gleis6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("TunnelAussen_nach_Gleis1"))
             {
                 Fahrstr_Rechts1.Enabled = false;
                 Fahrstr_Rechts1.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
@@ -457,16 +317,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Rechts2_nach_Hbf()
         {
-            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
-                Gleis1_nach_rechts2.GetGesetztStatus() ||
-                Gleis2_nach_rechts1.GetGesetztStatus() ||
-                Gleis2_nach_rechts2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis1.GetGesetztStatus() ||
-                Rechts1_nach_Gleis2.GetGesetztStatus() ||
-                Rechts1_nach_Gleis3.GetGesetztStatus() ||
-                Rechts1_nach_Gleis4.GetGesetztStatus() ||
-                Rechts1_nach_Gleis5.GetGesetztStatus() ||
-                Rechts1_nach_Gleis6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("TunnelInnen_nach_Gleis1"))
             {
                 Fahrstr_Rechts2.Enabled = false;
                 Fahrstr_Rechts2.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
@@ -488,7 +339,7 @@ namespace MEKB_H0_Anlage
         #region Freie Strecke
         private void UpdateButton_Fahrstr_Block5_Ausf()
         {
-            if (Block8_nach_Block6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Block5_nach_Block6"))
             {
                 Block5_Ausfahrt.Enabled = false;
                 Block5_Ausfahrt.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -507,14 +358,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Block8_Ausf()
         {
-            if (Block5_nach_Block6.GetGesetztStatus() ||
-                Schatten1_nach_Block9.GetGesetztStatus() ||
-                Schatten2_nach_Block9.GetGesetztStatus() ||
-                Schatten3_nach_Block9.GetGesetztStatus() ||
-                Schatten4_nach_Block9.GetGesetztStatus() ||
-                Schatten5_nach_Block9.GetGesetztStatus() ||
-                Schatten6_nach_Block9.GetGesetztStatus() ||
-                Schatten7_nach_Block9.GetGesetztStatus() )
+            if (FahrstrassenListe.FahrstrasseBlockiert("Block8_nach_Block6"))
             {
                 Block8.Enabled = false;
                 Block8.BackgroundImage = Properties.Resources.Fahrstrasse_unten_deakt;
@@ -527,7 +371,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Block9_Ausf()
         {
-            if (Block1_nach_Block2.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Block9_nach_Block2"))
             {
                 Block9.Enabled = false;
                 Block9.BackgroundImage = Properties.Resources.Fahrstrasse_oben_deakt;
@@ -543,9 +387,7 @@ namespace MEKB_H0_Anlage
         #region Schattenbahnhof intern
         private void UpdateButton_Fahrstr_Schatten11_Ausf()
         {
-            if (Schatten10_nach_Block7.GetGesetztStatus() ||
-                Schatten9_nach_Block7.GetGesetztStatus() ||
-                Schatten8_nach_Block7.GetGesetztStatus() )
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten11_nach_Eingleisen"))
             {
                 Fahrstr_Schatten11_Ausf.Enabled = false;
                 Fahrstr_Schatten11_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -564,9 +406,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Schatten10_Ausf()
         {
-            if (Schatten11_nach_Block7.GetGesetztStatus() ||
-                Schatten9_nach_Block7.GetGesetztStatus() ||
-                Schatten8_nach_Block7.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten10_nach_Eingleisen"))
             {
                 Fahrstr_Schatten10_Ausf.Enabled = false;
                 Fahrstr_Schatten10_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -585,9 +425,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Schatten9_Ausf()
         {
-            if (Schatten11_nach_Block7.GetGesetztStatus() ||
-                Schatten10_nach_Block7.GetGesetztStatus() ||
-                Schatten8_nach_Block7.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten9_nach_Eingleisen"))
             {
                 Fahrstr_Schatten9_Ausf.Enabled = false;
                 Fahrstr_Schatten9_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -606,9 +444,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Schatten8_Ausf()
         {
-            if (Schatten11_nach_Block7.GetGesetztStatus() ||
-                Schatten10_nach_Block7.GetGesetztStatus() ||
-                Schatten9_nach_Block7.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten8_nach_Eingleisen"))
             {
                 Fahrstr_Schatten8_Ausf.Enabled = false;
                 Fahrstr_Schatten8_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
@@ -630,7 +466,7 @@ namespace MEKB_H0_Anlage
         #region Schattenbahnhof Ausfahrt
         private void UpdateButton_Fahrstr_Schatten0_Ausf()
         {
-            if (Schatten1_nach_Block8.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Eingleisen_nach_Block8"))
             {
                 Fahrstr_Schatten0_Ausf.Enabled = false;
                 Fahrstr_Schatten0_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
@@ -647,37 +483,10 @@ namespace MEKB_H0_Anlage
                 Fahrstr_Schatten0_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links;
             }
         }
-        private void UpdateButton_Fahrstr_Schatten1Sub8_Ausf()
-        {
-            if (Schatten0_nach_Block8.GetGesetztStatus())
-            {
-                Schatten1_Block8.Enabled = false;
-            }
-            else
-            {
-                Schatten1_Block8.Enabled = true;
-            }
-        }
-        private void UpdateButton_Fahrstr_Schatten1Sub9_Ausf()
-        {
-            if (Schatten2_nach_Block9.GetGesetztStatus() ||
-                Schatten3_nach_Block9.GetGesetztStatus() ||
-                Schatten4_nach_Block9.GetGesetztStatus() ||
-                Schatten5_nach_Block9.GetGesetztStatus() ||
-                Schatten6_nach_Block9.GetGesetztStatus() ||
-                Schatten7_nach_Block9.GetGesetztStatus() ||
-                Block8_nach_Block6.GetGesetztStatus())
-            {
-                Schatten1_Block9.Enabled = false;
-            }
-            else
-            {
-                Schatten1_Block9.Enabled = true;
-            }
-        }
+        
         private void UpdateButton_Fahrstr_Schatten1_Ausf()
         {
-            if ((Schatten1_Block9.Enabled == false) && (Schatten1_Block8.Enabled == false))
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten1_nach_Block8"))
             {
                 Fahrstr_Schatten1_Ausf.Enabled = false;
                 Fahrstr_Schatten1_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
@@ -696,13 +505,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Schatten2_Ausf()
         {
-            if (Schatten1_nach_Block9.GetGesetztStatus() ||
-                Schatten3_nach_Block9.GetGesetztStatus() ||
-                Schatten4_nach_Block9.GetGesetztStatus() ||
-                Schatten5_nach_Block9.GetGesetztStatus() ||
-                Schatten6_nach_Block9.GetGesetztStatus() ||
-                Schatten7_nach_Block9.GetGesetztStatus() ||
-                Block8_nach_Block6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten2_nach_Block9"))
             {
                 Fahrstr_Schatten2_Ausf.Enabled = false;
                 Fahrstr_Schatten2_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
@@ -721,13 +524,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Schatten3_Ausf()
         {
-            if (Schatten1_nach_Block9.GetGesetztStatus() ||
-                Schatten2_nach_Block9.GetGesetztStatus() ||
-                Schatten4_nach_Block9.GetGesetztStatus() ||
-                Schatten5_nach_Block9.GetGesetztStatus() ||
-                Schatten6_nach_Block9.GetGesetztStatus() ||
-                Schatten7_nach_Block9.GetGesetztStatus() ||
-                Block8_nach_Block6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten3_nach_Block9"))
             {
                 Fahrstr_Schatten3_Ausf.Enabled = false;
                 Fahrstr_Schatten3_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
@@ -746,13 +543,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Schatten4_Ausf()
         {
-            if (Schatten1_nach_Block9.GetGesetztStatus() ||
-                Schatten2_nach_Block9.GetGesetztStatus() ||
-                Schatten3_nach_Block9.GetGesetztStatus() ||
-                Schatten5_nach_Block9.GetGesetztStatus() ||
-                Schatten6_nach_Block9.GetGesetztStatus() ||
-                Schatten7_nach_Block9.GetGesetztStatus() ||
-                Block8_nach_Block6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten4_nach_Block9"))
             {
                 Fahrstr_Schatten4_Ausf.Enabled = false;
                 Fahrstr_Schatten4_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
@@ -771,13 +562,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Schatten5_Ausf()
         {
-            if (Schatten1_nach_Block9.GetGesetztStatus() ||
-                Schatten2_nach_Block9.GetGesetztStatus() ||
-                Schatten3_nach_Block9.GetGesetztStatus() ||
-                Schatten4_nach_Block9.GetGesetztStatus() ||
-                Schatten6_nach_Block9.GetGesetztStatus() ||
-                Schatten7_nach_Block9.GetGesetztStatus() ||
-                Block8_nach_Block6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten5_nach_Block9"))
             {
                 Fahrstr_Schatten5_Ausf.Enabled = false;
                 Fahrstr_Schatten5_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
@@ -796,13 +581,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Schatten6_Ausf()
         {
-            if (Schatten1_nach_Block9.GetGesetztStatus() ||
-                Schatten2_nach_Block9.GetGesetztStatus() ||
-                Schatten3_nach_Block9.GetGesetztStatus() ||
-                Schatten4_nach_Block9.GetGesetztStatus() ||
-                Schatten5_nach_Block9.GetGesetztStatus() ||
-                Schatten7_nach_Block9.GetGesetztStatus() ||
-                Block8_nach_Block6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten6_nach_Block9"))
             {
                 Fahrstr_Schatten6_Ausf.Enabled = false;
                 Fahrstr_Schatten6_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
@@ -821,13 +600,7 @@ namespace MEKB_H0_Anlage
         }
         private void UpdateButton_Fahrstr_Schatten7_Ausf()
         {
-            if (Schatten1_nach_Block9.GetGesetztStatus() ||
-                Schatten2_nach_Block9.GetGesetztStatus() ||
-                Schatten3_nach_Block9.GetGesetztStatus() ||
-                Schatten4_nach_Block9.GetGesetztStatus() ||
-                Schatten5_nach_Block9.GetGesetztStatus() ||
-                Schatten6_nach_Block9.GetGesetztStatus() ||
-                Block8_nach_Block6.GetGesetztStatus())
+            if (FahrstrassenListe.FahrstrasseBlockiert("Schatten7_nach_Block9"))
             {
                 Fahrstr_Schatten7_Ausf.Enabled = false;
                 Fahrstr_Schatten7_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
@@ -847,64 +620,6 @@ namespace MEKB_H0_Anlage
 
         #endregion
 
-        #region Fahrstrassen Untermenu
-        private void UpdateButton_Fahrstr_RechtsSubButtons_nach_Hbf()
-        {
-            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
-                Gleis1_nach_rechts2.GetGesetztStatus() ||
-                Gleis2_nach_rechts1.GetGesetztStatus() ||
-                Gleis2_nach_rechts2.GetGesetztStatus() )               
-            {
-                Rechts1_Einfahrt_Gl1.Enabled = false;
-                Rechts1_Einfahrt_Gl2.Enabled = false;
-                Rechts2_Einfahrt_Gl1.Enabled = false;
-                Rechts2_Einfahrt_Gl2.Enabled = false;
-            }
-            else
-            {
-                Rechts1_Einfahrt_Gl1.Enabled = true;
-                Rechts1_Einfahrt_Gl2.Enabled = true;
-                Rechts2_Einfahrt_Gl1.Enabled = true;
-                Rechts2_Einfahrt_Gl2.Enabled = true;
-            }
-            if (Gleis1_nach_rechts1.GetGesetztStatus() ||
-                Gleis1_nach_rechts2.GetGesetztStatus() ||
-                Gleis2_nach_rechts1.GetGesetztStatus() ||
-                Gleis2_nach_rechts2.GetGesetztStatus() ||
-                Gleis3_nach_rechts1.GetGesetztStatus() ||
-                Gleis3_nach_rechts2.GetGesetztStatus() ||
-                Gleis4_nach_rechts1.GetGesetztStatus() ||
-                Gleis4_nach_rechts2.GetGesetztStatus() ||
-                Gleis5_nach_rechts1.GetGesetztStatus() ||
-                Gleis5_nach_rechts2.GetGesetztStatus() ||
-                Gleis6_nach_rechts1.GetGesetztStatus() ||
-                Gleis6_nach_rechts2.GetGesetztStatus())
-            {
-                
-                Rechts1_Einfahrt_Gl3.Enabled = false;
-                Rechts1_Einfahrt_Gl4.Enabled = false;
-                Rechts1_Einfahrt_Gl5.Enabled = false;
-                Rechts1_Einfahrt_Gl6.Enabled = false;
-               
-                Rechts2_Einfahrt_Gl3.Enabled = false;
-                Rechts2_Einfahrt_Gl4.Enabled = false;
-                Rechts2_Einfahrt_Gl5.Enabled = false;
-                Rechts2_Einfahrt_Gl6.Enabled = false;
-            }
-            else
-            {
-                
-                Rechts1_Einfahrt_Gl3.Enabled = true;
-                Rechts1_Einfahrt_Gl4.Enabled = true;
-                Rechts1_Einfahrt_Gl5.Enabled = true;
-                Rechts1_Einfahrt_Gl6.Enabled = true;
-               
-                Rechts2_Einfahrt_Gl3.Enabled = true;
-                Rechts2_Einfahrt_Gl4.Enabled = true;
-                Rechts2_Einfahrt_Gl5.Enabled = true;
-                Rechts2_Einfahrt_Gl6.Enabled = true;
-            }
-        }
-        #endregion
+        
     }
 }

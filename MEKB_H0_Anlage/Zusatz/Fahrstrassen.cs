@@ -96,14 +96,12 @@ namespace MEKB_H0_Anlage
                 ListeGlobal[ListID].FahrstrasseSicher = Sicherheitsstatus;
             }
         }
-
         public void StarteFahrstrasse(List<Weiche> ListeGlobal)
         {
             FahrstrasseGesetzt = true;
             Safe = false;
             WeichenSicherheit(ListeGlobal, Safe);
         }
-
         public void SetFahrstrasseRichtung(List<Weiche> ListeGlobal)
         {
             foreach (Weiche weiche in Fahrstr_Weichenliste)
@@ -114,7 +112,6 @@ namespace MEKB_H0_Anlage
                 ListeGlobal[ListID].FahrstrasseRichtung_vonZunge = weiche.FahrstrasseRichtung_vonZunge;
             }
         }
-
         public void SetFahrstrasse(List<Weiche> ListeGlobal, Z21 Z21_Instanz)
         {
             if (SetPointer >= Fahrstr_Weichenliste.Count) SetPointer = 0;
@@ -204,7 +201,6 @@ namespace MEKB_H0_Anlage
             }
             FahrstrasseAktiv = true;
         }
-
         public bool GetBusyStatus(List<Weiche> ListeGlobal)
         {
             foreach (Weiche weiche in Fahrstr_Weichenliste)
@@ -216,7 +212,6 @@ namespace MEKB_H0_Anlage
             }
             return false;
         }
-
         public bool GetGesetztStatus()
         {
             return FahrstrasseGesetzt;
@@ -239,8 +234,6 @@ namespace MEKB_H0_Anlage
             }
             return true;
         }
-
-
         public List<Weiche> GetFahrstrassenListe()
         {
             return Fahrstr_Weichenliste;
@@ -267,19 +260,15 @@ namespace MEKB_H0_Anlage
     {
         private Dictionary<string, int> Verzeichnis;
         public List<Fahrstrasse> Liste;
-
         public FahrstrassenListe()
         {
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Fahrstrasse>();
         }
-
         public FahrstrassenListe(string Dateiname, WeichenListe weichenListe, SignalListe signalListe)
         {
             DateiImportieren(Dateiname, weichenListe, signalListe);
         }
-
-
         public Fahrstrasse GetFahrstrasse(string Abschnitt)
         {
             if (Verzeichnis.TryGetValue(Abschnitt, out int ListID))
@@ -288,7 +277,6 @@ namespace MEKB_H0_Anlage
             }
             return null;
         }
-
         public List<Fahrstrasse> GetFahrstrasse(string[] Abschnitte)
         {
             List<Fahrstrasse> fahrstrassen = new List<Fahrstrasse>();
@@ -307,9 +295,6 @@ namespace MEKB_H0_Anlage
             }
             return fahrstrassen;
         }
-
-
-
         public bool FahrstrasseBlockiert(string Abschnitt)
         {
             Fahrstrasse fahrstrasse = GetFahrstrasse(Abschnitt);
@@ -334,7 +319,7 @@ namespace MEKB_H0_Anlage
             }
             return true; //Fahrstrasse nicht gefunden
         }
-        public bool FahrstrasseGleiche(string Abschnitt)
+        public bool FahrstrasseGleicheGesetzt(string Abschnitt)
         {
             Fahrstrasse fahrstrasse = GetFahrstrasse(Abschnitt);
             if (fahrstrasse != null)
@@ -344,7 +329,7 @@ namespace MEKB_H0_Anlage
                     Fahrstrasse Gleich = GetFahrstrasse(Strasse);
                     if (Gleich == null)
                     {
-                        return true; //Fahrstrasse nicht gefunden
+                        return false; //Fahrstrasse nicht gefunden
                     }
                     else
                     {
@@ -354,12 +339,10 @@ namespace MEKB_H0_Anlage
                         }
                     }
                 }
-                return true; //Keine der blockierenden Fahrstrassen aktiv
+                return false; //Keine der blockierenden Fahrstrassen aktiv
             }
             return false; //Fahrstrasse nicht gefunden
         }
-
-
         public void DateiImportieren(string Dateiname, WeichenListe weichenListe, SignalListe signalListe)
         {
             Liste = new List<Fahrstrasse>();

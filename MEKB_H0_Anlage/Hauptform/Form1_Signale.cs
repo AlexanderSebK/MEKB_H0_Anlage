@@ -348,10 +348,10 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis1_nach_rechts1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis1_nach_TunnelAussen").Safe)
                                 /*if Block Rechts1 frei*/
                                 return SignalZustand.HP2;
-                            if (Gleis1_nach_rechts2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis1_nach_TunnelInnen").Safe)
                                 /*if Block Rechts2 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -376,10 +376,10 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis2_nach_rechts1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis2_nach_TunnelAussen").Safe)
                                 /*if Block Rechts1 frei*/
                                 return SignalZustand.HP2;
-                            if (Gleis2_nach_rechts2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis2_nach_TunnelInnen").Safe)
                                 /*if Block Rechts2 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -402,10 +402,10 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis3_nach_rechts1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis3_nach_TunnelAussen").Safe)
                                 /*if Block Rechts1 frei*/
                                 return SignalZustand.HP2;
-                            if (Gleis3_nach_rechts2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis3_nach_TunnelInnen").Safe)
                                 /*if Block Rechts2 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -432,10 +432,10 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis4_nach_rechts1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis4_nach_TunnelAussen").Safe)
                                 /*if Block Rechts1 frei*/
                                 return SignalZustand.HP2;
-                            if (Gleis4_nach_rechts2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis4_nach_TunnelInnen").Safe)
                                 /*if Block Rechts2 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -468,10 +468,10 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis5_nach_rechts1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis5_nach_TunnelAussen").Safe)
                                 /*if Block Rechts1 frei*/
                                 return SignalZustand.HP2;
-                            if (Gleis5_nach_rechts2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis5_nach_TunnelInnen").Safe)
                                 /*if Block Rechts2 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -506,10 +506,10 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Gleis6_nach_rechts1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis6_nach_TunnelAussen").Safe)
                                 /*if Block2 frei*/
                                 return SignalZustand.HP2;
-                            if (Gleis6_nach_rechts2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Gleis6_nach_TunnelInnen").Safe)
                                 /*if Block5 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -573,22 +573,22 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Rechts1_nach_Gleis1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelAussen_nach_Gleis1").Safe)
                                 /*if Gleis1 frei*/
                                 return SignalZustand.HP2;
-                            if (Rechts1_nach_Gleis2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelAussen_nach_Gleis2").Safe)
                                 /*if Gleis2 frei*/
                                 return SignalZustand.HP2;
-                            if (Rechts1_nach_Gleis3.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelAussen_nach_Gleis3").Safe)
                                 /*if Gleis3 frei*/
                                 return SignalZustand.HP2;
-                            if (Rechts1_nach_Gleis4.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelAussen_nach_Gleis4").Safe)
                                 /*if Gleis4 frei*/
                                 return SignalZustand.HP2;
-                            if (Rechts1_nach_Gleis5.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelAussen_nach_Gleis5").Safe)
                                 /*if Gleis5 frei*/
                                 return SignalZustand.HP2;
-                            if (Rechts1_nach_Gleis6.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelAussen_nach_Gleis6").Safe)
                                 /*if Gleis6 frei*/
                                 return SignalZustand.HP2;
                         }
@@ -652,22 +652,22 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Rechts2_nach_Gleis1.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelInnen_nach_Gleis1").Safe)
                                 /*if Gleis1 frei*/
                                 return SignalZustand.HP1;
-                            if (Rechts2_nach_Gleis2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelInnen_nach_Gleis2").Safe)
                                 /*if Gleis2 frei*/
                                 return SignalZustand.HP1;
-                            if (Rechts2_nach_Gleis3.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelInnen_nach_Gleis3").Safe)
                                 /*if Gleis3 frei*/
                                 return SignalZustand.HP1;
-                            if (Rechts2_nach_Gleis4.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelInnen_nach_Gleis4").Safe)
                                 /*if Gleis4 frei*/
                                 return SignalZustand.HP1;
-                            if (Rechts2_nach_Gleis5.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelInnen_nach_Gleis5").Safe)
                                 /*if Gleis5 frei*/
                                 return SignalZustand.HP1;
-                            if (Rechts2_nach_Gleis6.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("TunnelInnen_nach_Gleis6").Safe)
                                 /*if Gleis6 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -686,10 +686,10 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Block1_nach_Block2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block1_nach_Block2").Safe)
                                 /*if Block2 frei*/
                                 return SignalZustand.HP1;
-                            if (Block1_nach_Block5.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block1_nach_Block5").Safe)
                                 /*if Block5 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -703,7 +703,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Block9_nach_Block2.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block9_nach_Block2").Safe)
                                 /*if Block2 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -717,7 +717,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Block5_nach_Block6.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block5_nach_Block6").Safe)
                                 /*if Block6 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -738,7 +738,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Block8_nach_Block6.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block8_nach_Block6").Safe)
                                 /*if Block6 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -753,7 +753,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten0_nach_Block8.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten0_nach_Block8").Safe)
                                 /*if Block8 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -779,10 +779,10 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten1_nach_Block8.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten1_nach_Block8").Safe)
                                 /*if Block8 frei*/
                                 return SignalZustand.HP1;
-                            if (Schatten1_nach_Block9.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten1_nach_Block9").Safe)
                                 /*if Block9 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -803,7 +803,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten2_nach_Block9.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten2_nach_Block9").Safe)
                                 /*if Block9 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -823,7 +823,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten3_nach_Block9.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten3_nach_Block9").Safe)
                                 /*if Block9 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -842,7 +842,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten4_nach_Block9.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten4_nach_Block9").Safe)
                                 /*if Block9 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -860,7 +860,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten5_nach_Block9.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten5_nach_Block9").Safe)
                                 /*if Block9 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -877,7 +877,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten6_nach_Block9.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten6_nach_Block9").Safe)
                                 /*if Block9 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -893,7 +893,7 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten7_nach_Block9.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten7_nach_Block9").Safe)
                                 /*if Block9 frei*/
                                 return SignalZustand.HP1;
                         }
@@ -964,39 +964,14 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten8_nach_Block7.Safe && 
-                                Block7_nach_Schatten0.Safe)
-                                /*if Schatten0 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten8_nach_Block7.Safe &&
-                                Block7_nach_Schatten1.Safe)
-                                /*if Schatten1 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten8_nach_Block7.Safe &&
-                                Block7_nach_Schatten2.Safe)
-                                /*if Schatten2 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten8_nach_Block7.Safe &&
-                                Block7_nach_Schatten3.Safe)
-                                /*if Schatten3 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten8_nach_Block7.Safe &&
-                                Block7_nach_Schatten4.Safe)
-                                /*if Schatten4 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten8_nach_Block7.Safe &&
-                                Block7_nach_Schatten5.Safe)
-                                /*if Schatten5 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten8_nach_Block7.Safe &&
-                                Block7_nach_Schatten6.Safe)
-                                /*if Schatten6 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten8_nach_Block7.Safe &&
-                                Block7_nach_Schatten7.Safe)
-                                /*if Schatten7 frei*/
-                                return SignalZustand.HP1;
-
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten8_nach_Eingleisen").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten8_nach_Schatten1").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten8_nach_Schatten2").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten8_nach_Schatten3").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten8_nach_Schatten4").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten8_nach_Schatten5").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten8_nach_Schatten6").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten8_nach_Schatten7").Safe) return SignalZustand.HP1;
                         }
                         return SignalZustand.HP0;
                     case "Signal_Schatten9":
@@ -1073,39 +1048,14 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten9_nach_Block7.Safe &&
-                                Block7_nach_Schatten0.Safe)
-                                /*if Schatten0 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten9_nach_Block7.Safe &&
-                                Block7_nach_Schatten1.Safe)
-                                /*if Schatten1 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten9_nach_Block7.Safe &&
-                                Block7_nach_Schatten2.Safe)
-                                /*if Schatten2 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten9_nach_Block7.Safe &&
-                                Block7_nach_Schatten3.Safe)
-                                /*if Schatten3 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten9_nach_Block7.Safe &&
-                                Block7_nach_Schatten4.Safe)
-                                /*if Schatten4 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten9_nach_Block7.Safe &&
-                                Block7_nach_Schatten5.Safe)
-                                /*if Schatten5 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten9_nach_Block7.Safe &&
-                                Block7_nach_Schatten6.Safe)
-                                /*if Schatten6 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten9_nach_Block7.Safe &&
-                                Block7_nach_Schatten7.Safe)
-                                /*if Schatten7 frei*/
-                                return SignalZustand.HP1;
-
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten9_nach_Eingleisen").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten9_nach_Schatten1").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten9_nach_Schatten2").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten9_nach_Schatten3").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten9_nach_Schatten4").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten9_nach_Schatten5").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten9_nach_Schatten6").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten9_nach_Schatten7").Safe) return SignalZustand.HP1;
                         }
                         return SignalZustand.HP0;
                     case "Signal_Schatten10":
@@ -1190,39 +1140,14 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten10_nach_Block7.Safe &&
-                                Block7_nach_Schatten0.Safe)
-                                /*if Schatten0 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten10_nach_Block7.Safe &&
-                                Block7_nach_Schatten1.Safe)
-                                /*if Schatten1 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten10_nach_Block7.Safe &&
-                                Block7_nach_Schatten2.Safe)
-                                /*if Schatten2 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten10_nach_Block7.Safe &&
-                                Block7_nach_Schatten3.Safe)
-                                /*if Schatten3 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten10_nach_Block7.Safe &&
-                                Block7_nach_Schatten4.Safe)
-                                /*if Schatten4 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten10_nach_Block7.Safe &&
-                                Block7_nach_Schatten5.Safe)
-                                /*if Schatten5 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten10_nach_Block7.Safe &&
-                                Block7_nach_Schatten6.Safe)
-                                /*if Schatten6 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten10_nach_Block7.Safe &&
-                                Block7_nach_Schatten7.Safe)
-                                /*if Schatten7 frei*/
-                                return SignalZustand.HP1;
-
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten10_nach_Eingleisen").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten10_nach_Schatten1").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten10_nach_Schatten2").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten10_nach_Schatten3").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten10_nach_Schatten4").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten10_nach_Schatten5").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten10_nach_Schatten6").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten10_nach_Schatten7").Safe) return SignalZustand.HP1;
                         }
                         return SignalZustand.HP0;
                     case "Signal_Schatten11":
@@ -1307,39 +1232,14 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Schatten11_nach_Block7.Safe &&
-                                Block7_nach_Schatten0.Safe)
-                                /*if Schatten0 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten11_nach_Block7.Safe &&
-                                Block7_nach_Schatten1.Safe)
-                                /*if Schatten1 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten11_nach_Block7.Safe &&
-                                Block7_nach_Schatten2.Safe)
-                                /*if Schatten2 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten11_nach_Block7.Safe &&
-                                Block7_nach_Schatten3.Safe)
-                                /*if Schatten3 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten11_nach_Block7.Safe &&
-                                Block7_nach_Schatten4.Safe)
-                                /*if Schatten4 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten11_nach_Block7.Safe &&
-                                Block7_nach_Schatten5.Safe)
-                                /*if Schatten5 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten11_nach_Block7.Safe &&
-                                Block7_nach_Schatten6.Safe)
-                                /*if Schatten6 frei*/
-                                return SignalZustand.HP1;
-                            if (Schatten11_nach_Block7.Safe &&
-                                Block7_nach_Schatten7.Safe)
-                                /*if Schatten7 frei*/
-                                return SignalZustand.HP1;
-
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten11_nach_Eingleisen").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten11_nach_Schatten1").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten11_nach_Schatten2").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten11_nach_Schatten3").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten11_nach_Schatten4").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten11_nach_Schatten5").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten11_nach_Schatten6").Safe) return SignalZustand.HP1;
+                            if (FahrstrassenListe.GetFahrstrasse("Schatten11_nach_Schatten7").Safe) return SignalZustand.HP1;
                         }
                         return SignalZustand.HP0;
                     case "Signal_Schatten_Einf":
@@ -1365,16 +1265,16 @@ namespace MEKB_H0_Anlage
                         }
                         else
                         {
-                            if (Block6_nach_Schatten11.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block6_nach_Schatten11").Safe)
                                 /*if Schatten11 frei*/
                                 return SignalZustand.HP1;
-                            if (Block6_nach_Schatten10.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block6_nach_Schatten10").Safe)
                                 /*if Schatten10 frei*/
                                 return SignalZustand.HP1;
-                            if (Block6_nach_Schatten9.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block6_nach_Schatten9").Safe)
                                 /*if Schatten9 frei*/
                                 return SignalZustand.HP1;
-                            if (Block6_nach_Schatten8.Safe)
+                            if (FahrstrassenListe.GetFahrstrasse("Block6_nach_Schatten8").Safe)
                                 /*if Schatten8 frei*/
                                 return SignalZustand.HP1;
                         }
