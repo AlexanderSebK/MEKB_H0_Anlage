@@ -43,9 +43,11 @@ namespace MEKB_H0_Anlage
         public SignalListe SignalListe = new SignalListe("Signalliste.xml");      
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
         public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
+        public LokomotivenListe LokomotivenListe = new LokomotivenListe("LokArchiv");
 
-        public List<Lok> Lokliste = new List<Lok>();
-        public Lok[] AktiveLoks = new Lok[12];
+
+        public List<Lokomotive> Lokliste = new List<Lokomotive>();
+        public Lokomotive[] AktiveLoks = new Lokomotive[12];
         
         public bool Betriebsbereit;
 
@@ -95,7 +97,7 @@ namespace MEKB_H0_Anlage
             LokCtrl_LoklisteAusfuellen();               //Auswahlliste im Lok-Kontrollfenster ausfüllen
             for (int i = 0; i < AktiveLoks.Length; i++)
             {
-                AktiveLoks[i] = new Lok();
+                AktiveLoks[i] = new Lokomotive();
                 AktiveLoks[i].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
                 AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             }
@@ -118,30 +120,36 @@ namespace MEKB_H0_Anlage
             // Timer mit Funktion "Z21_Heartbeat" Verbinden
             FlagTimer.Elapsed += Z21_Heartbeat;
             FlagTimer.AutoReset = true;
-            FlagTimer.Enabled = true;
+            
 
             // 100 MilliSekunden Timer: Weichen und Fahrstraßen Update.
             WeichenTimer = new System.Timers.Timer(50);
             // Timer mit Funktion "OnTimedWeichenEvent" Verbinden
             WeichenTimer.Elapsed += OnTimedWeichenEvent;
             WeichenTimer.AutoReset = true;
-            WeichenTimer.Enabled = true;
+            
 
             // 100 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
             CooldownTimer = new System.Timers.Timer(100);
             // Timer mit Funktion "WeichenCooldown" Verbinden
             CooldownTimer.Elapsed += WeichenCooldown;
             CooldownTimer.AutoReset = true;
-            CooldownTimer.Enabled = true;
+            
 
             // 250 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
             BelegtmelderCoolDown = new System.Timers.Timer(250);
             // Timer mit Funktion "WeichenCooldown" Verbinden
             BelegtmelderCoolDown.Elapsed += BelegtmelderCooldown;
             BelegtmelderCoolDown.AutoReset = true;
-            BelegtmelderCoolDown.Enabled = true;
+            
 
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
+
+            FlagTimer.Enabled = true;
+            WeichenTimer.Enabled = true;
+            CooldownTimer.Enabled = true;
+            BelegtmelderCoolDown.Enabled = true;
+
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -208,10 +216,30 @@ namespace MEKB_H0_Anlage
 
         }
         public delegate void InvokeDelegate();
+
+
+        private void updateRegisterState(TextBox Box, string text)
+        {
+            Box.Invoke((MethodInvoker)(() =>
+            {
+                Box.Text = text;
+            }));
+        }
+
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
             if (source is System.Timers.Timer timer)
             {
+
+                Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text);
+                if(belegtmelder != null)
+                {
+                    updateRegisterState(NextBlock, belegtmelder.NaechsterBlock(true, WeichenListe, KommeVon.Text));
+                    updateRegisterState(VorBlock, belegtmelder.NaechsterBlock(false, WeichenListe, KommeVon.Text));
+
+                }
+
+
                 if (z21Start.Verbunden())
                 {
                     timer.Stop();
@@ -409,7 +437,7 @@ namespace MEKB_H0_Anlage
                 if (Adressfeld == null) return; //Nicht gefunden: Abbrechen
 
                 //Ausgewählte Lok heraussuchen
-                int ListID = Lokliste.IndexOf(new Lok() { Name = Namensfeld.Text });
+                int ListID = Lokliste.IndexOf(new Lokomotive() { Name = Namensfeld.Text });
                 if (ListID == -1) return;
                 int Adresse = Lokliste[ListID].Adresse;
 
@@ -458,7 +486,7 @@ namespace MEKB_H0_Anlage
                 if (LokListenIndex == -1)//Lok nicht gefunden in der Liste
                 {
                     Namensfeld.Text = String.Format("Lok: {0}", Adressfeld.Value);
-                    AktiveLoks[index] = new Lok() { Adresse = (int)Adressfeld.Value };
+                    AktiveLoks[index] = new Lokomotive() { Adresse = (int)Adressfeld.Value };
                 }
                 else
                 {
@@ -624,7 +652,7 @@ namespace MEKB_H0_Anlage
 
         private void StopAlle_Click(object sender, EventArgs e)
         {
-            foreach(Lok lok in AktiveLoks)
+            foreach(Lokomotive lok in AktiveLoks)
             {
                 if (lok.Adresse != 0)
                 {

@@ -31,11 +31,61 @@ namespace MEKB_H0_Anlage
 
             foreach (XElement melder in list)                            //Alle Elemente der Liste einzeln durchlaufen
             {
-                string Name = melder.Element("Name").Value;                                //Belegtmeldername des Elements auslesen
+                string Name;
+                if (melder.Attribute("Name") != null)
+                {
+                    Name = melder.Attribute("Name").Value;                                //Belegtmeldername des Elements auslesen
+                }
+                else
+                {
+                    Name = melder.Element("Name").Value;
+                }
                 int Modulnummer = Int16.Parse(melder.Element("Modulnummer").Value);        //Modulnummer
                 int Portnummer = Int16.Parse(melder.Element("Portnummer").Value);               //Portnummer
                 int CoolDowntime = 6000;
-                Liste.Add(new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime });  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
+                Belegtmelder belegtmelder =  new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime };  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
+
+                belegtmelder.NachbarBlocks = new List<NachbarBlock>();
+
+                XElement Nachbarbloecke = melder.Element("Nachbarbloecke");
+                if (Nachbarbloecke != null)
+                {
+                    var NachbarbloeckeListe = Nachbarbloecke.Elements("Nachbarblock").ToList();
+                    foreach (XElement block in NachbarbloeckeListe)
+                    {
+                        string BlockName;
+                        if (block.Attribute("Name") != null)  BlockName = block.Attribute("Name").Value;
+                        else BlockName = block.Element("Blockname").Value;
+
+                        bool Fahrrichtung = block.Element("Fahrtrichtung").Value == "1";
+                        string KommeVon = "";
+                        if(block.Element("KommeVon") != null) KommeVon = block.Element("KommeVon").Value;
+
+
+                        NachbarBlock nachbar = new NachbarBlock() { BlockName = BlockName, InFahrtRichtung = Fahrrichtung, KommeVon = KommeVon};
+                        XElement WeichenGerade = block.Element("WeichenGerade");
+                        XElement WeichenAbzweig = block.Element("WeichenAbzweig");
+                        if (WeichenGerade != null)
+                        {
+                            var Weichen = WeichenGerade.Elements("Weiche").ToList();
+                            foreach (XElement weichenElement in Weichen)
+                            {
+                                nachbar.WeichenGerade.Add(weichenElement.Value);
+                            }
+                        }
+                        if (WeichenAbzweig != null)
+                        {
+                            var Weichen = WeichenAbzweig.Elements("Weiche").ToList();
+                            foreach (XElement weichenElement in Weichen)
+                            {
+                                nachbar.WeichenAbzweig.Add(weichenElement.Value);
+                            }
+                        }
+                        belegtmelder.NachbarBlocks.Add(nachbar);
+                    } // foreach block
+                } // Nachbarblöcke != null
+                Liste.Add(belegtmelder);
+
             }
             for (int i = 0; i < Liste.Count; i++)
             {
@@ -196,7 +246,28 @@ namespace MEKB_H0_Anlage
         /// Zeit wie lange noch der Status belegt aktiv bleibt
         /// </summary>
         private int Time { set; get; }
+
+        public List<NachbarBlock> NachbarBlocks { set; get; }
+
         #endregion
+
+        /// <summary>
+        /// Gibt den Namen des nächsten Blocks an
+        /// </summary>
+        /// <param name="InFahrt">True = In normaler Fahrtrichtung </param>
+        /// <param name="weichenListe">Liste der benutzten Weichne (globale Liste)</param>
+        /// <returns>Name des Nächsten Blocks oder "gesperrt"</returns>
+        public string NaechsterBlock(bool InFahrt, WeichenListe weichenListe, string KommeVon = "")
+        {
+            foreach(NachbarBlock block in NachbarBlocks)
+            {
+                if(block.IstErreichbar(InFahrt, weichenListe, KommeVon))
+                {
+                    return block.BlockName;
+                }
+            }
+            return "gesperrt";
+        }
 
         /// <summary>
         /// Abfrage nach dem aktuellen Belegtstatus
@@ -286,5 +357,47 @@ namespace MEKB_H0_Anlage
             else return (this.Name.Equals(other.Name));
         }
         #endregion
+    }
+
+
+    public class NachbarBlock
+    {
+        public bool InFahrtRichtung; // Gibt an, ob dieser Block in gewöhnlicher Fahrtrichtung aus erreichbar ist
+        public List<String> WeichenAbzweig; //Liste von Weichennamen, die auf Abzweig stehen müssen, damit dieser Block erreicht werden kann
+        public List<String> WeichenGerade;  //Liste von Weichennamen, die auf Gerade stehen müssen, damit dieser Block erreicht werden kann
+        public string KommeVon; //Extra Angabe des vorherigen Blocks, wenn ausfahrt nicht alleine über Weichenstellung bestimmt werden kann (bsp. Kreuzung)  
+
+        public string BlockName; //Name des Nächsten Blocks
+        public NachbarBlock()
+        {
+            InFahrtRichtung = false;
+            WeichenAbzweig = new List<String>();
+            WeichenGerade = new List<String>();
+        }
+
+        public bool IstErreichbar(bool Richtung, WeichenListe weichenListe, string komme="")
+        {
+            if(KommeVon != null)
+            {
+                if (KommeVon != "")
+                {
+                    if (!KommeVon.Equals(komme)) return false;
+                }
+            }
+            if (Richtung != InFahrtRichtung) return false;
+            foreach(string weichename in WeichenAbzweig)
+            {
+                Weiche weiche = weichenListe.GetWeiche(weichename);
+                if(weiche == null) return false;
+                if(!weiche.Abzweig) return false;
+            }
+            foreach (string weichename in WeichenGerade)
+            {
+                Weiche weiche = weichenListe.GetWeiche(weichename);
+                if (weiche == null) return false;
+                if (weiche.Abzweig) return false;
+            }
+            return true;
+        }
     }
 }

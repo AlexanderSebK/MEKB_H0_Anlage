@@ -15,7 +15,7 @@ namespace MEKB_H0_Anlage
     public partial class LokEditor : Form
     {
         private string[] LokDatein;
-        private List<Lok> loks = new List<Lok>();
+        private List<Lokomotive> loks = new List<Lokomotive>();
         public LokEditor()
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace MEKB_H0_Anlage
 
                 LoadLokValues(XElement.Load(Datei));
             }
-            foreach (Lok lokomotive in loks)
+            foreach (Lokomotive lokomotive in loks)
             {
                 Lokliste.Items.Add(lokomotive.Name);
             }
@@ -49,7 +49,7 @@ namespace MEKB_H0_Anlage
 
             foreach (XElement lok in list)                            //Alle Elemente der Liste einzeln durchlaufen
             {
-                Lok Lokomotive = new Lok();
+                Lokomotive Lokomotive = new Lokomotive();
                 if (lok.Element("Adresse") == null)
                 {
                     //Entry rot markieren
@@ -85,12 +85,12 @@ namespace MEKB_H0_Anlage
         {
             string FileToOpen = "LokArchiv\\" + Lokliste.SelectedItem.ToString();
 
-            int ListID = loks.IndexOf(new Lok() { Name = Lokliste.SelectedItem.ToString() }); //Lok mit diesem Namen in der Liste suchen
+            int ListID = loks.IndexOf(new Lokomotive() { Name = Lokliste.SelectedItem.ToString() }); //Lok mit diesem Namen in der Liste suchen
             if (ListID == -1) return;                                               //Lok nicht vorhanden, Funktion abbrechen
             DisplayLokValues(loks[ListID]);                                                   //Lokdaten anzeigen lassen
         }
 
-        private void DisplayLokValues(Lok lok)
+        private void DisplayLokValues(Lokomotive lok)
         {
             DisplayLokName.Text = lok.Name;
             try
@@ -127,7 +127,7 @@ namespace MEKB_H0_Anlage
 
         private void SpeichernUnter_Click(object sender, EventArgs e)
         {
-            int ListID = loks.IndexOf(new Lok() { Name = Lokliste.SelectedItem.ToString() }); //Lok mit diesem Namen in der Liste suchen
+            int ListID = loks.IndexOf(new Lokomotive() { Name = Lokliste.SelectedItem.ToString() }); //Lok mit diesem Namen in der Liste suchen
             if (ListID == -1) return;                                               //Lok nicht vorhanden, Funktion abbrechen
             XElement ExportData = ExportLokData();                                                   //Lokdaten in XElement verwandeln;
 

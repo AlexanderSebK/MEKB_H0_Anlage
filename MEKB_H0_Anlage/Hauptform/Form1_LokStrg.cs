@@ -25,7 +25,7 @@ namespace MEKB_H0_Anlage
 
                 foreach (XElement lok in list)                            //Alle Elemente der Liste einzeln durchlaufen
                 {
-                    Lok Lokomotive = new Lok();
+                    Lokomotive Lokomotive = new Lokomotive();
                     if (lok.Element("Adresse") == null)
                     {
                         KeineLokAdr += String.Format("- {0} \n", fileName);
@@ -63,7 +63,7 @@ namespace MEKB_H0_Anlage
                                         .Select(y => y.Key)
                                         .ToList();
 
-                List<Lok> Ausschuss = new List<Lok>();
+                List<Lokomotive> Ausschuss = new List<Lokomotive>();
 
                 foreach (int adr in DoppelAdressen)
                 {
@@ -72,7 +72,7 @@ namespace MEKB_H0_Anlage
                 }
                 string nachricht = "Loks mit gleichen Adressen gefunden: \n\n";
 
-                foreach (Lok lok in Ausschuss)
+                foreach (Lokomotive lok in Ausschuss)
                 {
                     nachricht += String.Format("{0} - {1}\n", lok.Adresse, lok.Name);
                 }
@@ -82,7 +82,7 @@ namespace MEKB_H0_Anlage
         }
         private void LokCtrl_LoklisteAusfuellen()
         {
-            foreach (Lok Lokomtive in Lokliste)
+            foreach (Lokomotive Lokomtive in Lokliste)
             {
                 LokCtrl1_Name.Items.Add(Lokomtive.Name);
                 LokCtrl2_Name.Items.Add(Lokomtive.Name);
