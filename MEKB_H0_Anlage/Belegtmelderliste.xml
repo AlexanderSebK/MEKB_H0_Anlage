@@ -3,550 +3,400 @@
 	<Belegtmelder Name='Block1_a'>
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>2</Portnummer>
-    <Nachbarbloecke>
-      <Nachbarblock Name='Block1_b'>
-        <Fahrtrichtung>1</Fahrtrichtung>
-      </Nachbarblock>
-      <Nachbarblock Name= 'W1_W4'>
-        <Fahrtrichtung>0</Fahrtrichtung>
-      </Nachbarblock>
-    </Nachbarbloecke>
+		<Nachbarbloecke>
+			<Nachbarblock Name='Block1_b' KommeVon='W1_W4' />
+			<Nachbarblock Name= 'W1_W4' KommeVon='Block1_b' />
+		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block1_b'>
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>3</Portnummer>
-    <Nachbarbloecke>
-      <Nachbarblock Name='Block1_Halt'>
-        <Fahrtrichtung>1</Fahrtrichtung>
-      </Nachbarblock>
-      <Nachbarblock Name='Block1_a'>
-        <Fahrtrichtung>0</Fahrtrichtung>
-      </Nachbarblock>
-    </Nachbarbloecke>
+		<Nachbarbloecke>
+			<Nachbarblock Name='Block1_Halt' KommeVon='Block1_a' />
+			<Nachbarblock Name='Block1_a' KommeVon='Block1_Halt' />
+		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block1_Halt'>
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>1</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W52'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='Block1_b'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='W52' KommeVon='Block1_b' />
+			<Nachbarblock Name='Block1_b' KommeVon='W52' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block2'>
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>4</Portnummer>
-    <Nachbarbloecke>
-      <Nachbarblock Name='Block2_Halt'>
-        <Fahrtrichtung>1</Fahrtrichtung>
-      </Nachbarblock>
-      <Nachbarblock Name='W52'>
-        <Fahrtrichtung>0</Fahrtrichtung>
-        <WeichenAbzweig>
-          <Weiche>Weiche53</Weiche>
-        </WeichenAbzweig>
-      </Nachbarblock>
-      <Nachbarblock Name='Block9_Halt'>
-        <Fahrtrichtung>0</Fahrtrichtung>
-        <WeichenGerade>
-          <Weiche>Weiche53</Weiche>
-        </WeichenGerade>
-      </Nachbarblock>
-    </Nachbarbloecke>
+		<Nachbarbloecke>
+			<Nachbarblock Name='Block2_Halt' KommeVon='W52'>
+				<WeichenAbzweig>
+					<Weiche>Weiche53</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Block2_Halt' KommeVon='Block9_Halt'>
+				<WeichenGerade>
+					<Weiche>Weiche53</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='W52' KommeVon='Block2_Halt'>
+				<WeichenAbzweig>
+					<Weiche>Weiche53</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Block9_Halt' KommeVon='Block2_Halt'>
+				<WeichenGerade>
+					<Weiche>Weiche53</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block2_Halt'>
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>5</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W2_W3'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='Block2'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='W2_W3' KommeVon='Block2' />
+			<Nachbarblock Name='Block2' KommeVon='W2_W3' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block3'>
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>6</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W50'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='W27_W30'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='W50' KommeVon='W27_W30' />
+			<Nachbarblock Name='W27_W30' KommeVon='W50' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block4'>
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>7</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W28_W29'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='W51'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='W28_W29' KommeVon='W51' />
+			<Nachbarblock Name='W51' KommeVon='W28_W29' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block5_a'>
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>8</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Block5_b'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='W52'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='Block5_b' KommeVon='W52' />
+			<Nachbarblock Name='W52' KommeVon='Block5_b' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block5_b'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>1</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Block5_Halt'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='Block5_a'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='Block5_Halt' KommeVon='Block5_a' />
+			<Nachbarblock Name='Block5_a' KommeVon='Block5_Halt' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block5_Halt'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>2</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W60'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='Block5_b'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='W60' KommeVon='Block5_b' />
+			<Nachbarblock Name='Block5_b' KommeVon='W60' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block6'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>3</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Block6_Halt'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='W60'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='Block6_Halt' KommeVon='W60' />
+			<Nachbarblock Name='W60' KommeVon='Block6_Halt' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block6_Halt'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>4</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='SchattenEinfahrt'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='Block6'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='SchattenEinfahrt' KommeVon='Block6' />
+			<Nachbarblock Name='Block6' KommeVon='SchattenEinfahrt' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block7'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>5</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='SchattenMitte1'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='SchattenMitte2'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='SchattenMitte1' KommeVon='SchattenMitte2' />
+			<Nachbarblock Name='SchattenMitte2' KommeVon='SchattenMitte1' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block8'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>6</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W67_W68'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='Block8_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='W67_W68' KommeVon='Block8_Halt' />
+			<Nachbarblock Name='Block8_Halt' KommeVon='W67_W68' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block8_Halt'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>7</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='SchattenAusfahrt'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='Block8'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Block8' />
+			<Nachbarblock Name='Block8' KommeVon='SchattenAusfahrt' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block9'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>8</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Block9_Halt'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='SchattenAusfahrt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='Block9_Halt' KommeVon='SchattenAusfahrt' />
+			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Block9_Halt' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block9_Halt'>
 		<Modulnummer>3</Modulnummer>
 		<Portnummer>1</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Block2'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='Block9'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='Block2' KommeVon='Block9' />
+			<Nachbarblock Name='Block9' KommeVon='Block2' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf1'>
 		<Modulnummer>3</Modulnummer>
 		<Portnummer>2</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf1_Halt_L'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf1_Halt_R'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf1_Halt_L' KommeVon='HBf1_Halt_R' />
+			<Nachbarblock Name='HBf1_Halt_R' KommeVon='HBf1_Halt_L' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf1_Halt_L'>
 		<Modulnummer>3</Modulnummer>
 		<Portnummer>3</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W6'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf1'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='W6' KommeVon='HBf1' />
+			<Nachbarblock Name='HBf1' KommeVon='W6' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf1_Halt_R'>
 		<Modulnummer>3</Modulnummer>
 		<Portnummer>4</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf1'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='W26'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf1' KommeVon='W26' />
+			<Nachbarblock Name='W26' KommeVon='HBf1' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf2'>
 		<Modulnummer>3</Modulnummer>
 		<Portnummer>5</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf2_Halt_L'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf2_Halt_R'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf2_Halt_L' KommeVon='HBf2_Halt_R' />
+			<Nachbarblock Name='HBf2_Halt_R' KommeVon='HBf2_Halt_L' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf2_Halt_L'>
 		<Modulnummer>3</Modulnummer>
 		<Portnummer>6</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W6'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf2'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='W6' KommeVon='HBf2' />
+			<Nachbarblock Name='HBf2' KommeVon='W6' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf2_Halt_R'>
 		<Modulnummer>3</Modulnummer>
 		<Portnummer>7</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf2'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='W26'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf2' KommeVon='W26' />
+			<Nachbarblock Name='W26' KommeVon='HBf2' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf3'>
 		<Modulnummer>3</Modulnummer>
 		<Portnummer>8</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf3_Halt_R'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf3_Halt_L'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf3_Halt_R' KommeVon='HBf3_Halt_L' />
+			<Nachbarblock Name='HBf3_Halt_L' KommeVon='HBf3_Halt_R' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf3_Halt_L'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>1</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf3'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='W5'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf3' KommeVon='W5' />
+			<Nachbarblock Name='W5' KommeVon='HBf3' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf3_Halt_R'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>2</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W25'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf3'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='W25' KommeVon='HBf3' />
+			<Nachbarblock Name='HBf3' KommeVon='W25' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf4'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>3</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf4_Halt_R'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf4_Halt_L'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf4_Halt_R' KommeVon='HBf4_Halt_L' />
+			<Nachbarblock Name='HBf4_Halt_L' KommeVon='HBf4_Halt_R' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf4_Halt_L'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>4</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf4'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='DKW7_W8'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf4' KommeVon='DKW7_W8' />
+			<Nachbarblock Name='DKW7_W8' KommeVon='HBf4' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf4_Halt_R'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>5</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='DKW24_W23'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf4'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='DKW24_W23' KommeVon='HBf4' />
+			<Nachbarblock Name='HBf4' KommeVon='DKW24_W23' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf5'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>6</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf5_Halt_R'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf5_Halt_L'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf5_Halt_R' KommeVon='HBf5_Halt_L' />
+			<Nachbarblock Name='HBf5_Halt_L' KommeVon='HBf5_Halt_R' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf5_Halt_L'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>7</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf5'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='DKW9'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf5' KommeVon='DKW9' />
+			<Nachbarblock Name='DKW9' KommeVon='HBf5' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf5_Halt_R'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>8</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='KW22'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf5'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='KW22' KommeVon='HBf5' />
+			<Nachbarblock Name='HBf5' KommeVon='KW22' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf6'>
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>1</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf6_Halt_R'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf6_Halt_L'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf6_Halt_R' KommeVon='HBf6_Halt_L' />
+			<Nachbarblock Name='HBf6_Halt_L' KommeVon='HBf6_Halt_R' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf6_Halt_L'>
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>2</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf6'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='DKW9'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='HBf6' KommeVon='DKW9' />
+			<Nachbarblock Name='DKW9' KommeVon='HBf6' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='HBf6_Halt_R'>
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>3</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='KW22'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='KW22' KommeVon='HBf6'>
 				<WeichenAbzweig>
 					<Weiche>Weiche21</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='gesperrt'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenGerade>
+			<Nachbarblock Name='HBf6' KommeVon='KW22'>
+				<WeichenAbzweig>
 					<Weiche>Weiche21</Weiche>
-				</WeichenGerade>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf6'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+				</WeichenAbzweig>
+			</Nachbarblock>			
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='W1_W4'>
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>4</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Block1_a'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block1_a' KommeVon='W6'>
 				<WeichenGerade>
 					<Weiche>Weiche1</Weiche>
 					<Weiche>Weiche4</Weiche>
 				</WeichenGerade>
-				<KommeVon>W6</KommeVon>
 			</Nachbarblock>
-			<Nachbarblock Name='Block1_a'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenAbzweig>
-					<Weiche>Weiche1</Weiche>
-				</WeichenAbzweig>
-				<KommeVon>W2_W3</KommeVon>
-			</Nachbarblock>
-			<Nachbarblock Name='W2_W3'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenAbzweig>
-					<Weiche>Weiche4</Weiche>
-				</WeichenAbzweig>
-				<KommeVon>W6</KommeVon>
-			</Nachbarblock>
-			<Nachbarblock Name='W2_W3'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-				<WeichenAbzweig>
-					<Weiche>Weiche1</Weiche>
-				</WeichenAbzweig>
-				<KommeVon>Block1_a</KommeVon>
-			</Nachbarblock>
-			<Nachbarblock Name='W6'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='W6' KommeVon='Block1_a'>
 				<WeichenGerade>
 					<Weiche>Weiche1</Weiche>
 					<Weiche>Weiche4</Weiche>
 				</WeichenGerade>
-				<KommeVon>Block1_a</KommeVon>
+			</Nachbarblock>			
+			<Nachbarblock Name='Block1_a' KommeVon='W2_W3'>
+				<WeichenAbzweig>
+					<Weiche>Weiche1</Weiche>
+				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='W6'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='W2_W3' KommeVon='Block1_a'>
+				<WeichenAbzweig>
+					<Weiche>Weiche1</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>			
+			<Nachbarblock Name='W2_W3' KommeVon='W6'>
 				<WeichenAbzweig>
 					<Weiche>Weiche4</Weiche>
 				</WeichenAbzweig>
-				<KommeVon>W2_W3</KommeVon>
 			</Nachbarblock>
+			<Nachbarblock Name='W6' KommeVon='W2_W3'>
+				<WeichenAbzweig>
+					<Weiche>Weiche4</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>			
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='W2_W3'>
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>5</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W5'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='W5' KommeVon='Block2_Halt'>
 				<WeichenGerade>
 					<Weiche>Weiche2</Weiche>
 					<Weiche>Weiche3</Weiche>
 				</WeichenGerade>
-				<KommeVon>Block2_Halt</KommeVon>
 			</Nachbarblock>
-			<Nachbarblock Name='W5'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block2_Halt' KommeVon='W5'>
+				<WeichenGerade>
+					<Weiche>Weiche2</Weiche>
+					<Weiche>Weiche3</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>						
+			<Nachbarblock Name='W5' KommeVon='W1_W4'>
 				<WeichenGerade>				
 					<Weiche>Weiche3</Weiche>
 				</WeichenGerade>
 				<WeichenAbzweig>
 					<Weiche>Weiche2</Weiche>
 				</WeichenAbzweig>
-				<KommeVon>W1_W4</KommeVon>
 			</Nachbarblock>
-			<Nachbarblock Name='Block2_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='W1_W4' KommeVon='W5'>
 				<WeichenGerade>				
 					<Weiche>Weiche3</Weiche>
-					<Weiche>Weiche2</Weiche>
 				</WeichenGerade>
-				<KommeVon>W5</KommeVon>
-			</Nachbarblock>
-			<Nachbarblock Name='Block2_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+				<WeichenAbzweig>
+					<Weiche>Weiche2</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>			
+			<Nachbarblock Name='Block2_Halt' KommeVon='W1_W4'>
 				<WeichenGerade>								
 					<Weiche>Weiche2</Weiche>
 				</WeichenGerade>
 				<WeichenAbzweig>	
 					<Weiche>Weiche3</Weiche>				
 				</WeichenAbzweig>
-				<KommeVon>W1_W4</KommeVon>
 			</Nachbarblock>
-			<Nachbarblock Name='W1_W4'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='W1_W4' KommeVon='Block2_Halt'>
 				<WeichenGerade>								
 					<Weiche>Weiche2</Weiche>
 				</WeichenGerade>
 				<WeichenAbzweig>	
 					<Weiche>Weiche3</Weiche>				
 				</WeichenAbzweig>
-				<KommeVon>Block2_Halt</KommeVon>
-			</Nachbarblock>
-			<Nachbarblock Name='W1_W4'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-				<WeichenGerade>								
-					<Weiche>Weiche3</Weiche>
-				</WeichenGerade>
-				<WeichenAbzweig>	
+			</Nachbarblock>			
+			<Nachbarblock Name='W1_W4' KommeVon='Block2_Halt'>
+				<WeichenAbzweig>
 					<Weiche>Weiche2</Weiche>				
+					<Weiche>Weiche3</Weiche>				
 				</WeichenAbzweig>
-				<KommeVon>W5</KommeVon>
 			</Nachbarblock>
 		</Nachbarbloecke>
 	</Belegtmelder>
@@ -554,17 +404,22 @@
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>6</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W2_W3'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf3_Halt_L'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='HBf3_Halt_L' KommeVon='W2_W3'>
 				<WeichenGerade>
 					<Weiche>Weiche5</Weiche>
 				</WeichenGerade>
 			</Nachbarblock>
-			<Nachbarblock Name='DKW7_W8'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='W2_W3' KommeVon='HBf3_Halt_L'>
+				<WeichenGerade>
+					<Weiche>Weiche5</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='DKW7_W8' KommeVon='W2_W3'>
+				<WeichenAbzweig>
+					<Weiche>Weiche5</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='W2_W3' KommeVon='DKW7_W8'>
 				<WeichenAbzweig>
 					<Weiche>Weiche5</Weiche>
 				</WeichenAbzweig>
@@ -575,17 +430,22 @@
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>7</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W1_W4'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf2_Halt_L'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='HBf2_Halt_L' KommeVon='W1_W4'>
 				<WeichenGerade>
 					<Weiche>Weiche6</Weiche>
 				</WeichenGerade>
 			</Nachbarblock>
-			<Nachbarblock Name='HBf1_Halt_L'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='W1_W4' KommeVon='HBf2_Halt_L'>
+				<WeichenGerade>
+					<Weiche>Weiche6</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='HBf1_Halt_L' KommeVon='W1_W4'>
+				<WeichenAbzweig>
+					<Weiche>Weiche6</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='W1_W4' KommeVon='HBf1_Halt_L'>
 				<WeichenAbzweig>
 					<Weiche>Weiche6</Weiche>
 				</WeichenAbzweig>
@@ -596,8 +456,7 @@
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>8</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W5'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='W5' KommeVon='HBf1_Halt_L'>
 				<WeichenGerade>
 					<Weiche>DKW7_2</Weiche>
 				</WeichenGerade>
@@ -605,8 +464,15 @@
 					<Weiche>DKW7_1</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='W5'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='HBf1_Halt_L' KommeVon='W5'>
+				<WeichenGerade>
+					<Weiche>DKW7_2</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>DKW7_1</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>			
+			<Nachbarblock Name='W5' KommeVon='DKW9'>
 				<WeichenGerade>
 					<Weiche>Weiche8</Weiche>
 				</WeichenGerade>
@@ -615,17 +481,7 @@
 					<Weiche>DKW7_1</Weiche>				
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='HBf4_Halt_L'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenGerade>
-					<Weiche>DKW7_2</Weiche>
-				</WeichenGerade>
-				<WeichenAbzweig>
-					<Weiche>DKW7_1</Weiche>
-				</WeichenAbzweig>
-			</Nachbarblock>
-			<Nachbarblock Name='DKW9'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='DKW9' KommeVon='W5'>
 				<WeichenGerade>
 					<Weiche>Weiche8</Weiche>
 				</WeichenGerade>
@@ -640,24 +496,34 @@
 		<Modulnummer>6</Modulnummer>
 		<Portnummer>1</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf5_Halt_L'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='HBf5_Halt_L' KommeVon='DKW7_W8'>
 				<WeichenGerade>
 					<Weiche>DKW9_2</Weiche>
 				</WeichenGerade>
-			</Nachbarblock>
-			<Nachbarblock Name='HBf6_Halt_L'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenAbzweig>
-					<Weiche>DKW9_2</Weiche>
-				</WeichenAbzweig>
-			</Nachbarblock>
-			<Nachbarblock Name='DKW7_W8'>
-				<Fahrtrichtung>0</Fahrtrichtung>
 				<WeichenAbzweig>
 					<Weiche>DKW9_1</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
+			<Nachbarblock Name='DKW7_W8' KommeVon='HBf5_Halt_L'>
+				<WeichenGerade>
+					<Weiche>DKW9_2</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>DKW9_1</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='HBf6_Halt_L' KommeVon='DKW7_W8'>
+				<WeichenAbzweig>
+					<Weiche>DKW9_2</Weiche>
+					<Weiche>DKW9_1</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='DKW7_W8' KommeVon='HBf6_Halt_L'>
+				<WeichenAbzweig>
+					<Weiche>DKW9_2</Weiche>
+					<Weiche>DKW9_1</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>			
 		</Nachbarbloecke>		
 	</Belegtmelder>
 	<Belegtmelder Name='KW22'>

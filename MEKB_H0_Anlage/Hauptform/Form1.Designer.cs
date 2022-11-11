@@ -1028,7 +1028,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label129 = new System.Windows.Forms.Label();
             this.label128 = new System.Windows.Forms.Label();
-            this.KommeVon = new System.Windows.Forms.TextBox();
+            this.label130 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -12311,7 +12312,6 @@
             // 
             this.VorBlock.Location = new System.Drawing.Point(222, 21);
             this.VorBlock.Name = "VorBlock";
-            this.VorBlock.ReadOnly = true;
             this.VorBlock.Size = new System.Drawing.Size(100, 20);
             this.VorBlock.TabIndex = 992;
             // 
@@ -12336,7 +12336,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel2.Controls.Add(this.KommeVon);
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.label130);
             this.panel2.Controls.Add(this.label129);
             this.panel2.Controls.Add(this.label128);
             this.panel2.Controls.Add(this.NextBlock);
@@ -12365,12 +12366,24 @@
             this.label128.TabIndex = 994;
             this.label128.Text = "Nächster Block";
             // 
-            // KommeVon
+            // label130
             // 
-            this.KommeVon.Location = new System.Drawing.Point(116, 47);
-            this.KommeVon.Name = "KommeVon";
-            this.KommeVon.Size = new System.Drawing.Size(100, 20);
-            this.KommeVon.TabIndex = 996;
+            this.label130.AutoSize = true;
+            this.label130.Location = new System.Drawing.Point(125, 8);
+            this.label130.Name = "label130";
+            this.label130.Size = new System.Drawing.Size(78, 13);
+            this.label130.TabIndex = 996;
+            this.label130.Text = "Aktueller Block";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(96, 47);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(141, 23);
+            this.button1.TabIndex = 997;
+            this.button1.Text = "In Nächsten Einfahren";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -14889,7 +14902,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label129;
         private System.Windows.Forms.Label label128;
-        private System.Windows.Forms.TextBox KommeVon;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label130;
     }
 }
 

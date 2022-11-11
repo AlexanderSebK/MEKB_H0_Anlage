@@ -154,8 +154,13 @@ namespace MEKB_H0_Anlage
         public bool[] AktiveFunktion { get; set; }     
         /// <summary>
         /// True: Lok wird vom Programm gesteuert
+        /// False: Lok wird manuel über Handy oder Lokmaus gesteuert
         /// </summary>
         public bool Automatik { set; get; }
+        public string AktuellerBlock { set; get; }
+        public string VorherigerBlock { set; get; } 
+
+        public int ErlaubteGeschwindigkeit { set; get; }
         #endregion
 
         #region Links und Delegates
@@ -218,7 +223,7 @@ namespace MEKB_H0_Anlage
             Steuerpult.Register_CMD_LOKSTATUS(Set_LOKSTATUS);
         }
         #endregion
-        #region Loksteuerung
+        #region Z21-Loksteuerung
         private void Set_LOKFAHRT(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo)
         {
             int RichtungMitUmkehr = Richtung;
@@ -276,6 +281,40 @@ namespace MEKB_H0_Anlage
         public Lokomotive Copy()
         {
             return (Lokomotive)this.MemberwiseClone();
+        }
+        #endregion
+        #region BlockVerwaltung
+        public void BlockVerfolgung(BelegtmelderListe belegtmelderListe, WeichenListe weichenListe)
+        {
+            if (AktuellerBlock.Equals("Lok verloren")) return;
+            if (this.Fahrstufe != 0)
+            {
+                Belegtmelder Aktuel = belegtmelderListe.GetBelegtmelder(this.AktuellerBlock);
+                if (Aktuel == null)
+                {
+                    AktuellerBlock = "Lok verloren";
+                    return;
+                }
+                if(!Aktuel.IstBelegt()) //Keine Belegtmeldung -> Lok verloren
+                {
+                    AktuellerBlock = "Lok verloren";
+                    return;
+                }
+                Belegtmelder Naechster = belegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock, weichenListe));
+                if(Naechster == null)
+                {
+                    return;
+                }
+                if(Naechster.IstBelegt())
+                {
+                    if(Naechster.Registriert.Equals(""))
+                    {
+                        Naechster.Registriert = this.Name;
+                        VorherigerBlock = AktuellerBlock;
+                        AktuellerBlock = Naechster.Name;
+                    }
+                }
+            }
         }
         #endregion
         #endregion

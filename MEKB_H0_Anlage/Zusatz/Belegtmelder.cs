@@ -57,12 +57,12 @@ namespace MEKB_H0_Anlage
                         if (block.Attribute("Name") != null)  BlockName = block.Attribute("Name").Value;
                         else BlockName = block.Element("Blockname").Value;
 
-                        bool Fahrrichtung = block.Element("Fahrtrichtung").Value == "1";
+                        //bool Fahrrichtung = block.Element("Fahrtrichtung").Value == "1";
                         string KommeVon = "";
-                        if(block.Element("KommeVon") != null) KommeVon = block.Element("KommeVon").Value;
+                        if(block.Attribute("KommeVon") != null) KommeVon = block.Attribute("KommeVon").Value;
 
 
-                        NachbarBlock nachbar = new NachbarBlock() { BlockName = BlockName, InFahrtRichtung = Fahrrichtung, KommeVon = KommeVon};
+                        NachbarBlock nachbar = new NachbarBlock() { BlockName = BlockName, KommeVon = KommeVon};
                         XElement WeichenGerade = block.Element("WeichenGerade");
                         XElement WeichenAbzweig = block.Element("WeichenAbzweig");
                         if (WeichenGerade != null)
@@ -117,10 +117,10 @@ namespace MEKB_H0_Anlage
             }
             return null;
         }
-        public Belegtmelder GetBelegtmelder(int Modul, int Port)
+        public List<Belegtmelder> GetBelegtmelder(int Modul, int Port)
         {
             List<Belegtmelder> Portliste = Liste.FindAll(x => x.Modulnummer == Modul);
-            Belegtmelder belegtmelder = Portliste.Find(x => x.Portnummer == Port);
+            List<Belegtmelder> belegtmelder = Portliste.FindAll(x => x.Portnummer == Port);
             return belegtmelder;
         }
         public void UpdateBelegtmelder(byte GruppenIndex, byte[] RMStatus)
@@ -136,9 +136,12 @@ namespace MEKB_H0_Anlage
                     if (GruppenIndex == 1) ModulNummer = ModulNummer + 10;
                     int PortNummer = a + 1;
 
-                    Belegtmelder belegtmelder = GetBelegtmelder(ModulNummer, PortNummer);
-                    if (belegtmelder == null) continue;
-                    belegtmelder.MeldeBesetzt(PortListe[a]);
+                    List<Belegtmelder> belegtmelder = GetBelegtmelder(ModulNummer, PortNummer);
+                    foreach (Belegtmelder melder in belegtmelder)
+                    {
+                        if (melder == null) continue;
+                        melder.MeldeBesetzt(PortListe[a]);
+                    }
                 }
                 PortListe.Clear();
             }
@@ -246,6 +249,11 @@ namespace MEKB_H0_Anlage
         /// Zeit wie lange noch der Status belegt aktiv bleibt
         /// </summary>
         private int Time { set; get; }
+        /// <summary>
+        /// Block von Lok registriert
+        /// </summary>
+        public string Registriert { set; get; }
+
 
         public List<NachbarBlock> NachbarBlocks { set; get; }
 
@@ -257,11 +265,11 @@ namespace MEKB_H0_Anlage
         /// <param name="InFahrt">True = In normaler Fahrtrichtung </param>
         /// <param name="weichenListe">Liste der benutzten Weichne (globale Liste)</param>
         /// <returns>Name des Nächsten Blocks oder "gesperrt"</returns>
-        public string NaechsterBlock(bool InFahrt, WeichenListe weichenListe, string KommeVon = "")
+        public string NaechsterBlock(string Einfahrtsblock, WeichenListe weichenListe)
         {
             foreach(NachbarBlock block in NachbarBlocks)
             {
-                if(block.IstErreichbar(InFahrt, weichenListe, KommeVon))
+                if(block.IstErreichbar(weichenListe, Einfahrtsblock))
                 {
                     return block.BlockName;
                 }
@@ -362,20 +370,19 @@ namespace MEKB_H0_Anlage
 
     public class NachbarBlock
     {
-        public bool InFahrtRichtung; // Gibt an, ob dieser Block in gewöhnlicher Fahrtrichtung aus erreichbar ist
         public List<String> WeichenAbzweig; //Liste von Weichennamen, die auf Abzweig stehen müssen, damit dieser Block erreicht werden kann
         public List<String> WeichenGerade;  //Liste von Weichennamen, die auf Gerade stehen müssen, damit dieser Block erreicht werden kann
-        public string KommeVon; //Extra Angabe des vorherigen Blocks, wenn ausfahrt nicht alleine über Weichenstellung bestimmt werden kann (bsp. Kreuzung)  
+        public string KommeVon; //Letzte Block, aus dem der Zug eingefahren ist 
 
         public string BlockName; //Name des Nächsten Blocks
         public NachbarBlock()
         {
-            InFahrtRichtung = false;
             WeichenAbzweig = new List<String>();
             WeichenGerade = new List<String>();
+            KommeVon = "";
         }
 
-        public bool IstErreichbar(bool Richtung, WeichenListe weichenListe, string komme="")
+        public bool IstErreichbar(WeichenListe weichenListe, string komme="")
         {
             if(KommeVon != null)
             {
@@ -384,7 +391,6 @@ namespace MEKB_H0_Anlage
                     if (!KommeVon.Equals(komme)) return false;
                 }
             }
-            if (Richtung != InFahrtRichtung) return false;
             foreach(string weichename in WeichenAbzweig)
             {
                 Weiche weiche = weichenListe.GetWeiche(weichename);

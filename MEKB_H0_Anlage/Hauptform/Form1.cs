@@ -234,9 +234,7 @@ namespace MEKB_H0_Anlage
                 Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text);
                 if(belegtmelder != null)
                 {
-                    updateRegisterState(NextBlock, belegtmelder.NaechsterBlock(true, WeichenListe, KommeVon.Text));
-                    updateRegisterState(VorBlock, belegtmelder.NaechsterBlock(false, WeichenListe, KommeVon.Text));
-
+                    updateRegisterState(NextBlock, belegtmelder.NaechsterBlock(VorBlock.Text, WeichenListe));
                 }
 
 
@@ -839,6 +837,12 @@ namespace MEKB_H0_Anlage
 
         }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string naechsterBlock = NextBlock.Text;
+            string aktuellerBlock = Block.Text;
+            Block.Text = naechsterBlock;
+            VorBlock.Text = aktuellerBlock;
+        }
     }
 }
