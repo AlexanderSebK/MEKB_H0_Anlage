@@ -284,13 +284,22 @@ namespace MEKB_H0_Anlage
         }
         #endregion
         #region BlockVerwaltung
+        /// <summary>
+        /// Aktuellen Block berechnen
+        /// </summary>
+        /// <param name="belegtmelderListe">Liste der Blöcke</param>
+        /// <param name="weichenListe">Weichenliste</param>
         public void BlockVerfolgung(BelegtmelderListe belegtmelderListe, WeichenListe weichenListe)
         {
+            // Wenn Position unbekannt: Funktion nicht ausführen
             if (AktuellerBlock.Equals("Lok verloren")) return;
+             
+            // Lok fährt
             if (this.Fahrstufe != 0)
             {
+                // Letzten gespeicherten Block auslesen
                 Belegtmelder Aktuel = belegtmelderListe.GetBelegtmelder(this.AktuellerBlock);
-                if (Aktuel == null)
+                if (Aktuel == null) // Block unbekannt -> Lok verloren
                 {
                     AktuellerBlock = "Lok verloren";
                     return;
@@ -300,18 +309,19 @@ namespace MEKB_H0_Anlage
                     AktuellerBlock = "Lok verloren";
                     return;
                 }
+                //Potentieller nächsten Nachbarblock finden
                 Belegtmelder Naechster = belegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock, weichenListe));
-                if(Naechster == null)
+                if(Naechster == null) //Nicht gefunden
                 {
                     return;
                 }
-                if(Naechster.IstBelegt())
+                if(Naechster.IstBelegt()) // Gefunden und nächster Block ist belegt
                 {
-                    if(Naechster.Registriert.Equals(""))
+                    if(Naechster.Registriert.Equals("")) // Nächster Block nicht von einer anderen Lok reserviert
                     {
-                        Naechster.Registriert = this.Name;
-                        VorherigerBlock = AktuellerBlock;
-                        AktuellerBlock = Naechster.Name;
+                        Naechster.Registriert = this.Name; //Lok für diesen Block registrieren
+                        VorherigerBlock = AktuellerBlock; //Aktuellen Block in Vorherigen Block speichern
+                        AktuellerBlock = Naechster.Name; //Nächsten Block als aktuellen Block definieren
                     }
                 }
             }

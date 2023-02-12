@@ -184,7 +184,7 @@ namespace MEKB_H0_Anlage
                 case "Bhf_Gleis1_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W6" }; break;
                 case "Bhf_Gleis2_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W6" }; break;
                 case "Bhf_Gleis3_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5"}; break;
-                case "Bhf_Gleis4_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5" , "DKW7_W8" }; break;
+                case "Bhf_Gleis4_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5", "DKW7_W8" }; break;
                 case "Bhf_Gleis5_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5", "DKW7_W8", "DKW9" }; break;
                 case "Bhf_Gleis6_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5", "DKW7_W8", "DKW9" }; break;
                 default: return false;
@@ -246,6 +246,11 @@ namespace MEKB_H0_Anlage
         /// </summary>
         private bool Belegt { set; get; }
         /// <summary>
+        /// Ist der Gleisabschnitt sicher belegt
+        /// </summary>
+        private bool Stabil {  set; get; }
+        private int CoolUpTime { set; get; }
+        /// <summary>
         /// Zeit wie lange noch der Status belegt aktiv bleibt
         /// </summary>
         private int Time { set; get; }
@@ -283,7 +288,7 @@ namespace MEKB_H0_Anlage
         /// <returns>true - Abschnitt belegt, flase - Abschnittfrei</returns>
         public bool IstBelegt()
         {
-            if (Belegt) return true;
+            if (Belegt && Stabil) return true;
             else
             {
                 if (Time > 0) return true;
@@ -301,10 +306,16 @@ namespace MEKB_H0_Anlage
             {
                 if (Status == false)
                 {
-                    Time = CoolDownTime;
+                    if (Stabil == true) Time = CoolDownTime;
+                    else Time = 0;
                 }
             }
             Belegt = Status;
+            if (Status == false)
+            {
+                Stabil = false;
+                CoolUpTime = 0;
+            }
         }
 
         /// <summary>
@@ -317,6 +328,12 @@ namespace MEKB_H0_Anlage
             {
                 Time -= ZeitVergangen;
                 if (Time <= 0) Time = 0;
+            }
+
+            if(Belegt && (CoolUpTime < 500))
+            {
+                CoolUpTime += ZeitVergangen;
+                if (CoolUpTime > 500) Stabil = true;
             }
         }
 
