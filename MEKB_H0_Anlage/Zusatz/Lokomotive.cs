@@ -9,105 +9,7 @@ using System.Threading.Tasks;
 
 namespace MEKB_H0_Anlage
 {
-    public class LokomotivenListe
-    {
-        private Dictionary<string, int> Verzeichnis;
-        public List<Lokomotive> Liste;
-        public LokomotivenListe()
-        {
-            Verzeichnis = new Dictionary<string, int>();
-            Liste = new List<Lokomotive>();
-        }
-        public LokomotivenListe(string Dateiname)
-        {
-            Verzeichnis = new Dictionary<string, int>();
-            Liste = new List<Lokomotive>();
-            DateiImportieren(Dateiname);
-        }
-        public Lokomotive GetFahrstrasse(string Name)
-        {
-            if (Verzeichnis.TryGetValue(Name, out int ListID))
-            {
-                return Liste[ListID];
-            }
-            return null;
-        }
-
-        public void DateiImportieren(string Dateiname)
-        {
-            string[] fileEntries = Directory.GetFiles(Dateiname);
-            string KeineLokAdr = "Folgende Dateien besitzen keine LokAdressen und werden ignoriert:\n\n";
-            bool FehlendeAdr = false;
-            foreach (string fileName in fileEntries)
-            {
-
-                XElement XMLFile = XElement.Load(fileName);              //XML-Datei öffnen
-                var list = XMLFile.Elements("Lok").ToList();             //Alle Elemente des Types Lok in eine Liste Umwandeln 
-
-                foreach (XElement lok in list)                            //Alle Elemente der Liste einzeln durchlaufen
-                {
-                    Lokomotive Lokomotive = new Lokomotive();
-                    if (lok.Element("Adresse") == null)
-                    {
-                        KeineLokAdr += String.Format("- {0} \n", fileName);
-                        FehlendeAdr = true;
-                        continue;
-                    }
-                    Lokomotive.Adresse = Int16.Parse(lok.Element("Adresse").Value);     //LokAdresse des Elements auslesen
-
-                    if (lok.Element("Name") == null) Lokomotive.Name = "";
-                    else Lokomotive.Name = lok.Element("Name").Value;                   //Lokname des Elements auslesen
-                    if (lok.Element("Gattung") == null) Lokomotive.Gattung = "";
-                    else Lokomotive.Gattung = lok.Element("Gattung").Value;             //StandardGattung Eintragen
-                    Lokomotive.Funktionen.Add("Licht");
-                    for (int i = 1; i <= 21; i++)
-                    {
-                        string Label = String.Format("Funktion{0}", i);
-                        if (lok.Element(Label) == null)
-                        {
-                            Lokomotive.Funktionen.Add(null);
-                        }
-                        else
-                        {
-                            Lokomotive.Funktionen.Add(lok.Element(Label).Value);
-                        }
-                    }
-
-                    Liste.Add(Lokomotive);                                       //Lokomotive zur Lokliste hinzufügen
-                }
-            }
-            if (FehlendeAdr) MessageBox.Show(KeineLokAdr, "Keine Adressen", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            if (!Liste.GroupBy(x => x.Adresse).All(g => g.Count() == 1))
-            {
-                List<int> DoppelAdressen = Liste.GroupBy(x => x.Adresse)
-                                        .Where(g => g.Count() > 1)
-                                        .Select(y => y.Key)
-                                        .ToList();
-
-                List<Lokomotive> Ausschuss = new List<Lokomotive>();
-
-                foreach (int adr in DoppelAdressen)
-                {
-                    var Subliste = Liste.FindAll(Lok => Lok.Adresse == adr);
-                    Ausschuss.AddRange(Subliste);
-                }
-                string nachricht = "Loks mit gleichen Adressen gefunden: \n\n";
-
-                foreach (Lokomotive lok in Ausschuss)
-                {
-                    nachricht += String.Format("{0} - {1}\n", lok.Adresse, lok.Name);
-                }
-
-                MessageBox.Show(nachricht, "Mehrdeutige Adresse", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-            for (int i = 0; i < Liste.Count; i++)
-            {
-                Verzeichnis.Add(Liste[i].Name, i);
-            }
-        }
-
-    }
+   
 
 
 
@@ -125,7 +27,8 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Parameter: Standard Gattung
         /// </summary>
-        public string Gattung { get; set; }        
+        public string Gattung { get; set; } 
+        
         /// <summary>
         /// Funktionstasten
         /// </summary>
@@ -134,6 +37,24 @@ namespace MEKB_H0_Anlage
         /// Anzahl Fahrstufen 0=14, 2=28, 4 = 128
         /// </summary>
         public byte FahrstufenInfo { get; set; }
+        #region Zusatzangaben (Nur als Suche benötigt)
+        /// <summary>
+        /// Epoche der Lok (0 = keine Gegeben)
+        /// </summary>
+        public int Epoche { set; get; }
+        /// <summary>
+        /// Typ der Lok (Dampflok)
+        /// </summary>
+        public string Typ { set; get; }
+        /// <summary>
+        /// Eisenbahn Verwaltung
+        /// </summary>
+        public string Verwaltung { set; get; }
+        /// <summary>
+        /// Hersteller des Models
+        /// </summary>
+        public string Hersteller { set; get; }
+        #endregion
         #endregion
         #region Status
         /// <summary>
@@ -200,11 +121,73 @@ namespace MEKB_H0_Anlage
         #region Konstruktors
         public Lokomotive()
         {
+            Adresse = 0;
+            Name = "";
+            Gattung = "";
+            Fahrstufe = 0;
+            Richtung = 0;
+
             Funktionen = new List<string>();
+            for (int i = 0; i < 21; i++) { Funktionen.Add(null); }
             AktiveFunktion = new bool[30];
             Steuerpult = new ZugSteuerpult(this);
             Automatik = false;
+
+            Epoche = 0;
+            Typ = "";
+            Verwaltung = "";
+            Hersteller = "";
         }
+
+        public Lokomotive(string fileName)
+        {
+            Adresse = 0;
+            Name = "";
+            Gattung = "";
+            Fahrstufe = 0;
+            Richtung = 0;
+
+            Funktionen = new List<string>();
+            for (int i = 0; i < 21; i++) { Funktionen.Add(null); }
+            AktiveFunktion = new bool[30];
+            Steuerpult = new ZugSteuerpult(this);
+            Automatik = false;
+
+            Epoche = 0;
+            Typ = "";
+            Verwaltung = "";
+            Hersteller = "";
+
+            if (!Path.GetExtension(fileName).Equals(".xml")) return;
+            XElement XMLFile = XElement.Load(fileName);              //XML-Datei öffnen
+            if (XMLFile == null) return;
+            XElement lok = XMLFile.Elements("Lok").ToList().First(); //Alle Elemente des Types Lok in eine Liste Umwandeln 
+
+            //LokAdresse lesen
+            if (lok.Element("Adresse") != null)     Adresse = Int16.Parse(lok.Element("Adresse").Value);     
+            if (lok.Element("Name") != null)        Name = lok.Element("Name").Value;     
+            if (lok.Element("Gattung") != null)     Gattung = lok.Element("Gattung").Value;
+            if (lok.Element("Epoche") != null)      Epoche = Int16.Parse(lok.Element("Epoche").Value);
+            if (lok.Element("Typ") != null)         Typ = lok.Element("Typ").Value;
+            if (lok.Element("Verwaltung") != null)  Verwaltung = lok.Element("Verwaltung").Value;
+            if (lok.Element("Hersteller") != null)  Hersteller = lok.Element("Hersteller").Value;
+            Funktionen.Clear();    
+            Funktionen.Add("Licht");
+            for (int i = 1; i <= 21; i++)
+            {
+                string Label = String.Format("Funktion{0}", i);
+                if (lok.Element(Label) == null)
+                {
+                    Funktionen.Add(null);
+                }
+                else
+                {
+                    Funktionen.Add(lok.Element(Label).Value);
+                }
+            }
+        }
+
+
         #endregion
         #region Delegates Registrierungen
         public void Register_CMD_LOKFAHRT(CMD_LOKFAHRT function)
@@ -327,6 +310,49 @@ namespace MEKB_H0_Anlage
             }
         }
         #endregion
+
+        #region Export
+        public XElement ExportLokData()
+        {
+            XElement LokXMLData = new XElement("Lokliste",
+                new XElement("Lok",
+                    new XElement("Name", Name),
+                    new XElement("Adresse", Adresse.ToString()),
+                    new XElement("Gattung", Gattung),
+                    new XElement("Epoche", Epoche.ToString()),
+                    new XElement("Typ", Typ),
+                    new XElement("Verwaltung", Verwaltung),
+                    new XElement("Hersteller", Hersteller),
+                    new XElement("Funktion1", Funktionen[1]),
+                    new XElement("Funktion2", Funktionen[2]),
+                    new XElement("Funktion3", Funktionen[3]),
+                    new XElement("Funktion4", Funktionen[4]),
+                    new XElement("Funktion5", Funktionen[5]),
+                    new XElement("Funktion6", Funktionen[6]),
+                    new XElement("Funktion7", Funktionen[7]),
+                    new XElement("Funktion8", Funktionen[8]),
+                    new XElement("Funktion9", Funktionen[9]),
+                    new XElement("Funktion10", Funktionen[10]),
+                    new XElement("Funktion11", Funktionen[11]),
+                    new XElement("Funktion12", Funktionen[12]),
+                    new XElement("Funktion13", Funktionen[13]),
+                    new XElement("Funktion14", Funktionen[14]),
+                    new XElement("Funktion15", Funktionen[15]),
+                    new XElement("Funktion16", Funktionen[16]),
+                    new XElement("Funktion17", Funktionen[17]),
+                    new XElement("Funktion18", Funktionen[18]),
+                    new XElement("Funktion19", Funktionen[19]),
+                    new XElement("Funktion20", Funktionen[20])
+                )
+            );
+
+
+
+            return LokXMLData;
+        }
+
+        #endregion
+
         #endregion
     }
 

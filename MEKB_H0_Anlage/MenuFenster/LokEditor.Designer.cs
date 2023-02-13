@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LokEditor));
-            this.Lokliste = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -79,16 +78,20 @@
             this.DisplayLokName = new System.Windows.Forms.TextBox();
             this.SpeichernUnter = new System.Windows.Forms.Button();
             this.Laden = new System.Windows.Forms.Button();
+            this.ArchivBaum = new System.Windows.Forms.TreeView();
+            this.PfadLabel = new System.Windows.Forms.Label();
+            this.NeueLok = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
+            this.DisplayLokEpoche = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.DisplayLokVerwaltung = new System.Windows.Forms.TextBox();
+            this.DisplayLokTyp = new System.Windows.Forms.TextBox();
+            this.DisplayLokHersteller = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.Speichern = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DisplayLokAdresse)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Lokliste
-            // 
-            this.Lokliste.FormattingEnabled = true;
-            this.Lokliste.Location = new System.Drawing.Point(8, 32);
-            this.Lokliste.Name = "Lokliste";
-            this.Lokliste.Size = new System.Drawing.Size(160, 407);
-            this.Lokliste.TabIndex = 0;
             // 
             // label1
             // 
@@ -103,7 +106,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(176, 43);
+            this.label2.Location = new System.Drawing.Point(282, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 2;
@@ -112,7 +115,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(176, 67);
+            this.label3.Location = new System.Drawing.Point(282, 66);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 3;
@@ -121,7 +124,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(176, 91);
+            this.label4.Location = new System.Drawing.Point(282, 90);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 4;
@@ -130,7 +133,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(176, 147);
+            this.label5.Location = new System.Drawing.Point(282, 177);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(57, 13);
             this.label5.TabIndex = 5;
@@ -139,7 +142,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(176, 171);
+            this.label6.Location = new System.Drawing.Point(282, 201);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 13);
             this.label6.TabIndex = 6;
@@ -147,7 +150,7 @@
             // 
             // DisplayLokFkt1
             // 
-            this.DisplayLokFkt1.Location = new System.Drawing.Point(240, 144);
+            this.DisplayLokFkt1.Location = new System.Drawing.Point(346, 174);
             this.DisplayLokFkt1.MaxLength = 12;
             this.DisplayLokFkt1.Name = "DisplayLokFkt1";
             this.DisplayLokFkt1.Size = new System.Drawing.Size(100, 20);
@@ -155,7 +158,7 @@
             // 
             // DisplayLokFkt2
             // 
-            this.DisplayLokFkt2.Location = new System.Drawing.Point(240, 168);
+            this.DisplayLokFkt2.Location = new System.Drawing.Point(346, 198);
             this.DisplayLokFkt2.MaxLength = 12;
             this.DisplayLokFkt2.Name = "DisplayLokFkt2";
             this.DisplayLokFkt2.Size = new System.Drawing.Size(100, 20);
@@ -163,7 +166,7 @@
             // 
             // DisplayLokFkt3
             // 
-            this.DisplayLokFkt3.Location = new System.Drawing.Point(240, 192);
+            this.DisplayLokFkt3.Location = new System.Drawing.Point(346, 222);
             this.DisplayLokFkt3.MaxLength = 12;
             this.DisplayLokFkt3.Name = "DisplayLokFkt3";
             this.DisplayLokFkt3.Size = new System.Drawing.Size(100, 20);
@@ -171,7 +174,7 @@
             // 
             // DisplayLokFkt4
             // 
-            this.DisplayLokFkt4.Location = new System.Drawing.Point(240, 216);
+            this.DisplayLokFkt4.Location = new System.Drawing.Point(346, 246);
             this.DisplayLokFkt4.MaxLength = 12;
             this.DisplayLokFkt4.Name = "DisplayLokFkt4";
             this.DisplayLokFkt4.Size = new System.Drawing.Size(100, 20);
@@ -179,7 +182,7 @@
             // 
             // DisplayLokFkt5
             // 
-            this.DisplayLokFkt5.Location = new System.Drawing.Point(240, 240);
+            this.DisplayLokFkt5.Location = new System.Drawing.Point(346, 270);
             this.DisplayLokFkt5.MaxLength = 12;
             this.DisplayLokFkt5.Name = "DisplayLokFkt5";
             this.DisplayLokFkt5.Size = new System.Drawing.Size(100, 20);
@@ -187,7 +190,7 @@
             // 
             // DisplayLokFkt6
             // 
-            this.DisplayLokFkt6.Location = new System.Drawing.Point(240, 264);
+            this.DisplayLokFkt6.Location = new System.Drawing.Point(346, 294);
             this.DisplayLokFkt6.MaxLength = 12;
             this.DisplayLokFkt6.Name = "DisplayLokFkt6";
             this.DisplayLokFkt6.Size = new System.Drawing.Size(100, 20);
@@ -195,7 +198,7 @@
             // 
             // DisplayLokFkt7
             // 
-            this.DisplayLokFkt7.Location = new System.Drawing.Point(240, 288);
+            this.DisplayLokFkt7.Location = new System.Drawing.Point(346, 318);
             this.DisplayLokFkt7.MaxLength = 12;
             this.DisplayLokFkt7.Name = "DisplayLokFkt7";
             this.DisplayLokFkt7.Size = new System.Drawing.Size(100, 20);
@@ -203,7 +206,7 @@
             // 
             // DisplayLokFkt8
             // 
-            this.DisplayLokFkt8.Location = new System.Drawing.Point(240, 312);
+            this.DisplayLokFkt8.Location = new System.Drawing.Point(346, 342);
             this.DisplayLokFkt8.MaxLength = 12;
             this.DisplayLokFkt8.Name = "DisplayLokFkt8";
             this.DisplayLokFkt8.Size = new System.Drawing.Size(100, 20);
@@ -211,7 +214,7 @@
             // 
             // DisplayLokFkt9
             // 
-            this.DisplayLokFkt9.Location = new System.Drawing.Point(240, 336);
+            this.DisplayLokFkt9.Location = new System.Drawing.Point(346, 366);
             this.DisplayLokFkt9.MaxLength = 12;
             this.DisplayLokFkt9.Name = "DisplayLokFkt9";
             this.DisplayLokFkt9.Size = new System.Drawing.Size(100, 20);
@@ -219,7 +222,7 @@
             // 
             // DisplayLokFkt10
             // 
-            this.DisplayLokFkt10.Location = new System.Drawing.Point(240, 360);
+            this.DisplayLokFkt10.Location = new System.Drawing.Point(346, 390);
             this.DisplayLokFkt10.MaxLength = 12;
             this.DisplayLokFkt10.Name = "DisplayLokFkt10";
             this.DisplayLokFkt10.Size = new System.Drawing.Size(100, 20);
@@ -228,7 +231,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(176, 195);
+            this.label7.Location = new System.Drawing.Point(282, 225);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(57, 13);
             this.label7.TabIndex = 17;
@@ -237,7 +240,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(176, 219);
+            this.label8.Location = new System.Drawing.Point(282, 249);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(57, 13);
             this.label8.TabIndex = 18;
@@ -246,7 +249,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(176, 243);
+            this.label9.Location = new System.Drawing.Point(282, 273);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(57, 13);
             this.label9.TabIndex = 19;
@@ -255,7 +258,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(176, 267);
+            this.label10.Location = new System.Drawing.Point(282, 297);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(57, 13);
             this.label10.TabIndex = 20;
@@ -264,7 +267,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(176, 291);
+            this.label11.Location = new System.Drawing.Point(282, 321);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 13);
             this.label11.TabIndex = 21;
@@ -273,7 +276,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(176, 315);
+            this.label12.Location = new System.Drawing.Point(282, 345);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(57, 13);
             this.label12.TabIndex = 22;
@@ -282,7 +285,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(176, 339);
+            this.label13.Location = new System.Drawing.Point(282, 369);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(57, 13);
             this.label13.TabIndex = 23;
@@ -291,7 +294,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(176, 363);
+            this.label14.Location = new System.Drawing.Point(282, 393);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(63, 13);
             this.label14.TabIndex = 24;
@@ -300,7 +303,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(376, 363);
+            this.label15.Location = new System.Drawing.Point(551, 393);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(63, 13);
             this.label15.TabIndex = 44;
@@ -309,7 +312,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(376, 339);
+            this.label16.Location = new System.Drawing.Point(551, 369);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(63, 13);
             this.label16.TabIndex = 43;
@@ -318,7 +321,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(376, 315);
+            this.label17.Location = new System.Drawing.Point(551, 345);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(63, 13);
             this.label17.TabIndex = 42;
@@ -327,7 +330,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(376, 291);
+            this.label18.Location = new System.Drawing.Point(551, 321);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(63, 13);
             this.label18.TabIndex = 41;
@@ -336,7 +339,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(376, 267);
+            this.label19.Location = new System.Drawing.Point(551, 297);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(63, 13);
             this.label19.TabIndex = 40;
@@ -345,7 +348,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(376, 243);
+            this.label20.Location = new System.Drawing.Point(551, 273);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(63, 13);
             this.label20.TabIndex = 39;
@@ -354,7 +357,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(376, 219);
+            this.label21.Location = new System.Drawing.Point(551, 249);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(63, 13);
             this.label21.TabIndex = 38;
@@ -363,7 +366,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(376, 195);
+            this.label22.Location = new System.Drawing.Point(551, 225);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(63, 13);
             this.label22.TabIndex = 37;
@@ -371,7 +374,7 @@
             // 
             // DisplayLokFkt20
             // 
-            this.DisplayLokFkt20.Location = new System.Drawing.Point(440, 360);
+            this.DisplayLokFkt20.Location = new System.Drawing.Point(615, 390);
             this.DisplayLokFkt20.MaxLength = 12;
             this.DisplayLokFkt20.Name = "DisplayLokFkt20";
             this.DisplayLokFkt20.Size = new System.Drawing.Size(100, 20);
@@ -379,7 +382,7 @@
             // 
             // DisplayLokFkt19
             // 
-            this.DisplayLokFkt19.Location = new System.Drawing.Point(440, 336);
+            this.DisplayLokFkt19.Location = new System.Drawing.Point(615, 366);
             this.DisplayLokFkt19.MaxLength = 12;
             this.DisplayLokFkt19.Name = "DisplayLokFkt19";
             this.DisplayLokFkt19.Size = new System.Drawing.Size(100, 20);
@@ -387,7 +390,7 @@
             // 
             // DisplayLokFkt18
             // 
-            this.DisplayLokFkt18.Location = new System.Drawing.Point(440, 312);
+            this.DisplayLokFkt18.Location = new System.Drawing.Point(615, 342);
             this.DisplayLokFkt18.MaxLength = 12;
             this.DisplayLokFkt18.Name = "DisplayLokFkt18";
             this.DisplayLokFkt18.Size = new System.Drawing.Size(100, 20);
@@ -395,7 +398,7 @@
             // 
             // DisplayLokFkt17
             // 
-            this.DisplayLokFkt17.Location = new System.Drawing.Point(440, 288);
+            this.DisplayLokFkt17.Location = new System.Drawing.Point(615, 318);
             this.DisplayLokFkt17.MaxLength = 12;
             this.DisplayLokFkt17.Name = "DisplayLokFkt17";
             this.DisplayLokFkt17.Size = new System.Drawing.Size(100, 20);
@@ -403,7 +406,7 @@
             // 
             // DisplayLokFkt16
             // 
-            this.DisplayLokFkt16.Location = new System.Drawing.Point(440, 264);
+            this.DisplayLokFkt16.Location = new System.Drawing.Point(615, 294);
             this.DisplayLokFkt16.MaxLength = 12;
             this.DisplayLokFkt16.Name = "DisplayLokFkt16";
             this.DisplayLokFkt16.Size = new System.Drawing.Size(100, 20);
@@ -411,7 +414,7 @@
             // 
             // DisplayLokFkt15
             // 
-            this.DisplayLokFkt15.Location = new System.Drawing.Point(440, 240);
+            this.DisplayLokFkt15.Location = new System.Drawing.Point(615, 270);
             this.DisplayLokFkt15.MaxLength = 12;
             this.DisplayLokFkt15.Name = "DisplayLokFkt15";
             this.DisplayLokFkt15.Size = new System.Drawing.Size(100, 20);
@@ -419,7 +422,7 @@
             // 
             // DisplayLokFkt14
             // 
-            this.DisplayLokFkt14.Location = new System.Drawing.Point(440, 216);
+            this.DisplayLokFkt14.Location = new System.Drawing.Point(615, 246);
             this.DisplayLokFkt14.MaxLength = 12;
             this.DisplayLokFkt14.Name = "DisplayLokFkt14";
             this.DisplayLokFkt14.Size = new System.Drawing.Size(100, 20);
@@ -427,7 +430,7 @@
             // 
             // DisplayLokFkt13
             // 
-            this.DisplayLokFkt13.Location = new System.Drawing.Point(440, 192);
+            this.DisplayLokFkt13.Location = new System.Drawing.Point(615, 222);
             this.DisplayLokFkt13.MaxLength = 12;
             this.DisplayLokFkt13.Name = "DisplayLokFkt13";
             this.DisplayLokFkt13.Size = new System.Drawing.Size(100, 20);
@@ -435,7 +438,7 @@
             // 
             // DisplayLokFkt12
             // 
-            this.DisplayLokFkt12.Location = new System.Drawing.Point(440, 168);
+            this.DisplayLokFkt12.Location = new System.Drawing.Point(615, 198);
             this.DisplayLokFkt12.MaxLength = 12;
             this.DisplayLokFkt12.Name = "DisplayLokFkt12";
             this.DisplayLokFkt12.Size = new System.Drawing.Size(100, 20);
@@ -443,7 +446,7 @@
             // 
             // DisplayLokFkt11
             // 
-            this.DisplayLokFkt11.Location = new System.Drawing.Point(440, 144);
+            this.DisplayLokFkt11.Location = new System.Drawing.Point(615, 174);
             this.DisplayLokFkt11.MaxLength = 12;
             this.DisplayLokFkt11.Name = "DisplayLokFkt11";
             this.DisplayLokFkt11.Size = new System.Drawing.Size(100, 20);
@@ -452,7 +455,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(376, 171);
+            this.label23.Location = new System.Drawing.Point(551, 201);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(63, 13);
             this.label23.TabIndex = 26;
@@ -461,7 +464,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(376, 147);
+            this.label24.Location = new System.Drawing.Point(551, 177);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(63, 13);
             this.label24.TabIndex = 25;
@@ -479,14 +482,14 @@
             "RegionalBahn",
             "S-Bahn",
             "Güterzug"});
-            this.DisplayLokGattung.Location = new System.Drawing.Point(240, 88);
+            this.DisplayLokGattung.Location = new System.Drawing.Point(346, 87);
             this.DisplayLokGattung.Name = "DisplayLokGattung";
-            this.DisplayLokGattung.Size = new System.Drawing.Size(96, 21);
+            this.DisplayLokGattung.Size = new System.Drawing.Size(150, 21);
             this.DisplayLokGattung.TabIndex = 45;
             // 
             // DisplayLokAdresse
             // 
-            this.DisplayLokAdresse.Location = new System.Drawing.Point(240, 64);
+            this.DisplayLokAdresse.Location = new System.Drawing.Point(346, 63);
             this.DisplayLokAdresse.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -498,7 +501,7 @@
             0,
             0});
             this.DisplayLokAdresse.Name = "DisplayLokAdresse";
-            this.DisplayLokAdresse.Size = new System.Drawing.Size(96, 20);
+            this.DisplayLokAdresse.Size = new System.Drawing.Size(62, 20);
             this.DisplayLokAdresse.TabIndex = 46;
             this.DisplayLokAdresse.Value = new decimal(new int[] {
             1,
@@ -508,16 +511,16 @@
             // 
             // DisplayLokName
             // 
-            this.DisplayLokName.Location = new System.Drawing.Point(240, 40);
+            this.DisplayLokName.Location = new System.Drawing.Point(346, 39);
             this.DisplayLokName.Name = "DisplayLokName";
-            this.DisplayLokName.Size = new System.Drawing.Size(184, 20);
+            this.DisplayLokName.Size = new System.Drawing.Size(150, 20);
             this.DisplayLokName.TabIndex = 47;
             // 
             // SpeichernUnter
             // 
-            this.SpeichernUnter.Location = new System.Drawing.Point(424, 416);
+            this.SpeichernUnter.Location = new System.Drawing.Point(615, 416);
             this.SpeichernUnter.Name = "SpeichernUnter";
-            this.SpeichernUnter.Size = new System.Drawing.Size(120, 23);
+            this.SpeichernUnter.Size = new System.Drawing.Size(147, 23);
             this.SpeichernUnter.TabIndex = 49;
             this.SpeichernUnter.Text = "Lok Speichern unter...";
             this.SpeichernUnter.UseVisualStyleBackColor = true;
@@ -525,19 +528,139 @@
             // 
             // Laden
             // 
-            this.Laden.Location = new System.Drawing.Point(224, 416);
+            this.Laden.Location = new System.Drawing.Point(12, 416);
             this.Laden.Name = "Laden";
-            this.Laden.Size = new System.Drawing.Size(91, 23);
+            this.Laden.Size = new System.Drawing.Size(244, 23);
             this.Laden.TabIndex = 50;
             this.Laden.Text = "Lok Laden";
             this.Laden.UseVisualStyleBackColor = true;
             this.Laden.Click += new System.EventHandler(this.Laden_Click);
             // 
+            // ArchivBaum
+            // 
+            this.ArchivBaum.Location = new System.Drawing.Point(12, 29);
+            this.ArchivBaum.Name = "ArchivBaum";
+            this.ArchivBaum.Size = new System.Drawing.Size(244, 390);
+            this.ArchivBaum.TabIndex = 51;
+            // 
+            // PfadLabel
+            // 
+            this.PfadLabel.AutoSize = true;
+            this.PfadLabel.Location = new System.Drawing.Point(343, 12);
+            this.PfadLabel.Name = "PfadLabel";
+            this.PfadLabel.Size = new System.Drawing.Size(56, 13);
+            this.PfadLabel.TabIndex = 52;
+            this.PfadLabel.Text = "Geladen: -";
+            // 
+            // NeueLok
+            // 
+            this.NeueLok.Location = new System.Drawing.Point(262, 7);
+            this.NeueLok.Name = "NeueLok";
+            this.NeueLok.Size = new System.Drawing.Size(75, 23);
+            this.NeueLok.TabIndex = 53;
+            this.NeueLok.Text = "Neu";
+            this.NeueLok.UseVisualStyleBackColor = true;
+            this.NeueLok.Click += new System.EventHandler(this.NeueLok_Click);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(525, 42);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(25, 13);
+            this.label26.TabIndex = 54;
+            this.label26.Text = "Typ";
+            // 
+            // DisplayLokEpoche
+            // 
+            this.DisplayLokEpoche.FormattingEnabled = true;
+            this.DisplayLokEpoche.Items.AddRange(new object[] {
+            "I",
+            "II",
+            "III",
+            "IV",
+            "V",
+            "VI"});
+            this.DisplayLokEpoche.Location = new System.Drawing.Point(615, 63);
+            this.DisplayLokEpoche.Name = "DisplayLokEpoche";
+            this.DisplayLokEpoche.Size = new System.Drawing.Size(47, 21);
+            this.DisplayLokEpoche.TabIndex = 55;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(525, 65);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(44, 13);
+            this.label27.TabIndex = 56;
+            this.label27.Text = "Epoche";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(525, 90);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(84, 13);
+            this.label28.TabIndex = 57;
+            this.label28.Text = "Bahnverwaltung";
+            // 
+            // DisplayLokVerwaltung
+            // 
+            this.DisplayLokVerwaltung.Location = new System.Drawing.Point(615, 87);
+            this.DisplayLokVerwaltung.Name = "DisplayLokVerwaltung";
+            this.DisplayLokVerwaltung.Size = new System.Drawing.Size(150, 20);
+            this.DisplayLokVerwaltung.TabIndex = 58;
+            // 
+            // DisplayLokTyp
+            // 
+            this.DisplayLokTyp.Location = new System.Drawing.Point(615, 39);
+            this.DisplayLokTyp.Name = "DisplayLokTyp";
+            this.DisplayLokTyp.Size = new System.Drawing.Size(150, 20);
+            this.DisplayLokTyp.TabIndex = 59;
+            // 
+            // DisplayLokHersteller
+            // 
+            this.DisplayLokHersteller.Location = new System.Drawing.Point(346, 114);
+            this.DisplayLokHersteller.Name = "DisplayLokHersteller";
+            this.DisplayLokHersteller.Size = new System.Drawing.Size(150, 20);
+            this.DisplayLokHersteller.TabIndex = 60;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(282, 117);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(51, 13);
+            this.label29.TabIndex = 61;
+            this.label29.Text = "Hersteller";
+            // 
+            // Speichern
+            // 
+            this.Speichern.Location = new System.Drawing.Point(528, 416);
+            this.Speichern.Name = "Speichern";
+            this.Speichern.Size = new System.Drawing.Size(75, 22);
+            this.Speichern.TabIndex = 62;
+            this.Speichern.Text = "Speichern";
+            this.Speichern.UseVisualStyleBackColor = true;
+            this.Speichern.Click += new System.EventHandler(this.Speichern_Click);
+            // 
             // LokEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(561, 450);
+            this.ClientSize = new System.Drawing.Size(774, 450);
+            this.Controls.Add(this.Speichern);
+            this.Controls.Add(this.label29);
+            this.Controls.Add(this.DisplayLokHersteller);
+            this.Controls.Add(this.DisplayLokTyp);
+            this.Controls.Add(this.DisplayLokVerwaltung);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.DisplayLokEpoche);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.NeueLok);
+            this.Controls.Add(this.PfadLabel);
+            this.Controls.Add(this.ArchivBaum);
             this.Controls.Add(this.Laden);
             this.Controls.Add(this.SpeichernUnter);
             this.Controls.Add(this.DisplayLokName);
@@ -587,7 +710,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Lokliste);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LokEditor";
             this.Text = "LokEditor";
@@ -599,8 +721,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox Lokliste;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -650,5 +770,17 @@
         private System.Windows.Forms.TextBox DisplayLokName;
         private System.Windows.Forms.Button SpeichernUnter;
         private System.Windows.Forms.Button Laden;
+        private System.Windows.Forms.TreeView ArchivBaum;
+        private System.Windows.Forms.Label PfadLabel;
+        private System.Windows.Forms.Button NeueLok;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ComboBox DisplayLokEpoche;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox DisplayLokVerwaltung;
+        private System.Windows.Forms.TextBox DisplayLokTyp;
+        private System.Windows.Forms.TextBox DisplayLokHersteller;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Button Speichern;
     }
 }
