@@ -90,7 +90,25 @@
             this.DisplayLokHersteller = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.Speichern = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.DisplayLokVmax = new System.Windows.Forms.NumericUpDown();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.DisplayLokVmid = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DisplayLokAdresse)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplayLokVmax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplayLokVmid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -644,11 +662,160 @@
             this.Speichern.UseVisualStyleBackColor = true;
             this.Speichern.Click += new System.EventHandler(this.Speichern_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label38);
+            this.groupBox1.Controls.Add(this.label37);
+            this.groupBox1.Controls.Add(this.numericUpDown1);
+            this.groupBox1.Controls.Add(this.label36);
+            this.groupBox1.Controls.Add(this.label35);
+            this.groupBox1.Controls.Add(this.label34);
+            this.groupBox1.Controls.Add(this.label33);
+            this.groupBox1.Controls.Add(this.DisplayLokVmid);
+            this.groupBox1.Controls.Add(this.label32);
+            this.groupBox1.Controls.Add(this.label31);
+            this.groupBox1.Controls.Add(this.DisplayLokVmax);
+            this.groupBox1.Controls.Add(this.label30);
+            this.groupBox1.Controls.Add(this.label25);
+            this.groupBox1.Enabled = false;
+            this.groupBox1.Location = new System.Drawing.Point(772, 29);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(232, 410);
+            this.groupBox1.TabIndex = 63;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Fahreigenschaften (noch nicht implementiert)";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(71, 61);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(15, 13);
+            this.label31.TabIndex = 58;
+            this.label31.Text = "%";
+            // 
+            // DisplayLokVmax
+            // 
+            this.DisplayLokVmax.Location = new System.Drawing.Point(9, 59);
+            this.DisplayLokVmax.Name = "DisplayLokVmax";
+            this.DisplayLokVmax.Size = new System.Drawing.Size(56, 20);
+            this.DisplayLokVmax.TabIndex = 57;
+            this.DisplayLokVmax.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(7, 41);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(121, 13);
+            this.label30.TabIndex = 56;
+            this.label30.Text = "Maximalgeschwindigkeit";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 17);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(148, 13);
+            this.label25.TabIndex = 55;
+            this.label25.Text = "(Nur für den Automatikbetrieb)";
+            // 
+            // label32
+            // 
+            this.label32.Location = new System.Drawing.Point(7, 82);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(220, 35);
+            this.label32.TabIndex = 59;
+            this.label32.Text = "Wenn Lok zu schnell fährt diesen Wert veringern oder CV5 ändern";
+            // 
+            // DisplayLokVmid
+            // 
+            this.DisplayLokVmid.Location = new System.Drawing.Point(10, 145);
+            this.DisplayLokVmid.Name = "DisplayLokVmid";
+            this.DisplayLokVmid.Size = new System.Drawing.Size(56, 20);
+            this.DisplayLokVmid.TabIndex = 60;
+            this.DisplayLokVmid.Value = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(7, 129);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(122, 13);
+            this.label33.TabIndex = 61;
+            this.label33.Text = "Mittlere Geschwindigkeit";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(68, 148);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(15, 13);
+            this.label34.TabIndex = 62;
+            this.label34.Text = "%";
+            // 
+            // label35
+            // 
+            this.label35.Location = new System.Drawing.Point(6, 168);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(220, 93);
+            this.label35.TabIndex = 63;
+            this.label35.Text = resources.GetString("label35.Text");
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(6, 272);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(129, 13);
+            this.label36.TabIndex = 64;
+            this.label36.Text = "Minimale Geschwindigkeit";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(10, 288);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(56, 20);
+            this.numericUpDown1.TabIndex = 65;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(72, 292);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(15, 13);
+            this.label37.TabIndex = 66;
+            this.label37.Text = "%";
+            // 
+            // label38
+            // 
+            this.label38.Location = new System.Drawing.Point(6, 311);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(220, 93);
+            this.label38.TabIndex = 67;
+            this.label38.Text = "Schrittgeschwindigkeit. Lok sollte innerhalb von 1 Sekunde anhalten können\r\n\r\n-Lo" +
+    "k bleibt vor Haltepunkt stehen: Wert erhöhen\r\n-Lok bleibt zu rückartig stehen: W" +
+    "ert vermindern";
+            // 
             // LokEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 450);
+            this.ClientSize = new System.Drawing.Size(1016, 450);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Speichern);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.DisplayLokHersteller);
@@ -715,6 +882,11 @@
             this.Text = "LokEditor";
             this.Load += new System.EventHandler(this.LokEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DisplayLokAdresse)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplayLokVmax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplayLokVmid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -782,5 +954,19 @@
         private System.Windows.Forms.TextBox DisplayLokHersteller;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Button Speichern;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.NumericUpDown DisplayLokVmax;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.NumericUpDown DisplayLokVmid;
     }
 }

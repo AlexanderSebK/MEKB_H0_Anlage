@@ -55,6 +55,30 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public string Hersteller { set; get; }
         #endregion
+        #region Fahreigenschaften
+        /// <summary>
+        /// Nur für Automatik: Maximale Fahrstufe in Prozent. 
+        /// FahrstufeInfo   128, 28, 14
+        ///     100         128, 28, 14
+        ///     80          102, 22, 11,
+        /// </summary>
+        public int V_max { set; get; }
+        /// <summary>
+        /// Nur für Automatik: Mittlere Fahrstufe (ca. 40km/h)
+        /// In Prozent
+        /// </summary>
+        public int V_mid { set; get; }
+        /// <summary>
+        /// Nur für Automatik: Niedrige Geschwindigkeit (ca. Schrittgeschwindigkeit)
+        /// Zum Ranrollen an das Rote Signal
+        /// </summary>
+        public int V_min { set; get; }
+        /// <summary>
+        /// Zeit bis von Stand auf Vmax Bescheunigt werden soll
+        /// Sekunden
+        /// </summary>
+        public int ZeitBisMax { set; get; }
+        #endregion
         #endregion
         #region Status
         /// <summary>
@@ -119,6 +143,9 @@ namespace MEKB_H0_Anlage
 
         #region Funktions
         #region Konstruktors
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Lokomotive()
         {
             Adresse = 0;
@@ -137,8 +164,16 @@ namespace MEKB_H0_Anlage
             Typ = "";
             Verwaltung = "";
             Hersteller = "";
-        }
 
+            V_max = 100;
+            V_mid = 40;
+            V_min = 5;
+            ZeitBisMax = 60;
+        }
+        /// <summary>
+        /// Constructor mit XML-Dateipfad. Werte aus der XML-Datei werden übernommen
+        /// </summary>
+        /// <param name="fileName">Dateipfad zur XML-Datei</param>
         public Lokomotive(string fileName)
         {
             Adresse = 0;

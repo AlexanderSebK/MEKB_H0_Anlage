@@ -128,7 +128,8 @@ namespace MEKB_H0_Anlage
             {"RegionalExpress", "RE"},
             {"RegionalBahn", "RB"},
             {"S-Bahn", "S"},
-            {"Güterzug", "G"}
+            {"Güterzug", "G"},
+            {"", "" }
         };
         #endregion
     }

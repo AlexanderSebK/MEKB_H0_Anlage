@@ -550,6 +550,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ZugSteuerpult";
             this.Text = "ZugSteuerpult";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.ZugSteuerpult_Load);
             this.Shown += new System.EventHandler(this.ZugSteuerpult_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.Fahrstufe)).EndInit();
