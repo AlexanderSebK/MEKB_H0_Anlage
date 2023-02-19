@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MEKB_H0_Anlage
 {
-    public partial class Form1 : Form
+    public partial class Hauptform : Form
     {
         public void GetSignalSchaltbild(Signal signal, PictureBox picBox)
         {

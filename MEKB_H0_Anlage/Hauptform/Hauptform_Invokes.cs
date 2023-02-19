@@ -14,7 +14,7 @@ using System.Globalization;
 
 namespace MEKB_H0_Anlage
 {
-    public partial class Form1 : Form
+    public partial class Hauptform : Form
     {
         private void Set_SerienNummer(string data)
         {

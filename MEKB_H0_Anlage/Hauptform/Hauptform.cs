@@ -30,7 +30,7 @@ namespace MEKB_H0_Anlage
     /// <summary>
     /// Hauptform
     /// </summary>
-    public partial class Form1 : Form
+    public partial class Hauptform : Form
     {
         public Z21 z21Start;
         private Z21_Einstellung z21_Einstellung;
@@ -65,7 +65,7 @@ namespace MEKB_H0_Anlage
         private Logger Log { set; get; }
 
         #region Hauptform Funktionen
-        public Form1()
+        public Hauptform()
         {
             Log = new Logger("log.txt");
 
@@ -102,10 +102,6 @@ namespace MEKB_H0_Anlage
                 AktiveLoks[i].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
                 AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             }
-        }
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            //Gleisplan = this.CreateGraphics();
         }
         private void Form1_Shown(object sender, EventArgs e)
         {
@@ -426,23 +422,8 @@ namespace MEKB_H0_Anlage
         }
         #endregion
 
-        #region Lok Kontrolle
 
-
-        #endregion
-
-
-
-        private void StopAlle_Click(object sender, EventArgs e)
-        {
-            foreach(Lokomotive lok in AktiveLoks)
-            {
-                if (lok.Adresse != 0)
-                {
-                    Setze_Lok_Fahrt(lok.Adresse, 255, lok.Richtung, lok.FahrstufenInfo);
-                }
-            }
-        }      
+          
         private void AutoSignale_CheckedChanged(object sender, EventArgs e)
         {
             if(sender is CheckBox checkBox)
@@ -474,25 +455,6 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        private void SignalFahrstrasse_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sender is CheckBox checkBox)
-            {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.BackColor = Color.FromArgb(0, 0, 255);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                    checkBox.Text = "über Fahrstrasse";
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(0, 64, 0);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                    checkBox.Text = "über Weichen";
-                }
-            }
-        }
-
         private void SignalsteuergungToolStripMenuItem_Click(object sender, EventArgs e)
         {
             signal_Einstellungen = new Signal_Einstellungen();
@@ -505,122 +467,7 @@ namespace MEKB_H0_Anlage
             belegtmelder_Ueberwachung.Show();
         }
 
-        private void FahrstrassenButton_Click(object sender, EventArgs e)
-        {
-            Fahrstrasse fahrstrasse;
-            bool Abbau = false;
-            if (sender is Button button)
-            {
-                if (button.Tag == null) return;
-                string ZielFahrstrasse = button.Tag.ToString();
-                if (ZielFahrstrasse.EndsWith("-"))
-                {
-                    Abbau = true;
-                    ZielFahrstrasse = ZielFahrstrasse.Substring(0, ZielFahrstrasse.Length - 1);
-                }
-                fahrstrasse = FahrstrassenListe.GetFahrstrasse(ZielFahrstrasse);
-
-                if (fahrstrasse == null) return;
-                if (fahrstrasse.Fahrstr_GleicherEingang.Count >= 1)
-                {
-                    if (FahrstrassenListe.FahrstrasseGleicheGesetzt(fahrstrasse.Name))
-                    {
-                        foreach (string GruppenItem in fahrstrasse.Fahrstr_GleicherEingang)
-                        {
-                            Fahrstrasse GruppenFahrstrasse = FahrstrassenListe.GetFahrstrasse(GruppenItem);
-                            if (GruppenFahrstrasse.GetGesetztStatus())
-                            {
-                                ToggleFahrstrasse(GruppenFahrstrasse);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (Abbau)
-                        {
-                            if (!FahrstrassenListe.FahrstrasseBlockiert(fahrstrasse.Name))
-                            {
-                                ToggleFahrstrasse(fahrstrasse);
-                                LoescheButtons(fahrstrasse.Fahrstr_GleicherEingang);
-                                Button clickedButton = button;
-                                clickedButton.Dispose();
-                            }
-                        }
-                        else
-                        {
-                            GeneriereButtons(fahrstrasse.Fahrstr_GleicherEingang, button.Location.X, button.Location.Y);
-                        }
-                    }
-                }
-                else
-                {
-                    if (fahrstrasse.GetGesetztStatus())
-                    {
-                        ToggleFahrstrasse(fahrstrasse);  //Aktiv? auschalten
-                    }
-                    else
-                    {
-                        //Keine Sperrende Fahstraße aktiv
-                        if (!FahrstrassenListe.FahrstrasseBlockiert(fahrstrasse.Name))
-                        {
-                            ToggleFahrstrasse(fahrstrasse);
-                        }
-                    }
-                }
-            }
-        }
-        private void GeneriereButtons(List<string> Fahrstrassen, int X, int Y)
-        {
-            X += 20;
-
-            //Wenn Buttons schon existieren -> löschen
-            Control Modul = this.Controls[Fahrstrassen[0] + "_Auswahl"];
-            if (Modul is Button button)
-            {
-                LoescheButtons(Fahrstrassen);
-                return;
-            }
-
-            foreach (string Fahrstrassenname in Fahrstrassen)
-            {
-                Button newButton = new Button
-                {
-                    Name = Fahrstrassenname + "_Auswahl",
-                    Tag = Fahrstrassenname + "-",
-                    Size = new Size(100, 20),
-                    Location = new Point(X, Y),
-                    Enabled = !FahrstrassenListe.FahrstrasseBlockiert(Fahrstrassenname)
-                };
-                Y += 20;
-                newButton.Click += new System.EventHandler(this.FahrstrassenButton_Click);
-                newButton.BringToFront();
-
-                if (Fahrstrassenname.Contains('_'))
-                {
-                    string[] text = Fahrstrassenname.Split('_');
-                    newButton.Text = text[2];
-                }
-                else
-                {
-                    newButton.Text = Fahrstrassenname;
-                }
-
-                this.Controls.Add(newButton);
-                newButton.BringToFront();
-            }
-        }
-        private void LoescheButtons(List<string> Fahrstrassen)
-        {
-            foreach (string Fahrstrassenname in Fahrstrassen)
-            {
-                Control Modul = this.Controls[Fahrstrassenname + "_Auswahl"];
-                if (Modul is Button)
-                {
-                    this.Controls.Remove(Modul);
-                }
-            }
-
-        }
+       
 
         private void button1_Click(object sender, EventArgs e)
         {

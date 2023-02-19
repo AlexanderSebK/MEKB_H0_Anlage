@@ -12,7 +12,7 @@ using System.Collections;
 
 namespace MEKB_H0_Anlage
 {
-    public partial class Form1 : Form
+    public partial class Hauptform : Form
     {
         /// <summary>
         /// Benutzer hat die Adresse in der aktiven Lokliste geändert
@@ -399,6 +399,21 @@ namespace MEKB_H0_Anlage
         private void Setze_Lok_Status(int Adresse)
         {
             z21Start.Z21_GET_LOCO_INFO(Adresse);
+        }
+        /// <summary>
+        /// Alle Lokomotiven anhalten
+        /// </summary>
+        /// <param name="sender">Forms-Element, was diese Funktion ausgelöst hatte</param>
+        /// <param name="e">Eventparameter</param>
+        private void StopAlle_Click(object sender, EventArgs e)
+        {
+            foreach (Lokomotive lok in AktiveLoks)
+            {
+                if (lok.Adresse != 0)
+                {
+                    Setze_Lok_Fahrt(lok.Adresse, 255, lok.Richtung, lok.FahrstufenInfo);
+                }
+            }
         }
     }
 }

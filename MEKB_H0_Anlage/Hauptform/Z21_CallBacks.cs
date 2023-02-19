@@ -18,7 +18,7 @@ namespace MEKB_H0_Anlage
     /// <summary>
     /// Hauptform
     /// </summary>
-    public partial class Form1 : Form
+    public partial class Hauptform : Form
     {
         /// <summary>
         /// Aufruf bei Fehler in der Nachricht
