@@ -172,14 +172,24 @@ namespace MEKB_H0_Anlage
         /// Signalzustand wenn Pin2 von Adresse 2 aktiviert (0 = HP0, 1 = HP1, 2 = HP2, 3 = SH1)
         /// </summary>
         public SignalZustand Adr2_2 { get; set; }
-
+        /// <summary>
+        /// Liste von Weichenzuständen
+        /// </summary>
+        public List<Routenzustand> Routenzustandsliste { get; set; }     
         /// <summary>
         /// Typ des Signals
         /// 3HP_270 -> Drei Schaltbilder Signal um 270° auf dem Gleisplan gedreht 
         /// </summary>
         public string Typ { get; set; }
         /// <summary>
-        /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
+        /// Konstruktor
+        /// </summary>
+        public Signal()
+        {
+            Routenzustandsliste = new List<Routenzustand>();
+        }
+        /// <summary>
+        /// Wird bei Listensuche benötigt: Name des Signals zurückgeben
         /// </summary>
         /// <returns>Name der Weiche</returns>
         public override string ToString()
@@ -241,7 +251,28 @@ namespace MEKB_H0_Anlage
             else if (NeuerZustand == Adr2_2) { z21.LAN_X_SET_SIGNAL(Adresse2, true); z21.LAN_X_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
         }
     }
-    
+
+    public class Routenzustand
+    {
+        /// <summary>
+        /// Weichenzustände (true = Abzweig)
+        /// </summary>
+        public Dictionary<string,bool> Weichenzustand { set; get; }
+        /// <summary>
+        /// Name der Belegtmelder auf der Route
+        /// </summary>
+        public List<string> Belegtmeldungen { set; get; }
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        public Routenzustand()
+        {
+            Weichenzustand = new Dictionary<string, bool>();
+            Belegtmeldungen = new List<string>();
+        }
+    }
+
+
     /// <summary>
     /// Signalbilder als ENUM
     /// </summary>

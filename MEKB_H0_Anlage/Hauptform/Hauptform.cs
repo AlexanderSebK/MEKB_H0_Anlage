@@ -37,6 +37,7 @@ namespace MEKB_H0_Anlage
         private Signal_Einstellungen signal_Einstellungen;
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
         private InfoBox InfoBox;
+        private MenuFenster_Signalistentool signaltool;
 
         public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
 
@@ -475,6 +476,12 @@ namespace MEKB_H0_Anlage
             string aktuellerBlock = Block.Text;
             Block.Text = naechsterBlock;
             VorBlock.Text = aktuellerBlock;
+        }
+
+        private void signaleEditierenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            signaltool = new MenuFenster_Signalistentool("Signalliste.xml");
+            signaltool.Show();
         }
     }
 }

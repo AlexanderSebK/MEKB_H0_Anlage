@@ -1030,6 +1030,8 @@
             this.label130 = new System.Windows.Forms.Label();
             this.label129 = new System.Windows.Forms.Label();
             this.label128 = new System.Windows.Forms.Label();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.signaleEditierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1714,19 +1716,19 @@
             // LokEditorOpen
             // 
             this.LokEditorOpen.Name = "LokEditorOpen";
-            this.LokEditorOpen.Size = new System.Drawing.Size(129, 22);
+            this.LokEditorOpen.Size = new System.Drawing.Size(180, 22);
             this.LokEditorOpen.Text = "Lok-Editor";
             this.LokEditorOpen.Click += new System.EventHandler(this.LokEditorOpen_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // ProgrammBeenden
             // 
             this.ProgrammBeenden.Name = "ProgrammBeenden";
-            this.ProgrammBeenden.Size = new System.Drawing.Size(129, 22);
+            this.ProgrammBeenden.Size = new System.Drawing.Size(180, 22);
             this.ProgrammBeenden.Text = "Beenden";
             this.ProgrammBeenden.Click += new System.EventHandler(this.ProgrammBeenden_Click);
             // 
@@ -1815,12 +1817,14 @@
             // signalsteuergungToolStripMenuItem
             // 
             this.signalsteuergungToolStripMenuItem.Name = "signalsteuergungToolStripMenuItem";
-            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.signalsteuergungToolStripMenuItem.Text = "Signalsteuergung";
             this.signalsteuergungToolStripMenuItem.Click += new System.EventHandler(this.SignalsteuergungToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
+            this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolsToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
             this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.hilfeToolStripMenuItem.Text = "Hilfe";
@@ -12371,6 +12375,21 @@
             this.label128.TabIndex = 994;
             this.label128.Text = "Nächster Block";
             // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.signaleEditierenToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // signaleEditierenToolStripMenuItem
+            // 
+            this.signaleEditierenToolStripMenuItem.Name = "signaleEditierenToolStripMenuItem";
+            this.signaleEditierenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.signaleEditierenToolStripMenuItem.Text = "Signale Editieren";
+            this.signaleEditierenToolStripMenuItem.Click += new System.EventHandler(this.signaleEditierenToolStripMenuItem_Click);
+            // 
             // Hauptform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -14889,6 +14908,8 @@
         private System.Windows.Forms.Button LokCtrl5_Suche;
         private System.Windows.Forms.Button LokCtrl12_Suche;
         private System.Windows.Forms.Button LokCtrl11_Suche;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem signaleEditierenToolStripMenuItem;
     }
 }
 
