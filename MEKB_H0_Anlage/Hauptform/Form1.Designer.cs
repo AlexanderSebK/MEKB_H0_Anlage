@@ -591,8 +591,7 @@
             this.Bhf_Gl2_Halt_R1 = new System.Windows.Forms.PictureBox();
             this.Bhf_Gl6_Halt_R1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.LokCtrl12_Name = new System.Windows.Forms.ComboBox();
-            this.LokCtrl11_Name = new System.Windows.Forms.ComboBox();
+            this.LokCtrl1_Suche = new System.Windows.Forms.Button();
             this.LokCtrl12_Stop = new System.Windows.Forms.Button();
             this.LokCtrl11_Stop = new System.Windows.Forms.Button();
             this.LokCtrl10_Stop = new System.Windows.Forms.Button();
@@ -640,16 +639,6 @@
             this.LokCtrl3_OpenFahrpult = new System.Windows.Forms.Button();
             this.LokCtrl1_OpenFahrpult = new System.Windows.Forms.Button();
             this.LokCtrl2_OpenFahrpult = new System.Windows.Forms.Button();
-            this.LokCtrl10_Name = new System.Windows.Forms.ComboBox();
-            this.LokCtrl9_Name = new System.Windows.Forms.ComboBox();
-            this.LokCtrl8_Name = new System.Windows.Forms.ComboBox();
-            this.LokCtrl7_Name = new System.Windows.Forms.ComboBox();
-            this.LokCtrl6_Name = new System.Windows.Forms.ComboBox();
-            this.LokCtrl5_Name = new System.Windows.Forms.ComboBox();
-            this.LokCtrl4_Name = new System.Windows.Forms.ComboBox();
-            this.LokCtrl3_Name = new System.Windows.Forms.ComboBox();
-            this.LokCtrl2_Name = new System.Windows.Forms.ComboBox();
-            this.LokCtrl1_Name = new System.Windows.Forms.ComboBox();
             this.LokCtrl12_Adr = new System.Windows.Forms.NumericUpDown();
             this.LokCtrl11_Adr = new System.Windows.Forms.NumericUpDown();
             this.LokCtrl10_Adr = new System.Windows.Forms.NumericUpDown();
@@ -1026,10 +1015,21 @@
             this.NextBlock = new System.Windows.Forms.TextBox();
             this.label115 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label130 = new System.Windows.Forms.Label();
             this.label129 = new System.Windows.Forms.Label();
             this.label128 = new System.Windows.Forms.Label();
-            this.label130 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.LokCtrl2_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl3_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl4_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl5_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl6_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl7_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl8_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl9_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl10_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl11_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl12_Suche = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -7328,8 +7328,18 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panel1.Controls.Add(this.LokCtrl12_Name);
-            this.panel1.Controls.Add(this.LokCtrl11_Name);
+            this.panel1.Controls.Add(this.LokCtrl12_Suche);
+            this.panel1.Controls.Add(this.LokCtrl11_Suche);
+            this.panel1.Controls.Add(this.LokCtrl10_Suche);
+            this.panel1.Controls.Add(this.LokCtrl9_Suche);
+            this.panel1.Controls.Add(this.LokCtrl8_Suche);
+            this.panel1.Controls.Add(this.LokCtrl7_Suche);
+            this.panel1.Controls.Add(this.LokCtrl6_Suche);
+            this.panel1.Controls.Add(this.LokCtrl5_Suche);
+            this.panel1.Controls.Add(this.LokCtrl4_Suche);
+            this.panel1.Controls.Add(this.LokCtrl3_Suche);
+            this.panel1.Controls.Add(this.LokCtrl2_Suche);
+            this.panel1.Controls.Add(this.LokCtrl1_Suche);
             this.panel1.Controls.Add(this.LokCtrl12_Stop);
             this.panel1.Controls.Add(this.LokCtrl11_Stop);
             this.panel1.Controls.Add(this.LokCtrl10_Stop);
@@ -7377,16 +7387,6 @@
             this.panel1.Controls.Add(this.LokCtrl3_OpenFahrpult);
             this.panel1.Controls.Add(this.LokCtrl1_OpenFahrpult);
             this.panel1.Controls.Add(this.LokCtrl2_OpenFahrpult);
-            this.panel1.Controls.Add(this.LokCtrl10_Name);
-            this.panel1.Controls.Add(this.LokCtrl9_Name);
-            this.panel1.Controls.Add(this.LokCtrl8_Name);
-            this.panel1.Controls.Add(this.LokCtrl7_Name);
-            this.panel1.Controls.Add(this.LokCtrl6_Name);
-            this.panel1.Controls.Add(this.LokCtrl5_Name);
-            this.panel1.Controls.Add(this.LokCtrl4_Name);
-            this.panel1.Controls.Add(this.LokCtrl3_Name);
-            this.panel1.Controls.Add(this.LokCtrl2_Name);
-            this.panel1.Controls.Add(this.LokCtrl1_Name);
             this.panel1.Controls.Add(this.LokCtrl12_Adr);
             this.panel1.Controls.Add(this.LokCtrl11_Adr);
             this.panel1.Controls.Add(this.LokCtrl10_Adr);
@@ -7459,33 +7459,17 @@
             this.panel1.Size = new System.Drawing.Size(872, 384);
             this.panel1.TabIndex = 601;
             // 
-            // LokCtrl12_Name
+            // LokCtrl1_Suche
             // 
-            this.LokCtrl12_Name.DropDownHeight = 50;
-            this.LokCtrl12_Name.Enabled = false;
-            this.LokCtrl12_Name.FormattingEnabled = true;
-            this.LokCtrl12_Name.IntegralHeight = false;
-            this.LokCtrl12_Name.Location = new System.Drawing.Point(104, 312);
-            this.LokCtrl12_Name.MaxDropDownItems = 3;
-            this.LokCtrl12_Name.Name = "LokCtrl12_Name";
-            this.LokCtrl12_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl12_Name.Sorted = true;
-            this.LokCtrl12_Name.TabIndex = 750;
-            this.LokCtrl12_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
-            // 
-            // LokCtrl11_Name
-            // 
-            this.LokCtrl11_Name.DropDownHeight = 50;
-            this.LokCtrl11_Name.Enabled = false;
-            this.LokCtrl11_Name.FormattingEnabled = true;
-            this.LokCtrl11_Name.IntegralHeight = false;
-            this.LokCtrl11_Name.Location = new System.Drawing.Point(104, 288);
-            this.LokCtrl11_Name.MaxDropDownItems = 3;
-            this.LokCtrl11_Name.Name = "LokCtrl11_Name";
-            this.LokCtrl11_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl11_Name.Sorted = true;
-            this.LokCtrl11_Name.TabIndex = 749;
-            this.LokCtrl11_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
+            this.LokCtrl1_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl1_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl1_Suche.Location = new System.Drawing.Point(104, 32);
+            this.LokCtrl1_Suche.Name = "LokCtrl1_Suche";
+            this.LokCtrl1_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl1_Suche.TabIndex = 751;
+            this.LokCtrl1_Suche.Text = "Lok suchen";
+            this.LokCtrl1_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl1_Suche.Click += new System.EventHandler(this.SearchLok_Click);
             // 
             // LokCtrl12_Stop
             // 
@@ -7976,136 +7960,6 @@
             this.LokCtrl2_OpenFahrpult.Text = "Fahrpult";
             this.LokCtrl2_OpenFahrpult.UseVisualStyleBackColor = true;
             this.LokCtrl2_OpenFahrpult.Click += new System.EventHandler(this.LokKontroll_OpenFahrpult_Click);
-            // 
-            // LokCtrl10_Name
-            // 
-            this.LokCtrl10_Name.DropDownHeight = 50;
-            this.LokCtrl10_Name.FormattingEnabled = true;
-            this.LokCtrl10_Name.IntegralHeight = false;
-            this.LokCtrl10_Name.Location = new System.Drawing.Point(104, 256);
-            this.LokCtrl10_Name.MaxDropDownItems = 3;
-            this.LokCtrl10_Name.Name = "LokCtrl10_Name";
-            this.LokCtrl10_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl10_Name.Sorted = true;
-            this.LokCtrl10_Name.TabIndex = 701;
-            this.LokCtrl10_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
-            // 
-            // LokCtrl9_Name
-            // 
-            this.LokCtrl9_Name.DropDownHeight = 50;
-            this.LokCtrl9_Name.FormattingEnabled = true;
-            this.LokCtrl9_Name.IntegralHeight = false;
-            this.LokCtrl9_Name.Location = new System.Drawing.Point(104, 232);
-            this.LokCtrl9_Name.MaxDropDownItems = 3;
-            this.LokCtrl9_Name.Name = "LokCtrl9_Name";
-            this.LokCtrl9_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl9_Name.Sorted = true;
-            this.LokCtrl9_Name.TabIndex = 700;
-            this.LokCtrl9_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
-            // 
-            // LokCtrl8_Name
-            // 
-            this.LokCtrl8_Name.DropDownHeight = 50;
-            this.LokCtrl8_Name.FormattingEnabled = true;
-            this.LokCtrl8_Name.IntegralHeight = false;
-            this.LokCtrl8_Name.Location = new System.Drawing.Point(104, 208);
-            this.LokCtrl8_Name.MaxDropDownItems = 3;
-            this.LokCtrl8_Name.Name = "LokCtrl8_Name";
-            this.LokCtrl8_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl8_Name.Sorted = true;
-            this.LokCtrl8_Name.TabIndex = 699;
-            this.LokCtrl8_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
-            // 
-            // LokCtrl7_Name
-            // 
-            this.LokCtrl7_Name.DropDownHeight = 50;
-            this.LokCtrl7_Name.FormattingEnabled = true;
-            this.LokCtrl7_Name.IntegralHeight = false;
-            this.LokCtrl7_Name.Location = new System.Drawing.Point(104, 184);
-            this.LokCtrl7_Name.MaxDropDownItems = 3;
-            this.LokCtrl7_Name.Name = "LokCtrl7_Name";
-            this.LokCtrl7_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl7_Name.Sorted = true;
-            this.LokCtrl7_Name.TabIndex = 698;
-            this.LokCtrl7_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
-            // 
-            // LokCtrl6_Name
-            // 
-            this.LokCtrl6_Name.DropDownHeight = 50;
-            this.LokCtrl6_Name.FormattingEnabled = true;
-            this.LokCtrl6_Name.IntegralHeight = false;
-            this.LokCtrl6_Name.Location = new System.Drawing.Point(104, 160);
-            this.LokCtrl6_Name.MaxDropDownItems = 3;
-            this.LokCtrl6_Name.Name = "LokCtrl6_Name";
-            this.LokCtrl6_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl6_Name.Sorted = true;
-            this.LokCtrl6_Name.TabIndex = 697;
-            this.LokCtrl6_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
-            // 
-            // LokCtrl5_Name
-            // 
-            this.LokCtrl5_Name.DropDownHeight = 50;
-            this.LokCtrl5_Name.FormattingEnabled = true;
-            this.LokCtrl5_Name.IntegralHeight = false;
-            this.LokCtrl5_Name.Location = new System.Drawing.Point(104, 128);
-            this.LokCtrl5_Name.MaxDropDownItems = 3;
-            this.LokCtrl5_Name.Name = "LokCtrl5_Name";
-            this.LokCtrl5_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl5_Name.Sorted = true;
-            this.LokCtrl5_Name.TabIndex = 696;
-            this.LokCtrl5_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
-            // 
-            // LokCtrl4_Name
-            // 
-            this.LokCtrl4_Name.DropDownHeight = 50;
-            this.LokCtrl4_Name.FormattingEnabled = true;
-            this.LokCtrl4_Name.IntegralHeight = false;
-            this.LokCtrl4_Name.Location = new System.Drawing.Point(104, 104);
-            this.LokCtrl4_Name.MaxDropDownItems = 3;
-            this.LokCtrl4_Name.Name = "LokCtrl4_Name";
-            this.LokCtrl4_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl4_Name.Sorted = true;
-            this.LokCtrl4_Name.TabIndex = 695;
-            this.LokCtrl4_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
-            // 
-            // LokCtrl3_Name
-            // 
-            this.LokCtrl3_Name.DropDownHeight = 50;
-            this.LokCtrl3_Name.FormattingEnabled = true;
-            this.LokCtrl3_Name.IntegralHeight = false;
-            this.LokCtrl3_Name.Location = new System.Drawing.Point(104, 80);
-            this.LokCtrl3_Name.MaxDropDownItems = 3;
-            this.LokCtrl3_Name.Name = "LokCtrl3_Name";
-            this.LokCtrl3_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl3_Name.Sorted = true;
-            this.LokCtrl3_Name.TabIndex = 694;
-            this.LokCtrl3_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
-            // 
-            // LokCtrl2_Name
-            // 
-            this.LokCtrl2_Name.DropDownHeight = 50;
-            this.LokCtrl2_Name.FormattingEnabled = true;
-            this.LokCtrl2_Name.IntegralHeight = false;
-            this.LokCtrl2_Name.Location = new System.Drawing.Point(104, 56);
-            this.LokCtrl2_Name.MaxDropDownItems = 3;
-            this.LokCtrl2_Name.Name = "LokCtrl2_Name";
-            this.LokCtrl2_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl2_Name.Sorted = true;
-            this.LokCtrl2_Name.TabIndex = 693;
-            this.LokCtrl2_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
-            // 
-            // LokCtrl1_Name
-            // 
-            this.LokCtrl1_Name.DropDownHeight = 50;
-            this.LokCtrl1_Name.FormattingEnabled = true;
-            this.LokCtrl1_Name.IntegralHeight = false;
-            this.LokCtrl1_Name.Location = new System.Drawing.Point(104, 32);
-            this.LokCtrl1_Name.MaxDropDownItems = 3;
-            this.LokCtrl1_Name.Name = "LokCtrl1_Name";
-            this.LokCtrl1_Name.Size = new System.Drawing.Size(168, 21);
-            this.LokCtrl1_Name.Sorted = true;
-            this.LokCtrl1_Name.TabIndex = 655;
-            this.LokCtrl1_Name.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Name_SelectedIndexChanged);
             // 
             // LokCtrl12_Adr
             // 
@@ -12348,6 +12202,25 @@
             this.panel2.Size = new System.Drawing.Size(336, 141);
             this.panel2.TabIndex = 995;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(96, 47);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(141, 23);
+            this.button1.TabIndex = 997;
+            this.button1.Text = "In Nächsten Einfahren";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label130
+            // 
+            this.label130.AutoSize = true;
+            this.label130.Location = new System.Drawing.Point(125, 8);
+            this.label130.Name = "label130";
+            this.label130.Size = new System.Drawing.Size(78, 13);
+            this.label130.TabIndex = 996;
+            this.label130.Text = "Aktueller Block";
+            // 
             // label129
             // 
             this.label129.AutoSize = true;
@@ -12366,24 +12239,137 @@
             this.label128.TabIndex = 994;
             this.label128.Text = "Nächster Block";
             // 
-            // label130
+            // LokCtrl2_Suche
             // 
-            this.label130.AutoSize = true;
-            this.label130.Location = new System.Drawing.Point(125, 8);
-            this.label130.Name = "label130";
-            this.label130.Size = new System.Drawing.Size(78, 13);
-            this.label130.TabIndex = 996;
-            this.label130.Text = "Aktueller Block";
+            this.LokCtrl2_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl2_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl2_Suche.Location = new System.Drawing.Point(104, 56);
+            this.LokCtrl2_Suche.Name = "LokCtrl2_Suche";
+            this.LokCtrl2_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl2_Suche.TabIndex = 996;
+            this.LokCtrl2_Suche.Text = "Lok suchen";
+            this.LokCtrl2_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl2_Suche.Click += new System.EventHandler(this.SearchLok_Click);
             // 
-            // button1
+            // LokCtrl3_Suche
             // 
-            this.button1.Location = new System.Drawing.Point(96, 47);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(141, 23);
-            this.button1.TabIndex = 997;
-            this.button1.Text = "In Nächsten Einfahren";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.LokCtrl3_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl3_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl3_Suche.Location = new System.Drawing.Point(104, 80);
+            this.LokCtrl3_Suche.Name = "LokCtrl3_Suche";
+            this.LokCtrl3_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl3_Suche.TabIndex = 997;
+            this.LokCtrl3_Suche.Text = "Lok suchen";
+            this.LokCtrl3_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl3_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl4_Suche
+            // 
+            this.LokCtrl4_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl4_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl4_Suche.Location = new System.Drawing.Point(104, 104);
+            this.LokCtrl4_Suche.Name = "LokCtrl4_Suche";
+            this.LokCtrl4_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl4_Suche.TabIndex = 998;
+            this.LokCtrl4_Suche.Text = "Lok suchen";
+            this.LokCtrl4_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl4_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl5_Suche
+            // 
+            this.LokCtrl5_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl5_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl5_Suche.Location = new System.Drawing.Point(104, 128);
+            this.LokCtrl5_Suche.Name = "LokCtrl5_Suche";
+            this.LokCtrl5_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl5_Suche.TabIndex = 999;
+            this.LokCtrl5_Suche.Text = "Lok suchen";
+            this.LokCtrl5_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl5_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl6_Suche
+            // 
+            this.LokCtrl6_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl6_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl6_Suche.Location = new System.Drawing.Point(104, 160);
+            this.LokCtrl6_Suche.Name = "LokCtrl6_Suche";
+            this.LokCtrl6_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl6_Suche.TabIndex = 1000;
+            this.LokCtrl6_Suche.Text = "Lok suchen";
+            this.LokCtrl6_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl6_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl7_Suche
+            // 
+            this.LokCtrl7_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl7_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl7_Suche.Location = new System.Drawing.Point(104, 184);
+            this.LokCtrl7_Suche.Name = "LokCtrl7_Suche";
+            this.LokCtrl7_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl7_Suche.TabIndex = 1001;
+            this.LokCtrl7_Suche.Text = "Lok suchen";
+            this.LokCtrl7_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl7_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl8_Suche
+            // 
+            this.LokCtrl8_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl8_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl8_Suche.Location = new System.Drawing.Point(104, 208);
+            this.LokCtrl8_Suche.Name = "LokCtrl8_Suche";
+            this.LokCtrl8_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl8_Suche.TabIndex = 1002;
+            this.LokCtrl8_Suche.Text = "Lok suchen";
+            this.LokCtrl8_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl8_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl9_Suche
+            // 
+            this.LokCtrl9_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl9_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl9_Suche.Location = new System.Drawing.Point(104, 232);
+            this.LokCtrl9_Suche.Name = "LokCtrl9_Suche";
+            this.LokCtrl9_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl9_Suche.TabIndex = 1003;
+            this.LokCtrl9_Suche.Text = "Lok suchen";
+            this.LokCtrl9_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl9_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl10_Suche
+            // 
+            this.LokCtrl10_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl10_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl10_Suche.Location = new System.Drawing.Point(104, 256);
+            this.LokCtrl10_Suche.Name = "LokCtrl10_Suche";
+            this.LokCtrl10_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl10_Suche.TabIndex = 1004;
+            this.LokCtrl10_Suche.Text = "Lok suchen";
+            this.LokCtrl10_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl10_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl11_Suche
+            // 
+            this.LokCtrl11_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl11_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl11_Suche.Location = new System.Drawing.Point(104, 288);
+            this.LokCtrl11_Suche.Name = "LokCtrl11_Suche";
+            this.LokCtrl11_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl11_Suche.TabIndex = 1005;
+            this.LokCtrl11_Suche.Text = "Lok suchen";
+            this.LokCtrl11_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl11_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl12_Suche
+            // 
+            this.LokCtrl12_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl12_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl12_Suche.Location = new System.Drawing.Point(104, 312);
+            this.LokCtrl12_Suche.Name = "LokCtrl12_Suche";
+            this.LokCtrl12_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl12_Suche.TabIndex = 1006;
+            this.LokCtrl12_Suche.Text = "Lok suchen";
+            this.LokCtrl12_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl12_Suche.Click += new System.EventHandler(this.SearchLok_Click);
             // 
             // Form1
             // 
@@ -14540,16 +14526,6 @@
         private System.Windows.Forms.Label label68;
         private System.Windows.Forms.Label innen;
         private System.Windows.Forms.ToolStripMenuItem uberSteuerprogrammToolStripMenuItem;
-        private System.Windows.Forms.ComboBox LokCtrl1_Name;
-        private System.Windows.Forms.ComboBox LokCtrl10_Name;
-        private System.Windows.Forms.ComboBox LokCtrl9_Name;
-        private System.Windows.Forms.ComboBox LokCtrl8_Name;
-        private System.Windows.Forms.ComboBox LokCtrl7_Name;
-        private System.Windows.Forms.ComboBox LokCtrl6_Name;
-        private System.Windows.Forms.ComboBox LokCtrl5_Name;
-        private System.Windows.Forms.ComboBox LokCtrl4_Name;
-        private System.Windows.Forms.ComboBox LokCtrl3_Name;
-        private System.Windows.Forms.ComboBox LokCtrl2_Name;
         private System.Windows.Forms.PictureBox Signal_Ausfahrt_L1;
         private System.Windows.Forms.PictureBox Signal_Ausfahrt_L2;
         private System.Windows.Forms.PictureBox Signal_Ausfahrt_L4;
@@ -14870,8 +14846,6 @@
         private System.Windows.Forms.CheckBox Sperrung_Schatten5_Einf;
         private System.Windows.Forms.CheckBox Sperrung_Schatten6_Einf;
         private System.Windows.Forms.CheckBox Sperrung_Schatten7_Einf;
-        private System.Windows.Forms.ComboBox LokCtrl12_Name;
-        private System.Windows.Forms.ComboBox LokCtrl11_Name;
         private System.Windows.Forms.PictureBox Signal_Schatten0;
         private System.Windows.Forms.PictureBox Signal_Schatten1;
         private System.Windows.Forms.PictureBox Signal_Schatten2;
@@ -14904,6 +14878,18 @@
         private System.Windows.Forms.Label label128;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label130;
+        private System.Windows.Forms.Button LokCtrl1_Suche;
+        private System.Windows.Forms.Button LokCtrl4_Suche;
+        private System.Windows.Forms.Button LokCtrl3_Suche;
+        private System.Windows.Forms.Button LokCtrl2_Suche;
+        private System.Windows.Forms.Button LokCtrl10_Suche;
+        private System.Windows.Forms.Button LokCtrl9_Suche;
+        private System.Windows.Forms.Button LokCtrl8_Suche;
+        private System.Windows.Forms.Button LokCtrl7_Suche;
+        private System.Windows.Forms.Button LokCtrl6_Suche;
+        private System.Windows.Forms.Button LokCtrl5_Suche;
+        private System.Windows.Forms.Button LokCtrl12_Suche;
+        private System.Windows.Forms.Button LokCtrl11_Suche;
     }
 }
 
