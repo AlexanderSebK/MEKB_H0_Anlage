@@ -8250,7 +8250,7 @@
             this.LokCtrl12_Gattung.Name = "LokCtrl12_Gattung";
             this.LokCtrl12_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl12_Gattung.TabIndex = 668;
-            this.LokCtrl12_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl12_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl11_Gattung
             // 
@@ -8269,7 +8269,7 @@
             this.LokCtrl11_Gattung.Name = "LokCtrl11_Gattung";
             this.LokCtrl11_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl11_Gattung.TabIndex = 667;
-            this.LokCtrl11_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl11_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl10_Gattung
             // 
@@ -8287,7 +8287,7 @@
             this.LokCtrl10_Gattung.Name = "LokCtrl10_Gattung";
             this.LokCtrl10_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl10_Gattung.TabIndex = 666;
-            this.LokCtrl10_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl10_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl9_Gattung
             // 
@@ -8305,7 +8305,7 @@
             this.LokCtrl9_Gattung.Name = "LokCtrl9_Gattung";
             this.LokCtrl9_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl9_Gattung.TabIndex = 665;
-            this.LokCtrl9_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl9_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl8_Gattung
             // 
@@ -8323,7 +8323,7 @@
             this.LokCtrl8_Gattung.Name = "LokCtrl8_Gattung";
             this.LokCtrl8_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl8_Gattung.TabIndex = 664;
-            this.LokCtrl8_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl8_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl7_Gattung
             // 
@@ -8341,7 +8341,7 @@
             this.LokCtrl7_Gattung.Name = "LokCtrl7_Gattung";
             this.LokCtrl7_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl7_Gattung.TabIndex = 663;
-            this.LokCtrl7_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl7_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl6_Gattung
             // 
@@ -8359,7 +8359,7 @@
             this.LokCtrl6_Gattung.Name = "LokCtrl6_Gattung";
             this.LokCtrl6_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl6_Gattung.TabIndex = 662;
-            this.LokCtrl6_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl6_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl5_Gattung
             // 
@@ -8377,7 +8377,7 @@
             this.LokCtrl5_Gattung.Name = "LokCtrl5_Gattung";
             this.LokCtrl5_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl5_Gattung.TabIndex = 661;
-            this.LokCtrl5_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl5_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl4_Gattung
             // 
@@ -8395,7 +8395,7 @@
             this.LokCtrl4_Gattung.Name = "LokCtrl4_Gattung";
             this.LokCtrl4_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl4_Gattung.TabIndex = 660;
-            this.LokCtrl4_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl4_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl3_Gattung
             // 
@@ -8413,7 +8413,7 @@
             this.LokCtrl3_Gattung.Name = "LokCtrl3_Gattung";
             this.LokCtrl3_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl3_Gattung.TabIndex = 659;
-            this.LokCtrl3_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl3_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl2_Gattung
             // 
@@ -8431,7 +8431,7 @@
             this.LokCtrl2_Gattung.Name = "LokCtrl2_Gattung";
             this.LokCtrl2_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl2_Gattung.TabIndex = 658;
-            this.LokCtrl2_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl2_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // label67
             // 
@@ -8637,7 +8637,7 @@
             this.LokCtrl1_Gattung.Name = "LokCtrl1_Gattung";
             this.LokCtrl1_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl1_Gattung.TabIndex = 641;
-            this.LokCtrl1_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl1_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // label64
             // 
