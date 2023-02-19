@@ -15,7 +15,10 @@ namespace MEKB_H0_Anlage
     public partial class LokEditor : Form
     {
         private string[] LokDatein;
-        private List<Lok> loks = new List<Lok>();
+
+        private string PfadAktuelleLok;
+        Lokomotive AktuelleLok;
+
         public LokEditor()
         {
             InitializeComponent();
@@ -23,75 +26,67 @@ namespace MEKB_H0_Anlage
 
         private void LokEditor_Load(object sender, EventArgs e)
         {
-            LoadLokList();
+            LoadLokList("LokArchiv");
         }
 
-        private void LoadLokList()
+        private void LoadLokList(string ArchivOrdner)
         {
-            loks.Clear();
-            LokDatein = Directory.GetFiles("LokArchiv", "*.xml", SearchOption.AllDirectories);
-            Lokliste.Items.Clear();
+            ArchivBaum.Nodes.Clear();
+
+            ArchivBaum.Nodes.Add("root", "Lokarchiv");
+
+            LokDatein = Directory.GetFiles(ArchivOrdner, "*.xml", SearchOption.AllDirectories);
+
+            string path;
             foreach (string Datei in LokDatein)
             {
-
-                LoadLokValues(XElement.Load(Datei));
-            }
-            foreach (Lok lokomotive in loks)
-            {
-                Lokliste.Items.Add(lokomotive.Name);
-            }
-        }
-
-        private void LoadLokValues(XElement XMLFile)
-        {
-
-            var list = XMLFile.Elements("Lok").ToList();             //Alle Elemente des Types Lok in eine Liste Umwandeln 
-
-            foreach (XElement lok in list)                            //Alle Elemente der Liste einzeln durchlaufen
-            {
-                Lok Lokomotive = new Lok();
-                if (lok.Element("Adresse") == null)
+                path = Path.GetDirectoryName(Datei);
+                if (path.Equals(ArchivOrdner))
                 {
-                    //Entry rot markieren
+                    path = "";
                 }
                 else
                 {
-                    Lokomotive.Adresse = Int16.Parse(lok.Element("Adresse").Value);     //LokAdresse des Elements auslesen
+                    path = path.Substring(ArchivOrdner.Length + 1);
                 }
+                
+                string[] Folders = path.Split('\\');
+                string subpath = "";
 
-                if (lok.Element("Name") == null) Lokomotive.Name = "";
-                else Lokomotive.Name = lok.Element("Name").Value;                   //Lokname des Elements auslesen
-                if (lok.Element("Gattung") == null) Lokomotive.Gattung = "";
-                else Lokomotive.Gattung = lok.Element("Gattung").Value;             //StandardGattung Eintragen
-                Lokomotive.Funktionen.Add("Licht");
-                for (int i = 1; i <= 21; i++)
+                ArchivBaum.SelectedNode = ArchivBaum.Nodes[0];               
+
+                foreach (string Folder in Folders)
                 {
-                    string Label = String.Format("Funktion{0}", i);
-                    if (lok.Element(Label) == null)
-                    {
-                        Lokomotive.Funktionen.Add(null);
-                    }
-                    else
-                    {
-                        Lokomotive.Funktionen.Add(lok.Element(Label).Value);
-                    }
-                }
+                    if (Folder.Equals("")) continue;
+                    subpath += Folder;
 
-                loks.Add(Lokomotive);
+                    if (ArchivBaum.SelectedNode.Nodes.ContainsKey(subpath) == false)
+                    {
+                        ArchivBaum.SelectedNode.Nodes.Add(subpath, Folder);
+                    }
+                    ArchivBaum.SelectedNode = ArchivBaum.Nodes.Find(subpath, true)[0];
+                }
+                ArchivBaum.SelectedNode.Nodes.Add(Datei, Path.GetFileName(Datei));                
             }
+            ArchivBaum.TreeViewNodeSorter = new NodeSorter();
+            ArchivBaum.Sort();
         }
 
         private void Laden_Click(object sender, EventArgs e)
         {
-            string FileToOpen = "LokArchiv\\" + Lokliste.SelectedItem.ToString();
-
-            int ListID = loks.IndexOf(new Lok() { Name = Lokliste.SelectedItem.ToString() }); //Lok mit diesem Namen in der Liste suchen
-            if (ListID == -1) return;                                               //Lok nicht vorhanden, Funktion abbrechen
-            DisplayLokValues(loks[ListID]);                                                   //Lokdaten anzeigen lassen
+            if( ArchivBaum.SelectedNode == null ) return; // Nichts angewählt: Abbrechen
+            if (ArchivBaum.SelectedNode.Nodes.Count != 0) return; // Wenn Untergruppen -> Abbrechen Ordner angewählt
+            PfadAktuelleLok = ArchivBaum.SelectedNode.Name;
+            PfadLabel.Text = "Geladen: " + PfadAktuelleLok;
+            AktuelleLok = new Lokomotive(ArchivBaum.SelectedNode.Name);
+            DisplayLokValues(AktuelleLok);
+            Speichern.Enabled = true;   
         }
 
-        private void DisplayLokValues(Lok lok)
+        private void DisplayLokValues(Lokomotive lok)
         {
+            if (lok == null) return;
+            if (lok.Adresse == 0) return;
             DisplayLokName.Text = lok.Name;
             try
             {
@@ -102,6 +97,27 @@ namespace MEKB_H0_Anlage
                 DisplayLokAdresse.Value = 3;
             }
             DisplayLokGattung.Text = lok.Gattung;
+
+            switch(lok.Epoche)
+            {
+                case 1:
+                    DisplayLokEpoche.Text = "I";break;
+                case 2:
+                    DisplayLokEpoche.Text = "II"; break;
+                case 3:
+                    DisplayLokEpoche.Text = "III"; break;
+                case 4:
+                    DisplayLokEpoche.Text = "IV"; break;
+                case 5:
+                    DisplayLokEpoche.Text = "V"; break;
+                case 6:
+                    DisplayLokEpoche.Text = "VI"; break;
+                default:
+                    DisplayLokEpoche.Text = ""; break;
+            }
+            DisplayLokHersteller.Text = lok.Hersteller;
+            DisplayLokVerwaltung.Text = lok.Verwaltung;
+            DisplayLokTyp.Text = lok.Typ;
 
             DisplayLokFkt1.Text = lok.Funktionen[1];
             DisplayLokFkt2.Text = lok.Funktionen[2];
@@ -125,58 +141,106 @@ namespace MEKB_H0_Anlage
             DisplayLokFkt20.Text = lok.Funktionen[20];
         }
 
+        private void DisplayDatenLesen()
+        {
+            AktuelleLok = new Lokomotive();
+            AktuelleLok.Adresse = (int)DisplayLokAdresse.Value;
+            AktuelleLok.Name = DisplayLokName.Text;
+            AktuelleLok.Gattung = DisplayLokGattung.Text;
+            AktuelleLok.Hersteller = DisplayLokHersteller.Text;
+            AktuelleLok.Typ = DisplayLokTyp.Text;
+            if (DisplayLokEpoche.Text.Equals("I")) AktuelleLok.Epoche = 1;
+            if (DisplayLokEpoche.Text.Equals("II")) AktuelleLok.Epoche = 2;
+            if (DisplayLokEpoche.Text.Equals("III")) AktuelleLok.Epoche = 3;
+            if (DisplayLokEpoche.Text.Equals("IV")) AktuelleLok.Epoche = 4;
+            if (DisplayLokEpoche.Text.Equals("V")) AktuelleLok.Epoche = 5;
+            if (DisplayLokEpoche.Text.Equals("VI")) AktuelleLok.Epoche = 6;
+            AktuelleLok.Verwaltung = DisplayLokVerwaltung.Text;
+
+            AktuelleLok.Funktionen[1] = DisplayLokFkt1.Text;
+            AktuelleLok.Funktionen[2] = DisplayLokFkt2.Text;
+            AktuelleLok.Funktionen[3] = DisplayLokFkt3.Text;
+            AktuelleLok.Funktionen[4] = DisplayLokFkt4.Text;
+            AktuelleLok.Funktionen[5] = DisplayLokFkt5.Text;
+            AktuelleLok.Funktionen[6] = DisplayLokFkt6.Text;
+            AktuelleLok.Funktionen[7] = DisplayLokFkt7.Text;
+            AktuelleLok.Funktionen[8] = DisplayLokFkt8.Text;
+            AktuelleLok.Funktionen[9] = DisplayLokFkt9.Text;
+            AktuelleLok.Funktionen[10] = DisplayLokFkt10.Text;
+            AktuelleLok.Funktionen[11] = DisplayLokFkt11.Text;
+            AktuelleLok.Funktionen[12] = DisplayLokFkt12.Text;
+            AktuelleLok.Funktionen[13] = DisplayLokFkt13.Text;
+            AktuelleLok.Funktionen[14] = DisplayLokFkt14.Text;
+            AktuelleLok.Funktionen[15] = DisplayLokFkt15.Text;
+            AktuelleLok.Funktionen[16] = DisplayLokFkt16.Text;
+            AktuelleLok.Funktionen[17] = DisplayLokFkt17.Text;
+            AktuelleLok.Funktionen[18] = DisplayLokFkt18.Text;
+            AktuelleLok.Funktionen[19] = DisplayLokFkt19.Text;
+            AktuelleLok.Funktionen[20] = DisplayLokFkt20.Text;
+
+        }
+
         private void SpeichernUnter_Click(object sender, EventArgs e)
         {
-            int ListID = loks.IndexOf(new Lok() { Name = Lokliste.SelectedItem.ToString() }); //Lok mit diesem Namen in der Liste suchen
-            if (ListID == -1) return;                                               //Lok nicht vorhanden, Funktion abbrechen
-            XElement ExportData = ExportLokData();                                                   //Lokdaten in XElement verwandeln;
+            DisplayDatenLesen();
+            XElement ExportData = AktuelleLok.ExportLokData();                                                   //Lokdaten in XElement verwandeln;
 
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-            saveFileDialog1.Filter = "LokArchiv (*.xml)|*.xml";
-            saveFileDialog1.FilterIndex = 1;
-            saveFileDialog1.RestoreDirectory = true;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog
+            {
+                Filter = "LokArchiv (*.xml)|*.xml",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 ExportData.Save(saveFileDialog1.FileName);
             }
-
-
-            
+            PfadAktuelleLok = saveFileDialog1.FileName;
+            PfadLabel.Text = "Geladen: " + PfadAktuelleLok;
+            Speichern.Enabled = true;
         }
 
-        private XElement ExportLokData()
-        {
-            XElement LokXMLData = new XElement("Lokliste",
-                new XElement("Lok", 
-                    new XElement("Name", DisplayLokName.Text),
-                    new XElement("Adresse", DisplayLokAdresse.Value.ToString()),
-                    new XElement("Gattung", DisplayLokGattung.Text),
-                    new XElement("Funktion1", DisplayLokFkt1.Text),
-                    new XElement("Funktion2", DisplayLokFkt2.Text),
-                    new XElement("Funktion3", DisplayLokFkt3.Text),
-                    new XElement("Funktion4", DisplayLokFkt4.Text),
-                    new XElement("Funktion5", DisplayLokFkt5.Text),
-                    new XElement("Funktion6", DisplayLokFkt6.Text),
-                    new XElement("Funktion7", DisplayLokFkt7.Text),
-                    new XElement("Funktion8", DisplayLokFkt8.Text),
-                    new XElement("Funktion9", DisplayLokFkt9.Text),
-                    new XElement("Funktion10", DisplayLokFkt10.Text),
-                    new XElement("Funktion11", DisplayLokFkt11.Text),
-                    new XElement("Funktion12", DisplayLokFkt12.Text),
-                    new XElement("Funktion13", DisplayLokFkt13.Text),
-                    new XElement("Funktion14", DisplayLokFkt14.Text),
-                    new XElement("Funktion15", DisplayLokFkt15.Text),
-                    new XElement("Funktion16", DisplayLokFkt16.Text),
-                    new XElement("Funktion17", DisplayLokFkt17.Text),
-                    new XElement("Funktion18", DisplayLokFkt18.Text),
-                    new XElement("Funktion19", DisplayLokFkt19.Text),
-                    new XElement("Funktion20", DisplayLokFkt20.Text)
-                )
-            );
 
-            return LokXMLData;
+
+        
+
+        public class NodeSorter : System.Collections.IComparer
+        {
+            public NodeSorter() { }
+
+            public int Compare(object x, object y)
+            {
+                TreeNode tx = x as TreeNode;
+                TreeNode ty = y as TreeNode;
+
+                if (tx.Nodes.Count != 0 && ty.Nodes.Count != 0) return tx.Text.CompareTo(ty.Text);
+                if (tx.Nodes.Count == 0 && ty.Nodes.Count == 0) return tx.Text.CompareTo(ty.Text);
+                if (tx.Nodes.Count == 0 && ty.Nodes.Count != 0) return 1;
+                if (tx.Nodes.Count != 0 && ty.Nodes.Count == 0) return -1;
+                return tx.Text.CompareTo(ty.Text);
+            }
+        }
+
+        private void NeueLok_Click(object sender, EventArgs e)
+        {
+            PfadAktuelleLok = "";
+            PfadLabel.Text = "Geladen: -";
+            AktuelleLok = new Lokomotive() { Adresse = 3};
+            DisplayLokValues(AktuelleLok);
+            Speichern.Enabled = false;
+        }
+
+        private void Speichern_Click(object sender, EventArgs e)
+        {
+            if(PfadAktuelleLok.Equals(""))
+            {
+                Speichern.Enabled=false;
+                return;
+            }
+            DisplayDatenLesen();
+            XElement ExportData = AktuelleLok.ExportLokData();                                                   //Lokdaten in XElement verwandeln;
+            ExportData.Save(PfadAktuelleLok);
         }
     }
 }

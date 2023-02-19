@@ -113,6 +113,12 @@
     <Compile Include="MenuFenster\Belegtmelder_Ueberwachung.Designer.cs">
       <DependentUpon>Belegtmelder_Ueberwachung.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuFenster\LokSuche.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuFenster\LokSuche.Designer.cs">
+      <DependentUpon>LokSuche.cs</DependentUpon>
+    </Compile>
     <Compile Include="Zusatz\Belegtmelder.cs" />
     <Compile Include="Zusatz\Fahrstrassen.cs" />
     <Compile Include="Zusatz\GleisbildZeichnung.cs" />
@@ -151,6 +157,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Zusatz\Lokomotive.cs" />
+    <Compile Include="Zusatz\LokomotivenVerwaltung.cs" />
     <Compile Include="Zusatz\Signal.cs" />
     <Compile Include="Zusatz\Verschiedenes.cs" />
     <Compile Include="Z21_Bibliothek\Z21.cs" />
@@ -161,10 +169,10 @@
       <DependentUpon>Z21_Einstellung.cs</DependentUpon>
     </Compile>
     <Compile Include="Z21_Bibliothek\Z21_Konstanten.cs" />
-    <Compile Include="ZugSteuerpult.cs">
+    <Compile Include="MenuFenster\ZugSteuerpult.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ZugSteuerpult.Designer.cs">
+    <Compile Include="MenuFenster\ZugSteuerpult.Designer.cs">
       <DependentUpon>ZugSteuerpult.cs</DependentUpon>
     </Compile>
     <Compile Include="Zusatz\Weichen.cs" />
@@ -181,6 +189,9 @@
     <EmbeddedResource Include="MenuFenster\LokEditor.resx">
       <DependentUpon>LokEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MenuFenster\LokSuche.resx">
+      <DependentUpon>LokSuche.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -192,7 +203,7 @@
     <EmbeddedResource Include="MenuFenster\Z21_Einstellung.resx">
       <DependentUpon>Z21_Einstellung.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ZugSteuerpult.resx">
+    <EmbeddedResource Include="MenuFenster\ZugSteuerpult.resx">
       <DependentUpon>ZugSteuerpult.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

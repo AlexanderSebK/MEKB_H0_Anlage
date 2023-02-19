@@ -568,7 +568,7 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        private void sendCommand(byte[] Data, int size)
+        private void SendCommand(byte[] Data, int size)
         {
             if (Connected)
             {
@@ -584,18 +584,18 @@ namespace MEKB_H0_Anlage
         public void GET_SERIAL_NUMBER()                 //Daten senden: Seriennummer Abfragen
         {
             byte[] SendBytes = { 0x04, 0x00, 0x10, 0x00 };
-            sendCommand(SendBytes, 4);
+            SendCommand(SendBytes, 4);
             
         }
         public void LOGOFF()
         {
             byte[] SendBytes = { 0x04, 0x00, 0x30, 0x00 };
-            sendCommand(SendBytes, 4);
+            SendCommand(SendBytes, 4);
         }
         public void GET_FIRMWARE_VERSION()
         {
             byte[] SendBytes = { 0x07, 0x00, 0x40, 0x00, 0xF1, 0x0A, 0xFB };
-            sendCommand(SendBytes, 7);           
+            SendCommand(SendBytes, 7);           
         }
         public void GET_BROADCASTFLAGS()
         {
@@ -614,7 +614,7 @@ namespace MEKB_H0_Anlage
         public void Z21_GET_STATUS()
         {
             byte[] SendBytes = { 0x07, 0x00, 0x40, 0x00, 0x21, 0x24, 0x05 };
-            sendCommand(SendBytes, 7);
+            SendCommand(SendBytes, 7);
         }
         public void Z21_GET_LOCO_INFO(int Adresse)
         {
@@ -670,7 +670,7 @@ namespace MEKB_H0_Anlage
 
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
-            sendCommand(SendBytes, 9);
+            SendCommand(SendBytes, 9);
         }
         public void LAN_X_SET_SIGNAL(int Adresse, bool Zustand)
         {
@@ -711,7 +711,7 @@ namespace MEKB_H0_Anlage
         public void LAN_RMBUS_GETDATA(byte GroupIndex)
         {
             byte[] SendBytes = { 0x05, 0x00, 0x81, 0x00, GroupIndex };
-            sendCommand(SendBytes, 5);
+            SendCommand(SendBytes, 5);
         }
 
         //Schreiben auf Window

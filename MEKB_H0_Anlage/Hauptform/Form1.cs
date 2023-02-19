@@ -22,6 +22,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Configuration;
 using System.Diagnostics;
+using System.Threading;
 
 
 namespace MEKB_H0_Anlage
@@ -43,10 +44,12 @@ namespace MEKB_H0_Anlage
         public SignalListe SignalListe = new SignalListe("Signalliste.xml");      
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
         public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
+        public LokomotivenVerwaltung LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
 
-        public List<Lok> Lokliste = new List<Lok>();
-        public Lok[] AktiveLoks = new Lok[12];
-        
+
+        public Lokomotive[] AktiveLoks = new Lokomotive[12];
+        public Thread ThreadLoksuche;
+
         public bool Betriebsbereit;
 
         private static System.Timers.Timer FlagTimer;
@@ -88,14 +91,14 @@ namespace MEKB_H0_Anlage
             ConnectStatus(false, false);                 //Verbindungsstatus auf getrennt setzen
 
             SetupFahrstrassen();                        //Fahstrassen festlegen          
-            SetupLokListe();                            //Lok-Daten aus Dateien laden
 
             Betriebsbereit = false;
 
-            LokCtrl_LoklisteAusfuellen();               //Auswahlliste im Lok-Kontrollfenster ausfüllen
+            ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
+
             for (int i = 0; i < AktiveLoks.Length; i++)
             {
-                AktiveLoks[i] = new Lok();
+                AktiveLoks[i] = new Lokomotive();
                 AktiveLoks[i].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
                 AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             }
@@ -118,33 +121,44 @@ namespace MEKB_H0_Anlage
             // Timer mit Funktion "Z21_Heartbeat" Verbinden
             FlagTimer.Elapsed += Z21_Heartbeat;
             FlagTimer.AutoReset = true;
-            FlagTimer.Enabled = true;
+            
 
             // 100 MilliSekunden Timer: Weichen und Fahrstraßen Update.
             WeichenTimer = new System.Timers.Timer(50);
             // Timer mit Funktion "OnTimedWeichenEvent" Verbinden
             WeichenTimer.Elapsed += OnTimedWeichenEvent;
             WeichenTimer.AutoReset = true;
-            WeichenTimer.Enabled = true;
+            
 
             // 100 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
             CooldownTimer = new System.Timers.Timer(100);
             // Timer mit Funktion "WeichenCooldown" Verbinden
             CooldownTimer.Elapsed += WeichenCooldown;
             CooldownTimer.AutoReset = true;
-            CooldownTimer.Enabled = true;
+            
 
             // 250 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
             BelegtmelderCoolDown = new System.Timers.Timer(250);
             // Timer mit Funktion "WeichenCooldown" Verbinden
             BelegtmelderCoolDown.Elapsed += BelegtmelderCooldown;
             BelegtmelderCoolDown.AutoReset = true;
-            BelegtmelderCoolDown.Enabled = true;
+            
 
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
+
+            FlagTimer.Enabled = true;
+            WeichenTimer.Enabled = true;
+            CooldownTimer.Enabled = true;
+            BelegtmelderCoolDown.Enabled = true;
+
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            FlagTimer.Stop();
+            WeichenTimer.Stop();
+            CooldownTimer.Stop();
+            BelegtmelderCoolDown.Stop();
+
             StopAlle_Click(sender, e);
             foreach (Signal signal in SignalListe.Liste)
             {
@@ -208,10 +222,28 @@ namespace MEKB_H0_Anlage
 
         }
         public delegate void InvokeDelegate();
+
+
+        private void updateRegisterState(TextBox Box, string text)
+        {
+            Box.Invoke((MethodInvoker)(() =>
+            {
+                Box.Text = text;
+            }));
+        }
+
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
             if (source is System.Timers.Timer timer)
             {
+
+                Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text);
+                if(belegtmelder != null)
+                {
+                    updateRegisterState(NextBlock, belegtmelder.NaechsterBlock(VorBlock.Text, WeichenListe));
+                }
+
+
                 if (z21Start.Verbunden())
                 {
                     timer.Stop();
@@ -404,16 +436,11 @@ namespace MEKB_H0_Anlage
                 string[] subs = name.Split('_');
                 if (subs[1] != "Name") return; //Muss auf _Name enden
 
-                //Passendes Adressfeld heraussuchen
-                NumericUpDown Adressfeld = (NumericUpDown)this.Controls.Find(subs[0] + "_Adr", true)[0];
-                if (Adressfeld == null) return; //Nicht gefunden: Abbrechen
-
                 //Ausgewählte Lok heraussuchen
-                int ListID = Lokliste.IndexOf(new Lok() { Name = Namensfeld.Text });
-                if (ListID == -1) return;
-                int Adresse = Lokliste[ListID].Adresse;
-
-                Adressfeld.Value = Adresse;
+                if(LokomotivenArchiv.SucheDurchName(Namensfeld.Text,out Lokomotive lokomotive))
+                {
+                    LokKontroll_UpdateAktiveLok(subs[0], lokomotive);
+                }
             }
         }
         private void LokKontroll_Adr_ValueChanged(object sender, EventArgs e)
@@ -424,54 +451,20 @@ namespace MEKB_H0_Anlage
                 string name = Adressfeld.Name;
                 string[] subs = name.Split('_');
                 if (subs[1] != "Adr") return; //Muss auf _Adr enden
-
-                //Passendes Namensfeld finden
-                ComboBox Namensfeld = (ComboBox)this.Controls.Find(subs[0] + "_Name", true)[0];
-                if (Namensfeld == null) return; //Nicht gefunden: Abbrechen
-
-                //Passendes Gattungsfeld finden
-                ComboBox Gattungsfeld = (ComboBox)this.Controls.Find(subs[0] + "_Gattung", true)[0];
-                if (Gattungsfeld == null) return; //Nicht gefunden: Abbrechen
-
-                //Passendes Steuertypfeld finden
-                Button Steuertypfeld = (Button)this.Controls.Find(subs[0] + "_Strg_Typ", true)[0];
-                if (Steuertypfeld == null) return; //Nicht gefunden: Abbrechen
-
-                //Passendes Ruffeld finden
-                TextBox Ruffeld = (TextBox)this.Controls.Find(subs[0] + "_Ruf", true)[0];
-                if (Ruffeld == null) return; //Nicht gefunden: Abbrechen
-
-                //Aktiver Lokindex
-                string indexStr = subs[0].Substring(7);
-                if (Int32.TryParse(indexStr, out int index))
+              
+                if (LokomotivenArchiv.SucheDurchAdresse(Adressfeld.Value, out Lokomotive lokomotive))//Finde Lok mit dieser Adresse 
                 {
-                    index--;
-                    if (index < 0) return;
-                    if (index > AktiveLoks.Length) return;
+                    LokKontroll_UpdateAktiveLok(subs[0], lokomotive);
                 }
-                else
+                else // Lok nicht gefunden
                 {
-                    return;
+                    lokomotive = new Lokomotive() //Blanke Lok anlegen mit dieser Adresse
+                    {
+                        Adresse = ((int)Adressfeld.Value),
+                        Name = String.Format("Lok: {0}", Adressfeld.Value)
+                    };            
+                    LokKontroll_UpdateAktiveLok(subs[0], lokomotive);
                 }
-
-                int LokListenIndex = Lokliste.FindIndex(x => x.Adresse == Adressfeld.Value);                   //Finde Lok mit dieser Adresse 
-                if (LokListenIndex == -1)//Lok nicht gefunden in der Liste
-                {
-                    Namensfeld.Text = String.Format("Lok: {0}", Adressfeld.Value);
-                    AktiveLoks[index] = new Lok() { Adresse = (int)Adressfeld.Value };
-                }
-                else
-                {
-                    AktiveLoks[index] = Lokliste[LokListenIndex];
-                    Namensfeld.Text = AktiveLoks[index].Name;
-                    Gattungsfeld.Text = AktiveLoks[index].Gattung;
-                }
-                AktiveLoks[index].Automatik = false;
-                Steuertypfeld.Text = "Manuell";
-                Steuertypfeld.BackColor = Color.FromArgb(0, 128, 0);
-
-                if (AktiveLoks[index].Adresse != 0) Ruffeld.Text = LokKontrolle.Abkuerzung(Gattungsfeld.Text) + Adressfeld.Value.ToString();
-                else Ruffeld.Text = "";
             }
         }
         private void LokKontroll_Update_Rufnummern(object sender, EventArgs e)
@@ -482,10 +475,6 @@ namespace MEKB_H0_Anlage
                 string name = Gattungsfeld.Name;
                 string[] subs = name.Split('_');
                 if (subs[1] != "Gattung") return; //Muss auf _Gattung enden
-
-                //Passendes Ruffeld finden
-                TextBox Ruffeld = (TextBox)this.Controls.Find(subs[0] + "_Ruf", true)[0];
-                if (Ruffeld == null) return; //Nicht gefunden: Abbrechen
 
                 //Aktiver Lokindex
                 string indexStr = subs[0].Substring(7);
@@ -501,8 +490,9 @@ namespace MEKB_H0_Anlage
                 }
 
                 AktiveLoks[index].Gattung = Gattungsfeld.Text;
-                if (AktiveLoks[index].Adresse != 0) Ruffeld.Text = LokKontrolle.Abkuerzung(AktiveLoks[index].Gattung) + AktiveLoks[index].Adresse.ToString();
-                else Ruffeld.Text = "";
+
+                LokKontroll_UpdateAll(subs[0]);
+                
             }
         }
         private void LokKontroll_OpenFahrpult_Click(object sender, EventArgs e)
@@ -618,13 +608,131 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
+
+        public void LokKontroll_UpdateAktiveLok(string CtrlID, Lokomotive lokomotive)
+        {
+            string indexStr = CtrlID.Substring(7);
+            if (Int32.TryParse(indexStr, out int index))
+            {
+                index--; //Start bei 0
+                if (index < 0) return;
+                if (index > AktiveLoks.Length) return;
+            }
+            else //Kein Index erkannt
+            {
+                return;
+            }
+            AktiveLoks[index] = lokomotive;
+            AktiveLoks[index].Automatik = false;
+            LokKontroll_UpdateAll(CtrlID);
+        }
+        public void LokKontroll_UpdateAll(string CtrlID)
+        {
+            NumericUpDown Adressfeld;
+            Button SuchFeld;
+            ComboBox Gattungsfeld;
+            Button Steuertypfeld;
+            TextBox Ruffeld;
+
+            try
+            {
+                //Passendes Adressfeld heraussuchen
+                Adressfeld = (NumericUpDown)this.Controls.Find(CtrlID + "_Adr", true).First();
+                if (Adressfeld == null) return; //Nicht gefunden: Abbrechen
+
+                //Passendes Steuertypfeld finden
+                SuchFeld = (Button)this.Controls.Find(CtrlID + "_Suche", true).First();
+                if (SuchFeld == null) return; //Nicht gefunden: Abbrechen
+
+                //Passendes Gattungsfeld finden
+                Gattungsfeld = (ComboBox)this.Controls.Find(CtrlID + "_Gattung", true)[0];
+                if (Gattungsfeld == null) return; //Nicht gefunden: Abbrechen
+
+                //Passendes Steuertypfeld finden
+                Steuertypfeld = (Button)this.Controls.Find(CtrlID + "_Strg_Typ", true)[0];
+                if (Steuertypfeld == null) return; //Nicht gefunden: Abbrechen
+
+                //Passendes Ruffeld finden
+                Ruffeld = (TextBox)this.Controls.Find(CtrlID + "_Ruf", true)[0];
+                if (Ruffeld == null) return; //Nicht gefunden: Abbrechen
+            }
+            catch
+            {
+                return;
+            }
+
+            string indexStr = CtrlID.Substring(7);
+            if (Int32.TryParse(indexStr, out int index))
+            {
+                index--; //Start bei 0
+                if (index < 0) return;
+                if (index > AktiveLoks.Length) return;
+            }
+            else //Kein Index erkannt
+            {
+                return;
+            }
+            
+            Adressfeld.Value = AktiveLoks[index].Adresse;
+            SuchFeld.Text = AktiveLoks[index].Name;
+            Gattungsfeld.Text = AktiveLoks[index].Gattung;
+            if (AktiveLoks[index].Adresse != 0) Ruffeld.Text = LokomotivenArchiv.Abkuerung[AktiveLoks[index].Gattung] + AktiveLoks[index].Adresse.ToString();
+            else Ruffeld.Text = "";
+
+            if (AktiveLoks[index].Automatik)
+            {
+                Steuertypfeld.Text = "Automatik";
+                Steuertypfeld.BackColor = Color.FromArgb(0, 0, 255);
+            }
+            else
+            {
+                Steuertypfeld.Text = "Manuell";
+                Steuertypfeld.BackColor = Color.FromArgb(0, 128, 0);
+            }
+        }
+
+        private void SearchLok_Click(object sender, EventArgs e)
+        {
+            if (sender is Button stop)
+            {
+                //Name der Instanz finden
+                string name = stop.Name;
+                string[] subs = name.Split('_');
+                if (subs[1] != "Suche") return; //Muss auf _Strg an zweiter Position haben
+
+                //Aktiver Lokindex
+                if (!ThreadLoksuche.IsAlive)
+                {
+                    ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(subs[0]));
+                    ThreadLoksuche.Start();
+                }
+            } 
+        }
+
+        private void DialogHandhabungLokSuche(string IndexName)
+        {
+            LokSuche lokSuche = new LokSuche(LokomotivenArchiv);
+
+            DialogResult dialogResult = lokSuche.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                this.BeginInvoke((Action<string, Lokomotive>)SchreibeSuchergebnis, IndexName, lokSuche.GewaehlteLok);
+            }
+        }
+
+        private void SchreibeSuchergebnis(string IndexName, Lokomotive gefundeneLok)
+        {
+            LokKontroll_UpdateAktiveLok(IndexName, gefundeneLok);
+        }
+
+
         #endregion
 
-        
+
 
         private void StopAlle_Click(object sender, EventArgs e)
         {
-            foreach(Lok lok in AktiveLoks)
+            foreach(Lokomotive lok in AktiveLoks)
             {
                 if (lok.Adresse != 0)
                 {
@@ -811,6 +919,12 @@ namespace MEKB_H0_Anlage
 
         }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string naechsterBlock = NextBlock.Text;
+            string aktuellerBlock = Block.Text;
+            Block.Text = naechsterBlock;
+            VorBlock.Text = aktuellerBlock;
+        }
     }
 }

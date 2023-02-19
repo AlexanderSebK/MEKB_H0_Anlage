@@ -31,11 +31,61 @@ namespace MEKB_H0_Anlage
 
             foreach (XElement melder in list)                            //Alle Elemente der Liste einzeln durchlaufen
             {
-                string Name = melder.Element("Name").Value;                                //Belegtmeldername des Elements auslesen
+                string Name;
+                if (melder.Attribute("Name") != null)
+                {
+                    Name = melder.Attribute("Name").Value;                                //Belegtmeldername des Elements auslesen
+                }
+                else
+                {
+                    Name = melder.Element("Name").Value;
+                }
                 int Modulnummer = Int16.Parse(melder.Element("Modulnummer").Value);        //Modulnummer
                 int Portnummer = Int16.Parse(melder.Element("Portnummer").Value);               //Portnummer
                 int CoolDowntime = 6000;
-                Liste.Add(new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime });  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
+                Belegtmelder belegtmelder =  new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime };  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
+
+                belegtmelder.NachbarBlocks = new List<NachbarBlock>();
+
+                XElement Nachbarbloecke = melder.Element("Nachbarbloecke");
+                if (Nachbarbloecke != null)
+                {
+                    var NachbarbloeckeListe = Nachbarbloecke.Elements("Nachbarblock").ToList();
+                    foreach (XElement block in NachbarbloeckeListe)
+                    {
+                        string BlockName;
+                        if (block.Attribute("Name") != null)  BlockName = block.Attribute("Name").Value;
+                        else BlockName = block.Element("Blockname").Value;
+
+                        //bool Fahrrichtung = block.Element("Fahrtrichtung").Value == "1";
+                        string KommeVon = "";
+                        if(block.Attribute("KommeVon") != null) KommeVon = block.Attribute("KommeVon").Value;
+
+
+                        NachbarBlock nachbar = new NachbarBlock() { BlockName = BlockName, KommeVon = KommeVon};
+                        XElement WeichenGerade = block.Element("WeichenGerade");
+                        XElement WeichenAbzweig = block.Element("WeichenAbzweig");
+                        if (WeichenGerade != null)
+                        {
+                            var Weichen = WeichenGerade.Elements("Weiche").ToList();
+                            foreach (XElement weichenElement in Weichen)
+                            {
+                                nachbar.WeichenGerade.Add(weichenElement.Value);
+                            }
+                        }
+                        if (WeichenAbzweig != null)
+                        {
+                            var Weichen = WeichenAbzweig.Elements("Weiche").ToList();
+                            foreach (XElement weichenElement in Weichen)
+                            {
+                                nachbar.WeichenAbzweig.Add(weichenElement.Value);
+                            }
+                        }
+                        belegtmelder.NachbarBlocks.Add(nachbar);
+                    } // foreach block
+                } // Nachbarblöcke != null
+                Liste.Add(belegtmelder);
+
             }
             for (int i = 0; i < Liste.Count; i++)
             {
@@ -67,10 +117,10 @@ namespace MEKB_H0_Anlage
             }
             return null;
         }
-        public Belegtmelder GetBelegtmelder(int Modul, int Port)
+        public List<Belegtmelder> GetBelegtmelder(int Modul, int Port)
         {
             List<Belegtmelder> Portliste = Liste.FindAll(x => x.Modulnummer == Modul);
-            Belegtmelder belegtmelder = Portliste.Find(x => x.Portnummer == Port);
+            List<Belegtmelder> belegtmelder = Portliste.FindAll(x => x.Portnummer == Port);
             return belegtmelder;
         }
         public void UpdateBelegtmelder(byte GruppenIndex, byte[] RMStatus)
@@ -86,9 +136,12 @@ namespace MEKB_H0_Anlage
                     if (GruppenIndex == 1) ModulNummer = ModulNummer + 10;
                     int PortNummer = a + 1;
 
-                    Belegtmelder belegtmelder = GetBelegtmelder(ModulNummer, PortNummer);
-                    if (belegtmelder == null) continue;
-                    belegtmelder.MeldeBesetzt(PortListe[a]);
+                    List<Belegtmelder> belegtmelder = GetBelegtmelder(ModulNummer, PortNummer);
+                    foreach (Belegtmelder melder in belegtmelder)
+                    {
+                        if (melder == null) continue;
+                        melder.MeldeBesetzt(PortListe[a]);
+                    }
                 }
                 PortListe.Clear();
             }
@@ -131,7 +184,7 @@ namespace MEKB_H0_Anlage
                 case "Bhf_Gleis1_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W6" }; break;
                 case "Bhf_Gleis2_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W6" }; break;
                 case "Bhf_Gleis3_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5"}; break;
-                case "Bhf_Gleis4_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5" , "DKW7_W8" }; break;
+                case "Bhf_Gleis4_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5", "DKW7_W8" }; break;
                 case "Bhf_Gleis5_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5", "DKW7_W8", "DKW9" }; break;
                 case "Bhf_Gleis6_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5", "DKW7_W8", "DKW9" }; break;
                 default: return false;
@@ -193,10 +246,41 @@ namespace MEKB_H0_Anlage
         /// </summary>
         private bool Belegt { set; get; }
         /// <summary>
+        /// Ist der Gleisabschnitt sicher belegt
+        /// </summary>
+        private bool Stabil {  set; get; }
+        private int CoolUpTime { set; get; }
+        /// <summary>
         /// Zeit wie lange noch der Status belegt aktiv bleibt
         /// </summary>
         private int Time { set; get; }
+        /// <summary>
+        /// Block von Lok registriert
+        /// </summary>
+        public string Registriert { set; get; }
+
+
+        public List<NachbarBlock> NachbarBlocks { set; get; }
+
         #endregion
+
+        /// <summary>
+        /// Gibt den Namen des nächsten Blocks an
+        /// </summary>
+        /// <param name="InFahrt">True = In normaler Fahrtrichtung </param>
+        /// <param name="weichenListe">Liste der benutzten Weichne (globale Liste)</param>
+        /// <returns>Name des Nächsten Blocks oder "gesperrt"</returns>
+        public string NaechsterBlock(string Einfahrtsblock, WeichenListe weichenListe)
+        {
+            foreach(NachbarBlock block in NachbarBlocks)
+            {
+                if(block.IstErreichbar(weichenListe, Einfahrtsblock))
+                {
+                    return block.BlockName;
+                }
+            }
+            return "gesperrt";
+        }
 
         /// <summary>
         /// Abfrage nach dem aktuellen Belegtstatus
@@ -204,7 +288,7 @@ namespace MEKB_H0_Anlage
         /// <returns>true - Abschnitt belegt, flase - Abschnittfrei</returns>
         public bool IstBelegt()
         {
-            if (Belegt) return true;
+            if (Belegt && Stabil) return true;
             else
             {
                 if (Time > 0) return true;
@@ -222,10 +306,16 @@ namespace MEKB_H0_Anlage
             {
                 if (Status == false)
                 {
-                    Time = CoolDownTime;
+                    if (Stabil == true) Time = CoolDownTime;
+                    else Time = 0;
                 }
             }
             Belegt = Status;
+            if (Status == false)
+            {
+                Stabil = false;
+                CoolUpTime = 0;
+            }
         }
 
         /// <summary>
@@ -238,6 +328,12 @@ namespace MEKB_H0_Anlage
             {
                 Time -= ZeitVergangen;
                 if (Time <= 0) Time = 0;
+            }
+
+            if(Belegt && (CoolUpTime < 500))
+            {
+                CoolUpTime += ZeitVergangen;
+                if (CoolUpTime > 500) Stabil = true;
             }
         }
 
@@ -286,5 +382,45 @@ namespace MEKB_H0_Anlage
             else return (this.Name.Equals(other.Name));
         }
         #endregion
+    }
+
+
+    public class NachbarBlock
+    {
+        public List<String> WeichenAbzweig; //Liste von Weichennamen, die auf Abzweig stehen müssen, damit dieser Block erreicht werden kann
+        public List<String> WeichenGerade;  //Liste von Weichennamen, die auf Gerade stehen müssen, damit dieser Block erreicht werden kann
+        public string KommeVon; //Letzte Block, aus dem der Zug eingefahren ist 
+
+        public string BlockName; //Name des Nächsten Blocks
+        public NachbarBlock()
+        {
+            WeichenAbzweig = new List<String>();
+            WeichenGerade = new List<String>();
+            KommeVon = "";
+        }
+
+        public bool IstErreichbar(WeichenListe weichenListe, string komme="")
+        {
+            if(KommeVon != null)
+            {
+                if (KommeVon != "")
+                {
+                    if (!KommeVon.Equals(komme)) return false;
+                }
+            }
+            foreach(string weichename in WeichenAbzweig)
+            {
+                Weiche weiche = weichenListe.GetWeiche(weichename);
+                if(weiche == null) return false;
+                if(!weiche.Abzweig) return false;
+            }
+            foreach (string weichename in WeichenGerade)
+            {
+                Weiche weiche = weichenListe.GetWeiche(weichename);
+                if (weiche == null) return false;
+                if (weiche.Abzweig) return false;
+            }
+            return true;
+        }
     }
 }

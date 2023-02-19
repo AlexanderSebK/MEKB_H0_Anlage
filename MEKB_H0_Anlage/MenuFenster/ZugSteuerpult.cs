@@ -12,8 +12,8 @@ namespace MEKB_H0_Anlage
 {
     public partial class ZugSteuerpult : Form
     {
-        private Lok Lokdaten { set; get; }
-        public ZugSteuerpult(Lok Instance)
+        private Lokomotive Lokdaten { set; get; }
+        public ZugSteuerpult(Lokomotive Instance)
         {
             InitializeComponent();
             Lokdaten = Instance;
