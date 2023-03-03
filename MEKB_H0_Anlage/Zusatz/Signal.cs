@@ -85,6 +85,20 @@ namespace MEKB_H0_Anlage
             }
         }
 
+        public void DateiExportieren(string Dateiname)
+        {
+            //XElement ExportData = AktuelleLok.ExportLokData();
+
+            
+
+
+            //ExportData.Save(Dateiname);
+        }
+
+
+
+
+
         /// <summary>
         /// Signal aus der Liste suchen
         /// </summary>
@@ -187,6 +201,21 @@ namespace MEKB_H0_Anlage
         public Signal()
         {
             Routenzustandsliste = new List<Routenzustand>();
+        }
+
+
+        public XElement SignalZuXML()
+        {
+            return new XElement("Signal",
+                new XElement("Name", Name),
+                new XElement("Adresse", Adresse),
+                new XElement("Adresse2", Adresse2),
+                new XElement("Typ", Typ),
+                new XElement("Adr1Zustand1", Adr1_1),
+                new XElement("Adr1Zustand2", Adr1_2),
+                new XElement("Adr2Zustand1", Adr2_1),
+                new XElement("Adr2Zustand2", Adr2_2)
+                );
         }
         /// <summary>
         /// Wird bei Listensuche benötigt: Name des Signals zurückgeben

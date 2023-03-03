@@ -199,6 +199,7 @@ namespace MEKB_H0_Anlage
             PfadAktuelleLok = saveFileDialog1.FileName;
             PfadLabel.Text = "Geladen: " + PfadAktuelleLok;
             Speichern.Enabled = true;
+            LoadLokList("LokArchiv");
         }
 
 
@@ -241,6 +242,7 @@ namespace MEKB_H0_Anlage
             DisplayDatenLesen();
             XElement ExportData = AktuelleLok.ExportLokData();                                                   //Lokdaten in XElement verwandeln;
             ExportData.Save(PfadAktuelleLok);
+            LoadLokList("LokArchiv");
         }
     }
 }

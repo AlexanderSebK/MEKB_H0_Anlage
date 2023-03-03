@@ -69,18 +69,6 @@ namespace MEKB_H0_Anlage
                 {
                     ToolSignalWeichenListe.Rows.Add(entry.Key,entry.Value);
                 }
-
-
-                /*
-                for (int rows = 0; rows < ToolSignalWeichenListe.Rows.Count; rows++)
-                {
-                    for (int col = 0; col < ToolSignalWeichenListe.Rows[rows].Cells.Count; col++)
-                    {
-                        string value = ToolSignalWeichenListe.Rows[rows].Cells[col].Value.ToString();
-
-                    }
-                }
-                */
             }
             else
             {

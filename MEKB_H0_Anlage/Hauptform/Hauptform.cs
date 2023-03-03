@@ -480,8 +480,13 @@ namespace MEKB_H0_Anlage
 
         private void signaleEditierenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            signaltool = new MenuFenster_Signalistentool("Signalliste.xml");
-            signaltool.Show();
+            //signaltool = new MenuFenster_Signalistentool("Signalliste.xml");
+            //signaltool.Show();
+        }
+
+        private void lokomotivenNeuLadenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
         }
     }
 }

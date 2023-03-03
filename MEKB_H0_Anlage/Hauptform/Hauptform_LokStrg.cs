@@ -298,6 +298,7 @@ namespace MEKB_H0_Anlage
             {
                 return;
             }
+            if (AktiveLoks[index] == null) return;
             //Adresse übernehmen
             Adressfeld.Value = AktiveLoks[index].Adresse;
             //Name übernehmen

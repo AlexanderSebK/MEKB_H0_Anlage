@@ -48,6 +48,8 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.signalsteuergungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.signaleEditierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uberSteuerprogrammToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Statusbar = new System.Windows.Forms.StatusStrip();
@@ -1030,8 +1032,7 @@
             this.label130 = new System.Windows.Forms.Label();
             this.label129 = new System.Windows.Forms.Label();
             this.label128 = new System.Windows.Forms.Label();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.signaleEditierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lokomotivenNeuLadenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1707,6 +1708,7 @@
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LokEditorOpen,
+            this.lokomotivenNeuLadenToolStripMenuItem,
             this.toolStripSeparator1,
             this.ProgrammBeenden});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -1716,19 +1718,19 @@
             // LokEditorOpen
             // 
             this.LokEditorOpen.Name = "LokEditorOpen";
-            this.LokEditorOpen.Size = new System.Drawing.Size(180, 22);
+            this.LokEditorOpen.Size = new System.Drawing.Size(199, 22);
             this.LokEditorOpen.Text = "Lok-Editor";
             this.LokEditorOpen.Click += new System.EventHandler(this.LokEditorOpen_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(196, 6);
             // 
             // ProgrammBeenden
             // 
             this.ProgrammBeenden.Name = "ProgrammBeenden";
-            this.ProgrammBeenden.Size = new System.Drawing.Size(180, 22);
+            this.ProgrammBeenden.Size = new System.Drawing.Size(199, 22);
             this.ProgrammBeenden.Text = "Beenden";
             this.ProgrammBeenden.Click += new System.EventHandler(this.ProgrammBeenden_Click);
             // 
@@ -1817,7 +1819,7 @@
             // signalsteuergungToolStripMenuItem
             // 
             this.signalsteuergungToolStripMenuItem.Name = "signalsteuergungToolStripMenuItem";
-            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.signalsteuergungToolStripMenuItem.Text = "Signalsteuergung";
             this.signalsteuergungToolStripMenuItem.Click += new System.EventHandler(this.SignalsteuergungToolStripMenuItem_Click);
             // 
@@ -1828,6 +1830,21 @@
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
             this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.hilfeToolStripMenuItem.Text = "Hilfe";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.signaleEditierenToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // signaleEditierenToolStripMenuItem
+            // 
+            this.signaleEditierenToolStripMenuItem.Name = "signaleEditierenToolStripMenuItem";
+            this.signaleEditierenToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.signaleEditierenToolStripMenuItem.Text = "Signale Editieren";
+            this.signaleEditierenToolStripMenuItem.Click += new System.EventHandler(this.signaleEditierenToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
             // 
@@ -12375,20 +12392,12 @@
             this.label128.TabIndex = 994;
             this.label128.Text = "Nächster Block";
             // 
-            // toolsToolStripMenuItem
+            // lokomotivenNeuLadenToolStripMenuItem
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.signaleEditierenToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // signaleEditierenToolStripMenuItem
-            // 
-            this.signaleEditierenToolStripMenuItem.Name = "signaleEditierenToolStripMenuItem";
-            this.signaleEditierenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.signaleEditierenToolStripMenuItem.Text = "Signale Editieren";
-            this.signaleEditierenToolStripMenuItem.Click += new System.EventHandler(this.signaleEditierenToolStripMenuItem_Click);
+            this.lokomotivenNeuLadenToolStripMenuItem.Name = "lokomotivenNeuLadenToolStripMenuItem";
+            this.lokomotivenNeuLadenToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.lokomotivenNeuLadenToolStripMenuItem.Text = "Lokomotiven neu laden";
+            this.lokomotivenNeuLadenToolStripMenuItem.Click += new System.EventHandler(this.lokomotivenNeuLadenToolStripMenuItem_Click);
             // 
             // Hauptform
             // 
@@ -14910,6 +14919,7 @@
         private System.Windows.Forms.Button LokCtrl11_Suche;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem signaleEditierenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lokomotivenNeuLadenToolStripMenuItem;
     }
 }
 
