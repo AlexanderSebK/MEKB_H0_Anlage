@@ -49,11 +49,20 @@
             this.ToolSignalWeichenListe = new System.Windows.Forms.DataGridView();
             this.DataGridWeichenName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataGridAbzweig = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ExportNewXML = new System.Windows.Forms.Button();
+            this.ToolSignalDataGridBelegtmelder = new System.Windows.Forms.DataGridView();
+            this.DataGridBelegtmelder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ToolSignalSH0 = new System.Windows.Forms.TextBox();
+            this.ToolSignalNachestesSignal = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.NRoute = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ToolSignalIndex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ToolAdr1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ToolAdr2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ToolRoutenIndex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ToolSignalWeichenListe)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ToolSignalDataGridBelegtmelder)).BeginInit();
             this.SuspendLayout();
             // 
             // ToolSignalIndex
@@ -150,34 +159,62 @@
             // ToolAdr1S0
             // 
             this.ToolAdr1S0.FormattingEnabled = true;
+            this.ToolAdr1S0.Items.AddRange(new object[] {
+            "HP0",
+            "HP1",
+            "HP2",
+            "SH1",
+            "Unbekannt"});
             this.ToolAdr1S0.Location = new System.Drawing.Point(248, 47);
             this.ToolAdr1S0.Name = "ToolAdr1S0";
             this.ToolAdr1S0.Size = new System.Drawing.Size(121, 21);
             this.ToolAdr1S0.TabIndex = 11;
+            this.ToolAdr1S0.SelectedIndexChanged += new System.EventHandler(this.ToolAdr1S0_SelectedIndexChanged);
             // 
             // ToolAdr1S1
             // 
             this.ToolAdr1S1.FormattingEnabled = true;
+            this.ToolAdr1S1.Items.AddRange(new object[] {
+            "HP0",
+            "HP1",
+            "HP2",
+            "SH1",
+            "Unbekannt"});
             this.ToolAdr1S1.Location = new System.Drawing.Point(248, 74);
             this.ToolAdr1S1.Name = "ToolAdr1S1";
             this.ToolAdr1S1.Size = new System.Drawing.Size(121, 21);
             this.ToolAdr1S1.TabIndex = 12;
+            this.ToolAdr1S1.SelectedIndexChanged += new System.EventHandler(this.ToolAdr1S1_SelectedIndexChanged);
             // 
             // ToolAdr2S0
             // 
             this.ToolAdr2S0.FormattingEnabled = true;
+            this.ToolAdr2S0.Items.AddRange(new object[] {
+            "HP0",
+            "HP1",
+            "HP2",
+            "SH1",
+            "Unbekannt"});
             this.ToolAdr2S0.Location = new System.Drawing.Point(248, 101);
             this.ToolAdr2S0.Name = "ToolAdr2S0";
             this.ToolAdr2S0.Size = new System.Drawing.Size(121, 21);
             this.ToolAdr2S0.TabIndex = 13;
+            this.ToolAdr2S0.SelectedIndexChanged += new System.EventHandler(this.ToolAdr2S0_SelectedIndexChanged);
             // 
             // ToolAdr2S1
             // 
             this.ToolAdr2S1.FormattingEnabled = true;
+            this.ToolAdr2S1.Items.AddRange(new object[] {
+            "HP0",
+            "HP1",
+            "HP2",
+            "SH1",
+            "Unbekannt"});
             this.ToolAdr2S1.Location = new System.Drawing.Point(248, 128);
             this.ToolAdr2S1.Name = "ToolAdr2S1";
             this.ToolAdr2S1.Size = new System.Drawing.Size(121, 21);
             this.ToolAdr2S1.TabIndex = 14;
+            this.ToolAdr2S1.SelectedIndexChanged += new System.EventHandler(this.ToolAdr2S1_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -215,6 +252,7 @@
             this.ToolRoutenIndex.Name = "ToolRoutenIndex";
             this.ToolRoutenIndex.Size = new System.Drawing.Size(52, 20);
             this.ToolRoutenIndex.TabIndex = 18;
+            this.ToolRoutenIndex.ValueChanged += new System.EventHandler(this.ToolRoutenIndex_ValueChanged);
             // 
             // label9
             // 
@@ -235,6 +273,7 @@
             this.ToolSignalWeichenListe.Name = "ToolSignalWeichenListe";
             this.ToolSignalWeichenListe.Size = new System.Drawing.Size(284, 197);
             this.ToolSignalWeichenListe.TabIndex = 20;
+            this.ToolSignalWeichenListe.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ToolSignalWeichenListe_CellValueChanged);
             // 
             // DataGridWeichenName
             // 
@@ -249,11 +288,89 @@
             this.DataGridAbzweig.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.DataGridAbzweig.Width = 120;
             // 
+            // ExportNewXML
+            // 
+            this.ExportNewXML.Location = new System.Drawing.Point(424, 4);
+            this.ExportNewXML.Name = "ExportNewXML";
+            this.ExportNewXML.Size = new System.Drawing.Size(128, 23);
+            this.ExportNewXML.TabIndex = 21;
+            this.ExportNewXML.Text = "Export new XML";
+            this.ExportNewXML.UseVisualStyleBackColor = true;
+            this.ExportNewXML.Click += new System.EventHandler(this.ExportNewXML_Click);
+            // 
+            // ToolSignalDataGridBelegtmelder
+            // 
+            this.ToolSignalDataGridBelegtmelder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ToolSignalDataGridBelegtmelder.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DataGridBelegtmelder});
+            this.ToolSignalDataGridBelegtmelder.Location = new System.Drawing.Point(312, 241);
+            this.ToolSignalDataGridBelegtmelder.Name = "ToolSignalDataGridBelegtmelder";
+            this.ToolSignalDataGridBelegtmelder.Size = new System.Drawing.Size(256, 197);
+            this.ToolSignalDataGridBelegtmelder.TabIndex = 22;
+            this.ToolSignalDataGridBelegtmelder.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.ToolSignalDataGridBelegtmelder_CellValueChanged);
+            // 
+            // DataGridBelegtmelder
+            // 
+            this.DataGridBelegtmelder.HeaderText = "Belegtmelder";
+            this.DataGridBelegtmelder.Name = "DataGridBelegtmelder";
+            this.DataGridBelegtmelder.Width = 200;
+            // 
+            // ToolSignalSH0
+            // 
+            this.ToolSignalSH0.Location = new System.Drawing.Point(381, 217);
+            this.ToolSignalSH0.Name = "ToolSignalSH0";
+            this.ToolSignalSH0.Size = new System.Drawing.Size(187, 20);
+            this.ToolSignalSH0.TabIndex = 23;
+            this.ToolSignalSH0.TextChanged += new System.EventHandler(this.ToolSignalSH0_TextChanged);
+            // 
+            // ToolSignalNachestesSignal
+            // 
+            this.ToolSignalNachestesSignal.Location = new System.Drawing.Point(381, 191);
+            this.ToolSignalNachestesSignal.Name = "ToolSignalNachestesSignal";
+            this.ToolSignalNachestesSignal.Size = new System.Drawing.Size(187, 20);
+            this.ToolSignalNachestesSignal.TabIndex = 24;
+            this.ToolSignalNachestesSignal.TextChanged += new System.EventHandler(this.ToolSignalNachestesSignal_TextChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(291, 194);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(84, 13);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Nächstes Signal";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(255, 217);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(120, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Blockierende SH0 Tafel";
+            // 
+            // NRoute
+            // 
+            this.NRoute.Location = new System.Drawing.Point(112, 216);
+            this.NRoute.Name = "NRoute";
+            this.NRoute.Size = new System.Drawing.Size(92, 20);
+            this.NRoute.TabIndex = 27;
+            this.NRoute.Text = "Neue Route";
+            this.NRoute.UseVisualStyleBackColor = true;
+            this.NRoute.Click += new System.EventHandler(this.NRoute_Click);
+            // 
             // MenuFenster_Signalistentool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(574, 450);
+            this.Controls.Add(this.NRoute);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.ToolSignalNachestesSignal);
+            this.Controls.Add(this.ToolSignalSH0);
+            this.Controls.Add(this.ToolSignalDataGridBelegtmelder);
+            this.Controls.Add(this.ExportNewXML);
             this.Controls.Add(this.ToolSignalWeichenListe);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.ToolRoutenIndex);
@@ -280,6 +397,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ToolAdr2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ToolRoutenIndex)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ToolSignalWeichenListe)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ToolSignalDataGridBelegtmelder)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -308,5 +426,13 @@
         private System.Windows.Forms.DataGridView ToolSignalWeichenListe;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataGridWeichenName;
         private System.Windows.Forms.DataGridViewCheckBoxColumn DataGridAbzweig;
+        private System.Windows.Forms.Button ExportNewXML;
+        private System.Windows.Forms.DataGridView ToolSignalDataGridBelegtmelder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataGridBelegtmelder;
+        private System.Windows.Forms.TextBox ToolSignalSH0;
+        private System.Windows.Forms.TextBox ToolSignalNachestesSignal;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button NRoute;
     }
 }

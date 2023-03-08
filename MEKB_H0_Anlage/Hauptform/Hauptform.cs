@@ -33,6 +33,7 @@ namespace MEKB_H0_Anlage
     public partial class Hauptform : Form
     {
         public Z21 z21Start;
+
         private Z21_Einstellung z21_Einstellung;
         private Signal_Einstellungen signal_Einstellungen;
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
@@ -221,7 +222,7 @@ namespace MEKB_H0_Anlage
         public delegate void InvokeDelegate();
 
 
-        private void updateRegisterState(TextBox Box, string text)
+        private void UpdateRegisterState(TextBox Box, string text)
         {
             Box.Invoke((MethodInvoker)(() =>
             {
@@ -237,7 +238,7 @@ namespace MEKB_H0_Anlage
                 Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text);
                 if(belegtmelder != null)
                 {
-                    updateRegisterState(NextBlock, belegtmelder.NaechsterBlock(VorBlock.Text, WeichenListe));
+                    UpdateRegisterState(NextBlock, belegtmelder.NaechsterBlock(VorBlock.Text, WeichenListe));
                 }
 
 
@@ -281,7 +282,6 @@ namespace MEKB_H0_Anlage
                     FahrstrasseBildUpdate();
                     BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
                     stopWatch.Stop();
-                    TimeSpan ts = stopWatch.Elapsed;
                     timer.Start();
                     //Messung vor Verbesserung: 100~120ms => 2ms
                 }
@@ -470,7 +470,7 @@ namespace MEKB_H0_Anlage
 
        
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             string naechsterBlock = NextBlock.Text;
             string aktuellerBlock = Block.Text;
@@ -478,13 +478,13 @@ namespace MEKB_H0_Anlage
             VorBlock.Text = aktuellerBlock;
         }
 
-        private void signaleEditierenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SignaleEditierenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //signaltool = new MenuFenster_Signalistentool("Signalliste.xml");
-            //signaltool.Show();
+            signaltool = new MenuFenster_Signalistentool("Signalliste.xml");
+            signaltool.Show();
         }
 
-        private void lokomotivenNeuLadenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LokomotivenNeuLadenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
         }

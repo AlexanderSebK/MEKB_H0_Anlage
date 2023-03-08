@@ -32,5 +32,49 @@ namespace MEKB_H0_Anlage
 
             }
         }
+        public void SendData(string protocolName, byte[] data)
+        {
+            string text = "\r\n";
+            text += DateTime.Now.ToString("hh:mm:ss.fff");
+            text += String.Format(" PC => Z21: {0,30} - ", protocolName);
+            foreach(byte b in data)
+            {
+                text += String.Format(" {0,2}", b.ToString("X2"));
+            }
+            try
+            {
+                using (StreamWriter w = File.AppendText(FileToWrite))
+                {
+                    w.Write(text);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void ReceivedData(string protocolName, byte[] data)
+        {
+            string text = "\r\n";
+            text += DateTime.Now.ToString("hh:mm:ss.fff");
+            text += String.Format(" PC <= Z21: {0,30} - ", protocolName);
+            foreach (byte b in data)
+            {
+                text += String.Format(" {0,2}", b.ToString("X2"));
+            }
+            try
+            {
+                using (StreamWriter w = File.AppendText(FileToWrite))
+                {
+                    w.Write(text);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
     }
 }

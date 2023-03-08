@@ -9,10 +9,6 @@ using System.Threading.Tasks;
 
 namespace MEKB_H0_Anlage
 {
-   
-
-
-
     public class Lokomotive : IEquatable<Lokomotive>
     {
         #region Parameter
@@ -415,5 +411,4 @@ namespace MEKB_H0_Anlage
             }
         }
     }
-
 }

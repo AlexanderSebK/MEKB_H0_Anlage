@@ -1844,7 +1844,7 @@
             this.signaleEditierenToolStripMenuItem.Name = "signaleEditierenToolStripMenuItem";
             this.signaleEditierenToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.signaleEditierenToolStripMenuItem.Text = "Signale Editieren";
-            this.signaleEditierenToolStripMenuItem.Click += new System.EventHandler(this.signaleEditierenToolStripMenuItem_Click);
+            this.signaleEditierenToolStripMenuItem.Click += new System.EventHandler(this.SignaleEditierenToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
             // 
@@ -12363,7 +12363,7 @@
             this.button1.TabIndex = 997;
             this.button1.Text = "In Nächsten Einfahren";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // label130
             // 
@@ -12397,7 +12397,7 @@
             this.lokomotivenNeuLadenToolStripMenuItem.Name = "lokomotivenNeuLadenToolStripMenuItem";
             this.lokomotivenNeuLadenToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.lokomotivenNeuLadenToolStripMenuItem.Text = "Lokomotiven neu laden";
-            this.lokomotivenNeuLadenToolStripMenuItem.Click += new System.EventHandler(this.lokomotivenNeuLadenToolStripMenuItem_Click);
+            this.lokomotivenNeuLadenToolStripMenuItem.Click += new System.EventHandler(this.LokomotivenNeuLadenToolStripMenuItem_Click);
             // 
             // Hauptform
             // 
