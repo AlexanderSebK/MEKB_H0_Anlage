@@ -388,7 +388,8 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal(SignalElement.Name);
                 if (signal == null) return;
 
-                SignalZustand ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
+                //SignalZustand ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
+                SignalZustand ErlaubteSignalstellung = signal.ErlaubteStellung(FahrstrassenListe,WeichenListe);
 
                 if (signal.Zustand == SignalZustand.HP1)
                 {
@@ -408,7 +409,8 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal(SignalElement.Name);
                 if (signal == null) return;
 
-                SignalZustand ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
+                //SignalZustand ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
+                SignalZustand ErlaubteSignalstellung = signal.ErlaubteStellung(FahrstrassenListe, WeichenListe);
 
                 if (signal.Zustand == SignalZustand.HP2)
                 {

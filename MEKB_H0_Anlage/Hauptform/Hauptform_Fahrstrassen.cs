@@ -30,7 +30,7 @@ namespace MEKB_H0_Anlage
             {
                 //Fahrstraße deaktivieren
                 fahrstrasse.DeleteFahrstrasse(WeichenListe.Liste);
-                if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.Fahrstr_Sig.Name);
+                if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.EinfahrtsSignal.Name);
             }
             else
             {

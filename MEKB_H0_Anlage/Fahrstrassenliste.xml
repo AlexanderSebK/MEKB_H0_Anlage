@@ -2,7 +2,8 @@
 <Fahrstrassenliste>
   <Fahrstrasse>
     <Name>Gleis1_nach_Block1</Name>
-    <Eingangssignal>Signal_Ausfahrt_L1</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_L1</Einfahrtssignal>
+	<Endsignal>Signal_Block5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -34,7 +35,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis2_nach_Block1</Name>
-    <Eingangssignal>Signal_Ausfahrt_L2</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_L2</Einfahrtssignal>
+	<Endsignal>Signal_Block5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -66,7 +68,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis3_nach_Block1</Name>
-    <Eingangssignal>Signal_Ausfahrt_L3</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_L3</Einfahrtssignal>
+	<Endsignal>Signal_Block5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -107,7 +110,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis4_nach_Block1</Name>
-    <Eingangssignal>Signal_Ausfahrt_L4</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_L4</Einfahrtssignal>
+	<Endsignal>Signal_Block5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -158,7 +162,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis5_nach_Block1</Name>
-    <Eingangssignal>Signal_Ausfahrt_L5</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_L5</Einfahrtssignal>
+	<Endsignal>Signal_Block5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -224,7 +229,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis6_nach_Block1</Name>
-    <Eingangssignal>Signal_Ausfahrt_L6</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_L6</Einfahrtssignal>
+	<Endsignal>Signal_Block5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -290,7 +296,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block2_nach_Gleis1</Name>
-    <Eingangssignal>Signal_Einfahrt_L</Eingangssignal>
+    <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_R1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -332,7 +339,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block2_nach_Gleis2</Name>
-    <Eingangssignal>Signal_Einfahrt_L</Eingangssignal>
+    <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_R2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -374,7 +382,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block2_nach_Gleis3</Name>
-    <Eingangssignal>Signal_Einfahrt_L</Eingangssignal>
+    <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_R3</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -409,7 +418,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block2_nach_Gleis4</Name>
-    <Eingangssignal>Signal_Einfahrt_L</Eingangssignal>
+    <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_R4</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -454,7 +464,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block2_nach_Gleis5</Name>
-    <Eingangssignal>Signal_Einfahrt_L</Eingangssignal>
+    <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_R5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -514,7 +525,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block2_nach_Gleis6</Name>
-    <Eingangssignal>Signal_Einfahrt_L</Eingangssignal>
+    <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_R6</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -575,7 +587,8 @@
 
   <Fahrstrasse>
     <Name>Gleis1_nach_TunnelAussen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R1</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R1</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -634,7 +647,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis2_nach_TunnelAussen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R2</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R2</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -693,7 +707,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis3_nach_TunnelAussen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R3</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R3</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche25</Name>
@@ -743,7 +758,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis4_nach_TunnelAussen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R4</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R4</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>DKW24_1</Name>
@@ -803,7 +819,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis5_nach_TunnelAussen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R5</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R5</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>KW22_1</Name>
@@ -878,7 +895,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis6_nach_TunnelAussen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R6</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R6</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche21</Name>
@@ -958,7 +976,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis1_nach_TunnelInnen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R1</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R1</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -1017,7 +1036,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis2_nach_TunnelInnen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R2</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R2</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -1076,7 +1096,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis3_nach_TunnelInnen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R3</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R3</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche25</Name>
@@ -1126,7 +1147,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis4_nach_TunnelInnen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R4</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R4</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>DKW24_1</Name>
@@ -1186,7 +1208,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Gleis5_nach_TunnelInnen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R5</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R5</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>KW22_1</Name>
@@ -1261,7 +1284,8 @@
   </Fahrstrasse>  
   <Fahrstrasse>
     <Name>Gleis6_nach_TunnelInnen</Name>
-    <Eingangssignal>Signal_Ausfahrt_R6</Eingangssignal>
+    <Einfahrtssignal>Signal_Ausfahrt_R6</Einfahrtssignal>
+	<Endsignal>Signal_RTunnel_2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche21</Name>
@@ -1342,7 +1366,8 @@
 
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis1</Name>
-    <Eingangssignal>Signal_RTunnel_1</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1388,7 +1413,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis2</Name>
-    <Eingangssignal>Signal_RTunnel_1</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1434,7 +1460,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis3</Name>
-    <Eingangssignal>Signal_RTunnel_1</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L3</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1493,7 +1520,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis4</Name>
-    <Eingangssignal>Signal_RTunnel_1</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L4</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1562,7 +1590,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis5</Name>
-    <Eingangssignal>Signal_RTunnel_1</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1646,7 +1675,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis6</Name>
-    <Eingangssignal>Signal_RTunnel_1</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L6</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1735,7 +1765,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis1</Name>
-    <Eingangssignal>Signal_RTunnel_2</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1781,7 +1812,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis2</Name>
-    <Eingangssignal>Signal_RTunnel_2</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1827,7 +1859,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis3</Name>
-    <Eingangssignal>Signal_RTunnel_2</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L3</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1886,7 +1919,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis4</Name>
-    <Eingangssignal>Signal_RTunnel_2</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L4</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1955,7 +1989,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis5</Name>
-    <Eingangssignal>Signal_RTunnel_2</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -2039,7 +2074,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis6</Name>
-    <Eingangssignal>Signal_RTunnel_2</Eingangssignal>
+    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+	<Endsignal>Signal_Ausfahrt_L6</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -2129,7 +2165,8 @@
 
   <Fahrstrasse>
     <Name>Block1_nach_Block5</Name>
-    <Eingangssignal>Signal_Block5</Eingangssignal>
+    <Einfahrtssignal>Signal_Block5</Einfahrtssignal>
+	<Endsignal>Signal_Block6</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche52</Name>
@@ -2146,7 +2183,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block1_nach_Block2</Name>
-    <Eingangssignal>Signal_Block5</Eingangssignal>
+    <Einfahrtssignal>Signal_Block5</Einfahrtssignal>
+	<Endsignal>Signal_Einfahrt_L</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche52</Name>
@@ -2169,7 +2207,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block5_nach_Block6</Name>
-    <Eingangssignal>Signal_Block6</Eingangssignal>
+    <Einfahrtssignal>Signal_Block6</Einfahrtssignal>
+	<Endsignal>Signal_Schatten_Einf</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche60</Name>
@@ -2185,7 +2224,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block8_nach_Block6</Name>
-    <Eingangssignal>Signal_Block8</Eingangssignal>
+    <Einfahrtssignal>Signal_Block8</Einfahrtssignal>
+	<Endsignal>Signal_Schatten_Einf</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche60</Name>
@@ -2208,7 +2248,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block9_nach_Block2</Name>
-    <Eingangssignal>Signal_Block2</Eingangssignal>
+    <Einfahrtssignal>Signal_Block2</Einfahrtssignal>
+	<Endsignal>Signal_Einfahrt_L</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche53</Name>
@@ -2225,7 +2266,8 @@
   
   <Fahrstrasse>
     <Name>Block6_nach_Schatten8</Name>
-    <Eingangssignal>Signal_Schatten_Einf</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten_Einf</Einfahrtssignal>
+	<Endsignal>Signal_Schatten8</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche90</Name>
@@ -2254,7 +2296,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block6_nach_Schatten9</Name>
-    <Eingangssignal>Signal_Schatten_Einf</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten_Einf</Einfahrtssignal>
+	<Endsignal>Signal_Schatten9</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche90</Name>
@@ -2283,7 +2326,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block6_nach_Schatten10</Name>
-    <Eingangssignal>Signal_Schatten_Einf</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten_Einf</Einfahrtssignal>
+	<Endsignal>Signal_Schatten10</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche90</Name>
@@ -2307,7 +2351,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Block6_nach_Schatten11</Name>
-    <Eingangssignal>Signal_Schatten_Einf</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten_Einf</Einfahrtssignal>
+	<Endsignal>Signal_Schatten11</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche90</Name>
@@ -2327,7 +2372,8 @@
 
   <Fahrstrasse>
     <Name>Schatten11_nach_Eingleisen</Name>
-    <Eingangssignal>Signal_Schatten11</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
+	<Endsignal>Signal_Schatten0</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2389,7 +2435,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten11_nach_Schatten1</Name>
-    <Eingangssignal>Signal_Schatten11</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
+	<Endsignal>Signal_Schatten1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2456,7 +2503,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten11_nach_Schatten2</Name>
-    <Eingangssignal>Signal_Schatten11</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
+	<Endsignal>Signal_Schatten2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2528,7 +2576,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten11_nach_Schatten3</Name>
-    <Eingangssignal>Signal_Schatten11</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
+	<Endsignal>Signal_Schatten3</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2605,7 +2654,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten11_nach_Schatten4</Name>
-    <Eingangssignal>Signal_Schatten11</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
+	<Endsignal>Signal_Schatten4</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2687,7 +2737,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten11_nach_Schatten5</Name>
-    <Eingangssignal>Signal_Schatten11</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
+	<Endsignal>Signal_Schatten5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2774,7 +2825,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten11_nach_Schatten6</Name>
-    <Eingangssignal>Signal_Schatten11</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
+	<Endsignal>Signal_Schatten6</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2866,7 +2918,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten11_nach_Schatten7</Name>
-    <Eingangssignal>Signal_Schatten11</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
+	<Endsignal>Signal_Schatten7</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2959,7 +3012,8 @@
 
   <Fahrstrasse>
     <Name>Schatten10_nach_Eingleisen</Name>
-    <Eingangssignal>Signal_Schatten10</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
+	<Endsignal>Signal_Schatten0</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3021,7 +3075,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten10_nach_Schatten1</Name>
-    <Eingangssignal>Signal_Schatten10</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
+	<Endsignal>Signal_Schatten1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3088,7 +3143,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten10_nach_Schatten2</Name>
-    <Eingangssignal>Signal_Schatten10</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
+	<Endsignal>Signal_Schatten2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3160,7 +3216,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten10_nach_Schatten3</Name>
-    <Eingangssignal>Signal_Schatten10</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
+	<Endsignal>Signal_Schatten3</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3237,7 +3294,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten10_nach_Schatten4</Name>
-    <Eingangssignal>Signal_Schatten10</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
+	<Endsignal>Signal_Schatten4</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3319,7 +3377,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten10_nach_Schatten5</Name>
-    <Eingangssignal>Signal_Schatten10</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
+	<Endsignal>Signal_Schatten5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3406,7 +3465,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten10_nach_Schatten6</Name>
-    <Eingangssignal>Signal_Schatten10</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
+	<Endsignal>Signal_Schatten6</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3498,7 +3558,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten10_nach_Schatten7</Name>
-    <Eingangssignal>Signal_Schatten10</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
+	<Endsignal>Signal_Schatten7</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3591,7 +3652,8 @@
 
   <Fahrstrasse>
     <Name>Schatten9_nach_Eingleisen</Name>
-    <Eingangssignal>Signal_Schatten9</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
+	<Endsignal>Signal_Schatten0</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3648,7 +3710,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten9_nach_Schatten1</Name>
-    <Eingangssignal>Signal_Schatten9</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
+	<Endsignal>Signal_Schatten1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3710,7 +3773,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten9_nach_Schatten2</Name>
-    <Eingangssignal>Signal_Schatten9</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
+	<Endsignal>Signal_Schatten2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3777,7 +3841,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten9_nach_Schatten3</Name>
-    <Eingangssignal>Signal_Schatten9</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
+	<Endsignal>Signal_Schatten3</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3849,7 +3914,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten9_nach_Schatten4</Name>
-    <Eingangssignal>Signal_Schatten9</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
+	<Endsignal>Signal_Schatten4</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3926,7 +3992,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten9_nach_Schatten5</Name>
-    <Eingangssignal>Signal_Schatten9</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
+	<Endsignal>Signal_Schatten5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4008,7 +4075,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten9_nach_Schatten6</Name>
-    <Eingangssignal>Signal_Schatten9</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
+	<Endsignal>Signal_Schatten6</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4095,7 +4163,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten9_nach_Schatten7</Name>
-    <Eingangssignal>Signal_Schatten9</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
+	<Endsignal>Signal_Schatten7</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4183,7 +4252,8 @@
 
   <Fahrstrasse>
     <Name>Schatten8_nach_Eingleisen</Name>
-    <Eingangssignal>Signal_Schatten8</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
+	<Endsignal>Signal_Schatten0</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4235,7 +4305,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten8_nach_Schatten1</Name>
-    <Eingangssignal>Signal_Schatten8</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
+	<Endsignal>Signal_Schatten1</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4292,7 +4363,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten8_nach_Schatten2</Name>
-    <Eingangssignal>Signal_Schatten8</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
+	<Endsignal>Signal_Schatten2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4354,7 +4426,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten8_nach_Schatten3</Name>
-    <Eingangssignal>Signal_Schatten8</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
+	<Endsignal>Signal_Schatten3</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4421,7 +4494,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten8_nach_Schatten4</Name>
-    <Eingangssignal>Signal_Schatten8</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
+	<Endsignal>Signal_Schatten4</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4493,7 +4567,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten8_nach_Schatten5</Name>
-    <Eingangssignal>Signal_Schatten8</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
+	<Endsignal>Signal_Schatten5</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4570,7 +4645,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten8_nach_Schatten6</Name>
-    <Eingangssignal>Signal_Schatten8</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
+	<Endsignal>Signal_Schatten6</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4652,7 +4728,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten8_nach_Schatten7</Name>
-    <Eingangssignal>Signal_Schatten8</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
+	<Endsignal>Signal_Schatten7</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4735,7 +4812,8 @@
 
   <Fahrstrasse>
     <Name>Eingleisen_nach_Block8</Name>
-    <Eingangssignal>Signal_Schatten0</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten0</Einfahrtssignal>
+	<Endsignal>Signal_Block8</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche68</Name>
@@ -4751,7 +4829,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten1_nach_Block8</Name>
-    <Eingangssignal>Signal_Schatten1</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten1</Einfahrtssignal>
+	<Endsignal>Signal_Block8</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche68</Name>
@@ -4774,7 +4853,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten1_nach_Block9</Name>
-    <Eingangssignal>Signal_Schatten1</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten1</Einfahrtssignal>
+	<Endsignal>Signal_Block2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche67</Name>
@@ -4828,7 +4908,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten2_nach_Block9</Name>
-    <Eingangssignal>Signal_Schatten2</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten2</Einfahrtssignal>
+	<Endsignal>Signal_Block2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche66</Name>
@@ -4875,7 +4956,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten3_nach_Block9</Name>
-    <Eingangssignal>Signal_Schatten3</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten3</Einfahrtssignal>
+	<Endsignal>Signal_Block2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche65</Name>
@@ -4917,7 +4999,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten4_nach_Block9</Name>
-    <Eingangssignal>Signal_Schatten4</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten4</Einfahrtssignal>
+	<Endsignal>Signal_Block2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche64</Name>
@@ -4954,7 +5037,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten5_nach_Block9</Name>
-    <Eingangssignal>Signal_Schatten5</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten5</Einfahrtssignal>
+	<Endsignal>Signal_Block2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche63</Name>
@@ -4986,7 +5070,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten6_nach_Block9</Name>
-    <Eingangssignal>Signal_Schatten6</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten6</Einfahrtssignal>
+	<Endsignal>Signal_Block2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche62</Name>
@@ -5013,7 +5098,8 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>Schatten7_nach_Block9</Name>
-    <Eingangssignal>Signal_Schatten7</Eingangssignal>
+    <Einfahrtssignal>Signal_Schatten7</Einfahrtssignal>
+	<Endsignal>Signal_Block2</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche61</Name>

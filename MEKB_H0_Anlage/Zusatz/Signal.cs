@@ -76,32 +76,7 @@ namespace MEKB_H0_Anlage
                     Adr2_2 = signalZustand2_2
                 };  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
 
-                var Routen = XMLSignal.Elements("Routenzustand").ToList();
-                foreach(var R in Routen)
-                {
-                    Routenzustand routenzustand = new Routenzustand();
-                    if (R.Element("NaechstesSignal") != null) routenzustand.NaechstesSignal = R.Element("NaechstesSignal").Value;
-                    else routenzustand.NaechstesSignal = "";
-                    if (R.Element("SH0") != null) routenzustand.SH0_Sperre = R.Element("SH0").Value;
-                    else routenzustand.SH0_Sperre = "";
-                    var WeichenZustand = R.Element("Weichenzustand");
-                    var Weichen = WeichenZustand.Elements("Weiche").ToList();
-                    var BelegemelderListe = R.Element("Belegtmelder");
-                    var Belegemelder = BelegemelderListe.Elements("Belegtmelder").ToList();
-                    foreach(var w in Weichen)
-                    {
-                        string Weichenname = w.Element("Name").Value;
-                        string Abzweig = w.Element("Abzweig").Value;
-                        if (Abzweig == null) Abzweig = "false";
-                        routenzustand.Weichenzustand.Add(Weichenname, Abzweig.Equals("true"));
-                    }
-                    foreach(var b in Belegemelder)
-                    {
-                        if (b.Value.Equals("")) continue;
-                        routenzustand.Belegtmeldungen.Add(b.Value);
-                    }
-                    signal.Routenzustandsliste.Add(routenzustand);
-                }
+               
                 Liste.Add(signal);
             }
             for (int i = 0; i < Liste.Count; i++)
@@ -196,11 +171,7 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Signalzustand wenn Pin2 von Adresse 2 aktiviert (0 = HP0, 1 = HP1, 2 = HP2, 3 = SH1)
         /// </summary>
-        public SignalZustand Adr2_2 { get; set; }
-        /// <summary>
-        /// Liste von Weichenzuständen
-        /// </summary>
-        public List<Routenzustand> Routenzustandsliste { get; set; }     
+        public SignalZustand Adr2_2 { get; set; } 
         /// <summary>
         /// Typ des Signals
         /// 3HP_270 -> Drei Schaltbilder Signal um 270° auf dem Gleisplan gedreht 
@@ -211,7 +182,7 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public Signal()
         {
-            Routenzustandsliste = new List<Routenzustand>();
+
         }
 
 
@@ -225,10 +196,7 @@ namespace MEKB_H0_Anlage
                 new XElement("Adr1Zustand1", Adr1_1),
                 new XElement("Adr1Zustand2", Adr1_2),
                 new XElement("Adr2Zustand1", Adr2_1),
-                new XElement("Adr2Zustand2", Adr2_2),
-                from Route in Routenzustandsliste
-                select Route.RoutenzustandZuXML()
-                ) ;
+                new XElement("Adr2Zustand2", Adr2_2));        
         }
 
         
@@ -289,58 +257,72 @@ namespace MEKB_H0_Anlage
         /// <param name="z21">Instance der Z21</param>
         public void Schalten(SignalZustand NeuerZustand, Z21 z21)
         {
+            if(Adr1_1 == NeuerZustand || Adr1_2 == NeuerZustand || Adr2_1 == NeuerZustand || Adr2_2 == NeuerZustand)
+            {
+
+            }
+            else
+            {
+                //Nur bei HP2: HP1 erlauben
+                if (NeuerZustand == SignalZustand.HP2) NeuerZustand = SignalZustand.HP1;
+            }
+
             if (NeuerZustand == Adr1_1) { z21.LAN_X_SET_SIGNAL(Adresse, false); z21.LAN_X_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
             else if (NeuerZustand == Adr1_2) { z21.LAN_X_SET_SIGNAL(Adresse, true); z21.LAN_X_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
             else if (NeuerZustand == Adr2_1) { z21.LAN_X_SET_SIGNAL(Adresse2, false); z21.LAN_X_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
             else if (NeuerZustand == Adr2_2) { z21.LAN_X_SET_SIGNAL(Adresse2, true); z21.LAN_X_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
         }
+
+        //Ermittle Anhand der Weichenstellung und Meldungen ob der Block Frei ist
+        public SignalZustand ErlaubteStellung(FahrstrassenListe fahrstrassenListe, WeichenListe weichenListe)
+        {
+            //Finde Fahrstrassen mit diesem Signal als Eingangssignal hat
+            List<Fahrstrasse> Strassen = fahrstrassenListe.GetWithEingangsSignal(this);
+            foreach(Fahrstrasse s in Strassen)
+            {
+                //Wenn Option aktiviert ist, dass nur auf Fahrstrassen geschaltet werden soll
+                if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"))
+                {
+                    //Fahrtstrasse nicht gesichert -> nächste Fahrstrasse
+                    if (!s.Safe) continue; 
+                }
+                // Weg ist gesetzt
+                if(s.CheckFahrstrassePos(weichenListe.Liste))
+                {
+                    foreach(string blockStr in s.Fahrstr_Blockierende)
+                    {
+                        //Eine der Blockierenden Fahrstrassen ist nicht Halt
+                        Fahrstrasse BlockFahrstr = fahrstrassenListe.GetFahrstrasse(blockStr);
+                        if(BlockFahrstr != null)
+                        {
+                            // Ist Fahrstrasse der Blockierenden fahrbar (Kreuzung)
+                            if(BlockFahrstr.CheckFahrstrassePos(weichenListe.Liste))
+                            {
+                                //Ist nicht auf Halt
+                                if(!BlockFahrstr.EinfahrtsSignal.Zustand.Equals(SignalZustand.HP0))
+                                {
+                                    return SignalZustand.HP0; //Blockiert
+                                }
+                            }
+                        }
+                    }
+                    /*Prüfe ob Fahrzeug auf Block ist*/
+
+
+                    foreach(Weiche w in s.Fahrstr_Weichenliste)
+                    {
+                        // Über eine Weiche muss über Abzweig gefahren werden -> Langsame Fahrt
+                        if(w.Abzweig) return SignalZustand.HP2;
+                    }
+                    //Nächstes Signal auf Halt
+                    if (s.EndSignal.Zustand == SignalZustand.HP0) return SignalZustand.HP2;
+                    return SignalZustand.HP1; // Freie Fahrt
+                }
+            }
+            return SignalZustand.HP0;
+        }
     }
 
-    public class Routenzustand
-    {
-        /// <summary>
-        /// Weichenzustände (true = Abzweig)
-        /// </summary>
-        public Dictionary<string,bool> Weichenzustand { set; get; }
-        /// <summary>
-        /// Name der Belegtmelder auf der Route
-        /// </summary>
-        public List<string> Belegtmeldungen { set; get; }
-        /// <summary>
-        /// Name des Nächsten Signals auf der Route
-        /// </summary>
-        public string NaechstesSignal { set; get; }
-        /// <summary>
-        /// Routensperre durch SH0-Tafel
-        /// </summary>
-        public string SH0_Sperre { set; get; }
-        /// <summary>
-        /// Konstruktor
-        /// </summary>
-        public Routenzustand()
-        {
-            Weichenzustand = new Dictionary<string, bool>();
-            Belegtmeldungen = new List<string>();
-        }
-
-        public XElement RoutenzustandZuXML()
-        {
-            return new XElement("Routenzustand",
-                new XElement("NaechstesSignal",NaechstesSignal),
-                new XElement("SH0", SH0_Sperre),
-                new XElement("Weichenzustand",
-                                from WeicheZ in Weichenzustand
-                                select
-                                  new XElement("Weiche", new XElement("Name", WeicheZ.Key),new XElement("Abzweig", WeicheZ.Value))
-                                ),
-                new XElement("Belegtmelder",
-                                from Melder in Belegtmeldungen
-                                select
-                                  new XElement("Name", Melder)
-                                )
-                );
-        }
-    }
 
 
     /// <summary>

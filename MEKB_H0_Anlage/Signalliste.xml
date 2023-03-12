@@ -9,31 +9,7 @@
     <Adr1Zustand2>HP2</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
-    <Routenzustand>
-      <NaechstesSignal>Signal_Block5</NaechstesSignal>
-      <SH0>Sperrung_Gl1_links</SH0>
-      <Weichenzustand>
-        <Weiche>
-          <Name>Weiche1</Name>
-          <Abzweig>false</Abzweig>
-        </Weiche>
-        <Weiche>
-          <Name>Weiche4</Name>
-          <Abzweig>false</Abzweig>
-        </Weiche>
-        <Weiche>
-          <Name>Weiche6</Name>
-          <Abzweig>true</Abzweig>
-        </Weiche>
-      </Weichenzustand>
-      <Belegtmelder>
-        <Name>W6</Name>
-        <Name>W1_W4</Name>
-        <Name>Block1_a</Name>
-        <Name>Block1_b</Name>
-        <Name>Block1_Halt</Name>
-      </Belegtmelder>
-    </Routenzustand>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_L2</Name>
@@ -44,31 +20,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
-    <Routenzustand>
-      <NaechstesSignal>Signal_Block5</NaechstesSignal>
-      <SH0>Sperrung_Gl2_links</SH0>
-      <Weichenzustand>
-        <Weiche>
-          <Name>Weiche1</Name>
-          <Abzweig>false</Abzweig>
-        </Weiche>
-        <Weiche>
-          <Name>Weiche4</Name>
-          <Abzweig>false</Abzweig>
-        </Weiche>
-        <Weiche>
-          <Name>Weiche6</Name>
-          <Abzweig>false</Abzweig>
-        </Weiche>
-      </Weichenzustand>
-      <Belegtmelder>
-        <Name>W6</Name>
-        <Name>W1_W4</Name>
-        <Name>Block1_a</Name>
-        <Name>Block1_b</Name>
-        <Name>Block1_Halt</Name>
-      </Belegtmelder>
-    </Routenzustand>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_L3</Name>
@@ -79,36 +31,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
-    <Routenzustand>
-      <NaechstesSignal>Signal_Block5</NaechstesSignal>
-      <SH0>Sperrung_Gl3_links</SH0>
-      <Weichenzustand>
-        <Weiche>
-          <Name>Weiche5</Name>
-          <Abzweig>false</Abzweig>
-        </Weiche>
-        <Weiche>
-          <Name>Weiche3</Name>
-          <Abzweig>false</Abzweig>
-        </Weiche>
-        <Weiche>
-          <Name>Weiche2</Name>
-          <Abzweig>true</Abzweig>
-        </Weiche>
-        <Weiche>
-          <Name>Weiche1</Name>
-          <Abzweig>true</Abzweig>
-        </Weiche>
-      </Weichenzustand>
-      <Belegtmelder>
-        <Name>W5</Name>
-        <Name>W2_W3</Name>
-        <Name>W1_W4</Name>
-        <Name>Block1_a</Name>
-        <Name>Block1_b</Name>
-        <Name>Block1_Halt</Name>
-      </Belegtmelder>
-    </Routenzustand>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_L4</Name>
@@ -119,12 +42,7 @@
     <Adr1Zustand2>HP2</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
-    <Routenzustand>
-      <NaechstesSignal>Signal_Block5</NaechstesSignal>
-      <SH0>Sperrung_Gl4_links</SH0>
-      <Weichenzustand />
-      <Belegtmelder />
-    </Routenzustand>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_L5</Name>
@@ -135,12 +53,7 @@
     <Adr1Zustand2>HP2</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
-    <Routenzustand>
-      <NaechstesSignal>Signal_Block5</NaechstesSignal>
-      <SH0>Sperrung_Gl5_links</SH0>
-      <Weichenzustand />
-      <Belegtmelder />
-    </Routenzustand>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_L6</Name>
@@ -151,12 +64,7 @@
     <Adr1Zustand2>HP2</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
-    <Routenzustand>
-      <NaechstesSignal>Signal_Block5</NaechstesSignal>
-      <SH0>Sperrung_Gl6_links</SH0>
-      <Weichenzustand />
-      <Belegtmelder />
-    </Routenzustand>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R1</Name>
@@ -167,12 +75,7 @@
     <Adr1Zustand2>HP2</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
-    <Routenzustand>
-      <NaechstesSignal></NaechstesSignal>
-      <SH0 />
-      <Weichenzustand />
-      <Belegtmelder />
-    </Routenzustand>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R2</Name>
@@ -183,6 +86,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R3</Name>
@@ -193,6 +97,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R4</Name>
@@ -203,6 +108,7 @@
     <Adr1Zustand2>HP2</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R5</Name>
@@ -213,6 +119,7 @@
     <Adr1Zustand2>HP2</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R6</Name>
@@ -223,6 +130,7 @@
     <Adr1Zustand2>HP2</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_RTunnel_1</Name>
@@ -233,6 +141,7 @@
     <Adr1Zustand2>HP2</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_RTunnel_2</Name>
@@ -243,6 +152,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Einfahrt_L</Name>
@@ -253,6 +163,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>HP2</Adr2Zustand1>
     <Adr2Zustand2>HP0</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Tunnel_L1</Name>
@@ -263,6 +174,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten0</Name>
@@ -273,6 +185,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten1</Name>
@@ -283,6 +196,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten2</Name>
@@ -293,6 +207,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten3</Name>
@@ -303,6 +218,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten4</Name>
@@ -313,6 +229,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten5</Name>
@@ -323,6 +240,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten6</Name>
@@ -333,6 +251,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten7</Name>
@@ -343,6 +262,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten8</Name>
@@ -353,6 +273,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten9</Name>
@@ -363,6 +284,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten10</Name>
@@ -373,6 +295,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten11</Name>
@@ -383,6 +306,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Block2</Name>
@@ -393,6 +317,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Block5</Name>
@@ -403,6 +328,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Block6</Name>
@@ -413,6 +339,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Block8</Name>
@@ -423,6 +350,7 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten_Einf</Name>
@@ -433,5 +361,6 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
 </Signalliste>

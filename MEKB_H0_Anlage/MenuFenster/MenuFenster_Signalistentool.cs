@@ -49,36 +49,6 @@ namespace MEKB_H0_Anlage
             ToolAdr1S1.Text = SignalListe.Liste[index].Adr1_2.ToString();
             ToolAdr2S0.Text = SignalListe.Liste[index].Adr2_1.ToString();
             ToolAdr2S1.Text = SignalListe.Liste[index].Adr2_2.ToString();
-
-            ToolSignalWeichenListe.Rows.Clear();
-            ToolSignalDataGridBelegtmelder.Rows.Clear();
-            
-
-            if (SignalListe.Liste[index].Routenzustandsliste.Count > 0)
-            {
-                ToolRoutenIndex.Maximum = SignalListe.Liste[index].Routenzustandsliste.Count-1;
-                int routenIndex = (int)ToolRoutenIndex.Value;
-                Routenzustand routenzustand = SignalListe.Liste[index].Routenzustandsliste[routenIndex];
-                ToolSignalNachestesSignal.Text = routenzustand.NaechstesSignal;
-                ToolSignalSH0.Text = routenzustand.SH0_Sperre;
-                
-                foreach (KeyValuePair<string, bool> entry in routenzustand.Weichenzustand)
-                {
-                    ToolSignalWeichenListe.Rows.Add(entry.Key,entry.Value);
-                }
-                foreach (string Melder in routenzustand.Belegtmeldungen)
-                {
-                    ToolSignalDataGridBelegtmelder.Rows.Add(Melder);
-                }
-            }
-            else
-            {
-                ToolRoutenIndex.Minimum = 0;
-                ToolRoutenIndex.Value = 0;
-                ToolRoutenIndex.Maximum = 0;
-                ToolSignalNachestesSignal.Text = "";
-                ToolSignalSH0.Text = "";
-            }
         }
 
         private void ToolSignalIndex_ValueChanged(object sender, EventArgs e)
@@ -135,80 +105,5 @@ namespace MEKB_H0_Anlage
             SignalListe.Liste[index].Adr2_2 = Zustand;
         }
 
-        private void ToolSignalWeichenListe_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            int index = (int)ToolSignalIndex.Value;
-            int RouteIndex = (int)ToolRoutenIndex.Value;
-
-            if (SignalListe == null) return;
-            if (SignalListe.Liste[index].Routenzustandsliste.Count <= 0) SignalListe.Liste[index].Routenzustandsliste.Add(new Routenzustand());
-
-            SignalListe.Liste[index].Routenzustandsliste[RouteIndex].Weichenzustand = new Dictionary<string, bool>();
-
-            foreach (DataGridViewRow row in ToolSignalWeichenListe.Rows)
-            {
-                if (row.Cells["DataGridWeichenName"].Value == null) continue;
-                string Weichenname = row.Cells["DataGridWeichenName"].Value.ToString();
-                DataGridViewCheckBoxCell Abzweig = row.Cells["DataGridAbzweig"] as DataGridViewCheckBoxCell;
-
-                SignalListe.Liste[index].Routenzustandsliste[RouteIndex].Weichenzustand.Add(Weichenname, Convert.ToBoolean(Abzweig.Value));
-            }
-        }
-
-        private void NRoute_Click(object sender, EventArgs e)
-        {
-            int index = (int)ToolSignalIndex.Value;
-            SignalListe.Liste[index].Routenzustandsliste.Add(new Routenzustand());
-            ToolRoutenIndex.Maximum++;
-        }
-
-        private void ToolRoutenIndex_ValueChanged(object sender, EventArgs e)
-        {
-            ShowSignalData();
-        }
-
-        private void ToolSignalNachestesSignal_TextChanged(object sender, EventArgs e)
-        {
-            int index = (int)ToolSignalIndex.Value;
-            int RouteIndex = (int)ToolRoutenIndex.Value;
-
-            if (SignalListe == null) return;
-
-            if (SignalListe.Liste[index].Routenzustandsliste.Count <= 0) SignalListe.Liste[index].Routenzustandsliste.Add(new Routenzustand());
-
-            SignalListe.Liste[index].Routenzustandsliste[RouteIndex].NaechstesSignal = ToolSignalNachestesSignal.Text;
-        }
-
-        private void ToolSignalSH0_TextChanged(object sender, EventArgs e)
-        {
-            int index = (int)ToolSignalIndex.Value;
-            int RouteIndex = (int)ToolRoutenIndex.Value;
-
-            if (SignalListe == null) return;
-
-            if(SignalListe.Liste[index].Routenzustandsliste.Count <= 0) SignalListe.Liste[index].Routenzustandsliste.Add(new Routenzustand());
-
-            SignalListe.Liste[index].Routenzustandsliste[RouteIndex].SH0_Sperre = ToolSignalSH0.Text;
-        }
-
-        private void ToolSignalDataGridBelegtmelder_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            int index = (int)ToolSignalIndex.Value;
-            int RouteIndex = (int)ToolRoutenIndex.Value;
-
-            if (SignalListe == null) return;
-
-            if (SignalListe.Liste[index].Routenzustandsliste.Count <= 0) SignalListe.Liste[index].Routenzustandsliste.Add(new Routenzustand());
-
-            SignalListe.Liste[index].Routenzustandsliste[RouteIndex].Belegtmeldungen.Clear();
-
-            foreach (DataGridViewRow row in ToolSignalDataGridBelegtmelder.Rows)
-            {
-                if (row.Cells["DataGridBelegtmelder"].Value == null) continue;
-                string Belegtmelder = row.Cells["DataGridBelegtmelder"].Value.ToString();
-
-                SignalListe.Liste[index].Routenzustandsliste[RouteIndex].Belegtmeldungen.Add(Belegtmelder);
-            }
-        }
     }
 }

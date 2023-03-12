@@ -1725,9 +1725,9 @@ namespace MEKB_H0_Anlage
             if ((SafeStatusAlt == false) && (fahrstrasse.Safe == true))
             {
                 // Signal nur Schalten wenn die Option Autoschaltung über Fahrstraße aktiv ist
-                if (fahrstrasse.Fahrstr_Sig.Name != null)
+                if (fahrstrasse.EinfahrtsSignal.Name != null)
                 {
-                    if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.Fahrstr_Sig.Name);
+                    if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.EinfahrtsSignal.Name);
                 }
                 
             }
