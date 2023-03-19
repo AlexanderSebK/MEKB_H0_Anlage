@@ -11,6 +11,10 @@ namespace MEKB_H0_Anlage
     {
         public Logger(string file)
         {
+            if(!File.Exists(file))
+            {
+                File.CreateText(file);
+            }
             FileToWrite = file;
         }
 

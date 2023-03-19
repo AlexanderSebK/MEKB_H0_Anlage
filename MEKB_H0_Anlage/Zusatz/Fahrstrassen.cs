@@ -19,6 +19,7 @@ namespace MEKB_H0_Anlage
             Name = "";
             Fahrstr_Blockierende = new List<string>();
             Fahrstr_GleicherEingang = new List<string>();
+            Fahrstr_Belegtmelder = new List<string>();
         }
 
         public Fahrstrasse(FahrstrassenKonfig config, WeichenListe weichenListe, SignalListe signalListe)
@@ -30,6 +31,7 @@ namespace MEKB_H0_Anlage
 
             Fahrstr_Blockierende = config.Fahrstr_Blockierende;
             Fahrstr_GleicherEingang = config.Fahrstr_GleicherEingang;
+            Fahrstr_Belegtmelder = config.Fahrstr_Belegtmelder;
 
             EinfahrtsSignal = signalListe.GetSignal(config.EinfahrtsSignal);
             EndSignal = signalListe.GetSignal(config.EndSignal);
@@ -81,6 +83,7 @@ namespace MEKB_H0_Anlage
         public List<Weiche> Fahrstr_Weichenliste { get; set; }
         public List<string> Fahrstr_Blockierende { get; set; }
         public List<string> Fahrstr_GleicherEingang { get; set; }
+        public List<string> Fahrstr_Belegtmelder { get; set; } 
         /// <summary>
         /// Einfahrtssignal der Fahrtstrasse
         /// </summary>
@@ -252,6 +255,17 @@ namespace MEKB_H0_Anlage
             }
             return true;
         }
+        public bool IstFahrstrasseBelegt(List<Belegtmelder> ListeBelegtmelder)
+        {
+            if (ListeBelegtmelder == null) return true;
+            foreach(string Belegtmelder in Fahrstr_Belegtmelder)
+            {
+                int ListID = ListeBelegtmelder.IndexOf(new Belegtmelder() { Name = Belegtmelder });  //Weiche in Globale Liste suchen
+                if (ListID == -1) return true;
+                if (ListeBelegtmelder[ListID].IstBelegt()) return true;
+            }
+            return false;
+        }
 
         public List<Weiche> GetFahrstrassenListe()
         {
@@ -401,7 +415,12 @@ namespace MEKB_H0_Anlage
                 {
                     Konfiguration.Fahrstr_GleicherEingang.Add(gleiche.Value);
                 }
-
+                /*var BelegtmelderListe = fahrstrasse.Element("Belegtmelder").Elements("Melder").ToList();
+                foreach (XElement belegtmelder in BelegtmelderListe)
+                {
+                    Konfiguration.Fahrstr_Belegtmelder.Add(belegtmelder.Value);
+                }
+                */
                 Liste.Add(new Fahrstrasse(Konfiguration, weichenListe, signalListe));  //Neue Fahrstrasse mit diesen Parametern hinzufügen
             }
             for (int i = 0; i < Liste.Count; i++)
@@ -424,6 +443,7 @@ namespace MEKB_H0_Anlage
         {
             Fahrstr_Blockierende = new List<string>();
             Fahrstr_GleicherEingang = new List<string>();
+            Fahrstr_Belegtmelder = new List<string>();  
         }
         public string Name { get; set; }
         public string EinfahrtsSignal{ get; set; }
@@ -432,6 +452,7 @@ namespace MEKB_H0_Anlage
         public List<WeichenKonfig> WeichenConfig = new System.Collections.Generic.List<WeichenKonfig>();
         public List<string> Fahrstr_Blockierende { get; set; }
         public List<string> Fahrstr_GleicherEingang { get; set; }
+        public List<string> Fahrstr_Belegtmelder { get; set; }
     }
 
     public struct WeichenKonfig

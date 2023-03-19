@@ -341,6 +341,7 @@ namespace MEKB_H0_Anlage
                     break;
                 case Z21_Header.RM_BUS:      //Rückmelde-Bus
                     _log.ReceivedData("RM_BUS", data);
+                    //data[6] = 0xFF; //Debug Testing, da kein Belegtmelder vorhanden
                     if (length != 11) return Z21_ErrorCode.FALSE_LENGTH;
                     byte GruppenIndex = data[4];
                     byte[] RMStatus = data.Skip(5).ToArray();

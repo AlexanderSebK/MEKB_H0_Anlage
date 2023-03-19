@@ -69,7 +69,7 @@ namespace MEKB_H0_Anlage
         #region Hauptform Funktionen
         public Hauptform()
         {
-            Log = new Logger("log.txt");
+            Log = new Logger(String.Format("log/log{0}.txt", DateTime.Now.ToString("yyyyMMdd")));
 
             InitializeComponent();                      //Programminitialisieren
             
