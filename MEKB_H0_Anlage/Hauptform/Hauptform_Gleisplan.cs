@@ -13,61 +13,11 @@ namespace MEKB_H0_Anlage
     /// <summary>
     /// Hauptform
     /// </summary>
-    public partial class Form1 : Form
+    public partial class Hauptform : Form
     {
 
         MeldeZustand FreiesGleis = new MeldeZustand(false);       
-        
-        /// <summary>
-        /// Fahrstraße aktivieren/deaktivieren
-        /// </summary>
-        /// <param name="fahrstrasse">Fahrstraße zum Schalten</param>
-        private void ToggleFahrstrasse(Fahrstrasse fahrstrasse)
-        {
-            //Fahrstraße gesetzt
-            if (fahrstrasse.GetGesetztStatus())
-            {
-                //Fahrstraße deaktivieren
-                fahrstrasse.DeleteFahrstrasse(WeichenListe.Liste);
-                if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.Fahrstr_Sig.Name);
-            }
-            else
-            {
-                //Fahrstraße aktivieren
-                if (Betriebsbereit) fahrstrasse.StarteFahrstrasse(WeichenListe.Liste);
-            }
-            //Weichenliste der Fahrstraßen übernehmen
-            List<Weiche> FahrstrassenWeichen = fahrstrasse.GetFahrstrassenListe();
-            //Weichenliste durchgehen
-            foreach (Weiche Fahrstrassenweiche in FahrstrassenWeichen)
-            {
-                Weiche weiche = WeichenListe.GetWeiche(Fahrstrassenweiche.Name);
-                if (weiche != null)
-                {
-                    UpdateWeicheImGleisplan(weiche); //Weiche im Gleisplan aktualisieren
-                }
-            }
-            //Alle Fahrstraßen/Buttons aktualisieren
-            
-            FahrstrasseBildUpdate();
-            UpdateSchalter();
-        }
 
-
-
-        #region Fahrstarßen Setup
-        /// <summary>
-        /// Fahrstraßen initialisieren
-        /// </summary>
-        private void SetupFahrstrassen()
-        {
-            //Fahrstrassen Importieren
-            FahrstrassenListe = new FahrstrassenListe("Fahrstrassenliste.xml", WeichenListe, SignalListe);
-        }
-
-
-
-        #endregion
         #region Fahrstraßen bestimmen
         /// <summary>
         /// Generiere Statuskonstrukt aus Fahrstraßen und Belegtmeldung
@@ -1775,9 +1725,9 @@ namespace MEKB_H0_Anlage
             if ((SafeStatusAlt == false) && (fahrstrasse.Safe == true))
             {
                 // Signal nur Schalten wenn die Option Autoschaltung über Fahrstraße aktiv ist
-                if (fahrstrasse.Fahrstr_Sig.Name != null)
+                if (fahrstrasse.EinfahrtsSignal.Name != null)
                 {
-                    if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.Fahrstr_Sig.Name);
+                    if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.EinfahrtsSignal.Name);
                 }
                 
             }

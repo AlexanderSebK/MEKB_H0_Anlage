@@ -15,10 +15,11 @@ namespace MEKB_H0_Anlage
             Fahrstr_Weichenliste = new List<Weiche>();
             ControlSetPointer = 0;
             SetPointer = 0;
-            Fahrstr_Sig = new Signal();
+            EinfahrtsSignal = new Signal();
             Name = "";
             Fahrstr_Blockierende = new List<string>();
             Fahrstr_GleicherEingang = new List<string>();
+            Fahrstr_Belegtmelder = new List<string>();
         }
 
         public Fahrstrasse(FahrstrassenKonfig config, WeichenListe weichenListe, SignalListe signalListe)
@@ -30,17 +31,31 @@ namespace MEKB_H0_Anlage
 
             Fahrstr_Blockierende = config.Fahrstr_Blockierende;
             Fahrstr_GleicherEingang = config.Fahrstr_GleicherEingang;
+            Fahrstr_Belegtmelder = config.Fahrstr_Belegtmelder;
 
-            Fahrstr_Sig = signalListe.GetSignal(config.Eingangssignal);
-            if (Fahrstr_Sig == null) 
+            EinfahrtsSignal = signalListe.GetSignal(config.EinfahrtsSignal);
+            EndSignal = signalListe.GetSignal(config.EndSignal);
+
+            if (EinfahrtsSignal == null) 
             { 
                 MessageBox.Show(
-                    String.Format("Fehler in {0}: {1} nicht gefunden", Name, config.Eingangssignal), 
+                    String.Format("Fehler in {0}: {1} nicht gefunden", Name, config.EinfahrtsSignal), 
                     "Schwerer Fehler", 
                     MessageBoxButtons.OK, 
                     MessageBoxIcon.Error); 
-                Fahrstr_Sig = new Signal(); 
+                EinfahrtsSignal = new Signal(); 
                 return; 
+            }
+
+            if (EndSignal == null)
+            {
+                MessageBox.Show(
+                    String.Format("Fehler in {0}: {1} nicht gefunden", Name, config.EndSignal),
+                    "Schwerer Fehler",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                EndSignal = new Signal();
+                return;
             }
 
             Weiche weiche;
@@ -66,11 +81,17 @@ namespace MEKB_H0_Anlage
         public string Name { get; set; }
 
         public List<Weiche> Fahrstr_Weichenliste { get; set; }
-
         public List<string> Fahrstr_Blockierende { get; set; }
         public List<string> Fahrstr_GleicherEingang { get; set; }
-
-        public Signal Fahrstr_Sig;
+        public List<string> Fahrstr_Belegtmelder { get; set; } 
+        /// <summary>
+        /// Einfahrtssignal der Fahrtstrasse
+        /// </summary>
+        public Signal EinfahrtsSignal { get; set; }
+        /// <summary>
+        /// Ausfahrtssignal der Fahrstrasse
+        /// </summary>
+        public Signal EndSignal { get; set; }
         /// <summary>
         /// Alle Weichen zur Sicherheit nochmal geschaltet. Fahrstrasse ist sicher
         /// </summary>
@@ -84,6 +105,7 @@ namespace MEKB_H0_Anlage
         /// </summary>
         private bool FahrstrasseAktiv { get; set; }
 
+        //Index Welche weiche gerade Geschaltet wird
         private int ControlSetPointer;
         private int SetPointer;
 
@@ -222,7 +244,6 @@ namespace MEKB_H0_Anlage
         }
         public bool CheckFahrstrassePos(List<Weiche> ListeGlobal)
         {
-            if (!FahrstrasseGesetzt) return false;
             foreach (Weiche weiche in Fahrstr_Weichenliste)
             {
                 int ListID = ListeGlobal.IndexOf(new Weiche() { Name = weiche.Name });  //Weiche in Globale Liste suchen
@@ -234,6 +255,18 @@ namespace MEKB_H0_Anlage
             }
             return true;
         }
+        public bool IstFahrstrasseBelegt(List<Belegtmelder> ListeBelegtmelder)
+        {
+            if (ListeBelegtmelder == null) return true;
+            foreach(string Belegtmelder in Fahrstr_Belegtmelder)
+            {
+                int ListID = ListeBelegtmelder.IndexOf(new Belegtmelder() { Name = Belegtmelder });  //Weiche in Globale Liste suchen
+                if (ListID == -1) return true;
+                if (ListeBelegtmelder[ListID].IstBelegt()) return true;
+            }
+            return false;
+        }
+
         public List<Weiche> GetFahrstrassenListe()
         {
             return Fahrstr_Weichenliste;
@@ -357,7 +390,8 @@ namespace MEKB_H0_Anlage
                 FahrstrassenKonfig Konfiguration = new FahrstrassenKonfig()
                 {
                     Name = fahrstrasse.Element("Name").Value,
-                    Eingangssignal = fahrstrasse.Element("Eingangssignal").Value
+                    EinfahrtsSignal = fahrstrasse.Element("Einfahrtssignal").Value,
+                    EndSignal = fahrstrasse.Element("Endsignal").Value
                 };
                 
                 var FahrstrassenWeichenListe = fahrstrasse.Element("Weichen").Elements("WeichenConfig").ToList();
@@ -381,7 +415,12 @@ namespace MEKB_H0_Anlage
                 {
                     Konfiguration.Fahrstr_GleicherEingang.Add(gleiche.Value);
                 }
-
+                /*var BelegtmelderListe = fahrstrasse.Element("Belegtmelder").Elements("Melder").ToList();
+                foreach (XElement belegtmelder in BelegtmelderListe)
+                {
+                    Konfiguration.Fahrstr_Belegtmelder.Add(belegtmelder.Value);
+                }
+                */
                 Liste.Add(new Fahrstrasse(Konfiguration, weichenListe, signalListe));  //Neue Fahrstrasse mit diesen Parametern hinzufügen
             }
             for (int i = 0; i < Liste.Count; i++)
@@ -390,6 +429,10 @@ namespace MEKB_H0_Anlage
             }
         }
 
+        public List<Fahrstrasse> GetWithEingangsSignal(Signal signal)
+        {
+            return Liste.FindAll(x => x.EinfahrtsSignal.Equals(signal));
+        }
     }
 
     
@@ -400,13 +443,16 @@ namespace MEKB_H0_Anlage
         {
             Fahrstr_Blockierende = new List<string>();
             Fahrstr_GleicherEingang = new List<string>();
+            Fahrstr_Belegtmelder = new List<string>();  
         }
         public string Name { get; set; }
-        public string Eingangssignal{ get; set; }
+        public string EinfahrtsSignal{ get; set; }
+        public string EndSignal { get; set; }
 
         public List<WeichenKonfig> WeichenConfig = new System.Collections.Generic.List<WeichenKonfig>();
         public List<string> Fahrstr_Blockierende { get; set; }
         public List<string> Fahrstr_GleicherEingang { get; set; }
+        public List<string> Fahrstr_Belegtmelder { get; set; }
     }
 
     public struct WeichenKonfig

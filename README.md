@@ -83,7 +83,7 @@ Fahrstrassen werden automatisch gesetzt, entweder nach Fahrplan oder Gattung der
 # Features für die Zukunft
 Weitere Ideen für das Programm nach erster Fertigstellung
 - Portieren des Gleisplans auf externe Datei. 
-Dadurch soll es möglich sein, das Program für anderen Analgen einsetzen zu können
+Dadurch soll es möglich sein, das Program für anderen Anlagen einsetzen zu können
 - Rangier-Fahrstrassen
 Es soll möglich sein spezielle Abschnitte für Rangierfahrten zu reservieren 
 - Bahnhofsansagen

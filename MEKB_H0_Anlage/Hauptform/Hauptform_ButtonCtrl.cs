@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace MEKB_H0_Anlage
 {
-    public partial class Form1 : Form
+    public partial class Hauptform : Form
     {
         private void UpdateSchalter()
         {
@@ -482,8 +482,7 @@ namespace MEKB_H0_Anlage
                 Fahrstr_Schatten0_Ausf.Enabled = true;
                 Fahrstr_Schatten0_Ausf.BackgroundImage = Properties.Resources.Fahrstrasse_links;
             }
-        }
-        
+        }     
         private void UpdateButton_Fahrstr_Schatten1_Ausf()
         {
             if (FahrstrassenListe.FahrstrasseBlockiert("Schatten1_nach_Block8"))

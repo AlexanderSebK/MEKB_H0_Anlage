@@ -9,10 +9,6 @@ using System.Threading.Tasks;
 
 namespace MEKB_H0_Anlage
 {
-   
-
-
-
     public class Lokomotive : IEquatable<Lokomotive>
     {
         #region Parameter
@@ -400,6 +396,7 @@ namespace MEKB_H0_Anlage
         }
         public static string Abkuerzung(string Gattung)
         {
+            if (string.IsNullOrEmpty(Gattung)) return "";
             switch (Gattung)
             {
                 case "InterCityExpress": return "ICE";
@@ -410,9 +407,8 @@ namespace MEKB_H0_Anlage
                 case "RegionalBahn": return "RB";
                 case "S-Bahn": return "S";
                 case "Güterzug": return "G";
-                default: return Gattung;
+                default: return "";
             }
         }
     }
-
 }

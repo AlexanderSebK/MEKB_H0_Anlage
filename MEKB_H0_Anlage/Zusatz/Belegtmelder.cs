@@ -249,11 +249,11 @@ namespace MEKB_H0_Anlage
         /// Ist der Gleisabschnitt sicher belegt
         /// </summary>
         private bool Stabil {  set; get; }
-        private int CoolUpTime { set; get; }
+        private int CoolUpTimer { set; get; }
         /// <summary>
         /// Zeit wie lange noch der Status belegt aktiv bleibt
         /// </summary>
-        private int Time { set; get; }
+        private int CoolDownTimer { set; get; }
         /// <summary>
         /// Block von Lok registriert
         /// </summary>
@@ -291,7 +291,7 @@ namespace MEKB_H0_Anlage
             if (Belegt && Stabil) return true;
             else
             {
-                if (Time > 0) return true;
+                if (CoolDownTimer > 0) return true;
                 else return false;
             }
         }
@@ -306,15 +306,15 @@ namespace MEKB_H0_Anlage
             {
                 if (Status == false)
                 {
-                    if (Stabil == true) Time = CoolDownTime;
-                    else Time = 0;
+                    if (Stabil == true) CoolDownTimer = CoolDownTime;
+                    else CoolDownTimer = 0;
                 }
             }
             Belegt = Status;
             if (Status == false)
             {
                 Stabil = false;
-                CoolUpTime = 0;
+                CoolUpTimer = 0;
             }
         }
 
@@ -324,16 +324,19 @@ namespace MEKB_H0_Anlage
         /// <param name="ZeitVergangen">Zeit nach dem letzten Aufruf (in ms)</param>
         public void CoolDown(int ZeitVergangen)
         {
-            if ((!Belegt) && (Time > 0))
+            if ((!Belegt) && (CoolDownTimer > 0))
             {
-                Time -= ZeitVergangen;
-                if (Time <= 0) Time = 0;
+                CoolDownTimer -= ZeitVergangen;
+                if (CoolDownTimer <= 0) CoolDownTimer = 0;
             }
 
-            if(Belegt && (CoolUpTime < 500))
+            if (Stabil == false)
             {
-                CoolUpTime += ZeitVergangen;
-                if (CoolUpTime > 500) Stabil = true;
+                if (Belegt && (CoolUpTimer <= 500))
+                {
+                    CoolUpTimer += ZeitVergangen;
+                }
+                if (CoolUpTimer >= 500) Stabil = true;
             }
         }
 

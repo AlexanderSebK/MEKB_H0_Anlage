@@ -43,41 +43,41 @@ namespace MEKB_H0_Anlage
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Signal>();
             XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
-            var list = XMLFile.Elements("Signal").ToList();             //Alle Elemente des Types Weiche in eine Liste Umwandeln 
+            var list = XMLFile.Elements("Signal").ToList();    //Alle Elemente des Types Signal in eine Liste Umwandeln 
 
-            foreach (XElement XMLSignal in list)                            //Alle Elemente der Liste einzeln durchlaufen
+            foreach (XElement XMLSignal in list)               //Alle Elemente der Liste einzeln durchlaufen
             {
-                int SAdresse = Int16.Parse(XMLSignal.Element("Adresse").Value);                               //Signaladresse des Elements auslesen
+                int SAdresse = Int16.Parse(XMLSignal.Element("Adresse").Value);     //Signaladresse des Elements auslesen
                 int SAdresse2;
-                if (XMLSignal.Element("Adresse2") == null) SAdresse2 = 0;//Nicht vorhanden - 2.Adresse 0 eintragen
-                else SAdresse2 = Int16.Parse(XMLSignal.Element("Adresse2").Value);//2. Signaladresse des Elements auslesen
+                if (XMLSignal.Element("Adresse2") == null) SAdresse2 = 0;           //Nicht vorhanden - 2.Adresse 0 eintragen
+                else SAdresse2 = Int16.Parse(XMLSignal.Element("Adresse2").Value);  //2. Signaladresse des Elements auslesen
 
-                string SName = XMLSignal.Element("Name").Value;                                                //Signal Name des Elements auslesen
-                string STyp = XMLSignal.Element("Typ").Value;                               //Typ des Signals auslesen
-                int SAdr11 = Int16.Parse(XMLSignal.Element("Adr1Zustand1").Value);          //Zustand bei Signaladresse Schaltung auf 0
-                int SAdr12 = Int16.Parse(XMLSignal.Element("Adr1Zustand2").Value);          //Zustand bei Signaladresse Schaltung auf 1
-                int SAdr21 = Int16.Parse(XMLSignal.Element("Adr2Zustand1").Value);          //Zustand bei 2. Signaladresse Schaltung auf 0
-                int SAdr22 = Int16.Parse(XMLSignal.Element("Adr2Zustand2").Value);          //Zustand bei 2. Signaladresse Schaltung auf 1
+                string SName = XMLSignal.Element("Name").Value;                     //Signal Name des Elements auslesen
+                string STyp = XMLSignal.Element("Typ").Value;                       //Typ des Signals auslesen
+
+                if (Enum.TryParse<SignalZustand>(XMLSignal.Element("Adr1Zustand1").Value, out SignalZustand signalZustand1_1)) { }
+                else signalZustand1_1 = SignalZustand.Unbestimmt;
+                if (Enum.TryParse<SignalZustand>(XMLSignal.Element("Adr1Zustand2").Value, out SignalZustand signalZustand1_2)) { }
+                else signalZustand1_2 = SignalZustand.Unbestimmt;
+                if (Enum.TryParse<SignalZustand>(XMLSignal.Element("Adr2Zustand1").Value, out SignalZustand signalZustand2_1)) { if (SAdresse2 == 0) signalZustand2_1 = SignalZustand.Unbestimmt; }
+                else signalZustand2_1 = SignalZustand.Unbestimmt;
+                if (Enum.TryParse<SignalZustand>(XMLSignal.Element("Adr2Zustand2").Value, out SignalZustand signalZustand2_2)) { if (SAdresse2 == 0) signalZustand2_2 = SignalZustand.Unbestimmt; }
+                else signalZustand2_2 = SignalZustand.Unbestimmt;
 
                 Signal signal = new Signal()
                 {
                     Name = SName,
                     Adresse = SAdresse,
                     Adresse2 = SAdresse2,
-                    Typ = STyp
+                    Typ = STyp,
+                    Adr1_1 = signalZustand1_1,
+                    Adr1_2 = signalZustand1_2,
+                    Adr2_1 = signalZustand2_1,
+                    Adr2_2 = signalZustand2_2
                 };  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
-                if (Enum.IsDefined(typeof(SignalZustand), SAdr11)) { signal.Adr1_1 = (SignalZustand)SAdr11; }
-                else { signal.Adr1_1 = SignalZustand.Unbestimmt; }
-                if (Enum.IsDefined(typeof(SignalZustand), SAdr12)) { signal.Adr1_2 = (SignalZustand)SAdr12; }
-                else { signal.Adr1_2 = SignalZustand.Unbestimmt; }
-                if (Enum.IsDefined(typeof(SignalZustand), SAdr21)) { signal.Adr2_1 = (SignalZustand)SAdr21; }
-                else { signal.Adr2_1 = SignalZustand.Unbestimmt; }
-                if (Enum.IsDefined(typeof(SignalZustand), SAdr22)) { signal.Adr2_2 = (SignalZustand)SAdr22; }
-                else { signal.Adr2_2 = SignalZustand.Unbestimmt; }
 
+               
                 Liste.Add(signal);
-
-
             }
             for (int i = 0; i < Liste.Count; i++)
             {
@@ -171,15 +171,37 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Signalzustand wenn Pin2 von Adresse 2 aktiviert (0 = HP0, 1 = HP1, 2 = HP2, 3 = SH1)
         /// </summary>
-        public SignalZustand Adr2_2 { get; set; }
-
+        public SignalZustand Adr2_2 { get; set; } 
         /// <summary>
         /// Typ des Signals
         /// 3HP_270 -> Drei Schaltbilder Signal um 270° auf dem Gleisplan gedreht 
         /// </summary>
         public string Typ { get; set; }
         /// <summary>
-        /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
+        /// Konstruktor
+        /// </summary>
+        public Signal()
+        {
+
+        }
+
+
+        public XElement SignalZuXML()
+        {
+            return new XElement("Signal",
+                new XElement("Name", Name),
+                new XElement("Adresse", Adresse),
+                new XElement("Adresse2", Adresse2),
+                new XElement("Typ", Typ),
+                new XElement("Adr1Zustand1", Adr1_1),
+                new XElement("Adr1Zustand2", Adr1_2),
+                new XElement("Adr2Zustand1", Adr2_1),
+                new XElement("Adr2Zustand2", Adr2_2));        
+        }
+
+        
+        /// <summary>
+        /// Wird bei Listensuche benötigt: Name des Signals zurückgeben
         /// </summary>
         /// <returns>Name der Weiche</returns>
         public override string ToString()
@@ -235,13 +257,74 @@ namespace MEKB_H0_Anlage
         /// <param name="z21">Instance der Z21</param>
         public void Schalten(SignalZustand NeuerZustand, Z21 z21)
         {
+            if(Adr1_1 == NeuerZustand || Adr1_2 == NeuerZustand || Adr2_1 == NeuerZustand || Adr2_2 == NeuerZustand)
+            {
+
+            }
+            else
+            {
+                //Nur bei HP2: HP1 erlauben
+                if (NeuerZustand == SignalZustand.HP2) NeuerZustand = SignalZustand.HP1;
+            }
+
             if (NeuerZustand == Adr1_1) { z21.LAN_X_SET_SIGNAL(Adresse, false); z21.LAN_X_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
             else if (NeuerZustand == Adr1_2) { z21.LAN_X_SET_SIGNAL(Adresse, true); z21.LAN_X_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
             else if (NeuerZustand == Adr2_1) { z21.LAN_X_SET_SIGNAL(Adresse2, false); z21.LAN_X_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
             else if (NeuerZustand == Adr2_2) { z21.LAN_X_SET_SIGNAL(Adresse2, true); z21.LAN_X_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
         }
+
+        //Ermittle Anhand der Weichenstellung und Meldungen ob der Block Frei ist
+        public SignalZustand ErlaubteStellung(FahrstrassenListe fahrstrassenListe, WeichenListe weichenListe)
+        {
+            //Finde Fahrstrassen mit diesem Signal als Eingangssignal hat
+            List<Fahrstrasse> Strassen = fahrstrassenListe.GetWithEingangsSignal(this);
+            foreach(Fahrstrasse s in Strassen)
+            {
+                //Wenn Option aktiviert ist, dass nur auf Fahrstrassen geschaltet werden soll
+                if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"))
+                {
+                    //Fahrtstrasse nicht gesichert -> nächste Fahrstrasse
+                    if (!s.Safe) continue; 
+                }
+                // Weg ist gesetzt
+                if(s.CheckFahrstrassePos(weichenListe.Liste))
+                {
+                    foreach(string blockStr in s.Fahrstr_Blockierende)
+                    {
+                        //Eine der Blockierenden Fahrstrassen ist nicht Halt
+                        Fahrstrasse BlockFahrstr = fahrstrassenListe.GetFahrstrasse(blockStr);
+                        if(BlockFahrstr != null)
+                        {
+                            // Ist Fahrstrasse der Blockierenden fahrbar (Kreuzung)
+                            if(BlockFahrstr.CheckFahrstrassePos(weichenListe.Liste))
+                            {
+                                //Ist nicht auf Halt
+                                if(!BlockFahrstr.EinfahrtsSignal.Zustand.Equals(SignalZustand.HP0))
+                                {
+                                    return SignalZustand.HP0; //Blockiert
+                                }
+                            }
+                        }
+                    }
+                    /*Prüfe ob Fahrzeug auf Block ist*/
+
+
+                    foreach(Weiche w in s.Fahrstr_Weichenliste)
+                    {
+                        // Über eine Weiche muss über Abzweig gefahren werden -> Langsame Fahrt
+                        if(w.Abzweig) return SignalZustand.HP2;
+                    }
+                    //Nächstes Signal auf Halt
+                    if (s.EndSignal.Zustand == SignalZustand.HP0) return SignalZustand.HP2;
+                    return SignalZustand.HP1; // Freie Fahrt
+                }
+            }
+            return SignalZustand.HP0;
+        }
     }
-    
+
+
+
     /// <summary>
     /// Signalbilder als ENUM
     /// </summary>

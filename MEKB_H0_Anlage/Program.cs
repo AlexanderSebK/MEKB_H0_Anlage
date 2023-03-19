@@ -16,7 +16,7 @@ namespace MEKB_H0_Anlage
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Hauptform());
         }
     }
 }

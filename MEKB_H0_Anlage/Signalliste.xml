@@ -1,301 +1,366 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Signalliste>
-	<Signal>
-		<Name>Signal_Ausfahrt_L1</Name>
+  <Signal>
+    <Name>Signal_Ausfahrt_L1</Name>
     <Adresse>300</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_270</Typ>
-		<Adr1Zustand1>0</Adr1Zustand1><!--HP0 für Adresse 1 Ausgang 1-->
-		<Adr1Zustand2>2</Adr1Zustand2><!--HP2 für Adresse 1 Ausgang 2-->
-		<Adr2Zustand1>0</Adr2Zustand1><!--Werte egal für Adresse 2 Ausgang 1 -> Adresse 2 wird nicht benutzt-->
-		<Adr2Zustand2>0</Adr2Zustand2><!--Werte egal für Adresse 2 Ausgang 2 -> Adresse 2 wird nicht benutzt-->
-	</Signal>
-	<Signal>
-		<Name>Signal_Ausfahrt_L2</Name>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP2</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
+  </Signal>
+  <Signal>
+    <Name>Signal_Ausfahrt_L2</Name>
     <Adresse>301</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_270</Typ>
-		<Adr1Zustand1>0</Adr1Zustand1>
-		<Adr1Zustand2>1</Adr1Zustand2>
-		<Adr2Zustand1>0</Adr2Zustand1>
-		<Adr2Zustand2>0</Adr2Zustand2>
-	</Signal>
-	<Signal>
-		<Name>Signal_Ausfahrt_L3</Name>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
+  </Signal>
+  <Signal>
+    <Name>Signal_Ausfahrt_L3</Name>
     <Adresse>302</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_270</Typ>
-		<Adr1Zustand1>0</Adr1Zustand1>
-		<Adr1Zustand2>1</Adr1Zustand2>
-		<Adr2Zustand1>0</Adr2Zustand1>
-		<Adr2Zustand2>0</Adr2Zustand2>
-	</Signal>
-	<Signal>
-		<Name>Signal_Ausfahrt_L4</Name>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
+  </Signal>
+  <Signal>
+    <Name>Signal_Ausfahrt_L4</Name>
     <Adresse>303</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_270</Typ>
-		<Adr1Zustand1>0</Adr1Zustand1>
-		<Adr1Zustand2>2</Adr1Zustand2>
-		<Adr2Zustand1>0</Adr2Zustand1>
-		<Adr2Zustand2>0</Adr2Zustand2>
-	</Signal>
-	<Signal>
-		<Name>Signal_Ausfahrt_L5</Name>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP2</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
+  </Signal>
+  <Signal>
+    <Name>Signal_Ausfahrt_L5</Name>
     <Adresse>304</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_270</Typ>
-		<Adr1Zustand1>0</Adr1Zustand1>
-		<Adr1Zustand2>2</Adr1Zustand2>
-		<Adr2Zustand1>0</Adr2Zustand1>
-		<Adr2Zustand2>0</Adr2Zustand2>
-	</Signal>
-	<Signal>
-		<Name>Signal_Ausfahrt_L6</Name>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP2</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
+  </Signal>
+  <Signal>
+    <Name>Signal_Ausfahrt_L6</Name>
     <Adresse>305</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_270</Typ>
-		<Adr1Zustand1>0</Adr1Zustand1>
-		<Adr1Zustand2>2</Adr1Zustand2>
-		<Adr2Zustand1>0</Adr2Zustand1>
-		<Adr2Zustand2>0</Adr2Zustand2>
-	</Signal>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP2</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
+  </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R1</Name>
     <Adresse>306</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>2</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP2</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R2</Name>
     <Adresse>307</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R3</Name>
     <Adresse>308</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R4</Name>
     <Adresse>309</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>2</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP2</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R5</Name>
     <Adresse>310</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>2</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP2</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Ausfahrt_R6</Name>
     <Adresse>311</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>2</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP2</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_RTunnel_1</Name>
     <Adresse>312</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>2</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP2</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_RTunnel_2</Name>
     <Adresse>313</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>3B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Einfahrt_L</Name>
     <Adresse>314</Adresse>
     <Adresse2>315</Adresse2>
     <Typ>3B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>2</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>HP2</Adr2Zustand1>
+    <Adr2Zustand2>HP0</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Tunnel_L1</Name>
     <Adresse>316</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten0</Name>
     <Adresse>317</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten1</Name>
     <Adresse>318</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten2</Name>
     <Adresse>319</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten3</Name>
     <Adresse>320</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten4</Name>
     <Adresse>321</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten5</Name>
     <Adresse>322</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten6</Name>
     <Adresse>323</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten7</Name>
     <Adresse>324</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_270</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten8</Name>
     <Adresse>325</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten9</Name>
     <Adresse>326</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten10</Name>
     <Adresse>327</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten11</Name>
     <Adresse>328</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Block2</Name>
     <Adresse>329</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_0</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Block5</Name>
     <Adresse>330</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_180</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Block6</Name>
     <Adresse>331</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Block8</Name>
     <Adresse>332</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_180</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
   <Signal>
     <Name>Signal_Schatten_Einf</Name>
     <Adresse>333</Adresse>
+    <Adresse2>0</Adresse2>
     <Typ>2B_90</Typ>
-    <Adr1Zustand1>0</Adr1Zustand1>
-    <Adr1Zustand2>1</Adr1Zustand2>
-    <Adr2Zustand1>0</Adr2Zustand1>
-    <Adr2Zustand2>0</Adr2Zustand2>
+    <Adr1Zustand1>HP0</Adr1Zustand1>
+    <Adr1Zustand2>HP1</Adr1Zustand2>
+    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
+    <Fahrstrassen />
   </Signal>
 </Signalliste>

@@ -1,6 +1,6 @@
 ﻿namespace MEKB_H0_Anlage
 {
-    partial class Form1
+    partial class Hauptform
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Hauptform));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.LokEditorOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +48,8 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.signalsteuergungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.signaleEditierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uberSteuerprogrammToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Statusbar = new System.Windows.Forms.StatusStrip();
@@ -591,6 +593,17 @@
             this.Bhf_Gl2_Halt_R1 = new System.Windows.Forms.PictureBox();
             this.Bhf_Gl6_Halt_R1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.LokCtrl12_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl11_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl10_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl9_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl8_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl7_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl6_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl5_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl4_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl3_Suche = new System.Windows.Forms.Button();
+            this.LokCtrl2_Suche = new System.Windows.Forms.Button();
             this.LokCtrl1_Suche = new System.Windows.Forms.Button();
             this.LokCtrl12_Stop = new System.Windows.Forms.Button();
             this.LokCtrl11_Stop = new System.Windows.Forms.Button();
@@ -1019,17 +1032,7 @@
             this.label130 = new System.Windows.Forms.Label();
             this.label129 = new System.Windows.Forms.Label();
             this.label128 = new System.Windows.Forms.Label();
-            this.LokCtrl2_Suche = new System.Windows.Forms.Button();
-            this.LokCtrl3_Suche = new System.Windows.Forms.Button();
-            this.LokCtrl4_Suche = new System.Windows.Forms.Button();
-            this.LokCtrl5_Suche = new System.Windows.Forms.Button();
-            this.LokCtrl6_Suche = new System.Windows.Forms.Button();
-            this.LokCtrl7_Suche = new System.Windows.Forms.Button();
-            this.LokCtrl8_Suche = new System.Windows.Forms.Button();
-            this.LokCtrl9_Suche = new System.Windows.Forms.Button();
-            this.LokCtrl10_Suche = new System.Windows.Forms.Button();
-            this.LokCtrl11_Suche = new System.Windows.Forms.Button();
-            this.LokCtrl12_Suche = new System.Windows.Forms.Button();
+            this.lokomotivenNeuLadenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1705,6 +1708,7 @@
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LokEditorOpen,
+            this.lokomotivenNeuLadenToolStripMenuItem,
             this.toolStripSeparator1,
             this.ProgrammBeenden});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -1714,19 +1718,19 @@
             // LokEditorOpen
             // 
             this.LokEditorOpen.Name = "LokEditorOpen";
-            this.LokEditorOpen.Size = new System.Drawing.Size(129, 22);
+            this.LokEditorOpen.Size = new System.Drawing.Size(199, 22);
             this.LokEditorOpen.Text = "Lok-Editor";
             this.LokEditorOpen.Click += new System.EventHandler(this.LokEditorOpen_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(196, 6);
             // 
             // ProgrammBeenden
             // 
             this.ProgrammBeenden.Name = "ProgrammBeenden";
-            this.ProgrammBeenden.Size = new System.Drawing.Size(129, 22);
+            this.ProgrammBeenden.Size = new System.Drawing.Size(199, 22);
             this.ProgrammBeenden.Text = "Beenden";
             this.ProgrammBeenden.Click += new System.EventHandler(this.ProgrammBeenden_Click);
             // 
@@ -1821,9 +1825,26 @@
             // 
             // hilfeToolStripMenuItem
             // 
+            this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolsToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
             this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.hilfeToolStripMenuItem.Text = "Hilfe";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.signaleEditierenToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // signaleEditierenToolStripMenuItem
+            // 
+            this.signaleEditierenToolStripMenuItem.Name = "signaleEditierenToolStripMenuItem";
+            this.signaleEditierenToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.signaleEditierenToolStripMenuItem.Text = "Signale Editieren";
+            this.signaleEditierenToolStripMenuItem.Click += new System.EventHandler(this.SignaleEditierenToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
             // 
@@ -7459,6 +7480,138 @@
             this.panel1.Size = new System.Drawing.Size(872, 384);
             this.panel1.TabIndex = 601;
             // 
+            // LokCtrl12_Suche
+            // 
+            this.LokCtrl12_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl12_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl12_Suche.Location = new System.Drawing.Point(104, 312);
+            this.LokCtrl12_Suche.Name = "LokCtrl12_Suche";
+            this.LokCtrl12_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl12_Suche.TabIndex = 1006;
+            this.LokCtrl12_Suche.Text = "Lok suchen";
+            this.LokCtrl12_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl12_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl11_Suche
+            // 
+            this.LokCtrl11_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl11_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl11_Suche.Location = new System.Drawing.Point(104, 288);
+            this.LokCtrl11_Suche.Name = "LokCtrl11_Suche";
+            this.LokCtrl11_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl11_Suche.TabIndex = 1005;
+            this.LokCtrl11_Suche.Text = "Lok suchen";
+            this.LokCtrl11_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl11_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl10_Suche
+            // 
+            this.LokCtrl10_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl10_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl10_Suche.Location = new System.Drawing.Point(104, 256);
+            this.LokCtrl10_Suche.Name = "LokCtrl10_Suche";
+            this.LokCtrl10_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl10_Suche.TabIndex = 1004;
+            this.LokCtrl10_Suche.Text = "Lok suchen";
+            this.LokCtrl10_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl10_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl9_Suche
+            // 
+            this.LokCtrl9_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl9_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl9_Suche.Location = new System.Drawing.Point(104, 232);
+            this.LokCtrl9_Suche.Name = "LokCtrl9_Suche";
+            this.LokCtrl9_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl9_Suche.TabIndex = 1003;
+            this.LokCtrl9_Suche.Text = "Lok suchen";
+            this.LokCtrl9_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl9_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl8_Suche
+            // 
+            this.LokCtrl8_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl8_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl8_Suche.Location = new System.Drawing.Point(104, 208);
+            this.LokCtrl8_Suche.Name = "LokCtrl8_Suche";
+            this.LokCtrl8_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl8_Suche.TabIndex = 1002;
+            this.LokCtrl8_Suche.Text = "Lok suchen";
+            this.LokCtrl8_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl8_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl7_Suche
+            // 
+            this.LokCtrl7_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl7_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl7_Suche.Location = new System.Drawing.Point(104, 184);
+            this.LokCtrl7_Suche.Name = "LokCtrl7_Suche";
+            this.LokCtrl7_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl7_Suche.TabIndex = 1001;
+            this.LokCtrl7_Suche.Text = "Lok suchen";
+            this.LokCtrl7_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl7_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl6_Suche
+            // 
+            this.LokCtrl6_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl6_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl6_Suche.Location = new System.Drawing.Point(104, 160);
+            this.LokCtrl6_Suche.Name = "LokCtrl6_Suche";
+            this.LokCtrl6_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl6_Suche.TabIndex = 1000;
+            this.LokCtrl6_Suche.Text = "Lok suchen";
+            this.LokCtrl6_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl6_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl5_Suche
+            // 
+            this.LokCtrl5_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl5_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl5_Suche.Location = new System.Drawing.Point(104, 128);
+            this.LokCtrl5_Suche.Name = "LokCtrl5_Suche";
+            this.LokCtrl5_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl5_Suche.TabIndex = 999;
+            this.LokCtrl5_Suche.Text = "Lok suchen";
+            this.LokCtrl5_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl5_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl4_Suche
+            // 
+            this.LokCtrl4_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl4_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl4_Suche.Location = new System.Drawing.Point(104, 104);
+            this.LokCtrl4_Suche.Name = "LokCtrl4_Suche";
+            this.LokCtrl4_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl4_Suche.TabIndex = 998;
+            this.LokCtrl4_Suche.Text = "Lok suchen";
+            this.LokCtrl4_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl4_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl3_Suche
+            // 
+            this.LokCtrl3_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl3_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl3_Suche.Location = new System.Drawing.Point(104, 80);
+            this.LokCtrl3_Suche.Name = "LokCtrl3_Suche";
+            this.LokCtrl3_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl3_Suche.TabIndex = 997;
+            this.LokCtrl3_Suche.Text = "Lok suchen";
+            this.LokCtrl3_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl3_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
+            // LokCtrl2_Suche
+            // 
+            this.LokCtrl2_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LokCtrl2_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LokCtrl2_Suche.Location = new System.Drawing.Point(104, 56);
+            this.LokCtrl2_Suche.Name = "LokCtrl2_Suche";
+            this.LokCtrl2_Suche.Size = new System.Drawing.Size(168, 20);
+            this.LokCtrl2_Suche.TabIndex = 996;
+            this.LokCtrl2_Suche.Text = "Lok suchen";
+            this.LokCtrl2_Suche.UseVisualStyleBackColor = false;
+            this.LokCtrl2_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            // 
             // LokCtrl1_Suche
             // 
             this.LokCtrl1_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -8250,7 +8403,7 @@
             this.LokCtrl12_Gattung.Name = "LokCtrl12_Gattung";
             this.LokCtrl12_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl12_Gattung.TabIndex = 668;
-            this.LokCtrl12_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl12_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl11_Gattung
             // 
@@ -8269,7 +8422,7 @@
             this.LokCtrl11_Gattung.Name = "LokCtrl11_Gattung";
             this.LokCtrl11_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl11_Gattung.TabIndex = 667;
-            this.LokCtrl11_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl11_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl10_Gattung
             // 
@@ -8287,7 +8440,7 @@
             this.LokCtrl10_Gattung.Name = "LokCtrl10_Gattung";
             this.LokCtrl10_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl10_Gattung.TabIndex = 666;
-            this.LokCtrl10_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl10_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl9_Gattung
             // 
@@ -8305,7 +8458,7 @@
             this.LokCtrl9_Gattung.Name = "LokCtrl9_Gattung";
             this.LokCtrl9_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl9_Gattung.TabIndex = 665;
-            this.LokCtrl9_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl9_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl8_Gattung
             // 
@@ -8323,7 +8476,7 @@
             this.LokCtrl8_Gattung.Name = "LokCtrl8_Gattung";
             this.LokCtrl8_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl8_Gattung.TabIndex = 664;
-            this.LokCtrl8_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl8_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl7_Gattung
             // 
@@ -8341,7 +8494,7 @@
             this.LokCtrl7_Gattung.Name = "LokCtrl7_Gattung";
             this.LokCtrl7_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl7_Gattung.TabIndex = 663;
-            this.LokCtrl7_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl7_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl6_Gattung
             // 
@@ -8359,7 +8512,7 @@
             this.LokCtrl6_Gattung.Name = "LokCtrl6_Gattung";
             this.LokCtrl6_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl6_Gattung.TabIndex = 662;
-            this.LokCtrl6_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl6_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl5_Gattung
             // 
@@ -8377,7 +8530,7 @@
             this.LokCtrl5_Gattung.Name = "LokCtrl5_Gattung";
             this.LokCtrl5_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl5_Gattung.TabIndex = 661;
-            this.LokCtrl5_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl5_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl4_Gattung
             // 
@@ -8395,7 +8548,7 @@
             this.LokCtrl4_Gattung.Name = "LokCtrl4_Gattung";
             this.LokCtrl4_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl4_Gattung.TabIndex = 660;
-            this.LokCtrl4_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl4_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl3_Gattung
             // 
@@ -8413,7 +8566,7 @@
             this.LokCtrl3_Gattung.Name = "LokCtrl3_Gattung";
             this.LokCtrl3_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl3_Gattung.TabIndex = 659;
-            this.LokCtrl3_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl3_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // LokCtrl2_Gattung
             // 
@@ -8431,7 +8584,7 @@
             this.LokCtrl2_Gattung.Name = "LokCtrl2_Gattung";
             this.LokCtrl2_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl2_Gattung.TabIndex = 658;
-            this.LokCtrl2_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl2_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // label67
             // 
@@ -8637,7 +8790,7 @@
             this.LokCtrl1_Gattung.Name = "LokCtrl1_Gattung";
             this.LokCtrl1_Gattung.Size = new System.Drawing.Size(112, 21);
             this.LokCtrl1_Gattung.TabIndex = 641;
-            this.LokCtrl1_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Rufnummern);
+            this.LokCtrl1_Gattung.SelectedIndexChanged += new System.EventHandler(this.LokKontroll_Update_Gattung);
             // 
             // label64
             // 
@@ -12210,7 +12363,7 @@
             this.button1.TabIndex = 997;
             this.button1.Text = "In Nächsten Einfahren";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // label130
             // 
@@ -12239,139 +12392,14 @@
             this.label128.TabIndex = 994;
             this.label128.Text = "Nächster Block";
             // 
-            // LokCtrl2_Suche
+            // lokomotivenNeuLadenToolStripMenuItem
             // 
-            this.LokCtrl2_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl2_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl2_Suche.Location = new System.Drawing.Point(104, 56);
-            this.LokCtrl2_Suche.Name = "LokCtrl2_Suche";
-            this.LokCtrl2_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl2_Suche.TabIndex = 996;
-            this.LokCtrl2_Suche.Text = "Lok suchen";
-            this.LokCtrl2_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl2_Suche.Click += new System.EventHandler(this.SearchLok_Click);
+            this.lokomotivenNeuLadenToolStripMenuItem.Name = "lokomotivenNeuLadenToolStripMenuItem";
+            this.lokomotivenNeuLadenToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.lokomotivenNeuLadenToolStripMenuItem.Text = "Lokomotiven neu laden";
+            this.lokomotivenNeuLadenToolStripMenuItem.Click += new System.EventHandler(this.LokomotivenNeuLadenToolStripMenuItem_Click);
             // 
-            // LokCtrl3_Suche
-            // 
-            this.LokCtrl3_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl3_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl3_Suche.Location = new System.Drawing.Point(104, 80);
-            this.LokCtrl3_Suche.Name = "LokCtrl3_Suche";
-            this.LokCtrl3_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl3_Suche.TabIndex = 997;
-            this.LokCtrl3_Suche.Text = "Lok suchen";
-            this.LokCtrl3_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl3_Suche.Click += new System.EventHandler(this.SearchLok_Click);
-            // 
-            // LokCtrl4_Suche
-            // 
-            this.LokCtrl4_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl4_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl4_Suche.Location = new System.Drawing.Point(104, 104);
-            this.LokCtrl4_Suche.Name = "LokCtrl4_Suche";
-            this.LokCtrl4_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl4_Suche.TabIndex = 998;
-            this.LokCtrl4_Suche.Text = "Lok suchen";
-            this.LokCtrl4_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl4_Suche.Click += new System.EventHandler(this.SearchLok_Click);
-            // 
-            // LokCtrl5_Suche
-            // 
-            this.LokCtrl5_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl5_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl5_Suche.Location = new System.Drawing.Point(104, 128);
-            this.LokCtrl5_Suche.Name = "LokCtrl5_Suche";
-            this.LokCtrl5_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl5_Suche.TabIndex = 999;
-            this.LokCtrl5_Suche.Text = "Lok suchen";
-            this.LokCtrl5_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl5_Suche.Click += new System.EventHandler(this.SearchLok_Click);
-            // 
-            // LokCtrl6_Suche
-            // 
-            this.LokCtrl6_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl6_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl6_Suche.Location = new System.Drawing.Point(104, 160);
-            this.LokCtrl6_Suche.Name = "LokCtrl6_Suche";
-            this.LokCtrl6_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl6_Suche.TabIndex = 1000;
-            this.LokCtrl6_Suche.Text = "Lok suchen";
-            this.LokCtrl6_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl6_Suche.Click += new System.EventHandler(this.SearchLok_Click);
-            // 
-            // LokCtrl7_Suche
-            // 
-            this.LokCtrl7_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl7_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl7_Suche.Location = new System.Drawing.Point(104, 184);
-            this.LokCtrl7_Suche.Name = "LokCtrl7_Suche";
-            this.LokCtrl7_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl7_Suche.TabIndex = 1001;
-            this.LokCtrl7_Suche.Text = "Lok suchen";
-            this.LokCtrl7_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl7_Suche.Click += new System.EventHandler(this.SearchLok_Click);
-            // 
-            // LokCtrl8_Suche
-            // 
-            this.LokCtrl8_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl8_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl8_Suche.Location = new System.Drawing.Point(104, 208);
-            this.LokCtrl8_Suche.Name = "LokCtrl8_Suche";
-            this.LokCtrl8_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl8_Suche.TabIndex = 1002;
-            this.LokCtrl8_Suche.Text = "Lok suchen";
-            this.LokCtrl8_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl8_Suche.Click += new System.EventHandler(this.SearchLok_Click);
-            // 
-            // LokCtrl9_Suche
-            // 
-            this.LokCtrl9_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl9_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl9_Suche.Location = new System.Drawing.Point(104, 232);
-            this.LokCtrl9_Suche.Name = "LokCtrl9_Suche";
-            this.LokCtrl9_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl9_Suche.TabIndex = 1003;
-            this.LokCtrl9_Suche.Text = "Lok suchen";
-            this.LokCtrl9_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl9_Suche.Click += new System.EventHandler(this.SearchLok_Click);
-            // 
-            // LokCtrl10_Suche
-            // 
-            this.LokCtrl10_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl10_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl10_Suche.Location = new System.Drawing.Point(104, 256);
-            this.LokCtrl10_Suche.Name = "LokCtrl10_Suche";
-            this.LokCtrl10_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl10_Suche.TabIndex = 1004;
-            this.LokCtrl10_Suche.Text = "Lok suchen";
-            this.LokCtrl10_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl10_Suche.Click += new System.EventHandler(this.SearchLok_Click);
-            // 
-            // LokCtrl11_Suche
-            // 
-            this.LokCtrl11_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl11_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl11_Suche.Location = new System.Drawing.Point(104, 288);
-            this.LokCtrl11_Suche.Name = "LokCtrl11_Suche";
-            this.LokCtrl11_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl11_Suche.TabIndex = 1005;
-            this.LokCtrl11_Suche.Text = "Lok suchen";
-            this.LokCtrl11_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl11_Suche.Click += new System.EventHandler(this.SearchLok_Click);
-            // 
-            // LokCtrl12_Suche
-            // 
-            this.LokCtrl12_Suche.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LokCtrl12_Suche.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LokCtrl12_Suche.Location = new System.Drawing.Point(104, 312);
-            this.LokCtrl12_Suche.Name = "LokCtrl12_Suche";
-            this.LokCtrl12_Suche.Size = new System.Drawing.Size(168, 20);
-            this.LokCtrl12_Suche.TabIndex = 1006;
-            this.LokCtrl12_Suche.Text = "Lok suchen";
-            this.LokCtrl12_Suche.UseVisualStyleBackColor = false;
-            this.LokCtrl12_Suche.Click += new System.EventHandler(this.SearchLok_Click);
-            // 
-            // Form1
+            // Hauptform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -13219,12 +13247,11 @@
             this.Controls.Add(this.SchattenGl8_1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "Hauptform";
             this.Text = "Modell Eisenbahn Klub Berlin 1932 e.V. - H0 - Anlagensteuerung";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Shown += new System.EventHandler(this.Form1_Shown);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.Statusbar.ResumeLayout(false);
@@ -14890,6 +14917,9 @@
         private System.Windows.Forms.Button LokCtrl5_Suche;
         private System.Windows.Forms.Button LokCtrl12_Suche;
         private System.Windows.Forms.Button LokCtrl11_Suche;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem signaleEditierenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lokomotivenNeuLadenToolStripMenuItem;
     }
 }
 
