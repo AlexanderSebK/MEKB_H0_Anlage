@@ -117,12 +117,57 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label35.Text" xml:space="preserve">
-    <value>Geschwindigkeit für ca. 40km/h. Wird benötigt um an den Bremsweg zu bestimmen. 
--Lok fährt zu schnell an das Signal und bleibt abrubt stehen: Wert vermindern. 
--Lok fährt zu langsam an das Signal: Wert erhöhen</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="FahrAnzeige.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAACkCAYAAAAnvChKAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAABFVJREFUeF7t10vMXVMYxvEVbYl0VJeiac3EpRrEJZE0JYhKESPXRqWMJNXQIDQR
+        gxKkFIkRjVLKyKBKi7gkElG31KetoXtoyhSh4fWceAYnJ+ucs/de71pv1877T37Ds9ezvqzJFzzv/2RW
+        kD7i9aYnc/CDHuL1pidH4wc9xOtNT+biBz3E63netOQ4PJme4dWaJfPxo57h1ZolC/CjnuHVmiUL8aOe
+        4dU8r0lyCp5NT/BK7ZJT8eOe4JXaJYvx457gldolS/DjnuCVPK9NcgGeTw/wOu2TC/GBHuB12idL8YEe
+        4HXaJ8vwgR7gdTyvbbIcT6hivEb3ZAU+VDFeo3tyNT5UMV6je3INPlQxXsPzuiY34ClVildIS1biY5Xi
+        FdKSVfhYpXiFtGQ1PlYpXsHzUpLb8Zwqw+k6yRp8tDKcrpOsxUcrw+k6yTp8tDKc7nkayXo8q4pwtl7y
+        AD5cEc7WSx7EhyvC2XrJBny4IpzteVrJRjytSnCybrIJH68EJ+smT+PjleBk3eQZfLwSnOx5mslmPK8K
+        cK5+sgUHVIBz9ZOtOKACnKufbMMBFeBcz9NOXsMTO8xxap7+2R6ki38VSEOcmqe/dgRp4m8lhzrg1Dz9
+        vivIOH/s1PFnIk71vBwd/CBIF78q+W0KzszXzx8GaeoXJQda4Mx8/fBRkHF+VPJTAs7M1ze7gwz7Vsl3
+        Cr4HzvS8XO3dE6SpfUr2N8SJedszE2SSL5XMdMCJeftsX5BRnyv4QgEn5u3jr4PsVvKJgk+HcKLn5exd
+        PLVJ3lPyfkucl7+3cNiot5W8k4Dz8vfG/iADbyrYqWRXyT/AdhyY4nUFOyI4z/Nytw3PbdQrSl5NwHn5
+        exGHDWxV8pKCl4Hz8vc8DkuxRckLIzgvf8/isLaeU7B5Cs7zvNxtwv/dA08qeUoBp5VpIw5M9biCJ4Zw
+        WpkewYFtParksTE4rUwbcGATDyl4uCFO87wS3Ycnl+p+JeuJ08p0Nw7s4h4F947BaWW6Ewc2cZeSdQ1w
+        WpnW7A0yzh0K1uJCbXGa55VoNZ5pF7cquW0EZ5XrZhza1CoFt0zBWeW6EYeOc5OSlS1wVrmuxaHDrlNw
+        fQLO8rxSrcCza+pKJVdNwFnluvyrIJMsV3BFC5xVrktw6LBLlVzWEWeVaxkOvUjBxUo4y/NKdS6e3STn
+        KTm/AU4q21k4eNTZCs7pgJPKthgHn6lkSSJOKttpOLir05WcQZzkeSVbOBNk1CIlJ7fESWU7EQcPnKRg
+        QSJOKtvxODjFfAUnECeVbR4ObuMYJcdGcJLnlWwOnt7AkUqOSsBJZTsCB6eYpWQ2cFLhBgcfLkyKDbHi
+        eQbFnqIVk2JDrJgUG2LFpNgQK55nUOwpWjEpNsSKSbEhVkyKDbHieQbFnqIVk2JDrJgUG2LFpNgQK55n
+        UOwpWjEpNsSKSbEhVkyKDbHieQbFnqIVk2JDrJgUG2LFpNgQK55XqBD+A0g8R/w5di9xAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
+  <data name="FahrAnzeige.InitialImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAACkCAYAAAAnvChKAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAABFVJREFUeF7t10vMXVMYxvEVbYl0VJeiac3EpRrEJZE0JYhKESPXRqWMJNXQIDQR
+        gxKkFIkRjVLKyKBKi7gkElG31KetoXtoyhSh4fWceAYnJ+ucs/de71pv1877T37Ds9ezvqzJFzzv/2RW
+        kD7i9aYnc/CDHuL1pidH4wc9xOtNT+biBz3E63netOQ4PJme4dWaJfPxo57h1ZolC/CjnuHVmiUL8aOe
+        4dU8r0lyCp5NT/BK7ZJT8eOe4JXaJYvx457gldolS/DjnuCVPK9NcgGeTw/wOu2TC/GBHuB12idL8YEe
+        4HXaJ8vwgR7gdTyvbbIcT6hivEb3ZAU+VDFeo3tyNT5UMV6je3INPlQxXsPzuiY34ClVildIS1biY5Xi
+        FdKSVfhYpXiFtGQ1PlYpXsHzUpLb8Zwqw+k6yRp8tDKcrpOsxUcrw+k6yTp8tDKc7nkayXo8q4pwtl7y
+        AD5cEc7WSx7EhyvC2XrJBny4IpzteVrJRjytSnCybrIJH68EJ+smT+PjleBk3eQZfLwSnOx5mslmPK8K
+        cK5+sgUHVIBz9ZOtOKACnKufbMMBFeBcz9NOXsMTO8xxap7+2R6ki38VSEOcmqe/dgRp4m8lhzrg1Dz9
+        vivIOH/s1PFnIk71vBwd/CBIF78q+W0KzszXzx8GaeoXJQda4Mx8/fBRkHF+VPJTAs7M1ze7gwz7Vsl3
+        Cr4HzvS8XO3dE6SpfUr2N8SJedszE2SSL5XMdMCJeftsX5BRnyv4QgEn5u3jr4PsVvKJgk+HcKLn5exd
+        PLVJ3lPyfkucl7+3cNiot5W8k4Dz8vfG/iADbyrYqWRXyT/AdhyY4nUFOyI4z/Nytw3PbdQrSl5NwHn5
+        exGHDWxV8pKCl4Hz8vc8DkuxRckLIzgvf8/isLaeU7B5Cs7zvNxtwv/dA08qeUoBp5VpIw5M9biCJ4Zw
+        WpkewYFtParksTE4rUwbcGATDyl4uCFO87wS3Ycnl+p+JeuJ08p0Nw7s4h4F947BaWW6Ewc2cZeSdQ1w
+        WpnW7A0yzh0K1uJCbXGa55VoNZ5pF7cquW0EZ5XrZhza1CoFt0zBWeW6EYeOc5OSlS1wVrmuxaHDrlNw
+        fQLO8rxSrcCza+pKJVdNwFnluvyrIJMsV3BFC5xVrktw6LBLlVzWEWeVaxkOvUjBxUo4y/NKdS6e3STn
+        KTm/AU4q21k4eNTZCs7pgJPKthgHn6lkSSJOKttpOLir05WcQZzkeSVbOBNk1CIlJ7fESWU7EQcPnKRg
+        QSJOKtvxODjFfAUnECeVbR4ObuMYJcdGcJLnlWwOnt7AkUqOSsBJZTsCB6eYpWQ2cFLhBgcfLkyKDbHi
+        eQbFnqIVk2JDrJgUG2LFpNgQK55nUOwpWjEpNsSKSbEhVkyKDbHieQbFnqIVk2JDrJgUG2LFpNgQK55n
+        UOwpWjEpNsSKSbEhVkyKDbHieQbFnqIVk2JDrJgUG2LFpNgQK55XqBD+A0g8R/w5di9xAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAAAAAAAEAIAAjYwAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAEAAAABAAgEAAAA9ntg7QAAYupJ

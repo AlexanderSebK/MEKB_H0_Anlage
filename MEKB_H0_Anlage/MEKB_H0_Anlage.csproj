@@ -26,7 +26,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>2.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -80,6 +80,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -92,23 +93,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hauptform\Form1_ButtonCtrl.cs">
+    <Compile Include="Hauptform\Hauptform_ButtonCtrl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Hauptform\Form1_FahrstrassenKontroll.cs">
+    <Compile Include="Hauptform\Hauptform_Signale.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Hauptform\Form1_Signale.cs">
+    <Compile Include="Hauptform\Hauptform_LokStrg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Hauptform\Form1_LokStrg.cs">
+    <Compile Include="Hauptform\Hauptform.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Hauptform\Form1.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Hauptform\Hauptform.Designer.cs">
+      <DependentUpon>Hauptform.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hauptform\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Hauptform\Hauptform_Fahrstrassen.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="MenuFenster\Belegtmelder_Ueberwachung.cs">
       <SubType>Form</SubType>
@@ -116,7 +117,21 @@
     <Compile Include="MenuFenster\Belegtmelder_Ueberwachung.Designer.cs">
       <DependentUpon>Belegtmelder_Ueberwachung.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuFenster\MenuFenster_Signalistentool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuFenster\MenuFenster_Signalistentool.Designer.cs">
+      <DependentUpon>MenuFenster_Signalistentool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZusatzFenster\LokSuche.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZusatzFenster\LokSuche.Designer.cs">
+      <DependentUpon>LokSuche.cs</DependentUpon>
+    </Compile>
     <Compile Include="Zusatz\Belegtmelder.cs" />
+    <Compile Include="Zusatz\Fahrstrassen.cs" />
+    <Compile Include="Zusatz\GleisbildZeichnung.cs" />
     <Compile Include="Zusatz\Logger.cs" />
     <Compile Include="MenuFenster\LokEditor.cs">
       <SubType>Form</SubType>
@@ -138,10 +153,10 @@
     <Compile Include="Hauptform\Z21_CallBacks.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Hauptform\Form1_Gleisplan.cs">
+    <Compile Include="Hauptform\Hauptform_Gleisplan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Hauptform\Form1_Invokes.cs">
+    <Compile Include="Hauptform\Hauptform_Invokes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MenuFenster\InfoBox.cs">
@@ -152,6 +167,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Zusatz\Lokomotive.cs" />
+    <Compile Include="Zusatz\LokomotivenVerwaltung.cs" />
     <Compile Include="Zusatz\Signal.cs" />
     <Compile Include="Zusatz\Verschiedenes.cs" />
     <Compile Include="Z21_Bibliothek\Z21.cs" />
@@ -162,14 +179,15 @@
       <DependentUpon>Z21_Einstellung.cs</DependentUpon>
     </Compile>
     <Compile Include="Z21_Bibliothek\Z21_Konstanten.cs" />
-    <Compile Include="ZugSteuerpult.cs">
+    <Compile Include="ZusatzFenster\ZugSteuerpult.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ZugSteuerpult.Designer.cs">
+    <Compile Include="ZusatzFenster\ZugSteuerpult.Designer.cs">
       <DependentUpon>ZugSteuerpult.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Hauptform\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Zusatz\Weichen.cs" />
+    <EmbeddedResource Include="Hauptform\Hauptform.resx">
+      <DependentUpon>Hauptform.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuFenster\Belegtmelder_Ueberwachung.resx">
@@ -180,6 +198,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuFenster\LokEditor.resx">
       <DependentUpon>LokEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuFenster\MenuFenster_Signalistentool.resx">
+      <DependentUpon>MenuFenster_Signalistentool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZusatzFenster\LokSuche.resx">
+      <DependentUpon>LokSuche.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -192,7 +216,7 @@
     <EmbeddedResource Include="MenuFenster\Z21_Einstellung.resx">
       <DependentUpon>Z21_Einstellung.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ZugSteuerpult.resx">
+    <EmbeddedResource Include="ZusatzFenster\ZugSteuerpult.resx">
       <DependentUpon>ZugSteuerpult.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -683,6 +707,9 @@
     <Content Include="Belegtmelderliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fahrstrassenliste.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Logo.ico" />
     <None Include="Resources\Fahrstrasse_links_deakt.png" />
     <None Include="Resources\Fahrstrasse_rechts_deakt.png" />
@@ -718,6 +745,9 @@
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Standard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Weichenliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -751,6 +781,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

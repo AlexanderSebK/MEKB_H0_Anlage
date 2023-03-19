@@ -27,7 +27,7 @@ namespace MEKB_H0_Anlage
         /// Instance der Z21 vom Hauptfenster übernehmen und Konfigurationsdatei lesen
         /// </summary>
         /// <param name="form1">Hauptfrom</param>
-        public void Get_Z21_Instance(Form1 form1)
+        public void Get_Z21_Instance(Hauptform form1)
         {
             z21Start = form1.z21Start;
             LoadConfig();

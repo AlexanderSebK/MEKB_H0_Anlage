@@ -250,7 +250,7 @@ namespace MEKB_H0_Anlage
         }
         public static byte ProtokolToFahrstufe(int Geschw, int FahrstufenInfo)
         {
-            Geschw = Geschw & 0x7F; //Entfernen des MSB bit (Richtung)
+            Geschw &= 0x7F; //Entfernen des MSB bit (Richtung)
             switch (FahrstufenInfo)
             {
                 case Fahstufe14:

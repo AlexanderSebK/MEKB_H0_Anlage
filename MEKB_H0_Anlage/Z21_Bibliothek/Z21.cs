@@ -286,15 +286,18 @@ namespace MEKB_H0_Anlage
 
             switch((Z21_Header)data[2])
             {
-                case Z21_Header.SERIAL_NUMBER:      
+                case Z21_Header.SERIAL_NUMBER:
+                    _log.ReceivedData("SERIAL_NUMBER", data);
                     if (length != 4) return Z21_ErrorCode.FALSE_LENGTH;
                     call_LAN_GET_SERIAL_NUMBER?.Invoke(data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24));
                     break;
-                case Z21_Header.CODE_STATUS: 
+                case Z21_Header.CODE_STATUS:
+                    _log.ReceivedData("CODE_STATUS", data);
                     if (length != 1) return Z21_ErrorCode.FALSE_LENGTH;
                     call_LAN_GET_CODE?.Invoke(data[4]);
                     break;
                 case Z21_Header.Z21_VERSION:
+                    _log.ReceivedData("Z21_VERSION", data);
                     if (length != 8) return Z21_ErrorCode.FALSE_LENGTH;
                     int major = (data[9] & 0x0F) + ((data[9] >> 4) * 10);       //Umwandeln DBC-Format
                     int major100 = (data[10] & 0x0F) + ((data[10] >> 4) * 10);       //Umwandeln DBC-Format
@@ -319,27 +322,33 @@ namespace MEKB_H0_Anlage
 
                     break;
                 case Z21_Header.BROADCAST_FLAGS:      //Broadcast-Flags
+                    _log.ReceivedData("BROADCAST_FLAGS", data);
                     if (length != 4) return Z21_ErrorCode.FALSE_LENGTH;
                     int flags = data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24);
                     call_LAN_GET_BROADCASTFLAGS?.Invoke(flags);
                     break;
                 case Z21_Header.GET_LOK_MODE:      //Lok-Status
+                    _log.ReceivedData("LOK_MODE", data);
                     if (length != 3) return Z21_ErrorCode.FALSE_LENGTH;
                     int Adresse = data[4] + (data[5] << 8) + 1;
                     call_LAN_GET_LOCOMODE?.Invoke(Adresse, data[6]);
                     break;
                 case Z21_Header.GET_FKT_DEC_MODE:      //Fx-Decoder Status
+                    _log.ReceivedData("FKT_DEC_MODE", data);
                     if (length != 3) return Z21_ErrorCode.FALSE_LENGTH;
                     int FxAdresse = data[4] + (data[5] << 8) + 1;
                     call_LAN_GET_TURNOUTMODE?.Invoke(FxAdresse, data[6]);
                     break;
                 case Z21_Header.RM_BUS:      //Rückmelde-Bus
+                    _log.ReceivedData("RM_BUS", data);
+                    //data[6] = 0xFF; //Debug Testing, da kein Belegtmelder vorhanden
                     if (length != 11) return Z21_ErrorCode.FALSE_LENGTH;
                     byte GruppenIndex = data[4];
                     byte[] RMStatus = data.Skip(5).ToArray();
                     call_LAN_RMBUS_DATACHANGED?.Invoke(GruppenIndex, RMStatus);
                     break;
                 case Z21_Header.SYSTEM_STATE:      //System-Status
+                    _log.ReceivedData("SYSTEM_STATE", data);
                     if (length != 16) return Z21_ErrorCode.FALSE_LENGTH;
                     int MainCurrent = BitConverter.ToInt16(data, 4);
                     int ProgCurrent = BitConverter.ToInt16(data, 6);
@@ -350,6 +359,7 @@ namespace MEKB_H0_Anlage
                     call_LAN_SYSTEMSTATE_DATACHANGED?.Invoke(MainCurrent, ProgCurrent, MainCurrentFilter, Temperatur, VersorgungSpg, GleisSpg, data[16], data[17]);
                     break;
                 case Z21_Header.RAILCOM:      //Railcom
+                    _log.ReceivedData("RAILCOM", data);
                     if (length != 13) return Z21_ErrorCode.FALSE_LENGTH;
                     int LocoAdress = BitConverter.ToUInt16(data, 4);
                     int ReceiveCounter = (int)BitConverter.ToUInt32(data, 6);
@@ -360,28 +370,34 @@ namespace MEKB_H0_Anlage
                     call_LAN_RAILCOM_DATACHANGED?.Invoke(LocoAdress, ReceiveCounter, ErrorCounter, Options, Speed, QoS);
                     break;
                 case Z21_Header.LOCONET_RX:      //LocoNet Rx
+                    _log.ReceivedData("LOCONET_RX", data);
                     byte[] LocoNet_RX = data.Skip(5).ToArray();
                     call_LAN_LOCONET_Z21_RX?.Invoke(LocoNet_RX);
                     break;
                 case Z21_Header.LOCONET_TX:      //LocoNet Tx
+                    _log.ReceivedData("LOCONET_TX", data);
                     byte[] LocoNet_TX = data.Skip(5).ToArray();
                     call_LAN_LOCONET_Z21_TX?.Invoke(LocoNet_TX);
                     break;
                 case Z21_Header.LOCONET_LAN:      //LocoNet LAN
+                    _log.ReceivedData("LOCONET_LAN", data);
                     byte[] LocoNet_LAN = data.Skip(5).ToArray();
                     call_LAN_LOCONET_FROM_LAN?.Invoke(LocoNet_LAN);
                     break;
                 case Z21_Header.LOCONET_ADDR:      //LocoNet Adresse
+                    _log.ReceivedData("LOCONET_ADDR", data);
                     if (length != 3) return Z21_ErrorCode.FALSE_LENGTH;
                     int LOCONet_Adresse = data[4] + (data[5] << 8) + 1;
                     call_LAN_LOCONET_DISPATCH_ADDR?.Invoke(LOCONet_Adresse, data[6]);
                     break;
                 case Z21_Header.LOCONET_DETECTOR:      //LocoNet Rückmelder
+                    _log.ReceivedData("LOCONET_DETECTOR", data);
                     if (length != 3) return Z21_ErrorCode.FALSE_LENGTH;
                     int Reporter_Adresse = data[5] + (data[6] << 8) + 1;
                     call_LAN_LOCONET_DETECTOR?.Invoke(data[4], Reporter_Adresse);
                     break;
                 case Z21_Header.CAN_DETECTOR:      //CAN-Rückmelder
+                    _log.ReceivedData("CAN_DETECTOR", data);
                     if (length != 10) return Z21_ErrorCode.FALSE_LENGTH;
                     int CANID = BitConverter.ToUInt16(data, 4);
                     int Addr = BitConverter.ToUInt16(data, 6);
@@ -391,7 +407,9 @@ namespace MEKB_H0_Anlage
                     int Value2 = BitConverter.ToUInt16(data, 12);
                     call_LAN_CAN_DETECTOR?.Invoke(CANID,Addr,Port,Typ,Value1,Value2);
                     break;
-                default: return Z21_ErrorCode.WRONG_HEADER;  
+                default:
+                    _log.ReceivedData("Wrong Data", data);
+                    return Z21_ErrorCode.WRONG_HEADER;  
             }
             return 0;
         }
@@ -401,6 +419,7 @@ namespace MEKB_H0_Anlage
             switch(header)
             {
                 case Z21_XBus_Header.TURNOUT_INFO:
+                    _log.ReceivedData("TURNOUT_INFO", db);
                     if (db.Length == 3)
                     {
                         int addr = (db[0] << 8) + db[1] + 1;
@@ -408,6 +427,7 @@ namespace MEKB_H0_Anlage
                     }                      
                     break;
                 case Z21_XBus_Header.PROGRAMMING:
+                    _log.ReceivedData("PROGRAMMING", db);
                     if (db.Length == 1)
                     {
                         if(db[0] == 0x00) call_LAN_X_BC_TRACK_POWER_OFF?.Invoke();
@@ -420,6 +440,7 @@ namespace MEKB_H0_Anlage
                     }
                     break;
                 case Z21_XBus_Header.GET_FIRMWARE:
+                    _log.ReceivedData("GET_FIRMWARE", db);
                     if (db.Length == 3)
                     {
                         int major = (db[1] & 0x0F) + ((db[1] >> 4) * 10);       //Umwandeln DBC-Format
@@ -429,12 +450,14 @@ namespace MEKB_H0_Anlage
                     }
                     break;
                 case Z21_XBus_Header.STATUS_CHANGE:
+                    _log.ReceivedData("STATUS_CHANGE", db);
                     if (db.Length == 2)
                     {
                         if (db[0] == 0x22)call_LAN_X_STATUS_CHANGED?.Invoke(db[1]);
                     }
                     break;
                 case Z21_XBus_Header.X_VERSION:
+                    _log.ReceivedData("X_VERSION", db);
                     if (db.Length == 3)
                     {
                         int major = (db[1] & 0x0F) + ((db[1] >> 4) * 10);       //Umwandeln DBC-Format
@@ -444,6 +467,7 @@ namespace MEKB_H0_Anlage
                     }
                     break;
                 case Z21_XBus_Header.CV_RESULT:
+                    _log.ReceivedData("CV_RESULT", db);
                     if (db.Length == 4)
                     {
                         int addr = (db[0] << 8) + db[1] + 1;
@@ -451,12 +475,14 @@ namespace MEKB_H0_Anlage
                     }
                     break;
                 case Z21_XBus_Header.BC_STOPPED:
+                    _log.ReceivedData("BC_STOPPED", db);
                     if (db.Length == 1)
                     {
                         if (db[0] == 0x00) call_LAN_X_BC_STOPPED?.Invoke();
                     }
                     break;
                 case Z21_XBus_Header.LOCO_INFO:
+                    _log.ReceivedData("LOCO_INFO", db);
                     int ParameterCount = 0;
                     int Adr = 0;
                     bool besetzt = false;
@@ -568,14 +594,11 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        private void sendCommand(byte[] Data, int size)
+        private void SendCommand(byte[] Data, int size)
         {
             if (Connected)
             {
                 Client.Send(Data, size);
-
-                string logdata = "PC => Z21: " + BitConverter.ToString(Data);                
-                _log.Info(logdata);
             }
         }
 
@@ -584,37 +607,40 @@ namespace MEKB_H0_Anlage
         public void GET_SERIAL_NUMBER()                 //Daten senden: Seriennummer Abfragen
         {
             byte[] SendBytes = { 0x04, 0x00, 0x10, 0x00 };
-            sendCommand(SendBytes, 4);
+            _log.SendData("GET_SERIAL_NUMBER", SendBytes);
+            SendCommand(SendBytes, 4);
             
         }
         public void LOGOFF()
         {
             byte[] SendBytes = { 0x04, 0x00, 0x30, 0x00 };
-            sendCommand(SendBytes, 4);
+            _log.SendData("LOGOFF", SendBytes);
+            SendCommand(SendBytes, 4);
         }
         public void GET_FIRMWARE_VERSION()
         {
             byte[] SendBytes = { 0x07, 0x00, 0x40, 0x00, 0xF1, 0x0A, 0xFB };
-            sendCommand(SendBytes, 7);           
+            _log.SendData("GET_FIRMWARE_VERSION", SendBytes);
+            SendCommand(SendBytes, 7);           
         }
         public void GET_BROADCASTFLAGS()
         {
             byte[] SendBytes = { 0x04, 0x00, 0x51, 0x00 };
-            if (Connected)
-            {
-                Client.Send(SendBytes, 4);
-            }
+            _log.SendData("GET_BROADCASTFLAGS", SendBytes);
+            SendCommand(SendBytes, 4);
         }
         public void Z21_SET_BROADCASTFLAGS(Flags flags)
         {
             byte[] tempdata = flags.GetAsBytes();
             byte[] SendBytes = { 0x08, 0x00, 0x50, 0x00, tempdata[0], tempdata[1], tempdata[2], tempdata[3] };
-            if (Connected) Client.Send(SendBytes, 8);
+            _log.SendData("SET_BROADCASTFLAGS", SendBytes);
+            SendCommand(SendBytes, 8);
         }
         public void Z21_GET_STATUS()
         {
             byte[] SendBytes = { 0x07, 0x00, 0x40, 0x00, 0x21, 0x24, 0x05 };
-            sendCommand(SendBytes, 7);
+            _log.SendData("GET_STATUS", SendBytes);
+            SendCommand(SendBytes, 7);
         }
         public void Z21_GET_LOCO_INFO(int Adresse)
         {
@@ -624,7 +650,8 @@ namespace MEKB_H0_Anlage
             byte DB2 = LokFahrstufen.Addr_Low(Adresse);
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
-            if (Connected) Client.Send(SendBytes, 9);
+            _log.SendData("GET_LOCO_INFO", SendBytes);
+            SendCommand(SendBytes, 9);
         }
         public void Z21_SET_LOCO_DRIVE(int Adresse, int Geschwindigkeit, int Richtung, int Fahrstufe)
         {
@@ -637,7 +664,8 @@ namespace MEKB_H0_Anlage
             byte DB3 = LokFahrstufen.FahrstufeToProtokol(Geschwindigkeit, Richtung, Fahrstufe);
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2 ^ DB3);
             byte[] SendBytes = { 0x0A, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, DB3, XOR };
-            if (Connected) Client.Send(SendBytes, 10);
+            _log.SendData("SET_LOCO_DRIVE", SendBytes);
+            SendCommand(SendBytes, 10);
         }
         public void Z21_SET_LOCO_FUNCTION(int Adresse, byte Zustand, byte Funktion)
         {
@@ -650,12 +678,14 @@ namespace MEKB_H0_Anlage
             byte DB3 = (byte)((Zustand << 6)+Funktion);
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2 ^ DB3);
             byte[] SendBytes = { 0x0A, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, DB3, XOR };
-            if (Connected) Client.Send(SendBytes, 10);
+            _log.SendData("SET_LOCO_FUNCTION", SendBytes);
+            SendCommand(SendBytes, 10);
         }
         public void Z21_GET_SYSTEMSTATE()
         {
             byte[] SendBytes = { 0x04, 0x00, 0x85, 0x00 };
-            if (Connected) Client.Send(SendBytes, 4);
+            _log.SendData("GET_SYSTEMSTATE", SendBytes);
+            SendCommand(SendBytes, 4);
         }
         public void LAN_X_SET_TURNOUT(int Adresse, bool Abzweig, bool Q_Modus, bool aktivieren)
         {
@@ -670,7 +700,8 @@ namespace MEKB_H0_Anlage
 
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
-            sendCommand(SendBytes, 9);
+            _log.SendData("SET_TURNOUT", SendBytes);
+            SendCommand(SendBytes, 9);
         }
         public void LAN_X_SET_SIGNAL(int Adresse, bool Zustand)
         {
@@ -683,8 +714,10 @@ namespace MEKB_H0_Anlage
             if (Zustand) DB2 = 0xA9;
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
-            if (Connected) Client.Send(SendBytes, 9);
+            _log.SendData("SET_SIGNAL", SendBytes);
+            SendCommand(SendBytes, 9);
         }
+        
         public void LAN_X_SET_SIGNAL_OFF(int Adresse)
         {
             Adresse--;
@@ -695,7 +728,8 @@ namespace MEKB_H0_Anlage
             byte DB2 = 0xA0;
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
-            if (Connected) Client.Send(SendBytes, 9);
+            _log.SendData("SET_SIGNAL_OFF", SendBytes);
+            SendCommand(SendBytes, 9);
         }
         public void LAN_X_GET_TURNOUT_INFO(int Adresse)
         {
@@ -706,12 +740,14 @@ namespace MEKB_H0_Anlage
             byte DB1 = (byte)(Adresse & 0xFF);
             byte XOR = (byte)(Header ^ DB0 ^ DB1);
             byte[] SendBytes = { 0x08, 0x00, 0x40, 0x00, Header, DB0, DB1, XOR };
-            if (Connected) Client.Send(SendBytes, 8);
+            _log.SendData("GET_TURNOUT_INFO", SendBytes);
+            SendCommand(SendBytes, 8);
         }
         public void LAN_RMBUS_GETDATA(byte GroupIndex)
         {
             byte[] SendBytes = { 0x05, 0x00, 0x81, 0x00, GroupIndex };
-            sendCommand(SendBytes, 5);
+            _log.SendData("RMBUS_GETDATA", SendBytes);
+            SendCommand(SendBytes, 5);
         }
 
         //Schreiben auf Window

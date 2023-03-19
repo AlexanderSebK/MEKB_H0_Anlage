@@ -47,6 +47,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.InfoClose = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -67,13 +68,13 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(303, 23);
             this.label2.TabIndex = 1;
-            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 2.0";
+            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 3.0";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(8, 288);
+            this.label3.Location = new System.Drawing.Point(4, 339);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(307, 17);
             this.label3.TabIndex = 2;
@@ -116,6 +117,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Orange;
             this.label7.Location = new System.Drawing.Point(8, 232);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(73, 17);
@@ -202,7 +204,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(8, 256);
+            this.label15.Location = new System.Drawing.Point(8, 280);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(117, 17);
             this.label15.TabIndex = 14;
@@ -220,7 +222,7 @@
             // 
             // InfoClose
             // 
-            this.InfoClose.Location = new System.Drawing.Point(632, 280);
+            this.InfoClose.Location = new System.Drawing.Point(626, 336);
             this.InfoClose.Name = "InfoClose";
             this.InfoClose.Size = new System.Drawing.Size(75, 23);
             this.InfoClose.TabIndex = 16;
@@ -239,12 +241,24 @@
             this.label17.TabIndex = 17;
             this.label17.Text = "Gleisplan zeichnen  (fertig - 08.02.22)";
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.ForestGreen;
+            this.label18.Location = new System.Drawing.Point(8, 256);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(146, 17);
+            this.label18.TabIndex = 18;
+            this.label18.Text = "Lokeditor (fertig - 19.02.2023)";
+            // 
             // InfoBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(713, 311);
+            this.ClientSize = new System.Drawing.Size(713, 365);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.InfoClose);
             this.Controls.Add(this.label16);
@@ -296,5 +310,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button InfoClose;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
     }
 }

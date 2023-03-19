@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Lokliste>
   <Lok>
-    <Name>BR01 011</Name>
-    <Adresse>2201</Adresse>
-    <Gattung></Gattung>
-    <Epoche>3</Epoche>
-    <Typ>Schlepptenderlok</Typ>
-    <Verwaltung>DB AG</Verwaltung>
+    <Name>BR420 Orange Gelb</Name>
+    <Adresse>1</Adresse>
+    <Gattung>S-Bahn</Gattung>
+    <Epoche>4</Epoche>
+    <Typ>Elektrotriebwagen</Typ>
+    <Verwaltung>Deutsche Bundesbahn</Verwaltung>
     <Hersteller>Roco</Hersteller>
     <Funktion1></Funktion1>
     <Funktion2></Funktion2>
