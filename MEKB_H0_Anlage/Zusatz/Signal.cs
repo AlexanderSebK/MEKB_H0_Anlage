@@ -14,7 +14,6 @@ namespace MEKB_H0_Anlage
     {
         private Dictionary<string, int> Verzeichnis;
         public List<Signal> Liste;
-        private Z21 Z21 = new Z21();
 
         #region Konstruktoren
         /// <summary>
@@ -24,7 +23,6 @@ namespace MEKB_H0_Anlage
         {
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Signal>();
-            Z21 = new Z21();
         }
         /// <summary>
         /// Konstruktor mit XML-Importer
@@ -34,7 +32,6 @@ namespace MEKB_H0_Anlage
         {
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Signal>();
-            Z21 = new Z21();
             DateiImportieren(Dateiname);
         }
         #endregion
@@ -135,7 +132,10 @@ namespace MEKB_H0_Anlage
             int ListID = Liste.FindIndex(x => x.Adresse == Adresse);
             if(ListID != -1) //Gefunden
             {
-                if(Schaltzustand == 1)
+                // Signal gefunden, aber letzter SIgnalzugriff war über Adresse2 -> Keine Änderung
+                if (Liste[ListID].Letzte_Adresswahl == true) return true;
+
+                if (Schaltzustand == 1)
                 {
                     Liste[ListID].Zustand = Liste[ListID].Adr1_1;
                     return true;
@@ -156,6 +156,9 @@ namespace MEKB_H0_Anlage
                 ListID = Liste.FindIndex(x => x.Adresse2 == Adresse);
                 if (ListID != -1) //Gefunden
                 {
+                    // Signal gefunden, aber letzter Signalzugriff war über Adresse1 -> Keine Änderung
+                    if (Liste[ListID].Letzte_Adresswahl == false) return true;
+
                     if (Schaltzustand == 1)
                     {
                         Liste[ListID].Zustand = Liste[ListID].Adr2_1;
@@ -181,9 +184,25 @@ namespace MEKB_H0_Anlage
         /// Verknüpfe Z21 Instanzen
         /// </summary>
         /// <param name="zentrale">Instanz der Z21 mit der die Signale in der Liste geschalten werden</param>
-        public void DigitalzentraleVerknuepfen(Z21 zentrale)
+        public void DigitalzentraleZugriff(Z21 zentrale)
         {
-            Z21 = zentrale;
+            foreach(Signal signal in Liste)
+            {
+                signal.DigitalzentraleZugriff(zentrale);
+            }
+        }
+
+        /// <summary>
+        /// Verknüpfe globale Fahrstrassen/Routen-Liste
+        /// </summary>
+        /// <param name="fahrstrassenListe">Gloable Fahrstrassenliste</param>
+        public void FahrstrassenZugriff(FahrstrassenListe fahrstrassenListe)
+        {
+            foreach(Signal signal in Liste)
+            {
+                // Übernehme nur Fahrstrassen, die dieses Signal als Anfang haben
+                signal.Fahrstrassen = fahrstrassenListe.GetWithEingangsSignal(signal);
+            }
         }
 
     }
@@ -236,14 +255,18 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public string Typ { get; set; }
 
-        private List<Fahrstrasse> Fahrstrassen { get; set; }
+        private Z21 Z21_zentrale { get; set; }
+
+        public List<Fahrstrasse> Fahrstrassen { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         public Signal()
         {
-
+            Fahrstrassen = new List<Fahrstrasse>();
+            Letzte_Adresswahl = false;
+            Z21_zentrale = new Z21();
         }
 
 
@@ -298,27 +321,32 @@ namespace MEKB_H0_Anlage
             if (other == null) return false;
             return (this.Name.Equals(other.Name));
         }
-       
+
+        public void DigitalzentraleZugriff(Z21 zentrale)
+        {
+            Z21_zentrale = zentrale;
+        }
+
         /// <summary>
         /// Signal schalten
         /// </summary>
         /// <param name="NeuerZustand">Neues Signalbild</param>
         /// <param name="z21">Instance der Z21</param>
-        public void Schalten(SignalZustand NeuerZustand, Z21 z21)
+        public void Schalten(SignalZustand NeuerZustand)
         {
-            if (Adr1_1 == NeuerZustand) z21.LAN_X_SET_SIGNAL(Adresse, false);
-            else if (Adr1_2 == NeuerZustand) z21.LAN_X_SET_SIGNAL(Adresse, true);
-            else if (Adr2_1 == NeuerZustand) z21.LAN_X_SET_SIGNAL(Adresse2, false);
-            else if (Adr2_2 == NeuerZustand) z21.LAN_X_SET_SIGNAL(Adresse2, true);
+            if (Adr1_1 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, false); Letzte_Adresswahl = false; }
+            else if (Adr1_2 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, true); Letzte_Adresswahl = false; }
+            else if (Adr2_1 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, false); Letzte_Adresswahl = true; }
+            else if (Adr2_2 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, true); Letzte_Adresswahl = true; }
             else
             {
                 //Signal kennt diesen Zustand nicht -> Prüfen ob HP2 zu HP1 umgewandelt werden kann, sonst Befehl ignorieren
                 if (NeuerZustand == SignalZustand.HP2)
                 {
-                    if (Adr1_1 == SignalZustand.HP1) z21.LAN_X_SET_SIGNAL(Adresse, false);
-                    else if (Adr1_2 == SignalZustand.HP1) z21.LAN_X_SET_SIGNAL(Adresse, true);
-                    else if (Adr2_1 == SignalZustand.HP1) z21.LAN_X_SET_SIGNAL(Adresse2, false);
-                    else if (Adr2_2 == SignalZustand.HP1) z21.LAN_X_SET_SIGNAL(Adresse2, true);
+                    if (Adr1_1 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, false); Letzte_Adresswahl = false; }
+                    else if (Adr1_2 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, true); Letzte_Adresswahl = false; }
+                    else if (Adr2_1 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, false); Letzte_Adresswahl = true; }
+                    else if (Adr2_2 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, true); Letzte_Adresswahl = true; }
                     else
                     {
                         // Signal kennt kann kein HP1 oder HP2 (Rangiersignale)
@@ -330,34 +358,71 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
-
-        public bool StellungErlaubt(SignalZustand wunschZustand, FahrstrassenListe fahrstrassenListe, WeichenListe weichenListe, bool FahrstrassenModus = false)
+        /// <summary>
+        /// Überprüft ob diese Stellung erlaubt ist
+        /// </summary>
+        /// <param name="wunschZustand">Gewünschter Signalzusatnd</param>
+        /// <param name="FahrstrassenModus">False: Signal achtet nur auf Weichenstellung | True: Signal achtet ob Fahrstrasse gesetzt ist</param>
+        /// <returns>true: Signalstellung erlaubt</returns>
+        public bool StellungErlaubt(SignalZustand wunschZustand, bool FahrstrassenModus = false)
         {
             if (wunschZustand == SignalZustand.HP0) return true;  // HP0 (Halt) immer erlaubt
+
+            if (wunschZustand == SignalZustand.HP2)
+            {
+                if (!HatSignalbild(SignalZustand.HP2) && HatSignalbild(SignalZustand.HP1))
+                {
+                    // Sonderfall HP2 verlangt, Signal kann aber nur HP1 -> Funktion nicht abbrechen
+                }
+                else
+                {
+                    if (!HatSignalbild(wunschZustand)) return false; //Kein HP1 oder HP2 -> Rangiersignal
+                }
+            }
+            else
+            {
+                if (!HatSignalbild(wunschZustand)) return false;
+            }
 
             bool WeichenGesetzt = false; // Alle Weichen sind gestellt, dass Fahrt erteilt werden kann
             bool WeicheAbzweig = false; // Eine der Weichen ist auf Abzweig, so dass nur langsame Zeit erlaubt ist
             bool BlockBelegt = false; // Block ist belegt;
 
             //Finde Fahrstrassen mit diesem Signal als Eingangssignal hat
-            List<Fahrstrasse> Strassen = fahrstrassenListe.GetWithEingangsSignal(this);
-            foreach (Fahrstrasse Strasse in Strassen)
+            foreach (Fahrstrasse Strasse in Fahrstrassen)
             {
-                if(FahrstrassenModus)
+                if(FahrstrassenModus) // Automatic Modus prüfen
                 {
                     if (Strasse.Safe) WeichenGesetzt = true; // Gesicherte Fahrstrasse vorhanden -> Fahrt erlauben
                 }
                 else
                 {
-                    if (Strasse.CheckFahrstrassePos(weichenListe.Liste)) WeichenGesetzt = true; // Kontrolliere ob alle Weichen dieser Route gesetzt sind
+                    if (Strasse.CheckFahrstrassePos()) WeichenGesetzt = true; // Kontrolliere ob alle Weichen dieser Route gesetzt sind
                 }
 
+                if (WeichenGesetzt) //Route passt
+                {
+                    // Pürfen ob weiche auf Abzweig
+                    foreach (Weiche weiche in Strasse.Fahrstr_Weichenliste)
+                    {
+                        if (weiche.Abzweig) WeicheAbzweig = true;
+                    }
 
+                    // TODO: Blockprüfung
+                    break; //Abbruch. Keine weitere Pürfungen erforderlich 
+                }
+            }
+
+            switch(wunschZustand)
+            {
+                case SignalZustand.HP1: if (WeichenGesetzt && !WeicheAbzweig && !BlockBelegt) return true; break;
+                case SignalZustand.HP2: if (WeichenGesetzt                   && !BlockBelegt) return true; break;
+                case SignalZustand.SH1: if (WeichenGesetzt                   && !BlockBelegt) return true; break;
+                default: return false;
             }
 
 
-
-                return false;
+            return false;
         }
 
 
@@ -375,7 +440,7 @@ namespace MEKB_H0_Anlage
                     if (!s.Safe) continue; 
                 }
                 // Weg ist gesetzt
-                if(s.CheckFahrstrassePos(weichenListe.Liste))
+                if(s.CheckFahrstrassePos())
                 {
                     foreach(string blockStr in s.Fahrstr_Blockierende)
                     {
@@ -384,7 +449,7 @@ namespace MEKB_H0_Anlage
                         if(BlockFahrstr != null)
                         {
                             // Ist Fahrstrasse der Blockierenden fahrbar (Kreuzung)
-                            if(BlockFahrstr.CheckFahrstrassePos(weichenListe.Liste))
+                            if(BlockFahrstr.CheckFahrstrassePos())
                             {
                                 //Ist nicht auf Halt
                                 if(!BlockFahrstr.EinfahrtsSignal.Zustand.Equals(SignalZustand.HP0))
@@ -408,6 +473,16 @@ namespace MEKB_H0_Anlage
                 }
             }
             return SignalZustand.HP0;
+        }
+
+        /// <summary>
+        /// Überprüfen ob Signalbild überhaupt mit diesem Signal möglich ist
+        /// </summary>
+        /// <param name="signalbild">Gefragte Stellung</param>
+        /// <returns>True: Kann annehmen</returns>
+        public bool HatSignalbild(SignalZustand signalbild)
+        {
+            return (signalbild == Adr1_1 || signalbild == Adr1_2 || signalbild == Adr2_1 || signalbild == Adr2_1);
         }
     }
 

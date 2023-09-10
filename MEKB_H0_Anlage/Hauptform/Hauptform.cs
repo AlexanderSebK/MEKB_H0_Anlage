@@ -104,12 +104,14 @@ namespace MEKB_H0_Anlage
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
             z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
 
-            WeichenListe.DigitalzentraleVerknuepfen(z21Start);
-            SignalListe.DigitalzentraleVerknuepfen(z21Start);
+            // Instanzen Zugriffe festlegen
+            SetupFahrstrassen();                        //Fahstrassen festlegen    
+            WeichenListe.DigitalzentraleZugriff(z21Start);
+            SignalListe.DigitalzentraleZugriff(z21Start);
+            SignalListe.FahrstrassenZugriff(FahrstrassenListe);
 
             ConnectStatus(false, false);                 //Verbindungsstatus auf getrennt setzen
-
-            SetupFahrstrassen();                        //Fahstrassen festlegen          
+      
 
             Betriebsbereit = false;
 
@@ -177,7 +179,7 @@ namespace MEKB_H0_Anlage
             StopAlle_Click(sender, e);
             foreach (Signal signal in SignalListe.Liste)
             {
-                signal.Schalten(0, z21Start);//Alle Signale Rot
+                signal.Schalten(SignalZustand.HP0); //Alle Signale Rot
             }
             z21Start.DisConnect_Z21();
         }
@@ -408,49 +410,6 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region SignalSteuerung
-        private void Signal_HP0_HP1(object sender, EventArgs e)
-        {
-            if (sender is PictureBox SignalElement)
-            {
-                Signal signal = SignalListe.GetSignal(SignalElement.Name);
-                if (signal == null) return;
-
-                //SignalZustand ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
-                SignalZustand ErlaubteSignalstellung = signal.ErlaubteStellung(FahrstrassenListe,WeichenListe);
-
-                if (signal.Zustand == SignalZustand.HP1)
-                {
-                    signal.Schalten(SignalZustand.HP0, z21Start);
-                }
-                else if (signal.Zustand == SignalZustand.HP0)
-                {
-                    if (ErlaubteSignalstellung == SignalZustand.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
-                    signal.Schalten(SignalZustand.HP1, z21Start);
-                }
-            }
-        }
-        private void Signal_HP0_HP2(object sender, EventArgs e)
-        {
-            if (sender is PictureBox SignalElement)
-            {
-                Signal signal = SignalListe.GetSignal(SignalElement.Name);
-                if (signal == null) return;
-
-                //SignalZustand ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
-                SignalZustand ErlaubteSignalstellung = signal.ErlaubteStellung(FahrstrassenListe, WeichenListe);
-
-                if (signal.Zustand == SignalZustand.HP2)
-                {
-                    signal.Schalten(SignalZustand.HP0, z21Start);
-                }
-                else if (signal.Zustand == 0)
-                {
-                    if (ErlaubteSignalstellung == SignalZustand.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
-                    signal.Schalten(SignalZustand.HP2, z21Start);
-                }
-            }
-        }
-
         private void SignalClickSchaltung(object sender, EventArgs e)
         {
             // Prüfen ob Click-Element vom Typ Signal ist und Name in der Liste
@@ -459,18 +418,85 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal(SignalElement.Name);
                 if (signal == null) return;
 
+                bool Modus = Config.ReadConfig("AutoSignalFahrstrasse").Equals("true");
+
                 // SHIFT-Taste während des Klickens gedrückt -> Schalten auf HP2 (langsame Fahrt)
-                if(Control.ModifierKeys == Keys.Shift)
+                if (Control.ModifierKeys == Keys.Shift)
                 {
+                    if (signal.Zustand == SignalZustand.HP2) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
+                    {
+                        signal.Schalten(SignalZustand.HP0);
+                        return;
+                    }
 
+                    // HP2 erlaubt
+                    if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
+                    {
+                        signal.Schalten(SignalZustand.HP2);
+                        return;
+                    }
+                    // HP2 nicht erlaubt, prüfen ob HP1 möglich
+                    else if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
+                    {
+                        signal.Schalten(SignalZustand.HP1);
+                        return;
+                    }
+                    else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
+                    {
+                        // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
+                        if (signal.Zustand != SignalZustand.HP0)
+                            signal.Schalten(SignalZustand.HP0);
+                        return;
+                    }
                 }
-
-                // Signal is auf Rot -> Schalten in ein anderes 
-                if(signal.Zustand == SignalZustand.HP0)
+                // CTRL-Taste während des Klickens gedrückt -> Schalten auf SH1 (Rangier Fahrt)
+                else if (Control.ModifierKeys == Keys.Control)
                 {
-
+                    if (signal.Zustand == SignalZustand.SH1) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
+                    {
+                        signal.Schalten(SignalZustand.HP0);
+                        return;
+                    }
+                    // SH1 erlaubt
+                    if (signal.StellungErlaubt(SignalZustand.SH1, Modus))
+                    {
+                        signal.Schalten(SignalZustand.SH1);
+                        return;
+                    }
+                    else //Nicht erlaubt -> Strecke gesperrt
+                    {
+                        // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
+                        if (signal.Zustand != SignalZustand.HP0)
+                            signal.Schalten(SignalZustand.HP0);
+                        return;
+                    }
                 }
-
+                else
+                {
+                    // Signal is auf Rot -> Schalten in ein anderes 
+                    if (signal.Zustand == SignalZustand.HP0)
+                    {
+                        if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
+                        {
+                            signal.Schalten(SignalZustand.HP1);
+                            return;
+                        }
+                        else if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
+                        {
+                            signal.Schalten(SignalZustand.HP2);
+                            return;
+                        }
+                        else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
+                        {
+                            return; // Schalten nicht erlauben
+                        }
+                    }
+                    else // Zurückschalten auf HP0
+                    {
+                        signal.Schalten(SignalZustand.HP0);
+                        return;
+                    }
+                }
             }
         }
 

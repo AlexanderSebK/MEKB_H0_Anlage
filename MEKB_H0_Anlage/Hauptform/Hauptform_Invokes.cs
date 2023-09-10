@@ -128,7 +128,7 @@ namespace MEKB_H0_Anlage
             Weiche weiche = WeichenListe.GetWeiche(Adresse); //Finde Weiche mit dieser Adresse 
             if (weiche != null)//Weiche gefunden in der Liste
             {
-                bool aenderung = weiche.Schalten(Status);
+                bool aenderung = weiche.StatusUpdate(Status);
                 UpdateWeicheImGleisplan(weiche, aenderung); //Mit Signal-Update
             }
             else

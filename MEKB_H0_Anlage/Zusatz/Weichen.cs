@@ -11,24 +11,24 @@ namespace MEKB_H0_Anlage
     {
         private Dictionary<string, int> Verzeichnis;
         public List<Weiche> Liste;
-        private Z21 Z21 = new Z21();
 
         public WeichenListe()
         {
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Weiche>();
-            Z21 = new Z21();
         }
 
         public WeichenListe(string Dateiname)
         {
             DateiImportieren(Dateiname);
-            Z21 = new Z21();
         }
 
-        public void DigitalzentraleVerknuepfen(Z21 zentrale)
+        public void DigitalzentraleZugriff(Z21 zentrale)
         {
-            Z21 = zentrale;
+            foreach(Weiche weiche in Liste)
+            {
+                weiche.DigitalzentraleZugriff(zentrale);
+            }
         }
 
         public void DateiImportieren(string Dateiname)
@@ -60,9 +60,14 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        public Weiche GetWeiche(string Abschnitt)
+        /// <summary>
+        /// Weiche in der Liste suchen und zurückgeben
+        /// </summary>
+        /// <param name="Name">Name der Weiche</param>
+        /// <returns>Weicheninstanz oder NULL wenn nicht gefunden</returns>
+        public Weiche GetWeiche(string Name)
         {
-            if (Verzeichnis.TryGetValue(Abschnitt, out int ListID))
+            if (Verzeichnis.TryGetValue(Name, out int ListID))
             {
                 return Liste[ListID];
             }
@@ -91,7 +96,7 @@ namespace MEKB_H0_Anlage
             {
                 foreach (Weiche weiche in Liste)
                 {
-                    Z21.LAN_X_GET_TURNOUT_INFO(weiche.Adresse);    //Paket senden "GET Weiche"
+                    weiche.WeichenStatusAnfragen();                 //Anfrage an Zentrale senden
                     Task.Delay(50);                                //50ms warten
                 }
             }
@@ -99,8 +104,7 @@ namespace MEKB_H0_Anlage
             {
                 if (Verzeichnis.TryGetValue(Weichenname, out int ListID))
                 {
-                    int Adresse = Liste[ListID].Adresse;                             //Adresse der Weiche übernehmen
-                    Z21.LAN_X_GET_TURNOUT_INFO(Adresse);                             //paket senden "GET Weiche"
+                    Liste[ListID].WeichenStatusAnfragen();          //Anfrage an Zentrale senden
                 }
             }
         }
@@ -108,62 +112,38 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Weiche Schalten auf Position
         /// </summary>
+        /// <param name="IgnoriereFahrstrasseBlock">true: Trotzdem Schalten, auch wenn Weiche durch Fahrstrasse blockiert ist</param>
         /// <param name="WeichenName">Weichennamen der zu schaltenen Weiche</param>
         /// <param name="Abzweig">true: auf Abzweig schalten / false: auf Gerade schalten</param>
-        public void SetzeWeiche(string WeichenName, bool Abzweig)
+        public void SetzeWeiche(string WeichenName, bool Abzweig, bool IgnoriereFahrstrasseBlock = false)
         {
             if (Verzeichnis.TryGetValue(WeichenName, out int ListID))
             {
-                if (Liste[ListID].FahrstrasseAktive) return;
-                if (Liste[ListID].ZeitAktiv > 0) return; //Weiche noch beim schalten
-
-                int Adresse = Liste[ListID].Adresse;
-
-                if (Liste[ListID].Spiegeln) Abzweig = !Abzweig;
-                
-                Z21.LAN_X_SET_TURNOUT(Adresse, Abzweig, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
-                Liste[ListID].ZeitAktiv = Liste[ListID].Schaltzeit;
+                Liste[ListID].SetzeWeiche(Abzweig, IgnoriereFahrstrasseBlock);               
             }
         }
         /// <summary>
         /// Weichenstellung wechseln
         /// </summary>
+        /// <param name="IgnoriereFahrstrasseBlock">true: Trotzdem Schalten, auch wenn Weiche durch Fahrstrasse blockiert ist</param>
         /// <param name="WeichenName">Weichennamen der zu schaltenen Weiche</param>
-        public void ToggleWeiche(string WeichenName)
+        public void ToggleWeiche(string WeichenName, bool IgnoriereFahrstrasseBlock = false)
         {
             if (Verzeichnis.TryGetValue(WeichenName, out int ListID))
             {
-                if (Liste[ListID].FahrstrasseAktive) return; //Weiche durch Fahrstraße belegt
-                if (Liste[ListID].ZeitAktiv > 0) return; //Weiche noch beim schalten
-
-                int Adresse = Liste[ListID].Adresse;     //Ardesse übernehmen
-                bool Abzweig = Liste[ListID].Abzweig;    //Aktuelle Position lesen
-                Abzweig = !Abzweig;     //Toggeln
-
-                if (Liste[ListID].Spiegeln) Abzweig = !Abzweig;  //Weiche in der Liste als gespiegelt gelistet (wenn Dekoder anders angeschlossen ist)
-
-                Z21.LAN_X_SET_TURNOUT(Adresse, Abzweig, true, true);             //Q-Modus aktiviert, Schaltausgang aktiv
-                Liste[ListID].ZeitAktiv = Liste[ListID].Schaltzeit;   //Setze Status der Weiche als "gerade am schalten"               
+                Liste[ListID].SetzeWeiche(!Liste[ListID].Abzweig, IgnoriereFahrstrasseBlock);             
             }
         }
 
+        /// <summary>
+        /// Überwachung der Weichenstellzeit
+        /// </summary>
+        /// <param name="Zeit">Zeit vergangen seit dem letztem Aufruf dieser Funktion</param>
         public void WeichenschaltungsUeberwachung(int Zeit)
         {
             foreach (Weiche weiche in Liste)
             {
-                if (weiche.ZeitAktiv > 0)
-                {
-                    weiche.ZeitAktiv -= Zeit;
-                    bool Abzweig = weiche.Abzweig;
-                    if (weiche.Spiegeln) Abzweig = !Abzweig;
-                    Z21.LAN_X_SET_TURNOUT(weiche.Adresse, Abzweig, true, true);
-
-                    if (weiche.ZeitAktiv <= 0)
-                    {
-                        weiche.ZeitAktiv = 0;
-                        Z21.LAN_X_SET_TURNOUT(weiche.Adresse, Abzweig, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv   
-                    }
-                }
+                weiche.Schaltueberwachung(Zeit);               
             }
         }
 
@@ -185,6 +165,7 @@ namespace MEKB_H0_Anlage
             Q_Modus = false;
             Schaltzeit = 3000;
             ZeitAktiv = 0;
+            Z21 = new Z21();
         }
         #region Parameter
         /// <summary>
@@ -238,6 +219,8 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public int ZeitAktiv { get; set; }
         public bool Besetzt { get; set; }
+
+        private Z21 Z21 { get; set; }
         #endregion
         #region Listenfunktionen
         /// <summary>
@@ -284,11 +267,62 @@ namespace MEKB_H0_Anlage
         }
         #endregion
         #region Funktionen
+        public void DigitalzentraleZugriff(Z21 zentrale)
+        {
+            Z21 = zentrale;
+        }
+        /// <summary>
+        /// Weiche Schalten
+        /// </summary>
+        /// <param name="IgnoriereFahrstrasseBlock">true: Trotzdem Schalten, auch wenn Weiche durch Fahrstrasse blockiert ist</param>
+        /// <param name="Endzustand">false: Gerade | true: Abzweig</param>
+        public void SetzeWeiche(bool Endzustand, bool IgnoriereFahrstrasseBlock = false)
+        {
+
+            if (FahrstrasseAktive && !IgnoriereFahrstrasseBlock) return; //Durch Fahrstrasse kontrolliert
+            if (ZeitAktiv > 0) return; //Weiche noch beim schalten
+
+            if (Spiegeln) Endzustand = !Endzustand;
+
+            Z21.LAN_X_SET_TURNOUT(Adresse, Endzustand, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
+            ZeitAktiv = Schaltzeit;            
+        }
+
+        public void Schaltueberwachung(int Zeit)
+        {
+            //Weiche noch beim Schalten
+            if (ZeitAktiv != 0)
+            {
+                ZeitAktiv -= Zeit;
+                bool Endzustand = Abzweig;
+                if (Spiegeln) Endzustand = !Endzustand;
+               
+                // Schaltzeit gerade abgelaufen
+                if (ZeitAktiv <= 0)
+                {
+                    ZeitAktiv = 0;
+                    Z21.LAN_X_SET_TURNOUT(Adresse, Endzustand, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv   
+                }
+                else
+                {
+                    Z21.LAN_X_SET_TURNOUT(Adresse, Endzustand, true, true);
+                }
+            }
+        }
+        /// <summary>
+        /// Anfrage an Z21 senden und aktuellen Weichenzustand erfragen. Antwort wird mit Involke-Funktionen ausgewertet
+        /// </summary>
+        public void WeichenStatusAnfragen()
+        {
+            Z21.LAN_X_GET_TURNOUT_INFO(Adresse);    //Paket senden "GET Weiche"
+        }
+
+
         /// <summary>
         /// Rückantwort der Z21 analisieren
         /// </summary>
         /// <param name="SchaltCode">Paketinhalt der Z21</param>
-        public bool Schalten(int SchaltCode)
+        public bool StatusUpdate(int SchaltCode)
         {
             bool AlterAbzweig = Abzweig;
             switch (SchaltCode)
@@ -315,6 +349,7 @@ namespace MEKB_H0_Anlage
             if (AlterAbzweig == Abzweig) return false; //Keine Änderungen/Update
             else return true; //Änderungen
         }
+
         #endregion
     }
 

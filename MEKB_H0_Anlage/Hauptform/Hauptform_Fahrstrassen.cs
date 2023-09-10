@@ -35,7 +35,7 @@ namespace MEKB_H0_Anlage
             else
             {
                 //Fahrstraße aktivieren
-                if (Betriebsbereit) fahrstrasse.StarteFahrstrasse(WeichenListe.Liste);
+                if (Betriebsbereit) fahrstrasse.StarteFahrstrasse();
             }
             //Weichenliste der Fahrstraßen übernehmen
             List<Weiche> FahrstrassenWeichen = fahrstrasse.GetFahrstrassenListe();
