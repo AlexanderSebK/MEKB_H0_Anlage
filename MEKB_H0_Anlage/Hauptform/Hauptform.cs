@@ -32,39 +32,55 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public partial class Hauptform : Form
     {
+        #region Instanzen
         public Z21 z21Start;
+        public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
+        public Lokomotive[] AktiveLoks = new Lokomotive[12];
+        private Logger Log { set; get; }
+        #endregion
 
+        #region Fenster
         private Z21_Einstellung z21_Einstellung;
         private Signal_Einstellungen signal_Einstellungen;
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
         private InfoBox InfoBox;
         private MenuFenster_Signalistentool signaltool;
+        #endregion
 
-        public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
-
+        #region Listen
         public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
         public SignalListe SignalListe = new SignalListe("Signalliste.xml");      
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
         public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
         public LokomotivenVerwaltung LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
+        #endregion
 
-
-        public Lokomotive[] AktiveLoks = new Lokomotive[12];
+        #region Threads
         public Thread ThreadLoksuche;
+        #endregion
 
-        public bool Betriebsbereit;
-
+        #region Timer
         private static System.Timers.Timer FlagTimer;
         private static System.Timers.Timer WeichenTimer;
         private static System.Timers.Timer CooldownTimer;
         private static System.Timers.Timer BelegtmelderCoolDown;
+        #endregion
+
+
+
+
+        
+
+        public bool Betriebsbereit;
+
+        
 
         private int Pointer_Weichenliste = 0;
         private int Pointer_Signalliste = 0;
         private bool Signal_Init;
         private bool Weichen_Init;
 
-        private Logger Log { set; get; }
+        
 
         #region Hauptform Funktionen
         public Hauptform()
@@ -89,6 +105,7 @@ namespace MEKB_H0_Anlage
             z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
 
             WeichenListe.DigitalzentraleVerknuepfen(z21Start);
+            SignalListe.DigitalzentraleVerknuepfen(z21Start);
 
             ConnectStatus(false, false);                 //Verbindungsstatus auf getrennt setzen
 
@@ -230,6 +247,7 @@ namespace MEKB_H0_Anlage
             }));
         }
 
+        private int GroupIndex = 0;
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
             if (source is System.Timers.Timer timer)
@@ -280,7 +298,16 @@ namespace MEKB_H0_Anlage
                     }
                     
                     FahrstrasseBildUpdate();
-                    BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
+                    if (GroupIndex == 0)
+                    {
+                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
+                        GroupIndex = 1;
+                    }
+                    else
+                    {
+                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
+                        GroupIndex = 0;
+                    }
                     stopWatch.Stop();
                     timer.Start();
                     //Messung vor Verbesserung: 100~120ms => 2ms
@@ -423,6 +450,30 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
+
+        private void SignalClickSchaltung(object sender, EventArgs e)
+        {
+            // Prüfen ob Click-Element vom Typ Signal ist und Name in der Liste
+            if (sender is PictureBox SignalElement)
+            {
+                Signal signal = SignalListe.GetSignal(SignalElement.Name);
+                if (signal == null) return;
+
+                // SHIFT-Taste während des Klickens gedrückt -> Schalten auf HP2 (langsame Fahrt)
+                if(Control.ModifierKeys == Keys.Shift)
+                {
+
+                }
+
+                // Signal is auf Rot -> Schalten in ein anderes 
+                if(signal.Zustand == SignalZustand.HP0)
+                {
+
+                }
+
+            }
+        }
+
         #endregion
 
 
