@@ -113,11 +113,11 @@
   <Signal>
     <Name>Signal_Ausfahrt_R5</Name>
     <Adresse>310</Adresse>
-    <Adresse2>0</Adresse2>
+    <Adresse2>410</Adresse2>
     <Typ>3B_90</Typ>
     <Adr1Zustand1>HP0</Adr1Zustand1>
     <Adr1Zustand2>HP2</Adr1Zustand2>
-    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand1>SH1</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
     <Fahrstrassen />
   </Signal>
@@ -128,7 +128,7 @@
     <Typ>3B_90</Typ>
     <Adr1Zustand1>HP0</Adr1Zustand1>
     <Adr1Zustand2>HP2</Adr1Zustand2>
-    <Adr2Zustand1>Unbestimmt</Adr2Zustand1>
+    <Adr2Zustand1>SH1</Adr2Zustand1>
     <Adr2Zustand2>Unbestimmt</Adr2Zustand2>
     <Fahrstrassen />
   </Signal>

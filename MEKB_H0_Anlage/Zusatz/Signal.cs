@@ -482,7 +482,7 @@ namespace MEKB_H0_Anlage
         /// <returns>True: Kann annehmen</returns>
         public bool HatSignalbild(SignalZustand signalbild)
         {
-            return (signalbild == Adr1_1 || signalbild == Adr1_2 || signalbild == Adr2_1 || signalbild == Adr2_1);
+            return (signalbild == Adr1_1 || signalbild == Adr1_2 || signalbild == Adr2_1 || signalbild == Adr2_2);
         }
     }
 

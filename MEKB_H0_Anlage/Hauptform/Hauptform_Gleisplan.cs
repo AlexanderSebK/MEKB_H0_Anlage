@@ -677,6 +677,7 @@ namespace MEKB_H0_Anlage
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_4);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_5);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_6);
+            GleisbildZeichnung.ZeichneSchaltbild(SignalListe.GetSignal("Signal_Ausfahrt_R5"), Block8_6);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_7);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_8);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_9);        
