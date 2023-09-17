@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Gleisplan>
+  <Abschnitt Name='Block1'>
+	<Belegtmelder Name='Block1_a'>
+		<Fahrstrassen_Mit>
+			<Fahrstrasse>Gleis1_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis2_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis3_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis4_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+		</Fahrstrassen_Mit>
+		<Fahrstrassen_Gegen>
+		</Fahrstrassen_Gegen>
+	
+		<Gleis Name='Block1a_1'>
+			<PosX>11</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>			
+		</Gleis>
+		<Gleis Name='Block1a_2'>
+			<PosX>10</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>			
+		</Gleis>
+    </Belegtmelder>
+	<Belegtmelder Name='Block1_b'>
+		<Fahrstrassen_Mit>
+			<Fahrstrasse>Gleis1_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis2_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis3_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis4_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+		</Fahrstrassen_Mit>
+		<Fahrstrassen_Gegen>
+		</Fahrstrassen_Gegen>
+		<Gleis Name='Block1b_1'>
+			<PosX>9</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>			
+		</Gleis>
+		<Gleis Name='Block1b_2'>
+			<PosX>8</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>			
+		</Gleis>
+		<Gleis Name='Block1b_3'>
+			<PosX>7</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>			
+		</Gleis>
+		<Gleis Name='Block1b_4'>
+			<PosX>6</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>			
+		</Gleis>
+		<Gleis Name='Block1b_5'>
+			<PosX>5</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>			
+		</Gleis>
+		<Gleis Name='Block1b_6'>
+			<PosX>4</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>			
+		</Gleis>
+		<Gleis Name='Block1b_7'>
+			<PosX>3</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>			
+		</Gleis>
+    </Belegtmelder>
+	<Belegtmelder Name='Block1_Halt'>
+		<Fahrstrassen_Mit>
+			<Fahrstrasse>Gleis1_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis2_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis3_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis4_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+			<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+		</Fahrstrassen_Mit>
+		<Fahrstrassen_Gegen>
+		</Fahrstrassen_Gegen>
+	
+		<Gleis Name='Block1_Halt_1'>
+			<PosX>2</PosX>
+			<PosY>4</PosY>
+			<Typ>KurveL_90</Typ>			
+		</Gleis>
+		<Gleis Name='Block1_Halt_2'>
+			<PosX>1</PosX>
+			<PosY>4</PosY>
+			<Typ>Ecke_UR</Typ>			
+		</Gleis>
+		<Gleis Name='Block1_Halt_3'>
+			<PosX>2</PosX>
+			<PosY>5</PosY>
+			<Typ>Ecke_OL_SP</Typ>			
+		</Gleis>
+		<Gleis Name='Block1_Halt_4'>
+			<PosX>1</PosX>
+			<PosY>5</PosY>
+			<Typ>KurveL_135</Typ>			
+		</Gleis>
+    </Belegtmelder>
+	<Belegtmelder Name='W52'>
+		<Fahrstrassen_Mit>
+			<Fahrstrasse>Block1_nach_Block5</Fahrstrasse>
+			<Fahrstrasse>Block1_nach_Block2</Fahrstrasse>			
+		</Fahrstrassen_Mit>
+		<Fahrstrassen_Gegen>
+		</Fahrstrassen_Gegen>
+	
+		<Gleis Name='Weiche52'>
+			<PosX>2</PosX>
+			<PosY>5</PosY>
+			<Typ>WeicheL_180</Typ>
+			<Weiche>Weiche52</Weiche>			
+		</Gleis>
+		<Gleis Name='Weiche52_Gleis1'>
+			<PosX>2</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_180+Ecke_OR_SP</Typ>
+			<Bedingung Teil='1'>
+				<Stellung Weiche='Weiche52'>Gerade</Stellung>
+			</Bedingung>
+			<Bedingung Teil='2'>
+				<Stellung Weiche='Weiche52'>Abzweig</Stellung>
+			</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche52_Gleis1'>
+			<PosX>3</PosX>
+			<PosY>5</PosY>
+			<Typ>Ecke_UL</Typ>
+			<Bedingung Teil='1'>
+				<Stellung Weiche='Weiche52'>Abzweig</Stellung>
+			</Bedingung>
+		</Gleis>
+    </Belegtmelder>
+	
+	
+  </Abschnitt>
+</Gleisplan>

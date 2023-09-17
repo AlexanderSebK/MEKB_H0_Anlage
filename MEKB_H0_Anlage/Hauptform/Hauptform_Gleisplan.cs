@@ -15,6 +15,68 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public partial class Hauptform : Form
     {
+        public Dictionary<string, int> GleisListenVerzeichnis = new Dictionary<string, int>();
+        public List<PictureBox> GleisListe = new List<PictureBox>();
+        private void GleisplanZeichnenInitial()
+        {
+            foreach(Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
+            {
+                foreach(Gleisplan.Abschnitt.Block block in abschnitt.Blocks)
+                {
+                    foreach(Gleisplan.Abschnitt.Block.GleisTyp gleis in block.GleisTypen)
+                    {
+                       
+                        if (!this.Controls.ContainsKey(gleis.Name))
+                        {
+                            PictureBox neuesGleis = new PictureBox()
+                            {
+                                Name = gleis.Name,
+                                Tag = gleis.Typ,
+                                Size = new Size(32, 32),
+                                Location = new Point(gleis.PosX*32, gleis.PosY*32),
+                                Image = new Bitmap(GleisbildZeichnung.Katalog[36][7]),
+                            };
+                            GleisListe.Add(neuesGleis);
+                            GleisListenVerzeichnis.Add(gleis.Name, GleisListe.Count - 1);
+                            this.Controls.Add(neuesGleis);
+
+                            GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, neuesGleis);
+                        }                      
+                    }
+                }
+            }
+        }
+
+        private void GleisplanZeichnen()
+        {
+            foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
+            {
+                foreach (Gleisplan.Abschnitt.Block block in abschnitt.Blocks)
+                {
+                    MeldeZustand aktZustand = ErrechneZustand(
+                            BelegtmelderListe.GetBelegtStatus(block.Belegtmelder),
+                            FahrstrassenListe.GetFahrstrasse(block.FahrstrassenMit.ToArray()),
+                            FahrstrassenListe.GetFahrstrasse(block.FahrstrassenGegen.ToArray()));
+                    foreach (Gleisplan.Abschnitt.Block.GleisTyp gleis in block.GleisTypen)
+                    {
+                        if (!gleis.zustand.Equals(aktZustand))
+                        {
+                            var Fund = this.Controls.Find(gleis.Name, true);
+                            foreach (Control control in Fund)
+                            {
+                                if (control is PictureBox Picbox)
+                                {
+                                    GleisbildZeichnung.ZeichneSchaltbild(aktZustand, Picbox);
+                                    gleis.zustand = aktZustand;
+                                }
+                            }
+                        }                       
+                    }
+                }
+            }
+        }
+
+
 
         MeldeZustand FreiesGleis = new MeldeZustand(false);       
 
@@ -508,31 +570,8 @@ namespace MEKB_H0_Anlage
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Weiche6_Gleis4);
         }
-        private void UpdateGleisbild_Block1a(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1a_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1a_2);
-        }
-        private void UpdateGleisbild_Block1b(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_5);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_6);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1b_7);
-        }
-        private void UpdateGleisbild_Block1_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1_Halt_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1_Halt_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1_Halt_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block1_Halt_4);
-        }
+        
+       
         #endregion
         #region Block 2
         private void UpdateGleisbild_Block2(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
@@ -1844,21 +1883,7 @@ namespace MEKB_H0_Anlage
             //Gleise im Block 1 aktualisieren
             UpdateGleisbild_Weiche6(BelegtmelderListe.GetBelegtStatus("W6"), //Besetzt
                                     FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis1_nach_Block1", "Gleis2_nach_Block1" }),//Mit Fahrtrichtung
-                                    FahrstrassenListe.GetFahrstrasse(new string[] { "Block2_nach_Gleis1", "Block2_nach_Gleis2" }));//Gegen Fahrtrichtung
-
-            UpdateGleisbild_Block1a(BelegtmelderListe.GetBelegtStatus("Block1_a"), //Besetzt
-                                    FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis1_nach_Block1", "Gleis2_nach_Block1", "Gleis3_nach_Block1", //Mit Fahrtrichtung
-                                                                                    "Gleis4_nach_Block1", "Gleis5_nach_Block1", "Gleis6_nach_Block1" }),
-                                    new List<Fahrstrasse>()); //Nie gegen Fahrtrichtung
-
-            UpdateGleisbild_Block1b(BelegtmelderListe.GetBelegtStatus("Block1_b"), //Besetzt
-                                    FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis1_nach_Block1", "Gleis2_nach_Block1", "Gleis3_nach_Block1", //Mit Fahrtrichtung
-                                                                                    "Gleis4_nach_Block1", "Gleis5_nach_Block1", "Gleis6_nach_Block1" }),
-                                    new List<Fahrstrasse>()); //Nie gegen Fahrtrichtung
-            UpdateGleisbild_Block1_Halt(BelegtmelderListe.GetBelegtStatus("Block1_Halt"), //Besetzt
-                                    FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis1_nach_Block1", "Gleis2_nach_Block1", "Gleis3_nach_Block1", //Nach links
-                                                                                    "Gleis4_nach_Block1", "Gleis5_nach_Block1", "Gleis6_nach_Block1" }),
-                                    new List<Fahrstrasse>()); //Nie gegen Fahrtrichtung          
+                                    FahrstrassenListe.GetFahrstrasse(new string[] { "Block2_nach_Gleis1", "Block2_nach_Gleis2" }));//Gegen Fahrtrichtung            
             UpdateGleisbild_Block2(BelegtmelderListe.GetBelegtStatus("Block2"), //Besetzt
                                     FahrstrassenListe.GetFahrstrasse(new string[] { "Block1_nach_Block2", "Block9_nach_Block2" }), //Nach Links
                                     new List<Fahrstrasse>()); //Nie gegen Fahrtrichtung

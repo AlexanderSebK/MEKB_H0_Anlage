@@ -48,6 +48,8 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region Listen
+        public Gleisplan Plan = new Gleisplan("Gleisplan.xml");
+
         public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
         public SignalListe SignalListe = new SignalListe("Signalliste.xml");      
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
@@ -168,6 +170,8 @@ namespace MEKB_H0_Anlage
             CooldownTimer.Enabled = true;
             BelegtmelderCoolDown.Enabled = true;
 
+            GleisplanZeichnenInitial();
+
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -255,7 +259,7 @@ namespace MEKB_H0_Anlage
             if (source is System.Timers.Timer timer)
             {
 
-                Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text);
+                Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text); //Debug
                 if(belegtmelder != null)
                 {
                     UpdateRegisterState(NextBlock, belegtmelder.NaechsterBlock(VorBlock.Text, WeichenListe));
@@ -310,6 +314,8 @@ namespace MEKB_H0_Anlage
                         BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
                         GroupIndex = 0;
                     }
+
+                    GleisplanZeichnen();
                     stopWatch.Stop();
                     timer.Start();
                     //Messung vor Verbesserung: 100~120ms => 2ms

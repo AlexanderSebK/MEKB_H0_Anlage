@@ -135,6 +135,7 @@
     <Compile Include="Zusatz\Belegtmelder.cs" />
     <Compile Include="Zusatz\Fahrstrassen.cs" />
     <Compile Include="Zusatz\GleisbildZeichnung.cs" />
+    <Compile Include="Zusatz\Gleisplan.cs" />
     <Compile Include="Zusatz\Logger.cs" />
     <Compile Include="MenuFenster\LokEditor.cs">
       <SubType>Form</SubType>
@@ -711,6 +712,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Fahrstrassenliste.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Gleisplan.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Logo.ico" />

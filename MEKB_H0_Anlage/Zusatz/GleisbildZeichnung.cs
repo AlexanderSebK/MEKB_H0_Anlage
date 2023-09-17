@@ -91,6 +91,7 @@ namespace MEKB_H0_Anlage
             Katalog = new List<List<Bitmap>>();
             ImportiereZeichenDesign(Dateipfad);
         }
+        
 
         public void ImportiereZeichenDesign(string Dateienpfad)
         {
@@ -117,7 +118,7 @@ namespace MEKB_H0_Anlage
             //Reset der Zeichnung
             GleisZustand = new Dictionary<string, MeldeZustand>();
         }
-
+        #region Bild generation
         private bool ZeichneGleis(MeldeZustand Zustand, string Typ, out Bitmap bild)
         {
             
@@ -154,7 +155,6 @@ namespace MEKB_H0_Anlage
             }
             return true;
         }
-
         private bool ZeichneWeiche(Weiche weiche, string Typ, out Bitmap bild)
         {
             List<String> ErlaubteTags = new List<string>() { "Weiche" };
@@ -218,7 +218,6 @@ namespace MEKB_H0_Anlage
             return true;
 
         }
-
         private bool ZeichneSignal(Signal signal, string Typ, out Bitmap bild)
         {            
             try
@@ -249,7 +248,6 @@ namespace MEKB_H0_Anlage
 
             return true;
         }
-
         private bool ZeichneWeiche(Weiche weiche, Weiche weiche2, string Typ, out Bitmap bild)
         {
             List<String> ErlaubteTags = new List<string>() { "DKW", "KW", "DreiwegWeiche" };
@@ -381,8 +379,7 @@ namespace MEKB_H0_Anlage
             return true;
 
         }
-
-        private bool ZeichneKruezung(MeldeZustand Zustand, MeldeZustand Zustand2, string Typ, out Bitmap bild)
+        private bool ZeichneKreuzung(MeldeZustand Zustand, MeldeZustand Zustand2, string Typ, out Bitmap bild)
         {
             if (!Typ.StartsWith("Kreuzung"))
             {
@@ -440,9 +437,9 @@ namespace MEKB_H0_Anlage
             }
             return true;
         }
+        #endregion
 
-        
-
+        #region Bild auf Fenster übertragen
         public void ZeichneSchaltbild(MeldeZustand Zustand, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
             if (picBox.Tag == null) return; // Kein Typdefiniert
@@ -481,7 +478,7 @@ namespace MEKB_H0_Anlage
 
             if (picBox.Tag.ToString().StartsWith("Kreuzung"))
             {
-                if (!ZeichneKruezung(Zustand, Zustand2, picBox.Tag.ToString(), out Bitmap bildKreuzung)) // Erstes Gleisbild zeichnen
+                if (!ZeichneKreuzung(Zustand, Zustand2, picBox.Tag.ToString(), out Bitmap bildKreuzung)) // Erstes Gleisbild zeichnen
                 {
                     return;  //Bild nicht Zeichnen, da Fehler
                 }
@@ -553,7 +550,6 @@ namespace MEKB_H0_Anlage
 
             DisplayPicture(bild, picBox); //Zeichne Bild            
         }
-
         public void ZeichneSchaltbild(Weiche weiche, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
             ////////////////////////////////////////////////////
@@ -618,7 +614,6 @@ namespace MEKB_H0_Anlage
             GleisZustand[picBox.Name + "Zustand2"] = Zustand2; //Neuen Zustand übernehmen
             DisplayPicture(bild, picBox); //Zeichne Bild
         }
-
         public void ZeichneSchaltbild(Weiche weiche, Weiche weiche2, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
             ////////////////////////////////////////////////////
@@ -688,7 +683,9 @@ namespace MEKB_H0_Anlage
                 Type = Katalog[Sonder][Error];
             }
         }
+        #endregion
 
+        #region Bild aus Katalog ermitteln
         private Bitmap BasisSchiene(string Gleistyp)
         {
             if (Gleistyp.EndsWith("_Gegen"))
@@ -1204,7 +1201,9 @@ namespace MEKB_H0_Anlage
             else if (Gleistyp.EndsWith("_315")) return Regex.Replace(Gleistyp, "_315", "_275");
             return Gleistyp;
         }
+        #endregion
 
+        #region Bild Zeichnen (Involke)
         /// <summary>
         /// Involke-Funktion. Verhindert Fehlermeldung beim gleichzeitigen Zugreifen auf ein Bild
         /// </summary>
@@ -1217,7 +1216,7 @@ namespace MEKB_H0_Anlage
                 picBox.Image = img;
             }));
         }
-
+        #endregion
 
     }
 
@@ -1259,6 +1258,24 @@ namespace MEKB_H0_Anlage
         public bool IstFrei()
         {
             return !(Besetzt || Fahrstrasse);
+        }
+
+        public bool Equals(MeldeZustand other)
+        {
+            if(Besetzt == other.Besetzt)
+            {
+                if(Fahrstrasse == other.Fahrstrasse)
+                {
+                    if(Sicher == other.Sicher)
+                    {
+                        if(Richtung == other.Richtung)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 
