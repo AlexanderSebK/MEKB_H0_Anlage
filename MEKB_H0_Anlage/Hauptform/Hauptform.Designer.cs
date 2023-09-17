@@ -33,6 +33,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.LokEditorOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.lokomotivenNeuLadenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ProgrammBeenden = new System.Windows.Forms.ToolStripMenuItem();
             this.zentraleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1032,7 +1033,6 @@
             this.label130 = new System.Windows.Forms.Label();
             this.label129 = new System.Windows.Forms.Label();
             this.label128 = new System.Windows.Forms.Label();
-            this.lokomotivenNeuLadenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche48)).BeginInit();
@@ -1721,6 +1721,13 @@
             this.LokEditorOpen.Size = new System.Drawing.Size(199, 22);
             this.LokEditorOpen.Text = "Lok-Editor";
             this.LokEditorOpen.Click += new System.EventHandler(this.LokEditorOpen_Click);
+            // 
+            // lokomotivenNeuLadenToolStripMenuItem
+            // 
+            this.lokomotivenNeuLadenToolStripMenuItem.Name = "lokomotivenNeuLadenToolStripMenuItem";
+            this.lokomotivenNeuLadenToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.lokomotivenNeuLadenToolStripMenuItem.Text = "Lokomotiven neu laden";
+            this.lokomotivenNeuLadenToolStripMenuItem.Click += new System.EventHandler(this.LokomotivenNeuLadenToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -9200,7 +9207,7 @@
             this.Signal_Ausfahrt_L1.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L1.TabIndex = 655;
             this.Signal_Ausfahrt_L1.TabStop = false;
-            this.Signal_Ausfahrt_L1.Click += new System.EventHandler(this.Signal_HP0_HP2);
+            this.Signal_Ausfahrt_L1.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_L2
             // 
@@ -9210,7 +9217,7 @@
             this.Signal_Ausfahrt_L2.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L2.TabIndex = 656;
             this.Signal_Ausfahrt_L2.TabStop = false;
-            this.Signal_Ausfahrt_L2.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Ausfahrt_L2.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_L4
             // 
@@ -9220,7 +9227,7 @@
             this.Signal_Ausfahrt_L4.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L4.TabIndex = 657;
             this.Signal_Ausfahrt_L4.TabStop = false;
-            this.Signal_Ausfahrt_L4.Click += new System.EventHandler(this.Signal_HP0_HP2);
+            this.Signal_Ausfahrt_L4.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_L3
             // 
@@ -9230,7 +9237,7 @@
             this.Signal_Ausfahrt_L3.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L3.TabIndex = 658;
             this.Signal_Ausfahrt_L3.TabStop = false;
-            this.Signal_Ausfahrt_L3.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Ausfahrt_L3.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_L5
             // 
@@ -9240,7 +9247,7 @@
             this.Signal_Ausfahrt_L5.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L5.TabIndex = 659;
             this.Signal_Ausfahrt_L5.TabStop = false;
-            this.Signal_Ausfahrt_L5.Click += new System.EventHandler(this.Signal_HP0_HP2);
+            this.Signal_Ausfahrt_L5.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_L6
             // 
@@ -9250,7 +9257,7 @@
             this.Signal_Ausfahrt_L6.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_L6.TabIndex = 660;
             this.Signal_Ausfahrt_L6.TabStop = false;
-            this.Signal_Ausfahrt_L6.Click += new System.EventHandler(this.Signal_HP0_HP2);
+            this.Signal_Ausfahrt_L6.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Tunnel_L1
             // 
@@ -9260,7 +9267,7 @@
             this.Signal_Tunnel_L1.Size = new System.Drawing.Size(64, 16);
             this.Signal_Tunnel_L1.TabIndex = 661;
             this.Signal_Tunnel_L1.TabStop = false;
-            this.Signal_Tunnel_L1.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Tunnel_L1.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Einfahrt_L
             // 
@@ -9270,7 +9277,7 @@
             this.Signal_Einfahrt_L.Size = new System.Drawing.Size(64, 16);
             this.Signal_Einfahrt_L.TabIndex = 662;
             this.Signal_Einfahrt_L.TabStop = false;
-            this.Signal_Einfahrt_L.Click += new System.EventHandler(this.Signal_HP0_HP2);
+            this.Signal_Einfahrt_L.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_R1
             // 
@@ -9280,7 +9287,7 @@
             this.Signal_Ausfahrt_R1.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R1.TabIndex = 663;
             this.Signal_Ausfahrt_R1.TabStop = false;
-            this.Signal_Ausfahrt_R1.Click += new System.EventHandler(this.Signal_HP0_HP2);
+            this.Signal_Ausfahrt_R1.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_R2
             // 
@@ -9290,7 +9297,7 @@
             this.Signal_Ausfahrt_R2.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R2.TabIndex = 664;
             this.Signal_Ausfahrt_R2.TabStop = false;
-            this.Signal_Ausfahrt_R2.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Ausfahrt_R2.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_R3
             // 
@@ -9300,7 +9307,7 @@
             this.Signal_Ausfahrt_R3.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R3.TabIndex = 665;
             this.Signal_Ausfahrt_R3.TabStop = false;
-            this.Signal_Ausfahrt_R3.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Ausfahrt_R3.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_R4
             // 
@@ -9310,7 +9317,7 @@
             this.Signal_Ausfahrt_R4.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R4.TabIndex = 666;
             this.Signal_Ausfahrt_R4.TabStop = false;
-            this.Signal_Ausfahrt_R4.Click += new System.EventHandler(this.Signal_HP0_HP2);
+            this.Signal_Ausfahrt_R4.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_R5
             // 
@@ -9320,7 +9327,7 @@
             this.Signal_Ausfahrt_R5.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R5.TabIndex = 667;
             this.Signal_Ausfahrt_R5.TabStop = false;
-            this.Signal_Ausfahrt_R5.Click += new System.EventHandler(this.Signal_HP0_HP2);
+            this.Signal_Ausfahrt_R5.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Ausfahrt_R6
             // 
@@ -9330,7 +9337,7 @@
             this.Signal_Ausfahrt_R6.Size = new System.Drawing.Size(64, 16);
             this.Signal_Ausfahrt_R6.TabIndex = 668;
             this.Signal_Ausfahrt_R6.TabStop = false;
-            this.Signal_Ausfahrt_R6.Click += new System.EventHandler(this.Signal_HP0_HP2);
+            this.Signal_Ausfahrt_R6.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_RTunnel_1
             // 
@@ -9340,7 +9347,7 @@
             this.Signal_RTunnel_1.Size = new System.Drawing.Size(64, 16);
             this.Signal_RTunnel_1.TabIndex = 669;
             this.Signal_RTunnel_1.TabStop = false;
-            this.Signal_RTunnel_1.Click += new System.EventHandler(this.Signal_HP0_HP2);
+            this.Signal_RTunnel_1.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_RTunnel_2
             // 
@@ -9350,7 +9357,7 @@
             this.Signal_RTunnel_2.Size = new System.Drawing.Size(64, 16);
             this.Signal_RTunnel_2.TabIndex = 670;
             this.Signal_RTunnel_2.TabStop = false;
-            this.Signal_RTunnel_2.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_RTunnel_2.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Bahnsteig_Gl4_Gl5
             // 
@@ -12135,7 +12142,7 @@
             this.Signal_Schatten0.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten0.TabIndex = 974;
             this.Signal_Schatten0.TabStop = false;
-            this.Signal_Schatten0.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten0.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten1
             // 
@@ -12145,7 +12152,7 @@
             this.Signal_Schatten1.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten1.TabIndex = 975;
             this.Signal_Schatten1.TabStop = false;
-            this.Signal_Schatten1.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten1.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten2
             // 
@@ -12155,7 +12162,7 @@
             this.Signal_Schatten2.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten2.TabIndex = 976;
             this.Signal_Schatten2.TabStop = false;
-            this.Signal_Schatten2.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten2.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten3
             // 
@@ -12165,7 +12172,7 @@
             this.Signal_Schatten3.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten3.TabIndex = 977;
             this.Signal_Schatten3.TabStop = false;
-            this.Signal_Schatten3.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten3.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten4
             // 
@@ -12175,7 +12182,7 @@
             this.Signal_Schatten4.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten4.TabIndex = 978;
             this.Signal_Schatten4.TabStop = false;
-            this.Signal_Schatten4.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten4.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten5
             // 
@@ -12185,7 +12192,7 @@
             this.Signal_Schatten5.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten5.TabIndex = 979;
             this.Signal_Schatten5.TabStop = false;
-            this.Signal_Schatten5.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten5.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten6
             // 
@@ -12195,7 +12202,7 @@
             this.Signal_Schatten6.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten6.TabIndex = 980;
             this.Signal_Schatten6.TabStop = false;
-            this.Signal_Schatten6.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten6.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten7
             // 
@@ -12205,7 +12212,7 @@
             this.Signal_Schatten7.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten7.TabIndex = 981;
             this.Signal_Schatten7.TabStop = false;
-            this.Signal_Schatten7.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten7.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten8
             // 
@@ -12215,7 +12222,7 @@
             this.Signal_Schatten8.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten8.TabIndex = 982;
             this.Signal_Schatten8.TabStop = false;
-            this.Signal_Schatten8.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten8.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten9
             // 
@@ -12225,7 +12232,7 @@
             this.Signal_Schatten9.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten9.TabIndex = 983;
             this.Signal_Schatten9.TabStop = false;
-            this.Signal_Schatten9.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten9.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten10
             // 
@@ -12235,7 +12242,7 @@
             this.Signal_Schatten10.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten10.TabIndex = 984;
             this.Signal_Schatten10.TabStop = false;
-            this.Signal_Schatten10.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten10.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten11
             // 
@@ -12245,7 +12252,7 @@
             this.Signal_Schatten11.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten11.TabIndex = 985;
             this.Signal_Schatten11.TabStop = false;
-            this.Signal_Schatten11.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten11.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Block6
             // 
@@ -12255,7 +12262,7 @@
             this.Signal_Block6.Size = new System.Drawing.Size(64, 16);
             this.Signal_Block6.TabIndex = 986;
             this.Signal_Block6.TabStop = false;
-            this.Signal_Block6.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Block6.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Schatten_Einf
             // 
@@ -12265,7 +12272,7 @@
             this.Signal_Schatten_Einf.Size = new System.Drawing.Size(64, 16);
             this.Signal_Schatten_Einf.TabIndex = 987;
             this.Signal_Schatten_Einf.TabStop = false;
-            this.Signal_Schatten_Einf.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Schatten_Einf.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Block2
             // 
@@ -12275,7 +12282,7 @@
             this.Signal_Block2.Size = new System.Drawing.Size(16, 64);
             this.Signal_Block2.TabIndex = 988;
             this.Signal_Block2.TabStop = false;
-            this.Signal_Block2.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Block2.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Block5
             // 
@@ -12285,7 +12292,7 @@
             this.Signal_Block5.Size = new System.Drawing.Size(16, 64);
             this.Signal_Block5.TabIndex = 989;
             this.Signal_Block5.TabStop = false;
-            this.Signal_Block5.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Block5.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Signal_Block8
             // 
@@ -12295,7 +12302,7 @@
             this.Signal_Block8.Size = new System.Drawing.Size(16, 64);
             this.Signal_Block8.TabIndex = 990;
             this.Signal_Block8.TabStop = false;
-            this.Signal_Block8.Click += new System.EventHandler(this.Signal_HP0_HP1);
+            this.Signal_Block8.Click += new System.EventHandler(this.SignalClickSchaltung);
             // 
             // Weiche82
             // 
@@ -12391,13 +12398,6 @@
             this.label128.Size = new System.Drawing.Size(80, 13);
             this.label128.TabIndex = 994;
             this.label128.Text = "Nächster Block";
-            // 
-            // lokomotivenNeuLadenToolStripMenuItem
-            // 
-            this.lokomotivenNeuLadenToolStripMenuItem.Name = "lokomotivenNeuLadenToolStripMenuItem";
-            this.lokomotivenNeuLadenToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.lokomotivenNeuLadenToolStripMenuItem.Text = "Lokomotiven neu laden";
-            this.lokomotivenNeuLadenToolStripMenuItem.Click += new System.EventHandler(this.LokomotivenNeuLadenToolStripMenuItem_Click);
             // 
             // Hauptform
             // 

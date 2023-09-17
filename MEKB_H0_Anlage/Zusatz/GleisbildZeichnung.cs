@@ -52,6 +52,20 @@ namespace MEKB_H0_Anlage
         private const int FahrstrSicher_KurveL = 34;
         private const int FahrstrSicher_Ecke = 35;
 
+        private const int Signal_Mast = 37;
+        private const int Signal_ErstBegriff = 38;
+        private const int Signal_ZweitBegriff = 39;
+        private const int Signal_Sperr = 40;
+        private const int Signal_Beschrankung = 41;
+        private const int VorSignal_Begriff = 42;
+        private const int Signal_Licht_HP0 = 43;
+        private const int Signal_Licht_HP1 = 44;
+        private const int Signal_Licht_HP2 = 45;
+        private const int Signal_Licht_SH1 = 46;
+        private const int Signal_Licht_VR0 = 47;
+        private const int Signal_Licht_VR1 = 48;
+        private const int Signal_Licht_VR2 = 49;
+
         private const int Sonder = 36;
         private const int Fehler = 0;
         private const int Unbekannt = 1;
@@ -60,7 +74,7 @@ namespace MEKB_H0_Anlage
 
         #endregion
 
-        public List<List<Bitmap>> Katalog;
+        public List<List<Bitmap>> Katalog { set; get; } = new List<List<Bitmap>>();
 
 
         public Dictionary<string, MeldeZustand> GleisZustand;
@@ -203,6 +217,37 @@ namespace MEKB_H0_Anlage
             }
             return true;
 
+        }
+
+        private bool ZeichneSignal(Signal signal, string Typ, out Bitmap bild)
+        {            
+            try
+            {
+                bild = new Bitmap(SignalTeil(Signal_Mast,Typ)); //Gleisbild   
+            }
+            catch
+            {
+                bild = new Bitmap(32, 32);
+                return false;
+            }
+            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
+
+            ////////////////////////////////////////////////////
+            // Begriffe Zeichnen
+            ////////////////////////////////////////////////////
+
+            if (signal.HatSignalbild(SignalZustand.HP0) && (signal.HatSignalbild(SignalZustand.HP1) || signal.HatSignalbild(SignalZustand.HP2))) BildHinzufuegen(ref gleis, SignalTeil(Signal_ErstBegriff, Typ));
+            if (signal.HatSignalbild(SignalZustand.SH1)) BildHinzufuegen(ref gleis, SignalTeil(Signal_Sperr, Typ));
+            if (signal.HatSignalbild(SignalZustand.HP2)) BildHinzufuegen(ref gleis, SignalTeil(Signal_ZweitBegriff, Typ));
+            if (!signal.HatSignalbild(SignalZustand.HP1) && signal.HatSignalbild(SignalZustand.HP2)) BildHinzufuegen(ref gleis, SignalTeil(Signal_Beschrankung, Typ));
+
+            if (signal.Zustand == SignalZustand.HP0) BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_HP0, Typ));
+            else if (signal.Zustand == SignalZustand.HP1) BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_HP1, Typ));
+            else if (signal.Zustand == SignalZustand.HP2) { BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_HP1, Typ)); BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_HP2, Typ)); }
+            else if (signal.Zustand == SignalZustand.SH1) BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_SH1, Typ));
+
+
+            return true;
         }
 
         private bool ZeichneWeiche(Weiche weiche, Weiche weiche2, string Typ, out Bitmap bild)
@@ -396,6 +441,7 @@ namespace MEKB_H0_Anlage
             return true;
         }
 
+        
 
         public void ZeichneSchaltbild(MeldeZustand Zustand, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
@@ -607,6 +653,29 @@ namespace MEKB_H0_Anlage
             DisplayPicture(bild, picBox); //Zeichne Bild
         }
 
+        public void ZeichneSchaltbild(Signal signal, PictureBox picBox)
+        {
+            ////////////////////////////////////////////////////
+            // Prüfen ob Element aktualisiert werden muss / kann
+            ////////////////////////////////////////////////////
+            if (picBox.Tag == null) return; // Kein Typdefiniert
+
+            Bitmap bild = new Bitmap(picBox.Image);
+
+            if (!ZeichneSignal(signal, picBox.Tag.ToString(), out Bitmap bildsignal))
+            {
+                return;  //Bild nicht Zeichnen, da Fehler
+            }
+
+
+            Graphics gleis = Graphics.FromImage(bild);
+
+
+            BildHinzufuegen(ref gleis, bildsignal);
+
+            DisplayPicture(bild, picBox); //Zeichne Bild
+        }
+
         private void BildHinzufuegen(ref Graphics gleisbild, Image Type)
         {
             if (Type == null) Type = Katalog[Sonder][Error];
@@ -698,6 +767,33 @@ namespace MEKB_H0_Anlage
                 return Katalog[Sonder][Error];
             }
         }
+
+        private Bitmap SignalTeil(int teil, string Gleistyp)
+        {
+            if (Gleistyp.EndsWith("_Gegen"))
+            {
+                Gleistyp = Gleistyp.Substring(0, Gleistyp.Length - 6);
+            }
+            if(!((teil >= Signal_Mast) && (teil <= Signal_Licht_VR2))) return Katalog[Sonder][Error];
+
+
+
+            List<Bitmap> Winkelauswahl = Katalog[teil];
+            if (Gleistyp.EndsWith("_0")) return Winkelauswahl[0];
+            else if (Gleistyp.EndsWith("_45")) return Winkelauswahl[1];
+            else if (Gleistyp.EndsWith("_90")) return Winkelauswahl[2];
+            else if (Gleistyp.EndsWith("_135")) return Winkelauswahl[3];
+            else if (Gleistyp.EndsWith("_180")) return Winkelauswahl[4];
+            else if (Gleistyp.EndsWith("_225")) return Winkelauswahl[5];
+            else if (Gleistyp.EndsWith("_270")) return Winkelauswahl[6];
+            else if (Gleistyp.EndsWith("_315")) return Winkelauswahl[7];
+            else
+            {
+                return Katalog[Sonder][Error];
+            }
+
+        }
+
 
         private Bitmap WeichenZunge(string Gleistyp, bool Abzweig, bool Aktiv)
         {

@@ -59,7 +59,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L1");
                 if (signal != null)
                 {
-                    if(signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if(signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -78,7 +78,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L2");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
             }
             else
@@ -96,7 +96,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L3");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
             }
             else
@@ -114,7 +114,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L4");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
             }
             else
@@ -132,7 +132,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L5");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
             }
             else
@@ -150,7 +150,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L6");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -172,7 +172,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Einfahrt_L");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
             }
             else
@@ -191,7 +191,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R1"); 
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -210,7 +210,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R2");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -229,7 +229,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R3");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -248,7 +248,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R4");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -267,7 +267,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R5");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -286,7 +286,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R6");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -305,7 +305,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_RTunnel_1"); 
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -324,7 +324,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_RTunnel_2");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -346,7 +346,7 @@ namespace MEKB_H0_Anlage
                 /*int ListID = Signalliste.IndexOf(new Signal() { Name = "Signal_Ausfahrt_L1" });
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }*/
 
             }
@@ -394,7 +394,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Schatten11");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -413,7 +413,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Schatten10");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -432,7 +432,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Schatten9");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }
@@ -451,7 +451,7 @@ namespace MEKB_H0_Anlage
                 Signal signal = SignalListe.GetSignal("Signal_Schatten8");
                 if (signal != null)
                 {
-                    if (signal.Zustand != 0) signal.Schalten(0, z21Start);
+                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
                 }
 
             }

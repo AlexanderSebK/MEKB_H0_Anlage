@@ -677,6 +677,7 @@ namespace MEKB_H0_Anlage
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_4);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_5);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_6);
+            GleisbildZeichnung.ZeichneSchaltbild(SignalListe.GetSignal("Signal_Ausfahrt_R5"), Block8_6);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_7);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_8);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_9);        
@@ -1699,16 +1700,16 @@ namespace MEKB_H0_Anlage
             bool SafeStatusAlt = fahrstrasse.Safe;
             if (fahrstrasse.GetGesetztStatus())    //Fahrstraße wurde gesetzt
             {
-                fahrstrasse.SetFahrstrasseRichtung(WeichenListe.Liste);
+                fahrstrasse.SetFahrstrasseRichtung();
                 //Prüfen ob alle Weichen der Fahrstraßen richtig geschaltet sind
-                if (fahrstrasse.CheckFahrstrassePos(WeichenListe.Liste) == false) //Noch nicht alle Weichen gestellt
+                if (fahrstrasse.CheckFahrstrassePos() == false) //Noch nicht alle Weichen gestellt
                 {
-                    if (Betriebsbereit) fahrstrasse.SetFahrstrasse(WeichenListe.Liste, z21Start);
+                    if (Betriebsbereit) fahrstrasse.SetFahrstrasse(z21Start);
                 }
                 else //Alle Weichen in richtiger Stellung
                 {
                     //Fahrstraße als aktiviert kennzeichnen
-                    fahrstrasse.AktiviereFahrstasse(WeichenListe.Liste);
+                    fahrstrasse.AktiviereFahrstasse();
                     //Jede Weiche in der Fahrstraßenliste durchlaufen
                     foreach (Weiche Fahrstrassenweiche in fahrstrasse.Fahrstr_Weichenliste)
                     {
@@ -1718,7 +1719,7 @@ namespace MEKB_H0_Anlage
                     }
 
                     //Weichen zyklisch nochmal schalten um hängenbleiben zu vermeiden
-                    if (Betriebsbereit) fahrstrasse.ControlSetFahrstrasse(WeichenListe.Liste, z21Start);
+                    if (Betriebsbereit) fahrstrasse.ControlSetFahrstrasse(z21Start);
                 }
             }
             // Wechseln auf den sicheren Zustand

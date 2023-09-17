@@ -32,39 +32,55 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public partial class Hauptform : Form
     {
+        #region Instanzen
         public Z21 z21Start;
+        public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
+        public Lokomotive[] AktiveLoks = new Lokomotive[12];
+        private Logger Log { set; get; }
+        #endregion
 
+        #region Fenster
         private Z21_Einstellung z21_Einstellung;
         private Signal_Einstellungen signal_Einstellungen;
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
         private InfoBox InfoBox;
         private MenuFenster_Signalistentool signaltool;
+        #endregion
 
-        public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
-
+        #region Listen
         public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
         public SignalListe SignalListe = new SignalListe("Signalliste.xml");      
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
         public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
         public LokomotivenVerwaltung LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
+        #endregion
 
-
-        public Lokomotive[] AktiveLoks = new Lokomotive[12];
+        #region Threads
         public Thread ThreadLoksuche;
+        #endregion
 
-        public bool Betriebsbereit;
-
+        #region Timer
         private static System.Timers.Timer FlagTimer;
         private static System.Timers.Timer WeichenTimer;
         private static System.Timers.Timer CooldownTimer;
         private static System.Timers.Timer BelegtmelderCoolDown;
+        #endregion
+
+
+
+
+        
+
+        public bool Betriebsbereit;
+
+        
 
         private int Pointer_Weichenliste = 0;
         private int Pointer_Signalliste = 0;
         private bool Signal_Init;
         private bool Weichen_Init;
 
-        private Logger Log { set; get; }
+        
 
         #region Hauptform Funktionen
         public Hauptform()
@@ -88,11 +104,14 @@ namespace MEKB_H0_Anlage
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
             z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
 
-            WeichenListe.DigitalzentraleVerknuepfen(z21Start);
+            // Instanzen Zugriffe festlegen
+            SetupFahrstrassen();                        //Fahstrassen festlegen    
+            WeichenListe.DigitalzentraleZugriff(z21Start);
+            SignalListe.DigitalzentraleZugriff(z21Start);
+            SignalListe.FahrstrassenZugriff(FahrstrassenListe);
 
             ConnectStatus(false, false);                 //Verbindungsstatus auf getrennt setzen
-
-            SetupFahrstrassen();                        //Fahstrassen festlegen          
+      
 
             Betriebsbereit = false;
 
@@ -160,7 +179,7 @@ namespace MEKB_H0_Anlage
             StopAlle_Click(sender, e);
             foreach (Signal signal in SignalListe.Liste)
             {
-                signal.Schalten(0, z21Start);//Alle Signale Rot
+                signal.Schalten(SignalZustand.HP0); //Alle Signale Rot
             }
             z21Start.DisConnect_Z21();
         }
@@ -230,6 +249,7 @@ namespace MEKB_H0_Anlage
             }));
         }
 
+        private int GroupIndex = 0;
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
             if (source is System.Timers.Timer timer)
@@ -280,7 +300,16 @@ namespace MEKB_H0_Anlage
                     }
                     
                     FahrstrasseBildUpdate();
-                    BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
+                    if (GroupIndex == 0)
+                    {
+                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
+                        GroupIndex = 1;
+                    }
+                    else
+                    {
+                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
+                        GroupIndex = 0;
+                    }
                     stopWatch.Stop();
                     timer.Start();
                     //Messung vor Verbesserung: 100~120ms => 2ms
@@ -381,48 +410,96 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region SignalSteuerung
-        private void Signal_HP0_HP1(object sender, EventArgs e)
+        private void SignalClickSchaltung(object sender, EventArgs e)
         {
+            // Prüfen ob Click-Element vom Typ Signal ist und Name in der Liste
             if (sender is PictureBox SignalElement)
             {
                 Signal signal = SignalListe.GetSignal(SignalElement.Name);
                 if (signal == null) return;
 
-                //SignalZustand ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
-                SignalZustand ErlaubteSignalstellung = signal.ErlaubteStellung(FahrstrassenListe,WeichenListe);
+                bool Modus = Config.ReadConfig("AutoSignalFahrstrasse").Equals("true");
 
-                if (signal.Zustand == SignalZustand.HP1)
+                // SHIFT-Taste während des Klickens gedrückt -> Schalten auf HP2 (langsame Fahrt)
+                if (Control.ModifierKeys == Keys.Shift)
                 {
-                    signal.Schalten(SignalZustand.HP0, z21Start);
+                    if (signal.Zustand == SignalZustand.HP2) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
+                    {
+                        signal.Schalten(SignalZustand.HP0);
+                        return;
+                    }
+
+                    // HP2 erlaubt
+                    if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
+                    {
+                        signal.Schalten(SignalZustand.HP2);
+                        return;
+                    }
+                    // HP2 nicht erlaubt, prüfen ob HP1 möglich
+                    else if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
+                    {
+                        signal.Schalten(SignalZustand.HP1);
+                        return;
+                    }
+                    else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
+                    {
+                        // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
+                        if (signal.Zustand != SignalZustand.HP0)
+                            signal.Schalten(SignalZustand.HP0);
+                        return;
+                    }
                 }
-                else if (signal.Zustand == SignalZustand.HP0)
+                // CTRL-Taste während des Klickens gedrückt -> Schalten auf SH1 (Rangier Fahrt)
+                else if (Control.ModifierKeys == Keys.Control)
                 {
-                    if (ErlaubteSignalstellung == SignalZustand.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
-                    signal.Schalten(SignalZustand.HP1, z21Start);
+                    if (signal.Zustand == SignalZustand.SH1) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
+                    {
+                        signal.Schalten(SignalZustand.HP0);
+                        return;
+                    }
+                    // SH1 erlaubt
+                    if (signal.StellungErlaubt(SignalZustand.SH1, Modus))
+                    {
+                        signal.Schalten(SignalZustand.SH1);
+                        return;
+                    }
+                    else //Nicht erlaubt -> Strecke gesperrt
+                    {
+                        // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
+                        if (signal.Zustand != SignalZustand.HP0)
+                            signal.Schalten(SignalZustand.HP0);
+                        return;
+                    }
+                }
+                else
+                {
+                    // Signal is auf Rot -> Schalten in ein anderes 
+                    if (signal.Zustand == SignalZustand.HP0)
+                    {
+                        if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
+                        {
+                            signal.Schalten(SignalZustand.HP1);
+                            return;
+                        }
+                        else if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
+                        {
+                            signal.Schalten(SignalZustand.HP2);
+                            return;
+                        }
+                        else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
+                        {
+                            return; // Schalten nicht erlauben
+                        }
+                    }
+                    else // Zurückschalten auf HP0
+                    {
+                        signal.Schalten(SignalZustand.HP0);
+                        return;
+                    }
                 }
             }
         }
-        private void Signal_HP0_HP2(object sender, EventArgs e)
-        {
-            if (sender is PictureBox SignalElement)
-            {
-                Signal signal = SignalListe.GetSignal(SignalElement.Name);
-                if (signal == null) return;
 
-                //SignalZustand ErlaubteSignalstellung = AllowedSignalPos(SignalElement.Name);
-                SignalZustand ErlaubteSignalstellung = signal.ErlaubteStellung(FahrstrassenListe, WeichenListe);
-
-                if (signal.Zustand == SignalZustand.HP2)
-                {
-                    signal.Schalten(SignalZustand.HP0, z21Start);
-                }
-                else if (signal.Zustand == 0)
-                {
-                    if (ErlaubteSignalstellung == SignalZustand.HP0) return; //Keine Schalterlaubnis, solange für Signal nur HP0 erlaubt ist.
-                    signal.Schalten(SignalZustand.HP2, z21Start);
-                }
-            }
-        }
         #endregion
 
 

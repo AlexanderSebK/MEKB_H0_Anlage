@@ -128,32 +128,17 @@ namespace MEKB_H0_Anlage
             Weiche weiche = WeichenListe.GetWeiche(Adresse); //Finde Weiche mit dieser Adresse 
             if (weiche != null)//Weiche gefunden in der Liste
             {
-                bool aenderung = weiche.Schalten(Status);
+                bool aenderung = weiche.StatusUpdate(Status);
                 UpdateWeicheImGleisplan(weiche, aenderung); //Mit Signal-Update
             }
             else
             {
-                Signal signal = SignalListe.GetSignalErsteAdresse(Adresse);
-                if (signal != null)//Signal gefunden in der 1. Adressen
+                // Versuche Signalzustand zu aktualisieren
+                if(SignalListe.UpdateSignalZustand(Adresse, Status))
                 {
-                    if (!signal.Letzte_Adresswahl)
-                    {
-                        signal.MaskenSetzen(Status);
-                        UpdateSignalImGleisplan(signal);
-                    }
-                }
-                else
-                {
-                    signal = SignalListe.GetSignalZweiteAdresse(Adresse);
-                    if (signal != null)//Signal gefunden in der 2. Adressen
-                    {
-                        if (signal.Letzte_Adresswahl)
-                        {
-                            signal.MaskenSetzen(Status + 4);
-                            UpdateSignalImGleisplan(signal);
-                        }
-                    }
-                }
+                    // Update erfolgreich (inkl. Signal gefunden)
+                    UpdateSignalImGleisplan(SignalListe.GetSignal(Adresse));
+                }              
             }
         }
         private void UpdateWeicheImGleisplan(Weiche weiche, bool signalUpdate = false)

@@ -14,6 +14,7 @@ namespace MEKB_H0_Anlage
     {
         private Dictionary<string, int> Verzeichnis;
         public List<Signal> Liste;
+
         #region Konstruktoren
         /// <summary>
         /// Konstruktor
@@ -100,32 +101,108 @@ namespace MEKB_H0_Anlage
         }
 
         /// <summary>
-        /// Suche Signal mit der gegebenen ersten Adresse des Signals
+        /// Signal aus der Liste suchen
         /// </summary>
-        /// <param name="Adresse">Erste Adresse des Signals</param>
+        /// <param name="Signalname">Name des Signals</param>
         /// <returns>Signal, oder null wenn nicht gefunden</returns>
-        public Signal GetSignalErsteAdresse(int Adresse)
+        public Signal GetSignal(int Adresse)
         {
             int ListID = Liste.FindIndex(x => x.Adresse == Adresse);
             if (ListID != -1)
             {
                 return Liste[ListID];
             }
-            return null;
-        }
-        /// <summary>
-        /// Suche Signal mit der gegebenen zweiten Adresse des Signals
-        /// </summary>
-        /// <param name="Adresse">Zweite Adresse des Signals</param>
-        /// <returns>Signal, oder null wenn nicht gefunden</returns>
-        public Signal GetSignalZweiteAdresse(int Adresse)
-        {
-            int ListID = Liste.FindIndex(x => x.Adresse2 == Adresse);
+            ListID = Liste.FindIndex(x => x.Adresse2 == Adresse);
             if (ListID != -1)
             {
                 return Liste[ListID];
             }
             return null;
+        }
+
+        /// <summary>
+        /// Zustandupdate bei Empfang von Z21 Weichendaten
+        /// </summary>
+        /// <param name="Adresse">Adresse des Signals</param>
+        /// <param name="Schaltzustand">Schaltzustand (Z21-Protokoll)</param>
+        /// <returns></returns>
+        public bool UpdateSignalZustand(int Adresse, int Schaltzustand)
+        {
+            // Suche als 1. Adresse
+            int ListID = Liste.FindIndex(x => x.Adresse == Adresse);
+            if(ListID != -1) //Gefunden
+            {
+                // Signal gefunden, aber letzter SIgnalzugriff war über Adresse2 -> Keine Änderung
+                if (Liste[ListID].Letzte_Adresswahl == true) return true;
+
+                if (Schaltzustand == 1)
+                {
+                    Liste[ListID].Zustand = Liste[ListID].Adr1_1;
+                    return true;
+                }
+                else if (Schaltzustand == 2)
+                {
+                    Liste[ListID].Zustand = Liste[ListID].Adr1_2;
+                    return true;
+                }
+                else
+                {
+                    Liste[ListID].Zustand = SignalZustand.Unbestimmt;
+                    return true;
+                }
+            }
+            else
+            {
+                ListID = Liste.FindIndex(x => x.Adresse2 == Adresse);
+                if (ListID != -1) //Gefunden
+                {
+                    // Signal gefunden, aber letzter Signalzugriff war über Adresse1 -> Keine Änderung
+                    if (Liste[ListID].Letzte_Adresswahl == false) return true;
+
+                    if (Schaltzustand == 1)
+                    {
+                        Liste[ListID].Zustand = Liste[ListID].Adr2_1;
+                        return true;
+                    }
+                    else if (Schaltzustand == 2)
+                    {
+                        Liste[ListID].Zustand = Liste[ListID].Adr2_2;
+                        return true;
+                    }
+                    else
+                    {
+                        Liste[ListID].Zustand = SignalZustand.Unbestimmt;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Verknüpfe Z21 Instanzen
+        /// </summary>
+        /// <param name="zentrale">Instanz der Z21 mit der die Signale in der Liste geschalten werden</param>
+        public void DigitalzentraleZugriff(Z21 zentrale)
+        {
+            foreach(Signal signal in Liste)
+            {
+                signal.DigitalzentraleZugriff(zentrale);
+            }
+        }
+
+        /// <summary>
+        /// Verknüpfe globale Fahrstrassen/Routen-Liste
+        /// </summary>
+        /// <param name="fahrstrassenListe">Gloable Fahrstrassenliste</param>
+        public void FahrstrassenZugriff(FahrstrassenListe fahrstrassenListe)
+        {
+            foreach(Signal signal in Liste)
+            {
+                // Übernehme nur Fahrstrassen, die dieses Signal als Anfang haben
+                signal.Fahrstrassen = fahrstrassenListe.GetWithEingangsSignal(signal);
+            }
         }
 
     }
@@ -177,12 +254,19 @@ namespace MEKB_H0_Anlage
         /// 3HP_270 -> Drei Schaltbilder Signal um 270° auf dem Gleisplan gedreht 
         /// </summary>
         public string Typ { get; set; }
+
+        private Z21 Z21_zentrale { get; set; }
+
+        public List<Fahrstrasse> Fahrstrassen { get; set; }
+
         /// <summary>
         /// Konstruktor
         /// </summary>
         public Signal()
         {
-
+            Fahrstrassen = new List<Fahrstrasse>();
+            Letzte_Adresswahl = false;
+            Z21_zentrale = new Z21();
         }
 
 
@@ -237,41 +321,110 @@ namespace MEKB_H0_Anlage
             if (other == null) return false;
             return (this.Name.Equals(other.Name));
         }
-        /// <summary>
-        /// Empfangenen Zustand der Pins der Dekoder auf das Schaltbild des Signals abilden
-        /// </summary>
-        /// <param name="new_zustand">Schaltzustand von Z21 empfangen (Adresse X Ausgang Y)</param>
-        public void MaskenSetzen(int new_zustand)
+
+        public void DigitalzentraleZugriff(Z21 zentrale)
         {
-            if (new_zustand == 0) Zustand = SignalZustand.Unbestimmt;
-            else if (new_zustand == 1) Zustand = Adr1_1; //Adresse 1 ist auf Ausgang 1 gesetzt? -> Signalbild für diese Kombination übernehmen
-            else if (new_zustand == 2) Zustand = Adr1_2; //Adresse 1 ist auf Ausgang 2 gesetzt? -> Signalbild für diese Kombination übernehmen
-            else if (new_zustand == 5) Zustand = Adr2_1; //Adresse 2 ist auf Ausgang 1 gesetzt? -> Signalbild für diese Kombination übernehmen
-            else if (new_zustand == 6) Zustand = Adr2_2; //Adresse 2 ist auf Ausgang 2 gesetzt? -> Signalbild für diese Kombination übernehmen
-            else Zustand = SignalZustand.HP0;
+            Z21_zentrale = zentrale;
         }
+
         /// <summary>
         /// Signal schalten
         /// </summary>
         /// <param name="NeuerZustand">Neues Signalbild</param>
         /// <param name="z21">Instance der Z21</param>
-        public void Schalten(SignalZustand NeuerZustand, Z21 z21)
+        public void Schalten(SignalZustand NeuerZustand)
         {
-            if(Adr1_1 == NeuerZustand || Adr1_2 == NeuerZustand || Adr2_1 == NeuerZustand || Adr2_2 == NeuerZustand)
+            if (Adr1_1 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, false); Letzte_Adresswahl = false; }
+            else if (Adr1_2 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, true); Letzte_Adresswahl = false; }
+            else if (Adr2_1 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, false); Letzte_Adresswahl = true; }
+            else if (Adr2_2 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, true); Letzte_Adresswahl = true; }
+            else
             {
+                //Signal kennt diesen Zustand nicht -> Prüfen ob HP2 zu HP1 umgewandelt werden kann, sonst Befehl ignorieren
+                if (NeuerZustand == SignalZustand.HP2)
+                {
+                    if (Adr1_1 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, false); Letzte_Adresswahl = false; }
+                    else if (Adr1_2 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, true); Letzte_Adresswahl = false; }
+                    else if (Adr2_1 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, false); Letzte_Adresswahl = true; }
+                    else if (Adr2_2 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, true); Letzte_Adresswahl = true; }
+                    else
+                    {
+                        // Signal kennt kann kein HP1 oder HP2 (Rangiersignale)
+                    }
+                }
+                else
+                {
+                    // Signal kennt diesen Zustand nicht
+                }
+            }
+        }
+        /// <summary>
+        /// Überprüft ob diese Stellung erlaubt ist
+        /// </summary>
+        /// <param name="wunschZustand">Gewünschter Signalzusatnd</param>
+        /// <param name="FahrstrassenModus">False: Signal achtet nur auf Weichenstellung | True: Signal achtet ob Fahrstrasse gesetzt ist</param>
+        /// <returns>true: Signalstellung erlaubt</returns>
+        public bool StellungErlaubt(SignalZustand wunschZustand, bool FahrstrassenModus = false)
+        {
+            if (wunschZustand == SignalZustand.HP0) return true;  // HP0 (Halt) immer erlaubt
 
+            if (wunschZustand == SignalZustand.HP2)
+            {
+                if (!HatSignalbild(SignalZustand.HP2) && HatSignalbild(SignalZustand.HP1))
+                {
+                    // Sonderfall HP2 verlangt, Signal kann aber nur HP1 -> Funktion nicht abbrechen
+                }
+                else
+                {
+                    if (!HatSignalbild(wunschZustand)) return false; //Kein HP1 oder HP2 -> Rangiersignal
+                }
             }
             else
             {
-                //Nur bei HP2: HP1 erlauben
-                if (NeuerZustand == SignalZustand.HP2) NeuerZustand = SignalZustand.HP1;
+                if (!HatSignalbild(wunschZustand)) return false;
             }
 
-            if (NeuerZustand == Adr1_1) { z21.LAN_X_SET_SIGNAL(Adresse, false); z21.LAN_X_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
-            else if (NeuerZustand == Adr1_2) { z21.LAN_X_SET_SIGNAL(Adresse, true); z21.LAN_X_SET_SIGNAL_OFF(Adresse2); Letzte_Adresswahl = false; }
-            else if (NeuerZustand == Adr2_1) { z21.LAN_X_SET_SIGNAL(Adresse2, false); z21.LAN_X_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
-            else if (NeuerZustand == Adr2_2) { z21.LAN_X_SET_SIGNAL(Adresse2, true); z21.LAN_X_SET_SIGNAL_OFF(Adresse); Letzte_Adresswahl = true; }
+            bool WeichenGesetzt = false; // Alle Weichen sind gestellt, dass Fahrt erteilt werden kann
+            bool WeicheAbzweig = false; // Eine der Weichen ist auf Abzweig, so dass nur langsame Zeit erlaubt ist
+            bool BlockBelegt = false; // Block ist belegt;
+
+            //Finde Fahrstrassen mit diesem Signal als Eingangssignal hat
+            foreach (Fahrstrasse Strasse in Fahrstrassen)
+            {
+                if(FahrstrassenModus) // Automatic Modus prüfen
+                {
+                    if (Strasse.Safe) WeichenGesetzt = true; // Gesicherte Fahrstrasse vorhanden -> Fahrt erlauben
+                }
+                else
+                {
+                    if (Strasse.CheckFahrstrassePos()) WeichenGesetzt = true; // Kontrolliere ob alle Weichen dieser Route gesetzt sind
+                }
+
+                if (WeichenGesetzt) //Route passt
+                {
+                    // Pürfen ob weiche auf Abzweig
+                    foreach (Weiche weiche in Strasse.Fahrstr_Weichenliste)
+                    {
+                        if (weiche.Abzweig) WeicheAbzweig = true;
+                    }
+
+                    // TODO: Blockprüfung
+                    break; //Abbruch. Keine weitere Pürfungen erforderlich 
+                }
+            }
+
+            switch(wunschZustand)
+            {
+                case SignalZustand.HP1: if (WeichenGesetzt && !WeicheAbzweig && !BlockBelegt) return true; break;
+                case SignalZustand.HP2: if (WeichenGesetzt                   && !BlockBelegt) return true; break;
+                case SignalZustand.SH1: if (WeichenGesetzt                   && !BlockBelegt) return true; break;
+                default: return false;
+            }
+
+
+            return false;
         }
+
 
         //Ermittle Anhand der Weichenstellung und Meldungen ob der Block Frei ist
         public SignalZustand ErlaubteStellung(FahrstrassenListe fahrstrassenListe, WeichenListe weichenListe)
@@ -287,7 +440,7 @@ namespace MEKB_H0_Anlage
                     if (!s.Safe) continue; 
                 }
                 // Weg ist gesetzt
-                if(s.CheckFahrstrassePos(weichenListe.Liste))
+                if(s.CheckFahrstrassePos())
                 {
                     foreach(string blockStr in s.Fahrstr_Blockierende)
                     {
@@ -296,7 +449,7 @@ namespace MEKB_H0_Anlage
                         if(BlockFahrstr != null)
                         {
                             // Ist Fahrstrasse der Blockierenden fahrbar (Kreuzung)
-                            if(BlockFahrstr.CheckFahrstrassePos(weichenListe.Liste))
+                            if(BlockFahrstr.CheckFahrstrassePos())
                             {
                                 //Ist nicht auf Halt
                                 if(!BlockFahrstr.EinfahrtsSignal.Zustand.Equals(SignalZustand.HP0))
@@ -320,6 +473,16 @@ namespace MEKB_H0_Anlage
                 }
             }
             return SignalZustand.HP0;
+        }
+
+        /// <summary>
+        /// Überprüfen ob Signalbild überhaupt mit diesem Signal möglich ist
+        /// </summary>
+        /// <param name="signalbild">Gefragte Stellung</param>
+        /// <returns>True: Kann annehmen</returns>
+        public bool HatSignalbild(SignalZustand signalbild)
+        {
+            return (signalbild == Adr1_1 || signalbild == Adr1_2 || signalbild == Adr2_1 || signalbild == Adr2_2);
         }
     }
 

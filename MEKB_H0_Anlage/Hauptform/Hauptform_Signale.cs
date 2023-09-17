@@ -109,12 +109,12 @@ namespace MEKB_H0_Anlage
                             //Autoschalten auf Fahrt, wenn Option es erlaubt
                             if (Config.ReadConfig("AutoSignalFahrt").Equals("true"))
                             {
-                                signal.Schalten(ErlaubteSignalstellung, z21Start);
+                                signal.Schalten(ErlaubteSignalstellung);
                             }
                         }
                         else //Schalten auf Halt
                         {
-                            signal.Schalten(SignalZustand.HP0, z21Start);
+                            signal.Schalten(SignalZustand.HP0);
                         }
                     }
                 }             
