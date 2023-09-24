@@ -165,10 +165,8 @@
             this.pictureBox115 = new System.Windows.Forms.PictureBox();
             this.Weiche35 = new System.Windows.Forms.PictureBox();
             this.Kreuzung1 = new System.Windows.Forms.PictureBox();
-            this.Block5_Block9 = new System.Windows.Forms.PictureBox();
             this.Block9_2 = new System.Windows.Forms.PictureBox();
             this.WeicheEcke76_90 = new System.Windows.Forms.PictureBox();
-            this.Block5b_17 = new System.Windows.Forms.PictureBox();
             this.Kreuzung1_2 = new System.Windows.Forms.PictureBox();
             this.Weiche61_2 = new System.Windows.Forms.PictureBox();
             this.Weiche62_2 = new System.Windows.Forms.PictureBox();
@@ -237,23 +235,13 @@
             this.SchattenGl5_6 = new System.Windows.Forms.PictureBox();
             this.SchattenGl4_Halt_1 = new System.Windows.Forms.PictureBox();
             this.Block5_Halt_1 = new System.Windows.Forms.PictureBox();
-            this.Block5b_13 = new System.Windows.Forms.PictureBox();
             this.Block9_6 = new System.Windows.Forms.PictureBox();
-            this.Block5b_12 = new System.Windows.Forms.PictureBox();
             this.Block9_7 = new System.Windows.Forms.PictureBox();
-            this.Block5b_11 = new System.Windows.Forms.PictureBox();
             this.Block9_8 = new System.Windows.Forms.PictureBox();
-            this.Block5b_10 = new System.Windows.Forms.PictureBox();
             this.Block9_9 = new System.Windows.Forms.PictureBox();
-            this.Block5b_9 = new System.Windows.Forms.PictureBox();
             this.Block9_10 = new System.Windows.Forms.PictureBox();
-            this.Block5b_8 = new System.Windows.Forms.PictureBox();
             this.Block9_11 = new System.Windows.Forms.PictureBox();
-            this.Block5b_7 = new System.Windows.Forms.PictureBox();
             this.Block9_12 = new System.Windows.Forms.PictureBox();
-            this.Block5b_6 = new System.Windows.Forms.PictureBox();
-            this.Block5b_16 = new System.Windows.Forms.PictureBox();
-            this.Block5b_18 = new System.Windows.Forms.PictureBox();
             this.Block9_1 = new System.Windows.Forms.PictureBox();
             this.Block9_3 = new System.Windows.Forms.PictureBox();
             this.Kreuzung1_5 = new System.Windows.Forms.PictureBox();
@@ -278,22 +266,13 @@
             this.Weiche62 = new System.Windows.Forms.PictureBox();
             this.Weiche61 = new System.Windows.Forms.PictureBox();
             this.Block9_13 = new System.Windows.Forms.PictureBox();
-            this.Block5b_5 = new System.Windows.Forms.PictureBox();
             this.Block9_14 = new System.Windows.Forms.PictureBox();
-            this.Block5b_4 = new System.Windows.Forms.PictureBox();
             this.Block9_15 = new System.Windows.Forms.PictureBox();
-            this.Block5b_3 = new System.Windows.Forms.PictureBox();
             this.Block9_16 = new System.Windows.Forms.PictureBox();
-            this.Block5b_2 = new System.Windows.Forms.PictureBox();
             this.Block9_17 = new System.Windows.Forms.PictureBox();
-            this.Block5b_1 = new System.Windows.Forms.PictureBox();
             this.Block9_Halt_1 = new System.Windows.Forms.PictureBox();
-            this.Block5a_4 = new System.Windows.Forms.PictureBox();
             this.Block9_Halt_2 = new System.Windows.Forms.PictureBox();
-            this.Block5a_3 = new System.Windows.Forms.PictureBox();
             this.Weiche53_Gleis3 = new System.Windows.Forms.PictureBox();
-            this.Block5a_2 = new System.Windows.Forms.PictureBox();
-            this.Block5a_1 = new System.Windows.Forms.PictureBox();
             this.Drehscheibe = new System.Windows.Forms.PictureBox();
             this.pictureBox221 = new System.Windows.Forms.PictureBox();
             this.Betrieb_Gl37_7 = new System.Windows.Forms.PictureBox();
@@ -311,8 +290,6 @@
             this.pictureBox208 = new System.Windows.Forms.PictureBox();
             this.pictureBox207 = new System.Windows.Forms.PictureBox();
             this.pictureBox206 = new System.Windows.Forms.PictureBox();
-            this.Weiche52_Gleis1 = new System.Windows.Forms.PictureBox();
-            this.Weiche52_Gleis3 = new System.Windows.Forms.PictureBox();
             this.Block2_2 = new System.Windows.Forms.PictureBox();
             this.Block2_5 = new System.Windows.Forms.PictureBox();
             this.Block2_Halt_1 = new System.Windows.Forms.PictureBox();
@@ -324,7 +301,6 @@
             this.Block2_4 = new System.Windows.Forms.PictureBox();
             this.Block2_1 = new System.Windows.Forms.PictureBox();
             this.Weiche53_Gleis1 = new System.Windows.Forms.PictureBox();
-            this.Weiche52 = new System.Windows.Forms.PictureBox();
             this.Weiche53_Gleis2 = new System.Windows.Forms.PictureBox();
             this.Weiche53_Gleis0 = new System.Windows.Forms.PictureBox();
             this.Weiche53 = new System.Windows.Forms.PictureBox();
@@ -827,8 +803,6 @@
             this.label112 = new System.Windows.Forms.Label();
             this.Block5 = new System.Windows.Forms.Button();
             this.Block9 = new System.Windows.Forms.Button();
-            this.Block5b_14 = new System.Windows.Forms.PictureBox();
-            this.Block5b_15 = new System.Windows.Forms.PictureBox();
             this.Block9_4 = new System.Windows.Forms.PictureBox();
             this.Block9_5 = new System.Windows.Forms.PictureBox();
             this.Weiche66 = new System.Windows.Forms.PictureBox();
@@ -1076,10 +1050,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox115)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche35)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5_Block9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeicheEcke76_90)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche61_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche62_2)).BeginInit();
@@ -1148,23 +1120,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl5_6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl4_Halt_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_Halt_1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_16)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_5)).BeginInit();
@@ -1189,22 +1151,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche62)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche61)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_16)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_17)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_Halt_1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5a_4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_Halt_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5a_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5a_2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5a_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Drehscheibe)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox221)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl37_7)).BeginInit();
@@ -1222,8 +1175,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox208)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox207)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox206)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche52_Gleis1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche52_Gleis3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block2_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block2_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block2_Halt_1)).BeginInit();
@@ -1235,7 +1186,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Block2_4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block2_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche52)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53)).BeginInit();
@@ -1545,8 +1495,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl2_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl1_6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl21_3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche66)).BeginInit();
@@ -2968,16 +2916,6 @@
             this.Kreuzung1.TabStop = false;
             this.Kreuzung1.Tag = "Kreuzung_90";
             // 
-            // Block5_Block9
-            // 
-            this.Block5_Block9.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL_OR;
-            this.Block5_Block9.Location = new System.Drawing.Point(64, 864);
-            this.Block5_Block9.Name = "Block5_Block9";
-            this.Block5_Block9.Size = new System.Drawing.Size(32, 32);
-            this.Block5_Block9.TabIndex = 428;
-            this.Block5_Block9.TabStop = false;
-            this.Block5_Block9.Tag = "Ecke_UL+Ecke_OR";
-            // 
             // Block9_2
             // 
             this.Block9_2.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
@@ -2997,16 +2935,6 @@
             this.WeicheEcke76_90.TabIndex = 426;
             this.WeicheEcke76_90.TabStop = false;
             this.WeicheEcke76_90.Tag = "Ecke_OL_SP+Ecke_UR_SP";
-            // 
-            // Block5b_17
-            // 
-            this.Block5b_17.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeOR;
-            this.Block5b_17.Location = new System.Drawing.Point(32, 896);
-            this.Block5b_17.Name = "Block5b_17";
-            this.Block5b_17.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_17.TabIndex = 423;
-            this.Block5b_17.TabStop = false;
-            this.Block5b_17.Tag = "Ecke_OR_SP";
             // 
             // Kreuzung1_2
             // 
@@ -3687,16 +3615,6 @@
             this.Block5_Halt_1.TabStop = false;
             this.Block5_Halt_1.Tag = "Gerade_270";
             // 
-            // Block5b_13
-            // 
-            this.Block5b_13.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_13.Location = new System.Drawing.Point(32, 768);
-            this.Block5b_13.Name = "Block5b_13";
-            this.Block5b_13.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_13.TabIndex = 316;
-            this.Block5b_13.TabStop = false;
-            this.Block5b_13.Tag = "Gerade_180";
-            // 
             // Block9_6
             // 
             this.Block9_6.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
@@ -3706,16 +3624,6 @@
             this.Block9_6.TabIndex = 315;
             this.Block9_6.TabStop = false;
             this.Block9_6.Tag = "Gerade_0";
-            // 
-            // Block5b_12
-            // 
-            this.Block5b_12.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_12.Location = new System.Drawing.Point(32, 736);
-            this.Block5b_12.Name = "Block5b_12";
-            this.Block5b_12.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_12.TabIndex = 314;
-            this.Block5b_12.TabStop = false;
-            this.Block5b_12.Tag = "Gerade_180";
             // 
             // Block9_7
             // 
@@ -3727,16 +3635,6 @@
             this.Block9_7.TabStop = false;
             this.Block9_7.Tag = "Gerade_0";
             // 
-            // Block5b_11
-            // 
-            this.Block5b_11.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_11.Location = new System.Drawing.Point(32, 704);
-            this.Block5b_11.Name = "Block5b_11";
-            this.Block5b_11.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_11.TabIndex = 312;
-            this.Block5b_11.TabStop = false;
-            this.Block5b_11.Tag = "Gerade_180";
-            // 
             // Block9_8
             // 
             this.Block9_8.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
@@ -3746,16 +3644,6 @@
             this.Block9_8.TabIndex = 311;
             this.Block9_8.TabStop = false;
             this.Block9_8.Tag = "Gerade_0";
-            // 
-            // Block5b_10
-            // 
-            this.Block5b_10.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_10.Location = new System.Drawing.Point(32, 672);
-            this.Block5b_10.Name = "Block5b_10";
-            this.Block5b_10.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_10.TabIndex = 310;
-            this.Block5b_10.TabStop = false;
-            this.Block5b_10.Tag = "Gerade_180";
             // 
             // Block9_9
             // 
@@ -3767,16 +3655,6 @@
             this.Block9_9.TabStop = false;
             this.Block9_9.Tag = "Gerade_0";
             // 
-            // Block5b_9
-            // 
-            this.Block5b_9.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_9.Location = new System.Drawing.Point(32, 640);
-            this.Block5b_9.Name = "Block5b_9";
-            this.Block5b_9.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_9.TabIndex = 308;
-            this.Block5b_9.TabStop = false;
-            this.Block5b_9.Tag = "Gerade_180";
-            // 
             // Block9_10
             // 
             this.Block9_10.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
@@ -3786,16 +3664,6 @@
             this.Block9_10.TabIndex = 307;
             this.Block9_10.TabStop = false;
             this.Block9_10.Tag = "Gerade_0";
-            // 
-            // Block5b_8
-            // 
-            this.Block5b_8.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_8.Location = new System.Drawing.Point(32, 608);
-            this.Block5b_8.Name = "Block5b_8";
-            this.Block5b_8.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_8.TabIndex = 306;
-            this.Block5b_8.TabStop = false;
-            this.Block5b_8.Tag = "Gerade_180";
             // 
             // Block9_11
             // 
@@ -3807,16 +3675,6 @@
             this.Block9_11.TabStop = false;
             this.Block9_11.Tag = "Gerade_0";
             // 
-            // Block5b_7
-            // 
-            this.Block5b_7.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_7.Location = new System.Drawing.Point(32, 576);
-            this.Block5b_7.Name = "Block5b_7";
-            this.Block5b_7.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_7.TabIndex = 304;
-            this.Block5b_7.TabStop = false;
-            this.Block5b_7.Tag = "Gerade_180";
-            // 
             // Block9_12
             // 
             this.Block9_12.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
@@ -3826,36 +3684,6 @@
             this.Block9_12.TabIndex = 303;
             this.Block9_12.TabStop = false;
             this.Block9_12.Tag = "Gerade_0";
-            // 
-            // Block5b_6
-            // 
-            this.Block5b_6.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_6.Location = new System.Drawing.Point(32, 544);
-            this.Block5b_6.Name = "Block5b_6";
-            this.Block5b_6.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_6.TabIndex = 302;
-            this.Block5b_6.TabStop = false;
-            this.Block5b_6.Tag = "Gerade_180";
-            // 
-            // Block5b_16
-            // 
-            this.Block5b_16.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve180L;
-            this.Block5b_16.Location = new System.Drawing.Point(32, 864);
-            this.Block5b_16.Name = "Block5b_16";
-            this.Block5b_16.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_16.TabIndex = 301;
-            this.Block5b_16.TabStop = false;
-            this.Block5b_16.Tag = "KurveL_180";
-            // 
-            // Block5b_18
-            // 
-            this.Block5b_18.Image = global::MEKB_H0_Anlage.Properties.Resources.Kurve270R;
-            this.Block5b_18.Location = new System.Drawing.Point(64, 896);
-            this.Block5b_18.Name = "Block5b_18";
-            this.Block5b_18.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_18.TabIndex = 300;
-            this.Block5b_18.TabStop = false;
-            this.Block5b_18.Tag = "KurveL_225";
             // 
             // Block9_1
             // 
@@ -4116,16 +3944,6 @@
             this.Block9_13.TabStop = false;
             this.Block9_13.Tag = "Gerade_0";
             // 
-            // Block5b_5
-            // 
-            this.Block5b_5.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_5.Location = new System.Drawing.Point(32, 512);
-            this.Block5b_5.Name = "Block5b_5";
-            this.Block5b_5.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_5.TabIndex = 272;
-            this.Block5b_5.TabStop = false;
-            this.Block5b_5.Tag = "Gerade_180";
-            // 
             // Block9_14
             // 
             this.Block9_14.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
@@ -4135,16 +3953,6 @@
             this.Block9_14.TabIndex = 271;
             this.Block9_14.TabStop = false;
             this.Block9_14.Tag = "Gerade_0";
-            // 
-            // Block5b_4
-            // 
-            this.Block5b_4.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_4.Location = new System.Drawing.Point(32, 480);
-            this.Block5b_4.Name = "Block5b_4";
-            this.Block5b_4.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_4.TabIndex = 270;
-            this.Block5b_4.TabStop = false;
-            this.Block5b_4.Tag = "Gerade_180";
             // 
             // Block9_15
             // 
@@ -4156,16 +3964,6 @@
             this.Block9_15.TabStop = false;
             this.Block9_15.Tag = "Gerade_0";
             // 
-            // Block5b_3
-            // 
-            this.Block5b_3.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_3.Location = new System.Drawing.Point(32, 448);
-            this.Block5b_3.Name = "Block5b_3";
-            this.Block5b_3.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_3.TabIndex = 268;
-            this.Block5b_3.TabStop = false;
-            this.Block5b_3.Tag = "Gerade_180";
-            // 
             // Block9_16
             // 
             this.Block9_16.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
@@ -4175,16 +3973,6 @@
             this.Block9_16.TabIndex = 267;
             this.Block9_16.TabStop = false;
             this.Block9_16.Tag = "Gerade_0";
-            // 
-            // Block5b_2
-            // 
-            this.Block5b_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_2.Location = new System.Drawing.Point(32, 416);
-            this.Block5b_2.Name = "Block5b_2";
-            this.Block5b_2.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_2.TabIndex = 266;
-            this.Block5b_2.TabStop = false;
-            this.Block5b_2.Tag = "Gerade_180";
             // 
             // Block9_17
             // 
@@ -4196,16 +3984,6 @@
             this.Block9_17.TabStop = false;
             this.Block9_17.Tag = "Gerade_0";
             // 
-            // Block5b_1
-            // 
-            this.Block5b_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_1.Location = new System.Drawing.Point(32, 384);
-            this.Block5b_1.Name = "Block5b_1";
-            this.Block5b_1.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_1.TabIndex = 264;
-            this.Block5b_1.TabStop = false;
-            this.Block5b_1.Tag = "Gerade_180";
-            // 
             // Block9_Halt_1
             // 
             this.Block9_Halt_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
@@ -4215,16 +3993,6 @@
             this.Block9_Halt_1.TabIndex = 263;
             this.Block9_Halt_1.TabStop = false;
             this.Block9_Halt_1.Tag = "Gerade_0";
-            // 
-            // Block5a_4
-            // 
-            this.Block5a_4.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5a_4.Location = new System.Drawing.Point(32, 352);
-            this.Block5a_4.Name = "Block5a_4";
-            this.Block5a_4.Size = new System.Drawing.Size(32, 32);
-            this.Block5a_4.TabIndex = 262;
-            this.Block5a_4.TabStop = false;
-            this.Block5a_4.Tag = "Gerade_180";
             // 
             // Block9_Halt_2
             // 
@@ -4236,16 +4004,6 @@
             this.Block9_Halt_2.TabStop = false;
             this.Block9_Halt_2.Tag = "Gerade_0";
             // 
-            // Block5a_3
-            // 
-            this.Block5a_3.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5a_3.Location = new System.Drawing.Point(32, 320);
-            this.Block5a_3.Name = "Block5a_3";
-            this.Block5a_3.Size = new System.Drawing.Size(32, 32);
-            this.Block5a_3.TabIndex = 260;
-            this.Block5a_3.TabStop = false;
-            this.Block5a_3.Tag = "Gerade_180";
-            // 
             // Weiche53_Gleis3
             // 
             this.Weiche53_Gleis3.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
@@ -4255,26 +4013,6 @@
             this.Weiche53_Gleis3.TabIndex = 259;
             this.Weiche53_Gleis3.TabStop = false;
             this.Weiche53_Gleis3.Tag = "Gerade_0";
-            // 
-            // Block5a_2
-            // 
-            this.Block5a_2.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5a_2.Location = new System.Drawing.Point(32, 288);
-            this.Block5a_2.Name = "Block5a_2";
-            this.Block5a_2.Size = new System.Drawing.Size(32, 32);
-            this.Block5a_2.TabIndex = 258;
-            this.Block5a_2.TabStop = false;
-            this.Block5a_2.Tag = "Gerade_180";
-            // 
-            // Block5a_1
-            // 
-            this.Block5a_1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5a_1.Location = new System.Drawing.Point(32, 256);
-            this.Block5a_1.Name = "Block5a_1";
-            this.Block5a_1.Size = new System.Drawing.Size(32, 32);
-            this.Block5a_1.TabIndex = 257;
-            this.Block5a_1.TabStop = false;
-            this.Block5a_1.Tag = "Gerade_180";
             // 
             // Drehscheibe
             // 
@@ -4430,26 +4168,6 @@
             this.pictureBox206.TabIndex = 240;
             this.pictureBox206.TabStop = false;
             // 
-            // Weiche52_Gleis1
-            // 
-            this.Weiche52_Gleis1.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0_EckeOR;
-            this.Weiche52_Gleis1.Location = new System.Drawing.Point(32, 224);
-            this.Weiche52_Gleis1.Name = "Weiche52_Gleis1";
-            this.Weiche52_Gleis1.Size = new System.Drawing.Size(32, 32);
-            this.Weiche52_Gleis1.TabIndex = 239;
-            this.Weiche52_Gleis1.TabStop = false;
-            this.Weiche52_Gleis1.Tag = "Gerade_180+Ecke_OR_SP";
-            // 
-            // Weiche52_Gleis3
-            // 
-            this.Weiche52_Gleis3.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUL;
-            this.Weiche52_Gleis3.Location = new System.Drawing.Point(64, 192);
-            this.Weiche52_Gleis3.Name = "Weiche52_Gleis3";
-            this.Weiche52_Gleis3.Size = new System.Drawing.Size(32, 32);
-            this.Weiche52_Gleis3.TabIndex = 238;
-            this.Weiche52_Gleis3.TabStop = false;
-            this.Weiche52_Gleis3.Tag = "Ecke_UL";
-            // 
             // Block2_2
             // 
             this.Block2_2.Image = global::MEKB_H0_Anlage.Properties.Resources.EckeUR;
@@ -4559,17 +4277,6 @@
             this.Weiche53_Gleis1.TabIndex = 216;
             this.Weiche53_Gleis1.TabStop = false;
             this.Weiche53_Gleis1.Tag = "Ecke_OL";
-            // 
-            // Weiche52
-            // 
-            this.Weiche52.Image = global::MEKB_H0_Anlage.Properties.Resources.WeicheL180_Analog;
-            this.Weiche52.Location = new System.Drawing.Point(32, 192);
-            this.Weiche52.Name = "Weiche52";
-            this.Weiche52.Size = new System.Drawing.Size(32, 32);
-            this.Weiche52.TabIndex = 215;
-            this.Weiche52.TabStop = false;
-            this.Weiche52.Tag = "WeicheL_180";
-            this.Weiche52.Click += new System.EventHandler(this.Weiche_Click);
             // 
             // Weiche53_Gleis2
             // 
@@ -10156,26 +9863,6 @@
             this.Block9.UseVisualStyleBackColor = false;
             this.Block9.Click += new System.EventHandler(this.FahrstrassenButton_Click);
             // 
-            // Block5b_14
-            // 
-            this.Block5b_14.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_14.Location = new System.Drawing.Point(32, 800);
-            this.Block5b_14.Name = "Block5b_14";
-            this.Block5b_14.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_14.TabIndex = 780;
-            this.Block5b_14.TabStop = false;
-            this.Block5b_14.Tag = "Gerade_180";
-            // 
-            // Block5b_15
-            // 
-            this.Block5b_15.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
-            this.Block5b_15.Location = new System.Drawing.Point(32, 832);
-            this.Block5b_15.Name = "Block5b_15";
-            this.Block5b_15.Size = new System.Drawing.Size(32, 32);
-            this.Block5b_15.TabIndex = 781;
-            this.Block5b_15.TabStop = false;
-            this.Block5b_15.Tag = "Gerade_180";
-            // 
             // Block9_4
             // 
             this.Block9_4.Image = global::MEKB_H0_Anlage.Properties.Resources.Gerade0;
@@ -12422,8 +12109,6 @@
             this.Controls.Add(this.Weiche66);
             this.Controls.Add(this.Block9_5);
             this.Controls.Add(this.Block9_4);
-            this.Controls.Add(this.Block5b_15);
-            this.Controls.Add(this.Block5b_14);
             this.Controls.Add(this.Block9);
             this.Controls.Add(this.Block5);
             this.Controls.Add(this.label112);
@@ -12689,10 +12374,8 @@
             this.Controls.Add(this.pictureBox115);
             this.Controls.Add(this.Weiche35);
             this.Controls.Add(this.Kreuzung1);
-            this.Controls.Add(this.Block5_Block9);
             this.Controls.Add(this.Block9_2);
             this.Controls.Add(this.WeicheEcke76_90);
-            this.Controls.Add(this.Block5b_17);
             this.Controls.Add(this.Kreuzung1_2);
             this.Controls.Add(this.Weiche61_2);
             this.Controls.Add(this.Weiche62_2);
@@ -12761,23 +12444,13 @@
             this.Controls.Add(this.SchattenGl5_6);
             this.Controls.Add(this.SchattenGl4_Halt_1);
             this.Controls.Add(this.Block5_Halt_1);
-            this.Controls.Add(this.Block5b_13);
             this.Controls.Add(this.Block9_6);
-            this.Controls.Add(this.Block5b_12);
             this.Controls.Add(this.Block9_7);
-            this.Controls.Add(this.Block5b_11);
             this.Controls.Add(this.Block9_8);
-            this.Controls.Add(this.Block5b_10);
             this.Controls.Add(this.Block9_9);
-            this.Controls.Add(this.Block5b_9);
             this.Controls.Add(this.Block9_10);
-            this.Controls.Add(this.Block5b_8);
             this.Controls.Add(this.Block9_11);
-            this.Controls.Add(this.Block5b_7);
             this.Controls.Add(this.Block9_12);
-            this.Controls.Add(this.Block5b_6);
-            this.Controls.Add(this.Block5b_16);
-            this.Controls.Add(this.Block5b_18);
             this.Controls.Add(this.Block9_1);
             this.Controls.Add(this.Block9_3);
             this.Controls.Add(this.Kreuzung1_5);
@@ -12802,22 +12475,13 @@
             this.Controls.Add(this.Weiche62);
             this.Controls.Add(this.Weiche61);
             this.Controls.Add(this.Block9_13);
-            this.Controls.Add(this.Block5b_5);
             this.Controls.Add(this.Block9_14);
-            this.Controls.Add(this.Block5b_4);
             this.Controls.Add(this.Block9_15);
-            this.Controls.Add(this.Block5b_3);
             this.Controls.Add(this.Block9_16);
-            this.Controls.Add(this.Block5b_2);
             this.Controls.Add(this.Block9_17);
-            this.Controls.Add(this.Block5b_1);
             this.Controls.Add(this.Block9_Halt_1);
-            this.Controls.Add(this.Block5a_4);
             this.Controls.Add(this.Block9_Halt_2);
-            this.Controls.Add(this.Block5a_3);
             this.Controls.Add(this.Weiche53_Gleis3);
-            this.Controls.Add(this.Block5a_2);
-            this.Controls.Add(this.Block5a_1);
             this.Controls.Add(this.Drehscheibe);
             this.Controls.Add(this.pictureBox221);
             this.Controls.Add(this.Betrieb_Gl37_7);
@@ -12835,8 +12499,6 @@
             this.Controls.Add(this.pictureBox208);
             this.Controls.Add(this.pictureBox207);
             this.Controls.Add(this.pictureBox206);
-            this.Controls.Add(this.Weiche52_Gleis1);
-            this.Controls.Add(this.Weiche52_Gleis3);
             this.Controls.Add(this.Block2_2);
             this.Controls.Add(this.Block2_5);
             this.Controls.Add(this.Block2_Halt_1);
@@ -12848,7 +12510,6 @@
             this.Controls.Add(this.Block2_4);
             this.Controls.Add(this.Block2_1);
             this.Controls.Add(this.Weiche53_Gleis1);
-            this.Controls.Add(this.Weiche52);
             this.Controls.Add(this.Weiche53_Gleis2);
             this.Controls.Add(this.Weiche53_Gleis0);
             this.Controls.Add(this.Weiche53);
@@ -13141,10 +12802,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox115)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche35)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5_Block9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeicheEcke76_90)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche61_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche62_2)).EndInit();
@@ -13213,23 +12872,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl5_6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl4_Halt_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block5_Halt_1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_16)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Kreuzung1_5)).EndInit();
@@ -13254,22 +12903,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.Weiche62)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche61)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_16)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_17)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_Halt_1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5a_4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_Halt_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5a_3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5a_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5a_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Drehscheibe)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox221)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl37_7)).EndInit();
@@ -13287,8 +12927,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox208)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox207)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox206)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche52_Gleis1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche52_Gleis3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block2_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block2_5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block2_Halt_1)).EndInit();
@@ -13300,7 +12938,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Block2_4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block2_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Weiche52)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53_Gleis0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche53)).EndInit();
@@ -13611,8 +13248,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl2_5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SchattenGl1_6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Betrieb_Gl21_3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Block5b_15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Block9_5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Weiche66)).EndInit();
@@ -13946,7 +13581,6 @@
         private System.Windows.Forms.PictureBox Weiche53;
         private System.Windows.Forms.PictureBox Weiche53_Gleis0;
         private System.Windows.Forms.PictureBox Weiche53_Gleis2;
-        private System.Windows.Forms.PictureBox Weiche52;
         private System.Windows.Forms.PictureBox Weiche53_Gleis1;
         private System.Windows.Forms.PictureBox Block2_1;
         private System.Windows.Forms.PictureBox Block2_4;
@@ -13958,8 +13592,6 @@
         private System.Windows.Forms.PictureBox Block2_10;
         private System.Windows.Forms.PictureBox Block2_5;
         private System.Windows.Forms.PictureBox Block2_2;
-        private System.Windows.Forms.PictureBox Weiche52_Gleis3;
-        private System.Windows.Forms.PictureBox Weiche52_Gleis1;
         private System.Windows.Forms.PictureBox pictureBox206;
         private System.Windows.Forms.PictureBox pictureBox207;
         private System.Windows.Forms.PictureBox pictureBox208;
@@ -13977,23 +13609,14 @@
         private System.Windows.Forms.PictureBox Betrieb_Gl37_7;
         private System.Windows.Forms.PictureBox pictureBox221;
         private System.Windows.Forms.PictureBox Drehscheibe;
-        private System.Windows.Forms.PictureBox Block5a_1;
-        private System.Windows.Forms.PictureBox Block5a_2;
         private System.Windows.Forms.PictureBox Weiche53_Gleis3;
         private System.Windows.Forms.PictureBox Block9_Halt_2;
-        private System.Windows.Forms.PictureBox Block5a_3;
         private System.Windows.Forms.PictureBox Block9_Halt_1;
-        private System.Windows.Forms.PictureBox Block5a_4;
         private System.Windows.Forms.PictureBox Block9_17;
-        private System.Windows.Forms.PictureBox Block5b_1;
         private System.Windows.Forms.PictureBox Block9_16;
-        private System.Windows.Forms.PictureBox Block5b_2;
         private System.Windows.Forms.PictureBox Block9_15;
-        private System.Windows.Forms.PictureBox Block5b_3;
         private System.Windows.Forms.PictureBox Block9_14;
-        private System.Windows.Forms.PictureBox Block5b_4;
         private System.Windows.Forms.PictureBox Block9_13;
-        private System.Windows.Forms.PictureBox Block5b_5;
         private System.Windows.Forms.PictureBox Weiche61;
         private System.Windows.Forms.PictureBox Weiche62;
         private System.Windows.Forms.PictureBox Weiche63;
@@ -14017,23 +13640,13 @@
         private System.Windows.Forms.PictureBox Kreuzung1_5;
         private System.Windows.Forms.PictureBox Block9_3;
         private System.Windows.Forms.PictureBox Block9_1;
-        private System.Windows.Forms.PictureBox Block5b_18;
-        private System.Windows.Forms.PictureBox Block5b_16;
         private System.Windows.Forms.PictureBox Block9_9;
-        private System.Windows.Forms.PictureBox Block5b_9;
         private System.Windows.Forms.PictureBox Block9_10;
-        private System.Windows.Forms.PictureBox Block5b_8;
         private System.Windows.Forms.PictureBox Block9_11;
-        private System.Windows.Forms.PictureBox Block5b_7;
         private System.Windows.Forms.PictureBox Block9_12;
-        private System.Windows.Forms.PictureBox Block5b_6;
-        private System.Windows.Forms.PictureBox Block5b_13;
         private System.Windows.Forms.PictureBox Block9_6;
-        private System.Windows.Forms.PictureBox Block5b_12;
         private System.Windows.Forms.PictureBox Block9_7;
-        private System.Windows.Forms.PictureBox Block5b_11;
         private System.Windows.Forms.PictureBox Block9_8;
-        private System.Windows.Forms.PictureBox Block5b_10;
         private System.Windows.Forms.PictureBox Block5_Halt_1;
         private System.Windows.Forms.PictureBox SchattenGl4_Halt_1;
         private System.Windows.Forms.PictureBox SchattenGl7_4;
@@ -14102,10 +13715,8 @@
         private System.Windows.Forms.PictureBox Weiche62_2;
         private System.Windows.Forms.PictureBox Weiche61_2;
         private System.Windows.Forms.PictureBox Kreuzung1_2;
-        private System.Windows.Forms.PictureBox Block5b_17;
         private System.Windows.Forms.PictureBox WeicheEcke76_90;
         private System.Windows.Forms.PictureBox Block9_2;
-        private System.Windows.Forms.PictureBox Block5_Block9;
         private System.Windows.Forms.PictureBox Kreuzung1;
         private System.Windows.Forms.PictureBox Weiche35;
         private System.Windows.Forms.PictureBox pictureBox115;
@@ -14510,8 +14121,6 @@
         private System.Windows.Forms.Label label112;
         private System.Windows.Forms.Button Block5;
         private System.Windows.Forms.Button Block9;
-        private System.Windows.Forms.PictureBox Block5b_14;
-        private System.Windows.Forms.PictureBox Block5b_15;
         private System.Windows.Forms.PictureBox Block9_4;
         private System.Windows.Forms.PictureBox Block9_5;
         private System.Windows.Forms.PictureBox Weiche66;

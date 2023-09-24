@@ -31,51 +31,70 @@ namespace MEKB_H0_Anlage
             {
                 Abschnitt neuerAbschnitt = new Abschnitt();
                 neuerAbschnitt.Name = xml_abschnitt.Attribute("Name").Value;
-                var XML_Belegtmelder = xml_abschnitt.Elements("Belegtmelder").ToList();
-                foreach (XElement xml_Bloecke in XML_Belegtmelder)
+                var XML_StatusBedingung = xml_abschnitt.Elements("StatusBedingungen").ToList();
+                foreach (XElement xml_SBedingung in XML_StatusBedingung)
                 {
-                    Abschnitt.Block neuerBlock = new Abschnitt.Block();
-                    neuerBlock.Belegtmelder = xml_Bloecke.Attribute("Name").Value;
-
-                    var XML_FahrstrassenMit = xml_Bloecke.Element("Fahrstrassen_Mit");
-                    if (XML_FahrstrassenMit != null)
+                    Abschnitt.StatusBedingung Bedingung = new Abschnitt.StatusBedingung();
+                    Bedingung.Nummer = int.Parse(xml_SBedingung.Attribute("Nummer").Value);
+                    Bedingung.Belegtmelder = xml_SBedingung.Element("Belegtmelder").Value;
+                    foreach (XElement StrasseMit in xml_SBedingung.Element("Fahrstrassen_Mit").Elements("Fahrstrasse").ToList())
                     {
-                        var XML_FahrstrassenMitList = XML_FahrstrassenMit.Elements("Fahrstrasse").ToList();
-                        foreach (XElement StrasseMit in XML_FahrstrassenMitList)
+                        Bedingung.FahrstrassenMit.Add(StrasseMit.Value);
+                    }
+                    foreach (XElement StrasseGegen in xml_SBedingung.Element("Fahrstrassen_Gegen").Elements("Fahrstrasse").ToList())
+                    {
+                        Bedingung.FahrstrassenGegen.Add(StrasseGegen.Value);
+                    }
+                    neuerAbschnitt.Bedingungen.Add(Bedingung);
+                }
+                var XML_Gleise = xml_abschnitt.Elements("Gleis").ToList();
+                foreach (XElement xml_Gleis in XML_Gleise)
+                {
+                    Abschnitt.GleisTyp gleisTyp = new Abschnitt.GleisTyp();
+
+                    gleisTyp.Name = xml_Gleis.Attribute("Name").Value;
+                    gleisTyp.PosX = int.Parse(xml_Gleis.Element("PosX").Value);
+                    gleisTyp.PosY = int.Parse(xml_Gleis.Element("PosY").Value);
+                    gleisTyp.Typ = xml_Gleis.Element("Typ").Value;
+
+                    if(xml_Gleis.Element("Weiche") != null)
+                    {
+                        gleisTyp.Weiche = xml_Gleis.Element("Weiche").Value;
+                        if(xml_Gleis.Element("WeichenBelegtmelder") != null)
                         {
-                            neuerBlock.FahrstrassenMit.Add(StrasseMit.Value);
+                            gleisTyp.WeichenBelegtmelder = xml_Gleis.Element("WeichenBelegtmelder").Value;
+                        }
+                        else
+                        {
+                            gleisTyp.WeichenBelegtmelder ="";
                         }
                     }
-                    var XML_FahrstrassenGegen = xml_Bloecke.Element("Fahrstrassen_Gegen");
-                    if (XML_FahrstrassenGegen != null)
+                    else
                     {
-                        var XML_FahrstrassenGegenList = XML_FahrstrassenGegen.Elements("Fahrstrasse").ToList();
-                        foreach (XElement StrasseGegen in XML_FahrstrassenGegenList)
-                        {
-                            neuerBlock.FahrstrassenGegen.Add(StrasseGegen.Value);
-                        }
+                        gleisTyp.Weiche = "";
                     }
-                    var XML_Gleise = xml_Bloecke.Elements("Gleis").ToList();
-                    foreach (XElement xml_Gleis in XML_Gleise)
+
+                    var XML_Bedingung = xml_Gleis.Elements("Bedingung").ToList();
+                    foreach(XElement xml_Bedingung in XML_Bedingung)
                     {
-                        Abschnitt.Block.GleisTyp gleisTyp = new Abschnitt.Block.GleisTyp();
-                        gleisTyp.zustand = new MeldeZustand();
-                        gleisTyp.Name = xml_Gleis.Attribute("Name").Value;
-                        gleisTyp.PosX = int.Parse(xml_Gleis.Element("PosX").Value);
-                        gleisTyp.PosY = int.Parse(xml_Gleis.Element("PosY").Value);
-                        gleisTyp.Typ = xml_Gleis.Element("Typ").Value;
-
-                        var XML_Bedingung = xml_Gleis.Elements().ToList();
-                        foreach(XElement xml_Bedingung in XML_Bedingung)
+                        if(xml_Bedingung.Attribute("Teil") != null)
                         {
-                            int pos = int.Parse(xml_Bedingung.Attribute("Teil").Value);
-                            gleisTyp.Weiche[pos] = xml_Bedingung.Element("Stellung").Attribute("Weiche").Value;
-                            gleisTyp.Stellung[pos] = xml_Bedingung.Element("Stellung").Value;
+                            int teil = int.Parse(xml_Bedingung.Attribute("Teil").Value);
+                            if (teil > 0 && teil < 4)
+                            {
+                                teil--;
+                                if (xml_Bedingung.Value != null)
+                                {
+                                    int nummer = int.Parse(xml_Bedingung.Value);
+                                    if (nummer > 0)
+                                    {
+                                        gleisTyp.Bedingung[teil] = nummer;
+                                    }
+                                }
+                            }
                         }
-
-                        neuerBlock.GleisTypen.Add(gleisTyp);
-                    }
-                    neuerAbschnitt.Blocks.Add(neuerBlock);
+                    }                     
+                    neuerAbschnitt.Gleise.Add(gleisTyp);
                 }
                 Abschnitte.Add(neuerAbschnitt);
 
@@ -87,45 +106,50 @@ namespace MEKB_H0_Anlage
         public class Abschnitt
         {
             public string Name { get; set; }
-            public List<Block> Blocks { get; set; }
-
+            public List<StatusBedingung> Bedingungen { get; set; }
+        
+            public List<GleisTyp> Gleise { get; set; }
             public Abschnitt()
             {
-                Blocks = new List<Block>();
+                Bedingungen = new List<StatusBedingung>();
+                Gleise = new List<GleisTyp>();
+            }
+            public class GleisTyp
+            {
+                public GleisTyp()
+                {
+                    Bedingung = new int[3];
+                    Zustand = new MeldeZustand[3];
+                    Zustand[0] = new MeldeZustand(false);
+                    Zustand[1] = new MeldeZustand(false);
+                    Zustand[2] = new MeldeZustand(false);
+                }
+
+                public int PosX { get; set; }
+                public int PosY { get; set; }
+                public string Name { get; set; }
+                public string Typ { get; set; }
+
+                public string Weiche { get; set; }
+                public string WeichenBelegtmelder { get; set; }
+
+                public int[] Bedingung { get; set; }
+
+                public MeldeZustand[] Zustand { get; set; }
             }
 
-            public class Block
-            {
-                public Block()
-                {
-                    GleisTypen = new List<GleisTyp>();
-                    FahrstrassenMit = new List<string>();
-                    FahrstrassenGegen = new List<string>();
-                }
 
+            public class StatusBedingung
+            {
+                public StatusBedingung()
+                {
+                    FahrstrassenGegen = new List<string>();
+                    FahrstrassenMit = new List<string>();
+                }
+                public int Nummer { get; set; }
+                public string Belegtmelder { get; set; }
                 public List<string> FahrstrassenMit { get; set; }
                 public List<string> FahrstrassenGegen { get; set; }
-
-                public string Belegtmelder { get; set; }
-
-                public List<GleisTyp> GleisTypen { get; set; }
-
-                public class GleisTyp
-                {
-                    public GleisTyp()
-                    {
-                       
-                    }
-
-                    public int PosX { get; set; }
-                    public int PosY { get; set; }
-                    public string Name { get; set; }
-                    public string Typ { get; set; }
-
-                    public string[] Weiche = new string[3];
-                    public string[] Stellung = new string[3];
-                    public MeldeZustand zustand { get; set; }
-                }
             }
 
         }

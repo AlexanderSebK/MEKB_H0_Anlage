@@ -328,7 +328,14 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche52":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche52, true);
+                        var Fund = this.Controls.Find(weiche.Name, true);
+                        foreach (Control control in Fund)
+                        {
+                            if (control is PictureBox Picbox)
+                            {
+                                GleisbildZeichnung.ZeichneSchaltbild(weiche, Picbox, true);
+                            }
+                        }
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Block5");
