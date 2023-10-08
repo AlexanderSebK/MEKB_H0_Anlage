@@ -341,6 +341,24 @@ namespace MEKB_H0_Anlage
             }
             return true; //Fahrstrasse nicht gefunden
         }
+        public bool FahrstrasseAlleGleicheBlockiert(Fahrstrasse fahrstrasse)
+        {
+            if (!this.FahrstrasseBlockiert(fahrstrasse.Name)) return false; //Selber nicht blockiert?
+            foreach (string Strasse in fahrstrasse.Fahrstr_GleicherEingang)
+            {
+                Fahrstrasse Gleich = GetFahrstrasse(Strasse);
+                if (Gleich != null)              
+                {
+                    if (!this.FahrstrasseBlockiert(Gleich.Name))
+                    {
+                        return false; //Eine der Fahrstrassen ist frei
+                    }
+                }
+            }
+            return true;
+        }
+
+
         public bool FahrstrasseGleicheGesetzt(string Abschnitt)
         {
             Fahrstrasse fahrstrasse = GetFahrstrasse(Abschnitt);

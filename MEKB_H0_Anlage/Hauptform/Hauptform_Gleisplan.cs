@@ -15,14 +15,46 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public partial class Hauptform : Form
     {
-        public Dictionary<string, int> GleisListenVerzeichnis = new Dictionary<string, int>();
-        public List<PictureBox> GleisListe = new List<PictureBox>();
+        //public Dictionary<string, int> GleisListenVerzeichnis = new Dictionary<string, int>();
+        //public List<PictureBox> GleisListe = new List<PictureBox>();
         private void GleisplanZeichnenInitial()
         {
             foreach(Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
             {
+                foreach(Gleisplan.Abschnitt.Bilder bild in abschnitt.BilderListe)
+                {
+                    using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+                    {
+                        // Convert Image to byte[]
+                        Properties.Resources.Drehscheibe.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        //byte[] imageBytes = ms.ToArray();
+
+                        // Convert byte[] to base 64 string
+                        string base64String = Convert.ToBase64String(ms.ToArray());
+                    }
+
+
+
+
+                        // Convert base 64 string to byte[]
+                        byte[] imageBytes = Convert.FromBase64String(bild.Base64String);
+                    // Convert byte[] to Image
+                    using (var ms = new System.IO.MemoryStream(imageBytes, 0, imageBytes.Length))
+                    {
+                        Image image = Image.FromStream(ms, true);
+                        PictureBox neuesBild = new PictureBox()
+                        {
+                            Name = bild.Name,
+                            Size = new Size(image.Width, image.Height),
+                            Location = new Point(bild.PosX * 32, bild.PosY * 32),
+                            Image = image
+                        };
+                        this.GleisplanAnzeige.Controls.Add(neuesBild);
+                    }                   
+                }
+
                 foreach(Gleisplan.Abschnitt.GleisTyp gleis in abschnitt.Gleise)
-                {                 
+                {
                     if (!this.Controls.ContainsKey(gleis.Name))
                     {
                         PictureBox neuesGleis = new PictureBox()
@@ -33,11 +65,96 @@ namespace MEKB_H0_Anlage
                             Location = new Point(gleis.PosX*32, gleis.PosY*32),
                             Image = new Bitmap(GleisbildZeichnung.Katalog[36][7]),
                         };
-                        if(!gleis.Weiche.Equals("")) neuesGleis.Click += new System.EventHandler(this.Weiche_Click);
+                        if (!gleis.Weiche.Equals(""))
+                        {
+                            if (gleis.Typ.StartsWith("DKW")) neuesGleis.Click += new System.EventHandler(this.DKW_Click);
+                            else if (gleis.Typ.StartsWith("KW")) neuesGleis.Click += new System.EventHandler(this.KW_Click);
+                            //else if (gleis.Typ.StartsWith("Dreiweg")) neuesGleis.Click += new System.EventHandler(this.Dreiweg_Click);
+                            else neuesGleis.Click += new System.EventHandler(this.Weiche_Click);
+                        }
+                        else if(!gleis.Signal.Equals(""))
+                        {
+                            neuesGleis.Click += new System.EventHandler(this.Signal_Click);
+                        }
 
-                        GleisListe.Add(neuesGleis);
-                        GleisListenVerzeichnis.Add(gleis.Name, GleisListe.Count - 1);
-                        this.Controls.Add(neuesGleis);
+                        this.GleisplanAnzeige.Controls.Add(neuesGleis);
+
+                        if(gleis.label != null)
+                        {
+                            Label neuesLabel = new Label
+                            {
+                                AutoSize = true,
+                                Text = gleis.label.Text,
+                                Location = new Point(gleis.PosX * 32 + gleis.label.X_Offeset, gleis.PosY * 32 + gleis.label.Y_Offeset)
+                            };
+                            if (gleis.label.Fett) neuesLabel.Font = new Font("Microsoft Sans Serif", gleis.label.Groesse, FontStyle.Bold);
+                            else neuesLabel.Font = new Font("Microsoft Sans Serif", gleis.label.Groesse, FontStyle.Regular);
+                            neuesLabel.Name = gleis.Name + "Label";
+                            if (gleis.label.Rahmen) neuesLabel.BorderStyle = BorderStyle.FixedSingle;
+                            this.GleisplanAnzeige.Controls.Add(neuesLabel);
+                            neuesLabel.BringToFront();
+                        }
+
+                        if(!gleis.FahrstrassenButton.Equals(""))
+                        {
+                            Button button = new Button
+                            {
+                                Name = gleis.FahrstrassenButton + "_Button",
+                                Size = new System.Drawing.Size(16, 16),
+                                BackColor = System.Drawing.Color.Yellow,
+                                Margin = new System.Windows.Forms.Padding(0),
+                                BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center,
+                                FlatStyle = System.Windows.Forms.FlatStyle.Popup,
+                                ForeColor = System.Drawing.SystemColors.ControlText,
+                                Tag = gleis.FahrstrassenButton,
+                                UseVisualStyleBackColor = false,             
+                            };
+                            button.Click += new System.EventHandler(this.FahrstrassenButton_Click);
+                            button.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+                            button.FlatAppearance.BorderSize = 0;
+                            button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+                            button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+
+                            bool Buttonzeichen = true;
+                            string Winkel = GetButtonWinkel(gleis.Typ, gleis.ButtonDrehen); 
+
+                            if (Winkel.Equals("0")) 
+                            {
+                                button.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_oben;
+                                button.BackgroundImage.Tag = "oben";
+                                button.Location = new Point(gleis.PosX * 32 + 8, gleis.PosY * 32 + 16);
+                            }
+                            else if (Winkel.Equals("90"))
+                            {
+                                button.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_links;
+                                button.BackgroundImage.Tag = "links";
+                                button.Location = new Point(gleis.PosX * 32 + 16, gleis.PosY * 32 + 8);
+                            }
+                            else if (Winkel.Equals("180"))
+                            {
+                                button.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_unten;
+                                button.BackgroundImage.Tag = "unten";
+                                button.Location = new Point(gleis.PosX * 32 + 8, gleis.PosY * 32 + 0);
+                            }
+                            else if (Winkel.Equals("270"))
+                            {
+                                button.BackgroundImage = global::MEKB_H0_Anlage.Properties.Resources.Fahrstrasse_rechts;
+                                button.BackgroundImage.Tag = "rechts";
+                                button.Location = new Point(gleis.PosX * 32 + 0, gleis.PosY * 32 + 8);
+                            }
+                            else
+                            {
+                                Buttonzeichen = false; // Button nicht setzen;
+                            }
+                            if (Buttonzeichen)
+                            {
+                                this.GleisplanAnzeige.Controls.Add(button);
+                                button.BringToFront();
+                            }
+                        }
+
+
+
                         if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0 && gleis.Bedingung[2] != 0)
                         {
                             GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, FreiesGleis, FreiesGleis, neuesGleis);
@@ -47,17 +164,89 @@ namespace MEKB_H0_Anlage
                             GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, FreiesGleis, neuesGleis);
                         }
                         else if (gleis.Bedingung[0] != 0)
-                        {
+                        {                          
                             GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, neuesGleis);
                         }
                         else if(!gleis.Weiche.Equals(""))
                         {
                             Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche);
-                            GleisbildZeichnung.ZeichneSchaltbild(weiche, neuesGleis);
+                            if (gleis.Weiche_2nd.Equals(""))
+                            {
+                                if (gleis.Bedingung[1] == 0)
+                                {
+                                    GleisbildZeichnung.ZeichneSchaltbild(weiche, neuesGleis);
+                                }
+                                else if (gleis.Bedingung[2] == 0)
+                                {
+                                    GleisbildZeichnung.ZeichneSchaltbild(weiche, FreiesGleis, neuesGleis);
+                                }
+                            }
+                            else
+                            {
+                                Weiche weiche2 = WeichenListe.GetWeiche(gleis.Weiche_2nd);
+                                GleisbildZeichnung.ZeichneSchaltbild(weiche, weiche2, neuesGleis);
+                            }
+                        }
+                        if (!gleis.Signal.Equals(""))
+                        {
+                            GleisbildZeichnung.ZeichneSchaltbild(SignalListe.GetSignal(gleis.Signal), neuesGleis);
                         }
                     }                                         
                 }
             }
+        }
+
+        private string GetButtonWinkel(string GleisTyp, bool drehen)
+        {
+            string Typ = GleisTyp.Split('+').First();
+            string Winkel = Typ.Split('_').Last();
+            Typ = Typ.Split('_').First();
+
+            if(Typ.Equals("KurveL") && drehen)
+            {
+                switch (Winkel)
+                {
+                    case "0": Winkel = "nicht erlaubt"; break;
+                    case "45": Winkel = "270"; break;
+                    case "90": Winkel = "nicht erlaubt"; break;
+                    case "135": Winkel = "0"; break;
+                    case "180": Winkel = "nicht erlaubt"; break;
+                    case "225": Winkel = "90"; break;
+                    case "270": Winkel = "nicht erlaubt"; break;
+                    case "315": Winkel = "180"; break;
+                    default: Winkel = "nicht erlaubt"; break;
+                }
+            }
+            else if (Typ.Equals("KurveR") && drehen)
+            {
+                switch (Winkel)
+                {
+                    case "0": Winkel = "nicht erlaubt"; break;
+                    case "45": Winkel = "180"; break;
+                    case "90": Winkel = "nicht erlaubt"; break;
+                    case "135": Winkel = "270"; break;
+                    case "180": Winkel = "nicht erlaubt"; break;
+                    case "225": Winkel = "0"; break;
+                    case "270": Winkel = "nicht erlaubt"; break;
+                    case "315": Winkel = "90"; break;
+                    default: Winkel = "nicht erlaubt"; break;
+                }
+            }
+
+
+            else if (drehen)
+            {
+                switch (Winkel)
+                {
+                    case "0": Winkel = "180"; break;
+                    case "90": Winkel = "270"; break;
+                    case "180": Winkel = "0"; break;
+                    case "270": Winkel = "90"; break;
+                    default: break;
+                }
+            }
+
+            return Winkel;
         }
 
         private void GleisplanZeichnen()
@@ -67,9 +256,29 @@ namespace MEKB_H0_Anlage
                 Dictionary<int, MeldeZustand> aktZustand = new Dictionary<int, MeldeZustand>();
                 foreach(Gleisplan.Abschnitt.StatusBedingung bedingung in abschnitt.Bedingungen)
                 {
+                    bool BelegtmelderStatus = false;
+                    if (bedingung.Aktiv.Count > 0)
+                    {
+                        foreach (Dictionary<string, bool> entry in bedingung.Aktiv)
+                        {
+                            bool AND_bedingung = true;
+                            foreach (KeyValuePair<string, bool> Weichenentry in entry)
+                            {
+                                bool WeichenAbzweig = WeichenListe.GetWeiche(Weichenentry.Key).Abzweig;
+                                if (WeichenAbzweig != Weichenentry.Value) AND_bedingung = false;
+                            }
+                            if (AND_bedingung) BelegtmelderStatus = true;
+                        }
+                    }
+                    else
+                    {
+                        BelegtmelderStatus = true; // Keine Bedingung - immer anzeigen
+                    }
+                    // Wenn Belegtmelderstatus gewünscht ist
+                    if(BelegtmelderStatus) BelegtmelderStatus = BelegtmelderListe.GetBelegtStatus(bedingung.Belegtmelder);
 
                     aktZustand.Add(bedingung.Nummer, ErrechneZustand(
-                            BelegtmelderListe.GetBelegtStatus(bedingung.Belegtmelder),
+                            BelegtmelderStatus,
                             FahrstrassenListe.GetFahrstrasse(bedingung.FahrstrassenMit.ToArray()),
                             FahrstrassenListe.GetFahrstrasse(bedingung.FahrstrassenGegen.ToArray())));
                 }
@@ -87,7 +296,7 @@ namespace MEKB_H0_Anlage
 
                     if (update)
                     {
-                        var Fund = this.Controls.Find(gleis.Name, true);
+                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
                         foreach (Control control in Fund)
                         {
                             if (control is PictureBox Picbox)
@@ -116,42 +325,202 @@ namespace MEKB_H0_Anlage
                                 else if (!gleis.Weiche.Equals(""))
                                 {
                                     Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche);
-                                    if(!gleis.WeichenBelegtmelder.Equals(""))
-                                    { 
+                                    if (gleis.Weiche_2nd.Equals("")) // Normale Weiche ohen zweiten Motor
+                                    {
+                                        if (!gleis.WeichenBelegtmelder.Equals(""))
+                                        {
+                                            if (int.TryParse(gleis.WeichenBelegtmelder, out int index))
+                                            {
+                                                weiche.Besetzt = aktZustand[index].Besetzt;
+
+                                            }
+                                        }
+
+                                        if (gleis.Bedingung[1] == 0)
+                                        {
+                                            GleisbildZeichnung.ZeichneSchaltbild(weiche, Picbox);
+                                        }
+                                        else if (gleis.Bedingung[2] == 0)
+                                        {
+                                            GleisbildZeichnung.ZeichneSchaltbild(weiche, aktZustand[gleis.Bedingung[1]], Picbox, true);
+                                        }
                                     }
-                                    GleisbildZeichnung.ZeichneSchaltbild(weiche, Picbox);
+                                    else
+                                    {
+                                        Weiche weiche2 = WeichenListe.GetWeiche(gleis.Weiche_2nd);
+                                        if (!gleis.WeichenBelegtmelder.Equals(""))
+                                        {
+                                            if (int.TryParse(gleis.WeichenBelegtmelder, out int index))
+                                            {
+                                                weiche.Besetzt = aktZustand[index].Besetzt;
+                                                weiche2.Besetzt = aktZustand[index].Besetzt;
+                                            }
+                                        }
+
+                                        GleisbildZeichnung.ZeichneSchaltbild(weiche, weiche2, Picbox);
+                                    }
                                 }
+                                if (!gleis.Signal.Equals(""))
+                                {
+                                    GleisbildZeichnung.ZeichneSchaltbild(SignalListe.GetSignal(gleis.Signal), Picbox);
+                                }
+
                                 for (int i = 0; i < 3; i++)
                                 {
                                     if (gleis.Bedingung[i] == 0) continue; // Keine Bedingung
                                     gleis.Zustand[i] = aktZustand[gleis.Bedingung[i]];
                                 }
-                            }
-                        }
-                    }
+                            } // if picturebox
+                        } // foreach Control
+                    } // if(update)
                     
                     if (!gleis.Weiche.Equals(""))
                     {
                         Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche);
                         if (!gleis.WeichenBelegtmelder.Equals(""))
                         {
-                            weiche.Besetzt = BelegtmelderListe.GetBelegtStatus(gleis.WeichenBelegtmelder);
+                            if (int.TryParse(gleis.WeichenBelegtmelder, out int index))
+                            {
+                                weiche.Besetzt = aktZustand[index].Besetzt;
+                            }
                         }
                         var Fund = this.Controls.Find(gleis.Name, true);
                         foreach (Control control in Fund)
                         {
                             if (control is PictureBox Picbox)
                             {
-                                GleisbildZeichnung.ZeichneSchaltbild(weiche, Picbox);
+                                GleisbildZeichnung.ZeichneSchaltbild(weiche, Picbox, true);
                             }
                         }
-                    }
-                    
+                    }                   
                 }  
             }
         }
 
+        private void GleisplanUpdateWeiche(Weiche weiche)
+        {
+            foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
+            {
+                foreach (Gleisplan.Abschnitt.GleisTyp gleis in abschnitt.Gleise)
+                {
+                    if(gleis.Weiche.Equals(weiche.Name))
+                    {
+                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
+                        foreach (Control control in Fund)
+                        {
+                            if (control is PictureBox Picbox)
+                            {
+                                if (gleis.Weiche_2nd.Equals("")) //Kein Zweiter Weichenmotor
+                                {
+                                    if (gleis.Bedingung[1] == 0)
+                                    {
+                                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Picbox);
+                                    }
+                                    else if (gleis.Bedingung[2] == 0)
+                                    {
+                                        Dictionary<int, MeldeZustand> aktZustand = new Dictionary<int, MeldeZustand>();
+                                        foreach (Gleisplan.Abschnitt.StatusBedingung bedingung in abschnitt.Bedingungen)
+                                        {
+                                            if (bedingung.Nummer == gleis.Bedingung[1])
+                                            {
+                                                bool BelegtmelderStatus = false;
+                                                foreach (Dictionary<string, bool> entry in bedingung.Aktiv)
+                                                {
+                                                    bool AND_bedingung = true;
+                                                    foreach (KeyValuePair<string, bool> Weichenentry in entry)
+                                                    {
+                                                        bool WeichenAbzweig = WeichenListe.GetWeiche(Weichenentry.Key).Abzweig;
+                                                        if (WeichenAbzweig != Weichenentry.Value) AND_bedingung = false;
+                                                    }
+                                                    if (AND_bedingung) BelegtmelderStatus = true;
 
+                                                }
+                                                // Wenn Belegtmelderstatus gewünscht ist
+                                                if (BelegtmelderStatus) BelegtmelderStatus = BelegtmelderListe.GetBelegtStatus(bedingung.Belegtmelder);
+
+                                                aktZustand.Add(bedingung.Nummer, ErrechneZustand(
+                                                        BelegtmelderStatus,
+                                                        FahrstrassenListe.GetFahrstrasse(bedingung.FahrstrassenMit.ToArray()),
+                                                        FahrstrassenListe.GetFahrstrasse(bedingung.FahrstrassenGegen.ToArray())));
+                                            }
+                                        }
+                                        GleisbildZeichnung.ZeichneSchaltbild(weiche, aktZustand[gleis.Bedingung[1]], Picbox, true);
+                                    }
+                                }
+                                else // Zweiter Weichenmotor
+                                {
+                                    Weiche weiche2 = WeichenListe.GetWeiche(gleis.Weiche_2nd);
+                                    GleisbildZeichnung.ZeichneSchaltbild(weiche, weiche2, Picbox, true);
+                                }
+                            }
+                        }                      
+                    }
+                    else if(gleis.Weiche_2nd.Equals(weiche.Name))
+                    {
+                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
+                        foreach (Control control in Fund)
+                        {
+                            if (control is PictureBox Picbox)
+                            {
+                                Weiche weiche2 = WeichenListe.GetWeiche(gleis.Weiche);
+                                GleisbildZeichnung.ZeichneSchaltbild(weiche2, weiche, Picbox, true);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void GleisplanUpdateSignal(Signal signal)
+        {
+            foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
+            {
+                foreach (Gleisplan.Abschnitt.GleisTyp gleis in abschnitt.Gleise)
+                {
+                    if (gleis.Signal.Equals(signal.Name))
+                    {
+                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
+                        foreach (Control control in Fund)
+                        {
+                            if (control is PictureBox Picbox)
+                            {
+                                if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0 && gleis.Bedingung[2] != 0)
+                                {
+                                    GleisbildZeichnung.ZeichneSchaltbild(gleis.Zustand[0], gleis.Zustand[1], gleis.Zustand[2], Picbox, true);
+                                }
+                                else if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0)
+                                {
+                                    GleisbildZeichnung.ZeichneSchaltbild(gleis.Zustand[0], gleis.Zustand[1], Picbox, true);
+                                }
+                                else if (gleis.Bedingung[0] != 0)
+                                {
+                                    GleisbildZeichnung.ZeichneSchaltbild(gleis.Zustand[0], Picbox, true);
+                                }
+                                GleisbildZeichnung.ZeichneSchaltbild(signal, Picbox);    
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private bool GetGleisObjekt(string name, out Gleisplan.Abschnitt.GleisTyp Gleis)
+        {
+            foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
+            {
+                foreach (Gleisplan.Abschnitt.GleisTyp gleis in abschnitt.Gleise)
+                {
+                    if (gleis.Name.Equals(name))
+                    {
+                        Gleis = gleis;  
+                        return true;
+                    }
+                }
+            }
+            Gleis = null;
+            return false;
+        }
 
         MeldeZustand FreiesGleis = new MeldeZustand(false);       
 
@@ -163,7 +532,7 @@ namespace MEKB_H0_Anlage
         /// <param name="Fahrstrassen_west">Fahrstraßen, die diesen Abschnitt nach westen(links) belegen </param>
         /// <param name="Fahrstrassen_ost">Fahrstraßen, die diesen Abschnitt nach osten(rechts) belegen</param>
         /// <returns></returns>
-        MeldeZustand ErrechneZustand(bool besetzt, List<Fahrstrasse> Fahrstrassen_west, List<Fahrstrasse> Fahrstrassen_ost)
+        private MeldeZustand ErrechneZustand(bool besetzt, List<Fahrstrasse> Fahrstrassen_west, List<Fahrstrasse> Fahrstrassen_ost)
         {
             //Zählvariablen für die Fahrstraßen
             int aktiv_west = 0; //Anzahl aktive Fahrstraßen nach westen
@@ -215,231 +584,10 @@ namespace MEKB_H0_Anlage
         }
         
         
+        
+       
+       
 
-        #region Bahnhofsausfahrt links
-        private void UpdateGleisbild_GL1_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_mit, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_mit, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_links_0);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_links_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_links_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_links_3);
-        }
-        private void UpdateGleisbild_GL2_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_links_0);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_links_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_links_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_links_3);
-        }
-        private void UpdateGleisbild_GL3_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_links_0);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_links_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_links_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_links_3);
-        }
-        private void UpdateGleisbild_GL4_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_links_0);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_links_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_links_2);
-        }
-        private void UpdateGleisbild_GL5_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL5_links_0);
-
-        }
-        private void UpdateGleisbild_GL6_links(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL6_links_0);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL6_links_1);
-        }
-        #endregion
-        #region Bahnhofsausfahrt rechts
-        private void UpdateGleisbild_GL1_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_0);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL1_rechts_5);
-        }
-        private void UpdateGleisbild_GL2_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_rechts_0);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_rechts_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_rechts_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL2_rechts_3);
-        }
-        private void UpdateGleisbild_GL3_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_rechts_0);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_rechts_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_rechts_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL3_rechts_3);
-        }
-        private void UpdateGleisbild_GL4_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_rechts_0);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_rechts_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL4_rechts_2);
-        }       
-        private void UpdateGleisbild_GL5_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL5_rechts_0);
-        }
-        private void UpdateGleisbild_GL6_rechts(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, GL6_rechts_0);
-        }
-        #endregion
-        #region Bahnhofseinfahrt links
-        private void UpdateGleisbild_Weiche5(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Weiche5_Gleis2);
-        }
-        #endregion
-        #region Bahnhof
-        private void UpdateGleisbild_Gl1_Halt_links(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_L1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_L2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_L3);
-        }
-        private void UpdateGleisbild_Gl1_Halt_rechts(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_R1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_R2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_Halt_R3);
-        }
-        private void UpdateGleisbild_Gl1_Zentrum(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl1_2);
-        }
-
-        private void UpdateGleisbild_Gl2_Halt_links(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_L1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_L2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_L3);
-        }
-        private void UpdateGleisbild_Gl2_Halt_rechts(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_R1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_R2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_Halt_R3);
-        }
-        private void UpdateGleisbild_Gl2_Zentrum(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl2_2);
-        }
-
-        private void UpdateGleisbild_Gl3_Halt_links(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_L1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_L2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_L3);
-        }
-        private void UpdateGleisbild_Gl3_Halt_rechts(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_R1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_R2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_Halt_R3);
-        }
-        private void UpdateGleisbild_Gl3_Zentrum(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl3_2);
-        }
-
-        private void UpdateGleisbild_Gl4_Halt_links(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_L1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_L2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_L3);
-        }
-        private void UpdateGleisbild_Gl4_Halt_rechts(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_R1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_R2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_Halt_R3);
-        }
-        private void UpdateGleisbild_Gl4_Zentrum(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl4_2);
-        }
-
-        private void UpdateGleisbild_Gl5_Halt_links(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_L1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_L2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_L3);
-        }
-        private void UpdateGleisbild_Gl5_Halt_rechts(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_R1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_R2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_Halt_R3);
-        }
-        private void UpdateGleisbild_Gl5_Zentrum(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl5_2);
-        }
-
-        private void UpdateGleisbild_Gl6_Halt_links(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_L1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_L2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_L3);
-        }
-        private void UpdateGleisbild_Gl6_Halt_rechts(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_R1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_R2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_Halt_R3);
-        }
-        private void UpdateGleisbild_Gl6_Zentrum(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Bhf_Gl6_2);
-        }
-        #endregion
         #region Schattenbahnhof
 
         private void UpdateGleisbild_Schatten_Eingl(bool besetzt)
@@ -570,111 +718,12 @@ namespace MEKB_H0_Anlage
             GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl7_Halt_1);
         }
 
-        private void UpdateGleisbild_Schatten_Gl8(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_5);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_6);
-        }
-        private void UpdateGleisbild_Schatten_Gl8_Halt(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl8_Halt_1);
-        }
-
-        private void UpdateGleisbild_Schatten_Gl9(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_5);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_6);
-        }
-        private void UpdateGleisbild_Schatten_Gl9_Halt(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_Halt_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl9_Halt_2);
-        }
-
-        private void UpdateGleisbild_Schatten_Gl10(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_5);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_6);
-        }
-        private void UpdateGleisbild_Schatten_Gl10_Halt(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_Halt_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl10_Halt_2);
-        }
-
-        private void UpdateGleisbild_Schatten_Gl11(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_5);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_6);
-        }
-        private void UpdateGleisbild_Schatten_Gl11_Halt(bool besetzt)
-        {
-            MeldeZustand zustand = new MeldeZustand(besetzt, false, false, false);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_Halt_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, SchattenGl11_Halt_2);
-        }
-
         #endregion
 
-        #region Block 1
-        private void UpdateGleisbild_Weiche6(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Weiche6_Gleis4);
-        }
-        
+
        
-        #endregion
-        #region Block 2
-        private void UpdateGleisbild_Block2(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_5);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_6);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_7);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_8);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_10);
-        }
-        private void UpdateGleisbild_Block2_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_Halt_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block2_Halt_2);
-        }
-        #endregion
         #region Block 3
-        private void UpdateGleisbild_Weiche25(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Weiche25_Gleis2);
-        }
+        
         private void UpdateGleisbild_Block3(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
         {
             MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
@@ -695,364 +744,28 @@ namespace MEKB_H0_Anlage
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block4_4);
             GleisbildZeichnung.ZeichneSchaltbild(zustand, Block4_5);
         }
-        private void UpdateGleisbild_Weiche26(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Weiche26_Gleis2);
-        }
-        #endregion
-        #region Block 5
-
-
-        private void UpdateGleisbild_Block5_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5_Halt_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block5_Halt_2);
-        }
-        #endregion
-        #region Block 6
-        private void UpdateGleisbild_Block6(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_5);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_6);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_7);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_8);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_9);
-        }
-        private void UpdateGleisbild_Block6_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_Halt1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block6_Halt2);
-        }
-        #endregion
-        #region Block 7
-        private void UpdateGleisbild_Block7(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand,   Block7_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_5);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_6);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_7);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_8);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_9);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_10);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_11);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_12);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_13);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block7_14);
-
-        }
-        #endregion
-        #region Block 8
-        private void UpdateGleisbild_Block8(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_5);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_6);
-            GleisbildZeichnung.ZeichneSchaltbild(SignalListe.GetSignal("Signal_Ausfahrt_R5"), Block8_6);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_7);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_8);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_9);        
-        }
-        private void UpdateGleisbild_Block8_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_Halt_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block8_Halt_2);
-        }
-        #endregion
-        #region Block 9
-        private void UpdateGleisbild_Block9(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_5);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_6);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_7);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_8);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_9);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_10);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_11);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_12);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_13);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_14);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_15);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_16);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_17);
-        }
-        private void UpdateGleisbild_Block9_Halt(bool besetzt, List<Fahrstrasse> Fahrstrasse_links, List<Fahrstrasse> Fahrstrasse_gegen)
-        {
-            MeldeZustand zustand = ErrechneZustand(besetzt, Fahrstrasse_links, Fahrstrasse_gegen);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_Halt_1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand, Block9_Halt_2);
-        }
-        #endregion
-
-        private void UpdateKreuzung(bool besetzt, List<Fahrstrasse> Fahrstrasse_Block8, List<Fahrstrasse> Fahrstrasse_Block9)
-        {
-            MeldeZustand zustand8 = ErrechneZustand(besetzt, new List<Fahrstrasse>(), Fahrstrasse_Block8); //Gleis8
-            MeldeZustand zustand9 = ErrechneZustand(besetzt, Fahrstrasse_Block9, new List<Fahrstrasse>()); //Gleis9
-
-            if (zustand9.Fahrstrasse == true)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(zustand9, FreiesGleis, Kreuzung1_1);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Kreuzung1_2);
-                GleisbildZeichnung.ZeichneSchaltbild(zustand9, FreiesGleis, Kreuzung1_3);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Kreuzung1_4);
-                GleisbildZeichnung.ZeichneSchaltbild(zustand9, FreiesGleis, Kreuzung1);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Kreuzung1_5);
-            }
-            else if (zustand8.Fahrstrasse == true)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, zustand8, Kreuzung1_1);
-                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_2);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, zustand8, Kreuzung1_3);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, zustand8, Kreuzung1);  
-                zustand8.Richtung = !zustand8.Richtung;
-                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_4);
-                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_5);
-
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(zustand9, FreiesGleis, Kreuzung1_1);
-                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_2);
-                GleisbildZeichnung.ZeichneSchaltbild(zustand9, FreiesGleis, Kreuzung1_3);
-                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_4);
-                GleisbildZeichnung.ZeichneSchaltbild(zustand9, zustand8, Kreuzung1);
-                GleisbildZeichnung.ZeichneSchaltbild(zustand8, Kreuzung1_5);
-            }
-       
-        }
-
-        #region Schattenbahnhof
-        private void UpdateGleisbild_SchattenkleinAusf(bool besetzt)
-        {
-            bool besetzt8 = false;
-            bool besetzt9 = false;
-            bool besetzt10 = false;
-            bool besetzt11 = false;
-
-            if (WeichenListe.GetWeiche("Weiche80").Abzweig) besetzt8 = besetzt;
-            else if(WeichenListe.GetWeiche("Weiche81").Abzweig) besetzt9 = besetzt;
-            else if (WeichenListe.GetWeiche("Weiche82").Abzweig) besetzt10 = besetzt;
-            else besetzt11 = besetzt;
-
-
-            MeldeZustand zustand11 = ErrechneZustand(besetzt11, FahrstrassenListe.GetFahrstrasse(new string[] { "Schatten11_nach_Eingleisen", "Schatten11_nach_Schatten1", "Schatten11_nach_Schatten2", "Schatten11_nach_Schatten3", "Schatten11_nach_Schatten4", "Schatten11_nach_Schatten5", "Schatten11_nach_Schatten6", "Schatten11_nach_Schatten7" }), new List<Fahrstrasse>()); //Gleis8
-            MeldeZustand zustand10 = ErrechneZustand(besetzt10, FahrstrassenListe.GetFahrstrasse(new string[] { "Schatten10_nach_Eingleisen", "Schatten10_nach_Schatten1", "Schatten10_nach_Schatten2", "Schatten10_nach_Schatten3", "Schatten10_nach_Schatten4", "Schatten10_nach_Schatten5", "Schatten10_nach_Schatten6", "Schatten10_nach_Schatten7" }), new List<Fahrstrasse>()); //Gleis9
-            MeldeZustand zustand9 = ErrechneZustand(besetzt9, FahrstrassenListe.GetFahrstrasse(new string[] { "Schatten9_nach_Eingleisen", "Schatten9_nach_Schatten1", "Schatten9_nach_Schatten2", "Schatten9_nach_Schatten3", "Schatten9_nach_Schatten4", "Schatten9_nach_Schatten5", "Schatten9_nach_Schatten6", "Schatten9_nach_Schatten7" }), new List<Fahrstrasse>()); //Gleis10
-            MeldeZustand zustand8 = ErrechneZustand(besetzt8, FahrstrassenListe.GetFahrstrasse(new string[] { "Schatten8_nach_Eingleisen", "Schatten8_nach_Schatten1", "Schatten8_nach_Schatten2", "Schatten8_nach_Schatten3", "Schatten8_nach_Schatten4", "Schatten8_nach_Schatten5", "Schatten8_nach_Schatten6", "Schatten8_nach_Schatten7" }), new List<Fahrstrasse>()); //Gleis11
-
-            GleisbildZeichnung.ZeichneSchaltbild(zustand8, Schatten8_Ausf1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand8, zustand9, Schatten8_Ausf2);
-
-            GleisbildZeichnung.ZeichneSchaltbild(zustand9, zustand10, Schatten9_Ausf1);
-
-            GleisbildZeichnung.ZeichneSchaltbild(zustand10, Schatten10_Ausf1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand10, zustand11, Schatten10_Ausf2);
-
-            GleisbildZeichnung.ZeichneSchaltbild(zustand11, Schatten11_Ausf1);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand11, Schatten11_Ausf2);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand11, Schatten11_Ausf3);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand11, Schatten11_Ausf4);
-            GleisbildZeichnung.ZeichneSchaltbild(zustand11, zustand10, Schatten11_Ausf5);
-        }
         
         #endregion
+
+
+        
+       
+       
+
+        
+
+       
         
 
         #region Weichen Gleisfeldumgebung
-        private void UpdateGleisbild_Weiche1()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche1");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche1.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche1);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche1_Gl1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche1_Gl1);
-            }
+       
+       
+       
 
-        }
-        private void UpdateGleisbild_Weiche2()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche2");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche2.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche2);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche2_Gleis);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche2_Gleis);               
-            }
 
-        }
-        private void UpdateGleisbild_Weiche3()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche3");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche3.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche3);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche3_Gleis);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche3_Gleis);
-            }
-        }
-        private void UpdateGleisbild_Weiche4()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche4");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche4.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche4);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche4_Gl1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche4_Gl1);
-            }
-
-        }
-        private void UpdateGleisbild_Weiche5()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche5");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche5.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche5);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche5_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche5_Gleis1);
-            }
-        }
-        private void UpdateGleisbild_Weiche6()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche6");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche6.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche6);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche6_Gleis2);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche6_Gleis3);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche6_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche6_Gleis2);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche6_Gleis3);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche6_Gleis1);
-            }
-
-        }
-        private void UpdateGleisbild_Weiche8()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche8");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche8.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche8);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche8_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche8_Gleis1);
-            }
-        }
-        private void UpdateGleisbild_Weiche21()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche21");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche21.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche21);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche21_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche21_Gleis1);
-            }
-        }
-        private void UpdateGleisbild_Weiche23()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche23");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche23.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche23);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche23_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche23_Gleis1);
-            }
-        }
-        private void UpdateGleisbild_Weiche25()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche25");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche25.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche25);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche25_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche25_Gleis1);
-            }
-        }
-        private void UpdateGleisbild_Weiche26()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche26");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche26.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche26);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche26_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche26_Gleis1);
-            }
-        }
+       
+       
+       
         private void UpdateGleisbild_Weiche27()
         {
             Weiche weiche = WeichenListe.GetWeiche("Weiche27");
@@ -1199,50 +912,9 @@ namespace MEKB_H0_Anlage
                 GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche51b_1);
             }
         }
-        private void UpdateGleisbild_Weiche52()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche52");
-            if (weiche == null) return;
-            //GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche521); 
-           
-        }
-        private void UpdateGleisbild_Weiche53()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche53");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche53.Tag.ToString().EndsWith("_Gegen")); 
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche53);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche53_Gleis0);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche53_Gleis1);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche53_Gleis2);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche53_Gleis3);
+       
+       
 
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche53_Gleis0);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche53_Gleis1);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche53_Gleis2);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche53_Gleis3);
-            }
-        }
-        private void UpdateGleisbild_Weiche60()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche60");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche60.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche60);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche60_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche60_Gleis1);
-            }
-        }
         private void UpdateGleisbild_Weiche61()
         {
             Weiche weiche = WeichenListe.GetWeiche("Weiche61");
@@ -1449,313 +1121,10 @@ namespace MEKB_H0_Anlage
                 GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche73_2);
             }
         }
-        private void UpdateGleisbild_Weiche74()
-        {
-            Weiche weiche74 = WeichenListe.GetWeiche("Weiche74");
-            if (weiche74 == null) return;
-            Weiche weiche92 = WeichenListe.GetWeiche("Weiche92");
-            if (weiche92 == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche74, Weiche74.Tag.ToString().EndsWith("_Gegen"));
-            MeldeZustand meldeZustand2 = new MeldeZustand(weiche92, Weiche92.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche74, Weiche74);
-            if (weiche74.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche74_1);
-                if(weiche92.Abzweig)
-                    GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, FreiesGleis, WeicheEcke74_92);
-                else
-                    GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand2, WeicheEcke74_92);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche74_1);
-                if (weiche92.Abzweig)
-                    GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, WeicheEcke74_92);
-                else
-                    GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, meldeZustand2, WeicheEcke74_92);
-            }
-        }
-        private void UpdateGleisbild_Weiche75()
-        {
-            Weiche weiche75 = WeichenListe.GetWeiche("Weiche75");
-            if (weiche75 == null) return;
-            Weiche weiche91 = WeichenListe.GetWeiche("Weiche91");
-            if (weiche91 == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche75, Weiche75.Tag.ToString().EndsWith("_Gegen"));
-            MeldeZustand meldeZustand2 = new MeldeZustand(weiche91, Weiche91.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche75, Weiche75);
-            if (weiche75.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche75_1);
-                if (weiche91.Abzweig)
-                    GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, FreiesGleis, WeicheEcke75_91);
-                else
-                    GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand2, WeicheEcke75_91);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche75_1);
-                if (weiche91.Abzweig)
-                    GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, WeicheEcke75_91);
-                else
-                    GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, meldeZustand2, WeicheEcke75_91);
-            }
-        }
-        private void UpdateGleisbild_Weiche76()
-        {
-            Weiche weiche76 = WeichenListe.GetWeiche("Weiche76");
-            if (weiche76 == null) return;
-            Weiche weiche90 = WeichenListe.GetWeiche("Weiche90");
-            if (weiche90 == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche76, Weiche76.Tag.ToString().EndsWith("_Gegen"));
-            MeldeZustand meldeZustand2 = new MeldeZustand(weiche90, Weiche90.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche76, Weiche76);
-            if (weiche76.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche76_1);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche76_2);
-                if (!weiche90.Abzweig)
-                    GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, FreiesGleis, WeicheEcke76_90);
-                else
-                    GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand2, WeicheEcke76_90);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche76_1);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche76_2);
-                if (!weiche90.Abzweig)
-                    GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, WeicheEcke76_90);
-                else
-                    GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, meldeZustand2, WeicheEcke76_90);
-            }
-        }
-        private void UpdateGleisbild_Weiche80()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche80");
-            if (weiche == null) return;
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche80);
-        }
 
-        private void UpdateGleisbild_Weiche81()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche81");
-            if (weiche == null) return;
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche81);
-
-            Weiche weiche80 = WeichenListe.GetWeiche("Weiche80");
-            Weiche weiche81 = WeichenListe.GetWeiche("Weiche81");
-            if (weiche80 == null) return;
-            if (weiche81 == null) return;
-            if (weiche81.Abzweig)
-            {
-                MeldeZustand meldeZustand = new MeldeZustand(weiche80, Weiche80.Tag.ToString().EndsWith("_Gegen"));
-                GleisbildZeichnung.ZeichneSchaltbild(weiche81, meldeZustand, Weiche81);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(weiche81, FreiesGleis, Weiche81);
-            }
-        }
-
-        private void UpdateGleisbild_Weiche82()
-        {
-            Weiche weiche82 = WeichenListe.GetWeiche("Weiche82");
-            Weiche weiche81 = WeichenListe.GetWeiche("Weiche81");
-            if (weiche82 == null) return;
-            if (weiche81 == null) return;
-            if (weiche81.Abzweig)
-            {
-                MeldeZustand meldeZustand = new MeldeZustand(weiche81, Weiche81.Tag.ToString().EndsWith("_Gegen"));
-                GleisbildZeichnung.ZeichneSchaltbild(weiche82, meldeZustand, Weiche82);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(weiche82, FreiesGleis, Weiche82);
-            }
-        }
-
-        private void UpdateGleisbild_Weiche90()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche90");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche90.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche90);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche90_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche90_Gleis1);
-            }
-        }
-        private void UpdateGleisbild_Weiche91()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche91");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche91.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche91);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche91_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche91_Gleis1);
-            }
-        }
-        private void UpdateGleisbild_Weiche92()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("Weiche92");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, Weiche92.Tag.ToString().EndsWith("_Gegen"));
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche92);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche92_Gleis1);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche92_Gleis2);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche92_Gleis1);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche92_Gleis2);
-            }
-        }
 
         #endregion
-        #region DKW Gleisfeldumgebung
-        private void UpdateGleisbild_WeicheDKW7_1()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("DKW7_1");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW7.Tag.ToString().EndsWith("_Gegen"));
-            Weiche DKW_2nd = GetDWK_2nd(weiche.Name);
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, DKW7);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche7_Gleis2);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche7_Gleis2);
-            }
-        }
-        private void UpdateGleisbild_WeicheDKW7_2()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("DKW7_2");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW7.Tag.ToString().EndsWith("_Gegen"));
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche7_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche7_Gleis1);
-            }
-        }     
-        private void UpdateGleisbild_WeicheDKW9_1()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("DKW9_1");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW9.Tag.ToString().EndsWith("_Gegen"));
-            Weiche DKW_2nd = GetDWK_2nd(weiche.Name);
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, DKW9);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche9_Gleis1);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche9_Gleis4);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche9_Gleis1);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche9_Gleis4);
-            }
-
-        }
-        private void UpdateGleisbild_WeicheDKW9_2()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("DKW9_2");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW9.Tag.ToString().EndsWith("_Gegen"));
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, Weiche9_Gleis2);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, Weiche9_Gleis3);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, Weiche9_Gleis2);
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, Weiche9_Gleis3);
-            }
-        }       
-        private void UpdateGleisbild_KW22_1()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("KW22_1");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, KW22.Tag.ToString().EndsWith("_Gegen"));
-            Weiche DKW_2nd = GetDWK_2nd(weiche.Name);
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, KW22);
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, FreiesGleis, KW22_Gleis2);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, KW22_Gleis3);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, FreiesGleis, KW22_Gleis2);
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, KW22_Gleis3);
-            }
-
-        }
-        private void UpdateGleisbild_KW22_2()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("KW22_2");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, KW22.Tag.ToString().EndsWith("_Gegen"));
-            
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, KW22_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, KW22_Gleis1);
-            }
-        }       
-        private void UpdateGleisbild_DKW24_1()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("DKW24_1");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW24.Tag.ToString().EndsWith("_Gegen"));
-            Weiche DKW_2nd = GetDWK_2nd(weiche.Name);
-            GleisbildZeichnung.ZeichneSchaltbild(weiche, DKW_2nd, DKW24);
-
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, DKW24_Gleis2);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, DKW24_Gleis2);
-            }
-        }
-        private void UpdateGleisbild_DKW24_2()
-        {
-            Weiche weiche = WeichenListe.GetWeiche("DKW24_2");
-            if (weiche == null) return;
-            MeldeZustand meldeZustand = new MeldeZustand(weiche, DKW24.Tag.ToString().EndsWith("_Gegen"));
-
-            if (weiche.Abzweig)
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(meldeZustand, FreiesGleis, DKW24_Gleis1);
-            }
-            else
-            {
-                GleisbildZeichnung.ZeichneSchaltbild(FreiesGleis, meldeZustand, DKW24_Gleis1);
-            }
-        }
-        #endregion
+       
         #endregion
 
         
@@ -1808,48 +1177,7 @@ namespace MEKB_H0_Anlage
         {
             UpdateWeichenBelegung();
 
-            #region Hbf
-            //Hauptbahnhof - Linker Teil der Gleise
-            UpdateGleisbild_GL1_links(BelegtmelderListe.GetBelegtStatus("W6") && WeichenListe.GetWeiche("Weiche6").Abzweig,  FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis1_nach_Block1" }) , FahrstrassenListe.GetFahrstrasse(new string[] { "Block2_nach_Gleis1" }));
-            UpdateGleisbild_GL2_links(BelegtmelderListe.GetBelegtStatus("W6") && !WeichenListe.GetWeiche("Weiche6").Abzweig, FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis2_nach_Block1" }), FahrstrassenListe.GetFahrstrasse(new string[] { "Block2_nach_Gleis2" }));
-            UpdateGleisbild_GL3_links(BelegtmelderListe.GetBelegtStatus("W5") && !WeichenListe.GetWeiche("Weiche5").Abzweig, FahrstrassenListe.GetFahrstrasse(new string[] { "Block2_nach_Gleis3" }), FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis3_nach_Block1" }));
-            UpdateGleisbild_GL4_links(BelegtmelderListe.GetBelegtStatus("DKW7_W8") && !WeichenListe.GetWeiche("DKW7_2").Abzweig, FahrstrassenListe.GetFahrstrasse(new string[] { "Block2_nach_Gleis4" }), FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis4_nach_Block1" }));
-            UpdateGleisbild_GL5_links(BelegtmelderListe.GetBelegtStatus("DKW9") && !WeichenListe.GetWeiche("DKW9_2").Abzweig, FahrstrassenListe.GetFahrstrasse(new string[] { "Block2_nach_Gleis5" }), FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis5_nach_Block1" }));
-            UpdateGleisbild_GL6_links(BelegtmelderListe.GetBelegtStatus("DKW9") && WeichenListe.GetWeiche("DKW9_2").Abzweig, FahrstrassenListe.GetFahrstrasse(new string[] { "Block2_nach_Gleis6" }), FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis6_nach_Block1" }));
-
-            //Hauptbahnhof - Zentrum
-            UpdateGleisbild_Gl1_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf1_Halt_L"));
-            UpdateGleisbild_Gl1_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf1_Halt_R"));
-            UpdateGleisbild_Gl1_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf1"));
-
-            UpdateGleisbild_Gl2_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf2_Halt_L"));
-            UpdateGleisbild_Gl2_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf2_Halt_R"));
-            UpdateGleisbild_Gl2_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf2"));
-
-            UpdateGleisbild_Gl3_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf3_Halt_L"));
-            UpdateGleisbild_Gl3_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf3_Halt_R"));
-            UpdateGleisbild_Gl3_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf3"));
-
-            UpdateGleisbild_Gl4_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf4_Halt_L"));
-            UpdateGleisbild_Gl4_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf4_Halt_R"));
-            UpdateGleisbild_Gl4_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf4"));
-
-            UpdateGleisbild_Gl5_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf5_Halt_L"));
-            UpdateGleisbild_Gl5_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf5_Halt_R"));
-            UpdateGleisbild_Gl5_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf5"));
-
-            UpdateGleisbild_Gl6_Halt_links(BelegtmelderListe.GetBelegtStatus("HBf6_Halt_L"));
-            UpdateGleisbild_Gl6_Halt_rechts(BelegtmelderListe.GetBelegtStatus("HBf6_Halt_R"));
-            UpdateGleisbild_Gl6_Zentrum(BelegtmelderListe.GetBelegtStatus("HBf6"));
-
-            //Hauptbahnhof - Rechter Teil der Gleise
-            UpdateGleisbild_GL1_rechts(BelegtmelderListe.GetBelegtStatus("W26") && WeichenListe.GetWeiche("Weiche26").Abzweig, FahrstrassenListe.GetFahrstrasse(new string[] { "TunnelAussen_nach_Gleis1", "TunnelInnen_nach_Gleis1" }), FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis1_nach_TunnelAussen" , "Gleis1_nach_TunnelInnen" }));
-            UpdateGleisbild_GL2_rechts(BelegtmelderListe.GetBelegtStatus("W26") && !WeichenListe.GetWeiche("Weiche26").Abzweig, FahrstrassenListe.GetFahrstrasse(new string[] { "TunnelAussen_nach_Gleis2", "TunnelInnen_nach_Gleis2" }) , FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis2_nach_TunnelAussen" , "Gleis2_nach_TunnelInnen" }));
-            UpdateGleisbild_GL3_rechts(BelegtmelderListe.GetBelegtStatus("W25") && !WeichenListe.GetWeiche("Weiche25").Abzweig, FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis3_nach_TunnelAussen", "Gleis3_nach_TunnelInnen" }) , FahrstrassenListe.GetFahrstrasse(new string[] { "TunnelAussen_nach_Gleis3" , "TunnelInnen_nach_Gleis3" }));
-            UpdateGleisbild_GL4_rechts(BelegtmelderListe.GetBelegtStatus("DKW24_W23") && !WeichenListe.GetWeiche("DKW24_2").Abzweig, FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis4_nach_TunnelAussen", "Gleis4_nach_TunnelInnen" }) , FahrstrassenListe.GetFahrstrasse(new string[] { "TunnelAussen_nach_Gleis4" , "TunnelInnen_nach_Gleis4" }));
-            UpdateGleisbild_GL5_rechts(BelegtmelderListe.GetBelegtStatus("KW22") && !WeichenListe.GetWeiche("KW22_2").Abzweig, FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis5_nach_TunnelAussen", "Gleis5_nach_TunnelInnen" }) , FahrstrassenListe.GetFahrstrasse(new string[] { "TunnelAussen_nach_Gleis5" , "TunnelInnen_nach_Gleis5" }));
-            UpdateGleisbild_GL6_rechts(BelegtmelderListe.GetBelegtStatus("HBf6_Halt_R"), FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis6_nach_TunnelAussen", "Gleis6_nach_TunnelInnen" }) , FahrstrassenListe.GetFahrstrasse(new string[] { "TunnelAussen_nach_Gleis6" , "TunnelInnen_nach_Gleis6" }));
-            #endregion
+            
             //Schattenbahnhof
             UpdateGleisbild_Schatten_Eingl(BelegtmelderListe.GetBelegtStatus("Eingleisen"));
             UpdateGleisbild_Schatten_Eingl_Halt(BelegtmelderListe.GetBelegtStatus("Eingleisen_Halt"));
@@ -1875,18 +1203,7 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_Schatten_Gl7(BelegtmelderListe.GetBelegtStatus("Schatten_Gl7"));
             UpdateGleisbild_Schatten_Gl7_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl7_Halt"));
 
-            UpdateGleisbild_Schatten_Gl8(BelegtmelderListe.GetBelegtStatus("Schatten_Gl8"));
-            UpdateGleisbild_Schatten_Gl8_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl8_Halt"));
-
-            UpdateGleisbild_Schatten_Gl9(BelegtmelderListe.GetBelegtStatus("Schatten_Gl9"));
-            UpdateGleisbild_Schatten_Gl9_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl9_Halt"));
-
-            UpdateGleisbild_Schatten_Gl10(BelegtmelderListe.GetBelegtStatus("Schatten_Gl10"));
-            UpdateGleisbild_Schatten_Gl10_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl10_Halt"));
-
-            UpdateGleisbild_Schatten_Gl11(BelegtmelderListe.GetBelegtStatus("Schatten_Gl11"));
-            UpdateGleisbild_Schatten_Gl11_Halt(BelegtmelderListe.GetBelegtStatus("Schatten_Gl11_Halt"));
-
+           
             //Tunnel
             UpdateGleisbild_Tunnel1_Einf(
                 BelegtmelderListe.GetBelegtStatus("Tunnel1_Einfahrt"), //Besetzt
@@ -1907,99 +1224,23 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_Tunnel2_Halt(
                 BelegtmelderListe.GetBelegtStatus("Tunnel2_Halt"), //Besetzt
                 FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis1_nach_TunnelInnen", "Gleis2_nach_TunnelInnen", "Gleis3_nach_TunnelInnen", "Gleis4_nach_TunnelInnen", "Gleis5_nach_TunnelInnen", "Gleis6_nach_TunnelInnen" }));
-
-
-            //Gleise im Block 1 aktualisieren
-            UpdateGleisbild_Weiche6(BelegtmelderListe.GetBelegtStatus("W6"), //Besetzt
-                                    FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis1_nach_Block1", "Gleis2_nach_Block1" }),//Mit Fahrtrichtung
-                                    FahrstrassenListe.GetFahrstrasse(new string[] { "Block2_nach_Gleis1", "Block2_nach_Gleis2" }));//Gegen Fahrtrichtung            
-            UpdateGleisbild_Block2(BelegtmelderListe.GetBelegtStatus("Block2"), //Besetzt
-                                    FahrstrassenListe.GetFahrstrasse(new string[] { "Block1_nach_Block2", "Block9_nach_Block2" }), //Nach Links
-                                    new List<Fahrstrasse>()); //Nie gegen Fahrtrichtung
-            UpdateGleisbild_Block2_Halt(BelegtmelderListe.GetBelegtStatus("Block2_Halt"), //Besetzt
-                                    FahrstrassenListe.GetFahrstrasse(new string[] { "Block1_nach_Block2", "Block9_nach_Block2" }), //Nach Links
-                                    new List<Fahrstrasse>()); //Nie gegen Fahrtrichtung
-            //Gleise im Block 2 aktualisieren
-            UpdateGleisbild_Weiche5(BelegtmelderListe.GetBelegtStatus("W5"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Block2_nach_Gleis3", "Block2_nach_Gleis4", "Block2_nach_Gleis5", "Block2_nach_Gleis6"}),
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis3_nach_Block1", "Gleis4_nach_Block1", "Gleis5_nach_Block1", "Gleis6_nach_Block1"}));
+            
             //Gleise im Block 3 aktualisieren
-            UpdateGleisbild_Weiche25(BelegtmelderListe.GetBelegtStatus("W25"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis3_nach_TunnelAussen", "Gleis4_nach_TunnelAussen", "Gleis5_nach_TunnelAussen", "Gleis6_nach_TunnelAussen", "Gleis3_nach_TunnelInnen", "Gleis4_nach_TunnelInnen", "Gleis5_nach_TunnelInnen", "Gleis6_nach_TunnelInnen" }),
-                FahrstrassenListe.GetFahrstrasse(new string[] { "TunnelAussen_nach_Gleis3", "TunnelAussen_nach_Gleis4", "TunnelAussen_nach_Gleis5", "TunnelAussen_nach_Gleis6", "TunnelInnen_nach_Gleis3", "TunnelInnen_nach_Gleis4", "TunnelInnen_nach_Gleis5", "TunnelInnen_nach_Gleis6" }));
-            UpdateGleisbild_Block3(BelegtmelderListe.GetBelegtStatus("Block3"), //Besetzt                             
+           UpdateGleisbild_Block3(BelegtmelderListe.GetBelegtStatus("Block3"), //Besetzt                             
                 FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis1_nach_TunnelAussen", "Gleis2_nach_TunnelAussen", "Gleis3_nach_TunnelAussen", "Gleis4_nach_TunnelAussen", "Gleis5_nach_TunnelAussen", "Gleis6_nach_TunnelAussen", "Gleis1_nach_TunnelInnen", "Gleis2_nach_TunnelInnen", "Gleis3_nach_TunnelInnen", "Gleis4_nach_TunnelInnen", "Gleis5_nach_TunnelInnen", "Gleis6_nach_TunnelInnen"}),
                                     new List<Fahrstrasse>());
             //Gleise im Block 4 aktualisieren                        
             UpdateGleisbild_Block4(BelegtmelderListe.GetBelegtStatus("Block4"), //Besetzt
                 FahrstrassenListe.GetFahrstrasse(new string[] { "TunnelAussen_nach_Gleis1", "TunnelAussen_nach_Gleis2", "TunnelAussen_nach_Gleis3", "TunnelAussen_nach_Gleis4", "TunnelAussen_nach_Gleis5", "TunnelAussen_nach_Gleis6", "TunnelInnen_nach_Gleis1", "TunnelInnen_nach_Gleis2", "TunnelInnen_nach_Gleis3", "TunnelInnen_nach_Gleis4", "TunnelInnen_nach_Gleis5", "TunnelInnen_nach_Gleis6" }),
                                     new List<Fahrstrasse>());     //nie nach rechts
-            UpdateGleisbild_Weiche26(BelegtmelderListe.GetBelegtStatus("W26"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "TunnelAussen_nach_Gleis1", "TunnelAussen_nach_Gleis2", "TunnelInnen_nach_Gleis1", "TunnelInnen_nach_Gleis2" }), //Nach links
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Gleis1_nach_TunnelAussen", "Gleis2_nach_TunnelAussen", "Gleis1_nach_TunnelInnen", "Gleis2_nach_TunnelInnen" }));//Nach rechts
-            
-            UpdateGleisbild_Block5_Halt(BelegtmelderListe.GetBelegtStatus("Block5_Halt"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Block1_nach_Block5" }),  //Nach links
-                                    new List<Fahrstrasse>());     //nie nach rechts
-
-            UpdateGleisbild_Block6(BelegtmelderListe.GetBelegtStatus("Block6"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Block5_nach_Block6", "Block8_nach_Block6" }),  //Nach links
-                                    new List<Fahrstrasse>());     //nie nach rechts
-            UpdateGleisbild_Block6_Halt(BelegtmelderListe.GetBelegtStatus("Block6_Halt"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Block5_nach_Block6", "Block8_nach_Block6" }),  //Nach links
-                                    new List<Fahrstrasse>());     //nie nach rechts
-
-            UpdateGleisbild_Block7(BelegtmelderListe.GetBelegtStatus("Block7"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Schatten11_nach_Eingleisen", "Schatten11_nach_Schatten1", "Schatten11_nach_Schatten2", "Schatten11_nach_Schatten3", "Schatten11_nach_Schatten4", "Schatten11_nach_Schatten5", "Schatten11_nach_Schatten6", "Schatten11_nach_Schatten7",
-                                                                "Schatten10_nach_Eingleisen", "Schatten10_nach_Schatten1", "Schatten10_nach_Schatten2", "Schatten10_nach_Schatten3", "Schatten10_nach_Schatten4", "Schatten10_nach_Schatten5", "Schatten10_nach_Schatten6", "Schatten10_nach_Schatten7",
-                                                                "Schatten9_nach_Eingleisen", "Schatten9_nach_Schatten1", "Schatten9_nach_Schatten2", "Schatten9_nach_Schatten3", "Schatten9_nach_Schatten4", "Schatten9_nach_Schatten5", "Schatten9_nach_Schatten6", "Schatten9_nach_Schatten7",
-                                                                "Schatten8_nach_Eingleisen", "Schatten8_nach_Schatten1", "Schatten8_nach_Schatten2", "Schatten8_nach_Schatten3", "Schatten8_nach_Schatten4", "Schatten8_nach_Schatten5", "Schatten8_nach_Schatten6", "Schatten8_nach_Schatten7"}),  //nie nach links
-                                    new List<Fahrstrasse>()); //nach rechts
-            UpdateGleisbild_Block8(BelegtmelderListe.GetBelegtStatus("Block8"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Eingleisen_nach_Block8", "Schatten1_nach_Block8" }),  //nie nach links
-                                    new List<Fahrstrasse>()); //nach rechts
-            UpdateGleisbild_Block8_Halt(BelegtmelderListe.GetBelegtStatus("Block8_Halt"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Eingleisen_nach_Block8", "Schatten1_nach_Block8" }),  //nie nach links
-                                    new List<Fahrstrasse>()); //nach rechts
-            UpdateGleisbild_Block9(BelegtmelderListe.GetBelegtStatus("Block9"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Schatten1_nach_Block9", "Schatten2_nach_Block9", "Schatten3_nach_Block9", "Schatten4_nach_Block9", "Schatten5_nach_Block9", "Schatten6_nach_Block9", "Schatten7_nach_Block9"}),//nach rechts
-                                    new List<Fahrstrasse>());  //nie nach rechts
-            UpdateGleisbild_Block9_Halt(BelegtmelderListe.GetBelegtStatus("Block9_Halt"), //Besetzt
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Schatten1_nach_Block9", "Schatten2_nach_Block9", "Schatten3_nach_Block9", "Schatten4_nach_Block9", "Schatten5_nach_Block9", "Schatten6_nach_Block9", "Schatten7_nach_Block9"}),//nach rechts
-                                    new List<Fahrstrasse>());  //nie nach rechts
-                                     
-
-
-            UpdateGleisbild_Weiche1();  //Umfeld um Weiche 1
-            UpdateGleisbild_Weiche2();  //Umfeld um Weiche 2
-            UpdateGleisbild_Weiche3();  //Umfeld um Weiche 3
-            UpdateGleisbild_Weiche4();  //Umfeld um Weiche 4
-            UpdateGleisbild_Weiche5();  //Umfeld um Weiche 5
-            UpdateGleisbild_Weiche6();  //Umfeld um Weiche 6
-            UpdateGleisbild_WeicheDKW7_1();//Umfeld um Doppelkreuzungweiche 7
-            UpdateGleisbild_WeicheDKW7_2();
-            UpdateGleisbild_Weiche8();  //Umfeld um Weiche 8
-            UpdateGleisbild_WeicheDKW9_1();//Umfeld um Doppelkreuzungweiche 7
-            UpdateGleisbild_WeicheDKW9_2();
-
-            UpdateGleisbild_Weiche21();     //Umfeld um Weiche 21
-            UpdateGleisbild_KW22_1();       //Umfeld um Kreuzungweiche 7
-            UpdateGleisbild_KW22_2();
-            UpdateGleisbild_Weiche23();     //Umfeld um Weiche 23
-            UpdateGleisbild_DKW24_1();      //Umfeld um Doppelkreuzungweiche 7
-            UpdateGleisbild_DKW24_2();
-            UpdateGleisbild_Weiche25();     //Umfeld um Weiche 25
-            UpdateGleisbild_Weiche26();     //Umfeld um Weiche 26
-            UpdateGleisbild_Weiche27();     //Umfeld um Weiche 27
+           UpdateGleisbild_Weiche27();     //Umfeld um Weiche 27
             UpdateGleisbild_Weiche28();     //Umfeld um Weiche 28
             UpdateGleisbild_Weiche29();     //Umfeld um Weiche 29
             UpdateGleisbild_Weiche30();     //Umfeld um Weiche 30
             UpdateGleisbild_Weiche50();     //Umfeld um Weiche 50
             UpdateGleisbild_Weiche51();     //Umfeld um Weiche 51
-            UpdateGleisbild_Weiche52();     //Umfeld um Weiche 52
-            UpdateGleisbild_Weiche53();     //Umfeld um Weiche 53
 
-            UpdateGleisbild_Weiche60();     //Umfeld um Weiche 60
+
             UpdateGleisbild_Weiche61();     //Umfeld um Weiche 61
             UpdateGleisbild_Weiche62();     //Umfeld um Weiche 62
             UpdateGleisbild_Weiche63();     //Umfeld um Weiche 63
@@ -2012,28 +1253,7 @@ namespace MEKB_H0_Anlage
             UpdateGleisbild_Weiche70();     //Umfeld um Weiche 70
             UpdateGleisbild_Weiche71();     //Umfeld um Weiche 71
             UpdateGleisbild_Weiche72();     //Umfeld um Weiche 72
-            UpdateGleisbild_Weiche73();     //Umfeld um Weiche 73
-            UpdateGleisbild_Weiche74();     //Umfeld um Weiche 74
-            UpdateGleisbild_Weiche75();     //Umfeld um Weiche 75
-            UpdateGleisbild_Weiche76();     //Umfeld um Weiche 76
-
-            UpdateGleisbild_Weiche80();     //Umfeld um Weiche 80
-            UpdateGleisbild_Weiche81();     //Umfeld um Weiche 81
-            UpdateGleisbild_Weiche82();     //Umfeld um Weiche 82
-
-            UpdateGleisbild_Weiche90();     //Umfeld um Weiche 90
-            UpdateGleisbild_Weiche91();     //Umfeld um Weiche 91
-            UpdateGleisbild_Weiche92();     //Umfeld um Weiche 92
-
-            UpdateKreuzung(BelegtmelderListe.GetBelegtStatus("SchattenAusfahrt"), //Besetzt
-                            new List<Fahrstrasse> { FahrstrassenListe.GetFahrstrasse("Block8_nach_Block6") },  //Block8
-                FahrstrassenListe.GetFahrstrasse(new string[] { "Schatten1_nach_Block9", "Schatten2_nach_Block9", "Schatten3_nach_Block9", "Schatten4_nach_Block9", "Schatten5_nach_Block9", "Schatten6_nach_Block9", "Schatten7_nach_Block9"})); //Block9
-
-            
-
-            UpdateGleisbild_SchattenkleinAusf(BelegtmelderListe.GetBelegtStatus("SchattenMitte1"));
-
-            
+            UpdateGleisbild_Weiche73();     //Umfeld um Weiche 73      
         }
 
         void UpdateWeichenBelegung()
@@ -2076,24 +1296,7 @@ namespace MEKB_H0_Anlage
                         SetzeWeichenBelegung("Weiche30", belegtmelder.IstBelegt()); break;
                     case "W50": SetzeWeichenBelegung("Weiche50", belegtmelder.IstBelegt()); break;
                     case "W51": SetzeWeichenBelegung("Weiche51", belegtmelder.IstBelegt()); break;               
-                    case "W52": break; // SetzeWeichenBelegung("Weiche52", belegtmelder.IstBelegt()); break;
                     case "HBf6_Halt_R": SetzeWeichenBelegung("Weiche21", belegtmelder.IstBelegt()); break;
-                    case "SchattenEinfahrt":
-                        SetzeWeichenBelegung("Weiche91", false);
-                        SetzeWeichenBelegung("Weiche92", false);
-
-                        SetzeWeichenBelegung("Weiche90", belegtmelder.IstBelegt()); if (!WeichenListe.GetWeiche("Weiche90").Abzweig) break;
-                        SetzeWeichenBelegung("Weiche91", belegtmelder.IstBelegt()); if (WeichenListe.GetWeiche("Weiche91").Abzweig) break;
-                        SetzeWeichenBelegung("Weiche92", belegtmelder.IstBelegt()); break;
-
-                    case "SchattenMitte1":
-                        SetzeWeichenBelegung("Weiche81", false);
-                        SetzeWeichenBelegung("Weiche82", false);
-
-                        SetzeWeichenBelegung("Weiche80", belegtmelder.IstBelegt()); if (WeichenListe.GetWeiche("Weiche80").Abzweig) break;
-                        SetzeWeichenBelegung("Weiche81", belegtmelder.IstBelegt()); if (WeichenListe.GetWeiche("Weiche81").Abzweig) break;
-                        SetzeWeichenBelegung("Weiche82", belegtmelder.IstBelegt()); break;
-
                     case "SchattenMitte2":
                         SetzeWeichenBelegung("Weiche71", false);
                         SetzeWeichenBelegung("Weiche72", false);

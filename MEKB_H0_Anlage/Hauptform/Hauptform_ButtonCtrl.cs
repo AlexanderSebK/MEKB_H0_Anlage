@@ -11,20 +11,77 @@ namespace MEKB_H0_Anlage
     {
         private void UpdateSchalter()
         {
-            UpdateButton_Fahrstr_GL1_links();
-            UpdateButton_Fahrstr_GL2_links();
-            UpdateButton_Fahrstr_GL3_links();
-            UpdateButton_Fahrstr_GL4_links();
-            UpdateButton_Fahrstr_GL5_links();
-            UpdateButton_Fahrstr_GL6_links();
+            foreach (Fahrstrasse fahrstrasse in FahrstrassenListe.Liste)
+            {
+                var Fund = this.GleisplanAnzeige.Controls.Find(fahrstrasse.Name + "_Button", true);
+                foreach (Control control in Fund)
+                {
+                    if (control is Button button)
+                    {
+                        if (FahrstrassenListe.FahrstrasseAlleGleicheBlockiert(fahrstrasse))
+                        {
+                            if (button.Enabled == true)
+                            {
+                                button.Enabled = false;
+                                if (button.BackgroundImage.Tag.Equals("oben"))
+                                {
+                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_oben_deakt;
+                                    button.BackgroundImage.Tag = "oben";
+                                }
+                                else if (button.BackgroundImage.Tag.Equals("unten"))
+                                {
+                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_unten_deakt;
+                                    button.BackgroundImage.Tag = "unten";
+                                }
+                                else if (button.BackgroundImage.Tag.Equals("rechts"))
+                                {
+                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
+                                    button.BackgroundImage.Tag = "rechts";
+                                }
+                                else if (button.BackgroundImage.Tag.Equals("links"))
+                                {
+                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
+                                    button.BackgroundImage.Tag = "links";
+                                }
+                                else {
+                                    break;
+                                }
+                                if (fahrstrasse.EinfahrtsSignal.Zustand != SignalZustand.HP0) fahrstrasse.EinfahrtsSignal.Schalten(SignalZustand.HP0);
+                            }
+                        }
+                        else
+                        {
+                            if (button.Enabled == false)
+                            {
+                                button.Enabled = true;
+                                if (button.BackgroundImage.Tag.Equals("oben"))
+                                {
+                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_oben;
+                                    button.BackgroundImage.Tag = "oben";
+                                }
+                                else if (button.BackgroundImage.Tag.Equals("unten"))
+                                {
+                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_unten;
+                                    button.BackgroundImage.Tag = "unten";
+                                }
+                                else if (button.BackgroundImage.Tag.Equals("rechts"))
+                                {
+                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_rechts;
+                                    button.BackgroundImage.Tag = "rechts";
+                                }
+                                else if (button.BackgroundImage.Tag.Equals("links"))
+                                {
+                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_links;
+                                    button.BackgroundImage.Tag = "links";
+                                }
+                                else { }                                
+                            }
+                        }
+                    }
+                }
+            }
+        
 
-            UpdateButton_Fahrstr_Block2_Einfahrt();
-            UpdateButton_Fahrstr_GL1_rechts();
-            UpdateButton_Fahrstr_GL2_rechts();
-            UpdateButton_Fahrstr_GL3_rechts();
-            UpdateButton_Fahrstr_GL4_rechts();
-            UpdateButton_Fahrstr_GL5_rechts();
-            UpdateButton_Fahrstr_GL6_rechts();
 
             UpdateButton_Fahrstr_Rechts1_nach_Hbf();
             UpdateButton_Fahrstr_Rechts2_nach_Hbf();
@@ -32,7 +89,6 @@ namespace MEKB_H0_Anlage
 
             UpdateButton_Fahrstr_Block5_Ausf();
             UpdateButton_Fahrstr_Block8_Ausf();
-            UpdateButton_Fahrstr_Block9_Ausf();
 
             UpdateButton_Fahrstr_Schatten11_Ausf();
             UpdateButton_Fahrstr_Schatten10_Ausf();
@@ -50,252 +106,9 @@ namespace MEKB_H0_Anlage
         }
 
         #region Fahrstrassen Hbf
-        private void UpdateButton_Fahrstr_GL1_links()
-        {
-           if(FahrstrassenListe.FahrstrasseBlockiert("Gleis1_nach_Block1"))
-            {
-                Gleis1_nach_Block1_Button.Enabled = false;
-                Gleis1_nach_Block1_Button.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L1");
-                if (signal != null)
-                {
-                    if(signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-
-            }
-            else
-            {
-                Gleis1_nach_Block1_Button.Enabled = true;
-                Gleis1_nach_Block1_Button.BackgroundImage = Properties.Resources.Fahrstrasse_links;
-            }
-        }
-        private void UpdateButton_Fahrstr_GL2_links()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis2_nach_Block1"))
-            {
-                Gleis2_nach_Block1_Button.Enabled = false;
-                Gleis2_nach_Block1_Button.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L2");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-            }
-            else
-            {
-                Gleis2_nach_Block1_Button.Enabled = true;
-                Gleis2_nach_Block1_Button.BackgroundImage = Properties.Resources.Fahrstrasse_links;
-            }
-        }       
-        private void UpdateButton_Fahrstr_GL3_links()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis3_nach_Block1"))
-            {
-                Fahrstr_GL3_links.Enabled = false;
-                Fahrstr_GL3_links.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L3");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-            }
-            else
-            {
-                Fahrstr_GL3_links.Enabled = true;
-                Fahrstr_GL3_links.BackgroundImage = Properties.Resources.Fahrstrasse_links;
-            }
-        }     
-        private void UpdateButton_Fahrstr_GL4_links()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis4_nach_Block1"))
-            {
-                Fahrstr_GL4_links.Enabled = false;
-                Fahrstr_GL4_links.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L4");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-            }
-            else
-            {
-                Fahrstr_GL4_links.Enabled = true;
-                Fahrstr_GL4_links.BackgroundImage = Properties.Resources.Fahrstrasse_links;
-            }
-        }
-        private void UpdateButton_Fahrstr_GL5_links()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis5_nach_Block1"))
-            {
-                Fahrstr_GL5_links.Enabled = false;
-                Fahrstr_GL5_links.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L5");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-            }
-            else
-            {
-                Fahrstr_GL5_links.Enabled = true;
-                Fahrstr_GL5_links.BackgroundImage = Properties.Resources.Fahrstrasse_links;
-            }
-        }
-        private void UpdateButton_Fahrstr_GL6_links()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis6_nach_Block1"))
-            {
-                Fahrstr_GL6_links.Enabled = false;
-                Fahrstr_GL6_links.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_L6");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-
-            }
-            else
-            {
-                Fahrstr_GL6_links.Enabled = true;
-                Fahrstr_GL6_links.BackgroundImage = Properties.Resources.Fahrstrasse_links;
-            }
-        }       
-        private void UpdateButton_Fahrstr_Block2_Einfahrt()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Block2_nach_Gleis3") ||
-                FahrstrassenListe.FahrstrasseBlockiert("Block2_nach_Gleis4") ||
-                FahrstrassenListe.FahrstrasseBlockiert("Block2_nach_Gleis5") ||
-                FahrstrassenListe.FahrstrasseBlockiert("Block2_nach_Gleis6"))
-            {
-                Block2_Einfahrt.Enabled = false;
-                Block2_Einfahrt.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Einfahrt_L");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-            }
-            else
-            {
-                Block2_Einfahrt.Enabled = true;
-                Block2_Einfahrt.BackgroundImage = Properties.Resources.Fahrstrasse_rechts;
-            }
-        }
-
-        private void UpdateButton_Fahrstr_GL1_rechts()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis1_nach_TunnelAussen"))
-            {
-                Fahrstr_GL1_rechts.Enabled = false;
-                Fahrstr_GL1_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R1"); 
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-
-            }
-            else
-            {
-                Fahrstr_GL1_rechts.Enabled = true;
-                Fahrstr_GL1_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts;
-            }
-        }
-        private void UpdateButton_Fahrstr_GL2_rechts()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis2_nach_TunnelAussen"))
-            {
-                Fahrstr_GL2_rechts.Enabled = false;
-                Fahrstr_GL2_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R2");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-
-            }
-            else
-            {
-                Fahrstr_GL2_rechts.Enabled = true;
-                Fahrstr_GL2_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts;
-            }
-        }
-        private void UpdateButton_Fahrstr_GL3_rechts()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis3_nach_TunnelAussen"))
-            {
-                Fahrstr_GL3_rechts.Enabled = false;
-                Fahrstr_GL3_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R3");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-
-            }
-            else
-            {
-                Fahrstr_GL3_rechts.Enabled = true;
-                Fahrstr_GL3_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts;
-            }
-        }
-        private void UpdateButton_Fahrstr_GL4_rechts()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis4_nach_TunnelAussen"))
-            {
-                Fahrstr_GL4_rechts.Enabled = false;
-                Fahrstr_GL4_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R4");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-
-            }
-            else
-            {
-                Fahrstr_GL4_rechts.Enabled = true;
-                Fahrstr_GL4_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts;
-            }
-        }
-        private void UpdateButton_Fahrstr_GL5_rechts()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis5_nach_TunnelAussen"))
-            {
-                Fahrstr_GL5_rechts.Enabled = false;
-                Fahrstr_GL5_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R5");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-
-            }
-            else
-            {
-                Fahrstr_GL5_rechts.Enabled = true;
-                Fahrstr_GL5_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts;
-            }
-        }
-        private void UpdateButton_Fahrstr_GL6_rechts()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Gleis6_nach_TunnelAussen"))
-            {
-                Fahrstr_GL6_rechts.Enabled = false;
-                Fahrstr_GL6_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                Signal signal = SignalListe.GetSignal("Signal_Ausfahrt_R6");
-                if (signal != null)
-                {
-                    if (signal.Zustand != 0) signal.Schalten(SignalZustand.HP0);
-                }
-
-            }
-            else
-            {
-                Fahrstr_GL6_rechts.Enabled = true;
-                Fahrstr_GL6_rechts.BackgroundImage = Properties.Resources.Fahrstrasse_rechts;
-            }
-        }
+       
+ 
+        
         private void UpdateButton_Fahrstr_Rechts1_nach_Hbf()
         {
             if (FahrstrassenListe.FahrstrasseBlockiert("TunnelAussen_nach_Gleis1"))
@@ -369,19 +182,7 @@ namespace MEKB_H0_Anlage
                 Block8.BackgroundImage = Properties.Resources.Fahrstrasse_unten;
             }
         }
-        private void UpdateButton_Fahrstr_Block9_Ausf()
-        {
-            if (FahrstrassenListe.FahrstrasseBlockiert("Block9_nach_Block2"))
-            {
-                Block9.Enabled = false;
-                Block9.BackgroundImage = Properties.Resources.Fahrstrasse_oben_deakt;
-            }
-            else
-            {
-                Block9.Enabled = true;
-                Block9.BackgroundImage = Properties.Resources.Fahrstrasse_oben;
-            }
-        }
+        
         #endregion
 
         #region Schattenbahnhof intern

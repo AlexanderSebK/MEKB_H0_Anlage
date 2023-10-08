@@ -49,7 +49,6 @@ namespace MEKB_H0_Anlage
 
         #region Listen
         public Gleisplan Plan = new Gleisplan("Gleisplan.xml");
-
         public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
         public SignalListe SignalListe = new SignalListe("Signalliste.xml");      
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
@@ -306,12 +305,12 @@ namespace MEKB_H0_Anlage
                     FahrstrasseBildUpdate();
                     if (GroupIndex == 0)
                     {
-                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
+                        //BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
                         GroupIndex = 1;
                     }
                     else
                     {
-                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
+                        //BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
                         GroupIndex = 0;
                     }
 
@@ -356,20 +355,99 @@ namespace MEKB_H0_Anlage
                 WeichenListe.ToggleWeiche(weichenElement.Name);
             }
         }     
-        private void DKW7_Click(object sender, EventArgs e)
+
+        private void DKW_Click(object sender, EventArgs e)
         {
             if (!Betriebsbereit) return;
-            MouseEventArgs e2 = (MouseEventArgs)e;
-            if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
+            if (sender is PictureBox weichenElement)
             {
-                WeichenListe.ToggleWeiche("DKW7_2");
-            }
-            else                //Auf linke Hälfte der Weiche geklickt
-            {
-                WeichenListe.ToggleWeiche("DKW7_1");
-            }
-
+                Gleisplan.Abschnitt.GleisTyp gleis = Plan.SucheGleis(weichenElement.Name);
+                if (gleis != null)
+                {
+                    String[] tags = gleis.Typ.Split('_');
+                    MouseEventArgs e2 = (MouseEventArgs)e;
+                    switch (tags[1])
+                    {
+                        case "0":
+                        case "45":
+                            // Unterer Häfte ist 1. Weiche
+                            if(e2.Y > (weichenElement.Height / 2))
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche);
+                            }
+                            else
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
+                            }
+                            break;
+                        case "90":
+                        case "135":
+                            // Linke Hälfte ist 1. Weiche
+                            if (e2.X > (weichenElement.Width / 2))
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche);
+                            }
+                            else
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
+                            }
+                            break;
+                        case "180":
+                        case "225":
+                            // Obere Hälfte ist 1. Weiche
+                            if (e2.Y <= (weichenElement.Height / 2))
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche);
+                            }
+                            else
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
+                            }
+                            break;
+                        case "270":
+                        case "315":
+                            // Rechte Hälfte ist 1. Weiche
+                            if (e2.X <= (weichenElement.Width / 2))
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche);
+                            }
+                            else
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
+                            }
+                            break;
+                        default: break;
+                    }
+                }    
+            }            
         }
+
+        private void KW_Click(object sender, EventArgs e)
+        {
+            if (!Betriebsbereit) return;
+            if (sender is PictureBox weichenElement)
+            {
+                Gleisplan.Abschnitt.GleisTyp gleis = Plan.SucheGleis(weichenElement.Name);
+                if (gleis != null)
+                {
+                    MouseEventArgs e2 = (MouseEventArgs)e;
+                    if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
+                    {
+                        Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche_2nd);
+                        if (weiche == null) return;
+                        if (weiche.Abzweig) WeichenListe.ToggleWeiche(gleis.Weiche);     //Nur Schalten wenn andere Zunge auf Abzweig
+                    }
+                    else                //Auf linke Hälfte der Weiche geklickt
+                    {
+                        Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche);
+                        if (weiche == null) return;
+                        if (!weiche.Abzweig) WeichenListe.ToggleWeiche(gleis.Weiche_2nd);     //Nur Schalten wenn andere Zunge nicht auf Abzweig
+                    }
+                }
+            }
+        }
+
+
         private void DKW9_Click(object sender, EventArgs e)
         {
             if (!Betriebsbereit) return;
@@ -416,6 +494,95 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region SignalSteuerung
+        private void Signal_Click(object sender, EventArgs e)
+        {
+            if (sender is PictureBox PicBox)
+            {
+                bool Modus = Config.ReadConfig("AutoSignalFahrstrasse").Equals("true");
+                if (GetGleisObjekt(PicBox.Name, out Gleisplan.Abschnitt.GleisTyp Gleis))
+                {
+                    Signal signal = SignalListe.GetSignal(Gleis.Signal);
+                    // SHIFT-Taste während des Klickens gedrückt -> Schalten auf HP2 (langsame Fahrt)
+                    if (Control.ModifierKeys == Keys.Shift)
+                    {
+                        if (signal.Zustand == SignalZustand.HP2) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
+                        {
+                            signal.Schalten(SignalZustand.HP0);
+                            return;
+                        }
+
+                        // HP2 erlaubt
+                        if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
+                        {
+                            signal.Schalten(SignalZustand.HP2);
+                            return;
+                        }
+                        // HP2 nicht erlaubt, prüfen ob HP1 möglich
+                        else if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
+                        {
+                            signal.Schalten(SignalZustand.HP1);
+                            return;
+                        }
+                        else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
+                        {
+                            // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
+                            if (signal.Zustand != SignalZustand.HP0)
+                                signal.Schalten(SignalZustand.HP0);
+                            return;
+                        }
+                    }
+                    // CTRL-Taste während des Klickens gedrückt -> Schalten auf SH1 (Rangier Fahrt)
+                    else if (Control.ModifierKeys == Keys.Control)
+                    {
+                        if (signal.Zustand == SignalZustand.SH1) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
+                        {
+                            signal.Schalten(SignalZustand.HP0);
+                            return;
+                        }
+                        // SH1 erlaubt
+                        if (signal.StellungErlaubt(SignalZustand.SH1, Modus))
+                        {
+                            signal.Schalten(SignalZustand.SH1);
+                            return;
+                        }
+                        else //Nicht erlaubt -> Strecke gesperrt
+                        {
+                            // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
+                            if (signal.Zustand != SignalZustand.HP0)
+                                signal.Schalten(SignalZustand.HP0);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        // Signal is auf Rot -> Schalten in ein anderes 
+                        if (signal.Zustand == SignalZustand.HP0)
+                        {
+                            if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
+                            {
+                                signal.Schalten(SignalZustand.HP1);
+                                return;
+                            }
+                            else if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
+                            {
+                                signal.Schalten(SignalZustand.HP2);
+                                return;
+                            }
+                            else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
+                            {
+                                return; // Schalten nicht erlauben
+                            }
+                        }
+                        else // Zurückschalten auf HP0
+                        {
+                            signal.Schalten(SignalZustand.HP0);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         private void SignalClickSchaltung(object sender, EventArgs e)
         {
             // Prüfen ob Click-Element vom Typ Signal ist und Name in der Liste
@@ -573,5 +740,6 @@ namespace MEKB_H0_Anlage
         {
             LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
         }
+
     }
 }

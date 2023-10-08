@@ -92,7 +92,10 @@ namespace MEKB_H0_Anlage
             ImportiereZeichenDesign(Dateipfad);
         }
         
-
+        /// <summary>
+        /// Bild-Datei ins Programm laden und in Arrays zerschneiden
+        /// </summary>
+        /// <param name="Dateienpfad">Pfad zur Bilddatei</param>
         public void ImportiereZeichenDesign(string Dateienpfad)
         {
             // Lade Bitmap von Datei
@@ -671,6 +674,11 @@ namespace MEKB_H0_Anlage
             DisplayPicture(bild, picBox); //Zeichne Bild
         }
 
+        /// <summary>
+        /// Bilder zusammenfügen
+        /// </summary>
+        /// <param name="gleisbild">Grundbild</param>
+        /// <param name="Type">Bild was drübergezeichnet werden soll</param>
         private void BildHinzufuegen(ref Graphics gleisbild, Image Type)
         {
             if (Type == null) Type = Katalog[Sonder][Error];
@@ -1198,7 +1206,7 @@ namespace MEKB_H0_Anlage
             else if (Gleistyp.EndsWith("_180")) return Regex.Replace(Gleistyp, "_180", "_135");
             else if (Gleistyp.EndsWith("_225")) return Regex.Replace(Gleistyp, "_225", "_180");
             else if (Gleistyp.EndsWith("_270")) return Regex.Replace(Gleistyp, "_270", "_225");
-            else if (Gleistyp.EndsWith("_315")) return Regex.Replace(Gleistyp, "_315", "_275");
+            else if (Gleistyp.EndsWith("_315")) return Regex.Replace(Gleistyp, "_315", "_270");
             return Gleistyp;
         }
         #endregion

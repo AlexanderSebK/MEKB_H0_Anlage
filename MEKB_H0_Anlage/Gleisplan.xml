@@ -1,5 +1,1462 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Gleisplan>
+	<Abschnitt Name='W1_W4'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>W1_W4</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche4'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Gleis1_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis2_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>W1_W4</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche4'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Block2_nach_Gleis1</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis2</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>W1_W4</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='4'>
+			<Belegtmelder>W1_W4</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche1'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Gleis1_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis2_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='5'>
+			<Belegtmelder>W1_W4</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche1'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Gleis3_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis4_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<Gleis Name='Weiche1'>
+			<PosX>12</PosX>
+			<PosY>4</PosY>
+			<Typ>WeicheR_270_Gegen</Typ>
+			<Weiche>Weiche1</Weiche>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>1</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>-3</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Weiche1_Gleis1'>
+			<PosX>13</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90+Ecke_UL_SP</Typ>
+			<Bedingung Teil='1'>4</Bedingung>				
+			<Bedingung Teil='2'>5</Bedingung>				
+		</Gleis>		
+		<Gleis Name='Weiche4'>
+			<PosX>15</PosX>
+			<PosY>4</PosY>
+			<Typ>WeicheL_90</Typ>
+			<Weiche>Weiche4</Weiche>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>4</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>15</XOffset>
+				<YOffset>-3</YOffset>
+			</Label>			
+		</Gleis>
+		<Gleis Name='Weiche4_Gleis1'>
+			<PosX>14</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90+Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+			<Bedingung Teil='2'>2</Bedingung>				
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='W2_W3'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>W2_W3</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche2'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis1</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis2</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis3</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>W2_W3</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche2'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis3_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis4_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>W2_W3</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='4'>
+			<Belegtmelder>W2_W3</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche3'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis3</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis3_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis4_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='5'>
+			<Belegtmelder>W2_W3</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche3'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis1</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis2</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>				
+		</StatusBedingungen>
+		<Gleis Name='Weiche2'>
+			<PosX>13</PosX>
+			<PosY>5</PosY>
+			<Typ>WeicheR_90_Gegen</Typ>
+			<Weiche>Weiche2</Weiche>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>2</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>15</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Weiche2_Gleis1'>
+			<PosX>12</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270+Ecke_OR_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+			<Bedingung Teil='2'>2</Bedingung>
+			<FahrstrassenButton>Block2_nach_Gleis1</FahrstrassenButton>
+		</Gleis>		
+		<Gleis Name='Weiche3'>
+			<PosX>14</PosX>
+			<PosY>5</PosY>
+			<Typ>WeicheL_270</Typ>
+			<Weiche>Weiche3</Weiche>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>3</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Weiche3_Gleis1'>
+			<PosX>15</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270+Ecke_OL</Typ>
+			<Bedingung Teil='1'>4</Bedingung>				
+			<Bedingung Teil='2'>5</Bedingung>				
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='W5'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>W5</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche5'>Abzweig</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis4_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>W5</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche5'>Gerade</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis3</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis3_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>W5</Belegtmelder>	
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis3</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis3_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis4_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<Gleis Name='Weiche5_Gleis1'>
+			<PosX>16</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>	
+			<Bedingung Teil='1'>3</Bedingung>	
+		</Gleis>
+		<Gleis Name='Weiche5'>
+			<PosX>17</PosX>
+			<PosY>5</PosY>
+			<Typ>WeicheR_270</Typ>
+			<Weiche>Weiche5</Weiche>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>5</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+					
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>				
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis3_1'>
+			<PosX>18</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270+Ecke_UL</Typ>	
+			<Bedingung Teil='1'>2</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis3_2'>
+			<PosX>19</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>	
+			<Bedingung Teil='1'>2</Bedingung>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis3_3'>
+			<PosX>20</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>	
+			<Bedingung Teil='1'>2</Bedingung>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis3_4'>
+			<PosX>21</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>	
+			<Bedingung Teil='1'>2</Bedingung>
+			<FahrstrassenButton Drehen='true'>Gleis3_nach_Block1</FahrstrassenButton>	
+		</Gleis>
+		
+	</Abschnitt>
+	<Abschnitt Name='W6'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>W6</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche6'>Abzweig</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Gleis1_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Block2_nach_Gleis1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>W6</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche6'>Gerade</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Gleis2_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Block2_nach_Gleis2</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>W6</Belegtmelder>	
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Gleis1_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis2_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Block2_nach_Gleis1</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis2</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<Gleis Name='Weiche6_Gleis1'>
+			<PosX>16</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>	
+			<Bedingung Teil='1'>3</Bedingung>	
+		</Gleis>
+		<Gleis Name='Weiche6'>
+			<PosX>17</PosX>
+			<PosY>4</PosY>
+			<Typ>WeicheL_270_Gegen</Typ>
+			<Weiche>Weiche6</Weiche>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>6</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>-2</YOffset>
+			</Label>			
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis2_1'>
+			<PosX>18</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90+Ecke_OL_SP</Typ>	
+			<Bedingung Teil='1'>2</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis2_2'>
+			<PosX>19</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>	
+			<Bedingung Teil='1'>2</Bedingung>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis2_3'>
+			<PosX>20</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>	
+			<Bedingung Teil='1'>2</Bedingung>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis2_4'>
+			<PosX>21</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>	
+			<Bedingung Teil='1'>2</Bedingung>	
+			<FahrstrassenButton>Gleis2_nach_Block1</FahrstrassenButton>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis1_1'>
+			<PosX>17</PosX>
+			<PosY>3</PosY>
+			<Typ>Ecke_UR</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis1_2'>
+			<PosX>18</PosX>
+			<PosY>3</PosY>
+			<Typ>KurveL_90</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis1_3'>
+			<PosX>19</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis1_4'>
+			<PosX>20</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='Ausfahrt_Gleis1_5'>
+			<PosX>21</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>
+			<FahrstrassenButton>Gleis1_nach_Block1</FahrstrassenButton>			
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='DKW7'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>DKW7_W8</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW7_1'>Gerade</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>DKW7_W8</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW7_1'>Abzweig</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis4_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>DKW7_W8</Belegtmelder>			
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='4'>
+			<Belegtmelder/>		
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='5'>
+			<Belegtmelder>DKW7_W8</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW7_2'>Abzweig</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='6'>
+			<Belegtmelder>DKW7_W8</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW7_2'>Gerade</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis4</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis4_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		
+		<Gleis Name='Stich_Gl4_L1'>
+			<PosX>16</PosX>
+			<PosY>6</PosY>
+			<Typ>Prellbock_90</Typ>	
+			<Bedingung Teil='1'>4</Bedingung>	
+		</Gleis>
+		<Gleis Name='Stich_Gl4_L2'>
+			<PosX>17</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270+Ecke_OR_SP</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>				
+			<Bedingung Teil='2'>2</Bedingung>	
+		</Gleis>
+		<Gleis Name='DKW7'>
+			<PosX>18</PosX>
+			<PosY>6</PosY>
+			<Typ>DKW_270</Typ>
+			<Weiche>DKW7_1</Weiche>	
+			<Weiche2>DKW7_2</Weiche2>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>7</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>32</XOffset>
+				<YOffset>-3</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='DKW7_Gleis1'>
+			<PosX>19</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270+Ecke_UL</Typ>	
+			<Bedingung Teil='1'>6</Bedingung>				
+			<Bedingung Teil='2'>5</Bedingung>	
+		</Gleis>
+		<Gleis Name='DKW7_Gleis2'>
+			<PosX>20</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270</Typ>	
+			<Bedingung Teil='1'>6</Bedingung>					
+		</Gleis>
+		<Gleis Name='DKW7_Gleis3'>
+			<PosX>21</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270</Typ>	
+			<Bedingung Teil='1'>6</Bedingung>
+			<FahrstrassenButton Drehen='true'>Gleis4_nach_Block1</FahrstrassenButton>	
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='W8'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>DKW7_W8</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW7_2'>Gerade</Aktiv>
+				<Aktiv Weiche='Weiche8'>Gerade</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>DKW7_W8</Belegtmelder>	
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche8'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder/>		
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+				
+		<Gleis Name='Stich_Gl5_L1'>
+			<PosX>16</PosX>
+			<PosY>7</PosY>
+			<Typ>Prellbock_90</Typ>	
+			<Bedingung Teil='1'>3</Bedingung>	
+		</Gleis>
+		<Gleis Name='Stich_Gl5_L2'>
+			<PosX>17</PosX>
+			<PosY>7</PosY>
+			<Typ>Gerade_90</Typ>	
+			<Bedingung Teil='1'>3</Bedingung>	
+		</Gleis>
+		<Gleis Name='Stich_Gl5_L3'>
+			<PosX>18</PosX>
+			<PosY>7</PosY>
+			<Typ>Gerade_270+Ecke_OR_SP</Typ>	
+			<Bedingung Teil='1'>3</Bedingung>				
+			<Bedingung Teil='2'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='Weiche8'>
+			<PosX>19</PosX>
+			<PosY>7</PosY>
+			<Typ>WeicheL_45_Gegen</Typ>
+			<Weiche>Weiche8</Weiche>	
+			<WeichenBelegtmelder>2</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>8</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>23</XOffset>
+				<YOffset>3</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Weiche8_Gleis1'>
+			<PosX>20</PosX>
+			<PosY>7</PosY>
+			<Typ>Ecke_UL</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>	
+		</Gleis>		
+	</Abschnitt>
+	<Abschnitt Name='DKW9'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>DKW9</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW9_1'>Gerade</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>DKW9</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW9_1'>Abzweig</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>Block2_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>DKW9</Belegtmelder>			
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='4'>
+			<Belegtmelder/>		
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='5'>
+			<Belegtmelder>DKW9</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW9_2'>Abzweig</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis6_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='6'>
+			<Belegtmelder>DKW9</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW9_2'>Gerade</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Block2_nach_Gleis5</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis5_nach_Block1</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		
+		<Gleis Name='DKW9_Gleis1'>
+			<PosX>19</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_270+Ecke_OR_SP</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>				
+			<Bedingung Teil='2'>2</Bedingung>	
+		</Gleis>
+		<Gleis Name='DKW9'>
+			<PosX>20</PosX>
+			<PosY>8</PosY>
+			<Typ>DKW_270</Typ>
+			<Weiche>DKW9_1</Weiche>	
+			<Weiche2>DKW9_2</Weiche2>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>9</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>32</XOffset>
+				<YOffset>-3</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='DKW9_Gleis2'>
+			<PosX>21</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_270+Ecke_UL</Typ>	
+			<Bedingung Teil='1'>6</Bedingung>				
+			<Bedingung Teil='2'>5</Bedingung>
+			<FahrstrassenButton Drehen='true'>Gleis5_nach_Block1</FahrstrassenButton>
+		</Gleis>
+		<Gleis Name='DKW9_Gleis3'>
+			<PosX>20</PosX>
+			<PosY>9</PosY>
+			<Typ>Ecke_OR_SP</Typ>	
+			<Bedingung Teil='1'>5</Bedingung>					
+		</Gleis>
+		<Gleis Name='DKW9_Gleis4'>
+			<PosX>21</PosX>
+			<PosY>9</PosY>
+			<Typ>KurveL_225</Typ>	
+			<Bedingung Teil='1'>5</Bedingung>	
+			<FahrstrassenButton Drehen='true'>Gleis6_nach_Block1</FahrstrassenButton>
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='W21'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>HBf6_Halt_R</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche21'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Gleis6_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis6</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>HBf6_Halt_R</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche52'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit/>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>HBf6_Halt_R</Belegtmelder>
+			<WeichenBedingung/>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Gleis6_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis6</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		
+		<Gleis Name='Weiche21_Gleis1'>
+			<PosX>37</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>
+			<FahrstrassenButton>Gleis6_nach_TunnelInnen</FahrstrassenButton>
+		</Gleis>
+		<Gleis Name='Weiche21'>
+			<PosX>38</PosX>
+			<PosY>9</PosY>
+			<Typ>WeicheL_270</Typ>
+			<Weiche>Weiche21</Weiche>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>21</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Weiche21_Gleis2'>
+			<PosX>39</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_270+Ecke_OL</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+			<Bedingung Teil='2'>1</Bedingung>
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='KW22'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>KW22</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='KW22_1'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Gleis5_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis5</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>KW22</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='KW22_1'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Gleis6_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis6</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>KW22</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='KW22_2'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>
+				<Fahrstrasse>Gleis5_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_TunnelAussen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis6</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='4'>
+			<Belegtmelder>KW22</Belegtmelder>
+			<WeichenBedingung/>
+			<Fahrstrassen_Mit/>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='5'>
+			<Belegtmelder>KW22</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='KW22_2'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit/>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		
+		<Gleis Name='KW22_Gleis1'>
+			<PosX>37</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<FahrstrassenButton>Gleis5_nach_TunnelInnen</FahrstrassenButton>
+		</Gleis>
+		<Gleis Name='KW22_Gleis2'>
+			<PosX>38</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_270+Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+			<Bedingung Teil='2'>2</Bedingung>
+		</Gleis>
+		<Gleis Name='KW22'>
+			<PosX>39</PosX>
+			<PosY>8</PosY>
+			<Typ>KW_135</Typ>
+			<Weiche>KW22_1</Weiche>	
+			<Weiche2>KW22_2</Weiche2>	
+			<WeichenBelegtmelder>4</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>22</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>20</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='KW22_Gleis3'>
+			<PosX>40</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_270+Ecke_OL</Typ>
+			<Bedingung Teil='1'>5</Bedingung>				
+			<Bedingung Teil='2'>3</Bedingung>
+		</Gleis>		
+	</Abschnitt>
+	<Abschnitt Name='W23'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>DKW24_W23</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW24_1'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>
+				<Fahrstrasse>Gleis5_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_TunnelAussen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis6</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder/>
+			<WeichenBedingung/>
+			<Fahrstrassen_Mit/>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		
+		<Gleis Name='Weiche23_Gleis1'>
+			<PosX>39</PosX>
+			<PosY>7</PosY>
+			<Typ>Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche23'>
+			<PosX>40</PosX>
+			<PosY>7</PosY>
+			<Typ>WeicheR_315</Typ>
+			<Weiche>Weiche23</Weiche>	
+			<WeichenBelegtmelder>1</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>23</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>-20</XOffset>
+				<YOffset>10</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Weiche23_Gleis2'>
+			<PosX>41</PosX>
+			<PosY>7</PosY>
+			<Typ>Gerade_270+Ecke_OL</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+			<Bedingung Teil='2'>1</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche23_Gleis3'>
+			<PosX>42</PosX>
+			<PosY>7</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche23_Gleis4'>
+			<PosX>43</PosX>
+			<PosY>7</PosY>
+			<Typ>Prellbock_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='DKW24'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>DKW24_W23</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW24_1'>Gerade</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Gleis4_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis4_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>								
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis4</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>DKW24_W23</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW24_1'>Abzweig</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Gleis5_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_TunnelAussen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis6</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>DKW24_W23</Belegtmelder>			
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='4'>
+			<Belegtmelder/>		
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='5'>
+			<Belegtmelder>DKW24_W23</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW24_2'>Abzweig</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Gleis4_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis4_nach_TunnelAussen</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_TunnelAussen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis6</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='6'>
+			<Belegtmelder>DKW24_W23</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='DKW24_2'>Gerade</Aktiv>
+			</WeichenBedingung>			
+			<Fahrstrassen_Mit/>							
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		
+		<Gleis Name='DKW24_Gleis1'>
+			<PosX>37</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>
+			<FahrstrassenButton>Gleis4_nach_TunnelInnen</FahrstrassenButton>
+		</Gleis>
+		<Gleis Name='DKW24_Gleis2'>
+			<PosX>38</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='DKW24_Gleis3'>
+			<PosX>39</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='DKW24_Gleis4'>
+			<PosX>40</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270+Ecke_UR_SP</Typ>	
+			<Bedingung Teil='1'>1</Bedingung>
+			<Bedingung Teil='2'>2</Bedingung>			
+		</Gleis>
+		<Gleis Name='DKW24'>
+			<PosX>41</PosX>
+			<PosY>6</PosY>
+			<Typ>DKW_315</Typ>
+			<Weiche>DKW24_1</Weiche>	
+			<Weiche2>DKW24_2</Weiche2>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>24</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>-10</XOffset>
+				<YOffset>-10</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='DKW24_Gleis5'>
+			<PosX>42</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270+Ecke_OL</Typ>	
+			<Bedingung Teil='1'>6</Bedingung>				
+			<Bedingung Teil='2'>5</Bedingung>			
+		</Gleis>
+		<Gleis Name='DKW24_Gleis6'>
+			<PosX>43</PosX>
+			<PosY>6</PosY>
+			<Typ>Prellbock_270</Typ>	
+			<Bedingung Teil='1'>6</Bedingung>					
+		</Gleis>		
+	</Abschnitt>
+	<Abschnitt Name='W25'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>W25</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche25'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Gleis3_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis3_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis3</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis3</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>W25</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche25'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Gleis4_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis4_nach_TunnelAussen</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_TunnelAussen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis6</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>W25</Belegtmelder>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Gleis3_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis3_nach_TunnelAussen</Fahrstrasse>			
+				<Fahrstrasse>Gleis4_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis4_nach_TunnelAussen</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis5_nach_TunnelAussen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis6_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>TunnelInnen_nach_Gleis3</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis3</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis4</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis5</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis6</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis6</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>		
+		<Gleis Name='Weiche25_Gleis1'>
+			<PosX>37</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<FahrstrassenButton>Gleis3_nach_TunnelInnen</FahrstrassenButton>
+		</Gleis>
+		<Gleis Name='Weiche25_Gleis2'>
+			<PosX>38</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche25_Gleis3'>
+			<PosX>39</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche25_Gleis4'>
+			<PosX>40</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche25_Gleis5'>
+			<PosX>41</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270+Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Bedingung Teil='2'>2</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche25'>
+			<PosX>42</PosX>
+			<PosY>5</PosY>
+			<Typ>WeicheL_90</Typ>
+			<Weiche>Weiche25</Weiche>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>25</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>20</XOffset>
+				<YOffset>-3</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Weiche25_Gleis6'>
+			<PosX>43</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>			
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='W26'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>W26</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche26'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>TunnelInnen_nach_Gleis2</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis2</Fahrstrasse>						
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis2_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis2_nach_TunnelAussen</Fahrstrasse>
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>W26</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche26'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>TunnelInnen_nach_Gleis1</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis1</Fahrstrasse>			
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>							
+				<Fahrstrasse>Gleis1_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis1_nach_TunnelAussen</Fahrstrasse>	
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>W26</Belegtmelder>			
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>TunnelInnen_nach_Gleis1</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis1</Fahrstrasse>
+				<Fahrstrasse>TunnelInnen_nach_Gleis2</Fahrstrasse>
+				<Fahrstrasse>TunnelAussen_nach_Gleis2</Fahrstrasse>			
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Gleis1_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis1_nach_TunnelAussen</Fahrstrasse>			
+				<Fahrstrasse>Gleis2_nach_TunnelInnen</Fahrstrasse>
+				<Fahrstrasse>Gleis2_nach_TunnelAussen</Fahrstrasse>	
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>		
+		<Gleis Name='Weiche26_Gleis1'>
+			<PosX>37</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<FahrstrassenButton Drehen='true'>Gleis2_nach_TunnelInnen</FahrstrassenButton>
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis2'>
+			<PosX>38</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis3'>
+			<PosX>39</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis4'>
+			<PosX>40</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis5'>
+			<PosX>41</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90+Ecke_OR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Bedingung Teil='2'>2</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche26'>
+			<PosX>42</PosX>
+			<PosY>4</PosY>
+			<Typ>WeicheR_90</Typ>
+			<Weiche>Weiche26</Weiche>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>26</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>20</XOffset>
+				<YOffset>-3</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis7'>
+			<PosX>43</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>3</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis8'>
+			<PosX>37</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>
+			<FahrstrassenButton Drehen='true'>Gleis1_nach_TunnelInnen</FahrstrassenButton>
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis9'>
+			<PosX>38</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis10'>
+			<PosX>39</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis11'>
+			<PosX>40</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis12'>
+			<PosX>41</PosX>
+			<PosY>3</PosY>
+			<Typ>KurveL_45</Typ>
+			<Bedingung Teil='1'>2</Bedingung>		
+		</Gleis>
+		<Gleis Name='Weiche26_Gleis13'>
+			<PosX>42</PosX>
+			<PosY>3</PosY>
+			<Typ>Ecke_UL_SP</Typ>
+			<Bedingung Teil='1'>2</Bedingung>		
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='W52'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>W52</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche52'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block1_nach_Block5</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>W52</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche52'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block1_nach_Block2</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>W52</Belegtmelder>			
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block1_nach_Block5</Fahrstrasse>
+				<Fahrstrasse>Block1_nach_Block2</Fahrstrasse>
+			</Fahrstrassen_Mit>							
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>		
+		<Gleis Name='Weiche52_Gleis1'>
+			<PosX>1</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_180</Typ>
+			<Bedingung Teil='1'>3</Bedingung>
+			<FahrstrassenButton>Block1_nach_Block5</FahrstrassenButton>
+		</Gleis>
+		<Gleis Name='Weiche52'>
+			<PosX>1</PosX>
+			<PosY>7</PosY>
+			<Typ>WeicheL_180</Typ>
+			<Weiche>Weiche52</Weiche>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>52</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>20</XOffset>
+				<YOffset>0</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Weiche52_Gleis2'>
+			<PosX>1</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_180+Ecke_OR_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+			<Bedingung Teil='2'>2</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche52_Gleis3'>
+			<PosX>2</PosX>
+			<PosY>7</PosY>
+			<Typ>Ecke_UL</Typ>
+			<Bedingung Teil='1'>2</Bedingung>
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='W60'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>W60</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block5_nach_Block6</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>W60</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block8_nach_Block6</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>		
+
+		<Gleis Name='Weiche60'>
+			<PosX>6</PosX>
+			<PosY>28</PosY>
+			<Typ>WeicheR_90_Gegen</Typ>
+			<Weiche>Weiche60</Weiche>	
+			<WeichenBelegtmelder>W60</WeichenBelegtmelder>				
+		</Gleis>
+		<Gleis Name='Weiche60_Gleis1'>
+			<PosX>5</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270+Ecke_OR_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+			<Bedingung Teil='2'>2</Bedingung>
+		</Gleis>
+	</Abschnitt>
+	
+	<Abschnitt Name='Kreuzung'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>Block9</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Schatten2_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten2_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten3_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten4_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten5_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten6_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten7_nach_Block9</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>Block9</Belegtmelder>
+			<Fahrstrassen_Mit/>				
+			<Fahrstrassen_Gegen>
+				<Fahrstrasse>Block8_nach_Block6</Fahrstrasse>		
+			</Fahrstrassen_Gegen>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>Block9</Belegtmelder>
+			<Fahrstrassen_Mit>
+				<Fahrstrasse>Block8_nach_Block6</Fahrstrasse>		
+			</Fahrstrassen_Mit>				
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>		
+		<Gleis Name='Kreuzung'>
+			<PosX>5</PosX>
+			<PosY>27</PosY>
+			<Typ>Kreuzung_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Kreuzung_Gleis1'>
+			<PosX>4</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_90+Ecke_OR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Kreuzung_Gleis2'>
+			<PosX>6</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_90+Ecke_UL_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Kreuzung_Gleis3'>
+			<PosX>5</PosX>
+			<PosY>26</PosY>
+			<Typ>Ecke_UL_SP</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Kreuzung_Gleis4'>
+			<PosX>4</PosX>
+			<PosY>26</PosY>
+			<Typ>KurveL_180</Typ>
+			<Bedingung Teil='1'>3</Bedingung>				
+		</Gleis>
+	</Abschnitt>
+	
 	<Abschnitt Name='Block1'>
 		<StatusBedingungen Nummer='1'>
 			<Belegtmelder>Block1_a</Belegtmelder>
@@ -54,13 +1511,21 @@
 			<PosX>9</PosX>
 			<PosY>4</PosY>
 			<Typ>Gerade_90</Typ>
-			<Bedingung Teil='1'>2</Bedingung>				
+			<Bedingung Teil='1'>2</Bedingung>
+			
 		</Gleis>
 		<Gleis Name='Block1b_2'>
 			<PosX>8</PosX>
 			<PosY>4</PosY>
 			<Typ>Gerade_90</Typ>
-			<Bedingung Teil='1'>2</Bedingung>				
+			<Bedingung Teil='1'>2</Bedingung>
+			<Label>
+				<Typ/>
+				<Text>Block 1</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>8</YOffset>
+			</Label>
 		</Gleis>
 		<Gleis Name='Block1b_3'>
 			<PosX>7</PosX>
@@ -114,47 +1579,190 @@
 			<PosX>1</PosX>
 			<PosY>5</PosY>
 			<Typ>KurveL_135</Typ>	
-			<Bedingung Teil='1'>3</Bedingung>				
-		</Gleis>		
+			<Bedingung Teil='1'>3</Bedingung>
+			<Signal>Signal_Block5</Signal>
+		</Gleis>	
+		
 	</Abschnitt>
-	<Abschnitt Name='W52'>
+	<Abschnitt Name='Block2'>
 		<StatusBedingungen Nummer='1'>
-			<Belegtmelder>W52</Belegtmelder>
+			<Belegtmelder>Block2</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche53'>Gerade</Aktiv>
+			</WeichenBedingung>
 			<Fahrstrassen_Mit>				
-				<Fahrstrasse>Block1_nach_Block5</Fahrstrasse>
+				<Fahrstrasse>Block9_nach_Block2</Fahrstrasse>
 			</Fahrstrassen_Mit>
 			<Fahrstrassen_Gegen/>
 		</StatusBedingungen>
 		<StatusBedingungen Nummer='2'>
-			<Belegtmelder>W52</Belegtmelder>
+			<Belegtmelder>Block2</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche53'>Abzweig</Aktiv>
+			</WeichenBedingung>
 			<Fahrstrassen_Mit>				
 				<Fahrstrasse>Block1_nach_Block2</Fahrstrasse>
 			</Fahrstrassen_Mit>
 			<Fahrstrassen_Gegen/>
-		</StatusBedingungen>		
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>Block2</Belegtmelder>			
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>	
+		<StatusBedingungen Nummer='4'>
+			<Belegtmelder>Block2</Belegtmelder>			
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block1_nach_Block2</Fahrstrasse>
+				<Fahrstrasse>Block9_nach_Block2</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>	
+		<StatusBedingungen Nummer='5'>
+			<Belegtmelder>Block2_Halt</Belegtmelder>			
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block1_nach_Block2</Fahrstrasse>
+				<Fahrstrasse>Block9_nach_Block2</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>			
 
-		<Gleis Name='Weiche52'>
-			<PosX>1</PosX>
-			<PosY>6</PosY>
-			<Typ>WeicheL_180</Typ>
-			<Weiche>Weiche52</Weiche>	
-			<WeichenBelegtmelder>W52</WeichenBelegtmelder>				
+		<Gleis Name='Weiche53'>
+			<PosX>3</PosX>
+			<PosY>8</PosY>
+			<Typ>WeicheR_135_Gegen</Typ>
+			<Weiche>Weiche53</Weiche>	
+			<WeichenBelegtmelder>3</WeichenBelegtmelder>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>53</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>18</XOffset>
+				<YOffset>18</YOffset>
+			</Label>
 		</Gleis>
-		<Gleis Name='Weiche52_Gleis1'>
-			<PosX>1</PosX>
-			<PosY>7</PosY>
-			<Typ>Gerade_180+Ecke_OR_SP</Typ>
-			<Bedingung Teil='1'>1</Bedingung>				
-			<Bedingung Teil='2'>2</Bedingung>
-		</Gleis>
-		<Gleis Name='Weiche52_Gleis3'>
+		<Gleis Name='Weiche53_Gleis1'>
 			<PosX>2</PosX>
-			<PosY>6</PosY>
-			<Typ>Ecke_UL</Typ>
-			<Bedingung Teil='1'>2</Bedingung>
+			<PosY>8</PosY>
+			<Typ>KurveL_225+Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+			<Bedingung Teil='2'>1</Bedingung>
 		</Gleis>
 
+		<Gleis Name='Block2_1'>
+			<PosX>2</PosX>
+			<PosY>10</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<FahrstrassenButton>Block9_nach_Block2</FahrstrassenButton>
+		</Gleis>
+		<Gleis Name='Block2_2'>
+			<PosX>2</PosX>
+			<PosY>9</PosY>
+			<Typ>KurveR_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_3'>
+			<PosX>3</PosX>
+			<PosY>9</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			
+		</Gleis>
+		<Gleis Name='Block2_4'>
+			<PosX>4</PosX>
+			<PosY>8</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_5'>
+			<PosX>3</PosX>
+			<PosY>7</PosY>
+			<Typ>Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_6'>
+			<PosX>4</PosX>
+			<PosY>7</PosY>
+			<Typ>Gerade_315</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_7'>
+			<PosX>5</PosX>
+			<PosY>7</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_8'>
+			<PosX>4</PosX>
+			<PosY>6</PosY>
+			<Typ>Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_9'>
+			<PosX>5</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_315</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_10'>
+			<PosX>6</PosX>
+			<PosY>6</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_11'>
+			<PosX>5</PosX>
+			<PosY>5</PosY>
+			<Typ>Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_12'>
+			<PosX>6</PosX>
+			<PosY>5</PosY>
+			<Typ>KurveR_315</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_13'>
+			<PosX>7</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_14'>
+			<PosX>8</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+			<Label>
+				<Typ/>
+				<Text>Block 2</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>8</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Block2_15'>
+			<PosX>9</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>4</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_Halt1'>
+			<PosX>10</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>5</Bedingung>
+		</Gleis>
+		<Gleis Name='Block2_Halt2'>
+			<PosX>11</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>5</Bedingung>
+			<Signal>Signal_Einfahrt_L</Signal>
+		</Gleis>
 	</Abschnitt>
+	
 	<Abschnitt Name='Block5'>
 		<StatusBedingungen Nummer='1'>
 			<Belegtmelder>Block5_a</Belegtmelder>
@@ -191,25 +1799,20 @@
 			<Fahrstrassen_Gegen/>
 		</StatusBedingungen>
 	
+		
 		<Gleis Name='Block5_a1'>
-			<PosX>1</PosX>
-			<PosY>8</PosY>
-			<Typ>Gerade_180</Typ>
-			<Bedingung Teil='1'>1</Bedingung>			
-		</Gleis>
-		<Gleis Name='Block5_a2'>
 			<PosX>1</PosX>
 			<PosY>9</PosY>
 			<Typ>Gerade_180</Typ>
 			<Bedingung Teil='1'>1</Bedingung>			
 		</Gleis>
-		<Gleis Name='Block5_a3'>
+		<Gleis Name='Block5_a2'>
 			<PosX>1</PosX>
 			<PosY>10</PosY>
 			<Typ>Gerade_180</Typ>
 			<Bedingung Teil='1'>1</Bedingung>			
 		</Gleis>
-		<Gleis Name='Block5_a4'>
+		<Gleis Name='Block5_a3'>
 			<PosX>1</PosX>
 			<PosY>11</PosY>
 			<Typ>Gerade_180</Typ>
@@ -237,7 +1840,14 @@
 			<PosX>1</PosX>
 			<PosY>15</PosY>
 			<Typ>Gerade_180</Typ>
-			<Bedingung Teil='1'>2</Bedingung>			
+			<Bedingung Teil='1'>2</Bedingung>	
+			<Label>
+				<Typ/>
+				<Text>Block 5</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>-16</XOffset>
+				<YOffset>0</YOffset>
+			</Label>
 		</Gleis>
 		<Gleis Name='Block5_b5'>
 			<PosX>1</PosX>
@@ -310,27 +1920,2479 @@
 			<PosX>1</PosX>
 			<PosY>27</PosY>
 			<Typ>KurveL_180</Typ>
-			<Bedingung Teil='1'>3</Bedingung>			
+			<Bedingung Teil='1'>2</Bedingung>			
 		</Gleis>
 		<Gleis Name='Block5_b17'>
 			<PosX>1</PosX>
 			<PosY>28</PosY>
 			<Typ>Ecke_OR_SP</Typ>
-			<Bedingung Teil='1'>3</Bedingung>			
+			<Bedingung Teil='1'>2</Bedingung>			
 		</Gleis>
 		<Gleis Name='Block5_b18'>
 			<PosX>2</PosX>
 			<PosY>28</PosY>
 			<Typ>KurveL_225</Typ>
-			<Bedingung Teil='1'>3</Bedingung>			
+			<Bedingung Teil='1'>2</Bedingung>			
 		</Gleis>
 		<Gleis Name='Block5_b19'>
 			<PosX>2</PosX>
 			<PosY>27</PosY>
 			<Typ>Ecke_UL+Ecke_OR</Typ>
-			<Bedingung Teil='1'>3</Bedingung>	
+			<Bedingung Teil='1'>2</Bedingung>	
 			<Bedingung Teil='2'>4</Bedingung>			
 		</Gleis>
+		<Gleis Name='Block5_Halt1'>
+			<PosX>3</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>			
+		</Gleis>
+		<Gleis Name='Block5_Halt2'>
+			<PosX>4</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>			
+		</Gleis>
+	</Abschnitt>	
+	<Abschnitt Name='Block6'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>Block6</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block5_nach_Block6</Fahrstrasse>
+				<Fahrstrasse>Block8_nach_Block6</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>Block6_Halt</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block5_nach_Block6</Fahrstrasse>
+				<Fahrstrasse>Block8_nach_Block6</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>		
+
+
+		<Gleis Name='Block6_1'>
+			<PosX>7</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block6_2'>
+			<PosX>8</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block6_3'>
+			<PosX>9</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block6_4'>
+			<PosX>10</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block6_5'>
+			<PosX>11</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block6_6'>
+			<PosX>12</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block6_7'>
+			<PosX>13</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block6_8'>
+			<PosX>14</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block6_Halt1'>
+			<PosX>15</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block6_Halt2'>
+			<PosX>16</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='Block7'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>Block7</Belegtmelder>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Schatten11_nach_Eingleisen</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten1</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten2</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten3</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten4</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Eingleisen</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten1</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten2</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten3</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten4</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Eingleisen</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten1</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten2</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten3</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten4</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Eingleisen</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten1</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten2</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten3</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten4</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten7</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
 		
+		<Gleis Name='Block7_1'>
+			<PosX>31</PosX>
+			<PosY>23</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_2'>
+			<PosX>31</PosX>
+			<PosY>22</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_3'>
+			<PosX>31</PosX>
+			<PosY>21</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_4'>
+			<PosX>31</PosX>
+			<PosY>20</PosY>
+			<Typ>KurveL_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_5'>
+			<PosX>30</PosX>
+			<PosY>20</PosY>
+			<Typ>Ecke_OR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_6'>
+			<PosX>31</PosX>
+			<PosY>19</PosY>
+			<Typ>Ecke_UL_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_7'>
+			<PosX>30</PosX>
+			<PosY>19</PosY>
+			<Typ>KurveL_45</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_8'>
+			<PosX>29</PosX>
+			<PosY>19</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_9'>
+			<PosX>28</PosX>
+			<PosY>19</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_10'>
+			<PosX>27</PosX>
+			<PosY>19</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_11'>
+			<PosX>26</PosX>
+			<PosY>19</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_12'>
+			<PosX>25</PosX>
+			<PosY>19</PosY>
+			<Typ>KurveL_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_13'>
+			<PosX>24</PosX>
+			<PosY>19</PosY>
+			<Typ>Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block7_14'>
+			<PosX>25</PosX>
+			<PosY>20</PosY>
+			<Typ>Ecke_OL_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>	
+	</Abschnitt>
+	<Abschnitt Name='Block8'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>Block8</Belegtmelder>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Eingleisen_nach_Block8</Fahrstrasse>
+				<Fahrstrasse>Schatten1_nach_Block8</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>Block8_Halt</Belegtmelder>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Eingleisen_nach_Block8</Fahrstrasse>
+				<Fahrstrasse>Schatten1_nach_Block8</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		
+		<Gleis Name='Block8_1'>
+			<PosX>10</PosX>
+			<PosY>21</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_2'>
+			<PosX>9</PosX>
+			<PosY>21</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_3'>
+			<PosX>8</PosX>
+			<PosY>21</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_4'>
+			<PosX>7</PosX>
+			<PosY>21</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_5'>
+			<PosX>6</PosX>
+			<PosY>21</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_6'>
+			<PosX>5</PosX>
+			<PosY>21</PosY>
+			<Typ>KurveL_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_7'>
+			<PosX>4</PosX>
+			<PosY>21</PosY>
+			<Typ>Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_8'>
+			<PosX>5</PosX>
+			<PosY>22</PosY>
+			<Typ>Ecke_OL_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_9'>
+			<PosX>4</PosX>
+			<PosY>22</PosY>
+			<Typ>KurveL_135</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_10'>
+			<PosX>4</PosX>
+			<PosY>23</PosY>
+			<Typ>Gerade_180</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_Halt1'>
+			<PosX>4</PosX>
+			<PosY>24</PosY>
+			<Typ>Gerade_180</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block8_Halt2'>
+			<PosX>4</PosX>
+			<PosY>25</PosY>
+			<Typ>Gerade_180</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='Block9'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>Block9</Belegtmelder>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Schatten2_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten2_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten3_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten4_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten5_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten6_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten7_nach_Block9</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>Block9_Halt</Belegtmelder>
+			<Fahrstrassen_Mit>	
+				<Fahrstrasse>Schatten2_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten2_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten3_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten4_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten5_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten6_nach_Block9</Fahrstrasse>
+				<Fahrstrasse>Schatten7_nach_Block9</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		
+		<Gleis Name='Block9_1'>
+			<PosX>3</PosX>
+			<PosY>27</PosY>
+			<Typ>KurveR_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_2'>
+			<PosX>3</PosX>
+			<PosY>26</PosY>
+			<Typ>Ecke_UL_SP</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_3'>
+			<PosX>2</PosX>
+			<PosY>26</PosY>
+			<Typ>KurveR_45</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_4'>
+			<PosX>2</PosX>
+			<PosY>25</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_5'>
+			<PosX>2</PosX>
+			<PosY>24</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_6'>
+			<PosX>2</PosX>
+			<PosY>23</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_7'>
+			<PosX>2</PosX>
+			<PosY>22</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_8'>
+			<PosX>2</PosX>
+			<PosY>21</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_9'>
+			<PosX>2</PosX>
+			<PosY>20</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_10'>
+			<PosX>2</PosX>
+			<PosY>19</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_11'>
+			<PosX>2</PosX>
+			<PosY>18</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_12'>
+			<PosX>2</PosX>
+			<PosY>17</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_13'>
+			<PosX>2</PosX>
+			<PosY>16</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Label>
+				<Typ/>
+				<Text>Block 9</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>-8</XOffset>
+				<YOffset>0</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='Block9_14'>
+			<PosX>2</PosX>
+			<PosY>15</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_15'>
+			<PosX>2</PosX>
+			<PosY>14</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_16'>
+			<PosX>2</PosX>
+			<PosY>13</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>		
+		<Gleis Name='Block9_Halt1'>
+			<PosX>2</PosX>
+			<PosY>12</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Block9_Halt2'>
+			<PosX>2</PosX>
+			<PosY>11</PosY>
+			<Typ>Gerade_0</Typ>
+			<Bedingung Teil='1'>2</Bedingung>	
+			<Signal>Signal_Block2</Signal>
+		</Gleis>
+	</Abschnitt>
+	
+	<Abschnitt Name='Bahnsteig'>
+		<Bild>
+			<Name>Bahnsteig_G1_1</Name>
+			<PosX>24</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G1_2</Name>
+			<PosX>25</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G1_3</Name>
+			<PosX>26</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G1_4</Name>
+			<PosX>27</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G1_5</Name>
+			<PosX>28</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G1_6</Name>
+			<PosX>29</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G1_7</Name>
+			<PosX>30</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G1_8</Name>
+			<PosX>31</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G1_9</Name>
+			<PosX>32</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G1_10</Name>
+			<PosX>33</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G1_11</Name>
+			<PosX>34</PosX>
+			<PosY>2</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABYSURBVFhH7dUxDQAxCIVhehqxgBkcVQcOMNK7NKQSynD/twBheQkDAgAAfm+4+6q+xVO1DQEIQAACEGCsT/UtzjMyM5lzSmbuxa15n0BVJSLO8ubcfAKRF4aJa4EsQ3MOAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_1</Name>
+			<PosX>24</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_2</Name>
+			<PosX>25</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_3</Name>
+			<PosX>26</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_4</Name>
+			<PosX>27</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_5</Name>
+			<PosX>28</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_6</Name>
+			<PosX>29</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_7</Name>
+			<PosX>30</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_8</Name>
+			<PosX>31</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_9</Name>
+			<PosX>32</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_10</Name>
+			<PosX>33</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G4_G3_11</Name>
+			<PosX>34</PosX>
+			<PosY>7</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAASUExURf///4qKiu/v76ioqN7e3sLCwlonwQwAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAgSURBVCjPY8AAgsqokEEkEBVi0YIGRgUGhwDFccvAAAAoyyMRzTeQ2gAAAABJRU5ErkJggg==</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_1</Name>
+			<PosX>24</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_2</Name>
+			<PosX>25</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_3</Name>
+			<PosX>26</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_4</Name>
+			<PosX>27</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_5</Name>
+			<PosX>28</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_6</Name>
+			<PosX>29</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_7</Name>
+			<PosX>30</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_8</Name>
+			<PosX>31</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_9</Name>
+			<PosX>32</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_10</Name>
+			<PosX>33</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+		<Bild>
+			<Name>Bahnsteig_G6_11</Name>
+			<PosX>34</PosX>
+			<PosY>10</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABSSURBVFhH7dFLDcBACEVRphqxgBkcoQMHGOmHRSUMTXrP7oXNTVjnTQYtd+8AM5OIkKrqw659PENVJTPf4879nRdM6RdMIoAAAgggAAAA/J3IBdTia4GZADABAAAAAElFTkSuQmCC</BildString>
+		</Bild>
+	</Abschnitt>
+	<Abschnitt Name='Bahnhof_Gleis1'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>HBf1</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>HBf1_Halt_L</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>HBf1_Halt_R</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<Gleis Name='Bhf_Gl1_Halt_L2'>
+			<PosX>22</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>	
+			<Signal>Signal_Ausfahrt_L1</Signal>
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_Halt_L1'>
+			<PosX>23</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_1'>
+			<PosX>24</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_2'>
+			<PosX>25</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_3'>
+			<PosX>26</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_4'>
+			<PosX>27</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_5'>
+			<PosX>28</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_6'>
+			<PosX>29</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_7'>
+			<PosX>30</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_8'>
+			<PosX>31</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_9'>
+			<PosX>32</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_10'>
+			<PosX>33</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_11'>
+			<PosX>34</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_Halt_R1'>
+			<PosX>35</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl1_Halt_R2'>
+			<PosX>36</PosX>
+			<PosY>3</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>	
+			<Signal>Signal_Ausfahrt_R1</Signal>
+		</Gleis>	
+	</Abschnitt>
+	<Abschnitt Name='Bahnhof_Gleis2'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>HBf2</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>HBf2_Halt_L</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>HBf2_Halt_R</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<Gleis Name='Bhf_Gl2_Halt_L2'>
+			<PosX>22</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>	
+			<Signal>Signal_Ausfahrt_L2</Signal>
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_Halt_L1'>
+			<PosX>23</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_1'>
+			<PosX>24</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_2'>
+			<PosX>25</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_3'>
+			<PosX>26</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_4'>
+			<PosX>27</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_5'>
+			<PosX>28</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_6'>
+			<PosX>29</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_7'>
+			<PosX>30</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_8'>
+			<PosX>31</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_9'>
+			<PosX>32</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_10'>
+			<PosX>33</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_11'>
+			<PosX>34</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_Halt_R1'>
+			<PosX>35</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl2_Halt_R2'>
+			<PosX>36</PosX>
+			<PosY>4</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>
+			<Signal>Signal_Ausfahrt_R2</Signal>
+		</Gleis>	
+	</Abschnitt>
+	<Abschnitt Name='Bahnhof_Gleis3'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>HBf3</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>HBf3_Halt_L</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>HBf3_Halt_R</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<Gleis Name='Bhf_Gl3_Halt_L2'>
+			<PosX>22</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>	
+			<Signal>Signal_Ausfahrt_L3</Signal>
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_Halt_L1'>
+			<PosX>23</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_1'>
+			<PosX>24</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_2'>
+			<PosX>25</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_3'>
+			<PosX>26</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_4'>
+			<PosX>27</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_5'>
+			<PosX>28</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_6'>
+			<PosX>29</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_7'>
+			<PosX>30</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_8'>
+			<PosX>31</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_9'>
+			<PosX>32</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_10'>
+			<PosX>33</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_11'>
+			<PosX>34</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_Halt_R1'>
+			<PosX>35</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl3_Halt_R2'>
+			<PosX>36</PosX>
+			<PosY>5</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>
+			<Signal>Signal_Ausfahrt_R3</Signal>
+		</Gleis>	
+	</Abschnitt>
+	<Abschnitt Name='Bahnhof_Gleis4'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>HBf4</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>HBf4_Halt_L</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>HBf4_Halt_R</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<Gleis Name='Bhf_Gl4_Halt_L2'>
+			<PosX>22</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>
+			<Signal>Signal_Ausfahrt_L4</Signal>
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_Halt_L1'>
+			<PosX>23</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_1'>
+			<PosX>24</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_2'>
+			<PosX>25</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_3'>
+			<PosX>26</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_4'>
+			<PosX>27</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_5'>
+			<PosX>28</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_6'>
+			<PosX>29</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_7'>
+			<PosX>30</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_8'>
+			<PosX>31</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_9'>
+			<PosX>32</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_10'>
+			<PosX>33</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_11'>
+			<PosX>34</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_Halt_R1'>
+			<PosX>35</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl4_Halt_R2'>
+			<PosX>36</PosX>
+			<PosY>6</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>
+			<Signal>Signal_Ausfahrt_R4</Signal>
+		</Gleis>	
+	</Abschnitt>
+	<Abschnitt Name='Bahnhof_Gleis5'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>HBf5</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>HBf5_Halt_L</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>HBf5_Halt_R</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<Gleis Name='Bhf_Gl5_Halt_L2'>
+			<PosX>22</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>	
+			<Signal>Signal_Ausfahrt_L5</Signal>
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_Halt_L1'>
+			<PosX>23</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_1'>
+			<PosX>24</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_2'>
+			<PosX>25</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_3'>
+			<PosX>26</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_4'>
+			<PosX>27</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_5'>
+			<PosX>28</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_6'>
+			<PosX>29</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_7'>
+			<PosX>30</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_8'>
+			<PosX>31</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_9'>
+			<PosX>32</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_10'>
+			<PosX>33</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_11'>
+			<PosX>34</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_Halt_R1'>
+			<PosX>35</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl5_Halt_R2'>
+			<PosX>36</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>
+			<Signal>Signal_Ausfahrt_R5</Signal>
+		</Gleis>	
+	</Abschnitt>
+	<Abschnitt Name='Bahnhof_Gleis6'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>HBf6</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>HBf6_Halt_L</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>HBf6_Halt_R</Belegtmelder>
+			<Fahrstrassen_Mit/>	
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<Gleis Name='Bhf_Gl6_Halt_L2'>
+			<PosX>22</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>
+			<Signal>Signal_Ausfahrt_L6</Signal>
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_Halt_L1'>
+			<PosX>23</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_1'>
+			<PosX>24</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_2'>
+			<PosX>25</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_3'>
+			<PosX>26</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_4'>
+			<PosX>27</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_5'>
+			<PosX>28</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_6'>
+			<PosX>29</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_7'>
+			<PosX>30</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_8'>
+			<PosX>31</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_9'>
+			<PosX>32</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_10'>
+			<PosX>33</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_11'>
+			<PosX>34</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_Halt_R1'>
+			<PosX>35</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>				
+		</Gleis>
+		<Gleis Name='Bhf_Gl6_Halt_R2'>
+			<PosX>36</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>3</Bedingung>
+			<Signal>Signal_Ausfahrt_R6</Signal>
+		</Gleis>	
+	</Abschnitt>
+	
+	
+	
+	<Abschnitt Name='Schattenbahnhof_Einfahrt'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block6_nach_Schatten8</Fahrstrasse>
+				<Fahrstrasse>Block6_nach_Schatten9</Fahrstrasse>
+				<Fahrstrasse>Block6_nach_Schatten10</Fahrstrasse>
+				<Fahrstrasse>Block6_nach_Schatten11</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block6_nach_Schatten11</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>	
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block6_nach_Schatten8</Fahrstrasse>
+				<Fahrstrasse>Block6_nach_Schatten9</Fahrstrasse>
+				<Fahrstrasse>Block6_nach_Schatten10</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>	
+		<StatusBedingungen Nummer='4'>
+			<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block6_nach_Schatten10</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>	
+		<StatusBedingungen Nummer='5'>
+			<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block6_nach_Schatten8</Fahrstrasse>
+				<Fahrstrasse>Block6_nach_Schatten9</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>	
+		<StatusBedingungen Nummer='6'>
+			<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block6_nach_Schatten9</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>	
+		<StatusBedingungen Nummer='7'>
+			<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Block6_nach_Schatten8</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>	
+		<StatusBedingungen Nummer='8'>
+			<Belegtmelder>SchattenMitte2</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Schatten11_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten7</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='9'>
+			<Belegtmelder>SchattenMitte2</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Schatten11_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten6</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='10'>
+			<Belegtmelder>SchattenMitte2</Belegtmelder>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Schatten11_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten7</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten5</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		
+		<Gleis Name='Weiche90'>
+			<PosX>18</PosX>
+			<PosY>28</PosY>
+			<Typ>WeicheL_270</Typ>
+			<Weiche>Weiche90</Weiche>	
+			<WeichenBelegtmelder>SchattenEinfahrt</WeichenBelegtmelder>				
+		</Gleis>
+		<Gleis Name='Weiche91'>
+			<PosX>19</PosX>
+			<PosY>27</PosY>
+			<Typ>WeicheR_315</Typ>
+			<Weiche>Weiche91</Weiche>	
+			<WeichenBelegtmelder>SchattenEinfahrt</WeichenBelegtmelder>				
+		</Gleis>
+		<Gleis Name='Weiche92'>
+			<PosX>20</PosX>
+			<PosY>26</PosY>
+			<Typ>WeicheR_315</Typ>
+			<Weiche>Weiche92</Weiche>	
+			<WeichenBelegtmelder>SchattenEinfahrt</WeichenBelegtmelder>				
+		</Gleis>
+		<Gleis Name='SchattenEinfahrt_1'>
+			<PosX>17</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Weiche90_Gleis1'>
+			<PosX>19</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270+Ecke_OL</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+			<Bedingung Teil='2'>3</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche91_Gleis1'>
+			<PosX>20</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_270+Ecke_OL</Typ>
+			<Bedingung Teil='1'>4</Bedingung>				
+			<Bedingung Teil='2'>5</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche92_Gleis1'>
+			<PosX>21</PosX>
+			<PosY>26</PosY>
+			<Typ>Gerade_270+Ecke_OL</Typ>
+			<Bedingung Teil='1'>6</Bedingung>				
+			<Bedingung Teil='2'>7</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche92_Gleis2'>
+			<PosX>21</PosX>
+			<PosY>25</PosY>
+			<Typ>KurveR_315</Typ>			
+			<Bedingung Teil='1'>7</Bedingung>
+		</Gleis>
+		<Gleis Name='Zwischen1'>
+			<PosX>18</PosX>
+			<PosY>27</PosY>
+			<Typ>Ecke_OL_SP+Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>8</Bedingung>				
+			<Bedingung Teil='2'>3</Bedingung>
+		</Gleis>
+		<Gleis Name='Zwischen2'>
+			<PosX>19</PosX>
+			<PosY>26</PosY>
+			<Typ>Ecke_OL_SP+Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>9</Bedingung>				
+			<Bedingung Teil='2'>5</Bedingung>
+		</Gleis>
+		<Gleis Name='Zwischen3'>
+			<PosX>20</PosX>
+			<PosY>25</PosY>
+			<Typ>Ecke_OL_SP+Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>10</Bedingung>				
+			<Bedingung Teil='2'>7</Bedingung>
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='SchattenMitte1'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>SchattenMitte1</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche80'>Gerade</Aktiv>
+				<Aktiv Weiche='Weiche81'>Gerade</Aktiv>
+				<Aktiv Weiche='Weiche82'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Schatten11_nach_Eingleisen</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten1</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten2</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten3</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten4</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten11_nach_Schatten7</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>SchattenMitte1</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche80'>Gerade</Aktiv>
+				<Aktiv Weiche='Weiche81'>Gerade</Aktiv>
+				<Aktiv Weiche='Weiche82'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Schatten10_nach_Eingleisen</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten1</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten2</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten3</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten4</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten10_nach_Schatten7</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>	
+		<StatusBedingungen Nummer='3'>
+			<Belegtmelder>SchattenMitte1</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche80'>Gerade</Aktiv>
+				<Aktiv Weiche='Weiche81'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Schatten9_nach_Eingleisen</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten1</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten2</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten3</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten4</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten9_nach_Schatten7</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>	
+		<StatusBedingungen Nummer='4'>
+			<Belegtmelder>SchattenMitte1</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche80'>Abzweig</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit>				
+				<Fahrstrasse>Schatten8_nach_Eingleisen</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten1</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten2</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten3</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten4</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten5</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten6</Fahrstrasse>
+				<Fahrstrasse>Schatten8_nach_Schatten7</Fahrstrasse>
+			</Fahrstrassen_Mit>
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='5'>
+			<Belegtmelder>SchattenMitte1</Belegtmelder>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='6'>
+			<Belegtmelder>SchattenMitte1</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche80'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='7'>
+			<Belegtmelder>SchattenMitte1</Belegtmelder>
+			<WeichenBedingung>
+				<Aktiv Weiche='Weiche80'>Gerade</Aktiv>
+				<Aktiv Weiche='Weiche81'>Gerade</Aktiv>
+			</WeichenBedingung>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		
+		<Gleis Name='Weiche80'>
+			<PosX>31</PosX>
+			<PosY>24</PosY>
+			<Typ>WeicheR_180</Typ>
+			<Weiche>Weiche80</Weiche>	
+			<WeichenBelegtmelder>5</WeichenBelegtmelder>				
+		</Gleis>
+		<Gleis Name='Weiche81'>
+			<PosX>31</PosX>
+			<PosY>25</PosY>
+			<Typ>WeicheR_180+Ecke_OL</Typ>
+			<Weiche>Weiche81</Weiche>	
+			<WeichenBelegtmelder>6</WeichenBelegtmelder>	
+			<Bedingung Teil='2'>4</Bedingung>				
+		</Gleis>
+		<Gleis Name='Weiche82'>
+			<PosX>31</PosX>
+			<PosY>26</PosY>
+			<Typ>WeicheR_180+Ecke_OL</Typ>
+			<Weiche>Weiche82</Weiche>	
+			<WeichenBelegtmelder>7</WeichenBelegtmelder>
+			<Bedingung Teil='2'>3</Bedingung>	
+		</Gleis>
+		<Gleis Name='Schatten11_Ausf5'>
+			<PosX>31</PosX>
+			<PosY>27</PosY>
+			<Typ>KurveL_315+Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten11_Ausf4'>
+			<PosX>31</PosX>
+			<PosY>28</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Schatten11_Ausf3'>
+			<PosX>30</PosX>
+			<PosY>28</PosY>
+			<Typ>KurveL_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Schatten11_Ausf2'>
+			<PosX>29</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Schatten11_Ausf1'>
+			<PosX>28</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Schatten10_Ausf2'>
+			<PosX>30</PosX>
+			<PosY>27</PosY>
+			<Typ>KurveL_270+Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>2</Bedingung>		
+			<Bedingung Teil='2'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten10_Ausf1'>
+			<PosX>29</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>			
+		</Gleis>
+		<Gleis Name='Schatten9_Ausf1'>
+			<PosX>30</PosX>
+			<PosY>26</PosY>
+			<Typ>KurveL_270+Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>3</Bedingung>		
+			<Bedingung Teil='2'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten8_Ausf1'>
+			<PosX>30</PosX>
+			<PosY>25</PosY>
+			<Typ>KurveL_270+Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>4</Bedingung>		
+			<Bedingung Teil='2'>3</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten8_Ausf2'>
+			<PosX>30</PosX>
+			<PosY>24</PosY>
+			<Typ>Ecke_UR_SP</Typ>
+			<Bedingung Teil='1'>4</Bedingung>					
+		</Gleis>
+		
+	</Abschnitt>
+	<Abschnitt Name='Schatten11'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>Schatten_Gl11</Belegtmelder>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>Schatten_Gl11_Halt</Belegtmelder>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>		
+
+		<Gleis Name='Schatten_Gl11_1'>
+			<PosX>20</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl11_2'>
+			<PosX>21</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl11_3'>
+			<PosX>22</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl11_4'>
+			<PosX>23</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl11_5'>
+			<PosX>24</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl11_6'>
+			<PosX>25</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl11_Halt1'>
+			<PosX>26</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl11_Halt2'>
+			<PosX>27</PosX>
+			<PosY>28</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='Schatten10'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>Schatten_Gl10</Belegtmelder>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>Schatten_Gl10_Halt</Belegtmelder>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>		
+
+		<Gleis Name='Schatten_Gl10_1'>
+			<PosX>21</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl10_2'>
+			<PosX>22</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl10_3'>
+			<PosX>23</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl10_4'>
+			<PosX>24</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl10_5'>
+			<PosX>25</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl10_6'>
+			<PosX>26</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl10_Halt1'>
+			<PosX>27</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl10_Halt2'>
+			<PosX>28</PosX>
+			<PosY>27</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='Schatten9'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>Schatten_Gl9</Belegtmelder>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>Schatten_Gl9_Halt</Belegtmelder>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>		
+
+		<Gleis Name='Schatten_Gl9_1'>
+			<PosX>22</PosX>
+			<PosY>26</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl9_2'>
+			<PosX>23</PosX>
+			<PosY>26</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl9_3'>
+			<PosX>24</PosX>
+			<PosY>26</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl9_4'>
+			<PosX>25</PosX>
+			<PosY>26</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl9_5'>
+			<PosX>26</PosX>
+			<PosY>26</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl9_6'>
+			<PosX>27</PosX>
+			<PosY>26</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl9_Halt1'>
+			<PosX>28</PosX>
+			<PosY>26</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl9_Halt2'>
+			<PosX>29</PosX>
+			<PosY>26</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>
+	</Abschnitt>
+	<Abschnitt Name='Schatten8'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder>Schatten_Gl8</Belegtmelder>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		<StatusBedingungen Nummer='2'>
+			<Belegtmelder>Schatten_Gl8_Halt</Belegtmelder>
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>		
+
+		<Gleis Name='Schatten_Gl8_1'>
+			<PosX>22</PosX>
+			<PosY>25</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl8_2'>
+			<PosX>23</PosX>
+			<PosY>25</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl8_3'>
+			<PosX>24</PosX>
+			<PosY>25</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl8_4'>
+			<PosX>25</PosX>
+			<PosY>25</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl8_5'>
+			<PosX>26</PosX>
+			<PosY>25</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl8_6'>
+			<PosX>27</PosX>
+			<PosY>25</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Schatten_Gl8_Halt1'>
+			<PosX>28</PosX>
+			<PosY>25</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>	
+		<Gleis Name='Schatten_Gl8_Halt2'>
+			<PosX>29</PosX>
+			<PosY>25</PosY>
+			<Typ>Gerade_270</Typ>
+			<Bedingung Teil='1'>2</Bedingung>				
+		</Gleis>		
+	</Abschnitt>
+
+	<Abschnitt Name='Betriebswerk Lokschuppen'>
+		<StatusBedingungen Nummer='1'>
+			<Belegtmelder/>			
+			<Fahrstrassen_Mit/>								
+			<Fahrstrassen_Gegen/>
+		</StatusBedingungen>
+		
+		<Bild>
+			<Name>Drehscheibe</Name>
+			<PosX>8</PosX>
+			<PosY>9</PosY>
+			<BildString>iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALlSURBVHhe7Z3RdgIhDERd//+fbWlNy64rJBCYsM59qX2SzE2C1XPs9ng8bhHZts31YN91bs+HoQgjwDvwGlGEQAXMDv0dSBkQAVGCP4IQMVVA1OCPzBQxRcAqwR+ZIWKogFWDPzJSxBABXsF7FR7tPDnuAnqKHdlpOZHO6CqgtbBZwR+JcF43AS3FoII/w3p+r7N3C1g9+BxELV0CUF0zmpl1NQuwHHKV4I/MqPH+/GniE8JPWM5unRrBLOBTwhdGSzCtIO0TXCH4M0bU37SCSlw1/MSI2tQCNPavHL6gqdGyilQCGP4eTwlVAQz/HC8JRQEMv4yHBPdL+NPobcC3Atj9fpSybJ4Ahv9PTxanAmrdz/BfqWXyLlPeAWBeBLD727FOQfqdEwBCZOzejGP3+1DLMYcTMABLo/4JYPdj4ASAUQlg99vRZvYjwHJpEF+qE8Dub0eTHe8AMBQA5s79j6U4Adz//dQy5AoCQwFgKAAMBYBJFwRfBQHhBIChADAUAIYCwFAAGAoAQwFgin8H8M04H0rvOHMCwFAAGAoAQwFgigL4cWU/tQzvfKWDhSsIDAWAqQrgPdCOJrsfAbwHcKhWEKfAjjYz3gFg/gRwDWFQTwDXkB5LVjsBtSmghDq1jFLGec68A0CIhNMv7dNYfD4kGS25cQKwnH9VQa3DeRe80rg1tuYJoIR/erJ4K0Cz5ylBRylL3gGd9DZhUQCnoIym9lqG1QmghHM8wk+oVhAl7PEKP6G+AyjhF8/wE+6X8JUljKjNJEBr9ooStDVZuj/R9D9kLAFbDxSN0bU2rSDLE608DTMarWkCBGu4q0zDzLq6BCRaOjyqCEQt3QKE1acBdX43AYmWDkqgZEQ4r6uARGtRiVkiIp3RXUCip8Acr2KjnSdniADBq3A0I4IXhgoQVhUxMnhhigBhFREzghemChCiipgZvAARIEQRgQhegArImS0DGXpOGAFHvIVECXzP7fYFZlj1UvoCeUMAAAAASUVORK5CYII=</BildString>
+		</Bild>
+
+		<Gleis Name='BW_1'>
+			<PosX>18</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche400'>
+			<PosX>17</PosX>
+			<PosY>8</PosY>
+			<Typ>WeicheL_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>400</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>15</XOffset>
+				<YOffset>-3</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_2'>
+			<PosX>16</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90+Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>				
+		</Gleis>
+		<Gleis Name='Weiche401'>
+			<PosX>15</PosX>
+			<PosY>8</PosY>
+			<Typ>WeicheL_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>401</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>15</XOffset>
+				<YOffset>-3</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_3'>
+			<PosX>14</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90+Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='BW_4'>
+			<PosX>13</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>		
+			<Label>
+				<Typ/>
+				<Text>21</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>8</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_5'>
+			<PosX>12</PosX>
+			<PosY>8</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_6'>
+			<PosX>11</PosX>
+			<PosY>8</PosY>
+			<Typ>Prellbock_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_7'>
+			<PosX>18</PosX>
+			<PosY>9</PosY>
+			<Typ>Prellbock_270</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_8'>
+			<PosX>17</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90+Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche402'>
+			<PosX>16</PosX>
+			<PosY>9</PosY>
+			<Typ>WeicheR_315</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>402</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>16</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_9'>
+			<PosX>15</PosX>
+			<PosY>9</PosY>
+			<Typ>Ecke_UR+Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_10'>
+			<PosX>14</PosX>
+			<PosY>9</PosY>
+			<Typ>KurveR_135</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_11'>
+			<PosX>13</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ/>
+				<Text>23</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>8</YOffset>
+			</Label>			
+		</Gleis>
+		<Gleis Name='BW_12'>
+			<PosX>12</PosX>
+			<PosY>9</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_13'>
+			<PosX>11</PosX>
+			<PosY>9</PosY>
+			<Typ>KurveL_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_14'>
+			<PosX>16</PosX>
+			<PosY>10</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche403'>
+			<PosX>15</PosX>
+			<PosY>10</PosY>
+			<Typ>WeicheR_135</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>403</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>16</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_15'>
+			<PosX>14</PosX>
+			<PosY>10</PosY>
+			<Typ>Gerade_90+Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='BW_16'>
+			<PosX>13</PosX>
+			<PosY>10</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Label>
+				<Typ/>
+				<Text>25</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>8</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_17'>
+			<PosX>12</PosX>
+			<PosY>10</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_18'>
+			<PosX>11</PosX>
+			<PosY>10</PosY>
+			<Typ>Gerade_90+Ecke_OL+Ecke_UL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>
+			<Bedingung Teil='3'>1</Bedingung>
+		</Gleis>
+		<Gleis Name='BW_19'>
+			<PosX>15</PosX>
+			<PosY>11</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche404'>
+			<PosX>14</PosX>
+			<PosY>11</PosY>
+			<Typ>WeicheR_135</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>404</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>16</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_20'>
+			<PosX>13</PosX>
+			<PosY>11</PosY>
+			<Typ>Gerade_90+Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>
+			<Label>
+				<Typ/>
+				<Text>27</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>8</YOffset>
+			</Label>			
+		</Gleis>
+		<Gleis Name='BW_21'>
+			<PosX>12</PosX>
+			<PosY>11</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_22'>
+			<PosX>11</PosX>
+			<PosY>11</PosY>
+			<Typ>KurveR_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_23'>
+			<PosX>14</PosX>
+			<PosY>12</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche406'>
+			<PosX>13</PosX>
+			<PosY>12</PosY>
+			<Typ>WeicheR_135</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>406</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>16</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_24'>
+			<PosX>12</PosX>
+			<PosY>12</PosY>
+			<Typ>Gerade_90+Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='Weiche407'>
+			<PosX>11</PosX>
+			<PosY>12</PosY>
+			<Typ>WeicheL_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>407</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>15</XOffset>
+				<YOffset>-3</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_25'>
+			<PosX>10</PosX>
+			<PosY>12</PosY>
+			<Typ>Gerade_90+Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='BW_26'>
+			<PosX>9</PosX>
+			<PosY>12</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Label>
+				<Typ/>
+				<Text>33</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>8</YOffset>
+			</Label>	
+		</Gleis>
+		<Gleis Name='BW_27'>
+			<PosX>8</PosX>
+			<PosY>12</PosY>
+			<Typ>Gerade_90+Ecke_UL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Bedingung Teil='2'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche405'>
+			<PosX>7</PosX>
+			<PosY>12</PosY>
+			<Typ>WeicheL_225</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>405</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>16</XOffset>
+				<YOffset>-3</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_28'>
+			<PosX>6</PosX>
+			<PosY>12</PosY>
+			<Typ>Ecke_OR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='BW_29'>
+			<PosX>7</PosX>
+			<PosY>11</PosY>
+			<Typ>Ecke_UL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='BW_30'>
+			<PosX>6</PosX>
+			<PosY>11</PosY>
+			<Typ>Prellbock_45</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='BW_31'>
+			<PosX>13</PosX>
+			<PosY>13</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_32'>
+			<PosX>12</PosX>
+			<PosY>13</PosY>
+			<Typ>Gerade_135</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_33'>
+			<PosX>11</PosX>
+			<PosY>13</PosY>
+			<Typ>Ecke_OL+Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>	
+		</Gleis>
+		<Gleis Name='BW_34'>
+			<PosX>10</PosX>
+			<PosY>13</PosY>
+			<Typ>KurveR_135</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_35'>
+			<PosX>9</PosX>
+			<PosY>13</PosY>
+			<Typ>Prellbock_90+Ecke_UL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Bedingung Teil='2'>1</Bedingung>
+		</Gleis>
+		<Gleis Name='Weiche409'>
+			<PosX>8</PosX>
+			<PosY>13</PosY>
+			<Typ>WeicheL_45</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>409</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>16</XOffset>
+				<YOffset>0</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_36'>
+			<PosX>7</PosX>
+			<PosY>13</PosY>
+			<Typ>Gerade_90+Ecke_OR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>	
+			<Label>
+				<Typ/>
+				<Text>35</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>8</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_37'>
+			<PosX>6</PosX>
+			<PosY>13</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_38'>
+			<PosX>5</PosX>
+			<PosY>13</PosY>
+			<Typ>Prellbock_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_39'>
+			<PosX>12</PosX>
+			<PosY>14</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche408'>
+			<PosX>11</PosX>
+			<PosY>14</PosY>
+			<Typ>WeicheR_135</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>408</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>16</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_40'>
+			<PosX>10</PosX>
+			<PosY>14</PosY>
+			<Typ>Gerade_90+Ecke_UR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>	
+		</Gleis>		
+		<Gleis Name='BW_41'>
+			<PosX>9</PosX>
+			<PosY>14</PosY>
+			<Typ>WeicheR_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='Weiche410'>
+			<PosX>8</PosX>
+			<PosY>14</PosY>
+			<Typ>Gerade_90+Ecke_OR</Typ>
+			<Bedingung Teil='1'>1</Bedingung>	
+			<Bedingung Teil='2'>1</Bedingung>
+			<Label>
+				<Typ>Rahmen</Typ>
+				<Text>410</Text>
+				<Schrift Fett='false'>7</Schrift>
+				<XOffset>16</XOffset>
+				<YOffset>20</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_42'>
+			<PosX>7</PosX>
+			<PosY>14</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ/>
+				<Text>37</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>8</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_43'>
+			<PosX>6</PosX>
+			<PosY>14</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_44'>
+			<PosX>5</PosX>
+			<PosY>14</PosY>
+			<Typ>Prellbock_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_45'>
+			<PosX>11</PosX>
+			<PosY>15</PosY>
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_46'>
+			<PosX>10</PosX>
+			<PosY>15</PosY>
+			<Typ>KurveR_135</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_47'>
+			<PosX>9</PosX>
+			<PosY>15</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_48'>
+			<PosX>8</PosX>
+			<PosY>15</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_49'>
+			<PosX>7</PosX>
+			<PosY>15</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>
+			<Label>
+				<Typ/>
+				<Text>39</Text>
+				<Schrift Fett='true'>9</Schrift>
+				<XOffset>0</XOffset>
+				<YOffset>8</YOffset>
+			</Label>
+		</Gleis>
+		<Gleis Name='BW_50'>
+			<PosX>6</PosX>
+			<PosY>15</PosY>
+			<Typ>Gerade_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
+		<Gleis Name='BW_51'>
+			<PosX>5</PosX>
+			<PosY>15</PosY>
+			<Typ>Prellbock_90</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
+		</Gleis>
 	</Abschnitt>
 </Gleisplan>

@@ -216,7 +216,7 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Parameter: Name des Signals als String
         /// </summary>
-        public String Name { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Parameter: Adresse des Signals für HP0/1
         /// </summary>
