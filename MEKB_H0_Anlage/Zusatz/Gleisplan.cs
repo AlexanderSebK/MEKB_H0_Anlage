@@ -81,13 +81,15 @@ namespace MEKB_H0_Anlage
                     XElement xml_Label = xml_Gleis.Element("Label");
                     if (xml_Label != null)
                     {
-                        gleisTyp.label = new Abschnitt.GleisTyp.Label();
-                        gleisTyp.label.Text = xml_Label.Element("Text").Value;
-                        gleisTyp.label.Rahmen = xml_Label.Element("Typ").Value.Equals("Rahmen");
-                        gleisTyp.label.Groesse = int.Parse(xml_Label.Element("Schrift").Value);
-                        gleisTyp.label.Fett = xml_Label.Element("Schrift").Attribute("Fett").Value.Equals("true");
-                        gleisTyp.label.X_Offeset = int.Parse(xml_Label.Element("XOffset").Value);
-                        gleisTyp.label.Y_Offeset = int.Parse(xml_Label.Element("YOffset").Value);
+                        gleisTyp.Gleislabel = new Abschnitt.GleisTyp.Label
+                        {
+                            Text = xml_Label.Element("Text").Value,
+                            Rahmen = xml_Label.Element("Typ").Value.Equals("Rahmen"),
+                            Groesse = int.Parse(xml_Label.Element("Schrift").Value),
+                            Fett = xml_Label.Element("Schrift").Attribute("Fett").Value.Equals("true"),
+                            X_Offeset = int.Parse(xml_Label.Element("XOffset").Value),
+                            Y_Offeset = int.Parse(xml_Label.Element("YOffset").Value)
+                        };
                     }
 
                     if (xml_Gleis.Element("Weiche") != null)
@@ -137,6 +139,15 @@ namespace MEKB_H0_Anlage
                         gleisTyp.FahrstrassenButton = "";
                     }
 
+                    if ((xml_Gleis.Element("SperrButton") != null) && gleisTyp.Weiche.Equals("") && gleisTyp.Signal.Equals("") && gleisTyp.FahrstrassenButton.Equals("")) // Keine anderen Optionen und SperrButton
+                    {
+                        gleisTyp.SperrButton = true;
+                        var XML_SperrStrassen = xml_Gleis.Element("SperrButton").Elements("Fahrstrasse").ToList();
+                        foreach (XElement XML_sperrung in XML_SperrStrassen)
+                        {
+                            gleisTyp.GesperrteFahrstrassen.Add(XML_sperrung.Value);
+                        }
+                    }
                     var XML_Bedingung = xml_Gleis.Elements("Bedingung").ToList();
                     foreach(XElement xml_Bedingung in XML_Bedingung)
                     {
@@ -163,12 +174,14 @@ namespace MEKB_H0_Anlage
                 var XML_Bilder = xml_abschnitt.Elements("Bild").ToList();
                 foreach (XElement xml_Bilder in XML_Bilder)
                 {
-                    Abschnitt.Bilder neuesBild = new Abschnitt.Bilder();
-                    neuesBild.Name = xml_Bilder.Element("Name").Value;
-                    neuesBild.PosX = int.Parse(xml_Bilder.Element("PosX").Value);
-                    neuesBild.PosY = int.Parse(xml_Bilder.Element("PosY").Value);
-                    neuesBild.Base64String = xml_Bilder.Element("BildString").Value;
-                    
+                    Abschnitt.Bilder neuesBild = new Abschnitt.Bilder
+                    {
+                        Name = xml_Bilder.Element("Name").Value,
+                        PosX = int.Parse(xml_Bilder.Element("PosX").Value),
+                        PosY = int.Parse(xml_Bilder.Element("PosY").Value),
+                        Base64String = xml_Bilder.Element("BildString").Value
+                    };
+
                     neuerAbschnitt.BilderListe.Add(neuesBild);
                 }
                 Abschnitte.Add(neuerAbschnitt);
@@ -214,6 +227,8 @@ namespace MEKB_H0_Anlage
                     Zustand[2] = new MeldeZustand(false);
                     Weiche_2nd = "";
                     Signal = "";
+                    SperrButton = false;
+                    GesperrteFahrstrassen = new List<string>();
                 }
 
                 public int PosX { get; set; }
@@ -221,7 +236,7 @@ namespace MEKB_H0_Anlage
                 public string Name { get; set; }
                 public string Typ { get; set; }
 
-                public Label label { get; set; }
+                public Label Gleislabel { get; set; }
 
                 public string Weiche { get; set; }
                 public string Weiche_2nd { get; set; }
@@ -229,6 +244,9 @@ namespace MEKB_H0_Anlage
 
                 public string FahrstrassenButton { get; set; }
                 public bool ButtonDrehen { get; set; }
+
+                public bool SperrButton { get; set; }
+                public List<string> GesperrteFahrstrassen { get; set; }
 
                 public string Signal { get; set; }
 

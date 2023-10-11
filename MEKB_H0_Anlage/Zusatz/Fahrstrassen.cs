@@ -287,10 +287,13 @@ namespace MEKB_H0_Anlage
         private Dictionary<string, int> Verzeichnis;
         public List<Fahrstrasse> Liste;
 
+        public Dictionary<string, bool> GesperrteFahrstarssen;
+
         public FahrstrassenListe()
         {
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Fahrstrasse>();
+            GesperrteFahrstarssen = new Dictionary<string, bool>();
         }
         public FahrstrassenListe(string Dateiname, WeichenListe weichenListe, SignalListe signalListe)
         {
@@ -320,6 +323,7 @@ namespace MEKB_H0_Anlage
         public bool FahrstrasseBlockiert(string Abschnitt)
         {
             Fahrstrasse fahrstrasse = GetFahrstrasse(Abschnitt);
+            if (GesperrteFahrstarssen[fahrstrasse.Name]) return true; // Fahrstrasse ist gesperrt
             if (fahrstrasse != null)
             {
                 foreach (string Strasse in fahrstrasse.Fahrstr_Blockierende)
@@ -387,6 +391,7 @@ namespace MEKB_H0_Anlage
         {
             Liste = new List<Fahrstrasse>();
             Verzeichnis = new Dictionary<string, int>();
+            GesperrteFahrstarssen = new Dictionary<string, bool>();
             XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
 
 
@@ -421,14 +426,9 @@ namespace MEKB_H0_Anlage
                 foreach (XElement gleiche in GleicheFahrstrassen)
                 {
                     Konfiguration.Fahrstr_GleicherEingang.Add(gleiche.Value);
-                }
-                /*var BelegtmelderListe = fahrstrasse.Element("Belegtmelder").Elements("Melder").ToList();
-                foreach (XElement belegtmelder in BelegtmelderListe)
-                {
-                    Konfiguration.Fahrstr_Belegtmelder.Add(belegtmelder.Value);
-                }
-                */
+                }               
                 Liste.Add(new Fahrstrasse(Konfiguration, weichenListe, signalListe));  //Neue Fahrstrasse mit diesen Parametern hinzufügen
+                GesperrteFahrstarssen.Add(Konfiguration.Name, false);
             }
             for (int i = 0; i < Liste.Count; i++)
             {

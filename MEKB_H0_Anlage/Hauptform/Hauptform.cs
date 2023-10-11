@@ -302,7 +302,6 @@ namespace MEKB_H0_Anlage
                         Fahrstrassenupdate(fahrstrasse);
                     }
                     
-                    FahrstrasseBildUpdate();
                     if (GroupIndex == 0)
                     {
                         //BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
@@ -448,49 +447,7 @@ namespace MEKB_H0_Anlage
         }
 
 
-        private void DKW9_Click(object sender, EventArgs e)
-        {
-            if (!Betriebsbereit) return;
-            MouseEventArgs e2 = (MouseEventArgs)e;
-            if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
-            {
-                WeichenListe.ToggleWeiche("DKW9_2");
-            }
-            else                //Auf linke Hälfte der Weiche geklickt
-            {
-                WeichenListe.ToggleWeiche("DKW9_1");
-            }
-
-        }
-        private void KW22_Click(object sender, EventArgs e)
-        {
-            if (!Betriebsbereit) return;
-            MouseEventArgs e2 = (MouseEventArgs)e;
-            if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
-            {
-                Weiche weiche = WeichenListe.GetWeiche("KW22_2");
-                if (weiche == null) return;
-                if (weiche.Abzweig) WeichenListe.ToggleWeiche("KW22_1");     //Nur Schalten wenn andere Zunge auf Abzweig
-            }
-            else                //Auf linke Hälfte der Weiche geklickt
-            {
-                Weiche weiche = WeichenListe.GetWeiche("KW22_1");
-                if (weiche == null) return;
-                if (!weiche.Abzweig) WeichenListe.ToggleWeiche("KW22_2");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
-            }
-        }
-        private void DKW24_Click(object sender, EventArgs e)
-        {
-            MouseEventArgs e2 = (MouseEventArgs)e;
-            if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
-            {
-                WeichenListe.ToggleWeiche("DKW24_1");
-            }
-            else                //Auf linke Hälfte der Weiche geklickt
-            {
-                WeichenListe.ToggleWeiche("DKW24_2");
-            }
-        }
+        
         #endregion
 
         #region SignalSteuerung
@@ -700,11 +657,13 @@ namespace MEKB_H0_Anlage
                 if (checkBox.Checked == true)
                 {
                     checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2;
+                    //TODO: aktive Fahrstrasse ausschalten
                 }
                 else
                 {
                     checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2_inaktiv;
                 }
+                UpdateFahrstrassenSchalter();
             }
         }
 
@@ -741,5 +700,9 @@ namespace MEKB_H0_Anlage
             LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
         }
 
+        private void Hauptform_SizeChanged(object sender, EventArgs e)
+        {
+            GleisplanAnzeige.Size = new Size(GleisplanAnzeige.Size.Width, this.Size.Height - 300);
+        }
     }
 }

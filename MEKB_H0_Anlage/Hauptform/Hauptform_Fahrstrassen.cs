@@ -45,12 +45,11 @@ namespace MEKB_H0_Anlage
                 Weiche weiche = WeichenListe.GetWeiche(Fahrstrassenweiche.Name);
                 if (weiche != null)
                 {
-                    UpdateWeicheImGleisplan(weiche); //Weiche im Gleisplan aktualisieren
+                    GleisplanUpdateWeiche(weiche); //Weiche im Gleisplan aktualisieren
                 }
             }
             //Alle Fahrstraßen/Buttons aktualisieren
-            FahrstrasseBildUpdate();
-            UpdateSchalter();
+            UpdateFahrstrassenSchalter();
         }
 
         /// <summary>

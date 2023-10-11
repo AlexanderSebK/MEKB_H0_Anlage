@@ -252,7 +252,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche27":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche27, true);
                         if (signalUpdate)
                         {
                             if (WeichenListe.GetWeiche("Weiche28").Abzweig) AutoSignalUpdate("Signal_RTunnel_1");
@@ -266,8 +265,7 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche28":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche28, true);
-                        if (signalUpdate)
+                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Ausfahrt_R1");
                             AutoSignalUpdate("Signal_Ausfahrt_R2");
@@ -276,7 +274,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche29":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche29, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Ausfahrt_R1");
@@ -286,7 +283,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche30":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche30, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Ausfahrt_R1");
@@ -298,7 +294,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche50":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche50, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Ausfahrt_R1");
@@ -310,7 +305,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche51":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche51, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_RTunnel_1");
@@ -341,7 +335,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche61":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche61, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten1");
@@ -354,7 +347,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche62":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche62, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten1");
@@ -366,7 +358,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche63":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche63, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten1");
@@ -377,7 +368,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche64":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche64, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten1");
@@ -387,7 +377,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche65":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche65, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten1");
@@ -396,7 +385,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche66":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche66, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten1");
@@ -404,14 +392,12 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche67":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche67, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten1");
                         }
                         break;
                     case "Weiche68":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche68, true);
                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten0");
@@ -420,8 +406,7 @@ namespace MEKB_H0_Anlage
                         break;
 
                     case "Weiche70":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche70, true);
-                        if (signalUpdate)
+                         if (signalUpdate)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
                             AutoSignalUpdate("Signal_Schatten9");
@@ -430,8 +415,7 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche71":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche71, true);
-                        if (signalUpdate && !WeichenListe.GetWeiche("Weiche70").Abzweig)
+                         if (signalUpdate && !WeichenListe.GetWeiche("Weiche70").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
                             AutoSignalUpdate("Signal_Schatten9");
@@ -440,7 +424,6 @@ namespace MEKB_H0_Anlage
                         }
                         break; 
                     case "Weiche72":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche72, true);
                         if (signalUpdate && !WeichenListe.GetWeiche("Weiche71").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
@@ -450,7 +433,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche73":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche73, true);
                         if (signalUpdate && !WeichenListe.GetWeiche("Weiche72").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
@@ -460,8 +442,7 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche74":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche74, true);
-                        if (signalUpdate && !WeichenListe.GetWeiche("Weiche73").Abzweig)
+                         if (signalUpdate && !WeichenListe.GetWeiche("Weiche73").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
                             AutoSignalUpdate("Signal_Schatten9");
@@ -470,8 +451,7 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche75":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche75, true);
-                        if (signalUpdate && !WeichenListe.GetWeiche("Weiche74").Abzweig)
+                         if (signalUpdate && !WeichenListe.GetWeiche("Weiche74").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");
                             AutoSignalUpdate("Signal_Schatten9");
@@ -480,7 +460,6 @@ namespace MEKB_H0_Anlage
                         }
                         break;
                     case "Weiche76":
-                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Weiche76, true); 
                         if (signalUpdate && !WeichenListe.GetWeiche("Weiche75").Abzweig)
                         {
                             AutoSignalUpdate("Signal_Schatten8");

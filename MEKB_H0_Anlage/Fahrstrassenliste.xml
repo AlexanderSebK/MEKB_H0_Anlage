@@ -588,7 +588,7 @@
   <Fahrstrasse>
     <Name>Gleis1_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R1</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_1</Endsignal>
+	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -648,7 +648,7 @@
   <Fahrstrasse>
     <Name>Gleis2_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R2</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_1</Endsignal>
+	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -708,7 +708,7 @@
   <Fahrstrasse>
     <Name>Gleis3_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R3</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_1</Endsignal>
+	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche25</Name>
@@ -759,7 +759,7 @@
   <Fahrstrasse>
     <Name>Gleis4_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R4</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_1</Endsignal>
+	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>DKW24_1</Name>
@@ -820,7 +820,7 @@
   <Fahrstrasse>
     <Name>Gleis5_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R5</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_1</Endsignal>
+	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>KW22_1</Name>
@@ -896,7 +896,7 @@
   <Fahrstrasse>
     <Name>Gleis6_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R6</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_1</Endsignal>
+	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche21</Name>
@@ -977,7 +977,7 @@
   <Fahrstrasse>
     <Name>Gleis1_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R1</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_2</Endsignal>
+	<Endsignal>Signal_RTunnel_Innen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -1037,7 +1037,7 @@
   <Fahrstrasse>
     <Name>Gleis2_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R2</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_2</Endsignal>
+	<Endsignal>Signal_RTunnel_Innen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -1097,7 +1097,7 @@
   <Fahrstrasse>
     <Name>Gleis3_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R3</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_2</Endsignal>
+	<Endsignal>Signal_RTunnel_Innen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche25</Name>
@@ -1148,7 +1148,7 @@
   <Fahrstrasse>
     <Name>Gleis4_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R4</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_2</Endsignal>
+	<Endsignal>Signal_RTunnel_Innen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>DKW24_1</Name>
@@ -1209,7 +1209,7 @@
   <Fahrstrasse>
     <Name>Gleis5_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R5</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_2</Endsignal>
+	<Endsignal>Signal_RTunnel_Innen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>KW22_1</Name>
@@ -1285,7 +1285,7 @@
   <Fahrstrasse>
     <Name>Gleis6_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R6</Einfahrtssignal>
-	<Endsignal>Signal_RTunnel_2</Endsignal>
+	<Endsignal>Signal_RTunnel_Innen</Endsignal>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche21</Name>
@@ -1366,7 +1366,7 @@
 
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis1</Name>
-    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L1</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -1413,7 +1413,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis2</Name>
-    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L2</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -1460,7 +1460,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis3</Name>
-    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L3</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -1520,7 +1520,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis4</Name>
-    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L4</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -1590,7 +1590,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis5</Name>
-    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L5</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -1675,7 +1675,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelAussen_nach_Gleis6</Name>
-    <Einfahrtssignal>Signal_RTunnel_1</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L6</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -1765,7 +1765,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis1</Name>
-    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L1</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -1812,7 +1812,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis2</Name>
-    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L2</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -1859,7 +1859,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis3</Name>
-    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L3</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -1919,7 +1919,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis4</Name>
-    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L4</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -1989,7 +1989,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis5</Name>
-    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L5</Endsignal>
     <Weichen>
       <WeichenConfig>
@@ -2074,7 +2074,7 @@
   </Fahrstrasse>
   <Fahrstrasse>
     <Name>TunnelInnen_nach_Gleis6</Name>
-    <Einfahrtssignal>Signal_RTunnel_2</Einfahrtssignal>
+    <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L6</Endsignal>
     <Weichen>
       <WeichenConfig>
