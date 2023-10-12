@@ -4,6 +4,13 @@
     <Name>Gleis1_nach_Block1</Name>
     <Einfahrtssignal>Signal_Ausfahrt_L1</Einfahrtssignal>
 	<Endsignal>Signal_Block5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W6</Belegtmelder>
+		<Belegtmelder>W1_W4</Belegtmelder>
+		<Belegtmelder>Block1_a</Belegtmelder>
+		<Belegtmelder>Block1_b</Belegtmelder>
+		<Belegtmelder>Block1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>

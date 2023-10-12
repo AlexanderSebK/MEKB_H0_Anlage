@@ -15,8 +15,10 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public partial class Hauptform : Form
     {
-        //public Dictionary<string, int> GleisListenVerzeichnis = new Dictionary<string, int>();
-        //public List<PictureBox> GleisListe = new List<PictureBox>();
+        #region Gleisplan Zeichnen
+        /// <summary>
+        /// Initialen Gleisplan zeichnen. Anschließend nur noch funktion GleisplanZeichen() für updates verwenden
+        /// </summary>
         private void GleisplanZeichnenInitial()
         {
             foreach(Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
@@ -213,6 +215,12 @@ namespace MEKB_H0_Anlage
             }
         }
 
+        /// <summary>
+        /// Subfunktion: Winkel des Buttons an hand des Gleistyps berechnen
+        /// </summary>
+        /// <param name="GleisTyp">Gleistyp</param>
+        /// <param name="drehen">Auf welcher Seite des Gleises ist der Button</param>
+        /// <returns>Winkel des Buttons oder "nicht erlaubt" wenn unzulässig</returns>
         private string GetButtonWinkel(string GleisTyp, bool drehen)
         {
             string Typ = GleisTyp.Split('+').First();
@@ -266,6 +274,9 @@ namespace MEKB_H0_Anlage
             return Winkel;
         }
 
+        /// <summary>
+        /// Alle Gleise zeichnen. Inklusive abfrage ob neuzeichnen notwendig ist
+        /// </summary>
         private void GleisplanZeichnen()
         {
             foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
@@ -440,6 +451,11 @@ namespace MEKB_H0_Anlage
             }
         }
 
+        
+        /// <summary>
+        /// Aktuellen Zustand der Weiche im Gleisplan zeichnen
+        /// </summary>
+        /// <param name="weiche">Weiche die neu gezeichnet werden soll</param>
         private void GleisplanUpdateWeiche(Weiche weiche)
         {
             foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
@@ -514,6 +530,10 @@ namespace MEKB_H0_Anlage
             }
         }
 
+        /// <summary>
+        /// Aktuellen Zustand des Signals im Gleisplan zeichnen
+        /// </summary>
+        /// <param name="signal">Signal das neu gezeichnet werden soll</param>
         private void GleisplanUpdateSignal(Signal signal)
         {
             foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
@@ -547,7 +567,12 @@ namespace MEKB_H0_Anlage
             }
         }
 
-
+        /// <summary>
+        /// Gleisobjekt anhand des Namens suchen
+        /// </summary>
+        /// <param name="name">Name des Gleises was gesucht werden soll</param>
+        /// <param name="Gleis">Output: Instanz des Gleises</param>
+        /// <returns>wahr wenn Gleis gefunden wurde</returns>
         private bool GetGleisObjekt(string name, out Gleisplan.Abschnitt.GleisTyp Gleis)
         {
             foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
@@ -565,8 +590,8 @@ namespace MEKB_H0_Anlage
             return false;
         }
 
-        MeldeZustand FreiesGleis = new MeldeZustand(false);       
-
+        MeldeZustand FreiesGleis = new MeldeZustand(false);
+        #endregion
         #region Fahrstraßen bestimmen
         /// <summary>
         /// Generiere Statuskonstrukt aus Fahrstraßen und Belegtmeldung
@@ -625,18 +650,13 @@ namespace MEKB_H0_Anlage
             //Generiere Statuskonstrukt
             return new MeldeZustand(besetzt, fahrstrasseAktiv, sicher, richtung);
         }
-        
-       
-        #endregion
 
-        
         /// <summary>
         /// Weichenliste der Fahrstraße durchlaufen und mit aktueller Weichenstellung vergleichen
         /// </summary>
         /// <param name="fahrstrasse">Fahrstraße zum überprüfen</param>
         private void Fahrstrassenupdate(Fahrstrasse fahrstrasse)
         {
-            bool SafeStatusAlt = fahrstrasse.Safe;
             if (fahrstrasse.GetGesetztStatus())    //Fahrstraße wurde gesetzt
             {
                 fahrstrasse.SetFahrstrasseRichtung();
@@ -661,15 +681,8 @@ namespace MEKB_H0_Anlage
                     if (Betriebsbereit) fahrstrasse.ControlSetFahrstrasse(z21Start);
                 }
             }
-            // Wechseln auf den sicheren Zustand
-            if ((SafeStatusAlt == false) && (fahrstrasse.Safe == true))
-            {
-                // Signal nur Schalten wenn die Option Autoschaltung über Fahrstraße aktiv ist
-                if (fahrstrasse.EinfahrtsSignal.Name != null)
-                {
-                    if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.EinfahrtsSignal.Name);
-                }              
-            }
+           
         }
+        #endregion
     }
 }

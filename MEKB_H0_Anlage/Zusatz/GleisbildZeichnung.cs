@@ -650,7 +650,6 @@ namespace MEKB_H0_Anlage
 
             DisplayPicture(bild, picBox); //Zeichne Bild
         }
-
         public void ZeichneSchaltbild(Signal signal, PictureBox picBox)
         {
             ////////////////////////////////////////////////////
@@ -1197,6 +1196,11 @@ namespace MEKB_H0_Anlage
             return Katalog[Sonder][Error];
         }
 
+        /// <summary>
+        /// String Winkel um 45° ändern
+        /// </summary>
+        /// <param name="Gleistyp">Gleistyp was um 45° gedreht werden soll</param>
+        /// <returns>Gleistyp mit neuen Winkel</returns>
         private string DreheGleisUmMinus45(string Gleistyp)
         {
             if (Gleistyp.EndsWith("_0")) return Regex.Replace(Gleistyp, "_0", "_315");

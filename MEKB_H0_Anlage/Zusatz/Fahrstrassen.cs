@@ -405,7 +405,19 @@ namespace MEKB_H0_Anlage
                     EinfahrtsSignal = fahrstrasse.Element("Einfahrtssignal").Value,
                     EndSignal = fahrstrasse.Element("Endsignal").Value
                 };
-                
+                Konfiguration.Fahrstr_Belegtmelder = new List<string>();
+                XElement XML_FahrstrassenBelegtmelder = fahrstrasse.Element("BelegtmelderBlock");
+               
+                if(XML_FahrstrassenBelegtmelder != null)
+                {
+                    var FahrstrassenBelegtmelder = XML_FahrstrassenBelegtmelder.Elements("Belegtmelder").ToList();
+                    foreach(XElement Belegtmelder in FahrstrassenBelegtmelder)
+                    {
+                        Konfiguration.Fahrstr_Belegtmelder.Add(Belegtmelder.Value);
+                    }
+                }
+
+
                 var FahrstrassenWeichenListe = fahrstrasse.Element("Weichen").Elements("WeichenConfig").ToList();
 
                 foreach (XElement wKonfig in FahrstrassenWeichenListe)

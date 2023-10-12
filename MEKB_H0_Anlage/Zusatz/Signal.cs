@@ -54,8 +54,7 @@ namespace MEKB_H0_Anlage
                 else SAdresse2 = Int16.Parse(XMLSignal.Element("Adresse2").Value);  //2. Signaladresse des Elements auslesen
 
                 string SName = XMLSignal.Element("Name").Value;                     //Signal Name des Elements auslesen
-                string STyp = XMLSignal.Element("Typ").Value;                       //Typ des Signals auslesen
-
+                
                 if (Enum.TryParse<SignalZustand>(XMLSignal.Element("Adr1Zustand1").Value, out SignalZustand signalZustand1_1)) { }
                 else signalZustand1_1 = SignalZustand.Unbestimmt;
                 if (Enum.TryParse<SignalZustand>(XMLSignal.Element("Adr1Zustand2").Value, out SignalZustand signalZustand1_2)) { }
@@ -70,7 +69,6 @@ namespace MEKB_H0_Anlage
                     Name = SName,
                     Adresse = SAdresse,
                     Adresse2 = SAdresse2,
-                    Typ = STyp,
                     Adr1_1 = signalZustand1_1,
                     Adr1_2 = signalZustand1_2,
                     Adr2_1 = signalZustand2_1,
@@ -196,15 +194,36 @@ namespace MEKB_H0_Anlage
         /// Verknüpfe globale Fahrstrassen/Routen-Liste
         /// </summary>
         /// <param name="fahrstrassenListe">Gloable Fahrstrassenliste</param>
-        public void FahrstrassenZugriff(FahrstrassenListe fahrstrassenListe)
+        public void ListenZugriff(FahrstrassenListe fahrstrassenListe, BelegtmelderListe belegtmelderListe)
         {
             foreach(Signal signal in Liste)
             {
                 // Übernehme nur Fahrstrassen, die dieses Signal als Anfang haben
                 signal.Fahrstrassen = fahrstrassenListe.GetWithEingangsSignal(signal);
+                signal.BelegtmelderVerzeichnis = new Dictionary<string, List<Belegtmelder>>();
+                foreach(Fahrstrasse Strasse in signal.Fahrstrassen)
+                {
+                    List<Belegtmelder> melderListe = new List<Belegtmelder>();
+                    foreach(string Melder in Strasse.Fahrstr_Belegtmelder)
+                    {
+                        Belegtmelder belegtmelder = belegtmelderListe.GetBelegtmelder(Melder);
+                        if(belegtmelder != null)
+                        {
+                            melderListe.Add(belegtmelder);
+                        }
+                    }
+                    signal.BelegtmelderVerzeichnis.Add(Strasse.Name,melderListe);
+                }
             }
         }
 
+        public void AutoSignal(bool AutoHP1, bool AchteFahrstrassen)
+        {
+            foreach(Signal signal in Liste)
+            {
+                signal.AutoSignal(AutoHP1,AchteFahrstrassen);
+            }
+        }
     }
    
     /// <summary>
@@ -249,15 +268,15 @@ namespace MEKB_H0_Anlage
         /// Signalzustand wenn Pin2 von Adresse 2 aktiviert (0 = HP0, 1 = HP1, 2 = HP2, 3 = SH1)
         /// </summary>
         public SignalZustand Adr2_2 { get; set; } 
-        /// <summary>
-        /// Typ des Signals
-        /// 3HP_270 -> Drei Schaltbilder Signal um 270° auf dem Gleisplan gedreht 
-        /// </summary>
-        public string Typ { get; set; }
+        
+        public bool AutoSperre { get; set; }
+        
 
         private Z21 Z21_zentrale { get; set; }
 
         public List<Fahrstrasse> Fahrstrassen { get; set; }
+
+        public Dictionary<string, List<Belegtmelder>> BelegtmelderVerzeichnis { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -267,6 +286,7 @@ namespace MEKB_H0_Anlage
             Fahrstrassen = new List<Fahrstrasse>();
             Letzte_Adresswahl = false;
             Z21_zentrale = new Z21();
+            AutoSperre = false;
         }
 
 
@@ -276,7 +296,6 @@ namespace MEKB_H0_Anlage
                 new XElement("Name", Name),
                 new XElement("Adresse", Adresse),
                 new XElement("Adresse2", Adresse2),
-                new XElement("Typ", Typ),
                 new XElement("Adr1Zustand1", Adr1_1),
                 new XElement("Adr1Zustand2", Adr1_2),
                 new XElement("Adr2Zustand1", Adr2_1),
@@ -408,10 +427,15 @@ namespace MEKB_H0_Anlage
                         if (weiche.Abzweig) WeicheAbzweig = true;
                     }
 
-                    // TODO: Blockprüfung
+                    foreach(Belegtmelder melder in BelegtmelderVerzeichnis[Strasse.Name])
+                    {
+                        if (melder.IstBelegt()) BlockBelegt = true;
+                    }
+
                     break; //Abbruch. Keine weitere Pürfungen erforderlich 
                 }
             }
+            if (WeicheAbzweig && IstBlockSignal()) WeicheAbzweig = false;   //Erlaube auch bei HP1 Abgezweigte Weichen, wenn kein HP1 vorhanden ist
 
             switch(wunschZustand)
             {
@@ -425,54 +449,22 @@ namespace MEKB_H0_Anlage
             return false;
         }
 
-
-        //Ermittle Anhand der Weichenstellung und Meldungen ob der Block Frei ist
-        public SignalZustand ErlaubteStellung(FahrstrassenListe fahrstrassenListe, WeichenListe weichenListe)
+        public bool IstSperrSignal()
         {
-            //Finde Fahrstrassen mit diesem Signal als Eingangssignal hat
-            List<Fahrstrasse> Strassen = fahrstrassenListe.GetWithEingangsSignal(this);
-            foreach(Fahrstrasse s in Strassen)
-            {
-                //Wenn Option aktiviert ist, dass nur auf Fahrstrassen geschaltet werden soll
-                if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"))
-                {
-                    //Fahrtstrasse nicht gesichert -> nächste Fahrstrasse
-                    if (!s.Safe) continue; 
-                }
-                // Weg ist gesetzt
-                if(s.CheckFahrstrassePos())
-                {
-                    foreach(string blockStr in s.Fahrstr_Blockierende)
-                    {
-                        //Eine der Blockierenden Fahrstrassen ist nicht Halt
-                        Fahrstrasse BlockFahrstr = fahrstrassenListe.GetFahrstrasse(blockStr);
-                        if(BlockFahrstr != null)
-                        {
-                            // Ist Fahrstrasse der Blockierenden fahrbar (Kreuzung)
-                            if(BlockFahrstr.CheckFahrstrassePos())
-                            {
-                                //Ist nicht auf Halt
-                                if(!BlockFahrstr.EinfahrtsSignal.Zustand.Equals(SignalZustand.HP0))
-                                {
-                                    return SignalZustand.HP0; //Blockiert
-                                }
-                            }
-                        }
-                    }
-                    /*Prüfe ob Fahrzeug auf Block ist*/
+            if (HatSignalbild(SignalZustand.SH1) && !HatSignalbild(SignalZustand.HP1) && !HatSignalbild(SignalZustand.HP2)) return true;
+            return false;
+        }
 
+        public bool IstHP2Verbund()
+        {
+            if (HatSignalbild(SignalZustand.HP2) && !HatSignalbild(SignalZustand.HP1)) return true;
+            return false;
+        }
 
-                    foreach(Weiche w in s.Fahrstr_Weichenliste)
-                    {
-                        // Über eine Weiche muss über Abzweig gefahren werden -> Langsame Fahrt
-                        if(w.Abzweig) return SignalZustand.HP2;
-                    }
-                    //Nächstes Signal auf Halt
-                    if (s.EndSignal.Zustand == SignalZustand.HP0) return SignalZustand.HP2;
-                    return SignalZustand.HP1; // Freie Fahrt
-                }
-            }
-            return SignalZustand.HP0;
+        public bool IstBlockSignal()
+        {
+            if (HatSignalbild(SignalZustand.HP1) && !HatSignalbild(SignalZustand.HP2)) return true;
+            return false;
         }
 
         /// <summary>
@@ -483,6 +475,72 @@ namespace MEKB_H0_Anlage
         public bool HatSignalbild(SignalZustand signalbild)
         {
             return (signalbild == Adr1_1 || signalbild == Adr1_2 || signalbild == Adr2_1 || signalbild == Adr2_2);
+        }
+
+        public void AutoSignal(bool AutoHP1, bool AchteFahrstrassen)
+        {
+            //Signal durch User gesperrt, nicht auf Grün schalten
+            if (AutoSperre) AutoHP1 = false;
+
+            if (IstBlockSignal())
+            {
+                // Schalte auf HP1 wenn erlaubt und AutoHP1 erlaubt
+                if (StellungErlaubt(SignalZustand.HP1, AchteFahrstrassen))
+                {
+                    if (AutoHP1 && Zustand != SignalZustand.HP1) Schalten(SignalZustand.HP1);
+                }
+                else // HP1 ist nicht erlaubt: Auf HP0 schalten
+                {
+                    if (Zustand != SignalZustand.HP0) Schalten(SignalZustand.HP0);
+                }
+            }
+            else if (IstHP2Verbund())
+            {
+                // Schalte auf HP2 wenn erlaubt und AutoHP1 erlaubt
+                if (StellungErlaubt(SignalZustand.HP2, AchteFahrstrassen))
+                {
+                    if (AutoHP1 && Zustand == SignalZustand.HP0) Schalten(SignalZustand.HP2);
+                }
+                else // HP2 ist nicht erlaubt: Auf HP0 schalten
+                {
+                    if (Zustand != SignalZustand.HP0) Schalten(SignalZustand.HP0);
+                }
+            }
+            else if (IstSperrSignal())
+            {
+                // Sperrsignale nicht schalten
+            }
+            else
+            {
+                bool HP2_Erlaubt = StellungErlaubt(SignalZustand.HP2, AchteFahrstrassen);
+                bool HP1_Erlaubt =  StellungErlaubt(SignalZustand.HP1, AchteFahrstrassen);
+                if (HP1_Erlaubt && HP2_Erlaubt)
+                {
+                    foreach (Fahrstrasse fahrstrasse in Fahrstrassen)
+                    {
+                        if (fahrstrasse.CheckFahrstrassePos())
+                        {
+                            if (fahrstrasse.EndSignal.Zustand == SignalZustand.HP0)
+                            {
+                                // Wenn nächstes Signal auf rot steht -> langsame Fahrt
+                                if (AutoHP1 && Zustand != SignalZustand.HP2) Schalten(SignalZustand.HP2);
+                            }
+                            else
+                            {
+                                if (AutoHP1 && Zustand != SignalZustand.HP1) Schalten(SignalZustand.HP1);
+                            }
+                        }
+                    }
+                }
+                else if (HP2_Erlaubt)
+                {
+                    if (AutoHP1 && Zustand != SignalZustand.HP2) Schalten(SignalZustand.HP2);
+                }
+                else
+                {
+                    if (Zustand != SignalZustand.HP0) Schalten(SignalZustand.HP0);
+                }
+            }
         }
     }
 
