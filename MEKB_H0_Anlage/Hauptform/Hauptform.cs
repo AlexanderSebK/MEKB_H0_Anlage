@@ -48,6 +48,7 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region Listen
+        public Gleisplan Plan = new Gleisplan("Gleisplan.xml");
         public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
         public SignalListe SignalListe = new SignalListe("Signalliste.xml");      
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
@@ -108,7 +109,7 @@ namespace MEKB_H0_Anlage
             SetupFahrstrassen();                        //Fahstrassen festlegen    
             WeichenListe.DigitalzentraleZugriff(z21Start);
             SignalListe.DigitalzentraleZugriff(z21Start);
-            SignalListe.FahrstrassenZugriff(FahrstrassenListe);
+            SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe);
 
             ConnectStatus(false, false);                 //Verbindungsstatus auf getrennt setzen
       
@@ -167,6 +168,11 @@ namespace MEKB_H0_Anlage
             WeichenTimer.Enabled = true;
             CooldownTimer.Enabled = true;
             BelegtmelderCoolDown.Enabled = true;
+
+            GleisplanZeichnenInitial();
+
+            
+
 
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -255,7 +261,7 @@ namespace MEKB_H0_Anlage
             if (source is System.Timers.Timer timer)
             {
 
-                Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text);
+                Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text); //Debug
                 if(belegtmelder != null)
                 {
                     UpdateRegisterState(NextBlock, belegtmelder.NaechsterBlock(VorBlock.Text, WeichenListe));
@@ -265,6 +271,7 @@ namespace MEKB_H0_Anlage
                 if (z21Start.Verbunden())
                 {
                     timer.Stop();
+                    
                     WeichenListe.WeichenStatus(WeichenListe.Liste[Pointer_Weichenliste].Name);
                     if (Pointer_Weichenliste <= 0)
                     {
@@ -286,7 +293,7 @@ namespace MEKB_H0_Anlage
                     {
                         Pointer_Signalliste--;
                     }
-                    if (Weichen_Init & Signal_Init)
+                    if (Weichen_Init && Signal_Init)
                     {
                         SetConnect(true, true); //Initialisierung abgeschlossen
                         Betriebsbereit = true;
@@ -299,17 +306,19 @@ namespace MEKB_H0_Anlage
                         Fahrstrassenupdate(fahrstrasse);
                     }
                     
-                    FahrstrasseBildUpdate();
                     if (GroupIndex == 0)
                     {
-                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
+                        //BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
                         GroupIndex = 1;
                     }
                     else
                     {
-                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
+                        //BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
                         GroupIndex = 0;
                     }
+
+                    GleisplanZeichnen();
+                    if(Betriebsbereit && AutoSignale.Checked) SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"));
                     stopWatch.Stop();
                     timer.Start();
                     //Messung vor Verbesserung: 100~120ms => 2ms
@@ -350,151 +359,194 @@ namespace MEKB_H0_Anlage
                 WeichenListe.ToggleWeiche(weichenElement.Name);
             }
         }     
-        private void DKW7_Click(object sender, EventArgs e)
-        {
-            if (!Betriebsbereit) return;
-            MouseEventArgs e2 = (MouseEventArgs)e;
-            if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
-            {
-                WeichenListe.ToggleWeiche("DKW7_2");
-            }
-            else                //Auf linke Hälfte der Weiche geklickt
-            {
-                WeichenListe.ToggleWeiche("DKW7_1");
-            }
 
-        }
-        private void DKW9_Click(object sender, EventArgs e)
+        private void DKW_Click(object sender, EventArgs e)
         {
             if (!Betriebsbereit) return;
-            MouseEventArgs e2 = (MouseEventArgs)e;
-            if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
+            if (sender is PictureBox weichenElement)
             {
-                WeichenListe.ToggleWeiche("DKW9_2");
-            }
-            else                //Auf linke Hälfte der Weiche geklickt
-            {
-                WeichenListe.ToggleWeiche("DKW9_1");
-            }
+                Gleisplan.Abschnitt.GleisTyp gleis = Plan.SucheGleis(weichenElement.Name);
+                if (gleis != null)
+                {
+                    String[] tags = gleis.Typ.Split('_');
+                    MouseEventArgs e2 = (MouseEventArgs)e;
+                    switch (tags[1])
+                    {
+                        case "0":
+                        case "45":
+                            // Unterer Häfte ist 1. Weiche
+                            if(e2.Y > (weichenElement.Height / 2))
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche);
+                            }
+                            else
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
+                            }
+                            break;
+                        case "90":
+                        case "135":
+                            // Linke Hälfte ist 1. Weiche
+                            if (e2.X > (weichenElement.Width / 2))
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche);
+                            }
+                            else
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
+                            }
+                            break;
+                        case "180":
+                        case "225":
+                            // Obere Hälfte ist 1. Weiche
+                            if (e2.Y <= (weichenElement.Height / 2))
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche);
+                            }
+                            else
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
+                            }
+                            break;
+                        case "270":
+                        case "315":
+                            // Rechte Hälfte ist 1. Weiche
+                            if (e2.X <= (weichenElement.Width / 2))
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche);
+                            }
+                            else
+                            {
+                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
+                            }
+                            break;
+                        default: break;
+                    }
+                }    
+            }            
+        }
 
-        }
-        private void KW22_Click(object sender, EventArgs e)
+        private void KW_Click(object sender, EventArgs e)
         {
             if (!Betriebsbereit) return;
-            MouseEventArgs e2 = (MouseEventArgs)e;
-            if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
+            if (sender is PictureBox weichenElement)
             {
-                Weiche weiche = WeichenListe.GetWeiche("KW22_2");
-                if (weiche == null) return;
-                if (weiche.Abzweig) WeichenListe.ToggleWeiche("KW22_1");     //Nur Schalten wenn andere Zunge auf Abzweig
-            }
-            else                //Auf linke Hälfte der Weiche geklickt
-            {
-                Weiche weiche = WeichenListe.GetWeiche("KW22_1");
-                if (weiche == null) return;
-                if (!weiche.Abzweig) WeichenListe.ToggleWeiche("KW22_2");     //Nur Schalten wenn andere Zunge nicht auf Abzweig
-            }
-        }
-        private void DKW24_Click(object sender, EventArgs e)
-        {
-            MouseEventArgs e2 = (MouseEventArgs)e;
-            if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
-            {
-                WeichenListe.ToggleWeiche("DKW24_1");
-            }
-            else                //Auf linke Hälfte der Weiche geklickt
-            {
-                WeichenListe.ToggleWeiche("DKW24_2");
+                Gleisplan.Abschnitt.GleisTyp gleis = Plan.SucheGleis(weichenElement.Name);
+                if (gleis != null)
+                {
+                    MouseEventArgs e2 = (MouseEventArgs)e;
+                    if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
+                    {
+                        Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche_2nd);
+                        if (weiche == null) return;
+                        if (weiche.Abzweig) WeichenListe.ToggleWeiche(gleis.Weiche);     //Nur Schalten wenn andere Zunge auf Abzweig
+                    }
+                    else                //Auf linke Hälfte der Weiche geklickt
+                    {
+                        Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche);
+                        if (weiche == null) return;
+                        if (!weiche.Abzweig) WeichenListe.ToggleWeiche(gleis.Weiche_2nd);     //Nur Schalten wenn andere Zunge nicht auf Abzweig
+                    }
+                }
             }
         }
+
+
+        
         #endregion
 
         #region SignalSteuerung
-        private void SignalClickSchaltung(object sender, EventArgs e)
+        private void Signal_Click(object sender, EventArgs e)
         {
-            // Prüfen ob Click-Element vom Typ Signal ist und Name in der Liste
-            if (sender is PictureBox SignalElement)
+            if (sender is PictureBox PicBox)
             {
-                Signal signal = SignalListe.GetSignal(SignalElement.Name);
-                if (signal == null) return;
-
                 bool Modus = Config.ReadConfig("AutoSignalFahrstrasse").Equals("true");
-
-                // SHIFT-Taste während des Klickens gedrückt -> Schalten auf HP2 (langsame Fahrt)
-                if (Control.ModifierKeys == Keys.Shift)
+                if (GetGleisObjekt(PicBox.Name, out Gleisplan.Abschnitt.GleisTyp Gleis))
                 {
-                    if (signal.Zustand == SignalZustand.HP2) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
+                    Signal signal = SignalListe.GetSignal(Gleis.Signal);
+                    // SHIFT-Taste während des Klickens gedrückt -> Schalten auf HP2 (langsame Fahrt)
+                    if (Control.ModifierKeys == Keys.Shift)
                     {
-                        signal.Schalten(SignalZustand.HP0);
-                        return;
-                    }
-
-                    // HP2 erlaubt
-                    if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
-                    {
-                        signal.Schalten(SignalZustand.HP2);
-                        return;
-                    }
-                    // HP2 nicht erlaubt, prüfen ob HP1 möglich
-                    else if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
-                    {
-                        signal.Schalten(SignalZustand.HP1);
-                        return;
-                    }
-                    else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
-                    {
-                        // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
-                        if (signal.Zustand != SignalZustand.HP0)
-                            signal.Schalten(SignalZustand.HP0);
-                        return;
-                    }
-                }
-                // CTRL-Taste während des Klickens gedrückt -> Schalten auf SH1 (Rangier Fahrt)
-                else if (Control.ModifierKeys == Keys.Control)
-                {
-                    if (signal.Zustand == SignalZustand.SH1) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
-                    {
-                        signal.Schalten(SignalZustand.HP0);
-                        return;
-                    }
-                    // SH1 erlaubt
-                    if (signal.StellungErlaubt(SignalZustand.SH1, Modus))
-                    {
-                        signal.Schalten(SignalZustand.SH1);
-                        return;
-                    }
-                    else //Nicht erlaubt -> Strecke gesperrt
-                    {
-                        // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
-                        if (signal.Zustand != SignalZustand.HP0)
-                            signal.Schalten(SignalZustand.HP0);
-                        return;
-                    }
-                }
-                else
-                {
-                    // Signal is auf Rot -> Schalten in ein anderes 
-                    if (signal.Zustand == SignalZustand.HP0)
-                    {
-                        if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
+                        if (signal.Zustand == SignalZustand.HP2) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
                         {
-                            signal.Schalten(SignalZustand.HP1);
+                            signal.Schalten(SignalZustand.HP0);
+                            if(AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
                             return;
                         }
-                        else if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
+
+                        // HP2 erlaubt
+                        if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
                         {
                             signal.Schalten(SignalZustand.HP2);
+                            signal.AutoSperre = false; //Signal wieder im Normalen Modus
+                            return;
+                        }
+                        // HP2 nicht erlaubt, prüfen ob HP1 möglich
+                        else if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
+                        {
+                            signal.Schalten(SignalZustand.HP1);
+                            signal.AutoSperre = false; //Signal wieder im Normalen Modus
                             return;
                         }
                         else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
                         {
-                            return; // Schalten nicht erlauben
+                            // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
+                            if (signal.Zustand != SignalZustand.HP0)
+                                signal.Schalten(SignalZustand.HP0);
+                            return;
                         }
                     }
-                    else // Zurückschalten auf HP0
+                    // CTRL-Taste während des Klickens gedrückt -> Schalten auf SH1 (Rangier Fahrt)
+                    else if (Control.ModifierKeys == Keys.Control)
                     {
-                        signal.Schalten(SignalZustand.HP0);
-                        return;
+                        if (signal.Zustand == SignalZustand.SH1) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
+                        {
+                            signal.Schalten(SignalZustand.HP0);
+                            if (AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
+                            return;
+                        }
+                        // SH1 erlaubt
+                        if (signal.StellungErlaubt(SignalZustand.SH1, Modus))
+                        {
+                            signal.Schalten(SignalZustand.SH1);
+                            return;
+                        }
+                        else //Nicht erlaubt -> Strecke gesperrt
+                        {
+                            // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
+                            if (signal.Zustand != SignalZustand.HP0)
+                                signal.Schalten(SignalZustand.HP0);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        // Signal is auf Rot -> Schalten in ein anderes 
+                        if (signal.Zustand == SignalZustand.HP0)
+                        {
+                            if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
+                            {
+                                signal.Schalten(SignalZustand.HP1);
+                                signal.AutoSperre = false; //Signal wieder im Normalen Modus
+                                return;
+                            }
+                            else if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
+                            {
+                                signal.Schalten(SignalZustand.HP2);
+                                signal.AutoSperre = false; //Signal wieder im Normalen Modus
+                                return;
+                            }
+                            else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
+                            {
+                                return; // Schalten nicht erlauben
+                            }
+                        }
+                        else // Zurückschalten auf HP0
+                        {
+                            signal.Schalten(SignalZustand.HP0);
+                            if (AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
+                            return;
+                        }
                     }
                 }
             }
@@ -527,11 +579,13 @@ namespace MEKB_H0_Anlage
                 if (checkBox.Checked == true)
                 {
                     checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2;
+                    //TODO: aktive Fahrstrasse ausschalten
                 }
                 else
                 {
                     checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2_inaktiv;
                 }
+                UpdateFahrstrassenSchalter();
             }
         }
 
@@ -543,8 +597,10 @@ namespace MEKB_H0_Anlage
 
         private void BelegtmeldungToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
+            if(belegtmelder_Ueberwachung == null) belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
+            if(belegtmelder_Ueberwachung.IsDisposed) belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
             belegtmelder_Ueberwachung.Show();
+            belegtmelder_Ueberwachung.BringToFront();
         }
 
        
@@ -566,6 +622,11 @@ namespace MEKB_H0_Anlage
         private void LokomotivenNeuLadenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
+        }
+
+        private void Hauptform_SizeChanged(object sender, EventArgs e)
+        {
+            GleisplanAnzeige.Size = new Size(GleisplanAnzeige.Size.Width, this.Size.Height - 300);
         }
     }
 }

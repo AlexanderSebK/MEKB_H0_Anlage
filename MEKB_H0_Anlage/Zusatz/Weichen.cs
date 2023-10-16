@@ -12,6 +12,8 @@ namespace MEKB_H0_Anlage
         private Dictionary<string, int> Verzeichnis;
         public List<Weiche> Liste;
 
+        private Z21 Z21 { get; set; }
+
         public WeichenListe()
         {
             Verzeichnis = new Dictionary<string, int>();
@@ -25,6 +27,7 @@ namespace MEKB_H0_Anlage
 
         public void DigitalzentraleZugriff(Z21 zentrale)
         {
+            Z21 = zentrale;
             foreach(Weiche weiche in Liste)
             {
                 weiche.DigitalzentraleZugriff(zentrale);
@@ -82,6 +85,15 @@ namespace MEKB_H0_Anlage
                 return Liste[ListID];
             }
             return null;
+        }
+        public void WeichenStatusAlle()
+        {
+            List<int> WeichenAdressen = new List<int>();
+            foreach (Weiche weiche in Liste)
+            {
+                WeichenAdressen.Add(weiche.Adresse);
+            }
+            Z21.LAN_X_GET_TURNOUT_INFO(WeichenAdressen);
         }
 
 

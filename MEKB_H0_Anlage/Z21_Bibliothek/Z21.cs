@@ -231,7 +231,7 @@ namespace MEKB_H0_Anlage
         /// Interrupt-Funktion
         /// Wird aufgerufen sobald eine Nachricht über UDP empfangen wurde
         /// </summary>
-        /// <param name="ar"></param>
+        /// <param name="ar">Asynchron Results</param>
         private void DataReceived(IAsyncResult ar)
         {
             IPEndPoint ip = new IPEndPoint(IPAddress.Parse(Z21_IP), Z21_Port);
@@ -743,6 +743,31 @@ namespace MEKB_H0_Anlage
             _log.SendData("GET_TURNOUT_INFO", SendBytes);
             SendCommand(SendBytes, 8);
         }
+
+        public void LAN_X_GET_TURNOUT_INFO(List<int> Adressen)
+        {
+            List<byte> SendBytes = new List<byte>();
+            foreach (int Adresse in Adressen)
+            {
+                if (Adresse < 1) continue;//Nicht anfragen, da Adresse 0
+                List<byte> Packet = new List<byte>
+                {
+                    0x08,
+                    0x00,
+                    0x40,
+                    0x00,
+                    0x43, //Header
+                    (byte)((Adresse - 1) >> 8),
+                    (byte)((Adresse - 1) & 0xFF)
+                };
+                Packet.Add((byte)(Packet[4] ^ Packet[5] ^ Packet[6])); // XOR Checksumme
+                _log.SendData("GET_TURNOUT_INFO", Packet.ToArray());
+
+                SendBytes.AddRange(Packet);
+            }
+            SendCommand(SendBytes.ToArray(), SendBytes.Count);
+        }
+
         public void LAN_RMBUS_GETDATA(byte GroupIndex)
         {
             byte[] SendBytes = { 0x05, 0x00, 0x81, 0x00, GroupIndex };

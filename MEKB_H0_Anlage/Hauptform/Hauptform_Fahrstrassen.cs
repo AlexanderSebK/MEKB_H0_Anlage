@@ -29,8 +29,7 @@ namespace MEKB_H0_Anlage
             if (fahrstrasse.GetGesetztStatus())
             {
                 //Fahrstraße deaktivieren
-                fahrstrasse.DeleteFahrstrasse(WeichenListe.Liste);
-                if (Config.ReadConfig("AutoSignalFahrstrasse").Equals("true")) AutoSignalUpdate(fahrstrasse.EinfahrtsSignal.Name);
+                fahrstrasse.DeleteFahrstrasse(WeichenListe.Liste);             
             }
             else
             {
@@ -45,12 +44,11 @@ namespace MEKB_H0_Anlage
                 Weiche weiche = WeichenListe.GetWeiche(Fahrstrassenweiche.Name);
                 if (weiche != null)
                 {
-                    UpdateWeicheImGleisplan(weiche); //Weiche im Gleisplan aktualisieren
+                    GleisplanUpdateWeiche(weiche); //Weiche im Gleisplan aktualisieren
                 }
             }
             //Alle Fahrstraßen/Buttons aktualisieren
-            FahrstrasseBildUpdate();
-            UpdateSchalter();
+            UpdateFahrstrassenSchalter();
         }
 
         /// <summary>
@@ -156,7 +154,7 @@ namespace MEKB_H0_Anlage
             X += 20;
 
             //Wenn Buttons schon existieren -> löschen
-            Control Modul = this.Controls[Fahrstrassen[0] + "_Auswahl"];
+            Control Modul = this.GleisplanAnzeige.Controls[Fahrstrassen[0] + "_Auswahl"];
             if (Modul is Button button)
             {
                 LoescheButtons(Fahrstrassen);
@@ -193,7 +191,7 @@ namespace MEKB_H0_Anlage
                     newButton.Text = Fahrstrassenname;
                 }
                 //Button hinzufügen
-                this.Controls.Add(newButton);
+                this.GleisplanAnzeige.Controls.Add(newButton);
                 newButton.BringToFront();
             }
         }
@@ -207,10 +205,10 @@ namespace MEKB_H0_Anlage
             foreach (string Fahrstrassenname in Fahrstrassen)
             {
                 //Name mit Auswahl erweitern
-                Control Modul = this.Controls[Fahrstrassenname + "_Auswahl"];
+                Control Modul = this.GleisplanAnzeige.Controls[Fahrstrassenname + "_Auswahl"];
                 if (Modul is Button)
                 {
-                    this.Controls.Remove(Modul);
+                    this.GleisplanAnzeige.Controls.Remove(Modul);
                 }
             }
 
