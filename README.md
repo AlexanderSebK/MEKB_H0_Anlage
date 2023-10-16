@@ -53,7 +53,7 @@ Verfolgung der Lok über die Belegtmelder der Anlage
 - [ ] Bremsweg / Zwangsbremsung
 Zwangsbremsung manuellgesteuerter Loks vor rotem Signal
 
-- [ ] Signal / Blockbelegterkennung
+- [x] Signal / Blockbelegterkennung
 Signal Schaltung nach Fahrstrassen und Belegtmeldung. 
 
 MEKB Anlage 
@@ -63,7 +63,7 @@ Aktuellen Gleisplan der MEKB H0-Anlage importieren
 - [x] Alle Weichen zuordnen
 Alle Weichen mit Adressen und Schaltzeiten zuordnen
 
-- [ ] Alle Signal zuordnen
+- [x] Alle Signal zuordnen
 Alle Signale mit Adressen zuordnen 
 
 - [x] Alle Fahrstrassen zuordnen
@@ -72,6 +72,8 @@ Alle Fahrstrassen für die Anlage generieren
 - [x] Alle Blöcke zuordnen
 Alle Belegtblöcke nach Port und Pin zuorndne
 
+- [x] Portieren des Gleisplans auf externe Datei. 
+Gleisplan ist in eine XML-Datei gespeichert
 
 Automatisierung
 - [ ] Automatische Zugsteuerung
@@ -82,8 +84,6 @@ Fahrstrassen werden automatisch gesetzt, entweder nach Fahrplan oder Gattung der
 
 # Features für die Zukunft
 Weitere Ideen für das Programm nach erster Fertigstellung
-- Portieren des Gleisplans auf externe Datei. 
-Dadurch soll es möglich sein, das Program für anderen Anlagen einsetzen zu können
 - Rangier-Fahrstrassen
 Es soll möglich sein spezielle Abschnitte für Rangierfahrten zu reservieren 
 - Bahnhofsansagen
