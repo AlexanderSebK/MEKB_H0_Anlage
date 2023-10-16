@@ -171,6 +171,9 @@ namespace MEKB_H0_Anlage
 
             GleisplanZeichnenInitial();
 
+            
+
+
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -268,6 +271,7 @@ namespace MEKB_H0_Anlage
                 if (z21Start.Verbunden())
                 {
                     timer.Stop();
+                    
                     WeichenListe.WeichenStatus(WeichenListe.Liste[Pointer_Weichenliste].Name);
                     if (Pointer_Weichenliste <= 0)
                     {
@@ -593,8 +597,10 @@ namespace MEKB_H0_Anlage
 
         private void BelegtmeldungToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
+            if(belegtmelder_Ueberwachung == null) belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
+            if(belegtmelder_Ueberwachung.IsDisposed) belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
             belegtmelder_Ueberwachung.Show();
+            belegtmelder_Ueberwachung.BringToFront();
         }
 
        

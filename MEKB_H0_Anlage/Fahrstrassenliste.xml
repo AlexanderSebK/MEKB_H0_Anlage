@@ -44,6 +44,13 @@
     <Name>Gleis2_nach_Block1</Name>
     <Einfahrtssignal>Signal_Ausfahrt_L2</Einfahrtssignal>
 	<Endsignal>Signal_Block5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W6</Belegtmelder>
+		<Belegtmelder>W1_W4</Belegtmelder>
+		<Belegtmelder>Block1_a</Belegtmelder>
+		<Belegtmelder>Block1_b</Belegtmelder>
+		<Belegtmelder>Block1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -77,6 +84,14 @@
     <Name>Gleis3_nach_Block1</Name>
     <Einfahrtssignal>Signal_Ausfahrt_L3</Einfahrtssignal>
 	<Endsignal>Signal_Block5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W5</Belegtmelder>
+		<Belegtmelder>W1_W4</Belegtmelder>
+		<Belegtmelder>W2_W3</Belegtmelder>
+		<Belegtmelder>Block1_a</Belegtmelder>
+		<Belegtmelder>Block1_b</Belegtmelder>
+		<Belegtmelder>Block1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -119,6 +134,15 @@
     <Name>Gleis4_nach_Block1</Name>
     <Einfahrtssignal>Signal_Ausfahrt_L4</Einfahrtssignal>
 	<Endsignal>Signal_Block5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>DKW7_W8</Belegtmelder>
+		<Belegtmelder>W5</Belegtmelder>
+		<Belegtmelder>W1_W4</Belegtmelder>
+		<Belegtmelder>W2_W3</Belegtmelder>
+		<Belegtmelder>Block1_a</Belegtmelder>
+		<Belegtmelder>Block1_b</Belegtmelder>
+		<Belegtmelder>Block1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -171,6 +195,16 @@
     <Name>Gleis5_nach_Block1</Name>
     <Einfahrtssignal>Signal_Ausfahrt_L5</Einfahrtssignal>
 	<Endsignal>Signal_Block5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>DKW9</Belegtmelder>
+		<Belegtmelder>DKW7_W8</Belegtmelder>
+		<Belegtmelder>W5</Belegtmelder>
+		<Belegtmelder>W1_W4</Belegtmelder>
+		<Belegtmelder>W2_W3</Belegtmelder>
+		<Belegtmelder>Block1_a</Belegtmelder>
+		<Belegtmelder>Block1_b</Belegtmelder>
+		<Belegtmelder>Block1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -238,6 +272,16 @@
     <Name>Gleis6_nach_Block1</Name>
     <Einfahrtssignal>Signal_Ausfahrt_L6</Einfahrtssignal>
 	<Endsignal>Signal_Block5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>DKW9</Belegtmelder>
+		<Belegtmelder>DKW7_W8</Belegtmelder>
+		<Belegtmelder>W5</Belegtmelder>
+		<Belegtmelder>W1_W4</Belegtmelder>
+		<Belegtmelder>W2_W3</Belegtmelder>
+		<Belegtmelder>Block1_a</Belegtmelder>
+		<Belegtmelder>Block1_b</Belegtmelder>
+		<Belegtmelder>Block1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche1</Name>
@@ -305,6 +349,14 @@
     <Name>Block2_nach_Gleis1</Name>
     <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_R1</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W6</Belegtmelder>
+		<Belegtmelder>W1_W4</Belegtmelder>
+		<Belegtmelder>W2_W3</Belegtmelder>
+		<Belegtmelder>HBf1</Belegtmelder>
+		<Belegtmelder>HBf1_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf1_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -348,6 +400,14 @@
     <Name>Block2_nach_Gleis2</Name>
     <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_R2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W6</Belegtmelder>
+		<Belegtmelder>W1_W4</Belegtmelder>
+		<Belegtmelder>W2_W3</Belegtmelder>
+		<Belegtmelder>HBf2</Belegtmelder>
+		<Belegtmelder>HBf2_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf2_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -391,6 +451,13 @@
     <Name>Block2_nach_Gleis3</Name>
     <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_R3</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W5</Belegtmelder>
+		<Belegtmelder>W2_W3</Belegtmelder>
+		<Belegtmelder>HBf3</Belegtmelder>
+		<Belegtmelder>HBf3_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf3_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -427,6 +494,14 @@
     <Name>Block2_nach_Gleis4</Name>
     <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_R4</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>DKW7_W8</Belegtmelder>
+		<Belegtmelder>W5</Belegtmelder>
+		<Belegtmelder>W2_W3</Belegtmelder>
+		<Belegtmelder>HBf4</Belegtmelder>
+		<Belegtmelder>HBf4_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf4_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -473,6 +548,15 @@
     <Name>Block2_nach_Gleis5</Name>
     <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_R5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>DKW9</Belegtmelder>
+		<Belegtmelder>DKW7_W8</Belegtmelder>
+		<Belegtmelder>W5</Belegtmelder>
+		<Belegtmelder>W2_W3</Belegtmelder>
+		<Belegtmelder>HBf5</Belegtmelder>
+		<Belegtmelder>HBf5_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf5_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -534,6 +618,15 @@
     <Name>Block2_nach_Gleis6</Name>
     <Einfahrtssignal>Signal_Einfahrt_L</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_R6</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>DKW9</Belegtmelder>
+		<Belegtmelder>DKW7_W8</Belegtmelder>
+		<Belegtmelder>W5</Belegtmelder>
+		<Belegtmelder>W2_W3</Belegtmelder>
+		<Belegtmelder>HBf6</Belegtmelder>
+		<Belegtmelder>HBf6_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf6_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche2</Name>
@@ -596,6 +689,15 @@
     <Name>Gleis1_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R1</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W26</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel1_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel1</Belegtmelder>
+		<Belegtmelder>Tunnel1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -656,6 +758,15 @@
     <Name>Gleis2_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R2</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W26</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel1_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel1</Belegtmelder>
+		<Belegtmelder>Tunnel1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -716,6 +827,14 @@
     <Name>Gleis3_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R3</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel1_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel1</Belegtmelder>
+		<Belegtmelder>Tunnel1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche25</Name>
@@ -767,6 +886,15 @@
     <Name>Gleis4_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R4</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel1_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel1</Belegtmelder>
+		<Belegtmelder>Tunnel1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>DKW24_1</Name>
@@ -828,6 +956,16 @@
     <Name>Gleis5_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R5</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>KW22</Belegtmelder>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel1_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel1</Belegtmelder>
+		<Belegtmelder>Tunnel1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>KW22_1</Name>
@@ -904,6 +1042,16 @@
     <Name>Gleis6_nach_TunnelAussen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R6</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Aussen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>KW22</Belegtmelder>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel1_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel1</Belegtmelder>
+		<Belegtmelder>Tunnel1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche21</Name>
@@ -985,6 +1133,15 @@
     <Name>Gleis1_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R1</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Innen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W26</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel2_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel2</Belegtmelder>
+		<Belegtmelder>Tunnel2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -1045,6 +1202,15 @@
     <Name>Gleis2_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R2</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Innen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W26</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel2_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel2</Belegtmelder>
+		<Belegtmelder>Tunnel2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche26</Name>
@@ -1105,6 +1271,14 @@
     <Name>Gleis3_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R3</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Innen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel2_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel2</Belegtmelder>
+		<Belegtmelder>Tunnel2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche25</Name>
@@ -1156,6 +1330,15 @@
     <Name>Gleis4_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R4</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Innen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel2_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel2</Belegtmelder>
+		<Belegtmelder>Tunnel2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>DKW24_1</Name>
@@ -1217,6 +1400,16 @@
     <Name>Gleis5_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R5</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Innen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>KW22</Belegtmelder>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel2_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel2</Belegtmelder>
+		<Belegtmelder>Tunnel2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>KW22_1</Name>
@@ -1293,6 +1486,16 @@
     <Name>Gleis6_nach_TunnelInnen</Name>
     <Einfahrtssignal>Signal_Ausfahrt_R6</Einfahrtssignal>
 	<Endsignal>Signal_RTunnel_Innen</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>KW22</Belegtmelder>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>Block3</Belegtmelder>
+		<Belegtmelder>Tunnel2_Einfahrt</Belegtmelder>
+		<Belegtmelder>Tunnel2</Belegtmelder>
+		<Belegtmelder>Tunnel2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche21</Name>
@@ -1375,6 +1578,14 @@
     <Name>TunnelAussen_nach_Gleis1</Name>
     <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L1</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W26</Belegtmelder>
+		<Belegtmelder>HBf1</Belegtmelder>
+		<Belegtmelder>HBf1_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf1_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1422,6 +1633,14 @@
     <Name>TunnelAussen_nach_Gleis2</Name>
     <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W26</Belegtmelder>
+		<Belegtmelder>HBf2</Belegtmelder>
+		<Belegtmelder>HBf2_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf2_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1469,6 +1688,15 @@
     <Name>TunnelAussen_nach_Gleis3</Name>
     <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L3</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>HBf3</Belegtmelder>
+		<Belegtmelder>HBf3_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf3_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1529,6 +1757,16 @@
     <Name>TunnelAussen_nach_Gleis4</Name>
     <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L4</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>HBf4</Belegtmelder>
+		<Belegtmelder>HBf4_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf4_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1599,6 +1837,17 @@
     <Name>TunnelAussen_nach_Gleis5</Name>
     <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>KW22</Belegtmelder>
+		<Belegtmelder>HBf5</Belegtmelder>
+		<Belegtmelder>HBf5_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf5_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1684,6 +1933,17 @@
     <Name>TunnelAussen_nach_Gleis6</Name>
     <Einfahrtssignal>Signal_RTunnel_Aussen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L6</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>KW22</Belegtmelder>
+		<Belegtmelder>HBf6</Belegtmelder>
+		<Belegtmelder>HBf6_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf6_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1774,6 +2034,14 @@
     <Name>TunnelInnen_nach_Gleis1</Name>
     <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L1</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W26</Belegtmelder>
+		<Belegtmelder>HBf1</Belegtmelder>
+		<Belegtmelder>HBf1_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf1_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1821,6 +2089,14 @@
     <Name>TunnelInnen_nach_Gleis2</Name>
     <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W26</Belegtmelder>
+		<Belegtmelder>HBf2</Belegtmelder>
+		<Belegtmelder>HBf2_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf2_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1868,6 +2144,15 @@
     <Name>TunnelInnen_nach_Gleis3</Name>
     <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L3</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>HBf3</Belegtmelder>
+		<Belegtmelder>HBf3_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf3_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1928,6 +2213,16 @@
     <Name>TunnelInnen_nach_Gleis4</Name>
     <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L4</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>HBf4</Belegtmelder>
+		<Belegtmelder>HBf4_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf4_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -1998,6 +2293,17 @@
     <Name>TunnelInnen_nach_Gleis5</Name>
     <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>KW22</Belegtmelder>
+		<Belegtmelder>HBf5</Belegtmelder>
+		<Belegtmelder>HBf5_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf5_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -2083,6 +2389,17 @@
     <Name>TunnelInnen_nach_Gleis6</Name>
     <Einfahrtssignal>Signal_RTunnel_Innen</Einfahrtssignal>
 	<Endsignal>Signal_Ausfahrt_L6</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block4</Belegtmelder>
+		<Belegtmelder>W28_W29</Belegtmelder>
+		<Belegtmelder>W27_W30</Belegtmelder>
+		<Belegtmelder>W25</Belegtmelder>
+		<Belegtmelder>DKW24_W23</Belegtmelder>
+		<Belegtmelder>KW22</Belegtmelder>
+		<Belegtmelder>HBf6</Belegtmelder>
+		<Belegtmelder>HBf6_Halt_L</Belegtmelder>
+		<Belegtmelder>HBf6_Halt_R</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche51</Name>
@@ -2174,6 +2491,12 @@
     <Name>Block1_nach_Block5</Name>
     <Einfahrtssignal>Signal_Block5</Einfahrtssignal>
 	<Endsignal>Signal_Block6</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W52</Belegtmelder>
+		<Belegtmelder>Block5_a</Belegtmelder>
+		<Belegtmelder>Block5_b</Belegtmelder>
+		<Belegtmelder>Block5_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche52</Name>
@@ -2192,6 +2515,11 @@
     <Name>Block1_nach_Block2</Name>
     <Einfahrtssignal>Signal_Block5</Einfahrtssignal>
 	<Endsignal>Signal_Einfahrt_L</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W52</Belegtmelder>
+		<Belegtmelder>Block2</Belegtmelder>
+		<Belegtmelder>Block2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche52</Name>
@@ -2216,6 +2544,11 @@
     <Name>Block5_nach_Block6</Name>
     <Einfahrtssignal>Signal_Block6</Einfahrtssignal>
 	<Endsignal>Signal_Schatten_Einf</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W60</Belegtmelder>
+		<Belegtmelder>Block6</Belegtmelder>
+		<Belegtmelder>Block6_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche60</Name>
@@ -2233,6 +2566,12 @@
     <Name>Block8_nach_Block6</Name>
     <Einfahrtssignal>Signal_Block8</Einfahrtssignal>
 	<Endsignal>Signal_Schatten_Einf</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block9</Belegtmelder>
+		<Belegtmelder>W60</Belegtmelder>
+		<Belegtmelder>Block6</Belegtmelder>
+		<Belegtmelder>Block6_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche60</Name>
@@ -2257,6 +2596,10 @@
     <Name>Block9_nach_Block2</Name>
     <Einfahrtssignal>Signal_Block2</Einfahrtssignal>
 	<Endsignal>Signal_Einfahrt_L</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>Block2</Belegtmelder>
+		<Belegtmelder>Block2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche53</Name>
@@ -2275,6 +2618,11 @@
     <Name>Block6_nach_Schatten8</Name>
     <Einfahrtssignal>Signal_Schatten_Einf</Einfahrtssignal>
 	<Endsignal>Signal_Schatten8</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+		<Belegtmelder>Schatten_Gl8</Belegtmelder>
+		<Belegtmelder>Schatten_Gl8_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche90</Name>
@@ -2305,6 +2653,11 @@
     <Name>Block6_nach_Schatten9</Name>
     <Einfahrtssignal>Signal_Schatten_Einf</Einfahrtssignal>
 	<Endsignal>Signal_Schatten9</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+		<Belegtmelder>Schatten_Gl9</Belegtmelder>
+		<Belegtmelder>Schatten_Gl9_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche90</Name>
@@ -2335,6 +2688,11 @@
     <Name>Block6_nach_Schatten10</Name>
     <Einfahrtssignal>Signal_Schatten_Einf</Einfahrtssignal>
 	<Endsignal>Signal_Schatten10</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+		<Belegtmelder>Schatten_Gl10</Belegtmelder>
+		<Belegtmelder>Schatten_Gl10_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche90</Name>
@@ -2360,6 +2718,11 @@
     <Name>Block6_nach_Schatten11</Name>
     <Einfahrtssignal>Signal_Schatten_Einf</Einfahrtssignal>
 	<Endsignal>Signal_Schatten11</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenEinfahrt</Belegtmelder>
+		<Belegtmelder>Schatten_Gl11</Belegtmelder>
+		<Belegtmelder>Schatten_Gl11_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche90</Name>
@@ -2381,6 +2744,13 @@
     <Name>Schatten11_nach_Eingleisen</Name>
     <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
 	<Endsignal>Signal_Schatten0</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Eingleisen</Belegtmelder>
+		<Belegtmelder>Eingleisen_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2444,6 +2814,13 @@
     <Name>Schatten11_nach_Schatten1</Name>
     <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
 	<Endsignal>Signal_Schatten1</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl1</Belegtmelder>
+		<Belegtmelder>Schatten_Gl1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2512,6 +2889,13 @@
     <Name>Schatten11_nach_Schatten2</Name>
     <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
 	<Endsignal>Signal_Schatten2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl2</Belegtmelder>
+		<Belegtmelder>Schatten_Gl2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2585,6 +2969,13 @@
     <Name>Schatten11_nach_Schatten3</Name>
     <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
 	<Endsignal>Signal_Schatten3</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl3</Belegtmelder>
+		<Belegtmelder>Schatten_Gl3_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2663,6 +3054,13 @@
     <Name>Schatten11_nach_Schatten4</Name>
     <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
 	<Endsignal>Signal_Schatten4</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl4</Belegtmelder>
+		<Belegtmelder>Schatten_Gl4_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2746,6 +3144,13 @@
     <Name>Schatten11_nach_Schatten5</Name>
     <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
 	<Endsignal>Signal_Schatten5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl5</Belegtmelder>
+		<Belegtmelder>Schatten_Gl5_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2834,6 +3239,13 @@
     <Name>Schatten11_nach_Schatten6</Name>
     <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
 	<Endsignal>Signal_Schatten6</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl6</Belegtmelder>
+		<Belegtmelder>Schatten_Gl6_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -2927,6 +3339,13 @@
     <Name>Schatten11_nach_Schatten7</Name>
     <Einfahrtssignal>Signal_Schatten11</Einfahrtssignal>
 	<Endsignal>Signal_Schatten7</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl7_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3021,6 +3440,13 @@
     <Name>Schatten10_nach_Eingleisen</Name>
     <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
 	<Endsignal>Signal_Schatten0</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Eingleisen</Belegtmelder>
+		<Belegtmelder>Eingleisen_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3084,6 +3510,13 @@
     <Name>Schatten10_nach_Schatten1</Name>
     <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
 	<Endsignal>Signal_Schatten1</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl1</Belegtmelder>
+		<Belegtmelder>Schatten_Gl1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3152,6 +3585,13 @@
     <Name>Schatten10_nach_Schatten2</Name>
     <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
 	<Endsignal>Signal_Schatten2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl2</Belegtmelder>
+		<Belegtmelder>Schatten_Gl2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3225,6 +3665,13 @@
     <Name>Schatten10_nach_Schatten3</Name>
     <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
 	<Endsignal>Signal_Schatten3</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl3</Belegtmelder>
+		<Belegtmelder>Schatten_Gl3_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3303,6 +3750,13 @@
     <Name>Schatten10_nach_Schatten4</Name>
     <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
 	<Endsignal>Signal_Schatten4</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl4</Belegtmelder>
+		<Belegtmelder>Schatten_Gl4_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3386,6 +3840,13 @@
     <Name>Schatten10_nach_Schatten5</Name>
     <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
 	<Endsignal>Signal_Schatten5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl5</Belegtmelder>
+		<Belegtmelder>Schatten_Gl5_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3474,6 +3935,13 @@
     <Name>Schatten10_nach_Schatten6</Name>
     <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
 	<Endsignal>Signal_Schatten6</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl6</Belegtmelder>
+		<Belegtmelder>Schatten_Gl6_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3567,6 +4035,13 @@
     <Name>Schatten10_nach_Schatten7</Name>
     <Einfahrtssignal>Signal_Schatten10</Einfahrtssignal>
 	<Endsignal>Signal_Schatten7</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl7_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3661,6 +4136,13 @@
     <Name>Schatten9_nach_Eingleisen</Name>
     <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
 	<Endsignal>Signal_Schatten0</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Eingleisen</Belegtmelder>
+		<Belegtmelder>Eingleisen_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3719,6 +4201,13 @@
     <Name>Schatten9_nach_Schatten1</Name>
     <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
 	<Endsignal>Signal_Schatten1</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl1</Belegtmelder>
+		<Belegtmelder>Schatten_Gl1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3782,6 +4271,13 @@
     <Name>Schatten9_nach_Schatten2</Name>
     <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
 	<Endsignal>Signal_Schatten2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl2</Belegtmelder>
+		<Belegtmelder>Schatten_Gl2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3850,6 +4346,13 @@
     <Name>Schatten9_nach_Schatten3</Name>
     <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
 	<Endsignal>Signal_Schatten3</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl3</Belegtmelder>
+		<Belegtmelder>Schatten_Gl3_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -3923,6 +4426,13 @@
     <Name>Schatten9_nach_Schatten4</Name>
     <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
 	<Endsignal>Signal_Schatten4</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl4</Belegtmelder>
+		<Belegtmelder>Schatten_Gl4_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4001,6 +4511,13 @@
     <Name>Schatten9_nach_Schatten5</Name>
     <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
 	<Endsignal>Signal_Schatten5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl5</Belegtmelder>
+		<Belegtmelder>Schatten_Gl5_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4084,6 +4601,13 @@
     <Name>Schatten9_nach_Schatten6</Name>
     <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
 	<Endsignal>Signal_Schatten6</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl6</Belegtmelder>
+		<Belegtmelder>Schatten_Gl6_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4172,6 +4696,13 @@
     <Name>Schatten9_nach_Schatten7</Name>
     <Einfahrtssignal>Signal_Schatten9</Einfahrtssignal>
 	<Endsignal>Signal_Schatten7</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl7_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4261,6 +4792,13 @@
     <Name>Schatten8_nach_Eingleisen</Name>
     <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
 	<Endsignal>Signal_Schatten0</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Eingleisen</Belegtmelder>
+		<Belegtmelder>Eingleisen_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4314,6 +4852,13 @@
     <Name>Schatten8_nach_Schatten1</Name>
     <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
 	<Endsignal>Signal_Schatten1</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl1</Belegtmelder>
+		<Belegtmelder>Schatten_Gl1_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4372,6 +4917,13 @@
     <Name>Schatten8_nach_Schatten2</Name>
     <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
 	<Endsignal>Signal_Schatten2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl2</Belegtmelder>
+		<Belegtmelder>Schatten_Gl2_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4435,6 +4987,13 @@
     <Name>Schatten8_nach_Schatten3</Name>
     <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
 	<Endsignal>Signal_Schatten3</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl3</Belegtmelder>
+		<Belegtmelder>Schatten_Gl3_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4503,6 +5062,13 @@
     <Name>Schatten8_nach_Schatten4</Name>
     <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
 	<Endsignal>Signal_Schatten4</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl4</Belegtmelder>
+		<Belegtmelder>Schatten_Gl4_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4576,6 +5142,13 @@
     <Name>Schatten8_nach_Schatten5</Name>
     <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
 	<Endsignal>Signal_Schatten5</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl5</Belegtmelder>
+		<Belegtmelder>Schatten_Gl5_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4654,6 +5227,13 @@
     <Name>Schatten8_nach_Schatten6</Name>
     <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
 	<Endsignal>Signal_Schatten6</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl6</Belegtmelder>
+		<Belegtmelder>Schatten_Gl6_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4737,6 +5317,13 @@
     <Name>Schatten8_nach_Schatten7</Name>
     <Einfahrtssignal>Signal_Schatten8</Einfahrtssignal>
 	<Endsignal>Signal_Schatten7</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenMitte1</Belegtmelder>
+		<Belegtmelder>SchattenMitte2</Belegtmelder>
+		<Belegtmelder>Block7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl7</Belegtmelder>
+		<Belegtmelder>Schatten_Gl7_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche80</Name>
@@ -4821,6 +5408,11 @@
     <Name>Eingleisen_nach_Block8</Name>
     <Einfahrtssignal>Signal_Schatten0</Einfahrtssignal>
 	<Endsignal>Signal_Block8</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W67_W68</Belegtmelder>
+		<Belegtmelder>Block8</Belegtmelder>
+		<Belegtmelder>Block8_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche68</Name>
@@ -4838,6 +5430,11 @@
     <Name>Schatten1_nach_Block8</Name>
     <Einfahrtssignal>Signal_Schatten1</Einfahrtssignal>
 	<Endsignal>Signal_Block8</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W67_W68</Belegtmelder>
+		<Belegtmelder>Block8</Belegtmelder>
+		<Belegtmelder>Block8_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche68</Name>
@@ -4862,6 +5459,12 @@
     <Name>Schatten1_nach_Block9</Name>
     <Einfahrtssignal>Signal_Schatten1</Einfahrtssignal>
 	<Endsignal>Signal_Block2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>W67_W68</Belegtmelder>
+		<Belegtmelder>SchattenAusfahrt</Belegtmelder>
+		<Belegtmelder>Block9</Belegtmelder>
+		<Belegtmelder>Block9_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche67</Name>
@@ -4917,6 +5520,11 @@
     <Name>Schatten2_nach_Block9</Name>
     <Einfahrtssignal>Signal_Schatten2</Einfahrtssignal>
 	<Endsignal>Signal_Block2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenAusfahrt</Belegtmelder>
+		<Belegtmelder>Block9</Belegtmelder>
+		<Belegtmelder>Block9_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche66</Name>
@@ -4965,6 +5573,11 @@
     <Name>Schatten3_nach_Block9</Name>
     <Einfahrtssignal>Signal_Schatten3</Einfahrtssignal>
 	<Endsignal>Signal_Block2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenAusfahrt</Belegtmelder>
+		<Belegtmelder>Block9</Belegtmelder>
+		<Belegtmelder>Block9_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche65</Name>
@@ -5008,6 +5621,11 @@
     <Name>Schatten4_nach_Block9</Name>
     <Einfahrtssignal>Signal_Schatten4</Einfahrtssignal>
 	<Endsignal>Signal_Block2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenAusfahrt</Belegtmelder>
+		<Belegtmelder>Block9</Belegtmelder>
+		<Belegtmelder>Block9_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche64</Name>
@@ -5046,6 +5664,11 @@
     <Name>Schatten5_nach_Block9</Name>
     <Einfahrtssignal>Signal_Schatten5</Einfahrtssignal>
 	<Endsignal>Signal_Block2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenAusfahrt</Belegtmelder>
+		<Belegtmelder>Block9</Belegtmelder>
+		<Belegtmelder>Block9_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche63</Name>
@@ -5079,6 +5702,11 @@
     <Name>Schatten6_nach_Block9</Name>
     <Einfahrtssignal>Signal_Schatten6</Einfahrtssignal>
 	<Endsignal>Signal_Block2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenAusfahrt</Belegtmelder>
+		<Belegtmelder>Block9</Belegtmelder>
+		<Belegtmelder>Block9_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche62</Name>
@@ -5107,6 +5735,11 @@
     <Name>Schatten7_nach_Block9</Name>
     <Einfahrtssignal>Signal_Schatten7</Einfahrtssignal>
 	<Endsignal>Signal_Block2</Endsignal>
+	<BelegtmelderBlock>
+		<Belegtmelder>SchattenAusfahrt</Belegtmelder>
+		<Belegtmelder>Block9</Belegtmelder>
+		<Belegtmelder>Block9_Halt</Belegtmelder>
+	</BelegtmelderBlock>
     <Weichen>
       <WeichenConfig>
         <Name>Weiche61</Name>
