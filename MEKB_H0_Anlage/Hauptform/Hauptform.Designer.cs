@@ -200,6 +200,8 @@
             this.label128 = new System.Windows.Forms.Label();
             this.GleisplanAnzeige = new System.Windows.Forms.Panel();
             this.KontrollPanel = new System.Windows.Forms.Panel();
+            this.gleisplanLadenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -238,6 +240,8 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gleisplanLadenToolStripMenuItem,
+            this.toolStripSeparator4,
             this.LokEditorOpen,
             this.lokomotivenNeuLadenToolStripMenuItem,
             this.toolStripSeparator1,
@@ -357,7 +361,7 @@
             // signalsteuergungToolStripMenuItem
             // 
             this.signalsteuergungToolStripMenuItem.Name = "signalsteuergungToolStripMenuItem";
-            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.signalsteuergungToolStripMenuItem.Text = "Signalsteuergung";
             this.signalsteuergungToolStripMenuItem.Click += new System.EventHandler(this.SignalsteuergungToolStripMenuItem_Click);
             // 
@@ -374,13 +378,13 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.signaleEditierenToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // signaleEditierenToolStripMenuItem
             // 
             this.signaleEditierenToolStripMenuItem.Name = "signaleEditierenToolStripMenuItem";
-            this.signaleEditierenToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.signaleEditierenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.signaleEditierenToolStripMenuItem.Text = "Signale Editieren";
             this.signaleEditierenToolStripMenuItem.Click += new System.EventHandler(this.SignaleEditierenToolStripMenuItem_Click);
             // 
@@ -2216,6 +2220,17 @@
             this.KontrollPanel.Size = new System.Drawing.Size(1904, 192);
             this.KontrollPanel.TabIndex = 996;
             // 
+            // gleisplanLadenToolStripMenuItem
+            // 
+            this.gleisplanLadenToolStripMenuItem.Name = "gleisplanLadenToolStripMenuItem";
+            this.gleisplanLadenToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.gleisplanLadenToolStripMenuItem.Text = "Gleisplan laden";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(196, 6);
+            // 
             // Hauptform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2433,6 +2448,8 @@
         private System.Windows.Forms.ToolStripMenuItem lokomotivenNeuLadenToolStripMenuItem;
         private System.Windows.Forms.Panel GleisplanAnzeige;
         private System.Windows.Forms.Panel KontrollPanel;
+        private System.Windows.Forms.ToolStripMenuItem gleisplanLadenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }
 

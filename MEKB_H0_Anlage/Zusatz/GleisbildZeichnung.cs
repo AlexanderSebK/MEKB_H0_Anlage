@@ -197,7 +197,7 @@ namespace MEKB_H0_Anlage
                 BildHinzufuegen(ref gleis, Katalog[Sonder][Unbekannt]);
                 return true; 
             }
-            BildHinzufuegen(ref gleis, WeichenZunge(Typ, weiche.Abzweig, weiche.ZeitAktiv > 0));
+            BildHinzufuegen(ref gleis, WeichenZunge(Typ, weiche.Abzweig, weiche.AmBewegen));
 
             MeldeZustand Zustand = new MeldeZustand(weiche);
             if (Zustand.IstFrei())
@@ -315,19 +315,19 @@ namespace MEKB_H0_Anlage
                 {
                     Typ = Regex.Replace(Typ, "DreiwegWeiche", "WeicheR");
                     Stellung = true;
-                    BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, weiche.ZeitAktiv > 0));
+                    BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, weiche.AmBewegen));
                 }
                 else if (weiche.Abzweig)
                 {
                     Typ = Regex.Replace(Typ, "DreiwegWeiche", "WeicheL");
                     Stellung = true;
-                    BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, weiche2.ZeitAktiv > 0));
+                    BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, weiche2.AmBewegen));
                 }
                 else
                 {
                     Typ = Regex.Replace(Typ, "DreiwegWeiche", "WeicheR");
                     Stellung = false;
-                    BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, weiche.ZeitAktiv > 0));
+                    BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, weiche.AmBewegen));
                 }
             }
 
@@ -358,7 +358,7 @@ namespace MEKB_H0_Anlage
                 else Typ = Regex.Replace(Typ, "KW", "WeicheL");
                 Stellung = false;
             }
-            BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, (weiche.ZeitAktiv > 0)|| (weiche2.ZeitAktiv > 0)));
+            BildHinzufuegen(ref gleis, WeichenZunge(Typ, Stellung, weiche.AmBewegen|| weiche2.AmBewegen));
 
             MeldeZustand Zustand = new MeldeZustand(weiche);
             if (Zustand.IstFrei())

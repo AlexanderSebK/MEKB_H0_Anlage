@@ -82,6 +82,11 @@ namespace MEKB_H0_Anlage
         {
             StatusBarStrom.Text = String.Format("Stromverbauch: {0} mA", MainFilter);
         }
+        /// <summary>
+        /// Spannungsversorgung Z21 
+        /// </summary>
+        /// <param name="Versorgung">Versorgungsspannung Z21</param>
+        /// <param name="Gleis">Versgungspannung Gleisspannung (Ausgang Z21)</param>
         private void Set_Z21_Spannung(int Versorgung, int Gleis)
         {
             StatusBarSpg.Text = String.Format("Gleisspannung: {0} mV", Gleis);
@@ -142,8 +147,7 @@ namespace MEKB_H0_Anlage
                 if(SignalListe.UpdateSignalZustand(Adresse, Status))
                 {
                     // Update erfolgreich (inkl. Signal gefunden)
-                    GleisplanUpdateSignal(SignalListe.GetSignal(Adresse));
-                    
+                    GleisplanUpdateSignal(SignalListe.GetSignal(Adresse));               
                 }
             }
         }

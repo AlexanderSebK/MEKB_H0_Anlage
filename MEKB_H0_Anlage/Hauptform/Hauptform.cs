@@ -63,7 +63,6 @@ namespace MEKB_H0_Anlage
         #region Timer
         private static System.Timers.Timer FlagTimer;
         private static System.Timers.Timer WeichenTimer;
-        private static System.Timers.Timer CooldownTimer;
         private static System.Timers.Timer BelegtmelderCoolDown;
         #endregion
 
@@ -89,33 +88,12 @@ namespace MEKB_H0_Anlage
             Log = new Logger(String.Format("log/log{0}.txt", DateTime.Now.ToString("yyyyMMdd")));
 
             InitializeComponent();                      //Programminitialisieren
+            Z21_Initialisieren();
             
-            z21Start = new Z21();                   //Neue Z21-Verbindung anlegen
-            z21Start.SetLog(Log);
-            //Callback Funktionen registrieren
-            z21Start.Register_LAN_CONNECT_STATUS(SetConnect);
-            z21Start.Register_LAN_GET_SERIAL_NUMBER(CallBack_GET_SERIAL_NUMBER);
-            z21Start.Register_LAN_X_TURNOUT_INFO(CallBack_LAN_X_TURNOUT_INFO);
-            z21Start.Register_LAN_X_GET_FIRMWARE_VERSION(CallBack_LAN_X_GET_FIRMWARE_VERSION);
-            z21Start.Register_LAN_SYSTEMSTATE_DATACHANGED(CallBack_Z21_System_Status);
-            z21Start.Register_LAN_GET_BROADCASTFLAGS(CallBack_Z21_Broadcast_Flags);
-            z21Start.Register_LAN_X_LOCO_INFO(CallBack_Z21_LokUpdate);
-            z21Start.Register_LAN_RMBUS_DATACHANGED(CallBack_LAN_RMBUS_DATACHANGED);
-
-            z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
-            z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
-
             // Instanzen Zugriffe festlegen
-            SetupFahrstrassen();                        //Fahstrassen festlegen    
-            WeichenListe.DigitalzentraleZugriff(z21Start);
-            SignalListe.DigitalzentraleZugriff(z21Start);
+            SetupFahrstrassen();                        //Fahstrassen festlegen              
             SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe);
-
-            ConnectStatus(false, false);                 //Verbindungsstatus auf getrennt setzen
-      
-
-            Betriebsbereit = false;
-
+            
             ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
 
             for (int i = 0; i < AktiveLoks.Length; i++)
@@ -148,13 +126,6 @@ namespace MEKB_H0_Anlage
             WeichenTimer.AutoReset = true;
             
 
-            // 100 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
-            CooldownTimer = new System.Timers.Timer(100);
-            // Timer mit Funktion "WeichenCooldown" Verbinden
-            CooldownTimer.Elapsed += WeichenCooldown;
-            CooldownTimer.AutoReset = true;
-            
-
             // 250 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
             BelegtmelderCoolDown = new System.Timers.Timer(250);
             // Timer mit Funktion "WeichenCooldown" Verbinden
@@ -164,22 +135,20 @@ namespace MEKB_H0_Anlage
 
             if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
 
-            FlagTimer.Enabled = true;
-            WeichenTimer.Enabled = true;
-            CooldownTimer.Enabled = true;
-            BelegtmelderCoolDown.Enabled = true;
+            
 
             GleisplanZeichnenInitial();
 
-            
 
+            FlagTimer.Enabled = true;
+            WeichenTimer.Enabled = true;
+            BelegtmelderCoolDown.Enabled = true;
 
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             FlagTimer.Stop();
             WeichenTimer.Stop();
-            CooldownTimer.Stop();
             BelegtmelderCoolDown.Stop();
 
             StopAlle_Click(sender, e);
@@ -308,12 +277,12 @@ namespace MEKB_H0_Anlage
                     
                     if (GroupIndex == 0)
                     {
-                        //BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
+                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
                         GroupIndex = 1;
                     }
                     else
                     {
-                        //BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
+                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
                         GroupIndex = 0;
                     }
 
@@ -326,16 +295,7 @@ namespace MEKB_H0_Anlage
             }
 
         }
-        private void WeichenCooldown(Object source, ElapsedEventArgs e)
-        {
-            if (z21Start.Verbunden())
-            {
-                if (Betriebsbereit)
-                {
-                    WeichenListe.WeichenschaltungsUeberwachung(100);
-                }
-            }
-        }
+
 
         private void BelegtmelderCooldown(Object source, ElapsedEventArgs e)
         {
@@ -555,7 +515,37 @@ namespace MEKB_H0_Anlage
         #endregion
 
 
-          
+        #region Unterfunktionen
+        private void Z21_Initialisieren()
+        {
+            z21Start = new Z21();                   //Neue Z21-Verbindung anlegen
+            z21Start.SetLog(Log);
+            //Callback Funktionen registrieren
+            z21Start.Register_LAN_CONNECT_STATUS(SetConnect);
+            z21Start.Register_LAN_GET_SERIAL_NUMBER(CallBack_GET_SERIAL_NUMBER);
+            z21Start.Register_LAN_X_TURNOUT_INFO(CallBack_LAN_X_TURNOUT_INFO);
+            z21Start.Register_LAN_X_GET_FIRMWARE_VERSION(CallBack_LAN_X_GET_FIRMWARE_VERSION);
+            z21Start.Register_LAN_SYSTEMSTATE_DATACHANGED(CallBack_Z21_System_Status);
+            z21Start.Register_LAN_GET_BROADCASTFLAGS(CallBack_Z21_Broadcast_Flags);
+            z21Start.Register_LAN_X_LOCO_INFO(CallBack_Z21_LokUpdate);
+            z21Start.Register_LAN_RMBUS_DATACHANGED(CallBack_LAN_RMBUS_DATACHANGED);
+
+            z21Start.SetQMode(true);
+
+            // Instanzzugriffe auf Zentrale
+            WeichenListe.DigitalzentraleZugriff(z21Start);
+            SignalListe.DigitalzentraleZugriff(z21Start);
+
+            z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
+            z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
+
+            ConnectStatus(false, false);                 //Verbindungsstatus initialisieren
+            Betriebsbereit = false;
+        }
+        #endregion
+
+
+
         private void AutoSignale_CheckedChanged(object sender, EventArgs e)
         {
             if(sender is CheckBox checkBox)
