@@ -86,7 +86,7 @@ namespace MEKB_H0_Anlage
             if (sender is Button button)
             {
                 // Prüfen ob Initialisierung der Z21 fertig ist
-                if (!(Weichen_Init & Signal_Init))
+                if (!Z21_Initialisiert)
                 {
                     MessageBox.Show("Initialisierung der Z21 nicht abgeschlossen. Bitte warten und erneut versuchen", "Fenster kann nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;

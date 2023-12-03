@@ -178,6 +178,7 @@ namespace MEKB_H0_Anlage
             return false;
         }
 
+       
 
         /// <summary>
         /// Verknüpfe Z21 Instanzen
@@ -296,6 +297,7 @@ namespace MEKB_H0_Anlage
             Letzte_Adresswahl = false;
             Z21_zentrale = new Z21();
             AutoSperre = false;
+            Zustand = SignalZustand.Unbestimmt;
         }
 
 
@@ -394,6 +396,7 @@ namespace MEKB_H0_Anlage
             Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, Ausgang);
             CooldownTimer = new Timer(AusgangAuschalten, null, 100, System.Threading.Timeout.Infinite);
         }
+
 
         private void AusgangAuschalten(Object o)
         {

@@ -59,12 +59,14 @@ namespace MEKB_H0_Anlage
             {
                 if (init)
                 {
+                    Z21_Initialisiert = true;
                     HauptStatusbar.Text = "Z21: Verbunden";
                     HauptStatusbar.BackColor = Color.ForestGreen;
                     HauptStatusbar.ForeColor = Color.White;
                 }
                 else
                 {
+                    Z21_Initialisiert = false;
                     HauptStatusbar.Text = "Z21: Initialisieren";
                     HauptStatusbar.BackColor = Color.Gold;
                     HauptStatusbar.ForeColor = Color.Black;

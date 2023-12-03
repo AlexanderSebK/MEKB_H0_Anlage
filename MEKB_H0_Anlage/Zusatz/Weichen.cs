@@ -103,7 +103,7 @@ namespace MEKB_H0_Anlage
                 foreach (Weiche weiche in Liste)
                 {
                     weiche.WeichenStatusAnfragen();                 //Anfrage an Zentrale senden
-                    Task.Delay(50);                                //50ms warten
+                    Thread.Sleep(50);                                //50ms warten
                 }
             }
             else
@@ -216,7 +216,7 @@ namespace MEKB_H0_Anlage
 
         private Z21 Z21 { get; set; }
 
-        private Timer CooldownTimer;
+        private Timer CooldownTimer { get; set; }
         #endregion
         #region Listenfunktionen
         /// <summary>

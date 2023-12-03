@@ -72,13 +72,7 @@ namespace MEKB_H0_Anlage
         
 
         public bool Betriebsbereit;
-
-        
-
-        private int Pointer_Weichenliste = 0;
-        private int Pointer_Signalliste = 0;
-        private bool Signal_Init;
-        private bool Weichen_Init;
+        public bool Z21_Initialisiert;
 
         
 
@@ -105,12 +99,6 @@ namespace MEKB_H0_Anlage
         }
         private void Form1_Shown(object sender, EventArgs e)
         {
-            
-
-            Pointer_Weichenliste = WeichenListe.Liste.Count() - 1;
-            Pointer_Signalliste = SignalListe.Liste.Count() - 1;
-            Signal_Init = false;
-            Weichen_Init = false;
 
             // 5 Sekunden Timer einrichten (Lebenspuls für die Verbindung)
             FlagTimer = new System.Timers.Timer(5000);
@@ -131,20 +119,70 @@ namespace MEKB_H0_Anlage
             // Timer mit Funktion "WeichenCooldown" Verbinden
             BelegtmelderCoolDown.Elapsed += BelegtmelderCooldown;
             BelegtmelderCoolDown.AutoReset = true;
-            
-
-            if (Config.ReadConfig("Auto_Connect").Equals("true")) z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
-
-            
 
             GleisplanZeichnenInitial();
+
+            if (Config.ReadConfig("Auto_Connect").Equals("true"))
+            {
+                z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
+                Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
+                {
+                    IsBackground = true
+                };
+                trd.Start();
+            }
 
 
             FlagTimer.Enabled = true;
             WeichenTimer.Enabled = true;
             BelegtmelderCoolDown.Enabled = true;
-
         }
+
+        private bool InitIsRunning = false;
+
+        private void WeichenSignalInit()
+        {
+            if (InitIsRunning) return; //Läuft bereits, nicht ausführen
+            InitIsRunning = true;
+            int timeoutVerbinden = 1000;
+
+            while(!z21Start.Verbunden())
+            {
+                Thread.Sleep(100);
+                timeoutVerbinden -= 100;
+                if (timeoutVerbinden <= 0)
+                {
+                    InitIsRunning = false;
+                    return; //Hat sich nicht verbunden -> Task beenden
+                }
+            }
+
+            if (z21Start.Verbunden())
+            {
+                if (!z21_Einstellung.IsDisposed) //Fenster Z21-Einstellung nläuft immer noch im Hintergrund
+                {
+                    Flags temp = z21_Einstellung.Get_Flag_Config();
+                    z21Start.Z21_SET_BROADCASTFLAGS(temp); //Flags neu setzen 
+                }
+                Thread.Sleep(100);
+
+                WeichenListe.WeichenStatus("Alle");
+                Thread.Sleep(100);
+                BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
+                Thread.Sleep(100);
+                BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
+
+                foreach(Signal signal in SignalListe.Liste)
+                {
+                    signal.Schalten(SignalZustand.HP0);
+                    Thread.Sleep(100);
+                }
+                SetConnect(true, true); //Initialisierung abgeschlossen
+                Betriebsbereit = true;
+            }
+            InitIsRunning = false;
+        }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             FlagTimer.Stop();
@@ -174,10 +212,11 @@ namespace MEKB_H0_Anlage
         private void Menu_Verbinden_Click(object sender, EventArgs e)
         {
             z21Start.Connect_Z21();
-            Pointer_Weichenliste = WeichenListe.Liste.Count() - 1;
-            Pointer_Signalliste = SignalListe.Liste.Count() - 1;
-            Signal_Init = false;
-            Weichen_Init = false;
+            Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
+            {
+                IsBackground = true
+            };
+            trd.Start();
         }
         private void Menu_Trennen_Click(object sender, EventArgs e)
         {
@@ -210,6 +249,14 @@ namespace MEKB_H0_Anlage
                     Flags temp = z21_Einstellung.Get_Flag_Config();
                     z21Start.Z21_SET_BROADCASTFLAGS(temp); //Flags neu setzen 
                 }
+                if(!Z21_Initialisiert)
+                {
+                    Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
+                    {
+                        IsBackground = true
+                    };
+                    trd.Start();
+                }
             }
 
         }
@@ -224,7 +271,7 @@ namespace MEKB_H0_Anlage
             }));
         }
 
-        private int GroupIndex = 0;
+        //private int GroupIndex = 0;
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
             if (source is System.Timers.Timer timer)
@@ -241,32 +288,7 @@ namespace MEKB_H0_Anlage
                 {
                     timer.Stop();
                     
-                    WeichenListe.WeichenStatus(WeichenListe.Liste[Pointer_Weichenliste].Name);
-                    if (Pointer_Weichenliste <= 0)
-                    {
-                        Pointer_Weichenliste = WeichenListe.Liste.Count() - 1;
-                        Weichen_Init = true;
-                    }
-                    else
-                    {
-                        Pointer_Weichenliste--;
-                    }
 
-                    GetSignalStatus_Z21(SignalListe.Liste[Pointer_Signalliste].Name);
-                    if (Pointer_Signalliste <= 0)
-                    {
-                        Pointer_Signalliste = SignalListe.Liste.Count() - 1;
-                        Signal_Init = true;
-                    }
-                    else
-                    {
-                        Pointer_Signalliste--;
-                    }
-                    if (Weichen_Init && Signal_Init)
-                    {
-                        SetConnect(true, true); //Initialisierung abgeschlossen
-                        Betriebsbereit = true;
-                    }
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
 
@@ -275,6 +297,7 @@ namespace MEKB_H0_Anlage
                         Fahrstrassenupdate(fahrstrasse);
                     }
                     
+                    /*
                     if (GroupIndex == 0)
                     {
                         BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
@@ -285,6 +308,7 @@ namespace MEKB_H0_Anlage
                         BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
                         GroupIndex = 0;
                     }
+                    */
 
                     GleisplanZeichnen();
                     if(Betriebsbereit && AutoSignale.Checked) SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"));
