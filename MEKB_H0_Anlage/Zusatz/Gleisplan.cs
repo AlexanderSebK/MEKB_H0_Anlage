@@ -249,6 +249,7 @@ namespace MEKB_H0_Anlage
                 public List<string> GesperrteFahrstrassen { get; set; }
 
                 public string Signal { get; set; }
+                public SignalZustand SignalZustand { get; set; }
 
                 public int[] Bedingung { get; set; }
 

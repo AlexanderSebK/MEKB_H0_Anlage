@@ -7,20 +7,35 @@ using System.Xml.Linq;
 
 namespace MEKB_H0_Anlage
 {
+    /// <summary>
+    /// Belegtmelderliste
+    /// </summary>
     public class BelegtmelderListe
     {
         private Dictionary<string, int> Verzeichnis;
         public List<Belegtmelder> Liste;
-
+        
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public BelegtmelderListe()
         {
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Belegtmelder>();
         } 
+        /// <summary>
+        /// Constructor mit Importdatei
+        /// </summary>
+        /// <param name="Dateiname">Pfad zur Datei</param>
         public BelegtmelderListe(string Dateiname)
         {
             DateiImportieren(Dateiname);
         }
+
+        /// <summary>
+        /// Datei importieren 
+        /// </summary>
+        /// <param name="Dateiname">Pfad zur Datei</param>
         public void DateiImportieren(string Dateiname)
         {
             Liste = new List<Belegtmelder>();
@@ -92,6 +107,10 @@ namespace MEKB_H0_Anlage
                 Verzeichnis.Add(Liste[i].Name, i);
             }
         }
+        /// <summary>
+        /// Cooldowntimer herunterzählen (alle)
+        /// </summary>
+        /// <param name="time">Zeit in ms zum herunterzählen</param>
         public void CoolDownUpdate(int time)
         {
             foreach (Belegtmelder belegtmelder in Liste)
@@ -99,6 +118,11 @@ namespace MEKB_H0_Anlage
                 belegtmelder.CoolDown(time);
             }
         }
+        /// <summary>
+        /// Aktuellen Zustand des Belegtmelder abfragen
+        /// </summary>
+        /// <param name="Abschnitt">Name des Abschnitts</param>
+        /// <returns>true = Abschnitt ist belegt</returns>
         public bool GetBelegtStatus(string Abschnitt)
         {
             int ListID;
@@ -108,6 +132,11 @@ namespace MEKB_H0_Anlage
             }
             return false;
         }
+        /// <summary>
+        /// Belegtmelder-Element aus der Liste, nach Abschnittsname bekommen
+        /// </summary>
+        /// <param name="Abschnitt">Name des Abschnitts</param>
+        /// <returns>Belegtmelder-Instanz</returns>
         public Belegtmelder GetBelegtmelder(string Abschnitt)
         {
             int ListID;
@@ -117,12 +146,23 @@ namespace MEKB_H0_Anlage
             }
             return null;
         }
+        /// <summary>
+        /// Belegtmelder-Elemente aus der Liste, nach Port und Moduladresse bekommen
+        /// </summary>
+        /// <param name="Modul">Modulnummer</param>
+        /// <param name="Port">Portnummer</param>
+        /// <returns>Liste der Belegtmelder-Instanzen</returns>
         public List<Belegtmelder> GetBelegtmelder(int Modul, int Port)
         {
             List<Belegtmelder> Portliste = Liste.FindAll(x => x.Modulnummer == Modul);
             List<Belegtmelder> belegtmelder = Portliste.FindAll(x => x.Portnummer == Port);
             return belegtmelder;
         }
+        /// <summary>
+        /// Belegtmelderstatus schreibe (Bei empfangenen Z21-Packet)
+        /// </summary>
+        /// <param name="GruppenIndex">Index des Bytearrays (1 oder 2)</param>
+        /// <param name="RMStatus">Belegtmelderstatus als Bytearray</param>
         public void UpdateBelegtmelder(byte GruppenIndex, byte[] RMStatus)
         {
             List<bool> PortListe = new List<bool>();
@@ -133,7 +173,7 @@ namespace MEKB_H0_Anlage
                 for(int a = 0; a < 8;a++)
                 {
                     int ModulNummer = i + 1;
-                    if (GruppenIndex == 1) ModulNummer = ModulNummer + 10;
+                    if (GruppenIndex == 1) ModulNummer += 10;
                     int PortNummer = a + 1;
 
                     List<Belegtmelder> belegtmelder = GetBelegtmelder(ModulNummer, PortNummer);
@@ -146,62 +186,11 @@ namespace MEKB_H0_Anlage
                 PortListe.Clear();
             }
         }
-        public bool BlockFrei(string Blockname)
-        {
-            if (Blockname == null) return false;
-            List<string> Blocklist = new List<string>();
-            switch (Blockname)
-            {
-                case "Block1": Blocklist = new List<string>() { "Block1_a", "Block1_b", "Block1_Halt" }; break;
-                case "Block2": Blocklist = new List<string>() { "Block2", "Block2_Halt" }; break;
-                case "Block3": Blocklist = new List<string>() { "Block3" }; break;
-                case "Block4": Blocklist = new List<string>() { "Block4" }; break;
-                case "Block5": Blocklist = new List<string>() { "Block5", "Block5_Halt" }; break;
-                case "Block6": Blocklist = new List<string>() { "Block6", "Block6_Halt" }; break;
-                case "Block7": Blocklist = new List<string>() { "Block7", "SchattenMitte1", "SchattenMitte2" }; break;
-                case "Block8": Blocklist = new List<string>() { "Block8", "Block8_Halt" }; break;
-                case "Block9": Blocklist = new List<string>() { "Block9", "Block9_Halt" }; break;
-                case "Bahnhof1": Blocklist = new List<string>() { "HBf1", "HBf1_Halt_L", "HBf1_Halt_R" }; break;
-                case "Bahnhof2": Blocklist = new List<string>() { "HBf2", "HBf2_Halt_L", "HBf2_Halt_R" }; break;
-                case "Bahnhof3": Blocklist = new List<string>() { "HBf3", "HBf3_Halt_L", "HBf3_Halt_R" }; break;
-                case "Bahnhof4": Blocklist = new List<string>() { "HBf4", "HBf4_Halt_L", "HBf4_Halt_R" }; break;
-                case "Bahnhof5": Blocklist = new List<string>() { "HBf5", "HBf5_Halt_L", "HBf5_Halt_R" }; break;
-                case "Bahnhof6": Blocklist = new List<string>() { "HBf6", "HBf6_Halt_L", "HBf6_Halt_R" }; break;
-                case "Tunnel1": Blocklist = new List<string>() { "Tunnel1", "Tunnel1_Halt", "Tunnel1_Einfahrt" }; break;
-                case "Tunnel2": Blocklist = new List<string>() { "Tunnel2", "Tunnel2_Halt", "Tunnel2_Einfahrt" }; break;
-                case "Eingleisen": Blocklist = new List<string>() { "Eingleisen", "Eingleisen_Halt" }; break;
-                case "Schatten1": Blocklist = new List<string>() { "Schatten_Gl1", "Schatten_Gl1_Halt" }; break;
-                case "Schatten2": Blocklist = new List<string>() { "Schatten_Gl2", "Schatten_Gl2_Halt" }; break;
-                case "Schatten3": Blocklist = new List<string>() { "Schatten_Gl3", "Schatten_Gl3_Halt" }; break;
-                case "Schatten4": Blocklist = new List<string>() { "Schatten_Gl4", "Schatten_Gl4_Halt" }; break;
-                case "Schatten5": Blocklist = new List<string>() { "Schatten_Gl5", "Schatten_Gl5_Halt" }; break;
-                case "Schatten6": Blocklist = new List<string>() { "Schatten_Gl6", "Schatten_Gl6_Halt" }; break;
-                case "Schatten7": Blocklist = new List<string>() { "Schatten_Gl7", "Schatten_Gl7_Halt" }; break;
-                case "Schatten8": Blocklist = new List<string>() { "Schatten_Gl8", "Schatten_Gl8_Halt" }; break;
-                case "Schatten9": Blocklist = new List<string>() { "Schatten_Gl9", "Schatten_Gl9_Halt" }; break;
-                case "Schatten10": Blocklist = new List<string>() { "Schatten_Gl10", "Schatten_Gl10_Halt" }; break;
-                case "Schatten11": Blocklist = new List<string>() { "Schatten_Gl11", "Schatten_Gl11_Halt" }; break;
-                case "Bhf_Gleis1_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W6" }; break;
-                case "Bhf_Gleis2_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W6" }; break;
-                case "Bhf_Gleis3_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5"}; break;
-                case "Bhf_Gleis4_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5", "DKW7_W8" }; break;
-                case "Bhf_Gleis5_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5", "DKW7_W8", "DKW9" }; break;
-                case "Bhf_Gleis6_AusfahrtL": Blocklist = new List<string>() { "W1_W4", "W2_W3", "W5", "DKW7_W8", "DKW9" }; break;
-                default: return false;
-            }
-
-
-            bool Erg = false; //Variable: Einer der Abschnitte belegt?
-            foreach (string Abschnitt in Blocklist)
-            {
-                if (Verzeichnis.TryGetValue(Abschnitt, out int ListID))
-                {
-                    Erg |= Liste[ListID].IstBelegt();
-                }
-            }
-            return !Erg;    //Invertieretes Ergebnis übergeben 
-        }
-
+        /// <summary>
+        /// Anfrage an Zentrale für neuen Belegtmelderstatus
+        /// </summary>
+        /// <param name="z21">Instanz der Zentrale</param>
+        /// <param name="GruppenIndex">Index des Bytearrays</param>
         public void StatusAnfordernBelegtmelder(Z21 z21, byte GruppenIndex)
         {
             z21.LAN_RMBUS_GETDATA(GruppenIndex);
@@ -219,7 +208,9 @@ namespace MEKB_H0_Anlage
         }
 
     }
-
+    /// <summary>
+    /// Belegtmelder
+    /// </summary>
     public class Belegtmelder : IEquatable<Belegtmelder>
     {
         #region Parameter

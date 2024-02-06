@@ -61,7 +61,7 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region Timer
-        private static System.Timers.Timer FlagTimer;
+        private static System.Timers.Timer HeartbeatTimer;
         private static System.Timers.Timer WeichenTimer;
         private static System.Timers.Timer BelegtmelderCoolDown;
         #endregion
@@ -69,8 +69,8 @@ namespace MEKB_H0_Anlage
 
 
 
-        
 
+        private bool InitIsRunning = false; //Thread für Inittialisierung läuft aber noch nicht abgeschlossen. Verhindert Doppelte Ausführung
         public bool Betriebsbereit;
         public bool Z21_Initialisiert;
 
@@ -101,10 +101,10 @@ namespace MEKB_H0_Anlage
         {
 
             // 5 Sekunden Timer einrichten (Lebenspuls für die Verbindung)
-            FlagTimer = new System.Timers.Timer(5000);
+            HeartbeatTimer = new System.Timers.Timer(5000);
             // Timer mit Funktion "Z21_Heartbeat" Verbinden
-            FlagTimer.Elapsed += Z21_Heartbeat;
-            FlagTimer.AutoReset = true;
+            HeartbeatTimer.Elapsed += Z21_Heartbeat;
+            HeartbeatTimer.AutoReset = true;
             
 
             // 100 MilliSekunden Timer: Weichen und Fahrstraßen Update.
@@ -120,11 +120,14 @@ namespace MEKB_H0_Anlage
             BelegtmelderCoolDown.Elapsed += BelegtmelderCooldown;
             BelegtmelderCoolDown.AutoReset = true;
 
+            //Gleisplan zeichnen
             GleisplanZeichnenInitial();
 
+            //Sofort verbinden wenn Optionen das erlauben
             if (Config.ReadConfig("Auto_Connect").Equals("true"))
             {
                 z21Start.Connect_Z21();   //Wenn "Auto_Connect" gesetzt ist: Verbinden
+                // Background-Prozess für Initialisierung starten
                 Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
                 {
                     IsBackground = true
@@ -132,60 +135,14 @@ namespace MEKB_H0_Anlage
                 trd.Start();
             }
 
-
-            FlagTimer.Enabled = true;
+            // Timer aktivieren
+            HeartbeatTimer.Enabled = true;
             WeichenTimer.Enabled = true;
             BelegtmelderCoolDown.Enabled = true;
         }
-
-        private bool InitIsRunning = false;
-
-        private void WeichenSignalInit()
-        {
-            if (InitIsRunning) return; //Läuft bereits, nicht ausführen
-            InitIsRunning = true;
-            int timeoutVerbinden = 1000;
-
-            while(!z21Start.Verbunden())
-            {
-                Thread.Sleep(100);
-                timeoutVerbinden -= 100;
-                if (timeoutVerbinden <= 0)
-                {
-                    InitIsRunning = false;
-                    return; //Hat sich nicht verbunden -> Task beenden
-                }
-            }
-
-            if (z21Start.Verbunden())
-            {
-                if (!z21_Einstellung.IsDisposed) //Fenster Z21-Einstellung nläuft immer noch im Hintergrund
-                {
-                    Flags temp = z21_Einstellung.Get_Flag_Config();
-                    z21Start.Z21_SET_BROADCASTFLAGS(temp); //Flags neu setzen 
-                }
-                Thread.Sleep(100);
-
-                WeichenListe.WeichenStatus("Alle");
-                Thread.Sleep(100);
-                BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
-                Thread.Sleep(100);
-                BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
-
-                foreach(Signal signal in SignalListe.Liste)
-                {
-                    signal.Schalten(SignalZustand.HP0);
-                    Thread.Sleep(100);
-                }
-                SetConnect(true, true); //Initialisierung abgeschlossen
-                Betriebsbereit = true;
-            }
-            InitIsRunning = false;
-        }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            FlagTimer.Stop();
+            HeartbeatTimer.Stop();
             WeichenTimer.Stop();
             BelegtmelderCoolDown.Stop();
 
@@ -195,6 +152,10 @@ namespace MEKB_H0_Anlage
                 signal.Schalten(SignalZustand.HP0); //Alle Signale Rot
             }
             z21Start.DisConnect_Z21();
+        }
+        private void Hauptform_SizeChanged(object sender, EventArgs e)
+        {
+            GleisplanAnzeige.Size = new Size(GleisplanAnzeige.Size.Width, this.Size.Height - 350);
         }
         #endregion
 
@@ -236,6 +197,28 @@ namespace MEKB_H0_Anlage
             LokEditor lokEditor = new LokEditor();
             lokEditor.Show();
         }
+        private void SignalsteuergungToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            signal_Einstellungen = new Signal_Einstellungen();
+            signal_Einstellungen.Show();
+        }
+        private void BelegtmeldungToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (belegtmelder_Ueberwachung == null) belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
+            if (belegtmelder_Ueberwachung.IsDisposed) belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
+            belegtmelder_Ueberwachung.Show();
+            belegtmelder_Ueberwachung.BringToFront();
+        }
+        private void SignaleEditierenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            signaltool = new MenuFenster_Signalistentool("Signalliste.xml");
+            signaltool.Show();
+        }
+        private void LokomotivenNeuLadenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
+        }
+
         #endregion
 
         #region Timer Funktionen
@@ -286,7 +269,7 @@ namespace MEKB_H0_Anlage
 
                 if (z21Start.Verbunden())
                 {
-                    timer.Stop();
+
                     
 
                     Stopwatch stopWatch = new Stopwatch();
@@ -297,23 +280,20 @@ namespace MEKB_H0_Anlage
                         Fahrstrassenupdate(fahrstrasse);
                     }
                     
-                    /*
-                    if (GroupIndex == 0)
-                    {
-                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
-                        GroupIndex = 1;
-                    }
-                    else
-                    {
-                        BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
-                        GroupIndex = 0;
-                    }
-                    */
-
-                    GleisplanZeichnen();
                     if(Betriebsbereit && AutoSignale.Checked) SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"));
+
+                    try
+                    {
+                        GleisplanZeichnen();
+                    }
+                    catch
+                    {
+                        stopWatch.Stop();
+                        return;
+                    }
+                    //GleisplanUpdateSignal();
                     stopWatch.Stop();
-                    timer.Start();
+                    return;
                     //Messung vor Verbesserung: 100~120ms => 2ms
                 }
             }
@@ -330,20 +310,37 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        
+
 
         #endregion
 
         #region Weichensteuerung
+        /// <summary>
+        /// Schalten der Weiche bei Klicken auf das Symbol
+        /// </summary>
+        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
+        /// <param name="e">Argumente der Ausführung</param>
         private void Weiche_Click(object sender, EventArgs e)
         {
             if (!Betriebsbereit) return;
             if (sender is PictureBox weichenElement)
             {
-                WeichenListe.ToggleWeiche(weichenElement.Name);
+                if (Control.ModifierKeys == Keys.Shift)
+                {
+                    //Weiche nochmal neu schalten
+                    WeichenListe.SetzeWeiche(weichenElement.Name, WeichenListe.GetWeiche(weichenElement.Name).Abzweig);
+                }
+                else
+                {
+                    WeichenListe.ToggleWeiche(weichenElement.Name);
+                }
             }
-        }     
-
+        }
+        /// <summary>
+        /// Doppelkreuzungsweiche schalten
+        /// </summary>
+        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
+        /// <param name="e">Argumente der Ausführung</param>
         private void DKW_Click(object sender, EventArgs e)
         {
             if (!Betriebsbereit) return;
@@ -409,7 +406,11 @@ namespace MEKB_H0_Anlage
                 }    
             }            
         }
-
+        /// <summary>
+        /// Kreuzungsweiche schalten
+        /// </summary>
+        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
+        /// <param name="e">Argumente der Ausführung</param>
         private void KW_Click(object sender, EventArgs e)
         {
             if (!Betriebsbereit) return;
@@ -535,11 +536,88 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
+        private void SperrungSh2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.Checked == true)
+                {
+                    checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2;
+                }
+                else
+                {
+                    checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2_inaktiv;
+                }
+                UpdateFahrstrassenSchalter();
+            }
+        }
 
         #endregion
 
 
         #region Unterfunktionen
+        /// <summary>
+        /// Initialisierungs Routine für Signale und Weichen. 
+        /// Alle Weichen werden abgefragt
+        /// Alle Signale werdne auf HP0 gesetzt
+        /// Belegtmeldergroupen werden abgefragt
+        /// </summary>
+        private void WeichenSignalInit()
+        {
+            if (InitIsRunning) return; //Läuft bereits, nicht ausführen
+            InitIsRunning = true;
+
+            // Max. Wartezeit bis sich die Z21 verbunden hat in [ms]
+            int timeoutVerbinden = 1000;
+
+            while (!z21Start.Verbunden())
+            {
+                Thread.Sleep(100);
+                timeoutVerbinden -= 100;
+                if (timeoutVerbinden <= 0)
+                {
+                    InitIsRunning = false;
+                    return; // Hat sich nicht verbunden -> Task beenden
+                }
+            }
+
+            // Z21 ist verbunden
+            if (z21Start.Verbunden())
+            {
+                if (!z21_Einstellung.IsDisposed) // Fenster Z21-Einstellung läuft immer noch im Hintergrund
+                {
+                    Flags temp = z21_Einstellung.Get_Flag_Config();
+                    z21Start.Z21_SET_BROADCASTFLAGS(temp); // Flags neu setzen 
+                }
+                Thread.Sleep(100);
+                // Alle Weichen abfragen
+                WeichenListe.WeichenStatus("Alle");
+                Thread.Sleep(100);
+
+                // Alle Belegtmeldergruppen abfragen
+                BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 0);
+                Thread.Sleep(100);
+                BelegtmelderListe.StatusAnfordernBelegtmelder(z21Start, 1);
+                Thread.Sleep(100);
+
+                // Alle Signale auf HP0 setzen
+                foreach (Signal signal in SignalListe.Liste)
+                {
+                    signal.Schalten(SignalZustand.HP0);
+                    Thread.Sleep(100);
+                }
+                SetConnect(true, true); //Initialisierung abgeschlossen
+                Betriebsbereit = true;
+            }
+            InitIsRunning = false; // Prozess beendet
+        }
+
+        /// <summary>
+        /// Z21 Verbindung initialisieren
+        /// Callbackfunktionen zuornden
+        /// Instanzzugriffe setzen
+        /// Einstellungen übernehmen
+        /// </summary>
         private void Z21_Initialisieren()
         {
             z21Start = new Z21();                   //Neue Z21-Verbindung anlegen
@@ -568,13 +646,17 @@ namespace MEKB_H0_Anlage
         }
         #endregion
 
-
-
+        #region Schnellzugriff (obere Zeile)
+        /// <summary>
+        /// Farbe bei aktivierung anpassen (blau)
+        /// </summary>
+        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
+        /// <param name="e">Argumente der Ausführung</param>
         private void AutoSignale_CheckedChanged(object sender, EventArgs e)
         {
-            if(sender is CheckBox checkBox)
+            if (sender is CheckBox checkBox)
             {
-                if(checkBox.Checked == true)
+                if (checkBox.Checked == true)
                 {
                     checkBox.BackColor = Color.FromArgb(0, 0, 255);
                     checkBox.ForeColor = Color.FromArgb(255, 255, 255);
@@ -586,38 +668,75 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
-        private void SperrungSh2_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Farbe bei aktivierung anpassen (orange)
+        /// </summary>
+        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
+        /// <param name="e">Argumente der Ausführung</param>
+        private void AutoFahrdienstleiter_CheckedChanged(object sender, EventArgs e)
         {
             if (sender is CheckBox checkBox)
             {
                 if (checkBox.Checked == true)
                 {
-                    checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2;
-                    //TODO: aktive Fahrstrasse ausschalten
+                    checkBox.BackColor = Color.FromArgb(255, 128, 0);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
                 }
                 else
                 {
-                    checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2_inaktiv;
+                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
+                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
                 }
-                UpdateFahrstrassenSchalter();
             }
         }
-
-        private void SignalsteuergungToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Farbe bei aktivierung anpassen (grün)
+        /// </summary>
+        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
+        /// <param name="e">Argumente der Ausführung</param>
+        private void AutoFahrplan_CheckedChanged(object sender, EventArgs e)
         {
-            signal_Einstellungen = new Signal_Einstellungen();
-            signal_Einstellungen.Show();
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.Checked == true)
+                {
+                    checkBox.BackColor = Color.FromArgb(0, 128, 0);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                }
+                else
+                {
+                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
+                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
+                }
+            }
         }
-
-        private void BelegtmeldungToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Farbe bei aktivierung anpassen (lila)
+        /// </summary>
+        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
+        /// <param name="e">Argumente der Ausführung</param>
+        private void AutoBahnhofsansagen_CheckedChanged(object sender, EventArgs e)
         {
-            if(belegtmelder_Ueberwachung == null) belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
-            if(belegtmelder_Ueberwachung.IsDisposed) belegtmelder_Ueberwachung = new Belegtmelder_Ueberwachung(BelegtmelderListe);
-            belegtmelder_Ueberwachung.Show();
-            belegtmelder_Ueberwachung.BringToFront();
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.Checked == true)
+                {
+                    checkBox.BackColor = Color.FromArgb(128, 0, 128);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                }
+                else
+                {
+                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
+                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
+                }
+            }
         }
+        #endregion
 
-       
+
+
+
+
 
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -627,20 +746,6 @@ namespace MEKB_H0_Anlage
             VorBlock.Text = aktuellerBlock;
         }
 
-        private void SignaleEditierenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            signaltool = new MenuFenster_Signalistentool("Signalliste.xml");
-            signaltool.Show();
-        }
-
-        private void LokomotivenNeuLadenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
-        }
-
-        private void Hauptform_SizeChanged(object sender, EventArgs e)
-        {
-            GleisplanAnzeige.Size = new Size(GleisplanAnzeige.Size.Width, this.Size.Height - 300);
-        }
+        
     }
 }

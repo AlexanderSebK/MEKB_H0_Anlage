@@ -135,13 +135,18 @@ namespace MEKB_H0_Anlage
                 Betriebsbereit = false;
             }
         }
+        /// <summary>
+        /// Invoke-Funktion
+        /// Ausgeführt, wenn neues Packet mit Signal/Weichen Status empfangen wird
+        /// </summary>
+        /// <param name="Adresse">Adresse des Betroffenen Signals/Weiche</param>
+        /// <param name="Status">neuer Status</param>
         private void UpdateWeiche(int Adresse, int Status)
         {
             Weiche weiche = WeichenListe.GetWeiche(Adresse); //Finde Weiche mit dieser Adresse 
             if (weiche != null)//Weiche gefunden in der Liste
             {
-                weiche.StatusUpdate(Status);
-                GleisplanUpdateWeiche(weiche);       
+                weiche.StatusUpdate(Status);    
             }
             else
             {
@@ -149,7 +154,7 @@ namespace MEKB_H0_Anlage
                 if(SignalListe.UpdateSignalZustand(Adresse, Status))
                 {
                     // Update erfolgreich (inkl. Signal gefunden)
-                    GleisplanUpdateSignal(SignalListe.GetSignal(Adresse));               
+                    SignalListe.GetSignal(Adresse).UpdateNoetig = true;            
                 }
             }
         }

@@ -279,6 +279,8 @@ namespace MEKB_H0_Anlage
         /// True: Signal soll nicht automatisch auf grün schalten
         /// </summary>
         public bool AutoSperre { get; set; }
+
+        public bool UpdateNoetig { get; set; }
         
         private Timer CooldownTimer { get; set; }
 
@@ -298,6 +300,7 @@ namespace MEKB_H0_Anlage
             Z21_zentrale = new Z21();
             AutoSperre = false;
             Zustand = SignalZustand.Unbestimmt;
+            UpdateNoetig = false;
         }
 
 
@@ -394,7 +397,7 @@ namespace MEKB_H0_Anlage
         private void ZustandSetzen(int Adresse, bool Ausgang)
         {
             Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, Ausgang);
-            CooldownTimer = new Timer(AusgangAuschalten, null, 100, System.Threading.Timeout.Infinite);
+            //CooldownTimer = new Timer(AusgangAuschalten, null, 100, System.Threading.Timeout.Infinite);
         }
 
 
@@ -515,11 +518,11 @@ namespace MEKB_H0_Anlage
                 // Schalte auf HP1 wenn erlaubt und AutoHP1 erlaubt
                 if (StellungErlaubt(SignalZustand.HP1, AchteFahrstrassen))
                 {
-                    if (AutoHP1 && Zustand != SignalZustand.HP1) Schalten(SignalZustand.HP1);
+                    if (AutoHP1 && Zustand != SignalZustand.HP1) { Schalten(SignalZustand.HP1); return; } // nur einmal schalten pro durchlauf
                 }
                 else // HP1 ist nicht erlaubt: Auf HP0 schalten
                 {
-                    if (Zustand != SignalZustand.HP0) Schalten(SignalZustand.HP0);
+                    if (Zustand != SignalZustand.HP0) { Schalten(SignalZustand.HP0); return; }
                 }
             }
             else if (IstHP2Verbund())
@@ -527,11 +530,11 @@ namespace MEKB_H0_Anlage
                 // Schalte auf HP2 wenn erlaubt und AutoHP1 erlaubt
                 if (StellungErlaubt(SignalZustand.HP2, AchteFahrstrassen))
                 {
-                    if (AutoHP1 && Zustand == SignalZustand.HP0) Schalten(SignalZustand.HP2);
+                    if (AutoHP1 && Zustand == SignalZustand.HP0) { Schalten(SignalZustand.HP2); return; }
                 }
                 else // HP2 ist nicht erlaubt: Auf HP0 schalten
                 {
-                    if (Zustand != SignalZustand.HP0) Schalten(SignalZustand.HP0);
+                    if (Zustand != SignalZustand.HP0) { Schalten(SignalZustand.HP0); return; }
                 }
             }
             else if (IstSperrSignal())
@@ -551,22 +554,22 @@ namespace MEKB_H0_Anlage
                             if (fahrstrasse.EndSignal.Zustand == SignalZustand.HP0)
                             {
                                 // Wenn nächstes Signal auf rot steht -> langsame Fahrt
-                                if (AutoHP1 && Zustand != SignalZustand.HP2) Schalten(SignalZustand.HP2);
+                                if (AutoHP1 && Zustand != SignalZustand.HP2) { Schalten(SignalZustand.HP2); return;}
                             }
                             else
                             {
-                                if (AutoHP1 && Zustand != SignalZustand.HP1) Schalten(SignalZustand.HP1);
+                                if (AutoHP1 && Zustand != SignalZustand.HP1) { Schalten(SignalZustand.HP1); return;}
                             }
                         }
                     }
                 }
                 else if (HP2_Erlaubt)
                 {
-                    if (AutoHP1 && Zustand != SignalZustand.HP2) Schalten(SignalZustand.HP2);
+                    if (AutoHP1 && Zustand != SignalZustand.HP2) { Schalten(SignalZustand.HP2); return; }
                 }
                 else
                 {
-                    if (Zustand != SignalZustand.HP0) Schalten(SignalZustand.HP0);
+                    if (Zustand != SignalZustand.HP0) { Schalten(SignalZustand.HP0); return; }
                 }
             }
         }

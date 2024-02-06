@@ -88,7 +88,13 @@ namespace MEKB_H0_Anlage
         public List<string> Fahrstr_GleicherEingang { get; set; }
         public List<string> Fahrstr_Belegtmelder { get; set; }
 
+        /// <summary>
+        /// Wenn Fahrstarsse aktiv, welche Weichen wie geschaltet werden müssen
+        /// </summary>
         public Dictionary<string, bool> WeichenKonfigSollstellung { get; set; }
+        /// <summary>
+        /// Von welcher Richtung kommt die Fahrstrasse über diese Weiche
+        /// </summary>
         public Dictionary<string, bool> WeichenKonfigRichtung { get; set; }
         /// <summary>
         /// Einfahrtssignal der Fahrtstrasse

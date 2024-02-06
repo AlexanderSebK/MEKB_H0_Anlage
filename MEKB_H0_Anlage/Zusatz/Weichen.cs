@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Threading;
+using System.Timers;
 
 namespace MEKB_H0_Anlage
 {
@@ -156,6 +157,7 @@ namespace MEKB_H0_Anlage
             Besetzt = false;
             FahrstrasseAktive = false;
             Schaltzeit = 3000;
+            AktiveZeit = 0;
             AmBewegen = false;
             Z21 = new Z21();
         }
@@ -180,6 +182,14 @@ namespace MEKB_H0_Anlage
         /// Zeit in ms wie lange der Schaltausgang aktiv sein muss
         /// </summary>
         public int Schaltzeit { get; set; }
+        /// <summary>
+        /// Zeit wie lange die Weiche am Schalten ist 
+        /// </summary>
+        public int AktiveZeit { get; set; }
+        /// <summary>
+        /// Endposition beim schalten
+        /// </summary>
+        public bool ZielStellung {  get; set; } 
         /// <summary>
         /// Weichen Befehl zur Z21 wird gespiegelt. 
         /// False: Zustand 0 = Befehl 0; Zustand 1 = Befehl 1
@@ -216,7 +226,7 @@ namespace MEKB_H0_Anlage
 
         private Z21 Z21 { get; set; }
 
-        private Timer CooldownTimer { get; set; }
+        private System.Timers.Timer CooldownTimer { get; set; }
         #endregion
         #region Listenfunktionen
         /// <summary>
@@ -281,18 +291,36 @@ namespace MEKB_H0_Anlage
             if (Spiegeln) Endzustand = !Endzustand;
 
             Z21.LAN_X_SET_TURNOUT(Adresse, Endzustand, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
-            CooldownTimer = new Timer(AusgangAuschalten, Endzustand, Schaltzeit, System.Threading.Timeout.Infinite);
+            
+            CooldownTimer = new System.Timers.Timer(400);
+            CooldownTimer.Elapsed += AusgangAuschalten;
+            CooldownTimer.AutoReset = true;
+            CooldownTimer.Enabled = true;
+            CooldownTimer.Start();
+            
+            ZielStellung = Endzustand;
+            AktiveZeit = Schaltzeit;
             AmBewegen = true;
+
+            
         }
 
-        private void AusgangAuschalten(Object o)
+        private void AusgangAuschalten(Object source, ElapsedEventArgs e)
         {
-            if(o == null) return;
-            if (o is bool Endzustand)
+           AktiveZeit -= 400;
+            if (AktiveZeit > 0)
             {
-                Z21.LAN_X_SET_TURNOUT(Adresse, Endzustand, true, false); //Q-Modus aktiviert, Schaltausgang aus
+                // Weiter Schalten
+                Z21.LAN_X_SET_TURNOUT(Adresse, ZielStellung, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
+            }
+            else
+            {
+                CooldownTimer.Stop();
+                Z21.LAN_X_SET_TURNOUT(Adresse, ZielStellung, true, false); //Q-Modus aktiviert, Schaltausgang aus
+                AktiveZeit = 0;
                 AmBewegen = false;
             }
+            
         }
 
         /// <summary>

@@ -36,6 +36,7 @@ namespace MEKB_H0_Anlage
                 //Fahrstraße aktivieren
                 if (Betriebsbereit) fahrstrasse.StarteFahrstrasse();
             }
+            /*
             //Weichenliste der Fahrstraßen übernehmen
             List<Weiche> FahrstrassenWeichen = fahrstrasse.GetFahrstrassenListe();
             //Weichenliste durchgehen
@@ -47,6 +48,7 @@ namespace MEKB_H0_Anlage
                     GleisplanUpdateWeiche(weiche); //Weiche im Gleisplan aktualisieren
                 }
             }
+            */
             //Alle Fahrstraßen/Buttons aktualisieren
             UpdateFahrstrassenSchalter();
         }

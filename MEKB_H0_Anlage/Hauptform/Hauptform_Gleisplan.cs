@@ -316,12 +316,15 @@ namespace MEKB_H0_Anlage
                 foreach (Gleisplan.Abschnitt.GleisTyp gleis in abschnitt.Gleise)
                 {
                     bool update = false;
-                    for(int i = 0; i <3; i++)
+                    for (int i = 0; i < 3; i++)
                     {
                         if (gleis.Bedingung[i] == 0) continue; // Keine Bedingung
-                        if(!gleis.Zustand[i].Equals(aktZustand[gleis.Bedingung[i]])) update = true;
+                        if (!gleis.Zustand[i].Equals(aktZustand[gleis.Bedingung[i]])) update = true;
+                        if (!gleis.Signal.Equals("")) //Signal vorhanden
+                        {
+                            if(!SignalListe.GetSignal(gleis.Signal).Zustand.Equals(gleis.SignalZustand)) update = true; 
+                        }
                     }
-
                     if (update)
                     {
                         var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
@@ -359,7 +362,7 @@ namespace MEKB_H0_Anlage
                                         {
                                             if (int.TryParse(gleis.WeichenBelegtmelder, out int index))
                                             {
-                                                weiche.Besetzt = aktZustand[index].Besetzt;                                                  
+                                                weiche.Besetzt = aktZustand[index].Besetzt;
                                             }
                                         }
                                         if (gleis.Bedingung[1] == 0)
@@ -389,6 +392,7 @@ namespace MEKB_H0_Anlage
                                 if (!gleis.Signal.Equals(""))
                                 {
                                     GleisbildZeichnung.ZeichneSchaltbild(SignalListe.GetSignal(gleis.Signal), Picbox);
+                                    gleis.SignalZustand = SignalListe.GetSignal(gleis.Signal).Zustand;
                                 }
 
                                 for (int i = 0; i < 3; i++)
@@ -443,7 +447,7 @@ namespace MEKB_H0_Anlage
                         {
                             if (control is PictureBox Picbox)
                             {
-                                GleisbildZeichnung.ZeichneSchaltbild(weiche, weiche2, Picbox, true);
+                                 GleisbildZeichnung.ZeichneSchaltbild(weiche, weiche2, Picbox, true);                               
                             }
                         }
                     }
@@ -451,121 +455,6 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        
-        /// <summary>
-        /// Aktuellen Zustand der Weiche im Gleisplan zeichnen
-        /// </summary>
-        /// <param name="weiche">Weiche die neu gezeichnet werden soll</param>
-        private void GleisplanUpdateWeiche(Weiche weiche)
-        {
-            foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
-            {
-                foreach (Gleisplan.Abschnitt.GleisTyp gleis in abschnitt.Gleise)
-                {
-                    if(gleis.Weiche.Equals(weiche.Name))
-                    {
-                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
-                        foreach (Control control in Fund)
-                        {
-                            if (control is PictureBox Picbox)
-                            {
-                                if (gleis.Weiche_2nd.Equals("")) //Kein Zweiter Weichenmotor
-                                {
-                                    if (gleis.Bedingung[1] == 0)
-                                    {
-                                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Picbox);
-                                    }
-                                    else if (gleis.Bedingung[2] == 0)
-                                    {
-                                        Dictionary<int, MeldeZustand> aktZustand = new Dictionary<int, MeldeZustand>();
-                                        foreach (Gleisplan.Abschnitt.StatusBedingung bedingung in abschnitt.Bedingungen)
-                                        {
-                                            if (bedingung.Nummer == gleis.Bedingung[1])
-                                            {
-                                                bool BelegtmelderStatus = false;
-                                                foreach (Dictionary<string, bool> entry in bedingung.Aktiv)
-                                                {
-                                                    bool AND_bedingung = true;
-                                                    foreach (KeyValuePair<string, bool> Weichenentry in entry)
-                                                    {
-                                                        bool WeichenAbzweig = WeichenListe.GetWeiche(Weichenentry.Key).Abzweig;
-                                                        if (WeichenAbzweig != Weichenentry.Value) AND_bedingung = false;
-                                                    }
-                                                    if (AND_bedingung) BelegtmelderStatus = true;
-
-                                                }
-                                                // Wenn Belegtmelderstatus gewünscht ist
-                                                if (BelegtmelderStatus) BelegtmelderStatus = BelegtmelderListe.GetBelegtStatus(bedingung.Belegtmelder);
-
-                                                aktZustand.Add(bedingung.Nummer, ErrechneZustand(
-                                                        BelegtmelderStatus,
-                                                        FahrstrassenListe.GetFahrstrasse(bedingung.FahrstrassenMit.ToArray()),
-                                                        FahrstrassenListe.GetFahrstrasse(bedingung.FahrstrassenGegen.ToArray())));
-                                            }
-                                        }
-                                        GleisbildZeichnung.ZeichneSchaltbild(weiche, aktZustand[gleis.Bedingung[1]], Picbox, true);
-                                    }
-                                }
-                                else // Zweiter Weichenmotor
-                                {
-                                    Weiche weiche2 = WeichenListe.GetWeiche(gleis.Weiche_2nd);
-                                    GleisbildZeichnung.ZeichneSchaltbild(weiche, weiche2, Picbox, true);
-                                }
-                            }
-                        }                      
-                    }
-                    else if(gleis.Weiche_2nd.Equals(weiche.Name))
-                    {
-                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
-                        foreach (Control control in Fund)
-                        {
-                            if (control is PictureBox Picbox)
-                            {
-                                Weiche weiche2 = WeichenListe.GetWeiche(gleis.Weiche);
-                                GleisbildZeichnung.ZeichneSchaltbild(weiche2, weiche, Picbox, true);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Aktuellen Zustand des Signals im Gleisplan zeichnen
-        /// </summary>
-        /// <param name="signal">Signal das neu gezeichnet werden soll</param>
-        private void GleisplanUpdateSignal(Signal signal)
-        {
-            foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
-            {
-                foreach (Gleisplan.Abschnitt.GleisTyp gleis in abschnitt.Gleise)
-                {
-                    if (gleis.Signal.Equals(signal.Name))
-                    {
-                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
-                        foreach (Control control in Fund)
-                        {
-                            if (control is PictureBox Picbox)
-                            {
-                                if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0 && gleis.Bedingung[2] != 0)
-                                {
-                                    GleisbildZeichnung.ZeichneSchaltbild(gleis.Zustand[0], gleis.Zustand[1], gleis.Zustand[2], Picbox, true);
-                                }
-                                else if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0)
-                                {
-                                    GleisbildZeichnung.ZeichneSchaltbild(gleis.Zustand[0], gleis.Zustand[1], Picbox, true);
-                                }
-                                else if (gleis.Bedingung[0] != 0)
-                                {
-                                    GleisbildZeichnung.ZeichneSchaltbild(gleis.Zustand[0], Picbox, true);
-                                }
-                                GleisbildZeichnung.ZeichneSchaltbild(signal, Picbox);    
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
         /// <summary>
         /// Gleisobjekt anhand des Namens suchen
@@ -670,13 +559,14 @@ namespace MEKB_H0_Anlage
                     //Fahrstraße als aktiviert kennzeichnen
                     fahrstrasse.AktiviereFahrstasse();
                     //Jede Weiche in der Fahrstraßenliste durchlaufen
+                    /*
                     foreach (Weiche Fahrstrassenweiche in fahrstrasse.Fahrstr_Weichenliste)
                     {
                         Weiche weiche = WeichenListe.GetWeiche(Fahrstrassenweiche.Name);   //Weiche in Globale Liste suchen
                         if (weiche == null) return;   //Weichen nicht gefunden - Funktion abbrechen
                         GleisplanUpdateWeiche(weiche);  //Weichenbild aktualisieren
                     }
-
+                    */
                     //Weichen zyklisch nochmal schalten um hängenbleiben zu vermeiden
                     if (Betriebsbereit) fahrstrasse.ControlSetFahrstrasse(z21Start);
                 }

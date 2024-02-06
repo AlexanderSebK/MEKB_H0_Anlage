@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Hauptform));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.gleisplanLadenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.LokEditorOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.lokomotivenNeuLadenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -60,6 +62,9 @@
             this.TrackStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.Hinttext = new System.Windows.Forms.ToolTip(this.components);
             this.AutoSignale = new System.Windows.Forms.CheckBox();
+            this.AutoFahrdienstleiter = new System.Windows.Forms.CheckBox();
+            this.AutoFahrplan = new System.Windows.Forms.CheckBox();
+            this.AutoBahnhofsansagen = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LokCtrl12_Suche = new System.Windows.Forms.Button();
             this.LokCtrl11_Suche = new System.Windows.Forms.Button();
@@ -200,8 +205,9 @@
             this.label128 = new System.Windows.Forms.Label();
             this.GleisplanAnzeige = new System.Windows.Forms.Panel();
             this.KontrollPanel = new System.Windows.Forms.Panel();
-            this.gleisplanLadenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -220,6 +226,7 @@
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.KontrollPanel.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -249,6 +256,17 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(46, 20);
             this.toolStripMenuItem1.Text = "Datei";
+            // 
+            // gleisplanLadenToolStripMenuItem
+            // 
+            this.gleisplanLadenToolStripMenuItem.Name = "gleisplanLadenToolStripMenuItem";
+            this.gleisplanLadenToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.gleisplanLadenToolStripMenuItem.Text = "Gleisplan laden";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(196, 6);
             // 
             // LokEditorOpen
             // 
@@ -361,7 +379,7 @@
             // signalsteuergungToolStripMenuItem
             // 
             this.signalsteuergungToolStripMenuItem.Name = "signalsteuergungToolStripMenuItem";
-            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.signalsteuergungToolStripMenuItem.Text = "Signalsteuergung";
             this.signalsteuergungToolStripMenuItem.Click += new System.EventHandler(this.SignalsteuergungToolStripMenuItem_Click);
             // 
@@ -378,13 +396,13 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.signaleEditierenToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // signaleEditierenToolStripMenuItem
             // 
             this.signaleEditierenToolStripMenuItem.Name = "signaleEditierenToolStripMenuItem";
-            this.signaleEditierenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.signaleEditierenToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.signaleEditierenToolStripMenuItem.Text = "Signale Editieren";
             this.signaleEditierenToolStripMenuItem.Click += new System.EventHandler(this.SignaleEditierenToolStripMenuItem_Click);
             // 
@@ -484,7 +502,7 @@
             this.AutoSignale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.AutoSignale.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.AutoSignale.ForeColor = System.Drawing.Color.Silver;
-            this.AutoSignale.Location = new System.Drawing.Point(8, 16);
+            this.AutoSignale.Location = new System.Drawing.Point(6, 15);
             this.AutoSignale.Name = "AutoSignale";
             this.AutoSignale.Size = new System.Drawing.Size(136, 24);
             this.AutoSignale.TabIndex = 938;
@@ -493,6 +511,54 @@
             this.Hinttext.SetToolTip(this.AutoSignale, resources.GetString("AutoSignale.ToolTip"));
             this.AutoSignale.UseVisualStyleBackColor = false;
             this.AutoSignale.CheckedChanged += new System.EventHandler(this.AutoSignale_CheckedChanged);
+            // 
+            // AutoFahrdienstleiter
+            // 
+            this.AutoFahrdienstleiter.Appearance = System.Windows.Forms.Appearance.Button;
+            this.AutoFahrdienstleiter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.AutoFahrdienstleiter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AutoFahrdienstleiter.ForeColor = System.Drawing.Color.Silver;
+            this.AutoFahrdienstleiter.Location = new System.Drawing.Point(148, 15);
+            this.AutoFahrdienstleiter.Name = "AutoFahrdienstleiter";
+            this.AutoFahrdienstleiter.Size = new System.Drawing.Size(161, 24);
+            this.AutoFahrdienstleiter.TabIndex = 939;
+            this.AutoFahrdienstleiter.Text = "Automatischer Fahrdienstleiter";
+            this.AutoFahrdienstleiter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Hinttext.SetToolTip(this.AutoFahrdienstleiter, resources.GetString("AutoFahrdienstleiter.ToolTip"));
+            this.AutoFahrdienstleiter.UseVisualStyleBackColor = false;
+            this.AutoFahrdienstleiter.CheckedChanged += new System.EventHandler(this.AutoFahrdienstleiter_CheckedChanged);
+            // 
+            // AutoFahrplan
+            // 
+            this.AutoFahrplan.Appearance = System.Windows.Forms.Appearance.Button;
+            this.AutoFahrplan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.AutoFahrplan.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AutoFahrplan.ForeColor = System.Drawing.Color.Silver;
+            this.AutoFahrplan.Location = new System.Drawing.Point(315, 15);
+            this.AutoFahrplan.Name = "AutoFahrplan";
+            this.AutoFahrplan.Size = new System.Drawing.Size(161, 24);
+            this.AutoFahrplan.TabIndex = 940;
+            this.AutoFahrplan.Text = "Automatischer Fahrplan";
+            this.AutoFahrplan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Hinttext.SetToolTip(this.AutoFahrplan, resources.GetString("AutoFahrplan.ToolTip"));
+            this.AutoFahrplan.UseVisualStyleBackColor = false;
+            this.AutoFahrplan.CheckedChanged += new System.EventHandler(this.AutoFahrplan_CheckedChanged);
+            // 
+            // AutoBahnhofsansagen
+            // 
+            this.AutoBahnhofsansagen.Appearance = System.Windows.Forms.Appearance.Button;
+            this.AutoBahnhofsansagen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.AutoBahnhofsansagen.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AutoBahnhofsansagen.ForeColor = System.Drawing.Color.Silver;
+            this.AutoBahnhofsansagen.Location = new System.Drawing.Point(482, 15);
+            this.AutoBahnhofsansagen.Name = "AutoBahnhofsansagen";
+            this.AutoBahnhofsansagen.Size = new System.Drawing.Size(161, 24);
+            this.AutoBahnhofsansagen.TabIndex = 941;
+            this.AutoBahnhofsansagen.Text = "Bahnhofsansagen";
+            this.AutoBahnhofsansagen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Hinttext.SetToolTip(this.AutoBahnhofsansagen, resources.GetString("AutoBahnhofsansagen.ToolTip"));
+            this.AutoBahnhofsansagen.UseVisualStyleBackColor = false;
+            this.AutoBahnhofsansagen.CheckedChanged += new System.EventHandler(this.AutoBahnhofsansagen_CheckedChanged);
             // 
             // panel1
             // 
@@ -2095,7 +2161,7 @@
             this.StopAlle.BackColor = System.Drawing.Color.Red;
             this.StopAlle.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.StopAlle.ForeColor = System.Drawing.SystemColors.Control;
-            this.StopAlle.Location = new System.Drawing.Point(150, 16);
+            this.StopAlle.Location = new System.Drawing.Point(6, 15);
             this.StopAlle.Name = "StopAlle";
             this.StopAlle.Size = new System.Drawing.Size(136, 23);
             this.StopAlle.TabIndex = 765;
@@ -2105,11 +2171,13 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.StopAlle);
+            this.groupBox1.Controls.Add(this.AutoBahnhofsansagen);
+            this.groupBox1.Controls.Add(this.AutoFahrplan);
+            this.groupBox1.Controls.Add(this.AutoFahrdienstleiter);
             this.groupBox1.Controls.Add(this.AutoSignale);
-            this.groupBox1.Location = new System.Drawing.Point(1183, 3);
+            this.groupBox1.Location = new System.Drawing.Point(0, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(294, 186);
+            this.groupBox1.Size = new System.Drawing.Size(652, 45);
             this.groupBox1.TabIndex = 937;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Automatisierung";
@@ -2202,17 +2270,15 @@
             // 
             this.GleisplanAnzeige.AutoScroll = true;
             this.GleisplanAnzeige.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GleisplanAnzeige.Dock = System.Windows.Forms.DockStyle.Top;
-            this.GleisplanAnzeige.Location = new System.Drawing.Point(0, 24);
+            this.GleisplanAnzeige.Location = new System.Drawing.Point(0, 72);
             this.GleisplanAnzeige.Name = "GleisplanAnzeige";
-            this.GleisplanAnzeige.Size = new System.Drawing.Size(1904, 719);
+            this.GleisplanAnzeige.Size = new System.Drawing.Size(1904, 697);
             this.GleisplanAnzeige.TabIndex = 1;
             // 
             // KontrollPanel
             // 
             this.KontrollPanel.Controls.Add(this.panel1);
             this.KontrollPanel.Controls.Add(this.panel2);
-            this.KontrollPanel.Controls.Add(this.groupBox1);
             this.KontrollPanel.Controls.Add(this.label115);
             this.KontrollPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.KontrollPanel.Location = new System.Drawing.Point(0, 745);
@@ -2220,24 +2286,48 @@
             this.KontrollPanel.Size = new System.Drawing.Size(1904, 192);
             this.KontrollPanel.TabIndex = 996;
             // 
-            // gleisplanLadenToolStripMenuItem
+            // groupBox2
             // 
-            this.gleisplanLadenToolStripMenuItem.Name = "gleisplanLadenToolStripMenuItem";
-            this.gleisplanLadenToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.gleisplanLadenToolStripMenuItem.Text = "Gleisplan laden";
+            this.groupBox2.Controls.Add(this.button14);
+            this.groupBox2.Controls.Add(this.StopAlle);
+            this.groupBox2.Location = new System.Drawing.Point(658, 27);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(292, 45);
+            this.groupBox2.TabIndex = 997;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Steuerung";
             // 
-            // toolStripSeparator4
+            // button14
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(196, 6);
+            this.button14.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button14.Location = new System.Drawing.Point(148, 15);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(136, 23);
+            this.button14.TabIndex = 766;
+            this.button14.Text = "Fahrzeuge";
+            this.button14.UseVisualStyleBackColor = false;
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(1817, 42);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(75, 23);
+            this.button15.TabIndex = 998;
+            this.button15.Text = "Debug";
+            this.button15.UseVisualStyleBackColor = true;
             // 
             // Hauptform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.button15);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.KontrollPanel);
             this.Controls.Add(this.GleisplanAnzeige);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Statusbar);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -2271,6 +2361,7 @@
             this.panel2.PerformLayout();
             this.KontrollPanel.ResumeLayout(false);
             this.KontrollPanel.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2450,6 +2541,12 @@
         private System.Windows.Forms.Panel KontrollPanel;
         private System.Windows.Forms.ToolStripMenuItem gleisplanLadenToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.CheckBox AutoFahrplan;
+        private System.Windows.Forms.CheckBox AutoFahrdienstleiter;
+        private System.Windows.Forms.CheckBox AutoBahnhofsansagen;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button15;
     }
 }
 

@@ -108,6 +108,11 @@ namespace MEKB_H0_Anlage
                 if(Aenderungen.Contains(fahrstrasse.Name))
                 {
                     FahrstrassenListe.GesperrteFahrstarssen[fahrstrasse.Name] = true; // Fahrstrasse ist gesperrt
+                    if (fahrstrasse.GetGesetztStatus())
+                    {
+                        //Fahrstraße deaktivieren wenn gesetzt
+                        fahrstrasse.DeleteFahrstrasse(WeichenListe.Liste);
+                    }
                 }
                 else
                 {
