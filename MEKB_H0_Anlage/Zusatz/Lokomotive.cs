@@ -148,6 +148,7 @@ namespace MEKB_H0_Anlage
             Name = "";
             Gattung = "";
             Fahrstufe = 0;
+            FahrstufenInfo = 2; //Standard 28 Fahrstufen (14 führt zu Lichtwechselproblemen bei manchen Loks)
             Richtung = 0;
 
             Funktionen = new List<string>();
@@ -176,6 +177,7 @@ namespace MEKB_H0_Anlage
             Name = "";
             Gattung = "";
             Fahrstufe = 0;
+            FahrstufenInfo = 2; //Standard 28 Fahrstufen (14 führt zu Lichtwechselproblemen bei manchen Loks)
             Richtung = 0;
 
             Funktionen = new List<string>();
@@ -390,25 +392,44 @@ namespace MEKB_H0_Anlage
 
     public class LokKontrolle
     {
+        private static string[,] Gattungen =
+        {
+            {"InterCityExpress",    "ICE",      "I C E "},
+            {"InterCity",           "IC",       "I C "},
+            {"InterRegioExpress",   "IRE",      "I R E "},
+            {"InterRegio",          "IR",       "I R "},
+            {"RegionalExpress",     "RE",       "R E "},
+            {"RegionalBahn",        "RB",       "R B "},
+            {"S-Bahn",              "S",        "S "},
+            {"Güterzug",            "G",        "Güterzug "},
+            {"Sonderzug",           "Sonder",   "Sonderzug "},
+        };
         public LokKontrolle()
         {
 
         }
+        
+        public static string[] ListeGattungsnamen()
+        {
+            
+             return Enumerable.Range(0, Gattungen.GetLength(0))
+              .Select(x => Gattungen[x, 0])
+              .ToArray();           
+        }
+        
+
+
         public static string Abkuerzung(string Gattung)
         {
             if (string.IsNullOrEmpty(Gattung)) return "";
-            switch (Gattung)
+            for (int i = 0; i < Gattungen.GetLength(0); i++)
             {
-                case "InterCityExpress": return "ICE";
-                case "InterCity": return "IC";
-                case "InterRegioExpress": return "IRE";
-                case "InterRegio": return "IR";
-                case "RegionalExpress": return "RE";
-                case "RegionalBahn": return "RB";
-                case "S-Bahn": return "S";
-                case "Güterzug": return "G";
-                default: return "";
+                if (Gattungen[i,0].Equals(Gattung))
+                {
+                    return Gattungen[i,1];
+                }
             }
+            return "";
         }
     }
 }

@@ -443,6 +443,12 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region Bild auf Fenster übertragen
+        /// <summary>
+        /// Einfaches Gleis
+        /// </summary>
+        /// <param name="Zustand">Meldezustand des Gleis</param>
+        /// <param name="picBox">Bildelement in From</param>
+        /// <param name="ErzwingeZeichnen">true: Gleis neu Zeichnen auch wenn Zustand sich nicht ändert</param>
         public void ZeichneSchaltbild(MeldeZustand Zustand, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
             if (picBox.Tag == null) return; // Kein Typdefiniert
@@ -463,6 +469,47 @@ namespace MEKB_H0_Anlage
 
             DisplayPicture(bild, picBox); //Zeichne Bild
         }
+        /// <summary>
+        /// Einfaches Gleis mit Signal
+        /// </summary>
+        /// <param name="Zustand">Meldezustand des Gleis</param>
+        /// <param name="signal">Signalinstance</param>
+        /// <param name="picBox">Bildelement in From</param>
+        /// <param name="ErzwingeZeichnen">true: Gleis neu Zeichnen auch wenn Zustand sich nicht ändert</param>
+        public void ZeichneSchaltbild(MeldeZustand Zustand, Signal signal, PictureBox picBox, bool ErzwingeZeichnen = false)
+        {
+            if (picBox.Tag == null) return; // Kein Typdefiniert
+            if (GleisZustand.ContainsKey(picBox.Name))
+            {
+                if ((!ErzwingeZeichnen) && GleisZustand[picBox.Name].Equals(Zustand)) return; // Nicht nötig neu zu Zeichnen
+            }
+            else // Element nicht gefunden
+            {
+                GleisZustand.Add(picBox.Name, Zustand); // Element hinzufügen
+            }
+            if (picBox.Tag.ToString().Contains('+')) return;
+            if (!ZeichneGleis(Zustand, picBox.Tag.ToString(), out Bitmap bild))
+            {
+                return; //Bild nicht Zeichnen, da Fehler
+            }
+            GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
+            Graphics gleis = Graphics.FromImage(bild); // Grafik aus Bild generieren für künftiges überlagern
+
+            if (!ZeichneSignal(signal, picBox.Tag.ToString(), out Bitmap bildsignal))
+            {
+                return;  //Bild nicht Zeichnen, da Fehler
+            }
+            BildHinzufuegen(ref gleis, bildsignal); // Signalbild überlagern
+
+            DisplayPicture(bild, picBox); //Zeichne Bild
+        }
+        /// <summary>
+        /// Gleis mit Ecke
+        /// </summary>
+        /// <param name="Zustand">Zustand Hauptgleis</param>
+        /// <param name="Zustand2">Zustand Ecke</param>
+        /// <param name="picBox">Bildelement in From</param>
+        /// <param name="ErzwingeZeichnen">true: Gleis neu Zeichnen auch wenn Zustand sich nicht ändert</param>
         public void ZeichneSchaltbild(MeldeZustand Zustand, MeldeZustand Zustand2, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
 
@@ -509,6 +556,74 @@ namespace MEKB_H0_Anlage
 
             DisplayPicture(bild, picBox); //Zeichne Bild            
         }
+        /// <summary>
+        /// Gleis mit Ecke und Signal
+        /// </summary>
+        /// <param name="Zustand">Zustand Hauptgleis</param>
+        /// <param name="Zustand2">Zustand Ecke</param>
+        /// <param name="signal">Signalinstance</param>
+        /// <param name="picBox">Bildelement in From</param>
+        /// <param name="ErzwingeZeichnen">true: Gleis neu Zeichnen auch wenn Zustand sich nicht ändert</param>
+        public void ZeichneSchaltbild(MeldeZustand Zustand, MeldeZustand Zustand2, Signal signal, PictureBox picBox, bool ErzwingeZeichnen = false)
+        {
+
+            if (picBox.Tag == null) return; // Kein Typdefiniert
+            if (GleisZustand.ContainsKey(picBox.Name))
+            {
+                if ((!ErzwingeZeichnen) &&
+                    GleisZustand[picBox.Name].Equals(Zustand) &&
+                    GleisZustand[picBox.Name + "Zustand2"].Equals(Zustand2)) return; // Nicht nötig neu zu Zeichnen
+            }
+            else // Element nicht gefunden
+            {
+                GleisZustand.Add(picBox.Name, Zustand); // Element hinzufügen
+                GleisZustand.Add(picBox.Name + "Zustand2", Zustand2); // Element hinzufügen
+            }
+
+            if (picBox.Tag.ToString().StartsWith("Kreuzung"))
+            {
+                if (!ZeichneKreuzung(Zustand, Zustand2, picBox.Tag.ToString(), out Bitmap bildKreuzung)) // Erstes Gleisbild zeichnen
+                {
+                    return;  //Bild nicht Zeichnen, da Fehler
+                }
+                GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
+                GleisZustand[picBox.Name + "Zustand2"] = Zustand2; //Neuen Zustand übernehmen
+                DisplayPicture(bildKreuzung, picBox); //Zeichne Bild
+                return;
+            }
+            if (!picBox.Tag.ToString().Contains('+')) return;
+            string[] Gleistypen = picBox.Tag.ToString().Split('+');
+
+            if (!ZeichneGleis(Zustand, Gleistypen[0], out Bitmap bild)) // Erstes Gleisbild zeichnen
+            {
+                return;  //Bild nicht Zeichnen, da Fehler
+            }
+            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
+            GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
+
+            if (!ZeichneGleis(Zustand2, Gleistypen[1], out Bitmap bild2))
+            {
+                return; //Bild nicht Zeichnen, da Fehler
+            }
+            BildHinzufuegen(ref gleis, bild2); // Zweites Gleisbild darüberzeichnen
+            GleisZustand[picBox.Name + "Zustand2"] = Zustand2; //Neuen Zustand übernehmen
+
+            if (!ZeichneSignal(signal, picBox.Tag.ToString(), out Bitmap bildsignal))
+            {
+                return;  //Bild nicht Zeichnen, da Fehler
+            }
+            BildHinzufuegen(ref gleis, bildsignal); // Signalbild überlagern
+
+            DisplayPicture(bild, picBox); //Zeichne Bild            
+        }
+        /// <summary>
+        /// Gleis mit zwei Ecken
+        /// </summary>
+        /// <param name="Zustand">Zustand Hauptgleis</param>
+        /// <param name="Zustand2">Zustand Ecke 1</param>
+        /// <param name="Zustand3">Zustand Ecke 2</param>
+        /// <param name="picBox">Bildelement in From</param>
+        /// <param name="ErzwingeZeichnen">true: Gleis neu Zeichnen auch wenn Zustand sich nicht ändert</param>
         public void ZeichneSchaltbild(MeldeZustand Zustand, MeldeZustand Zustand2, MeldeZustand Zustand3, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
             if (picBox.Tag == null) return; // Kein Typdefiniert
@@ -553,6 +668,67 @@ namespace MEKB_H0_Anlage
 
             DisplayPicture(bild, picBox); //Zeichne Bild            
         }
+        /// <summary>
+        /// Gleis mit zwei Ecken und Signal
+        /// </summary>
+        /// <param name="Zustand">Zustand Hauptgleis</param>
+        /// <param name="Zustand2">Zustand Ecke 1</param>
+        /// <param name="Zustand3">Zustand Ecke 2</param>
+        /// <param name="signal">Signalinstance</param>
+        /// <param name="picBox">Bildelement in From</param>
+        /// <param name="ErzwingeZeichnen">true: Gleis neu Zeichnen auch wenn Zustand sich nicht ändert</param>
+        public void ZeichneSchaltbild(MeldeZustand Zustand, MeldeZustand Zustand2, MeldeZustand Zustand3, Signal signal, PictureBox picBox, bool ErzwingeZeichnen = false)
+        {
+            if (picBox.Tag == null) return; // Kein Typdefiniert
+            if (GleisZustand.ContainsKey(picBox.Name))
+            {
+                if ((!ErzwingeZeichnen) &&
+                    GleisZustand[picBox.Name].Equals(Zustand) &&
+                    GleisZustand[picBox.Name + "Zustand2"].Equals(Zustand2) &&
+                    GleisZustand[picBox.Name + "Zustand3"].Equals(Zustand3)) return; // Nicht nötig neu zu Zeichnen
+            }
+            else // Element nicht gefunden
+            {
+                GleisZustand.Add(picBox.Name, Zustand); // Element hinzufügen
+                GleisZustand.Add(picBox.Name + "Zustand2", Zustand2); // Element hinzufügen
+                GleisZustand.Add(picBox.Name + "Zustand3", Zustand2); // Element hinzufügen
+            }
+            if (!picBox.Tag.ToString().Contains('+')) return;
+
+            string[] Gleistypen = picBox.Tag.ToString().Split('+');
+            if (Gleistypen.Length != 3) return;
+
+            if (!ZeichneGleis(Zustand, Gleistypen[0], out Bitmap bild)) // Erstes Gleisbild zeichnen
+            {
+                return;  //Bild nicht Zeichnen, da Fehler
+            }
+            Graphics gleis = Graphics.FromImage(bild); //In bearbeitbare Grafik umwandeln
+            GleisZustand[picBox.Name] = Zustand; //Neuen Zustand übernehmen
+
+            if (!ZeichneGleis(Zustand2, Gleistypen[1], out Bitmap bild2)) // Zweites Gleisbild zeichnen
+            {
+                return;  //Bild nicht Zeichnen, da Fehler
+            }
+            BildHinzufuegen(ref gleis, bild2); // Zweites Gleisbild darüberzeichnen
+            GleisZustand[picBox.Name + "Zustand2"] = Zustand2; //Neuen Zustand übernehmen
+
+            if (!ZeichneGleis(Zustand3, Gleistypen[2], out Bitmap bild3)) // Zweites Gleisbild zeichnen
+            {
+                return;  //Bild nicht Zeichnen, da Fehler
+            }
+            BildHinzufuegen(ref gleis, bild3); // Drittes Gleisbild darüberzeichnen
+            GleisZustand[picBox.Name + "Zustand3"] = Zustand3; //Neuen Zustand übernehmen
+
+            if (!ZeichneSignal(signal, picBox.Tag.ToString(), out Bitmap bildsignal))
+            {
+                return;  //Bild nicht Zeichnen, da Fehler
+            }
+            BildHinzufuegen(ref gleis, bildsignal); // Signalbild überlagern
+
+            DisplayPicture(bild, picBox); //Zeichne Bild            
+        }
+
+
         public void ZeichneSchaltbild(Weiche weiche, PictureBox picBox, bool ErzwingeZeichnen = false)
         {
             ////////////////////////////////////////////////////

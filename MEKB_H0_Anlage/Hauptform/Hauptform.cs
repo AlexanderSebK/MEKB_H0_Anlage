@@ -45,6 +45,7 @@ namespace MEKB_H0_Anlage
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
         private InfoBox InfoBox;
         private MenuFenster_Signalistentool signaltool;
+        private Zugmenue ZugmenueFenster = new Zugmenue();
         #endregion
 
         #region Listen
@@ -89,6 +90,7 @@ namespace MEKB_H0_Anlage
             SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe);
             
             ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
+            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv);
 
             for (int i = 0; i < AktiveLoks.Length; i++)
             {
@@ -155,7 +157,7 @@ namespace MEKB_H0_Anlage
         }
         private void Hauptform_SizeChanged(object sender, EventArgs e)
         {
-            GleisplanAnzeige.Size = new Size(GleisplanAnzeige.Size.Width, this.Size.Height - 350);
+            GleisplanAnzeige.Size = new Size(GleisplanAnzeige.Size.Width, this.Size.Height - 200);
         }
         #endregion
 
@@ -746,6 +748,23 @@ namespace MEKB_H0_Anlage
             VorBlock.Text = aktuellerBlock;
         }
 
-        
+        private void Btn_Fahrzeuge_Click(object sender, EventArgs e)
+        {
+            if (!ZugmenueFenster.IsDisposed)
+            {
+                ZugmenueFenster.Show();
+            }
+            else
+            {
+                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv);
+                ZugmenueFenster.Show();
+            }
+            //TODO: Fenster für Fahrzeuge öffnen
+        }
+
+        private void LokKontroll_Strg_Typ_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
