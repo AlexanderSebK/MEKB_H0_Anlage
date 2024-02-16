@@ -22,7 +22,7 @@ namespace MEKB_H0_Anlage
         public MenuFenster_Signalistentool(string XML_Datei)
         {
             InitializeComponent();
-            SignalListe = new SignalListe("Signalliste.xml");
+            SignalListe = new SignalListe(XML_Datei);
             ToolSignalIndex.Maximum = SignalListe.Liste.Count - 1;
             ShowSignalData();
         }

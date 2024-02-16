@@ -87,7 +87,7 @@ namespace MEKB_H0_Anlage
             
             // Instanzen Zugriffe festlegen
             SetupFahrstrassen();                        //Fahstrassen festlegen              
-            SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe);
+            SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
             
             ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
             ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv);
@@ -284,6 +284,7 @@ namespace MEKB_H0_Anlage
                     
                     if(Betriebsbereit && AutoSignale.Checked) SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"));
 
+                    SignalListe.VorsignaleSchalten();
                     try
                     {
                         GleisplanZeichnen();

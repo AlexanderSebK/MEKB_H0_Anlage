@@ -248,6 +248,13 @@ namespace MEKB_H0_Anlage
             else if (signal.Zustand == SignalZustand.HP2) { BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_HP1, Typ)); BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_HP2, Typ)); }
             else if (signal.Zustand == SignalZustand.SH1) BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_SH1, Typ));
 
+            if(signal.IstVorsignal() || signal.HatVorsignal())
+            {
+                BildHinzufuegen(ref gleis, SignalTeil(VorSignal_Begriff, Typ));
+                if (signal.VorSignalZustand == SignalZustand.HP0) BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_VR0, Typ));
+                else if (signal.VorSignalZustand == SignalZustand.HP1) BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_VR1, Typ));
+                else if (signal.VorSignalZustand == SignalZustand.HP2) BildHinzufuegen(ref gleis, SignalTeil(Signal_Licht_VR2, Typ));
+            }
 
             return true;
         }

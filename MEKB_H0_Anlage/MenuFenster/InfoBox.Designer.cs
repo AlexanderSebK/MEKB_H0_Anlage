@@ -71,7 +71,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(304, 23);
             this.label2.TabIndex = 1;
-            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 3.2";
+            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 3.3";
             // 
             // label3
             // 
