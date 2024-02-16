@@ -88,7 +88,13 @@ namespace MEKB_H0_Anlage
         public List<string> Fahrstr_GleicherEingang { get; set; }
         public List<string> Fahrstr_Belegtmelder { get; set; }
 
+        /// <summary>
+        /// Wenn Fahrstarsse aktiv, welche Weichen wie geschaltet werden müssen
+        /// </summary>
         public Dictionary<string, bool> WeichenKonfigSollstellung { get; set; }
+        /// <summary>
+        /// Von welcher Richtung kommt die Fahrstrasse über diese Weiche
+        /// </summary>
         public Dictionary<string, bool> WeichenKonfigRichtung { get; set; }
         /// <summary>
         /// Einfahrtssignal der Fahrtstrasse
@@ -157,19 +163,7 @@ namespace MEKB_H0_Anlage
 
             if (weiche.Abzweig != sollstellung)   //Wenn Weiche noch nicht in Position ist
             {
-                if (weiche.ZeitAktiv <= 0) //Weiche nicht aktiv
-                {
-                    if (weiche.Spiegeln)
-                    {
-                        Z21_Instanz.LAN_X_SET_TURNOUT(Adresse, !sollstellung, true, true);
-                        weiche.ZeitAktiv = weiche.Schaltzeit;
-                    }
-                    else
-                    {
-                        Z21_Instanz.LAN_X_SET_TURNOUT(Adresse, sollstellung, true, true);
-                        weiche.ZeitAktiv = weiche.Schaltzeit;
-                    }
-                }
+                weiche.SetzeWeiche(sollstellung, true);
             }
             SetPointer++; // Nächste Weiche
         }
@@ -187,19 +181,7 @@ namespace MEKB_H0_Anlage
                 {
                     Weiche weiche = Fahrstr_Weichenliste[ControlSetPointer];
                     bool sollstellung = WeichenKonfigSollstellung[weiche.Name];
-
-                   
-
-                    if (weiche.Spiegeln)
-                    {
-                        Z21_Instanz.LAN_X_SET_TURNOUT(weiche.Adresse, !sollstellung, true, true);
-                        weiche.ZeitAktiv = weiche.Schaltzeit;
-                    }
-                    else
-                    {
-                        Z21_Instanz.LAN_X_SET_TURNOUT(weiche.Adresse, sollstellung, true, true);
-                        weiche.ZeitAktiv = weiche.Schaltzeit;
-                    }
+                    weiche.SetzeWeiche(sollstellung, true);
                     ControlSetPointer++;
                 }
                 else
@@ -225,7 +207,7 @@ namespace MEKB_H0_Anlage
         {
             foreach (Weiche weiche in Fahrstr_Weichenliste)
             {
-                if (weiche.ZeitAktiv > 0) return true; //Eine Weiche noch beim Schalten?
+                if (weiche.AmBewegen) return true; //Eine Weiche noch beim Schalten?
             }
             return false;
         }

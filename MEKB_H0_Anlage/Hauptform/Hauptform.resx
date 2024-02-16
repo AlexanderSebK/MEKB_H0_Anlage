@@ -137,6 +137,26 @@ Signale einer Fahrstraße schalten automatisch auf "Fahrt" sobald die Fahrstrass
 gesichert ist
 </value>
   </data>
+  <data name="AutoFahrdienstleiter.ToolTip" xml:space="preserve">
+    <value>(Nicht implementiert)
+Fahrstrassen werden automatisch gelegt sobald der Block frei ist.
+
+Zugpriorität nach Gattung definiert. Wenn der automatische Fahrplan aktiv ist, wird zusätzlich
+noch die Wartezeit berücksichtigt
+</value>
+  </data>
+  <data name="AutoFahrplan.ToolTip" xml:space="preserve">
+    <value>(Nicht implementiert)
+Es wird angezeigt wie lange die Züge noch warten müssen, bis sie weiterfahren dürfen.
+
+Ist der Automatische Fahrdienstleiter aktiviert bekommen die Züge erst Fahrt sobald die Haltezeit abgelaufen ist</value>
+  </data>
+  <data name="AutoBahnhofsansagen.ToolTip" xml:space="preserve">
+    <value>(Nicht implementiert)
+Züge bei Einfahrt in den Bahnhof werden angekündigt. Ziele müssen im Lokeditor eingegeben werden.
+
+Zugkennung erfolgt durch Lokadresse und Gattung. (Bsp. Lokadresse 123; Gattung Regionalexpress -&gt; RE123</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>55</value>
   </metadata>

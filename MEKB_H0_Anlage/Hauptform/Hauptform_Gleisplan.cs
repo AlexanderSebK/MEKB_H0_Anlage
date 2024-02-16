@@ -281,7 +281,10 @@ namespace MEKB_H0_Anlage
         {
             foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
             {
+                // Aktueller Zustand der Gleise in diesem Abschnitt
                 Dictionary<int, MeldeZustand> aktZustand = new Dictionary<int, MeldeZustand>();
+
+                // Aktuellen Zustand berechnen
                 foreach(Gleisplan.Abschnitt.StatusBedingung bedingung in abschnitt.Bedingungen)
                 {
                     bool BelegtmelderStatus = false;
@@ -316,50 +319,75 @@ namespace MEKB_H0_Anlage
                 foreach (Gleisplan.Abschnitt.GleisTyp gleis in abschnitt.Gleise)
                 {
                     bool update = false;
-                    for(int i = 0; i <3; i++)
+                    for (int i = 0; i < 3; i++)
                     {
                         if (gleis.Bedingung[i] == 0) continue; // Keine Bedingung
-                        if(!gleis.Zustand[i].Equals(aktZustand[gleis.Bedingung[i]])) update = true;
+                        if (!gleis.Zustand[i].Equals(aktZustand[gleis.Bedingung[i]])) update = true; //Gezeichnete Bedingung mit aktueller vergleichen
+                        if (!gleis.Signal.Equals("")) //Signal vorhanden
+                        {
+                            if (!SignalListe.GetSignal(gleis.Signal).Zustand.Equals(gleis.SignalZustand)) update = true;
+                            else update = true;
+                        }
                     }
 
-                    if (update)
+                    if (update) //Nur neu Zeichnen wenn Unterschied vorhanden
                     {
-                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
+                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true); //Bildelement zum Gleis finden
                         foreach (Control control in Fund)
                         {
-                            if (control is PictureBox Picbox)
+                            if (control is PictureBox Picbox) // Element gefunden
                             {
-                                if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0 && gleis.Bedingung[2] != 0)
+                                switch(GetGleisBezeichnung(gleis))
                                 {
-                                    GleisbildZeichnung.ZeichneSchaltbild(
-                                        aktZustand[gleis.Bedingung[0]],
-                                        aktZustand[gleis.Bedingung[1]],
-                                        aktZustand[gleis.Bedingung[2]],
-                                        Picbox);
-                                }
-                                else if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0)
-                                {
-                                    GleisbildZeichnung.ZeichneSchaltbild(
-                                        aktZustand[gleis.Bedingung[0]],
-                                        aktZustand[gleis.Bedingung[1]],
-                                        Picbox);
-                                }
-                                else if (gleis.Bedingung[0] != 0)
-                                {
-                                    GleisbildZeichnung.ZeichneSchaltbild(
-                                        aktZustand[gleis.Bedingung[0]],
-                                        Picbox);
-                                }
-                                else if (!gleis.Weiche.Equals(""))
-                                {
-                                    Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche);
-                                    if (gleis.Weiche_2nd.Equals("")) // Normale Weiche ohne zweiten Motor
-                                    {
+                                    case GleistypBezeichnung.Gleis:
+                                        GleisbildZeichnung.ZeichneSchaltbild(
+                                            aktZustand[gleis.Bedingung[0]], 
+                                            Picbox);
+                                        break;
+                                    case GleistypBezeichnung.GleisSignal:
+                                        GleisbildZeichnung.ZeichneSchaltbild(
+                                            aktZustand[gleis.Bedingung[0]], 
+                                            SignalListe.GetSignal(gleis.Signal), 
+                                            Picbox, true);
+                                        gleis.SignalZustand = SignalListe.GetSignal(gleis.Signal).Zustand;
+                                        break;
+                                    case GleistypBezeichnung.Gleis1Ecke:
+                                        GleisbildZeichnung.ZeichneSchaltbild(
+                                            aktZustand[gleis.Bedingung[0]],
+                                            aktZustand[gleis.Bedingung[1]],
+                                            Picbox);
+                                        break;
+                                    case GleistypBezeichnung.Gleis1EckeSignal:
+                                        GleisbildZeichnung.ZeichneSchaltbild(
+                                            aktZustand[gleis.Bedingung[0]],
+                                            aktZustand[gleis.Bedingung[1]],
+                                            SignalListe.GetSignal(gleis.Signal),
+                                            Picbox, true);
+                                        gleis.SignalZustand = SignalListe.GetSignal(gleis.Signal).Zustand;
+                                        break;
+                                    case GleistypBezeichnung.Gleis2Ecken:
+                                        GleisbildZeichnung.ZeichneSchaltbild(
+                                            aktZustand[gleis.Bedingung[0]],
+                                            aktZustand[gleis.Bedingung[1]],
+                                            aktZustand[gleis.Bedingung[2]],
+                                            Picbox);
+                                        break;
+                                    case GleistypBezeichnung.Gleis2EckenSignal:
+                                        GleisbildZeichnung.ZeichneSchaltbild(
+                                            aktZustand[gleis.Bedingung[0]],
+                                            aktZustand[gleis.Bedingung[1]],
+                                            aktZustand[gleis.Bedingung[2]],
+                                            SignalListe.GetSignal(gleis.Signal),
+                                            Picbox, true);
+                                        gleis.SignalZustand = SignalListe.GetSignal(gleis.Signal).Zustand;
+                                        break;
+                                    case GleistypBezeichnung.Weiche1Motor:
+                                        Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche);
                                         if (!gleis.WeichenBelegtmelder.Equals(""))
                                         {
                                             if (int.TryParse(gleis.WeichenBelegtmelder, out int index))
                                             {
-                                                weiche.Besetzt = aktZustand[index].Besetzt;                                                  
+                                                weiche.Besetzt = aktZustand[index].Besetzt;
                                             }
                                         }
                                         if (gleis.Bedingung[1] == 0)
@@ -370,32 +398,30 @@ namespace MEKB_H0_Anlage
                                         {
                                             GleisbildZeichnung.ZeichneSchaltbild(weiche, aktZustand[gleis.Bedingung[1]], Picbox, true);
                                         }
-                                    }
-                                    else
-                                    {
+                                        break;
+                                    case GleistypBezeichnung.Weiche2Motoren:
+                                        Weiche weiche1 = WeichenListe.GetWeiche(gleis.Weiche);
                                         Weiche weiche2 = WeichenListe.GetWeiche(gleis.Weiche_2nd);
                                         if (!gleis.WeichenBelegtmelder.Equals(""))
                                         {
                                             if (int.TryParse(gleis.WeichenBelegtmelder, out int index))
                                             {
-                                                weiche.Besetzt = aktZustand[index].Besetzt;
+                                                weiche1.Besetzt = aktZustand[index].Besetzt;
                                                 weiche2.Besetzt = aktZustand[index].Besetzt;
                                             }
                                         }
 
-                                        GleisbildZeichnung.ZeichneSchaltbild(weiche, weiche2, Picbox);
-                                    }
+                                        GleisbildZeichnung.ZeichneSchaltbild(weiche1, weiche2, Picbox);
+                                        break;
+                                    default:break;
                                 }
-                                if (!gleis.Signal.Equals(""))
-                                {
-                                    GleisbildZeichnung.ZeichneSchaltbild(SignalListe.GetSignal(gleis.Signal), Picbox);
-                                }
-
+                                // Aktuellen Zustand als gezeichneten Zustand übernehmen
                                 for (int i = 0; i < 3; i++)
                                 {
                                     if (gleis.Bedingung[i] == 0) continue; // Keine Bedingung
                                     gleis.Zustand[i] = aktZustand[gleis.Bedingung[i]];
                                 }
+
                             } // if picturebox
                         } // foreach Control
                     } // if(update)
@@ -443,127 +469,11 @@ namespace MEKB_H0_Anlage
                         {
                             if (control is PictureBox Picbox)
                             {
-                                GleisbildZeichnung.ZeichneSchaltbild(weiche, weiche2, Picbox, true);
+                                 GleisbildZeichnung.ZeichneSchaltbild(weiche, weiche2, Picbox, true);                               
                             }
                         }
                     }
                 }  
-            }
-        }
-
-        
-        /// <summary>
-        /// Aktuellen Zustand der Weiche im Gleisplan zeichnen
-        /// </summary>
-        /// <param name="weiche">Weiche die neu gezeichnet werden soll</param>
-        private void GleisplanUpdateWeiche(Weiche weiche)
-        {
-            foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
-            {
-                foreach (Gleisplan.Abschnitt.GleisTyp gleis in abschnitt.Gleise)
-                {
-                    if(gleis.Weiche.Equals(weiche.Name))
-                    {
-                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
-                        foreach (Control control in Fund)
-                        {
-                            if (control is PictureBox Picbox)
-                            {
-                                if (gleis.Weiche_2nd.Equals("")) //Kein Zweiter Weichenmotor
-                                {
-                                    if (gleis.Bedingung[1] == 0)
-                                    {
-                                        GleisbildZeichnung.ZeichneSchaltbild(weiche, Picbox);
-                                    }
-                                    else if (gleis.Bedingung[2] == 0)
-                                    {
-                                        Dictionary<int, MeldeZustand> aktZustand = new Dictionary<int, MeldeZustand>();
-                                        foreach (Gleisplan.Abschnitt.StatusBedingung bedingung in abschnitt.Bedingungen)
-                                        {
-                                            if (bedingung.Nummer == gleis.Bedingung[1])
-                                            {
-                                                bool BelegtmelderStatus = false;
-                                                foreach (Dictionary<string, bool> entry in bedingung.Aktiv)
-                                                {
-                                                    bool AND_bedingung = true;
-                                                    foreach (KeyValuePair<string, bool> Weichenentry in entry)
-                                                    {
-                                                        bool WeichenAbzweig = WeichenListe.GetWeiche(Weichenentry.Key).Abzweig;
-                                                        if (WeichenAbzweig != Weichenentry.Value) AND_bedingung = false;
-                                                    }
-                                                    if (AND_bedingung) BelegtmelderStatus = true;
-
-                                                }
-                                                // Wenn Belegtmelderstatus gewünscht ist
-                                                if (BelegtmelderStatus) BelegtmelderStatus = BelegtmelderListe.GetBelegtStatus(bedingung.Belegtmelder);
-
-                                                aktZustand.Add(bedingung.Nummer, ErrechneZustand(
-                                                        BelegtmelderStatus,
-                                                        FahrstrassenListe.GetFahrstrasse(bedingung.FahrstrassenMit.ToArray()),
-                                                        FahrstrassenListe.GetFahrstrasse(bedingung.FahrstrassenGegen.ToArray())));
-                                            }
-                                        }
-                                        GleisbildZeichnung.ZeichneSchaltbild(weiche, aktZustand[gleis.Bedingung[1]], Picbox, true);
-                                    }
-                                }
-                                else // Zweiter Weichenmotor
-                                {
-                                    Weiche weiche2 = WeichenListe.GetWeiche(gleis.Weiche_2nd);
-                                    GleisbildZeichnung.ZeichneSchaltbild(weiche, weiche2, Picbox, true);
-                                }
-                            }
-                        }                      
-                    }
-                    else if(gleis.Weiche_2nd.Equals(weiche.Name))
-                    {
-                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
-                        foreach (Control control in Fund)
-                        {
-                            if (control is PictureBox Picbox)
-                            {
-                                Weiche weiche2 = WeichenListe.GetWeiche(gleis.Weiche);
-                                GleisbildZeichnung.ZeichneSchaltbild(weiche2, weiche, Picbox, true);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Aktuellen Zustand des Signals im Gleisplan zeichnen
-        /// </summary>
-        /// <param name="signal">Signal das neu gezeichnet werden soll</param>
-        private void GleisplanUpdateSignal(Signal signal)
-        {
-            foreach (Gleisplan.Abschnitt abschnitt in Plan.Abschnitte)
-            {
-                foreach (Gleisplan.Abschnitt.GleisTyp gleis in abschnitt.Gleise)
-                {
-                    if (gleis.Signal.Equals(signal.Name))
-                    {
-                        var Fund = this.GleisplanAnzeige.Controls.Find(gleis.Name, true);
-                        foreach (Control control in Fund)
-                        {
-                            if (control is PictureBox Picbox)
-                            {
-                                if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0 && gleis.Bedingung[2] != 0)
-                                {
-                                    GleisbildZeichnung.ZeichneSchaltbild(gleis.Zustand[0], gleis.Zustand[1], gleis.Zustand[2], Picbox, true);
-                                }
-                                else if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0)
-                                {
-                                    GleisbildZeichnung.ZeichneSchaltbild(gleis.Zustand[0], gleis.Zustand[1], Picbox, true);
-                                }
-                                else if (gleis.Bedingung[0] != 0)
-                                {
-                                    GleisbildZeichnung.ZeichneSchaltbild(gleis.Zustand[0], Picbox, true);
-                                }
-                                GleisbildZeichnung.ZeichneSchaltbild(signal, Picbox);    
-                            }
-                        }
-                    }
-                }
             }
         }
 
@@ -589,6 +499,47 @@ namespace MEKB_H0_Anlage
             Gleis = null;
             return false;
         }
+
+
+        /// <summary>
+        /// Gleistypen
+        /// </summary>
+        enum GleistypBezeichnung
+        {
+            Gleis,
+            GleisSignal,
+            Gleis1Ecke,
+            Gleis1EckeSignal,
+            Gleis2Ecken,
+            Gleis2EckenSignal,
+            Weiche1Motor,
+            Weiche2Motoren,
+            Error
+        }
+        private GleistypBezeichnung GetGleisBezeichnung(Gleisplan.Abschnitt.GleisTyp gleis)
+        {
+            if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0 && gleis.Bedingung[2] != 0)
+            {
+                if (!gleis.Signal.Equals("")) return GleistypBezeichnung.Gleis2EckenSignal;
+                else return GleistypBezeichnung.Gleis2Ecken;
+            }
+            else if (gleis.Bedingung[0] != 0 && gleis.Bedingung[1] != 0)
+            {
+                if (!gleis.Signal.Equals("")) return GleistypBezeichnung.Gleis1EckeSignal;
+                else return GleistypBezeichnung.Gleis1Ecke;
+            }
+            else if (gleis.Bedingung[0] != 0)
+            {
+                if (!gleis.Signal.Equals("")) return GleistypBezeichnung.GleisSignal;
+                else return GleistypBezeichnung.Gleis;
+            }
+            else if (!gleis.Weiche.Equals("") && gleis.Weiche_2nd.Equals("")) return GleistypBezeichnung.Weiche1Motor;
+            else if (!gleis.Weiche.Equals("") && !gleis.Weiche_2nd.Equals("")) return GleistypBezeichnung.Weiche2Motoren;
+
+            return GleistypBezeichnung.Error;
+        }
+
+
 
         MeldeZustand FreiesGleis = new MeldeZustand(false);
         #endregion
@@ -670,13 +621,14 @@ namespace MEKB_H0_Anlage
                     //Fahrstraße als aktiviert kennzeichnen
                     fahrstrasse.AktiviereFahrstasse();
                     //Jede Weiche in der Fahrstraßenliste durchlaufen
+                    /*
                     foreach (Weiche Fahrstrassenweiche in fahrstrasse.Fahrstr_Weichenliste)
                     {
                         Weiche weiche = WeichenListe.GetWeiche(Fahrstrassenweiche.Name);   //Weiche in Globale Liste suchen
                         if (weiche == null) return;   //Weichen nicht gefunden - Funktion abbrechen
                         GleisplanUpdateWeiche(weiche);  //Weichenbild aktualisieren
                     }
-
+                    */
                     //Weichen zyklisch nochmal schalten um hängenbleiben zu vermeiden
                     if (Betriebsbereit) fahrstrasse.ControlSetFahrstrasse(z21Start);
                 }

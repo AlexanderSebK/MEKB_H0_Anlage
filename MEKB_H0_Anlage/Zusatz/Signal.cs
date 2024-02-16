@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Threading;
 
 namespace MEKB_H0_Anlage
 {
@@ -177,6 +178,7 @@ namespace MEKB_H0_Anlage
             return false;
         }
 
+       
 
         /// <summary>
         /// Verknüpfe Z21 Instanzen
@@ -249,6 +251,10 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public bool Letzte_Adresswahl { get; set; }
         /// <summary>
+        /// Letzter geschalteter Ausgang
+        /// </summary>
+        public bool Letzter_Ausgang { get; set; }
+        /// <summary>
         /// Zustand: HPx des Signals 
         /// </summary>
         public SignalZustand Zustand { get; set; }
@@ -269,8 +275,14 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public SignalZustand Adr2_2 { get; set; } 
         
+        /// <summary>
+        /// True: Signal soll nicht automatisch auf grün schalten
+        /// </summary>
         public bool AutoSperre { get; set; }
+
+        public bool UpdateNoetig { get; set; }
         
+        private Timer CooldownTimer { get; set; }
 
         private Z21 Z21_zentrale { get; set; }
 
@@ -287,6 +299,8 @@ namespace MEKB_H0_Anlage
             Letzte_Adresswahl = false;
             Z21_zentrale = new Z21();
             AutoSperre = false;
+            Zustand = SignalZustand.Unbestimmt;
+            UpdateNoetig = false;
         }
 
 
@@ -353,19 +367,21 @@ namespace MEKB_H0_Anlage
         /// <param name="z21">Instance der Z21</param>
         public void Schalten(SignalZustand NeuerZustand)
         {
-            if (Adr1_1 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, false); Letzte_Adresswahl = false; }
-            else if (Adr1_2 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, true); Letzte_Adresswahl = false; }
-            else if (Adr2_1 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, false); Letzte_Adresswahl = true; }
-            else if (Adr2_2 == NeuerZustand) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, true); Letzte_Adresswahl = true; }
+            if (Zustand == NeuerZustand) return;    //Keine Änderung nötig
+
+            if (Adr1_1 == NeuerZustand) {      ZustandSetzen(Adresse, false); Letzter_Ausgang = false; Letzte_Adresswahl = false; }
+            else if (Adr1_2 == NeuerZustand) { ZustandSetzen(Adresse, true); Letzter_Ausgang = true; Letzte_Adresswahl = false; }
+            else if (Adr2_1 == NeuerZustand) { ZustandSetzen(Adresse2, false); Letzter_Ausgang = false; Letzte_Adresswahl = true; }
+            else if (Adr2_2 == NeuerZustand) { ZustandSetzen(Adresse2, true); Letzter_Ausgang = true; Letzte_Adresswahl = true; }
             else
             {
                 //Signal kennt diesen Zustand nicht -> Prüfen ob HP2 zu HP1 umgewandelt werden kann, sonst Befehl ignorieren
                 if (NeuerZustand == SignalZustand.HP2)
                 {
-                    if (Adr1_1 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, false); Letzte_Adresswahl = false; }
-                    else if (Adr1_2 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, true); Letzte_Adresswahl = false; }
-                    else if (Adr2_1 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, false); Letzte_Adresswahl = true; }
-                    else if (Adr2_2 == SignalZustand.HP1) { Z21_zentrale.LAN_X_SET_SIGNAL(Adresse2, true); Letzte_Adresswahl = true; }
+                    if (Adr1_1 == SignalZustand.HP1) { ZustandSetzen(Adresse, false); Letzter_Ausgang = false; Letzte_Adresswahl = false; }
+                    else if (Adr1_2 == SignalZustand.HP1) { ZustandSetzen(Adresse, true); Letzter_Ausgang = true; Letzte_Adresswahl = false; }
+                    else if (Adr2_1 == SignalZustand.HP1) { ZustandSetzen(Adresse2, false); Letzter_Ausgang = false; Letzte_Adresswahl = true; }
+                    else if (Adr2_2 == SignalZustand.HP1) { ZustandSetzen(Adresse2, true); Letzter_Ausgang = true; Letzte_Adresswahl = true; }
                     else
                     {
                         // Signal kennt kann kein HP1 oder HP2 (Rangiersignale)
@@ -376,6 +392,21 @@ namespace MEKB_H0_Anlage
                     // Signal kennt diesen Zustand nicht
                 }
             }
+        }
+
+        private void ZustandSetzen(int Adresse, bool Ausgang)
+        {
+            Z21_zentrale.LAN_X_SET_SIGNAL(Adresse, Ausgang);
+            //CooldownTimer = new Timer(AusgangAuschalten, null, 100, System.Threading.Timeout.Infinite);
+        }
+
+
+        private void AusgangAuschalten(Object o)
+        {
+            int addr = Adresse;
+            if (Letzte_Adresswahl) addr = Adresse2;
+
+            Z21_zentrale.LAN_X_SET_SIGNAL_OFF(addr, Letzter_Ausgang);
         }
         /// <summary>
         /// Überprüft ob diese Stellung erlaubt ist
@@ -487,11 +518,11 @@ namespace MEKB_H0_Anlage
                 // Schalte auf HP1 wenn erlaubt und AutoHP1 erlaubt
                 if (StellungErlaubt(SignalZustand.HP1, AchteFahrstrassen))
                 {
-                    if (AutoHP1 && Zustand != SignalZustand.HP1) Schalten(SignalZustand.HP1);
+                    if (AutoHP1 && Zustand != SignalZustand.HP1) { Schalten(SignalZustand.HP1); return; } // nur einmal schalten pro durchlauf
                 }
                 else // HP1 ist nicht erlaubt: Auf HP0 schalten
                 {
-                    if (Zustand != SignalZustand.HP0) Schalten(SignalZustand.HP0);
+                    if (Zustand != SignalZustand.HP0) { Schalten(SignalZustand.HP0); return; }
                 }
             }
             else if (IstHP2Verbund())
@@ -499,11 +530,11 @@ namespace MEKB_H0_Anlage
                 // Schalte auf HP2 wenn erlaubt und AutoHP1 erlaubt
                 if (StellungErlaubt(SignalZustand.HP2, AchteFahrstrassen))
                 {
-                    if (AutoHP1 && Zustand == SignalZustand.HP0) Schalten(SignalZustand.HP2);
+                    if (AutoHP1 && Zustand == SignalZustand.HP0) { Schalten(SignalZustand.HP2); return; }
                 }
                 else // HP2 ist nicht erlaubt: Auf HP0 schalten
                 {
-                    if (Zustand != SignalZustand.HP0) Schalten(SignalZustand.HP0);
+                    if (Zustand != SignalZustand.HP0) { Schalten(SignalZustand.HP0); return; }
                 }
             }
             else if (IstSperrSignal())
@@ -523,22 +554,22 @@ namespace MEKB_H0_Anlage
                             if (fahrstrasse.EndSignal.Zustand == SignalZustand.HP0)
                             {
                                 // Wenn nächstes Signal auf rot steht -> langsame Fahrt
-                                if (AutoHP1 && Zustand != SignalZustand.HP2) Schalten(SignalZustand.HP2);
+                                if (AutoHP1 && Zustand != SignalZustand.HP2) { Schalten(SignalZustand.HP2); return;}
                             }
                             else
                             {
-                                if (AutoHP1 && Zustand != SignalZustand.HP1) Schalten(SignalZustand.HP1);
+                                if (AutoHP1 && Zustand != SignalZustand.HP1) { Schalten(SignalZustand.HP1); return;}
                             }
                         }
                     }
                 }
                 else if (HP2_Erlaubt)
                 {
-                    if (AutoHP1 && Zustand != SignalZustand.HP2) Schalten(SignalZustand.HP2);
+                    if (AutoHP1 && Zustand != SignalZustand.HP2) { Schalten(SignalZustand.HP2); return; }
                 }
                 else
                 {
-                    if (Zustand != SignalZustand.HP0) Schalten(SignalZustand.HP0);
+                    if (Zustand != SignalZustand.HP0) { Schalten(SignalZustand.HP0); return; }
                 }
             }
         }

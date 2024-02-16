@@ -59,12 +59,14 @@ namespace MEKB_H0_Anlage
             {
                 if (init)
                 {
+                    Z21_Initialisiert = true;
                     HauptStatusbar.Text = "Z21: Verbunden";
                     HauptStatusbar.BackColor = Color.ForestGreen;
                     HauptStatusbar.ForeColor = Color.White;
                 }
                 else
                 {
+                    Z21_Initialisiert = false;
                     HauptStatusbar.Text = "Z21: Initialisieren";
                     HauptStatusbar.BackColor = Color.Gold;
                     HauptStatusbar.ForeColor = Color.Black;
@@ -82,6 +84,11 @@ namespace MEKB_H0_Anlage
         {
             StatusBarStrom.Text = String.Format("Stromverbauch: {0} mA", MainFilter);
         }
+        /// <summary>
+        /// Spannungsversorgung Z21 
+        /// </summary>
+        /// <param name="Versorgung">Versorgungsspannung Z21</param>
+        /// <param name="Gleis">Versgungspannung Gleisspannung (Ausgang Z21)</param>
         private void Set_Z21_Spannung(int Versorgung, int Gleis)
         {
             StatusBarSpg.Text = String.Format("Gleisspannung: {0} mV", Gleis);
@@ -128,13 +135,18 @@ namespace MEKB_H0_Anlage
                 Betriebsbereit = false;
             }
         }
+        /// <summary>
+        /// Invoke-Funktion
+        /// Ausgeführt, wenn neues Packet mit Signal/Weichen Status empfangen wird
+        /// </summary>
+        /// <param name="Adresse">Adresse des Betroffenen Signals/Weiche</param>
+        /// <param name="Status">neuer Status</param>
         private void UpdateWeiche(int Adresse, int Status)
         {
             Weiche weiche = WeichenListe.GetWeiche(Adresse); //Finde Weiche mit dieser Adresse 
             if (weiche != null)//Weiche gefunden in der Liste
             {
-                weiche.StatusUpdate(Status);
-                GleisplanUpdateWeiche(weiche);       
+                weiche.StatusUpdate(Status);    
             }
             else
             {
@@ -142,8 +154,7 @@ namespace MEKB_H0_Anlage
                 if(SignalListe.UpdateSignalZustand(Adresse, Status))
                 {
                     // Update erfolgreich (inkl. Signal gefunden)
-                    GleisplanUpdateSignal(SignalListe.GetSignal(Adresse));
-                    
+                    SignalListe.GetSignal(Adresse).UpdateNoetig = true;            
                 }
             }
         }

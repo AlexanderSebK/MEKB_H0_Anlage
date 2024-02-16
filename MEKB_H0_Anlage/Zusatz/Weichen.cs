@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Threading;
+using System.Timers;
 
 namespace MEKB_H0_Anlage
 {
@@ -38,14 +40,7 @@ namespace MEKB_H0_Anlage
         {
             Liste = new List<Weiche>();
             Verzeichnis = new Dictionary<string, int>();
-            XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
-            var optionen = XMLFile.Elements("Optionen").ToList();
-            bool Q_M = false;
-            foreach (XElement werte in optionen)
-            {
-                Q_M = werte.Element("Q_Modus").Value.Equals("1");
-            }
-
+            XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen           
             var list = XMLFile.Elements("Weiche").ToList();             //Alle Elemente des Types Weiche in eine Liste Umwandeln 
 
             foreach (XElement weiche in list)                            //Alle Elemente der Liste einzeln durchlaufen
@@ -55,7 +50,7 @@ namespace MEKB_H0_Anlage
                 bool Wspiegeln = (weiche.Element("spiegeln").Value == "1");                                 //Parameter für gespiegelte Weichen auslesen
                 int time = 500;
                 if (weiche.Element("Zeit") != null) time = Int16.Parse(weiche.Element("Zeit").Value);
-                Liste.Add(new Weiche() { Name = WName, Adresse = WAdresse, Spiegeln = Wspiegeln, Schaltzeit = time, Q_Modus = Q_M });  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
+                Liste.Add(new Weiche() { Name = WName, Adresse = WAdresse, Spiegeln = Wspiegeln, Schaltzeit = time });  //Mit den Werten eine neue Weiche zur Fahrstr_Weichenliste hinzufügen
             }
             for (int i = 0; i < Liste.Count; i++)
             {
@@ -109,7 +104,7 @@ namespace MEKB_H0_Anlage
                 foreach (Weiche weiche in Liste)
                 {
                     weiche.WeichenStatusAnfragen();                 //Anfrage an Zentrale senden
-                    Task.Delay(50);                                //50ms warten
+                    Thread.Sleep(50);                                //50ms warten
                 }
             }
             else
@@ -146,19 +141,6 @@ namespace MEKB_H0_Anlage
                 Liste[ListID].SetzeWeiche(!Liste[ListID].Abzweig, IgnoriereFahrstrasseBlock);             
             }
         }
-
-        /// <summary>
-        /// Überwachung der Weichenstellzeit
-        /// </summary>
-        /// <param name="Zeit">Zeit vergangen seit dem letztem Aufruf dieser Funktion</param>
-        public void WeichenschaltungsUeberwachung(int Zeit)
-        {
-            foreach (Weiche weiche in Liste)
-            {
-                weiche.Schaltueberwachung(Zeit);               
-            }
-        }
-
     }
 
 
@@ -174,9 +156,9 @@ namespace MEKB_H0_Anlage
             Status_Error = false;
             Besetzt = false;
             FahrstrasseAktive = false;
-            Q_Modus = false;
             Schaltzeit = 3000;
-            ZeitAktiv = 0;
+            AktiveZeit = 0;
+            AmBewegen = false;
             Z21 = new Z21();
         }
         #region Parameter
@@ -196,8 +178,18 @@ namespace MEKB_H0_Anlage
         /// Pfeilrichtung: true = vonZunge; false = zurZunge;
         /// </summary>
         public bool FahrstrasseRichtung_vonZunge { get; set; }
+        /// <summary>
+        /// Zeit in ms wie lange der Schaltausgang aktiv sein muss
+        /// </summary>
         public int Schaltzeit { get; set; }
-        public bool Q_Modus { get; set; }
+        /// <summary>
+        /// Zeit wie lange die Weiche am Schalten ist 
+        /// </summary>
+        public int AktiveZeit { get; set; }
+        /// <summary>
+        /// Endposition beim schalten
+        /// </summary>
+        public bool ZielStellung {  get; set; } 
         /// <summary>
         /// Weichen Befehl zur Z21 wird gespiegelt. 
         /// False: Zustand 0 = Befehl 0; Zustand 1 = Befehl 1
@@ -227,12 +219,14 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public bool Status_Error { get; set; }
         /// <summary>
-        /// Zeit wie lange der Ausgang noch aktiv ist (ms)
+        /// Weiche ist noch am bewegen (Stoppbefehl noch nicht gesendet)
         /// </summary>
-        public int ZeitAktiv { get; set; }
+        public bool AmBewegen { get; set; }
         public bool Besetzt { get; set; }
 
         private Z21 Z21 { get; set; }
+
+        private System.Timers.Timer CooldownTimer { get; set; }
         #endregion
         #region Listenfunktionen
         /// <summary>
@@ -292,35 +286,43 @@ namespace MEKB_H0_Anlage
         {
 
             if (FahrstrasseAktive && !IgnoriereFahrstrasseBlock) return; //Durch Fahrstrasse kontrolliert
-            if (ZeitAktiv > 0) return; //Weiche noch beim schalten
+            if (AmBewegen) return; //Weiche noch beim schalten
 
             if (Spiegeln) Endzustand = !Endzustand;
 
             Z21.LAN_X_SET_TURNOUT(Adresse, Endzustand, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
-            ZeitAktiv = Schaltzeit;            
+            
+            CooldownTimer = new System.Timers.Timer(400);
+            CooldownTimer.Elapsed += AusgangAuschalten;
+            CooldownTimer.AutoReset = true;
+            CooldownTimer.Enabled = true;
+            CooldownTimer.Start();
+            
+            ZielStellung = Endzustand;
+            AktiveZeit = Schaltzeit;
+            AmBewegen = true;
+
+            
         }
 
-        public void Schaltueberwachung(int Zeit)
+        private void AusgangAuschalten(Object source, ElapsedEventArgs e)
         {
-            //Weiche noch beim Schalten
-            if (ZeitAktiv != 0)
+           AktiveZeit -= 400;
+            if (AktiveZeit > 0)
             {
-                ZeitAktiv -= Zeit;
-                bool Endzustand = Abzweig;
-                if (Spiegeln) Endzustand = !Endzustand;
-               
-                // Schaltzeit gerade abgelaufen
-                if (ZeitAktiv <= 0)
-                {
-                    ZeitAktiv = 0;
-                    Z21.LAN_X_SET_TURNOUT(Adresse, Endzustand, true, false); //Q-Modus aktiviert, Schaltausgang inaktiv   
-                }
-                else
-                {
-                    Z21.LAN_X_SET_TURNOUT(Adresse, Endzustand, true, true);
-                }
+                // Weiter Schalten
+                Z21.LAN_X_SET_TURNOUT(Adresse, ZielStellung, true, true); //Q-Modus aktiviert, Schaltausgang aktiv
             }
+            else
+            {
+                CooldownTimer.Stop();
+                Z21.LAN_X_SET_TURNOUT(Adresse, ZielStellung, true, false); //Q-Modus aktiviert, Schaltausgang aus
+                AktiveZeit = 0;
+                AmBewegen = false;
+            }
+            
         }
+
         /// <summary>
         /// Anfrage an Z21 senden und aktuellen Weichenzustand erfragen. Antwort wird mit Involke-Funktionen ausgewertet
         /// </summary>

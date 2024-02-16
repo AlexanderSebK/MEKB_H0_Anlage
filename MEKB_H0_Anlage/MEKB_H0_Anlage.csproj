@@ -99,9 +99,6 @@
     <Compile Include="Hauptform\Hauptform_ButtonCtrl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Hauptform\Hauptform_Signale.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Hauptform\Hauptform_LokStrg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +122,12 @@
     </Compile>
     <Compile Include="MenuFenster\MenuFenster_Signalistentool.Designer.cs">
       <DependentUpon>MenuFenster_Signalistentool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuFenster\Zugmenue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuFenster\Zugmenue.Designer.cs">
+      <DependentUpon>Zugmenue.cs</DependentUpon>
     </Compile>
     <Compile Include="ZusatzFenster\LokSuche.cs">
       <SubType>Form</SubType>
@@ -205,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuFenster\MenuFenster_Signalistentool.resx">
       <DependentUpon>MenuFenster_Signalistentool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuFenster\Zugmenue.resx">
+      <DependentUpon>Zugmenue.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ZusatzFenster\LokSuche.resx">
       <DependentUpon>LokSuche.cs</DependentUpon>
