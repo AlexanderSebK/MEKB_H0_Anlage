@@ -51,6 +51,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -71,13 +72,13 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(304, 23);
             this.label2.TabIndex = 1;
-            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 3.2";
+            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 3.3";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(4, 339);
+            this.label3.Location = new System.Drawing.Point(5, 398);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(307, 17);
             this.label3.TabIndex = 2;
@@ -208,7 +209,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(8, 280);
+            this.label15.Location = new System.Drawing.Point(8, 330);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(117, 17);
             this.label15.TabIndex = 14;
@@ -226,7 +227,7 @@
             // 
             // InfoClose
             // 
-            this.InfoClose.Location = new System.Drawing.Point(626, 336);
+            this.InfoClose.Location = new System.Drawing.Point(626, 389);
             this.InfoClose.Name = "InfoClose";
             this.InfoClose.Size = new System.Drawing.Size(75, 23);
             this.InfoClose.TabIndex = 16;
@@ -287,12 +288,24 @@
             this.label21.TabIndex = 21;
             this.label21.Text = "Lokverfolgung";
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.ForestGreen;
+            this.label22.Location = new System.Drawing.Point(9, 280);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(216, 17);
+            this.label22.TabIndex = 22;
+            this.label22.Text = "Autom. Signalsteuerung (fertig - 14.02.2024)";
+            // 
             // InfoBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(713, 365);
+            this.ClientSize = new System.Drawing.Size(713, 424);
+            this.Controls.Add(this.label22);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
@@ -352,5 +365,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
     }
 }
