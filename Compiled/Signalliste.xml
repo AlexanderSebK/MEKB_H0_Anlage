@@ -163,7 +163,64 @@
     <Adr1Zustand2>HP1</Adr1Zustand2>
     <Adr2Zustand1>HP2</Adr2Zustand1>
     <Adr2Zustand2>HP0</Adr2Zustand2>
-    <Fahrstrassen />
+    <Vorsignal>
+		<Adresse>414</Adresse>
+		<Adresse2>415</Adresse2>
+		<Adr1Zustand1>HP0</Adr1Zustand1>
+		<Adr1Zustand2>HP1</Adr1Zustand2>
+		<Adr2Zustand1>HP2</Adr2Zustand1>
+		<Adr2Zustand2>HP0</Adr2Zustand2>
+		<HauptSignal>
+			<Name>Signal_Ausfahrt_R1</Name>
+			<Weiche Zustand="Gerade">Weiche2</Weiche>
+			<Weiche Zustand="Abzweig">Weiche3</Weiche>
+			<Weiche Zustand="Abzweig">Weiche4</Weiche>
+			<Weiche Zustand="Abzweig">Weiche6</Weiche>
+		</HauptSignal>
+		<HauptSignal>
+			<Name>Signal_Ausfahrt_R2</Name>
+			<Weiche Zustand="Gerade">Weiche2</Weiche>
+			<Weiche Zustand="Abzweig">Weiche3</Weiche>
+			<Weiche Zustand="Abzweig">Weiche4</Weiche>
+			<Weiche Zustand="Gerade">Weiche6</Weiche>
+		</HauptSignal>
+		<HauptSignal>
+			<Name>Signal_Ausfahrt_R3</Name>
+			<Weiche Zustand="Gerade">Weiche2</Weiche>
+			<Weiche Zustand="Gerade">Weiche3</Weiche>
+			<Weiche Zustand="Gerade">Weiche5</Weiche>
+		</HauptSignal>
+		<HauptSignal>
+			<Name>Signal_Ausfahrt_R4</Name>
+			<Weiche Zustand="Gerade">Weiche2</Weiche>
+			<Weiche Zustand="Gerade">Weiche3</Weiche>
+			<Weiche Zustand="Abzweig">Weiche5</Weiche>
+			<Weiche Zustand="Abzweig">DKW7_1</Weiche>
+			<Weiche Zustand="Gerade">DKW7_2</Weiche>
+		</HauptSignal>
+		<HauptSignal>
+			<Name>Signal_Ausfahrt_R5</Name>
+			<Weiche Zustand="Gerade">Weiche2</Weiche>
+			<Weiche Zustand="Gerade">Weiche3</Weiche>
+			<Weiche Zustand="Abzweig">Weiche5</Weiche>
+			<Weiche Zustand="Abzweig">DKW7_1</Weiche>
+			<Weiche Zustand="Abzweig">DKW7_2</Weiche>
+			<Weiche Zustand="Gerade">Weiche8</Weiche>
+			<Weiche Zustand="Abzweig">DKW9_1</Weiche>
+			<Weiche Zustand="Gerade">DKW9_2</Weiche>
+		</HauptSignal>
+		<HauptSignal>
+			<Name>Signal_Ausfahrt_R6</Name>
+			<Weiche Zustand="Gerade">Weiche2</Weiche>
+			<Weiche Zustand="Gerade">Weiche3</Weiche>
+			<Weiche Zustand="Abzweig">Weiche5</Weiche>
+			<Weiche Zustand="Abzweig">DKW7_1</Weiche>
+			<Weiche Zustand="Abzweig">DKW7_2</Weiche>
+			<Weiche Zustand="Gerade">Weiche8</Weiche>
+			<Weiche Zustand="Abzweig">DKW9_1</Weiche>
+			<Weiche Zustand="Abzweig">DKW9_2</Weiche>
+		</HauptSignal>
+	</Vorsignal>
   </Signal>
   <Signal>
     <Name>Signal_Tunnel_L1</Name>

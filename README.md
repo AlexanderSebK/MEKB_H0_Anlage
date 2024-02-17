@@ -56,6 +56,9 @@ Zwangsbremsung manuellgesteuerter Loks vor rotem Signal
 - [x] Signal / Blockbelegterkennung
 Signal Schaltung nach Fahrstrassen und Belegtmeldung. 
 
+- [x] Bahnhofsansagen
+Wenn ein Zug einen bestimmten Punkt erreicht, soll eine Ansage ertönen mit der Zugnummer (Gattung+Adresse) und in welches Gleis er einfahren soll
+
 MEKB Anlage 
 - [x] Gleisplan zeichnen
 Aktuellen Gleisplan der MEKB H0-Anlage importieren
@@ -76,6 +79,9 @@ Alle Belegtblöcke nach Port und Pin zuorndne
 Gleisplan ist in eine XML-Datei gespeichert
 
 Automatisierung
+- [x] Automatische Signalsteuerung
+Signale schalten je nach Weichenstellung / Gesetzte Fahrstrassen / Gleisbesetzung
+
 - [ ] Automatische Zugsteuerung
 Züge fahren automatisch wenn das Signal auf grün steht bis zum Nächsten Signal. Inklusive realistisches Anfahren und Abbremsen
 
@@ -86,8 +92,6 @@ Fahrstrassen werden automatisch gesetzt, entweder nach Fahrplan oder Gattung der
 Weitere Ideen für das Programm nach erster Fertigstellung
 - Rangier-Fahrstrassen
 Es soll möglich sein spezielle Abschnitte für Rangierfahrten zu reservieren 
-- Bahnhofsansagen
-Wenn ein Zug einen bestimmten Punkt erreicht, soll eine Ansage ertönen mit der Zugnummer (Gattung+Adresse) und in welches Gleis er einfahren soll
 - Externes Display für Lokinformationen für Zuschauer
 Soll ein Externes Display (Oder extra PC) an das Netzwerk angeschlossen werden, der Details zu den Fahren Loks anzeigt.
 
