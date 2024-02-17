@@ -118,12 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Gerade90_EckeL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade0_EckeL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Signal_2B_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_2B_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -133,149 +127,32 @@
   <data name="Signal_2B_HP0_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_2B_HP0_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Kurve180R_EckeOL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve180R_EckeOL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zunge_AbzweigR_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_AbzweigR_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_0_unten" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_0_unten.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EckeOL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EckeOL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gerade0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_90_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_90_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheR225_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheR225_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_90_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_90_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheL180_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheL180_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve0L_oben" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve0L_oben.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zunge_AbzweigR_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_AbzweigR_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gerade90_EckeUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade90_EckeUL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Bahnsteig_Mitte" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Bahnsteig_Mitte.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve180R_unten" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve180R_unten.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_EckeUL_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_EckeUL_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Signal_3B_HP2_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_3B_HP2_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Fahrstr_Kurve90R_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve90R_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve270L_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve270L_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gerade90_EckeUR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade90_EckeUR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Fahrstrasse_rechts_deakt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fahrstrasse_rechts_deakt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Block5_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Block5_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zunge_AbzweigL_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_AbzweigL_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SH_2_inaktiv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SH_2_inaktiv.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GeradePrelbock270" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GeradePrelbock270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Kurve90R" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve90R.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheL135_Analog_EckeOL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheL135_Analog_EckeOL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve270R_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve270R_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_135_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_135_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Sperrsignal_kurz_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sperrsignal_kurz_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_EckeOR_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_EckeOR_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheR45_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheR45_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_EckeUR_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_EckeUR_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zunge_AbzweigL_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_AbzweigL_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Fahrstrasse_links_deakt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fahrstrasse_links_deakt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Fahrstr_Kurve90L_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve90L_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve0R_unten" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve0R_unten.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gerade135_EckeUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade135_EckeUL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_EckeUL_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_EckeUL_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Fahrstrasse_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fahrstrasse_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GeradePrellbock135" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GeradePrellbock135.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Kurve270R" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve270R.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Fahrstrasse_unten" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fahrstrasse_unten.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WeicheL270_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheL270_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Kurve0L" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve0L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve270L_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve270L_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Kurve0R" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve0R.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Signal_2B_HP1_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_2B_HP1_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EckeUL_OR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EckeUL_OR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Signal_2B_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_2B_0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -289,65 +166,17 @@
   <data name="Bahnsteig_Oben" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Bahnsteig_Oben.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WeicheL315_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheL315_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve180L_unten" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve180L_unten.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Signal_2B_HP0_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_2B_HP0_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Signal_2B_HP1_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_2B_HP1_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Gerade135_EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade135_EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve0L_unten" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve0L_unten.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gerade90_EckeOL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade90_EckeOL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Kurve180L" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve180L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve180R_oben" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve180R_oben.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Fahrstrasse_oben" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fahrstrasse_oben.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Kurve270L" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve270L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Kurve180R" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve180R.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="FahrstufenAnzeige" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FahrstufenAnzeige.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve180L_oben" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve180L_oben.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Kurve90L_EckeUR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve90L_EckeUR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zunge_Gerade_45" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_Gerade_45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gerade90_EckeOL_UR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade90_EckeOL_UR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zunge_Gerade_135" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_Gerade_135.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gerade135" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade135.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Signal_3B_HP1_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_3B_HP1_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -355,89 +184,23 @@
   <data name="Signal_2B_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_2B_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zunge_Gerade_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_Gerade_0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheDKW90_135_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheDKW90_135_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Signal_3B_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_3B_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Kurve270L_EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve270L_EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Block9_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Block9_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheR180_EckeOL_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheR180_EckeOL_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheL135_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheL135_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Signal_3B_HP0_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_3B_HP0_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zunge_AbzweigL_180" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_AbzweigL_180.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Kurve270R_EckeUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve270R_EckeUL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve90R_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve90R_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Signal_3B_HP1_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_3B_HP1_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheR180_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheR180_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_EckeOL_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_EckeOL_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_225_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_225_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Signal_2B_HP1_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_2B_HP1_0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WeicheKW90_45_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheKW90_45_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheDKW90_45_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheDKW90_45_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheR90_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheR90_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gerade45" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_EckeOL_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_EckeOL_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheL315_Analog_EckeUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheL315_Analog_EckeUL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Fahrstrasse_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fahrstrasse_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Gerade90_EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade90_EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_EckeUR_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_EckeUR_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Bahnsteig_Unten" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Bahnsteig_Unten.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Zunge_Gerade_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_Gerade_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Unbekannt" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Unbekannt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SH_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SH_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -445,62 +208,17 @@
   <data name="Fahrstrasse_unten_deakt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fahrstrasse_unten_deakt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Fahrstr_135_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_135_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Fahrstrasse_oben_deakt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fahrstrasse_oben_deakt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve0R_oben" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve0R_oben.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheL90_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheL90_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Drehscheibe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Drehscheibe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Kurve270R_EckeUR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve270R_EckeUR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Signal_3B_HP0_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_3B_HP0_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Kurve90L" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve90L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gerade90" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve270R_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve270R_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GeradePrelbock90" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GeradePrelbock90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EckeOL_UR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EckeOL_UR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_EckeOR_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_EckeOR_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WeicheR270_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WeicheR270_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gerade0_EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gerade0_EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Signal_3B_HP2_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_3B_HP2_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EckeUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EckeUL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_225_rechts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_225_rechts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Kurve90R_EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kurve90R_EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Signal_3B_90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_3B_90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -508,28 +226,172 @@
   <data name="Signal_2B_180" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_2B_180.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Kreuzung90_135" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Kreuzung90_135.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_0_oben" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_0_oben.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Fahrstr_Kurve90L_links" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fahrstr_Kurve90L_links.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Signal_2B_HP0_180" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Signal_2B_HP0_180.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EckeOL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EckeOL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EckeOL_UR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EckeOL_UR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EckeUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EckeUL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EckeUL_OR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EckeUL_OR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="EckeUR" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EckeUR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zunge_AbzweigR_180" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_AbzweigR_180.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Gerade135_EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gerade135_EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zunge_AbzweigR_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_AbzweigR_270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Gerade135_EckeUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gerade135_EckeUL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Zunge_AbzweigL_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Zunge_AbzweigL_0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Gerade45" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gerade45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Gerade90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gerade90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Gerade90_EckeOL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gerade90_EckeOL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Gerade90_EckeOL_UR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gerade90_EckeOL_UR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Gerade90_EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gerade90_EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Gerade90_EckeUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gerade90_EckeUL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Gerade90_EckeUR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gerade90_EckeUR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GeradePrelbock270" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GeradePrelbock270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GeradePrelbock90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GeradePrelbock90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GeradePrellbock135" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GeradePrellbock135.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kurve0L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kurve0L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kurve180R" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kurve180R.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kurve270L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kurve270L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kurve270L_EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kurve270L_EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kurve270R" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kurve270R.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kurve270R_EckeUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kurve270R_EckeUL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kurve90L" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kurve90L.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kurve90L_EckeUR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kurve90L_EckeUR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kurve90R" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kurve90R.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Kurve90R_EckeOR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kurve90R_EckeOR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_135_Abzweig135" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_135_Abzweig135.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_135_Abzweig90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_135_Abzweig90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_135_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_135_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_135_Diag135" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_135_Diag135.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_135_Diag90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_135_Diag90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_135_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_135_Error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_135_Unbekannt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_135_Unbekannt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_45_Abzweig45" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_45_Abzweig45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_45_Abzweig90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_45_Abzweig90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_45_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_45_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_45_Diag45" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_45_Diag45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_45_Diag90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_45_Diag90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_45_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_45_Error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheDKW90_45_Unbekannt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheDKW90_45_Unbekannt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheKW90_45_Abzweig45" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheKW90_45_Abzweig45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheKW90_45_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheKW90_45_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheKW90_45_Diag45" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheKW90_45_Diag45.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheKW90_45_Diag90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheKW90_45_Diag90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheL135_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheL135_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheL135_Analog_EckeOL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheL135_Analog_EckeOL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheL270_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheL270_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheL315_Analog_EckeUL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheL315_Analog_EckeUL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheL90_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheL90_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheR225_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheR225_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheR270_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheR270_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheR45_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheR45_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WeicheR90_Analog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WeicheR90_Analog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

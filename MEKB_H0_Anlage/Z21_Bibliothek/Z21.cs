@@ -63,6 +63,8 @@ namespace MEKB_H0_Anlage
 
         private Logger _log;
 
+        private bool QMode { get; set; }    // Beim Schalten Queue Modus ein aus
+
        
 
 
@@ -228,10 +230,20 @@ namespace MEKB_H0_Anlage
             return Connected;
         }
         /// <summary>
+        /// Queue-Modus aktivieren. 
+        /// Wenn aktiv Z21 wartet mit dem Befehl bis Schienentransfer es erlaubt und sendet es 4mal hintereinander. 
+        /// Wenn aus Befehl muss direkt gesendet werden. Es kann aber nur eine Weiche/Signal auf einmal angesteuert werden
+        /// </summary>
+        /// <param name="on_off"></param>
+        public void SetQMode(bool on_off)
+        {
+            QMode = on_off;
+        }
+        /// <summary>
         /// Interrupt-Funktion
         /// Wird aufgerufen sobald eine Nachricht über UDP empfangen wurde
         /// </summary>
-        /// <param name="ar"></param>
+        /// <param name="ar">Asynchron Results</param>
         private void DataReceived(IAsyncResult ar)
         {
             IPEndPoint ip = new IPEndPoint(IPAddress.Parse(Z21_IP), Z21_Port);
@@ -687,17 +699,23 @@ namespace MEKB_H0_Anlage
             _log.SendData("GET_SYSTEMSTATE", SendBytes);
             SendCommand(SendBytes, 4);
         }
+
+        private byte GetDB2(bool aktivieren, bool Ausgang)
+        {
+            //DB2 BYte               10Q0A00P 
+            byte DB2             = 0b10000000;
+            if (QMode) DB2      |= 0b00100000; // Queue-Modus aktivieren: Befehl wird in ein FiFo eingereiht und dann 4 mal an Gleis gesendet
+            if (aktivieren) DB2 |= 0b00001000; // Ausgang aktivieren
+            if (Ausgang) DB2    |= 0b00000001; // Schaltausgang wählen
+            return DB2;
+        }
         public void LAN_X_SET_TURNOUT(int Adresse, bool Abzweig, bool Q_Modus, bool aktivieren)
         {
             Adresse--;
             byte Header = 0x53;
             byte DB0 = (byte)(Adresse >> 8);
             byte DB1 = (byte)(Adresse & 0xFF);
-            byte DB2 = (byte)(1 << 7);
-            if (!Abzweig) DB2 |= (1 << 0); // Gerade: Bit0 aktiv / Abzweig: Bit0 inaktiv
-            if (Q_Modus) DB2 |= (1 << 5); // Queue-Modus aktivieren: Befehl wird in ein FiFo eingereiht und dann 4 mal an Gleis gesendet
-            if (aktivieren) DB2 |= (1 << 3); //Ausgang aktivieren
-
+            byte DB2 = GetDB2(aktivieren, !Abzweig);
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             _log.SendData("SET_TURNOUT", SendBytes);
@@ -710,22 +728,21 @@ namespace MEKB_H0_Anlage
             byte Header = 0x53;
             byte DB0 = (byte)(Adresse >> 8);
             byte DB1 = (byte)(Adresse & 0xFF);
-            byte DB2 = 0xA8;
-            if (Zustand) DB2 = 0xA9;
+            byte DB2 = GetDB2(true, Zustand);
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             _log.SendData("SET_SIGNAL", SendBytes);
             SendCommand(SendBytes, 9);
         }
         
-        public void LAN_X_SET_SIGNAL_OFF(int Adresse)
+        public void LAN_X_SET_SIGNAL_OFF(int Adresse, bool Zustand)
         {
             Adresse--;
             if (Adresse < 0) return;//Nicht schalten, da Adresse 0
             byte Header = 0x53;
             byte DB0 = (byte)(Adresse >> 8);
             byte DB1 = (byte)(Adresse & 0xFF);
-            byte DB2 = 0xA0;
+            byte DB2 = GetDB2(false, Zustand);
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
             byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
             _log.SendData("SET_SIGNAL_OFF", SendBytes);
@@ -743,6 +760,31 @@ namespace MEKB_H0_Anlage
             _log.SendData("GET_TURNOUT_INFO", SendBytes);
             SendCommand(SendBytes, 8);
         }
+
+        public void LAN_X_GET_TURNOUT_INFO(List<int> Adressen)
+        {
+            List<byte> SendBytes = new List<byte>();
+            foreach (int Adresse in Adressen)
+            {
+                if (Adresse < 1) continue;//Nicht anfragen, da Adresse 0
+                List<byte> Packet = new List<byte>
+                {
+                    0x08,
+                    0x00,
+                    0x40,
+                    0x00,
+                    0x43, //Header
+                    (byte)((Adresse - 1) >> 8),
+                    (byte)((Adresse - 1) & 0xFF)
+                };
+                Packet.Add((byte)(Packet[4] ^ Packet[5] ^ Packet[6])); // XOR Checksumme
+                _log.SendData("GET_TURNOUT_INFO", Packet.ToArray());
+
+                SendBytes.AddRange(Packet);
+            }
+            SendCommand(SendBytes.ToArray(), SendBytes.Count);
+        }
+
         public void LAN_RMBUS_GETDATA(byte GroupIndex)
         {
             byte[] SendBytes = { 0x05, 0x00, 0x81, 0x00, GroupIndex };
