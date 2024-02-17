@@ -327,7 +327,9 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
-
+        /// <summary>
+        /// Vorsignale berechnen und schalten
+        /// </summary>
         public void VorsignaleSchalten()
         {
             foreach (Signal signal in Liste)
@@ -342,16 +344,19 @@ namespace MEKB_H0_Anlage
                             int ListID = signal.VorSignalweichen.FindIndex(x => x.Name == name);
                             if(ListID != -1)
                             {
-                                if (signal.VorSignalweichen[ListID].Abzweig != Zustand) RouteGegeben = false;
+                                if (signal.VorSignalweichen[ListID].Abzweig != Zustand) RouteGegeben = false; 
                             }
                             else
                             {
-                                RouteGegeben = false;
+                                RouteGegeben = false; //Keine Weiche gefunden
                             }
                         }
                         if(RouteGegeben)
                         {
-                            signal.VorSignalSchalten(GetSignal(links.Signalname).Zustand);
+                            if (signal.VorSignalSchalten(GetSignal(links.Signalname).Zustand))
+                            {
+                                return; //Wenn geschaltet Funktion abbrechen und auf neuen Zyklus warten (um Netzwerk zu entalsten
+                            }
                         }
                     }
                 }
@@ -373,6 +378,8 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public class Signal : IEquatable<Signal>
     {
+        #region Parameter
+        #region Hauptsignal
         /// <summary>
         /// Parameter: Name des Signals als String
         /// </summary>
@@ -385,14 +392,7 @@ namespace MEKB_H0_Anlage
         /// Parameter: 2.Adresse des Signals für HP2/3
         /// </summary>
         public int Adresse2 { get; set; }
-        /// <summary>
-        /// Lezte angewählte Adresse (true = 2. Adresse)
-        /// </summary>
-        public bool Letzte_Adresswahl { get; set; }
-        /// <summary>
-        /// Zustand: HPx des Signals 
-        /// </summary>
-        public SignalZustand Zustand { get; set; }
+        
         /// <summary>
         /// Signalzustand wenn Pin1 von Adresse 1 aktiviert (0 = HP0, 1 = HP1, 2 = HP2, 3 = SH1)
         /// </summary>
@@ -409,8 +409,8 @@ namespace MEKB_H0_Anlage
         /// Signalzustand wenn Pin2 von Adresse 2 aktiviert (0 = HP0, 1 = HP1, 2 = HP2, 3 = SH1)
         /// </summary>
         public SignalZustand Adr2_2 { get; set; }
-
-
+        #endregion
+        #region Vorsignal
         /// <summary>
         /// Parameter: Adresse des Signals für HP0/1
         /// </summary>
@@ -418,15 +418,7 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Parameter: 2.Adresse des Signals für HP2/3
         /// </summary>
-        public int VorAdresse2 { get; set; }
-        /// <summary>
-        /// Lezte angewählte Adresse (true = 2. Adresse)
-        /// </summary>
-        public bool VorSignal_Letzte_Adresswahl { get; set; }
-        /// <summary>
-        /// Zustand: HPx des Vorsignals 
-        /// </summary>
-        public SignalZustand VorSignalZustand { get; set; }
+        public int VorAdresse2 { get; set; }      
         /// <summary>
         /// Signalzustand des Vorsignals wenn Pin1 von Adresse 1 aktiviert (0 = HP0, 1 = HP1, 2 = HP2)
         /// </summary>
@@ -448,23 +440,61 @@ namespace MEKB_H0_Anlage
 
         public List<Weiche> VorSignalweichen { get; set; }
 
+        #endregion
+        #endregion
+        #region Variablen
+        #region Hauptsignal
+        /// <summary>
+        /// Lezte angewählte Adresse (true = 2. Adresse)
+        /// </summary>
+        public bool Letzte_Adresswahl { get; set; }
+        /// <summary>
+        /// Zustand: HPx des Signals 
+        /// </summary>
+        public SignalZustand Zustand { get; set; }
+        #endregion
+        #region Vorsignal
+        /// <summary>
+        /// Lezte angewählte Adresse (true = 2. Adresse)
+        /// </summary>
+        public bool VorSignal_Letzte_Adresswahl { get; set; }
+        /// <summary>
+        /// Zustand: HPx des Vorsignals 
+        /// </summary>
+        public SignalZustand VorSignalZustand { get; set; }
+        #endregion
+        #region Allgemein
         /// <summary>
         /// True: Signal soll nicht automatisch auf grün schalten
         /// </summary>
         public bool AutoSperre { get; set; }
-
+        /// <summary>
+        /// True: Signal muss neu gezeichnet werden
+        /// </summary>
         public bool UpdateNoetig { get; set; }
-        
-        private Timer CooldownTimer { get; set; }
-
+        #endregion
+        #endregion
+        #region Instanzen, Listen
+        /// <summary>
+        /// Zentralenisntance
+        /// </summary>
         private Z21 Z21_zentrale { get; set; }
-
+        /// <summary>
+        /// Liste verknüpfter Fahrstrassen zu diesem Signal
+        /// </summary>
         public List<Fahrstrasse> Fahrstrassen { get; set; }
+        /// <summary>
+        /// Liste verknüpfter Belegtmelder
+        /// </summary>        
+        public Dictionary<string, List<Belegtmelder>> BelegtmelderVerzeichnis { get; set; }
+        #endregion
+        
 
         
 
-        public Dictionary<string, List<Belegtmelder>> BelegtmelderVerzeichnis { get; set; }
-
+        
+        #region Funktionen
+        #region Konstruktor
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -482,21 +512,8 @@ namespace MEKB_H0_Anlage
             VorSignal_Letzte_Adresswahl = false;
             VorSignalweichen = new List<Weiche>();
         }
-
-
-        public XElement SignalZuXML()
-        {
-            return new XElement("Signal",
-                new XElement("Name", Name),
-                new XElement("Adresse", Adresse),
-                new XElement("Adresse2", Adresse2),
-                new XElement("Adr1Zustand1", Adr1_1),
-                new XElement("Adr1Zustand2", Adr1_2),
-                new XElement("Adr2Zustand1", Adr2_1),
-                new XElement("Adr2Zustand2", Adr2_2));        
-        }
-
-        
+        #endregion
+        #region Listenfunktion
         /// <summary>
         /// Wird bei Listensuche benötigt: Name des Signals zurückgeben
         /// </summary>
@@ -534,12 +551,57 @@ namespace MEKB_H0_Anlage
             if (other == null) return false;
             return (this.Name.Equals(other.Name));
         }
-
+        #endregion
+        /// <summary>
+        /// Instanzübergabe Zentrale
+        /// </summary>
+        /// <param name="zentrale">Zentrale mit der die Signale geschaltet werden</param>
         public void DigitalzentraleZugriff(Z21 zentrale)
         {
             Z21_zentrale = zentrale;
         }
+        /// <summary>
+        /// Signal als XMLElement transferieren
+        /// </summary>
+        /// <returns>XML-Element</returns>
+        public XElement SignalZuXML()
+        {
+            XElement signal = new XElement("Signal");
+            signal.Add(new XElement("Name", Name));
+            signal.Add(new XElement("Adresse", Adresse));
+            signal.Add(new XElement("Adresse2", Adresse2));
+            signal.Add(new XElement("Adr1Zustand1", Adr1_1));
+            signal.Add(new XElement("Adr1Zustand2", Adr1_2));
+            signal.Add(new XElement("Adr2Zustand1", Adr2_1));
+            signal.Add(new XElement("Adr2Zustand2", Adr2_2));
 
+            if (VorAdresse != 0)
+            {
+                XElement vorsignal = new XElement("Vorsignal");
+                vorsignal.Add(new XElement("Adresse", VorAdresse));
+                vorsignal.Add(new XElement("Adresse2", VorAdresse2));
+                vorsignal.Add(new XElement("Adr1Zustand1", VorAdr1_1));
+                vorsignal.Add(new XElement("Adr1Zustand2", VorAdr1_2));
+                vorsignal.Add(new XElement("Adr2Zustand1", VorAdr2_1));
+                vorsignal.Add(new XElement("Adr2Zustand2", VorAdr2_2));
+
+                foreach (SignalLink signalLink in VerknuepfteSignale)
+                {
+                    XElement hauptsignal = new XElement("HauptSignal");
+                    hauptsignal.Add(new XElement("Name", signalLink.Signalname));
+                    foreach (var (weichenname, Zustand) in signalLink.Weichenzustaende.Select(x => (x.Key, x.Value)))
+                    {
+                        XElement weiche = new XElement("Weiche", weichenname);
+                        if(Zustand) weiche.SetAttributeValue("Zustand", "Abzweig");
+                        else weiche.SetAttributeValue("Zustand", "Gerade");
+                        hauptsignal.Add(weiche);
+                    }
+                    vorsignal.Add(hauptsignal);
+                }
+                signal.Add(vorsignal);
+            }
+            return signal;            
+        }
         /// <summary>
         /// Signal schalten
         /// </summary>
@@ -577,23 +639,23 @@ namespace MEKB_H0_Anlage
         /// Vorsignal schalten
         /// </summary>
         /// <param name="NeuerZustand">Neues Signalbild</param>
-        public void VorSignalSchalten(SignalZustand NeuerZustand)
+        public bool VorSignalSchalten(SignalZustand NeuerZustand)
         {
-            if (VorSignalZustand == NeuerZustand) return;    //Keine Änderung nötig
+            if (VorSignalZustand == NeuerZustand) return false;    //Keine Änderung nötig
 
-            if (VorAdr1_1 == NeuerZustand) { ZustandSetzen(VorAdresse, false); VorSignal_Letzte_Adresswahl = false; }
-            else if (VorAdr1_2 == NeuerZustand) { ZustandSetzen(VorAdresse, true); VorSignal_Letzte_Adresswahl = false; }
-            else if (VorAdr2_1 == NeuerZustand) { ZustandSetzen(VorAdresse2, false); VorSignal_Letzte_Adresswahl = true; }
-            else if (VorAdr2_2 == NeuerZustand) { ZustandSetzen(VorAdresse2, true); VorSignal_Letzte_Adresswahl = true; }
+            if (VorAdr1_1 == NeuerZustand) { ZustandSetzen(VorAdresse, false); VorSignal_Letzte_Adresswahl = false; return true; }
+            else if (VorAdr1_2 == NeuerZustand) { ZustandSetzen(VorAdresse, true); VorSignal_Letzte_Adresswahl = false; return true; }
+            else if (VorAdr2_1 == NeuerZustand) { ZustandSetzen(VorAdresse2, false); VorSignal_Letzte_Adresswahl = true; return true; }
+            else if (VorAdr2_2 == NeuerZustand) { ZustandSetzen(VorAdresse2, true); VorSignal_Letzte_Adresswahl = true; return true; }
             else
             {
                 //Signal kennt diesen Zustand nicht -> Prüfen ob HP2 zu HP1 umgewandelt werden kann, sonst Befehl ignorieren
                 if (NeuerZustand == SignalZustand.HP2)
                 {
-                    if (Adr1_1 == SignalZustand.HP1) { ZustandSetzen(VorAdresse, false); VorSignal_Letzte_Adresswahl = false; }
-                    else if (VorAdr1_2 == SignalZustand.HP1) { ZustandSetzen(VorAdresse, true);  VorSignal_Letzte_Adresswahl = false; }
-                    else if (VorAdr2_1 == SignalZustand.HP1) { ZustandSetzen(VorAdresse2, false); VorSignal_Letzte_Adresswahl = true; }
-                    else if (VorAdr2_2 == SignalZustand.HP1) { ZustandSetzen(VorAdresse2, true); VorSignal_Letzte_Adresswahl = true; }
+                    if (Adr1_1 == SignalZustand.HP1) { ZustandSetzen(VorAdresse, false); VorSignal_Letzte_Adresswahl = false; return true; }
+                    else if (VorAdr1_2 == SignalZustand.HP1) { ZustandSetzen(VorAdresse, true);  VorSignal_Letzte_Adresswahl = false; return true; }
+                    else if (VorAdr2_1 == SignalZustand.HP1) { ZustandSetzen(VorAdresse2, false); VorSignal_Letzte_Adresswahl = true; return true; }
+                    else if (VorAdr2_2 == SignalZustand.HP1) { ZustandSetzen(VorAdresse2, true); VorSignal_Letzte_Adresswahl = true; return true; }
                     else
                     {
                         // Signal kennt kann kein HP1 oder HP2 (Rangiersignale)
@@ -604,6 +666,7 @@ namespace MEKB_H0_Anlage
                     // Signal kennt diesen Zustand nicht
                 }
             }
+            return false;
         }
 
 
@@ -685,30 +748,46 @@ namespace MEKB_H0_Anlage
             return false;
         }
 
+        /// <summary>
+        /// Abfrage ob Signal ein reines Sperrsignal ist
+        /// </summary>
+        /// <returns>true: ist reines Sperrsignal</returns>
         public bool IstSperrSignal()
         {
             if (HatSignalbild(SignalZustand.SH1) && !HatSignalbild(SignalZustand.HP1) && !HatSignalbild(SignalZustand.HP2)) return true;
             return false;
         }
-
+        /// <summary>
+        /// Abfrage ob Signal nicht HP1 anzeigen kann/darf
+        /// </summary>
+        /// <returns>true: Schaltet nur HP0 und HP2</returns>
         public bool IstHP2Verbund()
         {
             if (HatSignalbild(SignalZustand.HP2) && !HatSignalbild(SignalZustand.HP1)) return true;
             return false;
         }
-
+        /// <summary>
+        /// Abfrage ob Signal ein Blocksignal ist
+        /// </summary>
+        /// <returns>true: Ist reines Blocksignal</returns>
         public bool IstBlockSignal()
         {
             if (HatSignalbild(SignalZustand.HP1) && !HatSignalbild(SignalZustand.HP2)) return true;
             return false;
         }
-
+        /// <summary>
+        /// Abfrage ob Signal ein Vorsignal ist
+        /// </summary>
+        /// <returns>true: Ist reines Vorsignal</returns>
         public bool IstVorsignal()
         {
             if((Adresse == 0) && (VorAdresse != 0)) return true;
             return false;
         }
-
+        /// <summary>
+        /// Abfrage ob Signal zusätzlich ein Vorsignal hat
+        /// </summary>
+        /// <returns>true: Besitzt Vorsignal</returns>
         public bool HatVorsignal()
         {
             if ((Adresse != 0) && (VorAdresse != 0)) return true;
@@ -725,6 +804,11 @@ namespace MEKB_H0_Anlage
             return (signalbild == Adr1_1 || signalbild == Adr1_2 || signalbild == Adr2_1 || signalbild == Adr2_2);
         }
 
+        /// <summary>
+        /// Automatisches schalten von Signalen
+        /// </summary>
+        /// <param name="AutoHP1">true: Signal schaltet automatisch auf Grün, wenn erlaubt ist</param>
+        /// <param name="AchteFahrstrassen">true: Signal darf nur schalten, wenn eine Fahrstrasse gesetzt ist. False: Signal achtet nur ob die Weichen richtig geschaltet sind</param>
         public void AutoSignal(bool AutoHP1, bool AchteFahrstrassen)
         {
             //Signal durch User gesperrt, nicht auf Grün schalten
@@ -790,6 +874,7 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
+        #endregion
     }
 
     public class SignalLink

@@ -206,8 +206,8 @@
 			<Weiche Zustand="Abzweig">DKW7_1</Weiche>
 			<Weiche Zustand="Abzweig">DKW7_2</Weiche>
 			<Weiche Zustand="Gerade">Weiche8</Weiche>
-			<Weiche Zustand="Abzweig">DKW8_1</Weiche>
-			<Weiche Zustand="Gerade">DKW8_2</Weiche>
+			<Weiche Zustand="Abzweig">DKW9_1</Weiche>
+			<Weiche Zustand="Gerade">DKW9_2</Weiche>
 		</HauptSignal>
 		<HauptSignal>
 			<Name>Signal_Ausfahrt_R6</Name>
@@ -217,8 +217,8 @@
 			<Weiche Zustand="Abzweig">DKW7_1</Weiche>
 			<Weiche Zustand="Abzweig">DKW7_2</Weiche>
 			<Weiche Zustand="Gerade">Weiche8</Weiche>
-			<Weiche Zustand="Abzweig">DKW8_1</Weiche>
-			<Weiche Zustand="Abzweig">DKW8_2</Weiche>
+			<Weiche Zustand="Abzweig">DKW9_1</Weiche>
+			<Weiche Zustand="Abzweig">DKW9_2</Weiche>
 		</HauptSignal>
 	</Vorsignal>
   </Signal>

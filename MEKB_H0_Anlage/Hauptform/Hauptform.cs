@@ -271,9 +271,6 @@ namespace MEKB_H0_Anlage
 
                 if (z21Start.Verbunden())
                 {
-
-                    
-
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
 
