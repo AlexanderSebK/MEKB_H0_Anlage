@@ -8,6 +8,7 @@ using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Speech.Synthesis;
 
 namespace MEKB_H0_Anlage
 {
@@ -15,6 +16,7 @@ namespace MEKB_H0_Anlage
     {
         #region Instanzen
         public Z21 z21;
+        public Bahnhofsansage Bahnhofsansage;
         #endregion
 
         #region Listen
@@ -40,13 +42,14 @@ namespace MEKB_H0_Anlage
             InitializeComponent();
         }
 
-        public Zugmenue(Z21 zentrale, LokomotivenVerwaltung archiv)
+        public Zugmenue(Z21 zentrale, LokomotivenVerwaltung archiv, Bahnhofsansage bahnhofsansage)
         {
             z21 = zentrale;
             InitializeComponent();
             LokomotivenArchiv = archiv;
 
             ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
+            Bahnhofsansage = bahnhofsansage;
         }
 
         private void LokDazu_Click(object sender, EventArgs e)
@@ -99,6 +102,9 @@ namespace MEKB_H0_Anlage
             Controls.Add(OpenFahrpultGenerator(Nummer));
             Controls.Add(StopfeldGenerator(Nummer));
             Controls.Add(LoeschfeldGenerator(Nummer));
+            Controls.Add(ZielFeldGenerator(Nummer));
+            Controls.Add(ZwischenZielFeldGenerator(Nummer));
+            Controls.Add(SprachausgabeGenerator(Nummer));
         }
 
         private void EntferneFelder(int Nummer)
@@ -129,6 +135,15 @@ namespace MEKB_H0_Anlage
 
             Button Stopfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Stop", Nummer), true).First();
             if (Stopfeld != null) this.Controls.Remove(Stopfeld);
+
+            TextBox Zielfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ziel", Nummer), true).First();
+            if (Zielfeld != null) this.Controls.Remove(Zielfeld);
+
+            TextBox ZwZielfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_ZwischenZiel", Nummer), true).First();
+            if (ZwZielfeld != null) this.Controls.Remove(ZwZielfeld);
+
+            Button Sprachfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Sprache", Nummer), true).First();
+            if (Sprachfeld != null) this.Controls.Remove(Sprachfeld);
 
             Button Loschfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Loesch", Nummer), true).First();
             if (Loschfeld != null) this.Controls.Remove(Loschfeld);
@@ -270,13 +285,51 @@ namespace MEKB_H0_Anlage
         {
             Button LokCtrl_Stop = new Button
             {
-                Location = new Point(x_FelderStart + 862, y_FelderStart + (24 * index) - 1),
+                Location = new Point(x_FelderStart + 1092, y_FelderStart + (24 * index) - 1),
                 Name = String.Format("LokCtrl{0}_Loesch", index),
                 Size = new Size(22, 22),
                 Text = "X",
                 UseVisualStyleBackColor = false
             };
             LokCtrl_Stop.Click += new EventHandler(this.LokEntfernen_Click);
+            return LokCtrl_Stop;
+        }
+        private TextBox ZielFeldGenerator(int index)
+        {
+            TextBox LokCtrl_Ziel = new TextBox
+            {
+                Enabled = true,
+                Location = new Point(x_FelderStart + 862, y_FelderStart + (24 * index)),
+                Name = String.Format("LokCtrl{0}_Ziel", index),
+                Size = new Size(72, 22)
+            };
+            LokCtrl_Ziel.TextChanged += new EventHandler(this.LokZiel_TextChange);
+            return LokCtrl_Ziel;
+        }
+        private TextBox ZwischenZielFeldGenerator(int index)
+        {
+            TextBox LokCtrl_ZZiel = new TextBox
+            {
+                Enabled = true,
+                Location = new Point(x_FelderStart + 942, y_FelderStart + (24 * index)),
+                Name = String.Format("LokCtrl{0}_ZwischenZiel", index),
+                Size = new Size(72, 22)
+            };
+            LokCtrl_ZZiel.TextChanged += new EventHandler(this.LokZwischenZiel_TextChange);
+            return LokCtrl_ZZiel;
+        }
+        private Button SprachausgabeGenerator(int index)
+        {
+            Button LokCtrl_Stop = new Button
+            {
+                Location = new Point(x_FelderStart + 1022, y_FelderStart + (24 * index) - 1),
+                Name = String.Format("LokCtrl{0}_Sprache", index),
+                Size = new Size(62, 22),
+                Text = "Ansage",
+                UseVisualStyleBackColor = false,
+                Enabled = false
+            };
+            LokCtrl_Stop.Click += new EventHandler(this.LokSprache_Click);
             return LokCtrl_Stop;
         }
 
@@ -522,6 +575,8 @@ namespace MEKB_H0_Anlage
             ComboBox Gattungsfeld;
             Button Steuertypfeld;
             TextBox Ruffeld;
+            TextBox Zielfeld;
+            TextBox Zwischenzielfeld;
 
             try
             {
@@ -544,6 +599,14 @@ namespace MEKB_H0_Anlage
                 //Passendes Ruffeld finden
                 Ruffeld = (TextBox)this.Controls.Find(CtrlID + "_Ruf", true)[0];
                 if (Ruffeld == null) return; //Nicht gefunden: Abbrechen
+
+                //Passendes Zielfeld finden
+                Zielfeld = (TextBox)this.Controls.Find(CtrlID + "_Ziel", true)[0];
+                if (Zielfeld == null) return; //Nicht gefunden: Abbrechen
+
+                //Passendes Zwischenzielfeld finden
+                Zwischenzielfeld = (TextBox)this.Controls.Find(CtrlID + "_ZwischenZiel", true)[0];
+                if (Zwischenzielfeld == null) return; //Nicht gefunden: Abbrechen
             }
             catch
             {
@@ -570,6 +633,9 @@ namespace MEKB_H0_Anlage
             //Rufnummer generieren
             if (AktiveLoks[index].Adresse != 0) Ruffeld.Text = LokKontrolle.Abkuerzung(AktiveLoks[index].Gattung) + AktiveLoks[index].Adresse.ToString();
             else Ruffeld.Text = "";
+
+            Zielfeld.Text = AktiveLoks[index].Zielbahnhof;
+            Zwischenzielfeld.Text = AktiveLoks[index].Zwischenbahnhoefe;
 
             //Automatik-Button anpassen
             if (AktiveLoks[index].Automatik)
@@ -678,6 +744,93 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
+
+        private void LokSprache_Click(object sender, EventArgs e)
+        {
+            if (sender is Button steuertyp)
+            {
+                //Name der Instanz finden
+                string name = steuertyp.Name;
+                string[] subs = name.Split('_');
+                if (subs[1] != "Sprache") return; //Muss auf _Sprache an zweiter Position haben
+
+                //Aktiver Lokindex
+                string indexStr = subs[0].Substring(7);
+                if (Int32.TryParse(indexStr, out int index))
+                {
+                    if (index < 0) return;
+                    if (index > AktiveLoks.Count) return;
+                }
+                else
+                {
+                    return;
+                }
+                TextBox Ruffeld;
+                try
+                {
+                    //Passendes Ruffeld finden
+                    Ruffeld = (TextBox)this.Controls.Find(subs[0] + "_Ruf", true)[0];
+                    if (Ruffeld == null) return; //Nicht gefunden: Abbrechen
+                }
+                catch
+                {
+                    return;
+                }
+
+
+                Bahnhofsansage.Ansage(AktiveLoks[index], Ruffeld.Text, "", "");
+
+            }
+        }
+        private void LokZiel_TextChange(object sender, EventArgs e)
+        {
+            if (sender is TextBox zieltyp)
+            {
+                //Name der Instanz finden
+                string name = zieltyp.Name;
+                string[] subs = name.Split('_');
+                if (subs[1] != "Ziel") return; //Muss auf _Ziel an zweiter Position haben
+
+                //Aktiver Lokindex
+                string indexStr = subs[0].Substring(7);
+                if (Int32.TryParse(indexStr, out int index))
+                {
+                    if (index < 0) return;
+                    if (index > AktiveLoks.Count) return;
+                }
+                else
+                {
+                    return;
+                }
+                AktiveLoks[index].Zielbahnhof = zieltyp.Text;
+            }
+        }
+        private void LokZwischenZiel_TextChange(object sender, EventArgs e)
+        {
+            if (sender is TextBox zieltyp)
+            {
+                //Name der Instanz finden
+                string name = zieltyp.Name;
+                string[] subs = name.Split('_');
+                if (subs[1] != "ZwischenZiel") return; //Muss auf _ZwischenZiel an zweiter Position haben
+
+                //Aktiver Lokindex
+                string indexStr = subs[0].Substring(7);
+                if (Int32.TryParse(indexStr, out int index))
+                {
+                    if (index < 0) return;
+                    if (index > AktiveLoks.Count) return;
+                }
+                else
+                {
+                    return;
+                }
+                AktiveLoks[index].Zwischenbahnhoefe = zieltyp.Text;
+            }
+        }
+
+
+
 
         #endregion
 

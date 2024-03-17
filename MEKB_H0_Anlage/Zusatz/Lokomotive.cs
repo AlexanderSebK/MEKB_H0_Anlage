@@ -50,6 +50,9 @@ namespace MEKB_H0_Anlage
         /// Hersteller des Models
         /// </summary>
         public string Hersteller { set; get; }
+
+        public string Zielbahnhof { set; get; }
+        public string Zwischenbahnhoefe { set; get; }
         #endregion
         #region Fahreigenschaften
         /// <summary>
@@ -161,6 +164,8 @@ namespace MEKB_H0_Anlage
             Typ = "";
             Verwaltung = "";
             Hersteller = "";
+            Zielbahnhof = "";
+            Zwischenbahnhoefe = "";
 
             V_max = 100;
             V_mid = 40;
@@ -427,6 +432,19 @@ namespace MEKB_H0_Anlage
                 if (Gattungen[i,0].Equals(Gattung))
                 {
                     return Gattungen[i,1];
+                }
+            }
+            return "";
+        }
+
+        public static string Sprachausgabe(string Gattung)
+        {
+            if (string.IsNullOrEmpty(Gattung)) return "";
+            for (int i = 0; i < Gattungen.GetLength(0); i++)
+            {
+                if (Gattungen[i, 0].Equals(Gattung))
+                {
+                    return Gattungen[i, 2];
                 }
             }
             return "";

@@ -36,6 +36,7 @@ namespace MEKB_H0_Anlage
         public Z21 z21Start;
         public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
         public Lokomotive[] AktiveLoks = new Lokomotive[12];
+        public Bahnhofsansage Bahnhofsansage = new Bahnhofsansage();
         private Logger Log { set; get; }
         #endregion
 
@@ -90,7 +91,7 @@ namespace MEKB_H0_Anlage
             SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
             
             ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
-            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv);
+            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage);
 
             for (int i = 0; i < AktiveLoks.Length; i++)
             {
@@ -259,7 +260,7 @@ namespace MEKB_H0_Anlage
         //private int GroupIndex = 0;
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
-            if (source is System.Timers.Timer timer)
+            if (source is System.Timers.Timer)
             {
 
                 Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text); //Debug
@@ -754,7 +755,7 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv);
+                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage);
                 ZugmenueFenster.Show();
             }
             //TODO: Fenster für Fahrzeuge öffnen
