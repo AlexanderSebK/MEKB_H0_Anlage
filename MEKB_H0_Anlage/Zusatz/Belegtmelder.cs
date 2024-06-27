@@ -317,11 +317,11 @@ namespace MEKB_H0_Anlage
                     else CoolDownTimer = 0; // Status war noch beim Einschalten: Sofort ausschalten
                 }
             }
-            Belegt = Status;
-            if (Status == false)
+            Belegt = Status; //Status übernehmen
+            if (Status == false) // Neuer Status ist unbelegt
             {
-                Stabil = false;
-                CoolUpTimer = 0;
+                Stabil = false; // Zustand nicht mehr stabil
+                CoolUpTimer = 0; // Einschaltimer resetten
             }
         }
 
@@ -331,19 +331,19 @@ namespace MEKB_H0_Anlage
         /// <param name="ZeitVergangen">Zeit nach dem letzten Aufruf (in ms)</param>
         public void CoolDown(int ZeitVergangen)
         {
-            if ((!Belegt) && (CoolDownTimer > 0))
+            if ((!Belegt) && (CoolDownTimer > 0)) //Beim Cool down
             {
-                CoolDownTimer -= ZeitVergangen;
-                if (CoolDownTimer <= 0) CoolDownTimer = 0;
+                CoolDownTimer -= ZeitVergangen; //Cooldowntimer weiterzählen
+                if (CoolDownTimer <= 0) CoolDownTimer = 0; //Cooldowntimer erreicht
             }
 
-            if (Stabil == false)
+            if (Stabil == false) //Noch instabil
             {
-                if (Belegt && (CoolUpTimer <= CoolUpTime))
+                if (Belegt && (CoolUpTimer <= CoolUpTime)) // Belegt und Cool Up timer noch nicht ausgelaufen
                 {
-                    CoolUpTimer += ZeitVergangen;
+                    CoolUpTimer += ZeitVergangen; //Timer erhöhen
                 }
-                if (CoolUpTimer >= CoolUpTime) Stabil = true;
+                if (CoolUpTimer >= CoolUpTime) Stabil = true; //Timer abgelaufen -> Zustand ist stabil
             }
         }
 
