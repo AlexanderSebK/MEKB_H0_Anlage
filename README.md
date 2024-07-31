@@ -56,7 +56,7 @@ Zwangsbremsung manuellgesteuerter Loks vor rotem Signal
 - [x] Signal / Blockbelegterkennung
 Signal Schaltung nach Fahrstrassen und Belegtmeldung. 
 
-- [x] Bahnhofsansagen
+- [ ] Bahnhofsansagen
 Wenn ein Zug einen bestimmten Punkt erreicht, soll eine Ansage ertönen mit der Zugnummer (Gattung+Adresse) und in welches Gleis er einfahren soll
 
 MEKB Anlage 

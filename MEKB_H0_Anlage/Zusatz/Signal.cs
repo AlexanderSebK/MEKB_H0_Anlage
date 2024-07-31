@@ -99,8 +99,10 @@ namespace MEKB_H0_Anlage
                     var HauptsignalLink = XMLVorSignal.Elements("HauptSignal").ToList();    //Alle Elemente des Types Signal in eine Liste Umwandeln
                     foreach(XElement HauptSignal in HauptsignalLink)
                     {
-                        SignalLink signalLink = new SignalLink();
-                        signalLink.Signalname = HauptSignal.Element("Name").Value;
+                        SignalLink signalLink = new SignalLink
+                        {
+                            Signalname = HauptSignal.Element("Name").Value
+                        };
                         var WeichenListe = HauptSignal.Elements("Weiche").ToList();
                         foreach (XElement WeichenRoute in WeichenListe)
                         {
