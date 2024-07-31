@@ -42,11 +42,14 @@ namespace MEKB_H0_Anlage
             InitializeComponent();
         }
 
-        public Zugmenue(Z21 zentrale, LokomotivenVerwaltung archiv, Bahnhofsansage bahnhofsansage)
+        public Zugmenue(Z21 zentrale, LokomotivenVerwaltung archiv, Bahnhofsansage bahnhofsansage, List<Lokomotive> aktLoks)
         {
             z21 = zentrale;
             InitializeComponent();
             LokomotivenArchiv = archiv;
+            AktiveLoks = aktLoks;
+            
+
 
             ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
             Bahnhofsansage = bahnhofsansage;
@@ -58,6 +61,23 @@ namespace MEKB_H0_Anlage
             AktiveLoks.Last().Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
             AktiveLoks.Last().Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             GeneriereFelder(AktiveLoks.Count - 1);
+        }
+
+        private void FelderNeuzeichnen()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (EntferneFelder(i) == false) break;
+            }
+
+            for (int i = 0; i < AktiveLoks.Count; i++)
+            {
+                AktiveLoks[i].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+                AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+                GeneriereFelder(i);
+                LokKontroll_UpdateAll(String.Format("LokCtrl{0}", i));
+            }
+
         }
 
         private void LokEntfernen_Click(object sender, EventArgs e)
@@ -107,46 +127,89 @@ namespace MEKB_H0_Anlage
             Controls.Add(SprachausgabeGenerator(Nummer));
         }
 
-        private void EntferneFelder(int Nummer)
+        private bool EntferneFelder(int Nummer)
         {
-            NumericUpDown Adressfeld = (NumericUpDown)this.Controls.Find(String.Format("LokCtrl{0}_Adr", Nummer), true).First();
-            if (Adressfeld != null) this.Controls.Remove(Adressfeld);
+            bool entfernt = false;
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Adr", Nummer)))
+            {
+                NumericUpDown Adressfeld = (NumericUpDown)this.Controls.Find(String.Format("LokCtrl{0}_Adr", Nummer), true).First();
+                if (Adressfeld != null)  this.Controls.Remove(Adressfeld); 
+                entfernt = true; 
+            }
+            if(this.Controls.ContainsKey(String.Format("LokCtrl{0}_Suche", Nummer)))
+            { 
+                Button Suchfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Suche", Nummer), true).First();
+                if (Suchfeld != null) this.Controls.Remove(Suchfeld); 
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Strg_Typ", Nummer)))
+            {
+                Button Steuertypfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Strg_Typ", Nummer), true).First();
+                if (Steuertypfeld != null) this.Controls.Remove(Steuertypfeld);
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Gattung", Nummer)))
+            {
+                ComboBox Gattungfeld = (ComboBox)this.Controls.Find(String.Format("LokCtrl{0}_Gattung", Nummer), true).First();
+                if (Gattungfeld != null) this.Controls.Remove(Gattungfeld); 
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Ruf", Nummer)))
+            {
+                TextBox Ruffeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ruf", Nummer), true).First();
+                if (Ruffeld != null) this.Controls.Remove(Ruffeld); 
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Ort_Wechsel", Nummer)))
+            {
+                Button Ortwechselfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Ort_Wechsel", Nummer), true).First();
+                if (Ortwechselfeld != null) this.Controls.Remove(Ortwechselfeld); 
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Ort", Nummer)))
+            {
+                TextBox Ortfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ort", Nummer), true).First();
+                if (Ortfeld != null) this.Controls.Remove(Ortfeld); 
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_OpenFahrpult", Nummer)))
+            {
+                Button Fahrpultfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_OpenFahrpult", Nummer), true).First();
+                if (Fahrpultfeld != null) this.Controls.Remove(Fahrpultfeld); 
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Stop", Nummer)))
+            {
+                Button Stopfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Stop", Nummer), true).First();
+                if (Stopfeld != null) this.Controls.Remove(Stopfeld); 
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Ziel", Nummer)))
+            {
+                TextBox Zielfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ziel", Nummer), true).First();
+                if (Zielfeld != null) this.Controls.Remove(Zielfeld);
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_ZwischenZiel", Nummer)))
+            {
+                TextBox ZwZielfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_ZwischenZiel", Nummer), true).First();
+                if (ZwZielfeld != null) this.Controls.Remove(ZwZielfeld); 
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Sprache", Nummer)))
+            {
+                Button Sprachfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Sprache", Nummer), true).First();
+                if (Sprachfeld != null) this.Controls.Remove(Sprachfeld); 
+                entfernt = true; 
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Loesch", Nummer)))
+            {
+                Button Loschfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Loesch", Nummer), true).First();
+                if (Loschfeld != null) this.Controls.Remove(Loschfeld); 
+                entfernt = true; 
+            }
 
-            Button Suchfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Suche", Nummer), true).First();
-            if (Suchfeld != null) this.Controls.Remove(Suchfeld);
-
-            Button Steuertypfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Strg_Typ", Nummer), true).First();
-            if (Steuertypfeld != null) this.Controls.Remove(Steuertypfeld);
-
-            ComboBox Gattungfeld = (ComboBox)this.Controls.Find(String.Format("LokCtrl{0}_Gattung", Nummer), true).First();
-            if (Gattungfeld != null) this.Controls.Remove(Gattungfeld);
-
-            TextBox Ruffeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ruf", Nummer), true).First();
-            if (Ruffeld != null) this.Controls.Remove(Ruffeld);
-
-            Button Ortwechselfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Ort_Wechsel", Nummer), true).First();
-            if (Ortwechselfeld != null) this.Controls.Remove(Ortwechselfeld);
-
-            TextBox Ortfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ort", Nummer), true).First();
-            if (Ortfeld != null) this.Controls.Remove(Ortfeld);
-
-            Button Fahrpultfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_OpenFahrpult", Nummer), true).First();
-            if (Fahrpultfeld != null) this.Controls.Remove(Fahrpultfeld);
-
-            Button Stopfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Stop", Nummer), true).First();
-            if (Stopfeld != null) this.Controls.Remove(Stopfeld);
-
-            TextBox Zielfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ziel", Nummer), true).First();
-            if (Zielfeld != null) this.Controls.Remove(Zielfeld);
-
-            TextBox ZwZielfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_ZwischenZiel", Nummer), true).First();
-            if (ZwZielfeld != null) this.Controls.Remove(ZwZielfeld);
-
-            Button Sprachfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Sprache", Nummer), true).First();
-            if (Sprachfeld != null) this.Controls.Remove(Sprachfeld);
-
-            Button Loschfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Loesch", Nummer), true).First();
-            if (Loschfeld != null) this.Controls.Remove(Loschfeld);
+            return entfernt;
 
         }
 
@@ -844,6 +907,14 @@ namespace MEKB_H0_Anlage
             }
         }
 
-       
+        private void Zugmenue_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Zugmenue_Shown(object sender, EventArgs e)
+        {
+            FelderNeuzeichnen();
+        }
     }
 }

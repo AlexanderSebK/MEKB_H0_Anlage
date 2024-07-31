@@ -36,6 +36,7 @@ namespace MEKB_H0_Anlage
         public Z21 z21Start;
         public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
         public Lokomotive[] AktiveLoks = new Lokomotive[12];
+        public List<Lokomotive> LokListe = new List<Lokomotive>();
         public Bahnhofsansage Bahnhofsansage = new Bahnhofsansage();
         private Logger Log { set; get; }
         #endregion
@@ -59,7 +60,6 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region Threads
-        public Thread ThreadLoksuche;
         #endregion
 
         #region Timer
@@ -89,9 +89,8 @@ namespace MEKB_H0_Anlage
             // Instanzen Zugriffe festlegen
             SetupFahrstrassen();                        //Fahstrassen festlegen              
             SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
-            
-            ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
-            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage);
+
+            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe);
 
             for (int i = 0; i < AktiveLoks.Length; i++)
             {
@@ -555,6 +554,46 @@ namespace MEKB_H0_Anlage
 
         #endregion
 
+        #region Lok Steuerung
+        /// <summary>
+        /// Delegate-Funktion. Wird benutzt um externe Instance (Hier neues Fahrpultfenster) auf Z21 Funktionen zuzugreifen
+        /// Lok-Geschwindigkeit setzen
+        /// </summary>
+        /// <param name="Adresse">Lokadresse</param>
+        /// <param name="Fahrstufe">Aktuelle Fahrstufe</param>
+        /// <param name="Richtung">Fahrtrichtung</param>
+        /// <param name="Fahstrufeninfo">14,28 oder 128 Fahrstufen</param>
+        private void Setze_Lok_Fahrt(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo)
+        {
+            z21Start.Z21_SET_LOCO_DRIVE(Adresse, Fahrstufe, Richtung, Fahstrufeninfo);
+        }
+        /// <summary>
+        /// Delegate-Funktion. Wird benutzt um externe Instance (Hier neues Fahrpultfenster) auf Z21 Funktionen zuzugreifen
+        /// Lok-Funktion setzen
+        /// </summary>
+        /// <param name="Adresse">Lokadresse</param>
+        /// <param name="Zustand">Funktion an oder ausschalten</param>
+        /// <param name="FunktionsNr">Funktionsnummer</param>
+        private void Setze_Lok_Funktion(int Adresse, byte Zustand, byte FunktionsNr)
+        {
+            z21Start.Z21_SET_LOCO_FUNCTION(Adresse, Zustand, FunktionsNr);
+        }
+        /// <summary>
+        /// Alle Lokomotiven anhalten
+        /// </summary>
+        /// <param name="sender">Forms-Element, was diese Funktion ausgelöst hatte</param>
+        /// <param name="e">Eventparameter</param>
+        private void StopAlle_Click(object sender, EventArgs e)
+        {
+            foreach (Lokomotive lok in AktiveLoks)
+            {
+                if (lok.Adresse != 0)
+                {
+                    Setze_Lok_Fahrt(lok.Adresse, 255, lok.Richtung, lok.FahrstufenInfo);
+                }
+            }
+        }
+        #endregion
 
         #region Unterfunktionen
         /// <summary>
@@ -732,6 +771,25 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
+        /// <summary>
+        /// Fahrzeugliste aufrufen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Btn_Fahrzeuge_Click(object sender, EventArgs e)
+        {
+            
+
+            if (!ZugmenueFenster.IsDisposed)
+            {
+                ZugmenueFenster.Show();
+            }
+            else
+            {
+                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe);
+                ZugmenueFenster.Show();
+            }
+        }
         #endregion
 
 
@@ -747,23 +805,6 @@ namespace MEKB_H0_Anlage
             VorBlock.Text = aktuellerBlock;
         }
 
-        private void Btn_Fahrzeuge_Click(object sender, EventArgs e)
-        {
-            if (!ZugmenueFenster.IsDisposed)
-            {
-                ZugmenueFenster.Show();
-            }
-            else
-            {
-                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage);
-                ZugmenueFenster.Show();
-            }
-            //TODO: Fenster für Fahrzeuge öffnen
-        }
-
-        private void LokKontroll_Strg_Typ_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

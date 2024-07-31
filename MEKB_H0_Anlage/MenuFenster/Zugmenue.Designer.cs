@@ -141,6 +141,8 @@
             this.Name = "Zugmenue";
             this.Text = "Zugmenue";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Zugmenue_FormClosing);
+            this.Load += new System.EventHandler(this.Zugmenue_Load);
+            this.Shown += new System.EventHandler(this.Zugmenue_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
