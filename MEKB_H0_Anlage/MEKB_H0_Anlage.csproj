@@ -159,6 +159,12 @@
     <Compile Include="MenuFenster\Zugmenue.Designer.cs">
       <DependentUpon>Zugmenue.cs</DependentUpon>
     </Compile>
+    <Compile Include="ZusatzFenster\BelegtmelderAuswahl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZusatzFenster\BelegtmelderAuswahl.Designer.cs">
+      <DependentUpon>BelegtmelderAuswahl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ZusatzFenster\LokSuche.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +249,9 @@
     <EmbeddedResource Include="MenuFenster\Zugmenue.resx">
       <DependentUpon>Zugmenue.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ZusatzFenster\BelegtmelderAuswahl.resx">
+      <DependentUpon>BelegtmelderAuswahl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ZusatzFenster\LokSuche.resx">
       <DependentUpon>LokSuche.cs</DependentUpon>
     </EmbeddedResource>
@@ -261,6 +270,7 @@
       <DependentUpon>ZugSteuerpult.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Belegtmelder.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

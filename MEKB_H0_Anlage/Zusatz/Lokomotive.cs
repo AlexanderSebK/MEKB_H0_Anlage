@@ -104,6 +104,7 @@ namespace MEKB_H0_Anlage
         public string AktuellerBlock { set; get; }
         public string VorherigerBlock { set; get; }
         public string NexterBlock { set; get; }
+        public string LetzterBekannterBlock { set; get; }
 
         public int ErlaubteGeschwindigkeit { set; get; }
         #endregion
@@ -168,6 +169,11 @@ namespace MEKB_H0_Anlage
             Zielbahnhof = "";
             Zwischenbahnhoefe = "";
 
+            AktuellerBlock = "";
+            NexterBlock = "";
+            VorherigerBlock = "";
+            LetzterBekannterBlock = "";
+
             V_max = 100;
             V_mid = 40;
             V_min = 5;
@@ -196,6 +202,13 @@ namespace MEKB_H0_Anlage
             Typ = "";
             Verwaltung = "";
             Hersteller = "";
+            Zielbahnhof = "";
+            Zwischenbahnhoefe = "";
+
+            AktuellerBlock = "";
+            NexterBlock = "";
+            VorherigerBlock = "";
+            LetzterBekannterBlock = "";
 
             if (!Path.GetExtension(fileName).Equals(".xml")) return;
             XElement XMLFile = XElement.Load(fileName);              //XML-Datei öffnen
@@ -313,10 +326,26 @@ namespace MEKB_H0_Anlage
         /// <param name="weichenListe">Weichenliste</param>
         public void BlockVerfolgung(BelegtmelderListe belegtmelderListe, WeichenListe weichenListe)
         {
-            if (AktuellerBlock == null) AktuellerBlock = "";
             // Wenn Position unbekannt: Funktion nicht ausführen
             if (AktuellerBlock == "") return;
-            if (AktuellerBlock.Equals("Lok verloren")) return;
+            // Lok Verloren: Suchen am letzten Ort (Kontakt verloren)
+            if (AktuellerBlock.Equals("Lok verloren"))
+            {
+                if (!LetzterBekannterBlock.Equals(""))
+                {
+                    Belegtmelder vorheriger = belegtmelderListe.GetBelegtmelder(this.LetzterBekannterBlock);
+                    if (vorheriger != null)
+                    {
+                        if(vorheriger.Registriert.Equals("") || vorheriger.Registriert.Equals(Name))
+                        {
+                            vorheriger.Registriert = this.Name; //Lok für diesen Block registrieren
+                            AktuellerBlock = vorheriger.Name;
+                            LetzterBekannterBlock = "";
+                        }
+                    }
+                }
+                return;
+            }
              
             // Lok fährt
             if (this.Fahrstufe != 0)
@@ -330,6 +359,7 @@ namespace MEKB_H0_Anlage
                 }
                 if(!Aktuel.IstBelegt()) //Keine Belegtmeldung -> Lok verloren
                 {
+                    LetzterBekannterBlock = AktuellerBlock;
                     AktuellerBlock = "Lok verloren";
                     return;
                 }

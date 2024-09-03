@@ -94,7 +94,7 @@ namespace MEKB_H0_Anlage
             SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
             LokListe_Laden();
 
-            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe);
+            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe, BelegtmelderListe);
 
             
         }
@@ -269,13 +269,6 @@ namespace MEKB_H0_Anlage
             if (source is System.Timers.Timer)
             {
 
-                Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text); //Debug
-                if (belegtmelder != null)
-                {
-                    UpdateRegisterState(NextBlock, belegtmelder.NaechsterBlock(VorBlock.Text, WeichenListe));
-                }
-
-
                 if (z21Start.Verbunden())
                 {
                     Stopwatch stopWatch = new Stopwatch();
@@ -335,43 +328,7 @@ namespace MEKB_H0_Anlage
 
             LokStatusTimerIndex++;
 
-            #region DEBUG
-            if(LokListe.Count > 0)
-            {
-                WriteTextBoxAkt(LokListe[0].AktuellerBlock);
-                WriteTextBoxNext(LokListe[0].NexterBlock);
-                WriteTextBoxVor(LokListe[0].VorherigerBlock);
-            }
-            #endregion
 
-        }
-
-        public void WriteTextBoxAkt(string value)
-        {
-            if (InvokeRequired)
-            {
-                this.Invoke(new Action<string>(WriteTextBoxAkt), new object[] { value });
-                return;
-            }
-            Block.Text = value;
-        }
-        public void WriteTextBoxNext(string value)
-        {
-            if (InvokeRequired)
-            {
-                this.Invoke(new Action<string>(WriteTextBoxNext), new object[] { value });
-                return;
-            }
-            NextBlock.Text = value;
-        }
-        public void WriteTextBoxVor(string value)
-        {
-            if (InvokeRequired)
-            {
-                this.Invoke(new Action<string>(WriteTextBoxVor), new object[] { value });
-                return;
-            }
-            VorBlock.Text = value;
         }
 
 
@@ -918,7 +875,7 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe);
+                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe, BelegtmelderListe);
                 ZugmenueFenster.Show();
             }
         }
@@ -927,15 +884,6 @@ namespace MEKB_H0_Anlage
 
 
 
-
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            string naechsterBlock = NextBlock.Text;
-            string aktuellerBlock = Block.Text;
-            Block.Text = naechsterBlock;
-            VorBlock.Text = aktuellerBlock;
-        }
 
         
     }

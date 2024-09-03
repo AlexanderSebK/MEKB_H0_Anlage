@@ -67,15 +67,6 @@
             this.AutoBahnhofsansagen = new System.Windows.Forms.CheckBox();
             this.StopAlle = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Block = new System.Windows.Forms.TextBox();
-            this.VorBlock = new System.Windows.Forms.TextBox();
-            this.NextBlock = new System.Windows.Forms.TextBox();
-            this.label115 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label130 = new System.Windows.Forms.Label();
-            this.label129 = new System.Windows.Forms.Label();
-            this.label128 = new System.Windows.Forms.Label();
             this.GleisplanAnzeige = new System.Windows.Forms.Panel();
             this.KontrollPanel = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -84,8 +75,6 @@
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.KontrollPanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -446,103 +435,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Automatisierung";
             // 
-            // Block
-            // 
-            this.Block.Location = new System.Drawing.Point(116, 16);
-            this.Block.Name = "Block";
-            this.Block.Size = new System.Drawing.Size(100, 20);
-            this.Block.TabIndex = 991;
-            // 
-            // VorBlock
-            // 
-            this.VorBlock.Location = new System.Drawing.Point(10, 16);
-            this.VorBlock.Name = "VorBlock";
-            this.VorBlock.Size = new System.Drawing.Size(100, 20);
-            this.VorBlock.TabIndex = 992;
-            // 
-            // NextBlock
-            // 
-            this.NextBlock.Location = new System.Drawing.Point(222, 16);
-            this.NextBlock.Name = "NextBlock";
-            this.NextBlock.ReadOnly = true;
-            this.NextBlock.Size = new System.Drawing.Size(100, 20);
-            this.NextBlock.TabIndex = 993;
-            // 
-            // label115
-            // 
-            this.label115.AutoSize = true;
-            this.label115.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label115.Location = new System.Drawing.Point(475, 14);
-            this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(62, 20);
-            this.label115.TabIndex = 994;
-            this.label115.Text = "Debug";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.label115);
-            this.panel2.Controls.Add(this.label130);
-            this.panel2.Controls.Add(this.label129);
-            this.panel2.Controls.Add(this.label128);
-            this.panel2.Controls.Add(this.NextBlock);
-            this.panel2.Controls.Add(this.VorBlock);
-            this.panel2.Controls.Add(this.Block);
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1089, 42);
-            this.panel2.TabIndex = 995;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(328, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(141, 23);
-            this.button1.TabIndex = 997;
-            this.button1.Text = "In Nächsten Einfahren";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // label130
-            // 
-            this.label130.AutoSize = true;
-            this.label130.Location = new System.Drawing.Point(127, 0);
-            this.label130.Name = "label130";
-            this.label130.Size = new System.Drawing.Size(78, 13);
-            this.label130.TabIndex = 996;
-            this.label130.Text = "Aktueller Block";
-            // 
-            // label129
-            // 
-            this.label129.AutoSize = true;
-            this.label129.Location = new System.Drawing.Point(25, 0);
-            this.label129.Name = "label129";
-            this.label129.Size = new System.Drawing.Size(85, 13);
-            this.label129.TabIndex = 995;
-            this.label129.Text = "Vorheriger Block";
-            // 
-            // label128
-            // 
-            this.label128.AutoSize = true;
-            this.label128.Location = new System.Drawing.Point(235, 0);
-            this.label128.Name = "label128";
-            this.label128.Size = new System.Drawing.Size(80, 13);
-            this.label128.TabIndex = 994;
-            this.label128.Text = "Nächster Block";
-            // 
             // GleisplanAnzeige
             // 
             this.GleisplanAnzeige.AutoScroll = true;
             this.GleisplanAnzeige.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.GleisplanAnzeige.Location = new System.Drawing.Point(0, 72);
             this.GleisplanAnzeige.Name = "GleisplanAnzeige";
-            this.GleisplanAnzeige.Size = new System.Drawing.Size(1904, 818);
+            this.GleisplanAnzeige.Size = new System.Drawing.Size(1904, 865);
             this.GleisplanAnzeige.TabIndex = 1;
             // 
             // KontrollPanel
             // 
-            this.KontrollPanel.Controls.Add(this.panel2);
             this.KontrollPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.KontrollPanel.Location = new System.Drawing.Point(0, 890);
             this.KontrollPanel.Name = "KontrollPanel";
@@ -607,9 +510,6 @@
             this.Statusbar.ResumeLayout(false);
             this.Statusbar.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.KontrollPanel.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -647,15 +547,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem überwachungToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem belegtmeldungToolStripMenuItem;
-        private System.Windows.Forms.TextBox Block;
-        private System.Windows.Forms.TextBox VorBlock;
-        private System.Windows.Forms.TextBox NextBlock;
-        private System.Windows.Forms.Label label115;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label129;
-        private System.Windows.Forms.Label label128;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label130;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem signaleEditierenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lokomotivenNeuLadenToolStripMenuItem;
