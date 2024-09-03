@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace MEKB_H0_Anlage
@@ -13,6 +14,8 @@ namespace MEKB_H0_Anlage
     public partial class ZugSteuerpult : Form
     {
         private Lokomotive Lokdaten { set; get; }
+        private static System.Timers.Timer StatusUpdateTimer;
+
         public ZugSteuerpult(Lokomotive Instance)
         {
             InitializeComponent();
@@ -90,6 +93,8 @@ namespace MEKB_H0_Anlage
             if (Lokdaten.LokUmgedreht) Fahrwechsel.BackColor = Color.White;
             else Fahrwechsel.BackColor = Color.DarkGray;
 
+            Position.Text = Lokdaten.AktuellerBlock;
+
             if(Lokdaten.Richtung == LokFahrstufen.Vorwaerts)
             {
                 vor.BackColor = Color.White;
@@ -145,10 +150,9 @@ namespace MEKB_H0_Anlage
 
         private void ZugSteuerpult_Shown(object sender, EventArgs e)
         {
-            Fahrstufe.Value = 0;
-            Fahrstufe_ValueChanged(sender, e);
+            //Fahrstufe.Value = 0;
+            //Fahrstufe_ValueChanged(sender, e);
         }
-
 
         private void Fkt_Set_Click(object sender, EventArgs e)
         {

@@ -162,74 +162,70 @@ namespace MEKB_H0_Anlage
         private void UpdateLok(int ParamterCount, int Adresse, bool Besetzt, byte FahrstufenInfo, bool Richtung,
                                              byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen)
         {
-            int index = -1;
-            for (int i = 0; i<AktiveLoks.Length;i++)
+            int ListID = LokListe.FindIndex(x => x.Adresse == Adresse); //Finde Lok mit dieser Adresse 
+            if (ListID == -1)//Lok nicht gefunden in der Liste
             {
-                if(AktiveLoks[i] != null)
-                {
-                    if (AktiveLoks[i].Adresse == Adresse) index = i;
-                }
+                return;
             }
-            if (index == -1) return;
 
             if (ParamterCount >= 3)
             {
-                AktiveLoks[index].FahrstufenInfo = FahrstufenInfo;
+                LokListe[ListID].FahrstufenInfo = FahrstufenInfo;
             }
             if (ParamterCount >= 4)
             {
                 int FahrRichtung = LokFahrstufen.Vorwaerts;
-                if ((Richtung == true) && (AktiveLoks[index].LokUmgedreht == false)) FahrRichtung = LokFahrstufen.Vorwaerts;
-                if ((Richtung == true) && (AktiveLoks[index].LokUmgedreht == true)) FahrRichtung = LokFahrstufen.Rueckwaerts;
-                if ((Richtung == false) && (AktiveLoks[index].LokUmgedreht == false)) FahrRichtung = LokFahrstufen.Rueckwaerts;
-                if ((Richtung == false) && (AktiveLoks[index].LokUmgedreht == true)) FahrRichtung = LokFahrstufen.Vorwaerts;
-                AktiveLoks[index].Richtung = FahrRichtung;
-                AktiveLoks[index].Fahrstufe = LokFahrstufen.ProtokolToFahrstufe(Fahrstufe, FahrstufenInfo);
+                if ((Richtung == true) && (LokListe[ListID].LokUmgedreht == false)) FahrRichtung = LokFahrstufen.Vorwaerts;
+                if ((Richtung == true) && (LokListe[ListID].LokUmgedreht == true)) FahrRichtung = LokFahrstufen.Rueckwaerts;
+                if ((Richtung == false) && (LokListe[ListID].LokUmgedreht == false)) FahrRichtung = LokFahrstufen.Rueckwaerts;
+                if ((Richtung == false) && (LokListe[ListID].LokUmgedreht == true)) FahrRichtung = LokFahrstufen.Vorwaerts;
+                LokListe[ListID].Richtung = FahrRichtung;
+                LokListe[ListID].Fahrstufe = LokFahrstufen.ProtokolToFahrstufe(Fahrstufe, FahrstufenInfo);
             }
             if (ParamterCount >= 5)
             {
-                AktiveLoks[index].AktiveFunktion[0] = Funktionen[0];
-                AktiveLoks[index].AktiveFunktion[1] = Funktionen[1];
-                AktiveLoks[index].AktiveFunktion[2] = Funktionen[2];
-                AktiveLoks[index].AktiveFunktion[3] = Funktionen[3];
-                AktiveLoks[index].AktiveFunktion[4] = Funktionen[4];
+                LokListe[ListID].AktiveFunktion[0] = Funktionen[0];
+                LokListe[ListID].AktiveFunktion[1] = Funktionen[1];
+                LokListe[ListID].AktiveFunktion[2] = Funktionen[2];
+                LokListe[ListID].AktiveFunktion[3] = Funktionen[3];
+                LokListe[ListID].AktiveFunktion[4] = Funktionen[4];
             }
             if (ParamterCount >= 6)
             {
-                AktiveLoks[index].AktiveFunktion[5] = Funktionen[5];
-                AktiveLoks[index].AktiveFunktion[6] = Funktionen[6];
-                AktiveLoks[index].AktiveFunktion[7] = Funktionen[7];
-                AktiveLoks[index].AktiveFunktion[8] = Funktionen[8];
-                AktiveLoks[index].AktiveFunktion[9] = Funktionen[9];
-                AktiveLoks[index].AktiveFunktion[10] = Funktionen[10];
-                AktiveLoks[index].AktiveFunktion[11] = Funktionen[11];
-                AktiveLoks[index].AktiveFunktion[12] = Funktionen[12];
+                LokListe[ListID].AktiveFunktion[5] = Funktionen[5];
+                LokListe[ListID].AktiveFunktion[6] = Funktionen[6];
+                LokListe[ListID].AktiveFunktion[7] = Funktionen[7];
+                LokListe[ListID].AktiveFunktion[8] = Funktionen[8];
+                LokListe[ListID].AktiveFunktion[9] = Funktionen[9];
+                LokListe[ListID].AktiveFunktion[10] = Funktionen[10];
+                LokListe[ListID].AktiveFunktion[11] = Funktionen[11];
+                LokListe[ListID].AktiveFunktion[12] = Funktionen[12];
             }
             if (ParamterCount >= 7)
             {
-                AktiveLoks[index].AktiveFunktion[13] = Funktionen[13];
-                AktiveLoks[index].AktiveFunktion[14] = Funktionen[14];
-                AktiveLoks[index].AktiveFunktion[15] = Funktionen[15];
-                AktiveLoks[index].AktiveFunktion[16] = Funktionen[16];
-                AktiveLoks[index].AktiveFunktion[17] = Funktionen[17];
-                AktiveLoks[index].AktiveFunktion[18] = Funktionen[18];
-                AktiveLoks[index].AktiveFunktion[19] = Funktionen[19];
-                AktiveLoks[index].AktiveFunktion[20] = Funktionen[20];
+                LokListe[ListID].AktiveFunktion[13] = Funktionen[13];
+                LokListe[ListID].AktiveFunktion[14] = Funktionen[14];
+                LokListe[ListID].AktiveFunktion[15] = Funktionen[15];
+                LokListe[ListID].AktiveFunktion[16] = Funktionen[16];
+                LokListe[ListID].AktiveFunktion[17] = Funktionen[17];
+                LokListe[ListID].AktiveFunktion[18] = Funktionen[18];
+                LokListe[ListID].AktiveFunktion[19] = Funktionen[19];
+                LokListe[ListID].AktiveFunktion[20] = Funktionen[20];
             }
             if (ParamterCount >= 8)
             {
-                AktiveLoks[index].AktiveFunktion[21] = Funktionen[21];
-                AktiveLoks[index].AktiveFunktion[22] = Funktionen[22];
-                AktiveLoks[index].AktiveFunktion[23] = Funktionen[23];
-                AktiveLoks[index].AktiveFunktion[24] = Funktionen[24];
-                AktiveLoks[index].AktiveFunktion[25] = Funktionen[25];
-                AktiveLoks[index].AktiveFunktion[26] = Funktionen[26];
-                AktiveLoks[index].AktiveFunktion[27] = Funktionen[27];
-                AktiveLoks[index].AktiveFunktion[28] = Funktionen[28];
+                LokListe[ListID].AktiveFunktion[21] = Funktionen[21];
+                LokListe[ListID].AktiveFunktion[22] = Funktionen[22];
+                LokListe[ListID].AktiveFunktion[23] = Funktionen[23];
+                LokListe[ListID].AktiveFunktion[24] = Funktionen[24];
+                LokListe[ListID].AktiveFunktion[25] = Funktionen[25];
+                LokListe[ListID].AktiveFunktion[26] = Funktionen[26];
+                LokListe[ListID].AktiveFunktion[27] = Funktionen[27];
+                LokListe[ListID].AktiveFunktion[28] = Funktionen[28];
             }
-            if (!AktiveLoks[index].Steuerpult.IsDisposed)
+            if (!LokListe[ListID].Steuerpult.IsDisposed)
             {
-                AktiveLoks[index].Steuerpult.UpdateLokDaten();
+                LokListe[ListID].Steuerpult.UpdateLokDaten();
             }
             //int index = Lokliste.FindIndex(x => x.Adresse == Adresse);
 

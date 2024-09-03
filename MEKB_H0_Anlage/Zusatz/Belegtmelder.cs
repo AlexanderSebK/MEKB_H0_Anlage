@@ -67,7 +67,7 @@ namespace MEKB_H0_Anlage
                 {
                     CoolUptime = Int16.Parse(melder.Element("Cooluptime").Value);
                 }
-                Belegtmelder belegtmelder =  new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime, CoolUpTime = CoolUptime };  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
+                Belegtmelder belegtmelder =  new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime, CoolUpTime = CoolUptime, Registriert = "" };  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
 
                 belegtmelder.NachbarBlocks = new List<NachbarBlock>();
 
@@ -195,6 +195,30 @@ namespace MEKB_H0_Anlage
                 PortListe.Clear();
             }
         }
+
+        public List<Belegtmelder> GetAktiveBelegtmelder()
+        {
+            List<Belegtmelder> aktive = new List<Belegtmelder>();
+            foreach (Belegtmelder belegtmelder in Liste)
+            {
+                if(belegtmelder.IstBelegt())
+                { aktive.Add(belegtmelder); }
+
+            }
+            return aktive;
+        }
+
+        public List<Belegtmelder> UnbekannteBelegung()
+        {
+            List<Belegtmelder> unbekannt = new List<Belegtmelder>();
+            foreach (Belegtmelder belegtmelder in Liste)
+            {
+                if (belegtmelder.IstBelegt() && belegtmelder.Registriert.Equals(""))
+                { unbekannt.Add(belegtmelder); }
+            }
+            return unbekannt;
+        }
+
         /// <summary>
         /// Anfrage an Zentrale für neuen Belegtmelderstatus
         /// </summary>
@@ -271,6 +295,11 @@ namespace MEKB_H0_Anlage
 
         #endregion
 
+        public Belegtmelder()
+        {
+            CoolDownTimer = CoolDownTime;
+        }
+
         /// <summary>
         /// Gibt den Namen des nächsten Blocks an
         /// </summary>
@@ -336,6 +365,8 @@ namespace MEKB_H0_Anlage
                 CoolDownTimer -= ZeitVergangen; //Cooldowntimer weiterzählen
                 if (CoolDownTimer <= 0) CoolDownTimer = 0; //Cooldowntimer erreicht
             }
+
+            if (Belegt == true) { CoolDownTimer = CoolUpTime; }
 
             if (Stabil == false) //Noch instabil
             {

@@ -102,7 +102,8 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public bool Automatik { set; get; }
         public string AktuellerBlock { set; get; }
-        public string VorherigerBlock { set; get; } 
+        public string VorherigerBlock { set; get; }
+        public string NexterBlock { set; get; }
 
         public int ErlaubteGeschwindigkeit { set; get; }
         #endregion
@@ -312,7 +313,9 @@ namespace MEKB_H0_Anlage
         /// <param name="weichenListe">Weichenliste</param>
         public void BlockVerfolgung(BelegtmelderListe belegtmelderListe, WeichenListe weichenListe)
         {
+            if (AktuellerBlock == null) AktuellerBlock = "";
             // Wenn Position unbekannt: Funktion nicht ausführen
+            if (AktuellerBlock == "") return;
             if (AktuellerBlock.Equals("Lok verloren")) return;
              
             // Lok fährt
@@ -331,11 +334,12 @@ namespace MEKB_H0_Anlage
                     return;
                 }
                 //Potentieller nächsten Nachbarblock finden
-                Belegtmelder Naechster = belegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock, weichenListe));
-                if(Naechster == null) //Nicht gefunden
+                Belegtmelder Naechster = belegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock, weichenListe));              
+                if (Naechster == null) //Nicht gefunden
                 {
                     return;
                 }
+
                 if(Naechster.IstBelegt()) // Gefunden und nächster Block ist belegt
                 {
                     if(Naechster.Registriert.Equals("")) // Nächster Block nicht von einer anderen Lok reserviert

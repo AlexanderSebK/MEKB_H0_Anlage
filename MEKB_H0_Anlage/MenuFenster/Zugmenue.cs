@@ -22,6 +22,7 @@ namespace MEKB_H0_Anlage
         #region Listen
         public List<Lokomotive> AktiveLoks = new List<Lokomotive>();
         public LokomotivenVerwaltung LokomotivenArchiv;
+        public BelegtmelderListe BelegtmelderListe;
         #endregion
 
         #region Parameter
@@ -33,6 +34,7 @@ namespace MEKB_H0_Anlage
 
         #region Threads
         public Thread ThreadLoksuche;
+        public Thread ThreadBelegtmelderauswahl;
         #endregion
 
 
@@ -42,13 +44,13 @@ namespace MEKB_H0_Anlage
             InitializeComponent();
         }
 
-        public Zugmenue(Z21 zentrale, LokomotivenVerwaltung archiv, Bahnhofsansage bahnhofsansage, List<Lokomotive> aktLoks)
+        public Zugmenue(Z21 zentrale, LokomotivenVerwaltung archiv, Bahnhofsansage bahnhofsansage, List<Lokomotive> aktLoks, BelegtmelderListe belegtmelder)
         {
             z21 = zentrale;
             InitializeComponent();
             LokomotivenArchiv = archiv;
             AktiveLoks = aktLoks;
-            
+            BelegtmelderListe = belegtmelder;
 
 
             ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
@@ -296,12 +298,12 @@ namespace MEKB_H0_Anlage
             {
                 Enabled = true,
                 Location = new System.Drawing.Point(x_FelderStart + 542, y_FelderStart + (24 * index) - 1),
-                Name = String.Format("LokCtrl{0}_Ort_Wechsel", index),
+                Name = String.Format("LokCtrl{0}_OrtWechsel", index),
                 Size = new System.Drawing.Size(72, 22),
                 Text = "Ort ändern",
                 UseVisualStyleBackColor = false,
             };
-            //LokCtrl_Ort_Wechsel.Click += new EventHandler(this.LokKontroll_Strg_Typ_Click);
+            LokCtrl_Ort_Wechsel.Click += new EventHandler(this.LokOrtsWechsel);
             return LokCtrl_Ort_Wechsel;
         }
         private TextBox OrtfeldGenerator(int index)
@@ -390,7 +392,7 @@ namespace MEKB_H0_Anlage
                 Size = new Size(62, 22),
                 Text = "Ansage",
                 UseVisualStyleBackColor = false,
-                Enabled = false
+                Enabled = true
             };
             LokCtrl_Stop.Click += new EventHandler(this.LokSprache_Click);
             return LokCtrl_Stop;
@@ -892,7 +894,51 @@ namespace MEKB_H0_Anlage
             }
         }
 
+        private void LokOrtsWechsel(object sender, EventArgs e)
+        {
+            if (sender is Button steuertyp)
+            {
+                //Name der Instanz finden
+                string name = steuertyp.Name;
+                string[] subs = name.Split('_');
+                if (subs[1] != "OrtWechsel") return; //Muss auf _Sprache an zweiter Position haben
 
+
+                //Aktiver Lokindex
+                string indexStr = subs[0].Substring(7);
+                if (Int32.TryParse(indexStr, out int index))
+                {
+                    if (index < 0) return;
+                    if (index > AktiveLoks.Count) return;
+                }
+                else
+                {
+                    return;
+                }
+                List<Belegtmelder> aktiveBelegtmelder = BelegtmelderListe.GetAktiveBelegtmelder();
+                //Fenster Loksuche ist noch nicht geöffnet
+                if (!ThreadBelegtmelderauswahl.IsAlive)
+                {
+                    ThreadBelegtmelderauswahl = new Thread(() => DialogHandhabungBelegtmelderAuswahl(subs[0], aktiveBelegtmelder));
+                    ThreadBelegtmelderauswahl.Start();
+                }
+
+            }
+        }
+
+        private void DialogHandhabungBelegtmelderAuswahl(string IndexName, List<Belegtmelder> aktiveBelegtmelder)
+        {
+            //Fenster anlegen
+            LokSuche lokSuche = new LokSuche(LokomotivenArchiv);
+            //Fenster anzeigen und auf Antwort warten
+            DialogResult dialogResult = lokSuche.ShowDialog();
+            //Suche erfolgreich bzw. nicht abgebrochen
+            if (dialogResult == DialogResult.OK)
+            {
+                //Ergebnis über synchronisierte Aktion in Fenster schreiben
+                this.BeginInvoke((Action<string, Lokomotive>)SchreibeSuchergebnis, IndexName, lokSuche.GewaehlteLok);
+            }
+        }
 
 
         #endregion

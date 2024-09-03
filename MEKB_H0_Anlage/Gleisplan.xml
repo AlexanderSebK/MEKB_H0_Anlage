@@ -7266,32 +7266,18 @@
 			<PosY>8</PosY>
 			<Typ>Prellbock_90</Typ>
 			<Bedingung Teil='1'>1</Bedingung>			
-		</Gleis>
-		<Gleis Name='BW_7'>
-			<PosX>18</PosX>
-			<PosY>9</PosY>
-			<Typ>Prellbock_270</Typ>
-			<Bedingung Teil='1'>1</Bedingung>			
-		</Gleis>
+		</Gleis>		
 		<Gleis Name='BW_8'>
 			<PosX>17</PosX>
 			<PosY>9</PosY>
-			<Typ>Gerade_90+Ecke_OL</Typ>
-			<Bedingung Teil='1'>1</Bedingung>	
-			<Bedingung Teil='2'>1</Bedingung>			
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
 		</Gleis>
-		<Gleis Name='Weiche402'>
+		<Gleis Name='BW_7'>
 			<PosX>16</PosX>
 			<PosY>9</PosY>
-			<Typ>WeicheR_315</Typ>
-			<Bedingung Teil='1'>1</Bedingung>
-			<Label>
-				<Typ>Rahmen</Typ>
-				<Text>402</Text>
-				<Schrift Fett='false'>7</Schrift>
-				<XOffset>16</XOffset>
-				<YOffset>20</YOffset>
-			</Label>
+			<Typ>Gerade_315</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
 		</Gleis>
 		<Gleis Name='BW_9'>
 			<PosX>15</PosX>
