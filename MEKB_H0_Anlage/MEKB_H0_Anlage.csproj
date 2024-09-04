@@ -243,6 +243,477 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\WeicheL_Abzweig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL_Gerade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL90_Abzweig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL90_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL90_Gerade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL270_Abzweig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL270_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL270_Gerade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL270_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR90_Abzweig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR90_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR90_Gerade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR90_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR270_Abzweig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR270_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR270_Gerade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR270_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_EckeOL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_EckeOR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_EckeUL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_EckeUR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL315_Abzweig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL315_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL315_Gerade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL315_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR45_Abzweig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR45_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR45_Gerade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR45_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_45_Abzweig45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_45_Abzweig90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_45_Diag45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_45_Diag90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_45_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_45_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheKW90_45_Abzweig45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheKW90_45_Diag45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheKW90_45_Diag90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheKW90_45_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheKW90_45_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_135_Abzweig90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_135_Abzweig135.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_135_Diag90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_135_Diag135.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_135_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_135_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR225_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL270_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR45_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve0L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve0R.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve90L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve90R.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve180L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve180R.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve270L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve270R.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EckeOL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EckeOR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EckeUL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EckeUR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve270L_EckeOR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve270R_EckeUR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade0_EckeL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade0_EckeOR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade135.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GeradePrelbock90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GeradePrelbock270.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Drehscheibe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EckeOL_UR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EckeUL_OR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_EckeOL_UR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kreuzung90_135.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL90_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL135_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL315_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL135_Analog_EckeOL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL315_Analog_EckeUL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve90R_EckeOR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve270R_EckeUL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve90L_EckeUR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade135_EckeOR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade135_EckeUL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL180_Abzweig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL180_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL180_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL180_Gerade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL180_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR225_Abzweig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR225_Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR225_Gerade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR225_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstrasse_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL90_Abzweig_Fahrstrasse_vonZunge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL90_Abzweig_Fahrstrasse_zurZunge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL90_Gerade_Fahrstasse_vonZunge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL90_Gerade_Fahrstasse_zurZunge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_135_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GeradePrellbock135.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR270_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_Fahrstr_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_Fahrstr_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve270L_Fahrstr_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kurve270L_Fahrstr_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EckeUR_Fahrstr_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EckeUR_Fahrstr_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_Fahrstr_links_EckeOL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_Fahrstr_rechts_EckeOL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_EckeOL_Fahrstr_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gerade90_EckeOL_Fahrstr_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheL90_Unbekannt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheR90_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zunge_AbzweigL_90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zunge_AbzweigR_90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zunge_Gerade_45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zunge_Gerade_90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zunge_Gerade_135.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_90_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_90_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_Kurve90L_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_Kurve90L_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_Kurve90R_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_Kurve90R_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_Kurve270L_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_Kurve270L_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_Kurve270R_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_Kurve270R_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_135_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_135_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_225_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_225_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_EckeOL_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_EckeOL_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_EckeOR_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_EckeOR_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_EckeUL_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_EckeUL_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_EckeUR_links.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_EckeUR_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zunge_Gerade_0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zunge_AbzweigL_180.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zunge_AbzweigL_270.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_0_oben.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_0_unten.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_Kurve180L_oben.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstr_Kurve180L_unten.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheKW90_45_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fahrstrasse_rechts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeicheDKW90_45_Analog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SH_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SH_2_inaktiv.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Belegtmelderliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -253,6 +724,37 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Logo.ico" />
+    <None Include="Resources\Fahrstrasse_links_deakt.png" />
+    <None Include="Resources\Fahrstrasse_rechts_deakt.png" />
+    <None Include="Resources\Bahnsteig_Mitte.png" />
+    <None Include="Resources\Bahnsteig_Oben.png" />
+    <None Include="Resources\Bahnsteig_Unten.png" />
+    <None Include="Resources\Sperrsignal_kurz_270.png" />
+    <None Include="Resources\FahrstufenAnzeige.png" />
+    <None Include="Resources\Fahrstr_Kurve0R_oben.png" />
+    <None Include="Resources\Fahrstr_Kurve0R_unten.png" />
+    <None Include="Resources\Fahrstrasse_unten.png" />
+    <None Include="Resources\Fahrstrasse_unten_deakt.png" />
+    <None Include="Resources\Kurve180R_EckeOL.png" />
+    <None Include="Resources\WeicheR180_Analog.png" />
+    <None Include="Resources\WeicheR180_EckeOL_Analog.png" />
+    <None Include="Resources\Fahrstrasse_oben.png" />
+    <None Include="Resources\Fahrstrasse_oben_deakt.png" />
+    <None Include="Resources\Block5_90.png" />
+    <None Include="Resources\Block9_90.png" />
+    <None Include="Resources\Signal_2B_0.png" />
+    <None Include="Resources\Signal_2B_180.png" />
+    <None Include="Resources\Signal_2B_HP0_0.png" />
+    <None Include="Resources\Signal_2B_HP0_180.png" />
+    <None Include="Resources\Signal_2B_HP1_0.png" />
+    <None Include="Resources\Signal_2B_HP1_180.png" />
+    <None Include="Resources\Zunge_AbzweigL_0.png" />
+    <Content Include="Resources\Zunge_AbzweigR_0.png" />
+    <None Include="Resources\Zunge_AbzweigR_01.png" />
+    <None Include="Resources\Zunge_AbzweigR_180.png" />
+    <Content Include="Resources\Zunge_AbzweigR_1801.png" />
+    <None Include="Resources\Zunge_AbzweigR_1802.png" />
+    <None Include="Resources\Zunge_AbzweigR_270.png" />
     <Content Include="Signalliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -262,6 +764,24 @@
     <Content Include="Weichenliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Fahrstr_Kurve0L_unten.png" />
+    <None Include="Resources\Fahrstr_Kurve0L_oben.png" />
+    <None Include="Resources\Fahrstr_Kurve180R_unten.png" />
+    <None Include="Resources\Fahrstr_Kurve180R_oben.png" />
+    <None Include="Resources\Signal_3B_HP2_90.png" />
+    <None Include="Resources\Signal_3B_HP1_90.png" />
+    <None Include="Resources\Signal_3B_HP0_90.png" />
+    <None Include="Resources\Signal_3B_270.png" />
+    <None Include="Resources\Signal_3B_90.png" />
+    <None Include="Resources\Signal_2B_HP1_270.png" />
+    <None Include="Resources\Signal_2B_HP1_90.png" />
+    <None Include="Resources\Signal_2B_HP0_270.png" />
+    <None Include="Resources\Signal_2B_HP0_90.png" />
+    <None Include="Resources\Signal_2B_270.png" />
+    <None Include="Resources\Signal_2B_90.png" />
+    <None Include="Resources\Signal_3B_HP2_270.png" />
+    <None Include="Resources\Signal_3B_HP1_270.png" />
+    <None Include="Resources\Signal_3B_HP0_270.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
