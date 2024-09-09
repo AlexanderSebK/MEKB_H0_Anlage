@@ -153,6 +153,12 @@
     <Compile Include="MenuFenster\MenuFenster_Signalistentool.Designer.cs">
       <DependentUpon>MenuFenster_Signalistentool.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuFenster\Weichen_Ueberwachung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuFenster\Weichen_Ueberwachung.Designer.cs">
+      <DependentUpon>Weichen_Ueberwachung.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuFenster\Zugmenue.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,6 +252,9 @@
     <EmbeddedResource Include="MenuFenster\MenuFenster_Signalistentool.resx">
       <DependentUpon>MenuFenster_Signalistentool.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MenuFenster\Weichen_Ueberwachung.resx">
+      <DependentUpon>Weichen_Ueberwachung.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuFenster\Zugmenue.resx">
       <DependentUpon>Zugmenue.cs</DependentUpon>
     </EmbeddedResource>
@@ -271,6 +280,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Belegtmelder.datasource" />
+    <None Include="Properties\DataSources\Weiche.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

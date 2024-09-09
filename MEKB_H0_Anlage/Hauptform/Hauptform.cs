@@ -45,6 +45,7 @@ namespace MEKB_H0_Anlage
         private Z21_Einstellung z21_Einstellung;
         private Signal_Einstellungen signal_Einstellungen;
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
+        private Weichen_Ueberwachung weichen_Ueberwachung;
         private InfoBox InfoBox;
         private MenuFenster_Signalistentool signaltool;
         private Zugmenue ZugmenueFenster = new Zugmenue();
@@ -318,6 +319,7 @@ namespace MEKB_H0_Anlage
         private void OnStatusUpdate(Object source, ElapsedEventArgs e)
         {
             // Lokstatus abfragen
+            if(LokListe.Count == 0) return;
             if(!(LokStatusTimerIndex < LokListe.Count)) LokStatusTimerIndex = 0;
             Setze_Lok_Status(LokListe[LokStatusTimerIndex].Adresse);
 
@@ -879,12 +881,19 @@ namespace MEKB_H0_Anlage
                 ZugmenueFenster.Show();
             }
         }
+
+
+
+
+
         #endregion
 
-
-
-
-
-        
+        private void weichenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (weichen_Ueberwachung == null) weichen_Ueberwachung = new Weichen_Ueberwachung(WeichenListe.Liste);
+            if (weichen_Ueberwachung.IsDisposed) weichen_Ueberwachung = new Weichen_Ueberwachung(WeichenListe.Liste);
+            weichen_Ueberwachung.Show();
+            weichen_Ueberwachung.BringToFront();
+        }
     }
 }

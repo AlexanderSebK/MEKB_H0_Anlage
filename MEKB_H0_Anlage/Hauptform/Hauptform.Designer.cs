@@ -72,6 +72,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Btn_Fahrzeuge = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
+            this.weichenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -205,7 +206,8 @@
             // überwachungToolStripMenuItem
             // 
             this.überwachungToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.belegtmeldungToolStripMenuItem});
+            this.belegtmeldungToolStripMenuItem,
+            this.weichenToolStripMenuItem});
             this.überwachungToolStripMenuItem.Name = "überwachungToolStripMenuItem";
             this.überwachungToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.überwachungToolStripMenuItem.Text = "Überwachung";
@@ -213,7 +215,7 @@
             // belegtmeldungToolStripMenuItem
             // 
             this.belegtmeldungToolStripMenuItem.Name = "belegtmeldungToolStripMenuItem";
-            this.belegtmeldungToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.belegtmeldungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.belegtmeldungToolStripMenuItem.Text = "Belegtmeldung";
             this.belegtmeldungToolStripMenuItem.Click += new System.EventHandler(this.BelegtmeldungToolStripMenuItem_Click);
             // 
@@ -228,7 +230,7 @@
             // signalsteuergungToolStripMenuItem
             // 
             this.signalsteuergungToolStripMenuItem.Name = "signalsteuergungToolStripMenuItem";
-            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.signalsteuergungToolStripMenuItem.Text = "Signalsteuergung";
             this.signalsteuergungToolStripMenuItem.Click += new System.EventHandler(this.SignalsteuergungToolStripMenuItem_Click);
             // 
@@ -485,6 +487,13 @@
             this.button15.Text = "Debug";
             this.button15.UseVisualStyleBackColor = true;
             // 
+            // weichenToolStripMenuItem
+            // 
+            this.weichenToolStripMenuItem.Name = "weichenToolStripMenuItem";
+            this.weichenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.weichenToolStripMenuItem.Text = "Weichen";
+            this.weichenToolStripMenuItem.Click += new System.EventHandler(this.weichenToolStripMenuItem_Click);
+            // 
             // Hauptform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -560,6 +569,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button Btn_Fahrzeuge;
         private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.ToolStripMenuItem weichenToolStripMenuItem;
     }
 }
 
