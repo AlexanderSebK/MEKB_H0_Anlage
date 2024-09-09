@@ -948,7 +948,7 @@ namespace MEKB_H0_Anlage
             if (dialogResult == DialogResult.OK)
             {
                 //Ergebnis über synchronisierte Aktion in Fenster schreiben
-                this.BeginInvoke((Action<string, Belegtmelder>)SetzeOrt, IndexName, AuswahlFenster.Auswahl);
+                this.BeginInvoke((Action<string, Belegtmelder, string>)SetzeOrt, IndexName, AuswahlFenster.Auswahl, AuswahlFenster.vorherigerBlock);
             }
         }
 
@@ -957,7 +957,7 @@ namespace MEKB_H0_Anlage
         /// </summary>
         /// <param name="IndexName">Index-Name auf den die neue gesuchte Lok angelegt werden soll</param>
         /// <param name="gefundeneLok">Neu gefundene Lok, die in diesen Index eingetragen werden soll</param>
-        private void SetzeOrt(string IndexName, Belegtmelder gewaehlterOrt)
+        private void SetzeOrt(string IndexName, Belegtmelder gewaehlterOrt, string vorBlock)
         {
             //Index der Lok lesen
             string indexStr = IndexName.Substring(7);
@@ -972,6 +972,7 @@ namespace MEKB_H0_Anlage
             }
             //Daten übertragen
             AktiveLoks[index].AktuellerBlock = gewaehlterOrt.Name;
+            AktiveLoks[index].VorherigerBlock = vorBlock;
         }
 
         #endregion

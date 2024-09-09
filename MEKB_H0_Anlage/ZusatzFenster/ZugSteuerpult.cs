@@ -94,6 +94,8 @@ namespace MEKB_H0_Anlage
             else Fahrwechsel.BackColor = Color.DarkGray;
 
             Position.Text = Lokdaten.AktuellerBlock;
+            textBox1.Text = Lokdaten.VorherigerBlock;
+            textBox3.Text = Lokdaten.NexterBlock;
 
             if(Lokdaten.Richtung == LokFahrstufen.Vorwaerts)
             {
@@ -352,14 +354,22 @@ namespace MEKB_H0_Anlage
 
         private void vor_Click(object sender, EventArgs e)
         {
-            Lokdaten.Richtung = LokFahrstufen.Vorwaerts;
-            setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            if(Lokdaten.Richtung != LokFahrstufen.Vorwaerts)
+            {
+                Lokdaten.Richtung = LokFahrstufen.Vorwaerts;
+                Lokdaten.VorherigerBlock = Lokdaten.NexterBlock;
+                setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            }       
         }
 
         private void Ruck_Click(object sender, EventArgs e)
         {
-            Lokdaten.Richtung = LokFahrstufen.Rueckwaerts;
-            setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            if (Lokdaten.Richtung != LokFahrstufen.Rueckwaerts)
+            {
+                Lokdaten.Richtung = LokFahrstufen.Rueckwaerts;
+                Lokdaten.VorherigerBlock = Lokdaten.NexterBlock;
+                setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            }
         }
 
         private void Anhalten_Click(object sender, EventArgs e)

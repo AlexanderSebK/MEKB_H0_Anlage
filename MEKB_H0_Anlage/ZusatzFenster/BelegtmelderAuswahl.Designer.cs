@@ -30,11 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.Tabelle = new System.Windows.Forms.DataGridView();
-            this.belegtmelderBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.registriertDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OK = new System.Windows.Forms.Button();
             this.Abbruch = new System.Windows.Forms.Button();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.registriertDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.belegtmelderBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Tabelle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.belegtmelderBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -49,12 +51,31 @@
             this.Tabelle.DataSource = this.belegtmelderBindingSource;
             this.Tabelle.Location = new System.Drawing.Point(12, 12);
             this.Tabelle.Name = "Tabelle";
-            this.Tabelle.Size = new System.Drawing.Size(465, 253);
+            this.Tabelle.Size = new System.Drawing.Size(465, 230);
             this.Tabelle.TabIndex = 0;
+            this.Tabelle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Tabelle_CellClick);
             // 
-            // belegtmelderBindingSource
+            // OK
             // 
-            this.belegtmelderBindingSource.DataSource = typeof(MEKB_H0_Anlage.Belegtmelder);
+            this.OK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.OK.Location = new System.Drawing.Point(402, 275);
+            this.OK.Name = "OK";
+            this.OK.Size = new System.Drawing.Size(75, 23);
+            this.OK.TabIndex = 1;
+            this.OK.Text = "OK";
+            this.OK.UseVisualStyleBackColor = true;
+            this.OK.Click += new System.EventHandler(this.OK_Click);
+            // 
+            // Abbruch
+            // 
+            this.Abbruch.DialogResult = System.Windows.Forms.DialogResult.Abort;
+            this.Abbruch.Location = new System.Drawing.Point(321, 275);
+            this.Abbruch.Name = "Abbruch";
+            this.Abbruch.Size = new System.Drawing.Size(75, 23);
+            this.Abbruch.TabIndex = 2;
+            this.Abbruch.Text = "Abbrechen";
+            this.Abbruch.UseVisualStyleBackColor = true;
+            this.Abbruch.Click += new System.EventHandler(this.Abbruch_Click);
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -70,33 +91,34 @@
             this.registriertDataGridViewTextBoxColumn.Name = "registriertDataGridViewTextBoxColumn";
             this.registriertDataGridViewTextBoxColumn.Width = 200;
             // 
-            // OK
+            // belegtmelderBindingSource
             // 
-            this.OK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OK.Location = new System.Drawing.Point(401, 271);
-            this.OK.Name = "OK";
-            this.OK.Size = new System.Drawing.Size(75, 23);
-            this.OK.TabIndex = 1;
-            this.OK.Text = "OK";
-            this.OK.UseVisualStyleBackColor = true;
-            this.OK.Click += new System.EventHandler(this.OK_Click);
+            this.belegtmelderBindingSource.DataSource = typeof(MEKB_H0_Anlage.Belegtmelder);
             // 
-            // Abbruch
+            // comboBox1
             // 
-            this.Abbruch.DialogResult = System.Windows.Forms.DialogResult.Abort;
-            this.Abbruch.Location = new System.Drawing.Point(320, 271);
-            this.Abbruch.Name = "Abbruch";
-            this.Abbruch.Size = new System.Drawing.Size(75, 23);
-            this.Abbruch.TabIndex = 2;
-            this.Abbruch.Text = "Abbrechen";
-            this.Abbruch.UseVisualStyleBackColor = true;
-            this.Abbruch.Click += new System.EventHandler(this.Abbruch_Click);
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(301, 248);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(175, 21);
+            this.comboBox1.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(170, 251);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(125, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Fahrzeug kam von Block";
             // 
             // BelegtmelderAuswahl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 303);
+            this.ClientSize = new System.Drawing.Size(488, 313);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.Abbruch);
             this.Controls.Add(this.OK);
             this.Controls.Add(this.Tabelle);
@@ -105,6 +127,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Tabelle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.belegtmelderBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -116,5 +139,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn registriertDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button OK;
         private System.Windows.Forms.Button Abbruch;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label1;
     }
 }

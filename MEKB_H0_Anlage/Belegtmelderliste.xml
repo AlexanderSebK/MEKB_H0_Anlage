@@ -868,17 +868,12 @@
 		<Modulnummer>8</Modulnummer>
 		<Portnummer>4</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Block7'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl8_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl8_Halt'>
 				<WeichenAbzweig>
 					<Weiche>Weiche80</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl9_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl9_Halt'>
 				<WeichenGerade>
 					<Weiche>Weiche80</Weiche>
 				</WeichenGerade>
@@ -886,8 +881,7 @@
 					<Weiche>Weiche81</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl10_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl10_Halt'>
 				<WeichenGerade>
 					<Weiche>Weiche80</Weiche>
 					<Weiche>Weiche81</Weiche>
@@ -896,14 +890,43 @@
 					<Weiche>Weiche82</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl11_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl11_Halt'>
 				<WeichenGerade>
 					<Weiche>Weiche80</Weiche>
 					<Weiche>Weiche81</Weiche>
 					<Weiche>Weiche82</Weiche>
 				</WeichenGerade>
 			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl8_Halt' KommeVon='Block7'>
+				<WeichenAbzweig>
+					<Weiche>Weiche80</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl9_Halt' KommeVon='Block7'>
+				<WeichenGerade>
+					<Weiche>Weiche80</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>Weiche81</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl10_Halt' KommeVon='Block7'>
+				<WeichenGerade>
+					<Weiche>Weiche80</Weiche>
+					<Weiche>Weiche81</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>Weiche82</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl11_Halt' KommeVon='Block7'>
+				<WeichenGerade>
+					<Weiche>Weiche80</Weiche>
+					<Weiche>Weiche81</Weiche>
+					<Weiche>Weiche82</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+	
 		</Nachbarbloecke>
   </Belegtmelder>
 	<Belegtmelder Name='SchattenMitte2'>
@@ -1270,24 +1293,16 @@
 		<Modulnummer>7</Modulnummer>
 		<Portnummer>4</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Schatten_Gl8_Halt'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='SchattenEinfahrt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl8_Halt' KommeVon='SchattenEinfahrt' />
+			<Nachbarblock Name='SchattenEinfahrt' KommeVon='Schatten_Gl8_Halt' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Schatten_Gl8_Halt'>
 		<Modulnummer>7</Modulnummer>
 		<Portnummer>8</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='SchattenMitte1'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl8'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-			</Nachbarblock>
+			<Nachbarblock Name='SchattenMitte1' KommeVon='Schatten_Gl8' />
+			<Nachbarblock Name='Schatten_Gl8' KommeVon='SchattenMitte1' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Schatten_Gl9'>

@@ -351,6 +351,7 @@ namespace MEKB_H0_Anlage
             {
                 Stabil = false; // Zustand nicht mehr stabil
                 CoolUpTimer = 0; // Einschaltimer resetten
+                if (Registriert.Equals("Deregistriert")) Registriert = "";
             }
         }
 

@@ -13,6 +13,7 @@ namespace MEKB_H0_Anlage
     public partial class BelegtmelderAuswahl : Form
     {
         public Belegtmelder Auswahl;
+        public string vorherigerBlock;
         public BelegtmelderAuswahl(List<Belegtmelder> list)
         {
             InitializeComponent();
@@ -23,7 +24,8 @@ namespace MEKB_H0_Anlage
         {
             if (Tabelle.SelectedCells.Count > 0)
             {
-                Auswahl = Tabelle.CurrentRow.DataBoundItem as Belegtmelder;  
+                Auswahl = Tabelle.CurrentRow.DataBoundItem as Belegtmelder;
+                vorherigerBlock = comboBox1.Text;
             }
             else
             {
@@ -35,6 +37,17 @@ namespace MEKB_H0_Anlage
         private void Abbruch_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Tabelle_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            comboBox1.Items.Clear();
+            Auswahl = Tabelle.CurrentRow.DataBoundItem as Belegtmelder;
+            foreach (NachbarBlock nachbarBlock in Auswahl.NachbarBlocks)
+            {
+                comboBox1.Items.Add(nachbarBlock.KommeVon);
+            }
+            comboBox1.SelectedIndex = 0;
         }
     }
 }

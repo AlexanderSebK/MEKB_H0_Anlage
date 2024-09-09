@@ -162,72 +162,14 @@ namespace MEKB_H0_Anlage
         private void UpdateLok(int ParamterCount, int Adresse, bool Besetzt, byte FahrstufenInfo, bool Richtung,
                                              byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen)
         {
+            
             int ListID = LokListe.FindIndex(x => x.Adresse == Adresse); //Finde Lok mit dieser Adresse 
             if (ListID == -1)//Lok nicht gefunden in der Liste
             {
                 return;
             }
 
-            if (ParamterCount >= 3)
-            {
-                LokListe[ListID].FahrstufenInfo = FahrstufenInfo;
-            }
-            if (ParamterCount >= 4)
-            {
-                int FahrRichtung = LokFahrstufen.Vorwaerts;
-                if ((Richtung == true) && (LokListe[ListID].LokUmgedreht == false)) FahrRichtung = LokFahrstufen.Vorwaerts;
-                if ((Richtung == true) && (LokListe[ListID].LokUmgedreht == true)) FahrRichtung = LokFahrstufen.Rueckwaerts;
-                if ((Richtung == false) && (LokListe[ListID].LokUmgedreht == false)) FahrRichtung = LokFahrstufen.Rueckwaerts;
-                if ((Richtung == false) && (LokListe[ListID].LokUmgedreht == true)) FahrRichtung = LokFahrstufen.Vorwaerts;
-                LokListe[ListID].Richtung = FahrRichtung;
-                LokListe[ListID].Fahrstufe = LokFahrstufen.ProtokolToFahrstufe(Fahrstufe, FahrstufenInfo);
-            }
-            if (ParamterCount >= 5)
-            {
-                LokListe[ListID].AktiveFunktion[0] = Funktionen[0];
-                LokListe[ListID].AktiveFunktion[1] = Funktionen[1];
-                LokListe[ListID].AktiveFunktion[2] = Funktionen[2];
-                LokListe[ListID].AktiveFunktion[3] = Funktionen[3];
-                LokListe[ListID].AktiveFunktion[4] = Funktionen[4];
-            }
-            if (ParamterCount >= 6)
-            {
-                LokListe[ListID].AktiveFunktion[5] = Funktionen[5];
-                LokListe[ListID].AktiveFunktion[6] = Funktionen[6];
-                LokListe[ListID].AktiveFunktion[7] = Funktionen[7];
-                LokListe[ListID].AktiveFunktion[8] = Funktionen[8];
-                LokListe[ListID].AktiveFunktion[9] = Funktionen[9];
-                LokListe[ListID].AktiveFunktion[10] = Funktionen[10];
-                LokListe[ListID].AktiveFunktion[11] = Funktionen[11];
-                LokListe[ListID].AktiveFunktion[12] = Funktionen[12];
-            }
-            if (ParamterCount >= 7)
-            {
-                LokListe[ListID].AktiveFunktion[13] = Funktionen[13];
-                LokListe[ListID].AktiveFunktion[14] = Funktionen[14];
-                LokListe[ListID].AktiveFunktion[15] = Funktionen[15];
-                LokListe[ListID].AktiveFunktion[16] = Funktionen[16];
-                LokListe[ListID].AktiveFunktion[17] = Funktionen[17];
-                LokListe[ListID].AktiveFunktion[18] = Funktionen[18];
-                LokListe[ListID].AktiveFunktion[19] = Funktionen[19];
-                LokListe[ListID].AktiveFunktion[20] = Funktionen[20];
-            }
-            if (ParamterCount >= 8)
-            {
-                LokListe[ListID].AktiveFunktion[21] = Funktionen[21];
-                LokListe[ListID].AktiveFunktion[22] = Funktionen[22];
-                LokListe[ListID].AktiveFunktion[23] = Funktionen[23];
-                LokListe[ListID].AktiveFunktion[24] = Funktionen[24];
-                LokListe[ListID].AktiveFunktion[25] = Funktionen[25];
-                LokListe[ListID].AktiveFunktion[26] = Funktionen[26];
-                LokListe[ListID].AktiveFunktion[27] = Funktionen[27];
-                LokListe[ListID].AktiveFunktion[28] = Funktionen[28];
-            }
-            if (!LokListe[ListID].Steuerpult.IsDisposed)
-            {
-                LokListe[ListID].Steuerpult.UpdateLokDaten();
-            }
-            //int index = Lokliste.FindIndex(x => x.Adresse == Adresse);
+            LokListe[ListID].UpdateZ21Data(ParamterCount, FahrstufenInfo, Richtung, Fahrstufe, Funktionen);
 
         }
         private void UpdateBelegtmeldung(byte GruppenIndex, byte[] RMStatus)
