@@ -318,19 +318,21 @@ namespace MEKB_H0_Anlage
         int LokStatusTimerIndex = 0;
         private void OnStatusUpdate(Object source, ElapsedEventArgs e)
         {
+            if (!Betriebsbereit) return;
             // Lokstatus abfragen
             if(LokListe.Count == 0) return;
+
+            foreach(Lokomotive lokomotive in LokListe)
+            {
+                lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe);
+                lokomotive.NotBremseHandeln();
+            }
+
+
+
             if(!(LokStatusTimerIndex < LokListe.Count)) LokStatusTimerIndex = 0;
             Setze_Lok_Status(LokListe[LokStatusTimerIndex].Adresse);
-
-            //Belegtmeldung abfragen
-            LokListe[LokStatusTimerIndex].BlockVerfolgung(BelegtmelderListe, WeichenListe);
-
-
-
             LokStatusTimerIndex++;
-
-
         }
 
 
@@ -741,9 +743,11 @@ namespace MEKB_H0_Anlage
                         }
                         
                         string Position = Config.ReadConfig(String.Format("LokPos{0}", i));
-                        if(BelegtmelderListe.GetBelegtmelder(Position) != null)
+                        Belegtmelder AktPosition = BelegtmelderListe.GetBelegtmelder(Position);
+                        if (AktPosition != null)
                         {
                             lokomotive.AktuellerBlock = Position;
+                            AktPosition.Registriert = lokomotive.Name;
                         }
                         else
                         {

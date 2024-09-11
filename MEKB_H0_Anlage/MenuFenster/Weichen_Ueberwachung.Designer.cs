@@ -188,6 +188,8 @@
             this.Controls.Add(this.WeichenFenster);
             this.Name = "Weichen_Ueberwachung";
             this.Text = "Weichen_Ueberwachung";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Weichen_Ueberwachung_FormClosing);
+            this.Shown += new System.EventHandler(this.Weichen_Ueberwachung_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.WeichenFenster)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.weicheBindingSource)).EndInit();
             this.ResumeLayout(false);

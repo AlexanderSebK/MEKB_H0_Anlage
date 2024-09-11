@@ -145,6 +145,8 @@
 		<Nachbarbloecke>
 			<Nachbarblock Name='Block9_Halt' KommeVon='SchattenAusfahrt' />
 			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Block9_Halt' />
+			<Nachbarblock Name='W60' KommeVon='Block8_Halt' />
+			<Nachbarblock Name='Block8_Halt' KommeVon='W60' />
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='Block9_Halt'>
@@ -616,25 +618,54 @@
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>2</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W25'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='W25' KommeVon='KW22'>
+				<WeichenGerade>
+					<Weiche>DKW24_1</Weiche>
+					<Weiche>DKW24_2</Weiche>
+					<Weiche>Weiche23</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='KW22' KommeVon='W25'>
+				<WeichenGerade>
+					<Weiche>DKW24_1</Weiche>
+					<Weiche>DKW24_2</Weiche>
+					<Weiche>Weiche23</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='HBf4_Halt_R' KommeVon='W25'>
 				<WeichenAbzweig>
+					<Weiche>DKW24_1</Weiche>
+				</WeichenAbzweig>
+				<WeichenGerade>
+					<Weiche>DKW24_2</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='W25' KommeVon='HBf4_Halt_R'>
+				<WeichenAbzweig>
+					<Weiche>DKW24_1</Weiche>
+				</WeichenAbzweig>
+				<WeichenGerade>
+					<Weiche>DKW24_2</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='Unbewacht' KommeVon='HBf4_Halt_R'>
+				<WeichenAbzweig>
+					<Weiche>DKW24_1</Weiche>
 					<Weiche>DKW24_2</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='HBf4_Halt_R'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Unbewacht' KommeVon='KW22'>
+				<WeichenAbzweig>
+					<Weiche>DKW24_2</Weiche>
+				</WeichenAbzweig>
 				<WeichenGerade>
 					<Weiche>DKW24_1</Weiche>
-				</WeichenGerade>
-			</Nachbarblock>
-			<Nachbarblock Name='KW22'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-				<WeichenGerade>
 					<Weiche>Weiche23</Weiche>
 				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='Unbewacht' KommeVon='KW22'>
 				<WeichenAbzweig>
-					<Weiche>DKW24_1</Weiche>
+					<Weiche>Weiche23</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
 		</Nachbarbloecke>
@@ -643,20 +674,25 @@
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>3</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W27_W30'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='W27_W30' KommeVon='DKW24_W23'>
+				<WeichenAbzweig>
+					<Weiche>Weiche25</Weiche>
+				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='HBf3_Halt_R'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='DKW24_W23' KommeVon='W27_W30'>
+				<WeichenAbzweig>
+					<Weiche>Weiche25</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='HBf3_Halt_R' KommeVon='W27_W30'>
 				<WeichenGerade>
 					<Weiche>Weiche25</Weiche>
 				</WeichenGerade>
 			</Nachbarblock>
-			<Nachbarblock Name='DKW24_W23'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-				<WeichenAbzweig>
+			<Nachbarblock Name='W27_W30' KommeVon='HBf3_Halt_R'>
+				<WeichenGerade>
 					<Weiche>Weiche25</Weiche>
-				</WeichenAbzweig>
+				</WeichenGerade>
 			</Nachbarblock>
 		</Nachbarbloecke>
 	</Belegtmelder>
@@ -664,20 +700,25 @@
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>4</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='HBf1_Halt_R'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='HBf1_Halt_R' KommeVon='W28_W29'>
 				<WeichenAbzweig>
 					<Weiche>Weiche26</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='HBf2_Halt_R'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='W28_W29' KommeVon='HBf1_Halt_R'>
+				<WeichenAbzweig>
+					<Weiche>Weiche26</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='HBf2_Halt_R' KommeVon='W28_W29'>
 				<WeichenGerade>
 					<Weiche>Weiche26</Weiche>
 				</WeichenGerade>
 			</Nachbarblock>
-			<Nachbarblock Name='W28_W29'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='W28_W29' KommeVon='HBf2_Halt_R'>
+				<WeichenGerade>
+					<Weiche>Weiche26</Weiche>
+				</WeichenGerade>
 			</Nachbarblock>
 		</Nachbarbloecke>
 	</Belegtmelder>
@@ -685,137 +726,99 @@
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>5</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W27_W30'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='W27_W30' KommeVon='Block4'>
 				<WeichenGerade>
 					<Weiche>Weiche29</Weiche>
 				</WeichenGerade>
 				<WeichenAbzweig>
 					<Weiche>Weiche28</Weiche>
 				</WeichenAbzweig>
-				<KommeVon>Block4</KommeVon>
 			</Nachbarblock>
-			<Nachbarblock Name='Block4'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Block4' KommeVon='W27_W30'>
 				<WeichenGerade>
 					<Weiche>Weiche29</Weiche>
 				</WeichenGerade>
 				<WeichenAbzweig>
 					<Weiche>Weiche28</Weiche>
 				</WeichenAbzweig>
-				<KommeVon>W27_W30</KommeVon>
-			</Nachbarblock>			
-			<Nachbarblock Name='W27_W30'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-				<WeichenGerade>	
-					<Weiche>Weiche28</Weiche>				
-				</WeichenGerade>
-				<WeichenAbzweig>					
-					<Weiche>Weiche29</Weiche>
-				</WeichenAbzweig>
-				<KommeVon>W26</KommeVon>
 			</Nachbarblock>
-			<Nachbarblock Name='W26'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenGerade>	
-					<Weiche>Weiche28</Weiche>				
-				</WeichenGerade>
-				<WeichenAbzweig>					
-					<Weiche>Weiche29</Weiche>
-				</WeichenAbzweig>
-				<KommeVon>W27_W30</KommeVon>
-			</Nachbarblock>						
-			<Nachbarblock Name='W26'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='W27_W30' KommeVon='W26'>
 				<WeichenGerade>
-					<Weiche>Weiche29</Weiche>
 					<Weiche>Weiche28</Weiche>
 				</WeichenGerade>
-				<WeichenAbzweig>				
-				</WeichenAbzweig>
-				<KommeVon>Block4</KommeVon>
-			</Nachbarblock>			
-			<Nachbarblock Name='Block4'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-				<WeichenGerade>
+				<WeichenAbzweig>
 					<Weiche>Weiche29</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='W26' KommeVon='W27_W30'>
+				<WeichenGerade>
 					<Weiche>Weiche28</Weiche>
 				</WeichenGerade>
-				<WeichenAbzweig>				
+				<WeichenAbzweig>
+					<Weiche>Weiche29</Weiche>
 				</WeichenAbzweig>
-				<KommeVon>W26</KommeVon>
-			</Nachbarblock>			
-			<Nachbarblock Name='W27_W30'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenGerade>										
+			</Nachbarblock>
+			<Nachbarblock Name='W26' KommeVon='Block4'>
+				<WeichenGerade>
+					<Weiche>Weiche28</Weiche>
+					<Weiche>Weiche29</Weiche>
 				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='Block4' KommeVon='W26'>
+				<WeichenGerade>
+					<Weiche>Weiche28</Weiche>
+					<Weiche>Weiche29</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='W27_W30' KommeVon='W27_W30'>
 				<WeichenAbzweig>
 					<Weiche>Weiche28</Weiche>
 					<Weiche>Weiche29</Weiche>
 				</WeichenAbzweig>
-				<KommeVon>W27_W30</KommeVon>
-			</Nachbarblock>		
+			</Nachbarblock>	
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='W27_W30'>
 		<Modulnummer>5</Modulnummer>
 		<Portnummer>6</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='W28_W29'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenGerade>
-				</WeichenGerade>
+			<Nachbarblock Name='W28_W29' KommeVon='W25'>
 				<WeichenAbzweig>
 					<Weiche>Weiche27</Weiche>
 				</WeichenAbzweig>
-				<KommeVon>W25</KommeVon>
+			</Nachbarblock>	
+			<Nachbarblock Name='W25' KommeVon='W28_W29'>
+				<WeichenAbzweig>
+					<Weiche>Weiche27</Weiche>
+				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Block3'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='W28_W29' KommeVon='Block3'>
+				<WeichenAbzweig>
+					<Weiche>Weiche30</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>	
+			<Nachbarblock Name='Block3' KommeVon='W28_W29'>
+				<WeichenAbzweig>
+					<Weiche>Weiche30</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Block3' KommeVon='W25'>
 				<WeichenGerade>
 					<Weiche>Weiche30</Weiche>
 					<Weiche>Weiche27</Weiche>
 				</WeichenGerade>
-				<WeichenAbzweig>					
-				</WeichenAbzweig>
-				<KommeVon>W25</KommeVon>
 			</Nachbarblock>
-			<Nachbarblock Name='Block3'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenAbzweig>	
-					<Weiche>Weiche30</Weiche>				
-				</WeichenAbzweig>
-				<KommeVon>W28_W29</KommeVon>
-			</Nachbarblock>
-			<Nachbarblock Name='W25'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenAbzweig>	
-					<Weiche>Weiche27</Weiche>				
-				</WeichenAbzweig>
-				<KommeVon>W28_W29</KommeVon>
-			</Nachbarblock>
-			<Nachbarblock Name='W25'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='W25' KommeVon='Block3'>
 				<WeichenGerade>
 					<Weiche>Weiche30</Weiche>
 					<Weiche>Weiche27</Weiche>
 				</WeichenGerade>
-				<WeichenAbzweig>					
-				</WeichenAbzweig>
-				<KommeVon>Block3</KommeVon>
-			</Nachbarblock>
-			<Nachbarblock Name='W28_W29'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenAbzweig>	
-					<Weiche>Weiche30</Weiche>				
-				</WeichenAbzweig>
-				<KommeVon>Block3</KommeVon>
 			</Nachbarblock>
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='W50'>
-		<Modulnummer>22</Modulnummer>
-		<Portnummer>6</Portnummer>
+		<Modulnummer>6</Modulnummer>
+		<Portnummer>1</Portnummer>
 		<Nachbarbloecke>
 			<Nachbarblock Name='TunnelAussen_Einfahrt' KommeVon='Block3'>
 				<WeichenAbzweig>
@@ -840,8 +843,8 @@
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='W51'>
-		<Modulnummer>22</Modulnummer>
-		<Portnummer>5</Portnummer>
+		<Modulnummer>6</Modulnummer>
+		<Portnummer>2</Portnummer>
 		<Nachbarbloecke>
 			<Nachbarblock Name='TunnelAussen_Halt' KommeVon='Block4'>
 				<WeichenAbzweig>
@@ -869,20 +872,25 @@
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>1</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Block2'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block2' KommeVon='Block1_Halt'>
 				<WeichenAbzweig>
 					<Weiche>Weiche52</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Block5_a'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block1_Halt' KommeVon='Block2'>
+				<WeichenAbzweig>
+					<Weiche>Weiche52</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Block5_a' KommeVon='Block1_Halt'>
 				<WeichenGerade>
 					<Weiche>Weiche52</Weiche>
 				</WeichenGerade>
 			</Nachbarblock>
-			<Nachbarblock Name='Block1_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Block1_Halt' KommeVon='Block5_a'>
+				<WeichenGerade>
+					<Weiche>Weiche52</Weiche>
+				</WeichenGerade>
 			</Nachbarblock>
 		</Nachbarbloecke>
 	</Belegtmelder>
@@ -890,25 +898,29 @@
 		<Modulnummer>10</Modulnummer>
 		<Portnummer>8</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Schatten_Gl11'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Schatten_Gl11' KommeVon='Block6_Halt'>
 				<WeichenGerade>
 					<Weiche>Weiche90</Weiche>
 				</WeichenGerade>
-				<WeichenAbzweig>
-				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl10'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block6_Halt' KommeVon='Schatten_Gl11'>
 				<WeichenGerade>
+					<Weiche>Weiche90</Weiche>
 				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl10' KommeVon='Block6_Halt'>
 				<WeichenAbzweig>
 					<Weiche>Weiche90</Weiche>
 					<Weiche>Weiche91</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl9'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block6_Halt' KommeVon='Schatten_Gl10'>
+				<WeichenAbzweig>
+					<Weiche>Weiche90</Weiche>
+					<Weiche>Weiche91</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl9' KommeVon='Block6_Halt'>
 				<WeichenGerade>
 					<Weiche>Weiche91</Weiche>
 				</WeichenGerade>
@@ -917,8 +929,16 @@
 					<Weiche>Weiche92</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl8'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block6_Halt' KommeVon='Schatten_Gl9'>
+				<WeichenGerade>
+					<Weiche>Weiche91</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>Weiche90</Weiche>
+					<Weiche>Weiche92</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>		
+			<Nachbarblock Name='Schatten_Gl8' KommeVon='Block6_Halt'>
 				<WeichenGerade>
 					<Weiche>Weiche91</Weiche>
 					<Weiche>Weiche92</Weiche>
@@ -927,8 +947,14 @@
 					<Weiche>Weiche90</Weiche>				
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Block6_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Block6_Halt' KommeVon='Schatten_Gl8'>
+				<WeichenGerade>
+					<Weiche>Weiche91</Weiche>
+					<Weiche>Weiche92</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>Weiche90</Weiche>				
+				</WeichenAbzweig>
 			</Nachbarblock>
 		</Nachbarbloecke>
 	</Belegtmelder>
@@ -994,21 +1020,23 @@
 					<Weiche>Weiche82</Weiche>
 				</WeichenGerade>
 			</Nachbarblock>
-	
 		</Nachbarbloecke>
   </Belegtmelder>
 	<Belegtmelder Name='SchattenMitte2'>
 		<Modulnummer>10</Modulnummer>
 		<Portnummer>7</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Eingleisen'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Eingleisen' KommeVon='Block7'>
 				<WeichenAbzweig>
 					<Weiche>Weiche70</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl1'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Eingleisen'>
+				<WeichenAbzweig>
+					<Weiche>Weiche70</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>			
+			<Nachbarblock Name='Schatten_Gl1' KommeVon='Block7'>
 				<WeichenGerade>
 					<Weiche>Weiche70</Weiche>
 				</WeichenGerade>
@@ -1016,8 +1044,15 @@
 					<Weiche>Weiche71</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl2'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl1'>
+				<WeichenGerade>
+					<Weiche>Weiche70</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>Weiche71</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>			
+			<Nachbarblock Name='Schatten_Gl2' KommeVon='Block7'>
 				<WeichenGerade>
 					<Weiche>Weiche70</Weiche>
 					<Weiche>Weiche71</Weiche>
@@ -1026,8 +1061,16 @@
 					<Weiche>Weiche72</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl3'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl2'>
+				<WeichenGerade>
+					<Weiche>Weiche70</Weiche>
+					<Weiche>Weiche71</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>Weiche72</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>			
+			<Nachbarblock Name='Schatten_Gl3' KommeVon='Block7'>
 				<WeichenGerade>
 					<Weiche>Weiche70</Weiche>
 					<Weiche>Weiche71</Weiche>
@@ -1037,8 +1080,17 @@
 					<Weiche>Weiche73</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl4'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl3'>
+				<WeichenGerade>
+					<Weiche>Weiche70</Weiche>
+					<Weiche>Weiche71</Weiche>
+					<Weiche>Weiche72</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>Weiche73</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl4' KommeVon='Block7'>
 				<WeichenGerade>
 					<Weiche>Weiche70</Weiche>
 					<Weiche>Weiche71</Weiche>
@@ -1049,8 +1101,18 @@
 					<Weiche>Weiche74</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl5'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl4'>
+				<WeichenGerade>
+					<Weiche>Weiche70</Weiche>
+					<Weiche>Weiche71</Weiche>
+					<Weiche>Weiche72</Weiche>
+					<Weiche>Weiche73</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>Weiche74</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl5' KommeVon='Block7'>
 				<WeichenGerade>
 					<Weiche>Weiche70</Weiche>
 					<Weiche>Weiche71</Weiche>
@@ -1062,8 +1124,19 @@
 					<Weiche>Weiche75</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl6'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl5'>
+				<WeichenGerade>
+					<Weiche>Weiche70</Weiche>
+					<Weiche>Weiche71</Weiche>
+					<Weiche>Weiche72</Weiche>
+					<Weiche>Weiche73</Weiche>
+					<Weiche>Weiche74</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>Weiche75</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl6' KommeVon='Block7'>
 				<WeichenGerade>
 					<Weiche>Weiche70</Weiche>
 					<Weiche>Weiche71</Weiche>
@@ -1076,8 +1149,20 @@
 					<Weiche>Weiche76</Weiche>
 				</WeichenAbzweig>
 			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl7'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl6'>
+				<WeichenGerade>
+					<Weiche>Weiche70</Weiche>
+					<Weiche>Weiche71</Weiche>
+					<Weiche>Weiche72</Weiche>
+					<Weiche>Weiche73</Weiche>
+					<Weiche>Weiche74</Weiche>
+					<Weiche>Weiche75</Weiche>
+				</WeichenGerade>
+				<WeichenAbzweig>
+					<Weiche>Weiche76</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Schatten_Gl7' KommeVon='Block7'>
 				<WeichenGerade>
 					<Weiche>Weiche70</Weiche>
 					<Weiche>Weiche71</Weiche>
@@ -1088,8 +1173,16 @@
 					<Weiche>Weiche76</Weiche>
 				</WeichenGerade>
 			</Nachbarblock>
-			<Nachbarblock Name='Block7'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Block7' KommeVon='Schatten_Gl7'>
+				<WeichenGerade>
+					<Weiche>Weiche70</Weiche>
+					<Weiche>Weiche71</Weiche>
+					<Weiche>Weiche72</Weiche>
+					<Weiche>Weiche73</Weiche>
+					<Weiche>Weiche74</Weiche>
+					<Weiche>Weiche75</Weiche>
+					<Weiche>Weiche76</Weiche>
+				</WeichenGerade>
 			</Nachbarblock>
 		</Nachbarbloecke>
     </Belegtmelder>
@@ -1406,23 +1499,28 @@
 		</Nachbarbloecke>
 	</Belegtmelder>
 	<Belegtmelder Name='W60'>
-		<Modulnummer>11</Modulnummer>
-		<Portnummer>6</Portnummer>
+		<Modulnummer>9</Modulnummer>
+		<Portnummer>1</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Block6'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-			</Nachbarblock>
-			<Nachbarblock Name='SchattenAusfahrt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
-				<WeichenAbzweig>
-				<Weiche>Weiche60</Weiche>
-				</WeichenAbzweig>
-			</Nachbarblock>
-			<Nachbarblock Name='Block5_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Block6' KommeVon='Block5_Halt'>
 				<WeichenGerade>
 					<Weiche>Weiche60</Weiche>
 				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='Block5_Halt' KommeVon='Block6'>
+				<WeichenGerade>
+					<Weiche>Weiche60</Weiche>
+				</WeichenGerade>
+			</Nachbarblock>
+			<Nachbarblock Name='Block9' KommeVon='Block6'>
+				<WeichenAbzweig>
+					<Weiche>Weiche60</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Block6' KommeVon='Block9'>
+				<WeichenAbzweig>
+					<Weiche>Weiche60</Weiche>
+				</WeichenAbzweig>
 			</Nachbarblock>
 		</Nachbarbloecke>
 	</Belegtmelder>
@@ -1430,49 +1528,37 @@
 		<Modulnummer>12</Modulnummer>
 		<Portnummer>3</Portnummer>
 		<Nachbarbloecke>
-			<Nachbarblock Name='Block8'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Block8' KommeVon='Eingleisen_Halt'>
 				<WeichenAbzweig>
 					<Weiche>Weiche68</Weiche>
 				</WeichenAbzweig>
-				<KommeVon>Eingleisen_Halt</KommeVon>
 			</Nachbarblock>
-			<Nachbarblock Name='Block8'>
-				<Fahrtrichtung>1</Fahrtrichtung>
+			<Nachbarblock Name='Eingleisen_Halt' KommeVon='Block8'>
+				<WeichenAbzweig>
+					<Weiche>Weiche68</Weiche>
+				</WeichenAbzweig>
+			</Nachbarblock>
+			<Nachbarblock Name='Block8' KommeVon='Schatten_Gl1_Halt'>
 				<WeichenGerade>
 					<Weiche>Weiche68</Weiche>
 					<Weiche>Weiche67</Weiche>
 				</WeichenGerade>
-				<KommeVon>Schatten_Gl1_Halt</KommeVon>
 			</Nachbarblock>
-			<Nachbarblock Name='SchattenAusfahrt'>
-				<Fahrtrichtung>1</Fahrtrichtung>
-				<WeichenAbzweig>
-					<Weiche>Weiche67</Weiche>
-				</WeichenAbzweig>
-				<KommeVon>Schatten_Gl1_Halt</KommeVon>
-			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl1_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Schatten_Gl1_Halt' KommeVon='Block8'>
 				<WeichenGerade>
 					<Weiche>Weiche68</Weiche>
 					<Weiche>Weiche67</Weiche>
 				</WeichenGerade>
-				<KommeVon>Block8</KommeVon>
-			</Nachbarblock>
-			<Nachbarblock Name='Schatten_Gl1_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			</Nachbarblock>		
+			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Schatten_Gl1_Halt'>
 				<WeichenAbzweig>
 					<Weiche>Weiche67</Weiche>
 				</WeichenAbzweig>
-				<KommeVon>SchattenAusfahrt</KommeVon>
 			</Nachbarblock>
-			<Nachbarblock Name='Eingleisen_Halt'>
-				<Fahrtrichtung>0</Fahrtrichtung>
+			<Nachbarblock Name='Schatten_Gl1_Halt' KommeVon='SchattenAusfahrt'>
 				<WeichenAbzweig>
-					<Weiche>Weiche68</Weiche>
+					<Weiche>Weiche67</Weiche>
 				</WeichenAbzweig>
-				<KommeVon>Block8</KommeVon>
 			</Nachbarblock>
 		</Nachbarbloecke>
     </Belegtmelder>

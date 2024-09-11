@@ -379,7 +379,15 @@ namespace MEKB_H0_Anlage
 
         private void Notbremse_Click(object sender, EventArgs e)
         {
-            setLOKFahrt?.Invoke(Lokdaten.Adresse, 255, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            //setLOKFahrt?.Invoke(Lokdaten.Adresse, 255, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            if(Lokdaten.Nothalt)
+            {
+                Lokdaten.NotBremseAufheben();
+            }
+            else
+            {
+                Lokdaten.NotBremse();
+            }
         }
 
         private void Fahrwechsel_Click(object sender, EventArgs e)

@@ -107,6 +107,10 @@ namespace MEKB_H0_Anlage
         public string LetzterBekannterBlock { set; get; }
 
         public int ErlaubteGeschwindigkeit { set; get; }
+
+        public int FahrstufeVorNothalt { get; set; }
+
+        public bool Nothalt {  set; get; }
         #endregion
 
         #region Links und Delegates
@@ -155,6 +159,7 @@ namespace MEKB_H0_Anlage
             Fahrstufe = 0;
             FahrstufenInfo = 2; //Standard 28 Fahrstufen (14 führt zu Lichtwechselproblemen bei manchen Loks)
             Richtung = 0;
+            Nothalt = false;
 
             Funktionen = new List<string>();
             for (int i = 0; i < 21; i++) { Funktionen.Add(null); }
@@ -278,6 +283,55 @@ namespace MEKB_H0_Anlage
             setLOKStatus?.Invoke(Adresse);
         }
 
+        public void NotBremse()
+        {
+            FahrstufeVorNothalt = Fahrstufe;
+            Nothalt = true;
+            int RichtungMitUmkehr = Richtung;
+            if (LokUmgedreht)
+            {
+                if (Richtung == LokFahrstufen.Vorwaerts) RichtungMitUmkehr = LokFahrstufen.Rueckwaerts;
+                else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
+            }
+            setLOKFahrt?.Invoke(Adresse, 255, RichtungMitUmkehr, FahrstufenInfo);
+        }
+
+        public void NotBremseAufheben(bool weiterfahrt = false)
+        {
+            Nothalt = false;
+            if(weiterfahrt) {Fahrstufe = FahrstufeVorNothalt; }
+            FahrstufeVorNothalt = 0;
+
+            int RichtungMitUmkehr = Richtung;
+            if (LokUmgedreht)
+            {
+                if (Richtung == LokFahrstufen.Vorwaerts) RichtungMitUmkehr = LokFahrstufen.Rueckwaerts;
+                else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
+            }
+            setLOKFahrt?.Invoke(Adresse, (byte)Fahrstufe, RichtungMitUmkehr, FahrstufenInfo);
+        }
+        public void NotBremseHandeln()
+        {
+            if(Nothalt)
+            {
+                int RichtungMitUmkehr = Richtung;
+                if (LokUmgedreht)
+                {
+                    if (Richtung == LokFahrstufen.Vorwaerts) RichtungMitUmkehr = LokFahrstufen.Rueckwaerts;
+                    else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
+                }
+                setLOKFahrt?.Invoke(Adresse, 255, RichtungMitUmkehr, FahrstufenInfo);
+            }
+        }
+
+        /// <summary>
+        /// Lokomotive mit Z21-Daten aktualisieren altualisieren 
+        /// </summary>
+        /// <param name="ParamterCount">Anzahl empfangener Bytes</param>
+        /// <param name="Z21FahrstufenInfo">Definition 14,28 o. 128 Fahrstufen</param>
+        /// <param name="Z21Richtung">Fahrtrichtung</param>
+        /// <param name="Z21Fahrstufe">Aktuelle Fahrstufe</param>
+        /// <param name="Z21Funktionen">Bool Array aktiver Funktionen</param>
         public void UpdateZ21Data(int ParamterCount,  byte Z21FahrstufenInfo, bool Z21Richtung, byte Z21Fahrstufe, bool[] Z21Funktionen)
         {
             if (ParamterCount >= 3)
@@ -298,7 +352,7 @@ namespace MEKB_H0_Anlage
                     VorherigerBlock = NexterBlock; //Blockerkennung spiegeln
                 }
                 
-                Fahrstufe = LokFahrstufen.ProtokolToFahrstufe(Fahrstufe, FahrstufenInfo);
+                Fahrstufe = LokFahrstufen.ProtokolToFahrstufe(Z21Fahrstufe, FahrstufenInfo);
             }
             if (ParamterCount >= 5)
             {
@@ -403,15 +457,15 @@ namespace MEKB_H0_Anlage
             {
                 if (!LetzterBekannterBlock.Equals(""))
                 {
-                    Belegtmelder vorheriger = belegtmelderListe.GetBelegtmelder(this.LetzterBekannterBlock);
-                    if (vorheriger != null)
+                    Belegtmelder LetzterBekannter = belegtmelderListe.GetBelegtmelder(this.LetzterBekannterBlock);
+                    if (LetzterBekannter != null)
                     {
-                        if(vorheriger.Registriert.Equals("") || vorheriger.Registriert.Equals(Name))
+                        if(LetzterBekannter.Registriert.Equals("") || LetzterBekannter.Registriert.Equals(Name))
                         {
-                            if (vorheriger.IstBelegt())
+                            if (LetzterBekannter.IstBelegt())
                             {
-                                vorheriger.Registriert = this.Name; //Lok für diesen Block registrieren
-                                AktuellerBlock = vorheriger.Name;
+                                LetzterBekannter.Registriert = this.Name; //Lok für diesen Block registrieren
+                                AktuellerBlock = LetzterBekannter.Name;
                                 LetzterBekannterBlock = "";
                             }
                         }
@@ -430,8 +484,20 @@ namespace MEKB_H0_Anlage
             }
             if (!Aktuel.IstBelegt()) //Keine Belegtmeldung -> Lok verloren
             {
-                LetzterBekannterBlock = AktuellerBlock;
-                AktuellerBlock = "Lok verloren";
+                bool UnterdrueckeError = false;
+                if (Aktuel.Name.Equals("Eingleisen")) UnterdrueckeError = true;
+                if (Aktuel.Name.Equals("Eingleisen_Halt")) UnterdrueckeError = true;
+                if (NexterBlock.Equals("Unbewacht")) UnterdrueckeError = true;
+                if (!UnterdrueckeError)
+                {
+                    LetzterBekannterBlock = AktuellerBlock;
+                    AktuellerBlock = "Lok verloren";
+                    
+                }
+                else
+                {
+                    AktuellerBlock = "Lok entfernt";
+                }
                 return;
             }
             //Potentieller nächsten Nachbarblock finden
@@ -447,7 +513,7 @@ namespace MEKB_H0_Anlage
             {
                 if(Naechster.IstBelegt()) // Gefunden und nächster Block ist belegt
                 {
-                    if(Naechster.Registriert.Equals("")) // Nächster Block nicht von einer anderen Lok reserviert
+                    if(Naechster.Registriert.Equals("") || Naechster.Registriert.Equals("Deregistriert") || Naechster.Registriert.Equals(Name)) // Nächster Block nicht von einer anderen Lok reserviert
                     {
                         Naechster.Registriert = this.Name; //Lok für diesen Block registrieren
                         Aktuel.Registriert = "Deregistriert";//Vorherigen Block deregistrieren

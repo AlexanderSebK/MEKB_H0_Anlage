@@ -27,5 +27,33 @@ namespace MEKB_H0_Anlage
             InitializeComponent();
             WeichenFenster.DataSource = weichen;
         }
+
+        private void Refresh_Heartbeat(Object source, ElapsedEventArgs e)
+        {
+            RefrechDataGrid(WeichenFenster);
+        }
+
+        private void RefrechDataGrid(System.Windows.Forms.DataGridView Grid)
+        {
+            Grid.Invoke((MethodInvoker)(() =>
+            {
+                Grid.Update();
+            }));
+        }
+
+        private void Weichen_Ueberwachung_Shown(object sender, EventArgs e)
+        {
+            // 5 Sekunden Timer einrichten (Lebenspuls für die Verbindung)
+            HeartbeatTimer = new System.Timers.Timer(2000);
+            // Timer mit Funktion "Refresh_Heartbeat" Verbinden
+            HeartbeatTimer.Elapsed += Refresh_Heartbeat;
+            HeartbeatTimer.AutoReset = true;
+            HeartbeatTimer.Enabled = true;
+        }
+
+        private void Weichen_Ueberwachung_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            HeartbeatTimer.Enabled = false;
+        }
     }
 }

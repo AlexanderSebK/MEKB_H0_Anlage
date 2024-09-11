@@ -309,16 +309,16 @@
             this.Modul_Schatten_Gl7_Halt = new System.Windows.Forms.TextBox();
             this.Pin_Schatten_Gl7_Halt = new System.Windows.Forms.CheckBox();
             this.Schatten_Gl7_Halt = new System.Windows.Forms.CheckBox();
-            this.Port_Tunnel2 = new System.Windows.Forms.TextBox();
-            this.Modul_Tunnel2 = new System.Windows.Forms.TextBox();
-            this.Pin_Tunnel2 = new System.Windows.Forms.CheckBox();
-            this.Tunnel2 = new System.Windows.Forms.CheckBox();
+            this.Port_TunnelInnen = new System.Windows.Forms.TextBox();
+            this.Modul_TunnelInnen = new System.Windows.Forms.TextBox();
+            this.Pin_TunnelInnen = new System.Windows.Forms.CheckBox();
+            this.TunnelInnen = new System.Windows.Forms.CheckBox();
             this.Schatten_Gl8 = new System.Windows.Forms.CheckBox();
-            this.Port_Tunnel1 = new System.Windows.Forms.TextBox();
+            this.Port_TunnelAussen = new System.Windows.Forms.TextBox();
             this.Pin_Schatten_Gl8 = new System.Windows.Forms.CheckBox();
-            this.Modul_Tunnel1 = new System.Windows.Forms.TextBox();
+            this.Modul_TunnelAussen = new System.Windows.Forms.TextBox();
             this.Schatten_Gl8_Halt = new System.Windows.Forms.CheckBox();
-            this.Pin_Tunnel1 = new System.Windows.Forms.CheckBox();
+            this.Pin_TunnelAussen = new System.Windows.Forms.CheckBox();
             this.Schatten_Gl9 = new System.Windows.Forms.CheckBox();
             this.Modul_Schatten_Gl8 = new System.Windows.Forms.TextBox();
             this.Port_Schatten_Gl8 = new System.Windows.Forms.TextBox();
@@ -326,17 +326,17 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.Port_Tunnel1_Einfahrt = new System.Windows.Forms.TextBox();
+            this.Port_TunnelAussen_Einfahrt = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.Pin_Tunnel1_Einfahrt = new System.Windows.Forms.CheckBox();
+            this.Pin_TunnelAussen_Einfahrt = new System.Windows.Forms.CheckBox();
             this.Pin_Schatten_Gl9 = new System.Windows.Forms.CheckBox();
-            this.Modul_Tunnel1_Einfahrt = new System.Windows.Forms.TextBox();
+            this.Modul_TunnelAussen_Einfahrt = new System.Windows.Forms.TextBox();
             this.Pin_Schatten_Gl8_Halt = new System.Windows.Forms.CheckBox();
-            this.Port_Tunnel1_Halt = new System.Windows.Forms.TextBox();
+            this.Port_TunnelAussen_Halt = new System.Windows.Forms.TextBox();
             this.Port_Schatten_Gl8_Halt = new System.Windows.Forms.TextBox();
-            this.Modul_Tunnel1_Halt = new System.Windows.Forms.TextBox();
+            this.Modul_TunnelAussen_Halt = new System.Windows.Forms.TextBox();
             this.Port_Schatten_Gl9 = new System.Windows.Forms.TextBox();
-            this.Pin_Tunnel1_Halt = new System.Windows.Forms.CheckBox();
+            this.Pin_TunnelAussen_Halt = new System.Windows.Forms.CheckBox();
             this.Modul_Schatten_Gl9 = new System.Windows.Forms.TextBox();
             this.Port_SchattenAusfahrt = new System.Windows.Forms.TextBox();
             this.Schatten_Gl10 = new System.Windows.Forms.CheckBox();
@@ -352,11 +352,11 @@
             this.SchattenEinfahrt = new System.Windows.Forms.CheckBox();
             this.SchattenMitte1 = new System.Windows.Forms.CheckBox();
             this.Pin_Schatten_Gl11_Halt = new System.Windows.Forms.CheckBox();
-            this.Tunnel1_Einfahrt = new System.Windows.Forms.CheckBox();
+            this.TunnelAussen_Einfahrt = new System.Windows.Forms.CheckBox();
             this.Modul_Schatten_Gl11_Halt = new System.Windows.Forms.TextBox();
-            this.Tunnel1_Halt = new System.Windows.Forms.CheckBox();
+            this.TunnelAussen_Halt = new System.Windows.Forms.CheckBox();
             this.Port_Schatten_Gl11_Halt = new System.Windows.Forms.TextBox();
-            this.Tunnel1 = new System.Windows.Forms.CheckBox();
+            this.TunnelAussen = new System.Windows.Forms.CheckBox();
             this.Modul_SchattenEinfahrt = new System.Windows.Forms.TextBox();
             this.SchattenAusfahrt = new System.Windows.Forms.CheckBox();
             this.Pin_SchattenMitte1 = new System.Windows.Forms.CheckBox();
@@ -377,14 +377,14 @@
             this.Port_Schatten_Gl10 = new System.Windows.Forms.TextBox();
             this.Modul_Schatten_Gl10 = new System.Windows.Forms.TextBox();
             this.Pin_Schatten_Gl10 = new System.Windows.Forms.CheckBox();
-            this.Port_Tunnel2_Einfahrt = new System.Windows.Forms.TextBox();
-            this.Modul_Tunnel2_Einfahrt = new System.Windows.Forms.TextBox();
-            this.Pin_Tunnel2_Einfahrt = new System.Windows.Forms.CheckBox();
-            this.Tunnel2_Einfahrt = new System.Windows.Forms.CheckBox();
-            this.Port_Tunnel2_Halt = new System.Windows.Forms.TextBox();
-            this.Pin_Tunnel2_Halt = new System.Windows.Forms.CheckBox();
-            this.Modul_Tunnel2_Halt = new System.Windows.Forms.TextBox();
-            this.Tunnel2_Halt = new System.Windows.Forms.CheckBox();
+            this.Port_TunnelInnen_Einfahrt = new System.Windows.Forms.TextBox();
+            this.Modul_TunnelInnen_Einfahrt = new System.Windows.Forms.TextBox();
+            this.Pin_TunnelInnen_Einfahrt = new System.Windows.Forms.CheckBox();
+            this.TunnelInnen_Einfahrt = new System.Windows.Forms.CheckBox();
+            this.Port_TunnelInnen_Halt = new System.Windows.Forms.TextBox();
+            this.Pin_TunnelInnen_Halt = new System.Windows.Forms.CheckBox();
+            this.Modul_TunnelInnen_Halt = new System.Windows.Forms.TextBox();
+            this.TunnelInnen_Halt = new System.Windows.Forms.CheckBox();
             this.Port_W60 = new System.Windows.Forms.TextBox();
             this.Pin_W60 = new System.Windows.Forms.CheckBox();
             this.Modul_W60 = new System.Windows.Forms.TextBox();
@@ -3445,49 +3445,49 @@
             this.Schatten_Gl7_Halt.UseVisualStyleBackColor = false;
             this.Schatten_Gl7_Halt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
             // 
-            // Port_Tunnel2
+            // Port_TunnelInnen
             // 
-            this.Port_Tunnel2.Location = new System.Drawing.Point(1108, 471);
-            this.Port_Tunnel2.Name = "Port_Tunnel2";
-            this.Port_Tunnel2.ReadOnly = true;
-            this.Port_Tunnel2.Size = new System.Drawing.Size(40, 20);
-            this.Port_Tunnel2.TabIndex = 419;
-            this.Port_Tunnel2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Port_TunnelInnen.Location = new System.Drawing.Point(1108, 471);
+            this.Port_TunnelInnen.Name = "Port_TunnelInnen";
+            this.Port_TunnelInnen.ReadOnly = true;
+            this.Port_TunnelInnen.Size = new System.Drawing.Size(40, 20);
+            this.Port_TunnelInnen.TabIndex = 419;
+            this.Port_TunnelInnen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Modul_Tunnel2
+            // Modul_TunnelInnen
             // 
-            this.Modul_Tunnel2.Location = new System.Drawing.Point(1060, 471);
-            this.Modul_Tunnel2.Name = "Modul_Tunnel2";
-            this.Modul_Tunnel2.ReadOnly = true;
-            this.Modul_Tunnel2.Size = new System.Drawing.Size(40, 20);
-            this.Modul_Tunnel2.TabIndex = 418;
-            this.Modul_Tunnel2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Modul_TunnelInnen.Location = new System.Drawing.Point(1060, 471);
+            this.Modul_TunnelInnen.Name = "Modul_TunnelInnen";
+            this.Modul_TunnelInnen.ReadOnly = true;
+            this.Modul_TunnelInnen.Size = new System.Drawing.Size(40, 20);
+            this.Modul_TunnelInnen.TabIndex = 418;
+            this.Modul_TunnelInnen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Pin_Tunnel2
+            // Pin_TunnelInnen
             // 
-            this.Pin_Tunnel2.AutoSize = true;
-            this.Pin_Tunnel2.Location = new System.Drawing.Point(1156, 473);
-            this.Pin_Tunnel2.Name = "Pin_Tunnel2";
-            this.Pin_Tunnel2.Size = new System.Drawing.Size(15, 14);
-            this.Pin_Tunnel2.TabIndex = 417;
-            this.Pin_Tunnel2.UseVisualStyleBackColor = true;
-            this.Pin_Tunnel2.CheckStateChanged += new System.EventHandler(this.PinChange);
+            this.Pin_TunnelInnen.AutoSize = true;
+            this.Pin_TunnelInnen.Location = new System.Drawing.Point(1156, 473);
+            this.Pin_TunnelInnen.Name = "Pin_TunnelInnen";
+            this.Pin_TunnelInnen.Size = new System.Drawing.Size(15, 14);
+            this.Pin_TunnelInnen.TabIndex = 417;
+            this.Pin_TunnelInnen.UseVisualStyleBackColor = true;
+            this.Pin_TunnelInnen.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
-            // Tunnel2
+            // TunnelInnen
             // 
-            this.Tunnel2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Tunnel2.BackColor = System.Drawing.Color.DarkRed;
-            this.Tunnel2.FlatAppearance.BorderSize = 0;
-            this.Tunnel2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Tunnel2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Tunnel2.Location = new System.Drawing.Point(942, 469);
-            this.Tunnel2.Name = "Tunnel2";
-            this.Tunnel2.Size = new System.Drawing.Size(110, 24);
-            this.Tunnel2.TabIndex = 416;
-            this.Tunnel2.Text = "Tunnel2";
-            this.Tunnel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Tunnel2.UseVisualStyleBackColor = false;
-            this.Tunnel2.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
+            this.TunnelInnen.Appearance = System.Windows.Forms.Appearance.Button;
+            this.TunnelInnen.BackColor = System.Drawing.Color.DarkRed;
+            this.TunnelInnen.FlatAppearance.BorderSize = 0;
+            this.TunnelInnen.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.TunnelInnen.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.TunnelInnen.Location = new System.Drawing.Point(942, 469);
+            this.TunnelInnen.Name = "TunnelInnen";
+            this.TunnelInnen.Size = new System.Drawing.Size(110, 24);
+            this.TunnelInnen.TabIndex = 416;
+            this.TunnelInnen.Text = "TunnelInnen";
+            this.TunnelInnen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TunnelInnen.UseVisualStyleBackColor = false;
+            this.TunnelInnen.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
             // 
             // Schatten_Gl8
             // 
@@ -3505,14 +3505,14 @@
             this.Schatten_Gl8.UseVisualStyleBackColor = false;
             this.Schatten_Gl8.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
             // 
-            // Port_Tunnel1
+            // Port_TunnelAussen
             // 
-            this.Port_Tunnel1.Location = new System.Drawing.Point(1108, 386);
-            this.Port_Tunnel1.Name = "Port_Tunnel1";
-            this.Port_Tunnel1.ReadOnly = true;
-            this.Port_Tunnel1.Size = new System.Drawing.Size(40, 20);
-            this.Port_Tunnel1.TabIndex = 415;
-            this.Port_Tunnel1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Port_TunnelAussen.Location = new System.Drawing.Point(1108, 386);
+            this.Port_TunnelAussen.Name = "Port_TunnelAussen";
+            this.Port_TunnelAussen.ReadOnly = true;
+            this.Port_TunnelAussen.Size = new System.Drawing.Size(40, 20);
+            this.Port_TunnelAussen.TabIndex = 415;
+            this.Port_TunnelAussen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Pin_Schatten_Gl8
             // 
@@ -3524,14 +3524,14 @@
             this.Pin_Schatten_Gl8.UseVisualStyleBackColor = true;
             this.Pin_Schatten_Gl8.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
-            // Modul_Tunnel1
+            // Modul_TunnelAussen
             // 
-            this.Modul_Tunnel1.Location = new System.Drawing.Point(1060, 386);
-            this.Modul_Tunnel1.Name = "Modul_Tunnel1";
-            this.Modul_Tunnel1.ReadOnly = true;
-            this.Modul_Tunnel1.Size = new System.Drawing.Size(40, 20);
-            this.Modul_Tunnel1.TabIndex = 414;
-            this.Modul_Tunnel1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Modul_TunnelAussen.Location = new System.Drawing.Point(1060, 386);
+            this.Modul_TunnelAussen.Name = "Modul_TunnelAussen";
+            this.Modul_TunnelAussen.ReadOnly = true;
+            this.Modul_TunnelAussen.Size = new System.Drawing.Size(40, 20);
+            this.Modul_TunnelAussen.TabIndex = 414;
+            this.Modul_TunnelAussen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Schatten_Gl8_Halt
             // 
@@ -3549,15 +3549,15 @@
             this.Schatten_Gl8_Halt.UseVisualStyleBackColor = false;
             this.Schatten_Gl8_Halt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
             // 
-            // Pin_Tunnel1
+            // Pin_TunnelAussen
             // 
-            this.Pin_Tunnel1.AutoSize = true;
-            this.Pin_Tunnel1.Location = new System.Drawing.Point(1156, 388);
-            this.Pin_Tunnel1.Name = "Pin_Tunnel1";
-            this.Pin_Tunnel1.Size = new System.Drawing.Size(15, 14);
-            this.Pin_Tunnel1.TabIndex = 413;
-            this.Pin_Tunnel1.UseVisualStyleBackColor = true;
-            this.Pin_Tunnel1.CheckStateChanged += new System.EventHandler(this.PinChange);
+            this.Pin_TunnelAussen.AutoSize = true;
+            this.Pin_TunnelAussen.Location = new System.Drawing.Point(1156, 388);
+            this.Pin_TunnelAussen.Name = "Pin_TunnelAussen";
+            this.Pin_TunnelAussen.Size = new System.Drawing.Size(15, 14);
+            this.Pin_TunnelAussen.TabIndex = 413;
+            this.Pin_TunnelAussen.UseVisualStyleBackColor = true;
+            this.Pin_TunnelAussen.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
             // Schatten_Gl9
             // 
@@ -3629,14 +3629,14 @@
             this.label18.TabIndex = 361;
             this.label18.Text = "Block Status";
             // 
-            // Port_Tunnel1_Einfahrt
+            // Port_TunnelAussen_Einfahrt
             // 
-            this.Port_Tunnel1_Einfahrt.Location = new System.Drawing.Point(1108, 436);
-            this.Port_Tunnel1_Einfahrt.Name = "Port_Tunnel1_Einfahrt";
-            this.Port_Tunnel1_Einfahrt.ReadOnly = true;
-            this.Port_Tunnel1_Einfahrt.Size = new System.Drawing.Size(40, 20);
-            this.Port_Tunnel1_Einfahrt.TabIndex = 412;
-            this.Port_Tunnel1_Einfahrt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Port_TunnelAussen_Einfahrt.Location = new System.Drawing.Point(1108, 436);
+            this.Port_TunnelAussen_Einfahrt.Name = "Port_TunnelAussen_Einfahrt";
+            this.Port_TunnelAussen_Einfahrt.ReadOnly = true;
+            this.Port_TunnelAussen_Einfahrt.Size = new System.Drawing.Size(40, 20);
+            this.Port_TunnelAussen_Einfahrt.TabIndex = 412;
+            this.Port_TunnelAussen_Einfahrt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label19
             // 
@@ -3647,15 +3647,15 @@
             this.label19.TabIndex = 362;
             this.label19.Text = "Pin";
             // 
-            // Pin_Tunnel1_Einfahrt
+            // Pin_TunnelAussen_Einfahrt
             // 
-            this.Pin_Tunnel1_Einfahrt.AutoSize = true;
-            this.Pin_Tunnel1_Einfahrt.Location = new System.Drawing.Point(1156, 438);
-            this.Pin_Tunnel1_Einfahrt.Name = "Pin_Tunnel1_Einfahrt";
-            this.Pin_Tunnel1_Einfahrt.Size = new System.Drawing.Size(15, 14);
-            this.Pin_Tunnel1_Einfahrt.TabIndex = 411;
-            this.Pin_Tunnel1_Einfahrt.UseVisualStyleBackColor = true;
-            this.Pin_Tunnel1_Einfahrt.CheckStateChanged += new System.EventHandler(this.PinChange);
+            this.Pin_TunnelAussen_Einfahrt.AutoSize = true;
+            this.Pin_TunnelAussen_Einfahrt.Location = new System.Drawing.Point(1156, 438);
+            this.Pin_TunnelAussen_Einfahrt.Name = "Pin_TunnelAussen_Einfahrt";
+            this.Pin_TunnelAussen_Einfahrt.Size = new System.Drawing.Size(15, 14);
+            this.Pin_TunnelAussen_Einfahrt.TabIndex = 411;
+            this.Pin_TunnelAussen_Einfahrt.UseVisualStyleBackColor = true;
+            this.Pin_TunnelAussen_Einfahrt.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
             // Pin_Schatten_Gl9
             // 
@@ -3667,14 +3667,14 @@
             this.Pin_Schatten_Gl9.UseVisualStyleBackColor = true;
             this.Pin_Schatten_Gl9.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
-            // Modul_Tunnel1_Einfahrt
+            // Modul_TunnelAussen_Einfahrt
             // 
-            this.Modul_Tunnel1_Einfahrt.Location = new System.Drawing.Point(1060, 436);
-            this.Modul_Tunnel1_Einfahrt.Name = "Modul_Tunnel1_Einfahrt";
-            this.Modul_Tunnel1_Einfahrt.ReadOnly = true;
-            this.Modul_Tunnel1_Einfahrt.Size = new System.Drawing.Size(40, 20);
-            this.Modul_Tunnel1_Einfahrt.TabIndex = 410;
-            this.Modul_Tunnel1_Einfahrt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Modul_TunnelAussen_Einfahrt.Location = new System.Drawing.Point(1060, 436);
+            this.Modul_TunnelAussen_Einfahrt.Name = "Modul_TunnelAussen_Einfahrt";
+            this.Modul_TunnelAussen_Einfahrt.ReadOnly = true;
+            this.Modul_TunnelAussen_Einfahrt.Size = new System.Drawing.Size(40, 20);
+            this.Modul_TunnelAussen_Einfahrt.TabIndex = 410;
+            this.Modul_TunnelAussen_Einfahrt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Pin_Schatten_Gl8_Halt
             // 
@@ -3686,14 +3686,14 @@
             this.Pin_Schatten_Gl8_Halt.UseVisualStyleBackColor = true;
             this.Pin_Schatten_Gl8_Halt.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
-            // Port_Tunnel1_Halt
+            // Port_TunnelAussen_Halt
             // 
-            this.Port_Tunnel1_Halt.Location = new System.Drawing.Point(1108, 411);
-            this.Port_Tunnel1_Halt.Name = "Port_Tunnel1_Halt";
-            this.Port_Tunnel1_Halt.ReadOnly = true;
-            this.Port_Tunnel1_Halt.Size = new System.Drawing.Size(40, 20);
-            this.Port_Tunnel1_Halt.TabIndex = 409;
-            this.Port_Tunnel1_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Port_TunnelAussen_Halt.Location = new System.Drawing.Point(1108, 411);
+            this.Port_TunnelAussen_Halt.Name = "Port_TunnelAussen_Halt";
+            this.Port_TunnelAussen_Halt.ReadOnly = true;
+            this.Port_TunnelAussen_Halt.Size = new System.Drawing.Size(40, 20);
+            this.Port_TunnelAussen_Halt.TabIndex = 409;
+            this.Port_TunnelAussen_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Port_Schatten_Gl8_Halt
             // 
@@ -3704,14 +3704,14 @@
             this.Port_Schatten_Gl8_Halt.TabIndex = 365;
             this.Port_Schatten_Gl8_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Modul_Tunnel1_Halt
+            // Modul_TunnelAussen_Halt
             // 
-            this.Modul_Tunnel1_Halt.Location = new System.Drawing.Point(1060, 411);
-            this.Modul_Tunnel1_Halt.Name = "Modul_Tunnel1_Halt";
-            this.Modul_Tunnel1_Halt.ReadOnly = true;
-            this.Modul_Tunnel1_Halt.Size = new System.Drawing.Size(40, 20);
-            this.Modul_Tunnel1_Halt.TabIndex = 408;
-            this.Modul_Tunnel1_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Modul_TunnelAussen_Halt.Location = new System.Drawing.Point(1060, 411);
+            this.Modul_TunnelAussen_Halt.Name = "Modul_TunnelAussen_Halt";
+            this.Modul_TunnelAussen_Halt.ReadOnly = true;
+            this.Modul_TunnelAussen_Halt.Size = new System.Drawing.Size(40, 20);
+            this.Modul_TunnelAussen_Halt.TabIndex = 408;
+            this.Modul_TunnelAussen_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Port_Schatten_Gl9
             // 
@@ -3722,15 +3722,15 @@
             this.Port_Schatten_Gl9.TabIndex = 366;
             this.Port_Schatten_Gl9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Pin_Tunnel1_Halt
+            // Pin_TunnelAussen_Halt
             // 
-            this.Pin_Tunnel1_Halt.AutoSize = true;
-            this.Pin_Tunnel1_Halt.Location = new System.Drawing.Point(1156, 413);
-            this.Pin_Tunnel1_Halt.Name = "Pin_Tunnel1_Halt";
-            this.Pin_Tunnel1_Halt.Size = new System.Drawing.Size(15, 14);
-            this.Pin_Tunnel1_Halt.TabIndex = 407;
-            this.Pin_Tunnel1_Halt.UseVisualStyleBackColor = true;
-            this.Pin_Tunnel1_Halt.CheckStateChanged += new System.EventHandler(this.PinChange);
+            this.Pin_TunnelAussen_Halt.AutoSize = true;
+            this.Pin_TunnelAussen_Halt.Location = new System.Drawing.Point(1156, 413);
+            this.Pin_TunnelAussen_Halt.Name = "Pin_TunnelAussen_Halt";
+            this.Pin_TunnelAussen_Halt.Size = new System.Drawing.Size(15, 14);
+            this.Pin_TunnelAussen_Halt.TabIndex = 407;
+            this.Pin_TunnelAussen_Halt.UseVisualStyleBackColor = true;
+            this.Pin_TunnelAussen_Halt.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
             // Modul_Schatten_Gl9
             // 
@@ -3922,21 +3922,21 @@
             this.Pin_Schatten_Gl11_Halt.UseVisualStyleBackColor = true;
             this.Pin_Schatten_Gl11_Halt.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
-            // Tunnel1_Einfahrt
+            // TunnelAussen_Einfahrt
             // 
-            this.Tunnel1_Einfahrt.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Tunnel1_Einfahrt.BackColor = System.Drawing.Color.DarkRed;
-            this.Tunnel1_Einfahrt.FlatAppearance.BorderSize = 0;
-            this.Tunnel1_Einfahrt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Tunnel1_Einfahrt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Tunnel1_Einfahrt.Location = new System.Drawing.Point(942, 434);
-            this.Tunnel1_Einfahrt.Name = "Tunnel1_Einfahrt";
-            this.Tunnel1_Einfahrt.Size = new System.Drawing.Size(110, 24);
-            this.Tunnel1_Einfahrt.TabIndex = 400;
-            this.Tunnel1_Einfahrt.Text = "Tunnel1_Einfahrt";
-            this.Tunnel1_Einfahrt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Tunnel1_Einfahrt.UseVisualStyleBackColor = false;
-            this.Tunnel1_Einfahrt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
+            this.TunnelAussen_Einfahrt.Appearance = System.Windows.Forms.Appearance.Button;
+            this.TunnelAussen_Einfahrt.BackColor = System.Drawing.Color.DarkRed;
+            this.TunnelAussen_Einfahrt.FlatAppearance.BorderSize = 0;
+            this.TunnelAussen_Einfahrt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.TunnelAussen_Einfahrt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.TunnelAussen_Einfahrt.Location = new System.Drawing.Point(942, 434);
+            this.TunnelAussen_Einfahrt.Name = "TunnelAussen_Einfahrt";
+            this.TunnelAussen_Einfahrt.Size = new System.Drawing.Size(110, 24);
+            this.TunnelAussen_Einfahrt.TabIndex = 400;
+            this.TunnelAussen_Einfahrt.Text = "TunnelAussen_Einfahrt";
+            this.TunnelAussen_Einfahrt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TunnelAussen_Einfahrt.UseVisualStyleBackColor = false;
+            this.TunnelAussen_Einfahrt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
             // 
             // Modul_Schatten_Gl11_Halt
             // 
@@ -3947,21 +3947,21 @@
             this.Modul_Schatten_Gl11_Halt.TabIndex = 376;
             this.Modul_Schatten_Gl11_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Tunnel1_Halt
+            // TunnelAussen_Halt
             // 
-            this.Tunnel1_Halt.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Tunnel1_Halt.BackColor = System.Drawing.Color.DarkRed;
-            this.Tunnel1_Halt.FlatAppearance.BorderSize = 0;
-            this.Tunnel1_Halt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Tunnel1_Halt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Tunnel1_Halt.Location = new System.Drawing.Point(942, 409);
-            this.Tunnel1_Halt.Name = "Tunnel1_Halt";
-            this.Tunnel1_Halt.Size = new System.Drawing.Size(110, 24);
-            this.Tunnel1_Halt.TabIndex = 399;
-            this.Tunnel1_Halt.Text = "Tunnel1_Halt";
-            this.Tunnel1_Halt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Tunnel1_Halt.UseVisualStyleBackColor = false;
-            this.Tunnel1_Halt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
+            this.TunnelAussen_Halt.Appearance = System.Windows.Forms.Appearance.Button;
+            this.TunnelAussen_Halt.BackColor = System.Drawing.Color.DarkRed;
+            this.TunnelAussen_Halt.FlatAppearance.BorderSize = 0;
+            this.TunnelAussen_Halt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.TunnelAussen_Halt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.TunnelAussen_Halt.Location = new System.Drawing.Point(942, 409);
+            this.TunnelAussen_Halt.Name = "TunnelAussen_Halt";
+            this.TunnelAussen_Halt.Size = new System.Drawing.Size(110, 24);
+            this.TunnelAussen_Halt.TabIndex = 399;
+            this.TunnelAussen_Halt.Text = "TunnelAussen_Halt";
+            this.TunnelAussen_Halt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TunnelAussen_Halt.UseVisualStyleBackColor = false;
+            this.TunnelAussen_Halt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
             // 
             // Port_Schatten_Gl11_Halt
             // 
@@ -3972,21 +3972,21 @@
             this.Port_Schatten_Gl11_Halt.TabIndex = 377;
             this.Port_Schatten_Gl11_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Tunnel1
+            // TunnelAussen
             // 
-            this.Tunnel1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Tunnel1.BackColor = System.Drawing.Color.DarkRed;
-            this.Tunnel1.FlatAppearance.BorderSize = 0;
-            this.Tunnel1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Tunnel1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Tunnel1.Location = new System.Drawing.Point(942, 384);
-            this.Tunnel1.Name = "Tunnel1";
-            this.Tunnel1.Size = new System.Drawing.Size(110, 24);
-            this.Tunnel1.TabIndex = 398;
-            this.Tunnel1.Text = "Tunnel1";
-            this.Tunnel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Tunnel1.UseVisualStyleBackColor = false;
-            this.Tunnel1.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
+            this.TunnelAussen.Appearance = System.Windows.Forms.Appearance.Button;
+            this.TunnelAussen.BackColor = System.Drawing.Color.DarkRed;
+            this.TunnelAussen.FlatAppearance.BorderSize = 0;
+            this.TunnelAussen.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.TunnelAussen.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.TunnelAussen.Location = new System.Drawing.Point(942, 384);
+            this.TunnelAussen.Name = "TunnelAussen";
+            this.TunnelAussen.Size = new System.Drawing.Size(110, 24);
+            this.TunnelAussen.TabIndex = 398;
+            this.TunnelAussen.Text = "TunnelAussen";
+            this.TunnelAussen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TunnelAussen.UseVisualStyleBackColor = false;
+            this.TunnelAussen.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
             // 
             // Modul_SchattenEinfahrt
             // 
@@ -4188,93 +4188,93 @@
             this.Pin_Schatten_Gl10.UseVisualStyleBackColor = true;
             this.Pin_Schatten_Gl10.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
-            // Port_Tunnel2_Einfahrt
+            // Port_TunnelInnen_Einfahrt
             // 
-            this.Port_Tunnel2_Einfahrt.Location = new System.Drawing.Point(1108, 521);
-            this.Port_Tunnel2_Einfahrt.Name = "Port_Tunnel2_Einfahrt";
-            this.Port_Tunnel2_Einfahrt.ReadOnly = true;
-            this.Port_Tunnel2_Einfahrt.Size = new System.Drawing.Size(40, 20);
-            this.Port_Tunnel2_Einfahrt.TabIndex = 427;
-            this.Port_Tunnel2_Einfahrt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Port_TunnelInnen_Einfahrt.Location = new System.Drawing.Point(1108, 521);
+            this.Port_TunnelInnen_Einfahrt.Name = "Port_TunnelInnen_Einfahrt";
+            this.Port_TunnelInnen_Einfahrt.ReadOnly = true;
+            this.Port_TunnelInnen_Einfahrt.Size = new System.Drawing.Size(40, 20);
+            this.Port_TunnelInnen_Einfahrt.TabIndex = 427;
+            this.Port_TunnelInnen_Einfahrt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Modul_Tunnel2_Einfahrt
+            // Modul_TunnelInnen_Einfahrt
             // 
-            this.Modul_Tunnel2_Einfahrt.Location = new System.Drawing.Point(1060, 521);
-            this.Modul_Tunnel2_Einfahrt.Name = "Modul_Tunnel2_Einfahrt";
-            this.Modul_Tunnel2_Einfahrt.ReadOnly = true;
-            this.Modul_Tunnel2_Einfahrt.Size = new System.Drawing.Size(40, 20);
-            this.Modul_Tunnel2_Einfahrt.TabIndex = 426;
-            this.Modul_Tunnel2_Einfahrt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Modul_TunnelInnen_Einfahrt.Location = new System.Drawing.Point(1060, 521);
+            this.Modul_TunnelInnen_Einfahrt.Name = "Modul_TunnelInnen_Einfahrt";
+            this.Modul_TunnelInnen_Einfahrt.ReadOnly = true;
+            this.Modul_TunnelInnen_Einfahrt.Size = new System.Drawing.Size(40, 20);
+            this.Modul_TunnelInnen_Einfahrt.TabIndex = 426;
+            this.Modul_TunnelInnen_Einfahrt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Pin_Tunnel2_Einfahrt
+            // Pin_TunnelInnen_Einfahrt
             // 
-            this.Pin_Tunnel2_Einfahrt.AutoSize = true;
-            this.Pin_Tunnel2_Einfahrt.Location = new System.Drawing.Point(1156, 523);
-            this.Pin_Tunnel2_Einfahrt.Name = "Pin_Tunnel2_Einfahrt";
-            this.Pin_Tunnel2_Einfahrt.Size = new System.Drawing.Size(15, 14);
-            this.Pin_Tunnel2_Einfahrt.TabIndex = 425;
-            this.Pin_Tunnel2_Einfahrt.UseVisualStyleBackColor = true;
-            this.Pin_Tunnel2_Einfahrt.CheckStateChanged += new System.EventHandler(this.PinChange);
+            this.Pin_TunnelInnen_Einfahrt.AutoSize = true;
+            this.Pin_TunnelInnen_Einfahrt.Location = new System.Drawing.Point(1156, 523);
+            this.Pin_TunnelInnen_Einfahrt.Name = "Pin_TunnelInnen_Einfahrt";
+            this.Pin_TunnelInnen_Einfahrt.Size = new System.Drawing.Size(15, 14);
+            this.Pin_TunnelInnen_Einfahrt.TabIndex = 425;
+            this.Pin_TunnelInnen_Einfahrt.UseVisualStyleBackColor = true;
+            this.Pin_TunnelInnen_Einfahrt.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
-            // Tunnel2_Einfahrt
+            // TunnelInnen_Einfahrt
             // 
-            this.Tunnel2_Einfahrt.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Tunnel2_Einfahrt.BackColor = System.Drawing.Color.DarkRed;
-            this.Tunnel2_Einfahrt.FlatAppearance.BorderSize = 0;
-            this.Tunnel2_Einfahrt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Tunnel2_Einfahrt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Tunnel2_Einfahrt.Location = new System.Drawing.Point(942, 519);
-            this.Tunnel2_Einfahrt.Name = "Tunnel2_Einfahrt";
-            this.Tunnel2_Einfahrt.Size = new System.Drawing.Size(110, 24);
-            this.Tunnel2_Einfahrt.TabIndex = 424;
-            this.Tunnel2_Einfahrt.Text = "Tunnel2_Einfahrt";
-            this.Tunnel2_Einfahrt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Tunnel2_Einfahrt.UseVisualStyleBackColor = false;
-            this.Tunnel2_Einfahrt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
+            this.TunnelInnen_Einfahrt.Appearance = System.Windows.Forms.Appearance.Button;
+            this.TunnelInnen_Einfahrt.BackColor = System.Drawing.Color.DarkRed;
+            this.TunnelInnen_Einfahrt.FlatAppearance.BorderSize = 0;
+            this.TunnelInnen_Einfahrt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.TunnelInnen_Einfahrt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.TunnelInnen_Einfahrt.Location = new System.Drawing.Point(942, 519);
+            this.TunnelInnen_Einfahrt.Name = "TunnelInnen_Einfahrt";
+            this.TunnelInnen_Einfahrt.Size = new System.Drawing.Size(110, 24);
+            this.TunnelInnen_Einfahrt.TabIndex = 424;
+            this.TunnelInnen_Einfahrt.Text = "TunnelInnen_Einfahrt";
+            this.TunnelInnen_Einfahrt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TunnelInnen_Einfahrt.UseVisualStyleBackColor = false;
+            this.TunnelInnen_Einfahrt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
             // 
-            // Port_Tunnel2_Halt
+            // Port_TunnelInnen_Halt
             // 
-            this.Port_Tunnel2_Halt.Location = new System.Drawing.Point(1108, 496);
-            this.Port_Tunnel2_Halt.Name = "Port_Tunnel2_Halt";
-            this.Port_Tunnel2_Halt.ReadOnly = true;
-            this.Port_Tunnel2_Halt.Size = new System.Drawing.Size(40, 20);
-            this.Port_Tunnel2_Halt.TabIndex = 423;
-            this.Port_Tunnel2_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Port_TunnelInnen_Halt.Location = new System.Drawing.Point(1108, 496);
+            this.Port_TunnelInnen_Halt.Name = "Port_TunnelInnen_Halt";
+            this.Port_TunnelInnen_Halt.ReadOnly = true;
+            this.Port_TunnelInnen_Halt.Size = new System.Drawing.Size(40, 20);
+            this.Port_TunnelInnen_Halt.TabIndex = 423;
+            this.Port_TunnelInnen_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Pin_Tunnel2_Halt
+            // Pin_TunnelInnen_Halt
             // 
-            this.Pin_Tunnel2_Halt.AutoSize = true;
-            this.Pin_Tunnel2_Halt.Location = new System.Drawing.Point(1156, 498);
-            this.Pin_Tunnel2_Halt.Name = "Pin_Tunnel2_Halt";
-            this.Pin_Tunnel2_Halt.Size = new System.Drawing.Size(15, 14);
-            this.Pin_Tunnel2_Halt.TabIndex = 422;
-            this.Pin_Tunnel2_Halt.UseVisualStyleBackColor = true;
-            this.Pin_Tunnel2_Halt.CheckStateChanged += new System.EventHandler(this.PinChange);
+            this.Pin_TunnelInnen_Halt.AutoSize = true;
+            this.Pin_TunnelInnen_Halt.Location = new System.Drawing.Point(1156, 498);
+            this.Pin_TunnelInnen_Halt.Name = "Pin_TunnelInnen_Halt";
+            this.Pin_TunnelInnen_Halt.Size = new System.Drawing.Size(15, 14);
+            this.Pin_TunnelInnen_Halt.TabIndex = 422;
+            this.Pin_TunnelInnen_Halt.UseVisualStyleBackColor = true;
+            this.Pin_TunnelInnen_Halt.CheckStateChanged += new System.EventHandler(this.PinChange);
             // 
-            // Modul_Tunnel2_Halt
+            // Modul_TunnelInnen_Halt
             // 
-            this.Modul_Tunnel2_Halt.Location = new System.Drawing.Point(1060, 496);
-            this.Modul_Tunnel2_Halt.Name = "Modul_Tunnel2_Halt";
-            this.Modul_Tunnel2_Halt.ReadOnly = true;
-            this.Modul_Tunnel2_Halt.Size = new System.Drawing.Size(40, 20);
-            this.Modul_Tunnel2_Halt.TabIndex = 421;
-            this.Modul_Tunnel2_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Modul_TunnelInnen_Halt.Location = new System.Drawing.Point(1060, 496);
+            this.Modul_TunnelInnen_Halt.Name = "Modul_TunnelInnen_Halt";
+            this.Modul_TunnelInnen_Halt.ReadOnly = true;
+            this.Modul_TunnelInnen_Halt.Size = new System.Drawing.Size(40, 20);
+            this.Modul_TunnelInnen_Halt.TabIndex = 421;
+            this.Modul_TunnelInnen_Halt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Tunnel2_Halt
+            // TunnelInnen_Halt
             // 
-            this.Tunnel2_Halt.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Tunnel2_Halt.BackColor = System.Drawing.Color.DarkRed;
-            this.Tunnel2_Halt.FlatAppearance.BorderSize = 0;
-            this.Tunnel2_Halt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Tunnel2_Halt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Tunnel2_Halt.Location = new System.Drawing.Point(942, 494);
-            this.Tunnel2_Halt.Name = "Tunnel2_Halt";
-            this.Tunnel2_Halt.Size = new System.Drawing.Size(110, 24);
-            this.Tunnel2_Halt.TabIndex = 420;
-            this.Tunnel2_Halt.Text = "Tunnel2_Halt";
-            this.Tunnel2_Halt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Tunnel2_Halt.UseVisualStyleBackColor = false;
-            this.Tunnel2_Halt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
+            this.TunnelInnen_Halt.Appearance = System.Windows.Forms.Appearance.Button;
+            this.TunnelInnen_Halt.BackColor = System.Drawing.Color.DarkRed;
+            this.TunnelInnen_Halt.FlatAppearance.BorderSize = 0;
+            this.TunnelInnen_Halt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.TunnelInnen_Halt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.TunnelInnen_Halt.Location = new System.Drawing.Point(942, 494);
+            this.TunnelInnen_Halt.Name = "TunnelInnen_Halt";
+            this.TunnelInnen_Halt.Size = new System.Drawing.Size(110, 24);
+            this.TunnelInnen_Halt.TabIndex = 420;
+            this.TunnelInnen_Halt.Text = "TunnelInnen_Halt";
+            this.TunnelInnen_Halt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TunnelInnen_Halt.UseVisualStyleBackColor = false;
+            this.TunnelInnen_Halt.CheckedChanged += new System.EventHandler(this.Melder_CheckedChanged);
             // 
             // Port_W60
             // 
@@ -4377,24 +4377,24 @@
             this.Controls.Add(this.Pin_W60);
             this.Controls.Add(this.Modul_W60);
             this.Controls.Add(this.W60);
-            this.Controls.Add(this.Port_Tunnel2_Einfahrt);
-            this.Controls.Add(this.Modul_Tunnel2_Einfahrt);
-            this.Controls.Add(this.Pin_Tunnel2_Einfahrt);
-            this.Controls.Add(this.Tunnel2_Einfahrt);
-            this.Controls.Add(this.Port_Tunnel2_Halt);
-            this.Controls.Add(this.Pin_Tunnel2_Halt);
-            this.Controls.Add(this.Modul_Tunnel2_Halt);
-            this.Controls.Add(this.Tunnel2_Halt);
-            this.Controls.Add(this.Port_Tunnel2);
-            this.Controls.Add(this.Modul_Tunnel2);
-            this.Controls.Add(this.Pin_Tunnel2);
-            this.Controls.Add(this.Tunnel2);
+            this.Controls.Add(this.Port_TunnelInnen_Einfahrt);
+            this.Controls.Add(this.Modul_TunnelInnen_Einfahrt);
+            this.Controls.Add(this.Pin_TunnelInnen_Einfahrt);
+            this.Controls.Add(this.TunnelInnen_Einfahrt);
+            this.Controls.Add(this.Port_TunnelInnen_Halt);
+            this.Controls.Add(this.Pin_TunnelInnen_Halt);
+            this.Controls.Add(this.Modul_TunnelInnen_Halt);
+            this.Controls.Add(this.TunnelInnen_Halt);
+            this.Controls.Add(this.Port_TunnelInnen);
+            this.Controls.Add(this.Modul_TunnelInnen);
+            this.Controls.Add(this.Pin_TunnelInnen);
+            this.Controls.Add(this.TunnelInnen);
             this.Controls.Add(this.Schatten_Gl8);
-            this.Controls.Add(this.Port_Tunnel1);
+            this.Controls.Add(this.Port_TunnelAussen);
             this.Controls.Add(this.Pin_Schatten_Gl8);
-            this.Controls.Add(this.Modul_Tunnel1);
+            this.Controls.Add(this.Modul_TunnelAussen);
             this.Controls.Add(this.Schatten_Gl8_Halt);
-            this.Controls.Add(this.Pin_Tunnel1);
+            this.Controls.Add(this.Pin_TunnelAussen);
             this.Controls.Add(this.Schatten_Gl9);
             this.Controls.Add(this.Modul_Schatten_Gl8);
             this.Controls.Add(this.Port_Schatten_Gl8);
@@ -4402,17 +4402,17 @@
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label18);
-            this.Controls.Add(this.Port_Tunnel1_Einfahrt);
+            this.Controls.Add(this.Port_TunnelAussen_Einfahrt);
             this.Controls.Add(this.label19);
-            this.Controls.Add(this.Pin_Tunnel1_Einfahrt);
+            this.Controls.Add(this.Pin_TunnelAussen_Einfahrt);
             this.Controls.Add(this.Pin_Schatten_Gl9);
-            this.Controls.Add(this.Modul_Tunnel1_Einfahrt);
+            this.Controls.Add(this.Modul_TunnelAussen_Einfahrt);
             this.Controls.Add(this.Pin_Schatten_Gl8_Halt);
-            this.Controls.Add(this.Port_Tunnel1_Halt);
+            this.Controls.Add(this.Port_TunnelAussen_Halt);
             this.Controls.Add(this.Port_Schatten_Gl8_Halt);
-            this.Controls.Add(this.Modul_Tunnel1_Halt);
+            this.Controls.Add(this.Modul_TunnelAussen_Halt);
             this.Controls.Add(this.Port_Schatten_Gl9);
-            this.Controls.Add(this.Pin_Tunnel1_Halt);
+            this.Controls.Add(this.Pin_TunnelAussen_Halt);
             this.Controls.Add(this.Modul_Schatten_Gl9);
             this.Controls.Add(this.Port_SchattenAusfahrt);
             this.Controls.Add(this.Schatten_Gl10);
@@ -4428,11 +4428,11 @@
             this.Controls.Add(this.SchattenEinfahrt);
             this.Controls.Add(this.SchattenMitte1);
             this.Controls.Add(this.Pin_Schatten_Gl11_Halt);
-            this.Controls.Add(this.Tunnel1_Einfahrt);
+            this.Controls.Add(this.TunnelAussen_Einfahrt);
             this.Controls.Add(this.Modul_Schatten_Gl11_Halt);
-            this.Controls.Add(this.Tunnel1_Halt);
+            this.Controls.Add(this.TunnelAussen_Halt);
             this.Controls.Add(this.Port_Schatten_Gl11_Halt);
-            this.Controls.Add(this.Tunnel1);
+            this.Controls.Add(this.TunnelAussen);
             this.Controls.Add(this.Modul_SchattenEinfahrt);
             this.Controls.Add(this.SchattenAusfahrt);
             this.Controls.Add(this.Pin_SchattenMitte1);
@@ -5025,16 +5025,16 @@
         private System.Windows.Forms.TextBox Modul_Schatten_Gl7_Halt;
         private System.Windows.Forms.CheckBox Pin_Schatten_Gl7_Halt;
         private System.Windows.Forms.CheckBox Schatten_Gl7_Halt;
-        private System.Windows.Forms.TextBox Port_Tunnel2;
-        private System.Windows.Forms.TextBox Modul_Tunnel2;
-        private System.Windows.Forms.CheckBox Pin_Tunnel2;
-        private System.Windows.Forms.CheckBox Tunnel2;
+        private System.Windows.Forms.TextBox Port_TunnelInnen;
+        private System.Windows.Forms.TextBox Modul_TunnelInnen;
+        private System.Windows.Forms.CheckBox Pin_TunnelInnen;
+        private System.Windows.Forms.CheckBox TunnelInnen;
         private System.Windows.Forms.CheckBox Schatten_Gl8;
-        private System.Windows.Forms.TextBox Port_Tunnel1;
+        private System.Windows.Forms.TextBox Port_TunnelAussen;
         private System.Windows.Forms.CheckBox Pin_Schatten_Gl8;
-        private System.Windows.Forms.TextBox Modul_Tunnel1;
+        private System.Windows.Forms.TextBox Modul_TunnelAussen;
         private System.Windows.Forms.CheckBox Schatten_Gl8_Halt;
-        private System.Windows.Forms.CheckBox Pin_Tunnel1;
+        private System.Windows.Forms.CheckBox Pin_TunnelAussen;
         private System.Windows.Forms.CheckBox Schatten_Gl9;
         private System.Windows.Forms.TextBox Modul_Schatten_Gl8;
         private System.Windows.Forms.TextBox Port_Schatten_Gl8;
@@ -5042,17 +5042,17 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox Port_Tunnel1_Einfahrt;
+        private System.Windows.Forms.TextBox Port_TunnelAussen_Einfahrt;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.CheckBox Pin_Tunnel1_Einfahrt;
+        private System.Windows.Forms.CheckBox Pin_TunnelAussen_Einfahrt;
         private System.Windows.Forms.CheckBox Pin_Schatten_Gl9;
-        private System.Windows.Forms.TextBox Modul_Tunnel1_Einfahrt;
+        private System.Windows.Forms.TextBox Modul_TunnelAussen_Einfahrt;
         private System.Windows.Forms.CheckBox Pin_Schatten_Gl8_Halt;
-        private System.Windows.Forms.TextBox Port_Tunnel1_Halt;
+        private System.Windows.Forms.TextBox Port_TunnelAussen_Halt;
         private System.Windows.Forms.TextBox Port_Schatten_Gl8_Halt;
-        private System.Windows.Forms.TextBox Modul_Tunnel1_Halt;
+        private System.Windows.Forms.TextBox Modul_TunnelAussen_Halt;
         private System.Windows.Forms.TextBox Port_Schatten_Gl9;
-        private System.Windows.Forms.CheckBox Pin_Tunnel1_Halt;
+        private System.Windows.Forms.CheckBox Pin_TunnelAussen_Halt;
         private System.Windows.Forms.TextBox Modul_Schatten_Gl9;
         private System.Windows.Forms.TextBox Port_SchattenAusfahrt;
         private System.Windows.Forms.CheckBox Schatten_Gl10;
@@ -5068,11 +5068,11 @@
         private System.Windows.Forms.CheckBox SchattenEinfahrt;
         private System.Windows.Forms.CheckBox SchattenMitte1;
         private System.Windows.Forms.CheckBox Pin_Schatten_Gl11_Halt;
-        private System.Windows.Forms.CheckBox Tunnel1_Einfahrt;
+        private System.Windows.Forms.CheckBox TunnelAussen_Einfahrt;
         private System.Windows.Forms.TextBox Modul_Schatten_Gl11_Halt;
-        private System.Windows.Forms.CheckBox Tunnel1_Halt;
+        private System.Windows.Forms.CheckBox TunnelAussen_Halt;
         private System.Windows.Forms.TextBox Port_Schatten_Gl11_Halt;
-        private System.Windows.Forms.CheckBox Tunnel1;
+        private System.Windows.Forms.CheckBox TunnelAussen;
         private System.Windows.Forms.TextBox Modul_SchattenEinfahrt;
         private System.Windows.Forms.CheckBox SchattenAusfahrt;
         private System.Windows.Forms.CheckBox Pin_SchattenMitte1;
@@ -5093,14 +5093,14 @@
         private System.Windows.Forms.TextBox Port_Schatten_Gl10;
         private System.Windows.Forms.TextBox Modul_Schatten_Gl10;
         private System.Windows.Forms.CheckBox Pin_Schatten_Gl10;
-        private System.Windows.Forms.TextBox Port_Tunnel2_Einfahrt;
-        private System.Windows.Forms.TextBox Modul_Tunnel2_Einfahrt;
-        private System.Windows.Forms.CheckBox Pin_Tunnel2_Einfahrt;
-        private System.Windows.Forms.CheckBox Tunnel2_Einfahrt;
-        private System.Windows.Forms.TextBox Port_Tunnel2_Halt;
-        private System.Windows.Forms.CheckBox Pin_Tunnel2_Halt;
-        private System.Windows.Forms.TextBox Modul_Tunnel2_Halt;
-        private System.Windows.Forms.CheckBox Tunnel2_Halt;
+        private System.Windows.Forms.TextBox Port_TunnelInnen_Einfahrt;
+        private System.Windows.Forms.TextBox Modul_TunnelInnen_Einfahrt;
+        private System.Windows.Forms.CheckBox Pin_TunnelInnen_Einfahrt;
+        private System.Windows.Forms.CheckBox TunnelInnen_Einfahrt;
+        private System.Windows.Forms.TextBox Port_TunnelInnen_Halt;
+        private System.Windows.Forms.CheckBox Pin_TunnelInnen_Halt;
+        private System.Windows.Forms.TextBox Modul_TunnelInnen_Halt;
+        private System.Windows.Forms.CheckBox TunnelInnen_Halt;
         private System.Windows.Forms.TextBox Port_W60;
         private System.Windows.Forms.CheckBox Pin_W60;
         private System.Windows.Forms.TextBox Modul_W60;
