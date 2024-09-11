@@ -298,17 +298,20 @@ namespace MEKB_H0_Anlage
 
         public void NotBremseAufheben(bool weiterfahrt = false)
         {
-            Nothalt = false;
-            if(weiterfahrt) {Fahrstufe = FahrstufeVorNothalt; }
-            FahrstufeVorNothalt = 0;
-
-            int RichtungMitUmkehr = Richtung;
-            if (LokUmgedreht)
+            if (Nothalt)
             {
-                if (Richtung == LokFahrstufen.Vorwaerts) RichtungMitUmkehr = LokFahrstufen.Rueckwaerts;
-                else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
+                Nothalt = false;
+                if (weiterfahrt) { Fahrstufe = FahrstufeVorNothalt; }
+                FahrstufeVorNothalt = 0;
+
+                int RichtungMitUmkehr = Richtung;
+                if (LokUmgedreht)
+                {
+                    if (Richtung == LokFahrstufen.Vorwaerts) RichtungMitUmkehr = LokFahrstufen.Rueckwaerts;
+                    else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
+                }
+                setLOKFahrt?.Invoke(Adresse, (byte)Fahrstufe, RichtungMitUmkehr, FahrstufenInfo);
             }
-            setLOKFahrt?.Invoke(Adresse, (byte)Fahrstufe, RichtungMitUmkehr, FahrstufenInfo);
         }
         public void NotBremseHandeln()
         {
@@ -481,6 +484,11 @@ namespace MEKB_H0_Anlage
             {
                 AktuellerBlock = "Lok verloren";
                 return;
+            }
+            if (Aktuel.GetSignalStatus(VorherigerBlock) != SignalZustand.NichtGefunden)
+            {
+                if (Aktuel.Signal.Zustand == SignalZustand.HP0) NotBremse();
+                else NotBremseAufheben();
             }
             if (!Aktuel.IstBelegt()) //Keine Belegtmeldung -> Lok verloren
             {

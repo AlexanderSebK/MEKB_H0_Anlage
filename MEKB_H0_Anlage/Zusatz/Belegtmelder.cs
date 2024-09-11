@@ -32,6 +32,17 @@ namespace MEKB_H0_Anlage
             DateiImportieren(Dateiname);
         }
 
+        public void SignalZugriff(SignalListe signalListe)
+        {
+            foreach(Belegtmelder belegtmelder in Liste)
+            {
+                if(!belegtmelder.SignalName.Equals(""))
+                {
+                    belegtmelder.Signal = signalListe.GetSignal(belegtmelder.SignalName);
+                }
+            }
+        }
+
         /// <summary>
         /// Datei importieren 
         /// </summary>
@@ -59,6 +70,16 @@ namespace MEKB_H0_Anlage
                 int Portnummer = Int16.Parse(melder.Element("Portnummer").Value);               //Portnummer
                 int CoolDowntime = 5000;
                 int CoolUptime = 500;
+
+                string Signal = "";
+                string SignalKommeVon = "";
+                
+                if(melder.Element("Signal") != null)
+                {
+                    Signal = melder.Element("Signal").Value;
+                    SignalKommeVon = melder.Element("Signal").Attribute("KommeVon").Value;
+                }
+
                 if (melder.Element("Cooldowntime") != null)
                 {
                     CoolDowntime = Int16.Parse(melder.Element("Cooldowntime").Value);
@@ -67,7 +88,7 @@ namespace MEKB_H0_Anlage
                 {
                     CoolUptime = Int16.Parse(melder.Element("Cooluptime").Value);
                 }
-                Belegtmelder belegtmelder =  new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime, CoolUpTime = CoolUptime, Registriert = "" };  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
+                Belegtmelder belegtmelder =  new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime, CoolUpTime = CoolUptime, Registriert = "", SignalName = Signal, Signal_KommeVon = SignalKommeVon};  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
 
                 belegtmelder.NachbarBlocks = new List<NachbarBlock>();
 
@@ -81,7 +102,6 @@ namespace MEKB_H0_Anlage
                         if (block.Attribute("Name") != null)  BlockName = block.Attribute("Name").Value;
                         else BlockName = block.Element("Blockname").Value;
 
-                        //bool Fahrrichtung = block.Element("Fahrtrichtung").Value == "1";
                         string KommeVon = "";
                         if(block.Attribute("KommeVon") != null) KommeVon = block.Attribute("KommeVon").Value;
 
@@ -219,6 +239,8 @@ namespace MEKB_H0_Anlage
             return unbekannt;
         }
 
+
+
         /// <summary>
         /// Anfrage an Zentrale für neuen Belegtmelderstatus
         /// </summary>
@@ -290,6 +312,10 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public string Registriert { set; get; }
 
+        public Signal Signal { set; get; }
+
+        public string SignalName; // Angehangendes Signal
+        public string Signal_KommeVon;
 
         public List<NachbarBlock> NachbarBlocks { set; get; }
 
@@ -379,6 +405,15 @@ namespace MEKB_H0_Anlage
             }
         }
 
+        public SignalZustand GetSignalStatus(string KommeVon)
+        {
+            if (Signal_KommeVon.Equals(KommeVon))
+            {
+                return Signal.Zustand;
+            }
+            return SignalZustand.NichtGefunden;
+        }
+
         #region Listen-Funktionen
         /// <summary>
         /// Wird bei Listensuche benötigt: Name der Weiche zurückgeben
@@ -432,6 +467,7 @@ namespace MEKB_H0_Anlage
         public List<String> WeichenAbzweig; //Liste von Weichennamen, die auf Abzweig stehen müssen, damit dieser Block erreicht werden kann
         public List<String> WeichenGerade;  //Liste von Weichennamen, die auf Gerade stehen müssen, damit dieser Block erreicht werden kann
         public string KommeVon; //Letzte Block, aus dem der Zug eingefahren ist 
+        
 
         public string BlockName; //Name des Nächsten Blocks
         public NachbarBlock()

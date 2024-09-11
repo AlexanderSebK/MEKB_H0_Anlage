@@ -93,6 +93,7 @@ namespace MEKB_H0_Anlage
             // Instanzen Zugriffe festlegen
             SetupFahrstrassen();                        //Fahstrassen festlegen              
             SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
+            BelegtmelderListe.SignalZugriff(SignalListe);
             LokListe_Laden();
 
             ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe, BelegtmelderListe);
@@ -327,9 +328,6 @@ namespace MEKB_H0_Anlage
                 lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe);
                 lokomotive.NotBremseHandeln();
             }
-
-
-
             if(!(LokStatusTimerIndex < LokListe.Count)) LokStatusTimerIndex = 0;
             Setze_Lok_Status(LokListe[LokStatusTimerIndex].Adresse);
             LokStatusTimerIndex++;

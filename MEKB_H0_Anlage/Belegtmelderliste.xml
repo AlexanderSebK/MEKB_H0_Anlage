@@ -54,6 +54,7 @@
 	<Belegtmelder Name='Block2_Halt'>
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>6</Portnummer>
+		<Signal KommeVon='Block2'>Signal_Einfahrt_L</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='W2_W3' KommeVon='Block2' />
 			<Nachbarblock Name='Block2' KommeVon='W2_W3' />

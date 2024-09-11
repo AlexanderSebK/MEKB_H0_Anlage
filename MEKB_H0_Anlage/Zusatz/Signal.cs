@@ -902,6 +902,7 @@ namespace MEKB_H0_Anlage
         HP1 = 1,
         HP2 = 2,
         SH1 = 3,
-        Unbestimmt = 9
+        Unbestimmt = 9,
+        NichtGefunden = 10,
     };
 }
