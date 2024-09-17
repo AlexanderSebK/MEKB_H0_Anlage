@@ -365,11 +365,11 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        public void AutoSignal(bool AutoHP1, bool AchteFahrstrassen)
+        public void AutoSignal(bool AutoHP1, bool AchteFahrstrassen, int interval_ms = 100)
         {
             foreach(Signal signal in Liste)
             {
-                signal.AutoSignal(AutoHP1,AchteFahrstrassen);
+                signal.AutoSignal(AutoHP1,AchteFahrstrassen, interval_ms);
             }
         }
     }
@@ -474,6 +474,9 @@ namespace MEKB_H0_Anlage
         /// True: Signal muss neu gezeichnet werden
         /// </summary>
         public bool UpdateNoetig { get; set; }
+        
+        private int Schaltintervall { get; set; }
+        private int HP0_Schaltzeit {  get; set; }
         #endregion
         #endregion
         #region Instanzen, Listen
@@ -508,6 +511,8 @@ namespace MEKB_H0_Anlage
             AutoSperre = false;
             Zustand = SignalZustand.Unbestimmt;
             UpdateNoetig = false;
+            Schaltintervall = 0;
+            HP0_Schaltzeit = 500;
 
             VorSignalZustand = SignalZustand.Unbestimmt;
             VerknuepfteSignale = new List<SignalLink>();
@@ -811,7 +816,7 @@ namespace MEKB_H0_Anlage
         /// </summary>
         /// <param name="AutoHP1">true: Signal schaltet automatisch auf Grün, wenn erlaubt ist</param>
         /// <param name="AchteFahrstrassen">true: Signal darf nur schalten, wenn eine Fahrstrasse gesetzt ist. False: Signal achtet nur ob die Weichen richtig geschaltet sind</param>
-        public void AutoSignal(bool AutoHP1, bool AchteFahrstrassen)
+        public void AutoSignal(bool AutoHP1, bool AchteFahrstrassen, int interval_ms = 100)
         {
             //Signal durch User gesperrt, nicht auf Grün schalten
             if (AutoSperre) AutoHP1 = false;
@@ -825,7 +830,17 @@ namespace MEKB_H0_Anlage
                 }
                 else // HP1 ist nicht erlaubt: Auf HP0 schalten
                 {
-                    if (Zustand != SignalZustand.HP0) { Schalten(SignalZustand.HP0); return; }
+                    if (Zustand != SignalZustand.HP0) 
+                    {
+                        //Verzögert schalten
+                        Schaltintervall += interval_ms;
+                        if (Schaltintervall >= HP0_Schaltzeit)
+                        {
+                            Schalten(SignalZustand.HP0);
+                            Schaltintervall = 0;
+                        }
+                        return; 
+                    }
                 }
             }
             else if (IstHP2Verbund())
@@ -837,7 +852,16 @@ namespace MEKB_H0_Anlage
                 }
                 else // HP2 ist nicht erlaubt: Auf HP0 schalten
                 {
-                    if (Zustand != SignalZustand.HP0) { Schalten(SignalZustand.HP0); return; }
+                    if (Zustand != SignalZustand.HP0)
+                    {
+                        Schaltintervall += interval_ms;
+                        if (Schaltintervall >= HP0_Schaltzeit)
+                        {
+                            Schalten(SignalZustand.HP0);
+                            Schaltintervall = 0;
+                        }
+                        return;
+                    }
                 }
             }
             else if (IstSperrSignal())
@@ -872,7 +896,16 @@ namespace MEKB_H0_Anlage
                 }
                 else
                 {
-                    if (Zustand != SignalZustand.HP0) { Schalten(SignalZustand.HP0); return; }
+                    if (Zustand != SignalZustand.HP0)
+                    {
+                        Schaltintervall += interval_ms;
+                        if (Schaltintervall >= HP0_Schaltzeit)
+                        {
+                            Schalten(SignalZustand.HP0);
+                            Schaltintervall = 0;
+                        }
+                        return;
+                    }
                 }
             }
         }

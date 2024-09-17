@@ -20,6 +20,7 @@
 	<Belegtmelder Name='Block1_Halt'>
 		<Modulnummer>1</Modulnummer>
 		<Portnummer>2</Portnummer>
+		<Signal KommeVon='Block1_b'>Signal_Block5</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='W52' KommeVon='Block1_b' />
 			<Nachbarblock Name='Block1_b' KommeVon='W52' />
@@ -95,6 +96,7 @@
 	<Belegtmelder Name='Block5_Halt'>
 		<Modulnummer>11</Modulnummer>
 		<Portnummer>5</Portnummer>
+		<Signal KommeVon='Block5_b'>Signal_Block6</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='W60' KommeVon='Block5_b' />
 			<Nachbarblock Name='Block5_b' KommeVon='W60' />
@@ -111,6 +113,7 @@
 	<Belegtmelder Name='Block6_Halt'>
 		<Modulnummer>10</Modulnummer>
 		<Portnummer>6</Portnummer>
+		<Signal KommeVon='Block6'>Signal_Schatten_Einf</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenEinfahrt' KommeVon='Block6' />
 			<Nachbarblock Name='Block6' KommeVon='SchattenEinfahrt' />
@@ -135,6 +138,7 @@
 	<Belegtmelder Name='Block8_Halt'>
 		<Modulnummer>11</Modulnummer>
 		<Portnummer>4</Portnummer>
+		<Signal KommeVon='Block8'>Signal_Block8</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Block8' />
 			<Nachbarblock Name='Block8' KommeVon='SchattenAusfahrt' />
@@ -153,6 +157,7 @@
 	<Belegtmelder Name='Block9_Halt'>
 		<Modulnummer>3</Modulnummer>
 		<Portnummer>8</Portnummer>
+		<Signal KommeVon='Block9'>Signal_Block2</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='Block2' KommeVon='Block9' />
 			<Nachbarblock Name='Block9' KommeVon='Block2' />
@@ -169,6 +174,7 @@
 	<Belegtmelder Name='HBf1_Halt_L'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>5</Portnummer>
+		<Signal KommeVon='HBf1'>Signal_Ausfahrt_L1</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='W6' KommeVon='HBf1' />
 			<Nachbarblock Name='HBf1' KommeVon='W6' />
@@ -177,6 +183,7 @@
 	<Belegtmelder Name='HBf1_Halt_R'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>3</Portnummer>
+		<Signal KommeVon='HBf1'>Signal_Ausfahrt_R1</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='HBf1' KommeVon='W26' />
 			<Nachbarblock Name='W26' KommeVon='HBf1' />
@@ -193,6 +200,7 @@
 	<Belegtmelder Name='HBf2_Halt_L'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>6</Portnummer>
+		<Signal KommeVon='HBf2'>Signal_Ausfahrt_L2</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='W6' KommeVon='HBf2' />
 			<Nachbarblock Name='HBf2' KommeVon='W6' />
@@ -201,6 +209,7 @@
 	<Belegtmelder Name='HBf2_Halt_R'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>4</Portnummer>
+		<Signal KommeVon='HBf2'>Signal_Ausfahrt_R2</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='HBf2' KommeVon='W26' />
 			<Nachbarblock Name='W26' KommeVon='HBf2' />
@@ -217,6 +226,7 @@
 	<Belegtmelder Name='HBf3_Halt_L'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>7</Portnummer>
+		<Signal KommeVon='HBf3'>Signal_Ausfahrt_L3</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='HBf3' KommeVon='W5' />
 			<Nachbarblock Name='W5' KommeVon='HBf3' />
@@ -225,6 +235,7 @@
 	<Belegtmelder Name='HBf3_Halt_R'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>5</Portnummer>
+		<Signal KommeVon='HBf3'>Signal_Ausfahrt_R3</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='W25' KommeVon='HBf3' />
 			<Nachbarblock Name='HBf3' KommeVon='W25' />
@@ -241,6 +252,7 @@
 	<Belegtmelder Name='HBf4_Halt_L'>
 		<Modulnummer>2</Modulnummer>
 		<Portnummer>8</Portnummer>
+		<Signal KommeVon='HBf4'>Signal_Ausfahrt_L4</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='HBf4' KommeVon='DKW7_W8' />
 			<Nachbarblock Name='DKW7_W8' KommeVon='HBf4' />
@@ -249,6 +261,7 @@
 	<Belegtmelder Name='HBf4_Halt_R'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>6</Portnummer>
+		<Signal KommeVon='HBf4'>Signal_Ausfahrt_R4</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='DKW24_W23' KommeVon='HBf4' />
 			<Nachbarblock Name='HBf4' KommeVon='DKW24_W23' />
@@ -265,6 +278,7 @@
 	<Belegtmelder Name='HBf5_Halt_L'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>1</Portnummer>
+		<Signal KommeVon='HBf5'>Signal_Ausfahrt_L5</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='HBf5' KommeVon='DKW9' />
 			<Nachbarblock Name='DKW9' KommeVon='HBf5' />
@@ -273,6 +287,7 @@
 	<Belegtmelder Name='HBf5_Halt_R'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>7</Portnummer>
+		<Signal KommeVon='HBf5'>Signal_Ausfahrt_R5</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='KW22' KommeVon='HBf5' />
 			<Nachbarblock Name='HBf5' KommeVon='KW22' />
@@ -289,6 +304,7 @@
 	<Belegtmelder Name='HBf6_Halt_L'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>2</Portnummer>
+		<Signal KommeVon='HBf6'>Signal_Ausfahrt_L6</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='HBf6' KommeVon='DKW9' />
 			<Nachbarblock Name='DKW9' KommeVon='HBf6' />
@@ -297,6 +313,7 @@
 	<Belegtmelder Name='HBf6_Halt_R'>
 		<Modulnummer>4</Modulnummer>
 		<Portnummer>8</Portnummer>
+		<Signal KommeVon='HBf6'>Signal_Ausfahrt_R6</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='KW22' KommeVon='HBf6'>
 				<WeichenAbzweig>
@@ -1270,6 +1287,7 @@
 	<Belegtmelder Name='Eingleisen_Halt'>
 		<Modulnummer>9</Modulnummer>
 		<Portnummer>6</Portnummer>
+		<Signal KommeVon='Eingleisen'>Signal_Schatten0</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='W67_W68' KommeVon='Eingleisen' />
 			<Nachbarblock Name='Eingleisen' KommeVon='W67_W68' />
@@ -1286,6 +1304,7 @@
 	<Belegtmelder Name='Schatten_Gl1_Halt'>
 		<Modulnummer>10</Modulnummer>
 		<Portnummer>3</Portnummer>
+		<Signal KommeVon='Schatten_Gl1'>Signal_Schatten1</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='W67_W68' KommeVon='Schatten_Gl1' />
 			<Nachbarblock Name='Schatten_Gl1' KommeVon='W67_W68' />
@@ -1302,6 +1321,7 @@
 	<Belegtmelder Name='Schatten_Gl2_Halt'>
 		<Modulnummer>9</Modulnummer>
 		<Portnummer>7</Portnummer>
+		<Signal KommeVon='Schatten_Gl2'>Signal_Schatten2</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Schatten_Gl2' />
 			<Nachbarblock Name='Schatten_Gl2' KommeVon='SchattenAusfahrt' />
@@ -1318,6 +1338,7 @@
 	<Belegtmelder Name='Schatten_Gl3_Halt'>
 		<Modulnummer>10</Modulnummer>
 		<Portnummer>1</Portnummer>
+		<Signal KommeVon='Schatten_Gl3'>Signal_Schatten3</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Schatten_Gl3' />
 			<Nachbarblock Name='Schatten_Gl3' KommeVon='SchattenAusfahrt' />
@@ -1334,6 +1355,7 @@
 	<Belegtmelder Name='Schatten_Gl4_Halt'>
 		<Modulnummer>12</Modulnummer>
 		<Portnummer>7</Portnummer>
+		<Signal KommeVon='Schatten_Gl4'>Signal_Schatten4</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Schatten_Gl4' />
 			<Nachbarblock Name='Schatten_Gl4' KommeVon='SchattenAusfahrt' />
@@ -1350,6 +1372,7 @@
 	<Belegtmelder Name='Schatten_Gl5_Halt'>
 		<Modulnummer>12</Modulnummer>
 		<Portnummer>5</Portnummer>
+		<Signal KommeVon='Schatten_Gl5'>Signal_Schatten5</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Schatten_Gl5' />
 			<Nachbarblock Name='Schatten_Gl5' KommeVon='SchattenAusfahrt' />
@@ -1366,6 +1389,7 @@
 	<Belegtmelder Name='Schatten_Gl6_Halt'>
 		<Modulnummer>11</Modulnummer>
 		<Portnummer>8</Portnummer>
+		<Signal KommeVon='Schatten_Gl6'>Signal_Schatten6</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Schatten_Gl6' />
 			<Nachbarblock Name='Schatten_Gl6' KommeVon='SchattenAusfahrt' />
@@ -1382,6 +1406,7 @@
 	<Belegtmelder Name='Schatten_Gl7_Halt'>
 		<Modulnummer>12</Modulnummer>
 		<Portnummer>1</Portnummer>
+		<Signal KommeVon='Schatten_Gl7'>Signal_Schatten7</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenAusfahrt' KommeVon='Schatten_Gl7' />
 			<Nachbarblock Name='Schatten_Gl7' KommeVon='SchattenAusfahrt' />
@@ -1398,6 +1423,7 @@
 	<Belegtmelder Name='Schatten_Gl8_Halt'>
 		<Modulnummer>7</Modulnummer>
 		<Portnummer>8</Portnummer>
+		<Signal KommeVon='Schatten_Gl8'>Signal_Schatten8</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenMitte1' KommeVon='Schatten_Gl8' />
 			<Nachbarblock Name='Schatten_Gl8' KommeVon='SchattenMitte1' />
@@ -1414,6 +1440,7 @@
 	<Belegtmelder Name='Schatten_Gl9_Halt'>
 		<Modulnummer>7</Modulnummer>
 		<Portnummer>7</Portnummer>
+		<Signal KommeVon='Schatten_Gl9'>Signal_Schatten9</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenMitte1' KommeVon='Schatten_Gl9' />
 			<Nachbarblock Name='Schatten_Gl9' KommeVon='SchattenMitte1' />
@@ -1430,6 +1457,7 @@
 	<Belegtmelder Name='Schatten_Gl10_Halt'>
 		<Modulnummer>7</Modulnummer>
 		<Portnummer>6</Portnummer>
+		<Signal KommeVon='Schatten_Gl10'>Signal_Schatten10</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenMitte1' KommeVon='Schatten_Gl10' />
 			<Nachbarblock Name='Schatten_Gl10' KommeVon='SchattenMitte1' />
@@ -1446,6 +1474,7 @@
 	<Belegtmelder Name='Schatten_Gl11_Halt'>
 		<Modulnummer>7</Modulnummer>
 		<Portnummer>5</Portnummer>
+		<Signal KommeVon='Schatten_Gl11'>Signal_Schatten11</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='SchattenMitte1' KommeVon='Schatten_Gl11' />
 			<Nachbarblock Name='Schatten_Gl11' KommeVon='SchattenMitte1' />
@@ -1462,6 +1491,7 @@
 	<Belegtmelder Name='TunnelAussen_Halt'>
 		<Modulnummer>6</Modulnummer>
 		<Portnummer>7</Portnummer>
+		<Signal KommeVon='TunnelAussen'>Signal_RTunnel_Aussen</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='W51' KommeVon='TunnelAussen' />
 			<Nachbarblock Name='TunnelAussen' KommeVon='W51' />
@@ -1486,6 +1516,7 @@
 	<Belegtmelder Name='TunnelInnen_Halt'>
 		<Modulnummer>6</Modulnummer>
 		<Portnummer>4</Portnummer>
+		<Signal KommeVon='TunnelInnen'>Signal_RTunnel_Innen</Signal>
 		<Nachbarbloecke>
 			<Nachbarblock Name='W51' KommeVon='TunnelInnen' />
 			<Nachbarblock Name='TunnelInnen' KommeVon='W51' />

@@ -124,7 +124,7 @@ namespace MEKB_H0_Anlage
             BelegtmelderCoolDown.AutoReset = true;
 
             // 100 MilliSekunden Timer: StatusUpdateLok.
-            UpdateLokStatus = new System.Timers.Timer(500);
+            UpdateLokStatus = new System.Timers.Timer(100);
             // Timer mit Funktion "OnStatusUpdate" Verbinden
             UpdateLokStatus.Elapsed += OnStatusUpdate;
             UpdateLokStatus.AutoReset = true;
@@ -281,7 +281,8 @@ namespace MEKB_H0_Anlage
                         Fahrstrassenupdate(fahrstrasse);
                     }
 
-                    if (Betriebsbereit && AutoSignale.Checked) SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"));
+                    if (Betriebsbereit && AutoSignale.Checked) 
+                        SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"),50);
 
                     SignalListe.VorsignaleSchalten();
                     try
