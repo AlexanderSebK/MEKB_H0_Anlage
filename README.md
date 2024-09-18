@@ -47,10 +47,10 @@ Fahrstraßen der Anlage hinzufügen mit Kontroller der Weichenstellung.
 - [x] Belegtmelder
 Lesen des Belegtmelder-Status über Z21.
 
-- [ ] Lokverfolgung
+- [x] Lokverfolgung
 Verfolgung der Lok über die Belegtmelder der Anlage
 
-- [ ] Bremsweg / Zwangsbremsung
+- [x] Zwangsbremsung
 Zwangsbremsung manuellgesteuerter Loks vor rotem Signal
 
 - [x] Signal / Blockbelegterkennung
