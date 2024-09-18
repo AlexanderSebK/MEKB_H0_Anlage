@@ -52,6 +52,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -70,9 +71,9 @@
             this.label2.Font = new System.Drawing.Font("Bahnschrift Condensed", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(8, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(303, 23);
+            this.label2.Size = new System.Drawing.Size(301, 23);
             this.label2.TabIndex = 1;
-            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 4.0";
+            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 4.1";
             // 
             // label3
             // 
@@ -271,22 +272,23 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.Green;
             this.label20.Location = new System.Drawing.Point(384, 304);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(136, 17);
+            this.label20.Size = new System.Drawing.Size(165, 17);
             this.label20.TabIndex = 20;
-            this.label20.Text = "Bremsweg / Zwangsbremse";
+            this.label20.Text = "Zwangsbremse (fertig 18.09.2024)";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.Orange;
+            this.label21.ForeColor = System.Drawing.Color.Green;
             this.label21.Location = new System.Drawing.Point(384, 256);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(74, 17);
+            this.label21.Size = new System.Drawing.Size(161, 17);
             this.label21.TabIndex = 21;
-            this.label21.Text = "Lokverfolgung";
+            this.label21.Text = "Lokverfolgung (fertig 18.09.2024)";
             // 
             // label22
             // 
@@ -299,12 +301,23 @@
             this.label22.TabIndex = 22;
             this.label22.Text = "Autom. Signalsteuerung (fertig - 14.02.2024)";
             // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(384, 330);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(136, 17);
+            this.label23.TabIndex = 23;
+            this.label23.Text = "Bremsweg / Zwangsbremse";
+            // 
             // InfoBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(713, 424);
+            this.Controls.Add(this.label23);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
@@ -366,5 +379,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
     }
 }

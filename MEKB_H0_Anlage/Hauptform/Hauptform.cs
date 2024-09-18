@@ -35,7 +35,9 @@ namespace MEKB_H0_Anlage
         #region Instanzen
         public Z21 z21Start;
         public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
-        public Lokomotive[] AktiveLoks = new Lokomotive[12];
+        //public Lokomotive[] AktiveLoks = new Lokomotive[12];
+        public List<Lokomotive> LokListe = new List<Lokomotive>();
+        public Bahnhofsansage Bahnhofsansage = new Bahnhofsansage();
         private Logger Log { set; get; }
         #endregion
 
@@ -43,6 +45,7 @@ namespace MEKB_H0_Anlage
         private Z21_Einstellung z21_Einstellung;
         private Signal_Einstellungen signal_Einstellungen;
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
+        private Weichen_Ueberwachung weichen_Ueberwachung;
         private InfoBox InfoBox;
         private MenuFenster_Signalistentool signaltool;
         private Zugmenue ZugmenueFenster = new Zugmenue();
@@ -51,20 +54,20 @@ namespace MEKB_H0_Anlage
         #region Listen
         public Gleisplan Plan = new Gleisplan("Gleisplan.xml");
         public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
-        public SignalListe SignalListe = new SignalListe("Signalliste.xml");      
+        public SignalListe SignalListe = new SignalListe("Signalliste.xml");
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
         public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
         public LokomotivenVerwaltung LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
         #endregion
 
         #region Threads
-        public Thread ThreadLoksuche;
         #endregion
 
         #region Timer
         private static System.Timers.Timer HeartbeatTimer;
         private static System.Timers.Timer WeichenTimer;
         private static System.Timers.Timer BelegtmelderCoolDown;
+        private static System.Timers.Timer UpdateLokStatus;
         #endregion
 
 
@@ -75,7 +78,12 @@ namespace MEKB_H0_Anlage
         public bool Betriebsbereit;
         public bool Z21_Initialisiert;
 
-        
+        public readonly int Max_Loks = 12;
+
+        public readonly int Timer_BelegtMeldung_ms = 200;
+        public readonly int Timer_WeichenUpdate_ms = 50;
+
+
 
         #region Hauptform Funktionen
         public Hauptform()
@@ -84,20 +92,16 @@ namespace MEKB_H0_Anlage
 
             InitializeComponent();                      //Programminitialisieren
             Z21_Initialisieren();
-            
+
             // Instanzen Zugriffe festlegen
             SetupFahrstrassen();                        //Fahstrassen festlegen              
             SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
-            
-            ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
-            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv);
+            BelegtmelderListe.SignalZugriff(SignalListe);
+            LokListe_Laden();
 
-            for (int i = 0; i < AktiveLoks.Length; i++)
-            {
-                AktiveLoks[i] = new Lokomotive();
-                AktiveLoks[i].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
-                AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
-            }
+            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe, BelegtmelderListe);
+
+            
         }
         private void Form1_Shown(object sender, EventArgs e)
         {
@@ -107,20 +111,28 @@ namespace MEKB_H0_Anlage
             // Timer mit Funktion "Z21_Heartbeat" Verbinden
             HeartbeatTimer.Elapsed += Z21_Heartbeat;
             HeartbeatTimer.AutoReset = true;
-            
+
 
             // 100 MilliSekunden Timer: Weichen und Fahrstraßen Update.
             WeichenTimer = new System.Timers.Timer(50);
             // Timer mit Funktion "OnTimedWeichenEvent" Verbinden
             WeichenTimer.Elapsed += OnTimedWeichenEvent;
             WeichenTimer.AutoReset = true;
-            
+
 
             // 250 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
-            BelegtmelderCoolDown = new System.Timers.Timer(250);
+            BelegtmelderCoolDown = new System.Timers.Timer(Timer_BelegtMeldung_ms);
             // Timer mit Funktion "WeichenCooldown" Verbinden
             BelegtmelderCoolDown.Elapsed += BelegtmelderCooldown;
             BelegtmelderCoolDown.AutoReset = true;
+
+            // 100 MilliSekunden Timer: StatusUpdateLok.
+            UpdateLokStatus = new System.Timers.Timer(200);
+            // Timer mit Funktion "OnStatusUpdate" Verbinden
+            UpdateLokStatus.Elapsed += OnStatusUpdate;
+            UpdateLokStatus.AutoReset = true;
+
+            
 
             //Gleisplan zeichnen
             GleisplanZeichnenInitial();
@@ -141,6 +153,7 @@ namespace MEKB_H0_Anlage
             HeartbeatTimer.Enabled = true;
             WeichenTimer.Enabled = true;
             BelegtmelderCoolDown.Enabled = true;
+            UpdateLokStatus.Enabled = true;
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -149,6 +162,7 @@ namespace MEKB_H0_Anlage
             BelegtmelderCoolDown.Stop();
 
             StopAlle_Click(sender, e);
+            LokListe_Speichern();
             foreach (Signal signal in SignalListe.Liste)
             {
                 signal.Schalten(SignalZustand.HP0); //Alle Signale Rot
@@ -234,7 +248,7 @@ namespace MEKB_H0_Anlage
                     Flags temp = z21_Einstellung.Get_Flag_Config();
                     z21Start.Z21_SET_BROADCASTFLAGS(temp); //Flags neu setzen 
                 }
-                if(!Z21_Initialisiert)
+                if (!Z21_Initialisiert)
                 {
                     Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
                     {
@@ -245,10 +259,8 @@ namespace MEKB_H0_Anlage
             }
 
         }
-        public delegate void InvokeDelegate();
 
-
-        private void UpdateRegisterState(TextBox Box, string text)
+        private void UpdateRegisterState(System.Windows.Forms.TextBox Box, string text)
         {
             Box.Invoke((MethodInvoker)(() =>
             {
@@ -259,27 +271,21 @@ namespace MEKB_H0_Anlage
         //private int GroupIndex = 0;
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
-            if (source is System.Timers.Timer timer)
+            if (source is System.Timers.Timer)
             {
-
-                Belegtmelder belegtmelder = BelegtmelderListe.GetBelegtmelder(Block.Text); //Debug
-                if(belegtmelder != null)
-                {
-                    UpdateRegisterState(NextBlock, belegtmelder.NaechsterBlock(VorBlock.Text, WeichenListe));
-                }
-
 
                 if (z21Start.Verbunden())
                 {
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
 
-                    foreach(Fahrstrasse fahrstrasse in FahrstrassenListe.Liste)
+                    foreach (Fahrstrasse fahrstrasse in FahrstrassenListe.Liste)
                     {
                         Fahrstrassenupdate(fahrstrasse);
                     }
-                    
-                    if(Betriebsbereit && AutoSignale.Checked) SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"));
+
+                    if (Betriebsbereit && AutoSignale.Checked) 
+                        SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"),50);
 
                     SignalListe.VorsignaleSchalten();
                     try
@@ -300,14 +306,39 @@ namespace MEKB_H0_Anlage
 
         }
 
-
+        /// <summary>
+        /// Cooldown Timer für Belegtmelder. Zeit in der gemessen wird ob das Signal stabil ist, erst dann wird der Wert übernommen
+        /// </summary>
+        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
+        /// <param name="e">Argumente der Ausführung</param>
         private void BelegtmelderCooldown(Object source, ElapsedEventArgs e)
         {
             //Nur ausführen, wenn Verbindung aufgebaut ist
             if (z21Start.Verbunden())
             {
-                BelegtmelderListe.CoolDownUpdate(250);
+                BelegtmelderListe.CoolDownUpdate(Timer_BelegtMeldung_ms);
+                z21Start.LAN_RMBUS_GETDATA(0x00);
+                z21Start.LAN_RMBUS_GETDATA(0x01);
             }
+        }
+
+        int LokStatusTimerIndex = 0;
+        private void OnStatusUpdate(Object source, ElapsedEventArgs e)
+        {
+            if (!Betriebsbereit) return;
+            // Lokstatus abfragen
+            if (LokListe.Count == 0) return;
+
+            if (!LokKontrolle.Checked) return;
+
+            foreach(Lokomotive lokomotive in LokListe)
+            {
+                lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe);
+                lokomotive.NotBremseHandeln();
+            }
+            if(!(LokStatusTimerIndex < LokListe.Count)) LokStatusTimerIndex = 0;
+            Setze_Lok_Status(LokListe[LokStatusTimerIndex].Adresse);
+            LokStatusTimerIndex++;
         }
 
 
@@ -356,7 +387,7 @@ namespace MEKB_H0_Anlage
                         case "0":
                         case "45":
                             // Unterer Häfte ist 1. Weiche
-                            if(e2.Y > (weichenElement.Height / 2))
+                            if (e2.Y > (weichenElement.Height / 2))
                             {
                                 WeichenListe.ToggleWeiche(gleis.Weiche);
                             }
@@ -403,8 +434,8 @@ namespace MEKB_H0_Anlage
                             break;
                         default: break;
                     }
-                }    
-            }            
+                }
+            }
         }
         /// <summary>
         /// Kreuzungsweiche schalten
@@ -437,7 +468,7 @@ namespace MEKB_H0_Anlage
         }
 
 
-        
+
         #endregion
 
         #region SignalSteuerung
@@ -455,7 +486,7 @@ namespace MEKB_H0_Anlage
                         if (signal.Zustand == SignalZustand.HP2) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
                         {
                             signal.Schalten(SignalZustand.HP0);
-                            if(AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
+                            if (AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
                             return;
                         }
 
@@ -554,6 +585,56 @@ namespace MEKB_H0_Anlage
 
         #endregion
 
+        #region Lok Steuerung
+        /// <summary>
+        /// Delegate-Funktion. Wird benutzt um externe Instance (Hier neues Fahrpultfenster) auf Z21 Funktionen zuzugreifen
+        /// Lok-Geschwindigkeit setzen
+        /// </summary>
+        /// <param name="Adresse">Lokadresse</param>
+        /// <param name="Fahrstufe">Aktuelle Fahrstufe</param>
+        /// <param name="Richtung">Fahrtrichtung</param>
+        /// <param name="Fahstrufeninfo">14,28 oder 128 Fahrstufen</param>
+        private void Setze_Lok_Fahrt(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo)
+        {
+            z21Start.Z21_SET_LOCO_DRIVE(Adresse, Fahrstufe, Richtung, Fahstrufeninfo);
+        }
+        /// <summary>
+        /// Delegate-Funktion. Wird benutzt um externe Instance (Hier neues Fahrpultfenster) auf Z21 Funktionen zuzugreifen
+        /// Lok-Funktion setzen
+        /// </summary>
+        /// <param name="Adresse">Lokadresse</param>
+        /// <param name="Zustand">Funktion an oder ausschalten</param>
+        /// <param name="FunktionsNr">Funktionsnummer</param>
+        private void Setze_Lok_Funktion(int Adresse, byte Zustand, byte FunktionsNr)
+        {
+            z21Start.Z21_SET_LOCO_FUNCTION(Adresse, Zustand, FunktionsNr);
+        }
+        /// <summary>
+        /// Delegate-Funktion. Wird benutzt um externe Instance (Hier neues Fahrpultfenster) auf Z21 Funktionen zuzugreifen
+        /// Lok-Status abrufen
+        /// </summary>
+        /// <param name="Adresse">Lokadresse</param>
+        private void Setze_Lok_Status(int Adresse)
+        {
+            z21Start.Z21_GET_LOCO_INFO(Adresse);
+        }
+
+        /// <summary>
+        /// Alle Lokomotiven anhalten
+        /// </summary>
+        /// <param name="sender">Forms-Element, was diese Funktion ausgelöst hatte</param>
+        /// <param name="e">Eventparameter</param>
+        private void StopAlle_Click(object sender, EventArgs e)
+        {
+            foreach (Lokomotive lok in LokListe)
+            {
+                if (lok.Adresse != 0)
+                {
+                    Setze_Lok_Fahrt(lok.Adresse, 255, lok.Richtung, lok.FahrstufenInfo);
+                }
+            }
+        }
+        #endregion
 
         #region Unterfunktionen
         /// <summary>
@@ -644,6 +725,66 @@ namespace MEKB_H0_Anlage
             ConnectStatus(false, false);                 //Verbindungsstatus initialisieren
             Betriebsbereit = false;
         }
+
+        private void LokListe_Laden()
+        {
+            for (int i = 0; i < Max_Loks; i++)
+            {
+                string LokAdresse = Config.ReadConfig(String.Format("LokListe{0}", i));
+                if (int.TryParse(LokAdresse, out int DigitAdresse))
+                {
+                    if (LokomotivenArchiv.SucheDurchAdresse(DigitAdresse, out Lokomotive lokomotive))
+                    {
+                        lokomotive.Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+                        lokomotive.Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+                        lokomotive.Register_CMD_LOKSTATUS(Setze_Lok_Status);
+
+                        lokomotive.VorherigerBlock = "";
+                        lokomotive.AktuellerBlock = "";
+
+                        string VorherigePosition = Config.ReadConfig(String.Format("LokPosVor{0}", i));
+                        if (BelegtmelderListe.GetBelegtmelder(VorherigePosition) != null)
+                        {
+                            lokomotive.VorherigerBlock = VorherigePosition;
+                        }
+                        
+                        string Position = Config.ReadConfig(String.Format("LokPos{0}", i));
+                        Belegtmelder AktPosition = BelegtmelderListe.GetBelegtmelder(Position);
+                        if (AktPosition != null)
+                        {
+                            lokomotive.AktuellerBlock = Position;
+                            AktPosition.Registriert = lokomotive.Name;
+                        }
+                        else
+                        {
+                            lokomotive.AktuellerBlock = "";
+                            lokomotive.VorherigerBlock = "";
+                        }
+
+                        LokListe.Add(lokomotive);
+                    }
+                }
+            }
+        }
+
+        private void LokListe_Speichern()
+        {
+            for(int i = 0;i < Max_Loks; i++)
+            {
+                if(i <  LokListe.Count)
+                {
+                    Config.WriteConfig(String.Format("LokListe{0}", i), LokListe[i].Adresse.ToString());
+                    Config.WriteConfig(String.Format("LokPos{0}",i), LokListe[i].AktuellerBlock.ToString());
+                    Config.WriteConfig(String.Format("LokPosVor{0}",i), LokListe[i].VorherigerBlock.ToString());
+                }
+                else
+                {
+                    Config.WriteConfig(String.Format("LokListe{0}", i), "0");
+                    Config.WriteConfig(String.Format("LokPos{0}", i), "");
+                    Config.WriteConfig(String.Format("LokPosVor{0}", i), "");
+                }
+            }
+        }
         #endregion
 
         #region Schnellzugriff (obere Zeile)
@@ -731,38 +872,55 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
-        #endregion
-
-
-
-
-
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            string naechsterBlock = NextBlock.Text;
-            string aktuellerBlock = Block.Text;
-            Block.Text = naechsterBlock;
-            VorBlock.Text = aktuellerBlock;
-        }
-
+        /// <summary>
+        /// Fahrzeugliste aufrufen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Fahrzeuge_Click(object sender, EventArgs e)
         {
+            
+
             if (!ZugmenueFenster.IsDisposed)
             {
                 ZugmenueFenster.Show();
             }
             else
             {
-                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv);
+                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe, BelegtmelderListe);
                 ZugmenueFenster.Show();
             }
-            //TODO: Fenster für Fahrzeuge öffnen
         }
 
-        private void LokKontroll_Strg_Typ_Click(object sender, EventArgs e)
-        {
 
+
+
+
+        #endregion
+
+        private void weichenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (weichen_Ueberwachung == null) weichen_Ueberwachung = new Weichen_Ueberwachung(WeichenListe.Liste);
+            if (weichen_Ueberwachung.IsDisposed) weichen_Ueberwachung = new Weichen_Ueberwachung(WeichenListe.Liste);
+            weichen_Ueberwachung.Show();
+            weichen_Ueberwachung.BringToFront();
+        }
+
+        private void LokKontrolle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.Checked == true)
+                {
+                    checkBox.BackColor = Color.FromArgb(128, 0, 128);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                }
+                else
+                {
+                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
+                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
+                }
+            }
         }
     }
 }

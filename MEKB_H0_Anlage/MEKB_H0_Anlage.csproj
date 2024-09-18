@@ -78,11 +78,41 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.2.2.1\lib\net472\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Asio, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Asio.2.2.1\lib\netstandard2.0\NAudio.Asio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Core.2.2.1\lib\netstandard2.0\NAudio.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Midi, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Midi.2.2.1\lib\netstandard2.0\NAudio.Midi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Wasapi, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Wasapi.2.2.1\lib\netstandard2.0\NAudio.Wasapi.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinForms, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.WinForms.2.2.1\lib\net472\NAudio.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WinMM, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.WinMM.2.2.1\lib\netstandard2.0\NAudio.WinMM.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System.Speech" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
@@ -123,11 +153,23 @@
     <Compile Include="MenuFenster\MenuFenster_Signalistentool.Designer.cs">
       <DependentUpon>MenuFenster_Signalistentool.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuFenster\Weichen_Ueberwachung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuFenster\Weichen_Ueberwachung.Designer.cs">
+      <DependentUpon>Weichen_Ueberwachung.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuFenster\Zugmenue.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MenuFenster\Zugmenue.Designer.cs">
       <DependentUpon>Zugmenue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZusatzFenster\BelegtmelderAuswahl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZusatzFenster\BelegtmelderAuswahl.Designer.cs">
+      <DependentUpon>BelegtmelderAuswahl.cs</DependentUpon>
     </Compile>
     <Compile Include="ZusatzFenster\LokSuche.cs">
       <SubType>Form</SubType>
@@ -135,6 +177,7 @@
     <Compile Include="ZusatzFenster\LokSuche.Designer.cs">
       <DependentUpon>LokSuche.cs</DependentUpon>
     </Compile>
+    <Compile Include="Zusatz\Bahnhofsansage.cs" />
     <Compile Include="Zusatz\Belegtmelder.cs" />
     <Compile Include="Zusatz\Fahrstrassen.cs" />
     <Compile Include="Zusatz\GleisbildZeichnung.cs" />
@@ -209,8 +252,14 @@
     <EmbeddedResource Include="MenuFenster\MenuFenster_Signalistentool.resx">
       <DependentUpon>MenuFenster_Signalistentool.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MenuFenster\Weichen_Ueberwachung.resx">
+      <DependentUpon>Weichen_Ueberwachung.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuFenster\Zugmenue.resx">
       <DependentUpon>Zugmenue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZusatzFenster\BelegtmelderAuswahl.resx">
+      <DependentUpon>BelegtmelderAuswahl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ZusatzFenster\LokSuche.resx">
       <DependentUpon>LokSuche.cs</DependentUpon>
@@ -229,6 +278,9 @@
     <EmbeddedResource Include="ZusatzFenster\ZugSteuerpult.resx">
       <DependentUpon>ZugSteuerpult.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Belegtmelder.datasource" />
+    <None Include="Properties\DataSources\Weiche.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

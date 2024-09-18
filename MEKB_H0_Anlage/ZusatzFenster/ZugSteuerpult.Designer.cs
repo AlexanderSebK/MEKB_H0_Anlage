@@ -72,6 +72,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Position = new System.Windows.Forms.TextBox();
             this.Positon_Label = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Fahrstufe)).BeginInit();
             this.FktGroup.SuspendLayout();
             this.Zusatzsteuerung.SuspendLayout();
@@ -471,6 +473,8 @@
             // 
             // Fahrplan
             // 
+            this.Fahrplan.Controls.Add(this.label3);
+            this.Fahrplan.Controls.Add(this.textBox1);
             this.Fahrplan.Controls.Add(this.textBox2);
             this.Fahrplan.Controls.Add(this.label2);
             this.Fahrplan.Controls.Add(this.textBox3);
@@ -534,6 +538,23 @@
             this.Positon_Label.Size = new System.Drawing.Size(66, 13);
             this.Positon_Label.TabIndex = 0;
             this.Positon_Label.Text = "Akt. Position";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(312, 40);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(128, 20);
+            this.textBox1.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(249, 43);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Vorheriges";
             // 
             // ZugSteuerpult
             // 
@@ -611,5 +632,7 @@
         private System.Windows.Forms.TextBox Position;
         private System.Windows.Forms.Label Positon_Label;
         private System.Windows.Forms.ComboBox StufenInfo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

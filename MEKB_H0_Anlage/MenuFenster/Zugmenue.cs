@@ -8,6 +8,9 @@ using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Speech.Synthesis;
+using System.Timers;
+using System.Reflection;
 
 namespace MEKB_H0_Anlage
 {
@@ -15,11 +18,14 @@ namespace MEKB_H0_Anlage
     {
         #region Instanzen
         public Z21 z21;
+        public Bahnhofsansage Bahnhofsansage;
+        private static System.Timers.Timer HeartbeatTimer;
         #endregion
 
         #region Listen
         public List<Lokomotive> AktiveLoks = new List<Lokomotive>();
         public LokomotivenVerwaltung LokomotivenArchiv;
+        public BelegtmelderListe BelegtmelderListe;
         #endregion
 
         #region Parameter
@@ -31,6 +37,7 @@ namespace MEKB_H0_Anlage
 
         #region Threads
         public Thread ThreadLoksuche;
+        public Thread ThreadBelegtmelderauswahl;
         #endregion
 
 
@@ -40,13 +47,18 @@ namespace MEKB_H0_Anlage
             InitializeComponent();
         }
 
-        public Zugmenue(Z21 zentrale, LokomotivenVerwaltung archiv)
+        public Zugmenue(Z21 zentrale, LokomotivenVerwaltung archiv, Bahnhofsansage bahnhofsansage, List<Lokomotive> aktLoks, BelegtmelderListe belegtmelder)
         {
             z21 = zentrale;
             InitializeComponent();
             LokomotivenArchiv = archiv;
+            AktiveLoks = aktLoks;
+            BelegtmelderListe = belegtmelder;
+
 
             ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
+            ThreadBelegtmelderauswahl = new Thread(() => DialogHandhabungBelegtmelderAuswahl("", new List<Belegtmelder>()));
+            Bahnhofsansage = bahnhofsansage;
         }
 
         private void LokDazu_Click(object sender, EventArgs e)
@@ -55,6 +67,23 @@ namespace MEKB_H0_Anlage
             AktiveLoks.Last().Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
             AktiveLoks.Last().Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
             GeneriereFelder(AktiveLoks.Count - 1);
+        }
+
+        private void FelderNeuzeichnen()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (EntferneFelder(i) == false) break;
+            }
+
+            for (int i = 0; i < AktiveLoks.Count; i++)
+            {
+                AktiveLoks[i].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+                AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+                GeneriereFelder(i);
+                LokKontroll_UpdateAll(String.Format("LokCtrl{0}", i));
+            }
+
         }
 
         private void LokEntfernen_Click(object sender, EventArgs e)
@@ -79,7 +108,7 @@ namespace MEKB_H0_Anlage
                 }
 
                 AktiveLoks.RemoveAt(index);
-                for(int i = 0; i < AktiveLoks.Count; i++)
+                for (int i = 0; i < AktiveLoks.Count; i++)
                 {
                     LokKontroll_UpdateAll(String.Format("LokCtrl{0}", i));
                 }
@@ -99,39 +128,94 @@ namespace MEKB_H0_Anlage
             Controls.Add(OpenFahrpultGenerator(Nummer));
             Controls.Add(StopfeldGenerator(Nummer));
             Controls.Add(LoeschfeldGenerator(Nummer));
+            Controls.Add(ZielFeldGenerator(Nummer));
+            Controls.Add(ZwischenZielFeldGenerator(Nummer));
+            Controls.Add(SprachausgabeGenerator(Nummer));
         }
 
-        private void EntferneFelder(int Nummer)
+        private bool EntferneFelder(int Nummer)
         {
-            NumericUpDown Adressfeld = (NumericUpDown)this.Controls.Find(String.Format("LokCtrl{0}_Adr", Nummer), true).First();
-            if (Adressfeld != null) this.Controls.Remove(Adressfeld);
+            bool entfernt = false;
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Adr", Nummer)))
+            {
+                NumericUpDown Adressfeld = (NumericUpDown)this.Controls.Find(String.Format("LokCtrl{0}_Adr", Nummer), true).First();
+                if (Adressfeld != null) this.Controls.Remove(Adressfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Suche", Nummer)))
+            {
+                Button Suchfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Suche", Nummer), true).First();
+                if (Suchfeld != null) this.Controls.Remove(Suchfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Strg_Typ", Nummer)))
+            {
+                Button Steuertypfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Strg_Typ", Nummer), true).First();
+                if (Steuertypfeld != null) this.Controls.Remove(Steuertypfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Gattung", Nummer)))
+            {
+                ComboBox Gattungfeld = (ComboBox)this.Controls.Find(String.Format("LokCtrl{0}_Gattung", Nummer), true).First();
+                if (Gattungfeld != null) this.Controls.Remove(Gattungfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Ruf", Nummer)))
+            {
+                TextBox Ruffeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ruf", Nummer), true).First();
+                if (Ruffeld != null) this.Controls.Remove(Ruffeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Ort_Wechsel", Nummer)))
+            {
+                Button Ortwechselfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Ort_Wechsel", Nummer), true).First();
+                if (Ortwechselfeld != null) this.Controls.Remove(Ortwechselfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Ort", Nummer)))
+            {
+                TextBox Ortfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ort", Nummer), true).First();
+                if (Ortfeld != null) this.Controls.Remove(Ortfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_OpenFahrpult", Nummer)))
+            {
+                Button Fahrpultfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_OpenFahrpult", Nummer), true).First();
+                if (Fahrpultfeld != null) this.Controls.Remove(Fahrpultfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Stop", Nummer)))
+            {
+                Button Stopfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Stop", Nummer), true).First();
+                if (Stopfeld != null) this.Controls.Remove(Stopfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Ziel", Nummer)))
+            {
+                TextBox Zielfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ziel", Nummer), true).First();
+                if (Zielfeld != null) this.Controls.Remove(Zielfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_ZwischenZiel", Nummer)))
+            {
+                TextBox ZwZielfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_ZwischenZiel", Nummer), true).First();
+                if (ZwZielfeld != null) this.Controls.Remove(ZwZielfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Sprache", Nummer)))
+            {
+                Button Sprachfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Sprache", Nummer), true).First();
+                if (Sprachfeld != null) this.Controls.Remove(Sprachfeld);
+                entfernt = true;
+            }
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Loesch", Nummer)))
+            {
+                Button Loschfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Loesch", Nummer), true).First();
+                if (Loschfeld != null) this.Controls.Remove(Loschfeld);
+                entfernt = true;
+            }
 
-            Button Suchfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Suche", Nummer), true).First();
-            if (Suchfeld != null) this.Controls.Remove(Suchfeld);
-
-            Button Steuertypfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Strg_Typ", Nummer), true).First();
-            if (Steuertypfeld != null) this.Controls.Remove(Steuertypfeld);
-
-            ComboBox Gattungfeld = (ComboBox)this.Controls.Find(String.Format("LokCtrl{0}_Gattung", Nummer), true).First();
-            if (Gattungfeld != null) this.Controls.Remove(Gattungfeld);
-
-            TextBox Ruffeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ruf", Nummer), true).First();
-            if (Ruffeld != null) this.Controls.Remove(Ruffeld);
-
-            Button Ortwechselfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Ort_Wechsel", Nummer), true).First();
-            if (Ortwechselfeld != null) this.Controls.Remove(Ortwechselfeld);
-
-            TextBox Ortfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ort", Nummer), true).First();
-            if (Ortfeld != null) this.Controls.Remove(Ortfeld);
-
-            Button Fahrpultfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_OpenFahrpult", Nummer), true).First();
-            if (Fahrpultfeld != null) this.Controls.Remove(Fahrpultfeld);
-
-            Button Stopfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Stop", Nummer), true).First();
-            if (Stopfeld != null) this.Controls.Remove(Stopfeld);
-
-            Button Loschfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Loesch", Nummer), true).First();
-            if (Loschfeld != null) this.Controls.Remove(Loschfeld);
+            return entfernt;
 
         }
 
@@ -218,12 +302,12 @@ namespace MEKB_H0_Anlage
             {
                 Enabled = true,
                 Location = new System.Drawing.Point(x_FelderStart + 542, y_FelderStart + (24 * index) - 1),
-                Name = String.Format("LokCtrl{0}_Ort_Wechsel", index),
+                Name = String.Format("LokCtrl{0}_OrtWechsel", index),
                 Size = new System.Drawing.Size(72, 22),
                 Text = "Ort ändern",
                 UseVisualStyleBackColor = false,
             };
-            //LokCtrl_Ort_Wechsel.Click += new EventHandler(this.LokKontroll_Strg_Typ_Click);
+            LokCtrl_Ort_Wechsel.Click += new EventHandler(this.LokOrtsWechsel);
             return LokCtrl_Ort_Wechsel;
         }
         private TextBox OrtfeldGenerator(int index)
@@ -241,7 +325,7 @@ namespace MEKB_H0_Anlage
         {
             Button OpenFahrpult = new Button
             {
-                Location = new Point(x_FelderStart + 742, y_FelderStart + (24 * index)-1),
+                Location = new Point(x_FelderStart + 742, y_FelderStart + (24 * index) - 1),
                 Name = String.Format("LokCtrl{0}_OpenFahrpult", index),
                 Size = new Size(56, 22),
                 Text = "Fahrpult",
@@ -270,13 +354,51 @@ namespace MEKB_H0_Anlage
         {
             Button LokCtrl_Stop = new Button
             {
-                Location = new Point(x_FelderStart + 862, y_FelderStart + (24 * index) - 1),
+                Location = new Point(x_FelderStart + 1092, y_FelderStart + (24 * index) - 1),
                 Name = String.Format("LokCtrl{0}_Loesch", index),
                 Size = new Size(22, 22),
                 Text = "X",
                 UseVisualStyleBackColor = false
             };
             LokCtrl_Stop.Click += new EventHandler(this.LokEntfernen_Click);
+            return LokCtrl_Stop;
+        }
+        private TextBox ZielFeldGenerator(int index)
+        {
+            TextBox LokCtrl_Ziel = new TextBox
+            {
+                Enabled = true,
+                Location = new Point(x_FelderStart + 862, y_FelderStart + (24 * index)),
+                Name = String.Format("LokCtrl{0}_Ziel", index),
+                Size = new Size(72, 22)
+            };
+            LokCtrl_Ziel.TextChanged += new EventHandler(this.LokZiel_TextChange);
+            return LokCtrl_Ziel;
+        }
+        private TextBox ZwischenZielFeldGenerator(int index)
+        {
+            TextBox LokCtrl_ZZiel = new TextBox
+            {
+                Enabled = true,
+                Location = new Point(x_FelderStart + 942, y_FelderStart + (24 * index)),
+                Name = String.Format("LokCtrl{0}_ZwischenZiel", index),
+                Size = new Size(72, 22)
+            };
+            LokCtrl_ZZiel.TextChanged += new EventHandler(this.LokZwischenZiel_TextChange);
+            return LokCtrl_ZZiel;
+        }
+        private Button SprachausgabeGenerator(int index)
+        {
+            Button LokCtrl_Stop = new Button
+            {
+                Location = new Point(x_FelderStart + 1022, y_FelderStart + (24 * index) - 1),
+                Name = String.Format("LokCtrl{0}_Sprache", index),
+                Size = new Size(62, 22),
+                Text = "Ansage",
+                UseVisualStyleBackColor = false,
+                Enabled = true
+            };
+            LokCtrl_Stop.Click += new EventHandler(this.LokSprache_Click);
             return LokCtrl_Stop;
         }
 
@@ -522,6 +644,9 @@ namespace MEKB_H0_Anlage
             ComboBox Gattungsfeld;
             Button Steuertypfeld;
             TextBox Ruffeld;
+            TextBox Zielfeld;
+            TextBox Zwischenzielfeld;
+            TextBox Ortfeld;
 
             try
             {
@@ -541,9 +666,21 @@ namespace MEKB_H0_Anlage
                 Steuertypfeld = (Button)this.Controls.Find(CtrlID + "_Strg_Typ", true)[0];
                 if (Steuertypfeld == null) return; //Nicht gefunden: Abbrechen
 
+                //Passendes Ortfeld finden
+                Ortfeld = (TextBox)this.Controls.Find(CtrlID + "_Ort", true)[0];
+                if (Ortfeld == null) return; //Nicht gefunden: Abbrechen
+
                 //Passendes Ruffeld finden
                 Ruffeld = (TextBox)this.Controls.Find(CtrlID + "_Ruf", true)[0];
                 if (Ruffeld == null) return; //Nicht gefunden: Abbrechen
+
+                //Passendes Zielfeld finden
+                Zielfeld = (TextBox)this.Controls.Find(CtrlID + "_Ziel", true)[0];
+                if (Zielfeld == null) return; //Nicht gefunden: Abbrechen
+
+                //Passendes Zwischenzielfeld finden
+                Zwischenzielfeld = (TextBox)this.Controls.Find(CtrlID + "_ZwischenZiel", true)[0];
+                if (Zwischenzielfeld == null) return; //Nicht gefunden: Abbrechen
             }
             catch
             {
@@ -567,9 +704,15 @@ namespace MEKB_H0_Anlage
             SuchFeld.Text = AktiveLoks[index].Name;
             //Gattung übernehmen
             Gattungsfeld.Text = AktiveLoks[index].Gattung;
+            //Ort übernehmen
+            Ortfeld.Text = AktiveLoks[index].AktuellerBlock;
+
             //Rufnummer generieren
             if (AktiveLoks[index].Adresse != 0) Ruffeld.Text = LokKontrolle.Abkuerzung(AktiveLoks[index].Gattung) + AktiveLoks[index].Adresse.ToString();
             else Ruffeld.Text = "";
+
+            Zielfeld.Text = AktiveLoks[index].Zielbahnhof;
+            Zwischenzielfeld.Text = AktiveLoks[index].Zwischenbahnhoefe;
 
             //Automatik-Button anpassen
             if (AktiveLoks[index].Automatik)
@@ -679,6 +822,159 @@ namespace MEKB_H0_Anlage
             }
         }
 
+        private void LokSprache_Click(object sender, EventArgs e)
+        {
+            if (sender is Button steuertyp)
+            {
+                //Name der Instanz finden
+                string name = steuertyp.Name;
+                string[] subs = name.Split('_');
+                if (subs[1] != "Sprache") return; //Muss auf _Sprache an zweiter Position haben
+
+                //Aktiver Lokindex
+                string indexStr = subs[0].Substring(7);
+                if (Int32.TryParse(indexStr, out int index))
+                {
+                    if (index < 0) return;
+                    if (index > AktiveLoks.Count) return;
+                }
+                else
+                {
+                    return;
+                }
+                TextBox Ruffeld;
+                try
+                {
+                    //Passendes Ruffeld finden
+                    Ruffeld = (TextBox)this.Controls.Find(subs[0] + "_Ruf", true)[0];
+                    if (Ruffeld == null) return; //Nicht gefunden: Abbrechen
+                }
+                catch
+                {
+                    return;
+                }
+
+
+                Bahnhofsansage.Ansage(AktiveLoks[index], Ruffeld.Text, "", "");
+
+            }
+        }
+        private void LokZiel_TextChange(object sender, EventArgs e)
+        {
+            if (sender is TextBox zieltyp)
+            {
+                //Name der Instanz finden
+                string name = zieltyp.Name;
+                string[] subs = name.Split('_');
+                if (subs[1] != "Ziel") return; //Muss auf _Ziel an zweiter Position haben
+
+                //Aktiver Lokindex
+                string indexStr = subs[0].Substring(7);
+                if (Int32.TryParse(indexStr, out int index))
+                {
+                    if (index < 0) return;
+                    if (index > AktiveLoks.Count) return;
+                }
+                else
+                {
+                    return;
+                }
+                AktiveLoks[index].Zielbahnhof = zieltyp.Text;
+            }
+        }
+        private void LokZwischenZiel_TextChange(object sender, EventArgs e)
+        {
+            if (sender is TextBox zieltyp)
+            {
+                //Name der Instanz finden
+                string name = zieltyp.Name;
+                string[] subs = name.Split('_');
+                if (subs[1] != "ZwischenZiel") return; //Muss auf _ZwischenZiel an zweiter Position haben
+
+                //Aktiver Lokindex
+                string indexStr = subs[0].Substring(7);
+                if (Int32.TryParse(indexStr, out int index))
+                {
+                    if (index < 0) return;
+                    if (index > AktiveLoks.Count) return;
+                }
+                else
+                {
+                    return;
+                }
+                AktiveLoks[index].Zwischenbahnhoefe = zieltyp.Text;
+            }
+        }
+
+        private void LokOrtsWechsel(object sender, EventArgs e)
+        {
+            if (sender is Button steuertyp)
+            {
+                //Name der Instanz finden
+                string name = steuertyp.Name;
+                string[] subs = name.Split('_');
+                if (subs[1] != "OrtWechsel") return; //Muss auf _Sprache an zweiter Position haben
+
+
+                //Aktiver Lokindex
+                string indexStr = subs[0].Substring(7);
+                if (Int32.TryParse(indexStr, out int index))
+                {
+                    if (index < 0) return;
+                    if (index > AktiveLoks.Count) return;
+                }
+                else
+                {
+                    return;
+                }
+                List<Belegtmelder> aktiveBelegtmelder = BelegtmelderListe.GetAktiveBelegtmelder();
+                //Fenster Loksuche ist noch nicht geöffnet
+                if (!ThreadBelegtmelderauswahl.IsAlive)
+                {
+                    ThreadBelegtmelderauswahl = new Thread(() => DialogHandhabungBelegtmelderAuswahl(subs[0], aktiveBelegtmelder));
+                    ThreadBelegtmelderauswahl.Start();
+                }
+
+            }
+        }
+
+        private void DialogHandhabungBelegtmelderAuswahl(string IndexName, List<Belegtmelder> aktiveBelegtmelder)
+        {
+            //Fenster anlegen
+            BelegtmelderAuswahl AuswahlFenster = new BelegtmelderAuswahl(aktiveBelegtmelder);
+            //Fenster anzeigen und auf Antwort warten
+            DialogResult dialogResult = AuswahlFenster.ShowDialog();
+            //Suche erfolgreich bzw. nicht abgebrochen
+            if (dialogResult == DialogResult.OK)
+            {
+                //Ergebnis über synchronisierte Aktion in Fenster schreiben
+                this.BeginInvoke((Action<string, Belegtmelder, string>)SetzeOrt, IndexName, AuswahlFenster.Auswahl, AuswahlFenster.vorherigerBlock);
+            }
+        }
+
+        /// <summary>
+        /// Aktion für Thread: Kapselung von DialogHandhabungBelegtmelderAuswahl
+        /// </summary>
+        /// <param name="IndexName">Index-Name auf den die neue gesuchte Lok angelegt werden soll</param>
+        /// <param name="gefundeneLok">Neu gefundene Lok, die in diesen Index eingetragen werden soll</param>
+        private void SetzeOrt(string IndexName, Belegtmelder gewaehlterOrt, string vorBlock)
+        {
+            //Index der Lok lesen
+            string indexStr = IndexName.Substring(7);
+            if (Int32.TryParse(indexStr, out int index))
+            {
+                if (index < 0) return;
+                if (index > AktiveLoks.Count) return;
+            }
+            else //Kein Index erkannt
+            {
+                return;
+            }
+            //Daten übertragen
+            AktiveLoks[index].AktuellerBlock = gewaehlterOrt.Name;
+            AktiveLoks[index].VorherigerBlock = vorBlock;
+        }
+
         #endregion
 
         private void Zugmenue_FormClosing(object sender, FormClosingEventArgs e)
@@ -691,6 +987,43 @@ namespace MEKB_H0_Anlage
             }
         }
 
-       
+        private void Zugmenue_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Zugmenue_Shown(object sender, EventArgs e)
+        {
+            FelderNeuzeichnen();
+
+            // 0,5 Sekunden Timer einrichten (Lebenspuls für die Verbindung)
+            HeartbeatTimer = new System.Timers.Timer(500);
+            // Timer mit Funktion "ZugmenueHeartbeat" Verbinden
+            HeartbeatTimer.Elapsed += ZugmenueHeartbeat;
+            HeartbeatTimer.AutoReset = true;
+
+            // Timer aktivieren
+            HeartbeatTimer.Enabled = true;
+        }
+
+        private void ZugmenueHeartbeat(Object source, ElapsedEventArgs e)
+        {
+            for (int i = 0; i < AktiveLoks.Count; i++)
+            {
+                this.BeginInvoke((Action<int>)UpdateOrt, i);
+            }
+        }
+        private void UpdateOrt(int ID)
+        {
+            if (ID < 0) return;
+            if (ID > AktiveLoks.Count) return;
+            //Passendes Ortfeld finden
+            TextBox Ortfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ort", ID), true)[0];
+            if (Ortfeld == null) return; //Nicht gefunden: Abbrechen
+
+            if(AktiveLoks[ID] == null) return;
+            if (AktiveLoks[ID].AktuellerBlock.Equals(Ortfeld.Text)) return;
+            Ortfeld.Text = AktiveLoks[ID].AktuellerBlock;
+        }
     }
 }

@@ -4180,7 +4180,7 @@
 	
 	<Abschnitt Name='TunnelInnen'>
 		<StatusBedingungen Nummer='1'>
-			<Belegtmelder>Tunnel2_Einfahrt</Belegtmelder>			
+			<Belegtmelder>TunnelInnen_Einfahrt</Belegtmelder>			
 			<Fahrstrassen_Mit>				
 				<Fahrstrasse>Gleis1_nach_TunnelInnen</Fahrstrasse>
 				<Fahrstrasse>Gleis2_nach_TunnelInnen</Fahrstrasse>
@@ -4192,7 +4192,7 @@
 			<Fahrstrassen_Gegen/>
 		</StatusBedingungen>
 		<StatusBedingungen Nummer='2'>
-			<Belegtmelder>Tunnel2</Belegtmelder>			
+			<Belegtmelder>TunnelInnen</Belegtmelder>			
 			<Fahrstrassen_Mit>				
 				<Fahrstrasse>Gleis1_nach_TunnelInnen</Fahrstrasse>
 				<Fahrstrasse>Gleis2_nach_TunnelInnen</Fahrstrasse>
@@ -4204,7 +4204,7 @@
 			<Fahrstrassen_Gegen/>
 		</StatusBedingungen>
 		<StatusBedingungen Nummer='3'>
-			<Belegtmelder>Tunnel2_Halt</Belegtmelder>			
+			<Belegtmelder>TunnelInnen_Halt</Belegtmelder>			
 			<Fahrstrassen_Mit>				
 				<Fahrstrasse>Gleis1_nach_TunnelInnen</Fahrstrasse>
 				<Fahrstrasse>Gleis2_nach_TunnelInnen</Fahrstrasse>
@@ -4216,7 +4216,7 @@
 			<Fahrstrassen_Gegen/>
 		</StatusBedingungen>
 		<StatusBedingungen Nummer='4'>
-			<Belegtmelder>Tunnel1</Belegtmelder>			
+			<Belegtmelder>TunnelInnen</Belegtmelder>			
 			<Fahrstrassen_Mit>				
 				<Fahrstrasse>Gleis1_nach_TunnelAussen</Fahrstrasse>
 				<Fahrstrasse>Gleis2_nach_TunnelAussen</Fahrstrasse>
@@ -4352,7 +4352,7 @@
 	</Abschnitt>
 	<Abschnitt Name='TunnelAussen'>
 		<StatusBedingungen Nummer='1'>
-			<Belegtmelder>Tunnel1_Einfahrt</Belegtmelder>			
+			<Belegtmelder>TunnelAussen_Einfahrt</Belegtmelder>			
 			<Fahrstrassen_Mit>				
 				<Fahrstrasse>Gleis1_nach_TunnelAussen</Fahrstrasse>
 				<Fahrstrasse>Gleis2_nach_TunnelAussen</Fahrstrasse>
@@ -4364,7 +4364,7 @@
 			<Fahrstrassen_Gegen/>
 		</StatusBedingungen>
 		<StatusBedingungen Nummer='2'>
-			<Belegtmelder>Tunnel1</Belegtmelder>			
+			<Belegtmelder>TunnelAussen</Belegtmelder>			
 			<Fahrstrassen_Mit>				
 				<Fahrstrasse>Gleis1_nach_TunnelAussen</Fahrstrasse>
 				<Fahrstrasse>Gleis2_nach_TunnelAussen</Fahrstrasse>
@@ -4376,7 +4376,7 @@
 			<Fahrstrassen_Gegen/>
 		</StatusBedingungen>
 		<StatusBedingungen Nummer='3'>
-			<Belegtmelder>Tunnel1_Halt</Belegtmelder>			
+			<Belegtmelder>TunnelAussen_Halt</Belegtmelder>			
 			<Fahrstrassen_Mit>				
 				<Fahrstrasse>Gleis1_nach_TunnelAussen</Fahrstrasse>
 				<Fahrstrasse>Gleis2_nach_TunnelAussen</Fahrstrasse>
@@ -4388,7 +4388,7 @@
 			<Fahrstrassen_Gegen/>
 		</StatusBedingungen>
 		<StatusBedingungen Nummer='4'>
-			<Belegtmelder>Tunnel2</Belegtmelder>			
+			<Belegtmelder>TunnelInnen</Belegtmelder>			
 			<Fahrstrassen_Mit>				
 				<Fahrstrasse>Gleis1_nach_TunnelInnen</Fahrstrasse>
 				<Fahrstrasse>Gleis2_nach_TunnelInnen</Fahrstrasse>
@@ -7266,32 +7266,18 @@
 			<PosY>8</PosY>
 			<Typ>Prellbock_90</Typ>
 			<Bedingung Teil='1'>1</Bedingung>			
-		</Gleis>
-		<Gleis Name='BW_7'>
-			<PosX>18</PosX>
-			<PosY>9</PosY>
-			<Typ>Prellbock_270</Typ>
-			<Bedingung Teil='1'>1</Bedingung>			
-		</Gleis>
+		</Gleis>		
 		<Gleis Name='BW_8'>
 			<PosX>17</PosX>
 			<PosY>9</PosY>
-			<Typ>Gerade_90+Ecke_OL</Typ>
-			<Bedingung Teil='1'>1</Bedingung>	
-			<Bedingung Teil='2'>1</Bedingung>			
+			<Typ>Ecke_OL</Typ>
+			<Bedingung Teil='1'>1</Bedingung>				
 		</Gleis>
-		<Gleis Name='Weiche402'>
+		<Gleis Name='BW_7'>
 			<PosX>16</PosX>
 			<PosY>9</PosY>
-			<Typ>WeicheR_315</Typ>
-			<Bedingung Teil='1'>1</Bedingung>
-			<Label>
-				<Typ>Rahmen</Typ>
-				<Text>402</Text>
-				<Schrift Fett='false'>7</Schrift>
-				<XOffset>16</XOffset>
-				<YOffset>20</YOffset>
-			</Label>
+			<Typ>Gerade_315</Typ>
+			<Bedingung Teil='1'>1</Bedingung>			
 		</Gleis>
 		<Gleis Name='BW_9'>
 			<PosX>15</PosX>

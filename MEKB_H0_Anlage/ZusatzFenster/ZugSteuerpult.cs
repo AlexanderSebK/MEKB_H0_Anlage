@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace MEKB_H0_Anlage
@@ -13,11 +14,13 @@ namespace MEKB_H0_Anlage
     public partial class ZugSteuerpult : Form
     {
         private Lokomotive Lokdaten { set; get; }
+        private static System.Timers.Timer StatusUpdateTimer;
+
         public ZugSteuerpult(Lokomotive Instance)
         {
             InitializeComponent();
             Lokdaten = Instance;
-            UpdateLokDaten();
+            
         }
 
         public delegate void CMD_LOKFAHRT(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo);
@@ -90,6 +93,13 @@ namespace MEKB_H0_Anlage
             if (Lokdaten.LokUmgedreht) Fahrwechsel.BackColor = Color.White;
             else Fahrwechsel.BackColor = Color.DarkGray;
 
+            if (Lokdaten.Nothalt) Notbremse.BackColor = Color.Red;
+            else Notbremse.BackColor = Color.White;
+
+            Position.Text = Lokdaten.AktuellerBlock;
+            textBox1.Text = Lokdaten.VorherigerBlock;
+            textBox3.Text = Lokdaten.NexterBlock;
+
             if(Lokdaten.Richtung == LokFahrstufen.Vorwaerts)
             {
                 vor.BackColor = Color.White;
@@ -145,10 +155,10 @@ namespace MEKB_H0_Anlage
 
         private void ZugSteuerpult_Shown(object sender, EventArgs e)
         {
-            Fahrstufe.Value = 0;
-            Fahrstufe_ValueChanged(sender, e);
+            //Fahrstufe.Value = 0;
+            //Fahrstufe_ValueChanged(sender, e);
+            UpdateLokDaten();
         }
-
 
         private void Fkt_Set_Click(object sender, EventArgs e)
         {
@@ -348,14 +358,22 @@ namespace MEKB_H0_Anlage
 
         private void vor_Click(object sender, EventArgs e)
         {
-            Lokdaten.Richtung = LokFahrstufen.Vorwaerts;
-            setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            if(Lokdaten.Richtung != LokFahrstufen.Vorwaerts)
+            {
+                Lokdaten.Richtung = LokFahrstufen.Vorwaerts;
+                Lokdaten.VorherigerBlock = Lokdaten.NexterBlock;
+                setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            }       
         }
 
         private void Ruck_Click(object sender, EventArgs e)
         {
-            Lokdaten.Richtung = LokFahrstufen.Rueckwaerts;
-            setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            if (Lokdaten.Richtung != LokFahrstufen.Rueckwaerts)
+            {
+                Lokdaten.Richtung = LokFahrstufen.Rueckwaerts;
+                Lokdaten.VorherigerBlock = Lokdaten.NexterBlock;
+                setLOKFahrt?.Invoke(Lokdaten.Adresse, (byte)Lokdaten.Fahrstufe, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            }
         }
 
         private void Anhalten_Click(object sender, EventArgs e)
@@ -365,7 +383,15 @@ namespace MEKB_H0_Anlage
 
         private void Notbremse_Click(object sender, EventArgs e)
         {
-            setLOKFahrt?.Invoke(Lokdaten.Adresse, 255, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            //setLOKFahrt?.Invoke(Lokdaten.Adresse, 255, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
+            if(Lokdaten.Nothalt)
+            {
+                Lokdaten.NotBremseAufheben();
+            }
+            else
+            {
+                Lokdaten.NotBremse();
+            }
         }
 
         private void Fahrwechsel_Click(object sender, EventArgs e)

@@ -47,7 +47,7 @@
             // OK
             // 
             this.OK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OK.Location = new System.Drawing.Point(244, 175);
+            this.OK.Location = new System.Drawing.Point(343, 175);
             this.OK.Name = "OK";
             this.OK.Size = new System.Drawing.Size(93, 23);
             this.OK.TabIndex = 0;
@@ -130,7 +130,7 @@
             // Abbruch
             // 
             this.Abbruch.DialogResult = System.Windows.Forms.DialogResult.Abort;
-            this.Abbruch.Location = new System.Drawing.Point(343, 175);
+            this.Abbruch.Location = new System.Drawing.Point(244, 175);
             this.Abbruch.Name = "Abbruch";
             this.Abbruch.Size = new System.Drawing.Size(93, 23);
             this.Abbruch.TabIndex = 9;

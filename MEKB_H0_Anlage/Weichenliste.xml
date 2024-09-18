@@ -1,255 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Weichenliste>
-	<Optionen>
+<Optionen>
 		<Q_Modus>1</Q_Modus>
 		<Deaktivieren>1</Deaktivieren>
 	</Optionen>
     <Weiche>
 		<name>Weiche1</name>
-        <Adresse>123</Adresse>
-        <spiegeln>1</spiegeln>
-		<Zeit>1000</Zeit>
+        <Adresse>128</Adresse>
+        <spiegeln>0</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
     <Weiche>
 		<name>Weiche2</name>
-        <Adresse>124</Adresse>
+        <Adresse>127</Adresse>
         <spiegeln>0</spiegeln>
-      <Zeit>1000</Zeit>
+	   <Zeit>2000</Zeit>
     </Weiche>
     <Weiche>
 		<name>Weiche3</name>
-        <Adresse>122</Adresse>
+        <Adresse>126</Adresse>
         <spiegeln>0</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
     <Weiche>
 		<name>Weiche4</name>
-        <Adresse>121</Adresse>
+        <Adresse>125</Adresse>
         <spiegeln>0</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
     <Weiche>
 		<name>Weiche5</name>
-        <Adresse>120</Adresse>
-        <spiegeln>0</spiegeln>
+        <Adresse>123</Adresse>
+        <spiegeln>1</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche6</name>
-        <Adresse>119</Adresse>
-        <spiegeln>0</spiegeln>
+        	<Adresse>124</Adresse>
+        	<spiegeln>1</spiegeln>
+		<Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>DKW7_1</name>
-        <Adresse>125</Adresse>
+        <Adresse>130</Adresse>
         <spiegeln>0</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>DKW7_2</name>
-        <Adresse>126</Adresse>
-        <spiegeln>0</spiegeln>
+        <Adresse>129</Adresse>
+        <spiegeln>1</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche8</name>
-        <Adresse>135</Adresse>
-        <spiegeln>0</spiegeln>
+        <Adresse>139</Adresse>
+        <spiegeln>1</spiegeln>
     </Weiche>
 	<Weiche>
 		<name>DKW9_1</name>
-        <Adresse>134</Adresse>
-        <spiegeln>0</spiegeln>
+        <Adresse>138</Adresse>
+        <spiegeln>1</spiegeln>
+		<Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>DKW9_2</name>
-        <Adresse>133</Adresse>
+        <Adresse>137</Adresse>
         <spiegeln>0</spiegeln>
+		<Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche21</name>
-        <Adresse>130</Adresse>
+        <Adresse>136</Adresse>
         <spiegeln>0</spiegeln>
+		<Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>KW22_1</name>
-        <Adresse>131</Adresse>
-        <spiegeln>0</spiegeln>
+        <Adresse>135</Adresse>
+        <spiegeln>1</spiegeln>
+		<Zeit>3000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>KW22_2</name>
-        <Adresse>132</Adresse>
+        <Adresse>134</Adresse>
         <spiegeln>0</spiegeln>
+		<Zeit>3000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche23</name>
-        <Adresse>129</Adresse>
-        <spiegeln>0</spiegeln>
+        	<Adresse>133</Adresse>
+        	<spiegeln>1</spiegeln>
+		<Zeit>3000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>DKW24_1</name>
-        <Adresse>127</Adresse>
+        <Adresse>132</Adresse>
         <spiegeln>0</spiegeln>
+		<Zeit>3000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>DKW24_2</name>
-        <Adresse>128</Adresse>
+        <Adresse>131</Adresse>
         <spiegeln>0</spiegeln>
+		<Zeit>3000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche25</name>
-        <Adresse>118</Adresse>
+        <Adresse>122</Adresse>
         <spiegeln>0</spiegeln>
+		<Zeit>3000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche26</name>
-        <Adresse>117</Adresse>
-        <spiegeln>0</spiegeln>
+        <Adresse>121</Adresse>
+        <spiegeln>1</spiegeln>
+		<Zeit>3000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche27</name>
-        <Adresse>116</Adresse>
+        <Adresse>120</Adresse>
         <spiegeln>0</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche28</name>
-        <Adresse>115</Adresse>
-        <spiegeln>0</spiegeln>
+        <Adresse>119</Adresse>
+        <spiegeln>1</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche29</name>
-        <Adresse>114</Adresse>
+        <Adresse>117</Adresse>
         <spiegeln>0</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche30</name>
-        <Adresse>113</Adresse>
+        <Adresse>118</Adresse>
         <spiegeln>0</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche50</name>
-        <Adresse>1</Adresse>
-        <spiegeln>0</spiegeln>
-    <Zeit>2000</Zeit>
+        <Adresse>116</Adresse>
+        <spiegeln>1</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
 	<Weiche>
 		<name>Weiche51</name>
-        <Adresse>2</Adresse>
+        <Adresse>115</Adresse>
         <spiegeln>0</spiegeln>
+	   <Zeit>2000</Zeit>
     </Weiche>
   <Weiche>
     <name>Weiche52</name>
-    <Adresse>3</Adresse>
+    <Adresse>140</Adresse>
     <spiegeln>0</spiegeln>
+	   <Zeit>2000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche53</name>
-    <Adresse>4</Adresse>
+    <Adresse>141</Adresse>
     <spiegeln>0</spiegeln>
+	   <Zeit>2000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche60</name>
-    <Adresse>5</Adresse>
-    <spiegeln>0</spiegeln>
+    <Adresse>160</Adresse>
+    <spiegeln>1</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche61</name>
-    <Adresse>6</Adresse>
-    <spiegeln>0</spiegeln>
+    <Adresse>161</Adresse>
+    <spiegeln>1</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche62</name>
-    <Adresse>7</Adresse>
+    <Adresse>162</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche63</name>
-    <Adresse>8</Adresse>
-    <spiegeln>0</spiegeln>
+    <Adresse>163</Adresse>
+    <spiegeln>1</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche64</name>
-    <Adresse>9</Adresse>
+    <Adresse>164</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche65</name>
-    <Adresse>10</Adresse>
+    <Adresse>165</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche66</name>
-    <Adresse>11</Adresse>
+    <Adresse>166</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche67</name>
-    <Adresse>12</Adresse>
-    <spiegeln>0</spiegeln>
+    <Adresse>167</Adresse>
+    <spiegeln>1</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche68</name>
-    <Adresse>13</Adresse>
-    <spiegeln>0</spiegeln>
+    <Adresse>168</Adresse>
+    <spiegeln>1</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche70</name>
-    <Adresse>20</Adresse>
+    <Adresse>170</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche71</name>
-    <Adresse>21</Adresse>
+    <Adresse>171</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche72</name>
-    <Adresse>22</Adresse>
+    <Adresse>172</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche73</name>
-    <Adresse>23</Adresse>
+    <Adresse>173</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche74</name>
-    <Adresse>24</Adresse>
-    <spiegeln>0</spiegeln>
+    <Adresse>174</Adresse>
+    <spiegeln>1</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche75</name>
-    <Adresse>25</Adresse>
-    <spiegeln>0</spiegeln>
+    <Adresse>175</Adresse>
+    <spiegeln>1</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche76</name>
-    <Adresse>26</Adresse>
-    <spiegeln>0</spiegeln>
+    <Adresse>176</Adresse>
+    <spiegeln>1</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche80</name>
-    <Adresse>30</Adresse>
+    <Adresse>177</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche81</name>
-    <Adresse>31</Adresse>
+    <Adresse>178</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche82</name>
-    <Adresse>32</Adresse>
-    <spiegeln>0</spiegeln>
+    <Adresse>179</Adresse>
+    <spiegeln>1</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche90</name>
-    <Adresse>40</Adresse>
+    <Adresse>190</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche91</name>
-    <Adresse>41</Adresse>
+    <Adresse>191</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
   <Weiche>
     <name>Weiche92</name>
-    <Adresse>42</Adresse>
+    <Adresse>192</Adresse>
     <spiegeln>0</spiegeln>
+<Zeit>10000</Zeit>
   </Weiche>
 </Weichenliste>

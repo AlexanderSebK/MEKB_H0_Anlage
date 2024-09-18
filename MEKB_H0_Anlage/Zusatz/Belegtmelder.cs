@@ -32,6 +32,17 @@ namespace MEKB_H0_Anlage
             DateiImportieren(Dateiname);
         }
 
+        public void SignalZugriff(SignalListe signalListe)
+        {
+            foreach(Belegtmelder belegtmelder in Liste)
+            {
+                if(!belegtmelder.SignalName.Equals(""))
+                {
+                    belegtmelder.Signal = signalListe.GetSignal(belegtmelder.SignalName);
+                }
+            }
+        }
+
         /// <summary>
         /// Datei importieren 
         /// </summary>
@@ -57,8 +68,27 @@ namespace MEKB_H0_Anlage
                 }
                 int Modulnummer = Int16.Parse(melder.Element("Modulnummer").Value);        //Modulnummer
                 int Portnummer = Int16.Parse(melder.Element("Portnummer").Value);               //Portnummer
-                int CoolDowntime = 6000;
-                Belegtmelder belegtmelder =  new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime };  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
+                int CoolDowntime = 5000;
+                int CoolUptime = 500;
+
+                string Signal = "";
+                string SignalKommeVon = "";
+                
+                if(melder.Element("Signal") != null)
+                {
+                    Signal = melder.Element("Signal").Value;
+                    SignalKommeVon = melder.Element("Signal").Attribute("KommeVon").Value;
+                }
+
+                if (melder.Element("Cooldowntime") != null)
+                {
+                    CoolDowntime = Int16.Parse(melder.Element("Cooldowntime").Value);
+                }
+                if (melder.Element("Cooluptime") != null)
+                {
+                    CoolUptime = Int16.Parse(melder.Element("Cooluptime").Value);
+                }
+                Belegtmelder belegtmelder =  new Belegtmelder() { Name = Name, Modulnummer = Modulnummer, Portnummer = Portnummer, CoolDownTime = CoolDowntime, CoolUpTime = CoolUptime, Registriert = "", SignalName = Signal, Signal_KommeVon = SignalKommeVon};  //Mit den Werten einen neuen Belegtmelder zur Liste hinzufügen
 
                 belegtmelder.NachbarBlocks = new List<NachbarBlock>();
 
@@ -72,7 +102,6 @@ namespace MEKB_H0_Anlage
                         if (block.Attribute("Name") != null)  BlockName = block.Attribute("Name").Value;
                         else BlockName = block.Element("Blockname").Value;
 
-                        //bool Fahrrichtung = block.Element("Fahrtrichtung").Value == "1";
                         string KommeVon = "";
                         if(block.Attribute("KommeVon") != null) KommeVon = block.Attribute("KommeVon").Value;
 
@@ -186,6 +215,32 @@ namespace MEKB_H0_Anlage
                 PortListe.Clear();
             }
         }
+
+        public List<Belegtmelder> GetAktiveBelegtmelder()
+        {
+            List<Belegtmelder> aktive = new List<Belegtmelder>();
+            foreach (Belegtmelder belegtmelder in Liste)
+            {
+                if(belegtmelder.IstBelegt())
+                { aktive.Add(belegtmelder); }
+
+            }
+            return aktive;
+        }
+
+        public List<Belegtmelder> UnbekannteBelegung()
+        {
+            List<Belegtmelder> unbekannt = new List<Belegtmelder>();
+            foreach (Belegtmelder belegtmelder in Liste)
+            {
+                if (belegtmelder.IstBelegt() && belegtmelder.Registriert.Equals(""))
+                { unbekannt.Add(belegtmelder); }
+            }
+            return unbekannt;
+        }
+
+
+
         /// <summary>
         /// Anfrage an Zentrale für neuen Belegtmelderstatus
         /// </summary>
@@ -230,6 +285,10 @@ namespace MEKB_H0_Anlage
         /// Zeit in ms, we lange der Belegtmelder noch als belegt gewertet wird, nachdem keine Belegung mehr festgestellt wurde
         /// </summary>
         public int CoolDownTime { set; get; }
+        /// <summary>
+        /// Zeit in ms wie lange der Belegtmelder belegt sein muss, bis es als sicher aktiv ist.
+        /// </summary>
+        public int CoolUpTime { set; get; }
         #endregion
         #region Variablen
         /// <summary>
@@ -240,6 +299,9 @@ namespace MEKB_H0_Anlage
         /// Ist der Gleisabschnitt sicher belegt
         /// </summary>
         private bool Stabil {  set; get; }
+        /// <summary>
+        /// Zeit wie lange der Status als aktiv bewertet wird
+        /// </summary>
         private int CoolUpTimer { set; get; }
         /// <summary>
         /// Zeit wie lange noch der Status belegt aktiv bleibt
@@ -250,10 +312,19 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public string Registriert { set; get; }
 
+        public Signal Signal { set; get; }
+
+        public string SignalName; // Angehangendes Signal
+        public string Signal_KommeVon;
 
         public List<NachbarBlock> NachbarBlocks { set; get; }
 
         #endregion
+
+        public Belegtmelder()
+        {
+            CoolDownTimer = CoolDownTime;
+        }
 
         /// <summary>
         /// Gibt den Namen des nächsten Blocks an
@@ -293,19 +364,20 @@ namespace MEKB_H0_Anlage
         /// <param name="Status">Neuer Status</param>
         public void MeldeBesetzt(bool Status)
         {
-            if (Belegt == true)
+            if (Belegt == true) // Letzter Status war belegt
             {
-                if (Status == false)
+                if (Status == false) //Neuer Status ist unbelegt
                 {
-                    if (Stabil == true) CoolDownTimer = CoolDownTime;
-                    else CoolDownTimer = 0;
+                    if (Stabil == true) CoolDownTimer = CoolDownTime; // Status war bereits stabil (sicher belegt): Cooldown-timer Starten
+                    else CoolDownTimer = 0; // Status war noch beim Einschalten: Sofort ausschalten
                 }
             }
-            Belegt = Status;
-            if (Status == false)
+            Belegt = Status; //Status übernehmen
+            if (Status == false) // Neuer Status ist unbelegt
             {
-                Stabil = false;
-                CoolUpTimer = 0;
+                Stabil = false; // Zustand nicht mehr stabil
+                CoolUpTimer = 0; // Einschaltimer resetten
+                if (Registriert.Equals("Deregistriert")) Registriert = "";
             }
         }
 
@@ -315,20 +387,31 @@ namespace MEKB_H0_Anlage
         /// <param name="ZeitVergangen">Zeit nach dem letzten Aufruf (in ms)</param>
         public void CoolDown(int ZeitVergangen)
         {
-            if ((!Belegt) && (CoolDownTimer > 0))
+            if ((!Belegt) && (CoolDownTimer > 0)) //Beim Cool down
             {
-                CoolDownTimer -= ZeitVergangen;
-                if (CoolDownTimer <= 0) CoolDownTimer = 0;
+                CoolDownTimer -= ZeitVergangen; //Cooldowntimer weiterzählen
+                if (CoolDownTimer <= 0) CoolDownTimer = 0; //Cooldowntimer erreicht
             }
 
-            if (Stabil == false)
+            if (Belegt == true) { CoolDownTimer = CoolUpTime; }
+
+            if (Stabil == false) //Noch instabil
             {
-                if (Belegt && (CoolUpTimer <= 500))
+                if (Belegt && (CoolUpTimer <= CoolUpTime)) // Belegt und Cool Up timer noch nicht ausgelaufen
                 {
-                    CoolUpTimer += ZeitVergangen;
+                    CoolUpTimer += ZeitVergangen; //Timer erhöhen
                 }
-                if (CoolUpTimer >= 500) Stabil = true;
+                if (CoolUpTimer >= CoolUpTime) Stabil = true; //Timer abgelaufen -> Zustand ist stabil
             }
+        }
+
+        public SignalZustand GetSignalStatus(string KommeVon)
+        {
+            if (Signal_KommeVon.Equals(KommeVon))
+            {
+                return Signal.Zustand;
+            }
+            return SignalZustand.NichtGefunden;
         }
 
         #region Listen-Funktionen
@@ -384,6 +467,7 @@ namespace MEKB_H0_Anlage
         public List<String> WeichenAbzweig; //Liste von Weichennamen, die auf Abzweig stehen müssen, damit dieser Block erreicht werden kann
         public List<String> WeichenGerade;  //Liste von Weichennamen, die auf Gerade stehen müssen, damit dieser Block erreicht werden kann
         public string KommeVon; //Letzte Block, aus dem der Zug eingefahren ist 
+        
 
         public string BlockName; //Name des Nächsten Blocks
         public NachbarBlock()
