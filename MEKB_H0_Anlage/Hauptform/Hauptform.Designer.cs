@@ -48,6 +48,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.überwachungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.belegtmeldungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.weichenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.signalsteuergungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,7 +73,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Btn_Fahrzeuge = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
-            this.weichenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LokKontrolle = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -215,9 +216,16 @@
             // belegtmeldungToolStripMenuItem
             // 
             this.belegtmeldungToolStripMenuItem.Name = "belegtmeldungToolStripMenuItem";
-            this.belegtmeldungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.belegtmeldungToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.belegtmeldungToolStripMenuItem.Text = "Belegtmeldung";
             this.belegtmeldungToolStripMenuItem.Click += new System.EventHandler(this.BelegtmeldungToolStripMenuItem_Click);
+            // 
+            // weichenToolStripMenuItem
+            // 
+            this.weichenToolStripMenuItem.Name = "weichenToolStripMenuItem";
+            this.weichenToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.weichenToolStripMenuItem.Text = "Weichen";
+            this.weichenToolStripMenuItem.Click += new System.EventHandler(this.weichenToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -230,7 +238,7 @@
             // signalsteuergungToolStripMenuItem
             // 
             this.signalsteuergungToolStripMenuItem.Name = "signalsteuergungToolStripMenuItem";
-            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.signalsteuergungToolStripMenuItem.Text = "Signalsteuergung";
             this.signalsteuergungToolStripMenuItem.Click += new System.EventHandler(this.SignalsteuergungToolStripMenuItem_Click);
             // 
@@ -487,18 +495,29 @@
             this.button15.Text = "Debug";
             this.button15.UseVisualStyleBackColor = true;
             // 
-            // weichenToolStripMenuItem
+            // LokKontrolle
             // 
-            this.weichenToolStripMenuItem.Name = "weichenToolStripMenuItem";
-            this.weichenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.weichenToolStripMenuItem.Text = "Weichen";
-            this.weichenToolStripMenuItem.Click += new System.EventHandler(this.weichenToolStripMenuItem_Click);
+            this.LokKontrolle.Appearance = System.Windows.Forms.Appearance.Button;
+            this.LokKontrolle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.LokKontrolle.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokKontrolle.ForeColor = System.Drawing.Color.Silver;
+            this.LokKontrolle.Location = new System.Drawing.Point(970, 41);
+            this.LokKontrolle.Name = "LokKontrolle";
+            this.LokKontrolle.Size = new System.Drawing.Size(161, 24);
+            this.LokKontrolle.TabIndex = 999;
+            this.LokKontrolle.Text = "Loks überwachen";
+            this.LokKontrolle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Hinttext.SetToolTip(this.LokKontrolle, "Leuchtet: Loks werden überwacht und führen Notbremse aus\r\nDunkel: Loks fahren nur" +
+        " manuell. Keine Notbremsen oder Verfolgung");
+            this.LokKontrolle.UseVisualStyleBackColor = false;
+            this.LokKontrolle.CheckedChanged += new System.EventHandler(this.LokKontrolle_CheckedChanged);
             // 
             // Hauptform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.LokKontrolle);
             this.Controls.Add(this.button15);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.KontrollPanel);
@@ -570,6 +589,7 @@
         private System.Windows.Forms.Button Btn_Fahrzeuge;
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.ToolStripMenuItem weichenToolStripMenuItem;
+        private System.Windows.Forms.CheckBox LokKontrolle;
     }
 }
 

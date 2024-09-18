@@ -20,7 +20,7 @@ namespace MEKB_H0_Anlage
         {
             InitializeComponent();
             Lokdaten = Instance;
-            UpdateLokDaten();
+            
         }
 
         public delegate void CMD_LOKFAHRT(int Adresse, byte Fahrstufe, int Richtung, byte Fahstrufeninfo);
@@ -93,6 +93,9 @@ namespace MEKB_H0_Anlage
             if (Lokdaten.LokUmgedreht) Fahrwechsel.BackColor = Color.White;
             else Fahrwechsel.BackColor = Color.DarkGray;
 
+            if (Lokdaten.Nothalt) Notbremse.BackColor = Color.Red;
+            else Notbremse.BackColor = Color.White;
+
             Position.Text = Lokdaten.AktuellerBlock;
             textBox1.Text = Lokdaten.VorherigerBlock;
             textBox3.Text = Lokdaten.NexterBlock;
@@ -154,6 +157,7 @@ namespace MEKB_H0_Anlage
         {
             //Fahrstufe.Value = 0;
             //Fahrstufe_ValueChanged(sender, e);
+            UpdateLokDaten();
         }
 
         private void Fkt_Set_Click(object sender, EventArgs e)

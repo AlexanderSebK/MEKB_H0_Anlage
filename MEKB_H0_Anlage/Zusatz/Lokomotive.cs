@@ -500,7 +500,7 @@ namespace MEKB_H0_Anlage
                 {
                     LetzterBekannterBlock = AktuellerBlock;
                     AktuellerBlock = "Lok verloren";
-                    
+                    NotBremse();
                 }
                 else
                 {

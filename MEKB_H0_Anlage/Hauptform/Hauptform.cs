@@ -80,6 +80,9 @@ namespace MEKB_H0_Anlage
 
         public readonly int Max_Loks = 12;
 
+        public readonly int Timer_BelegtMeldung_ms = 200;
+        public readonly int Timer_WeichenUpdate_ms = 50;
+
 
 
         #region Hauptform Funktionen
@@ -118,13 +121,13 @@ namespace MEKB_H0_Anlage
 
 
             // 250 MilliSekunden Timer: Deaktivieren der Weichenmotoren.
-            BelegtmelderCoolDown = new System.Timers.Timer(250);
+            BelegtmelderCoolDown = new System.Timers.Timer(Timer_BelegtMeldung_ms);
             // Timer mit Funktion "WeichenCooldown" Verbinden
             BelegtmelderCoolDown.Elapsed += BelegtmelderCooldown;
             BelegtmelderCoolDown.AutoReset = true;
 
             // 100 MilliSekunden Timer: StatusUpdateLok.
-            UpdateLokStatus = new System.Timers.Timer(100);
+            UpdateLokStatus = new System.Timers.Timer(200);
             // Timer mit Funktion "OnStatusUpdate" Verbinden
             UpdateLokStatus.Elapsed += OnStatusUpdate;
             UpdateLokStatus.AutoReset = true;
@@ -313,7 +316,9 @@ namespace MEKB_H0_Anlage
             //Nur ausführen, wenn Verbindung aufgebaut ist
             if (z21Start.Verbunden())
             {
-                BelegtmelderListe.CoolDownUpdate(250);
+                BelegtmelderListe.CoolDownUpdate(Timer_BelegtMeldung_ms);
+                z21Start.LAN_RMBUS_GETDATA(0x00);
+                z21Start.LAN_RMBUS_GETDATA(0x01);
             }
         }
 
@@ -322,7 +327,9 @@ namespace MEKB_H0_Anlage
         {
             if (!Betriebsbereit) return;
             // Lokstatus abfragen
-            if(LokListe.Count == 0) return;
+            if (LokListe.Count == 0) return;
+
+            if (!LokKontrolle.Checked) return;
 
             foreach(Lokomotive lokomotive in LokListe)
             {
@@ -897,6 +904,23 @@ namespace MEKB_H0_Anlage
             if (weichen_Ueberwachung.IsDisposed) weichen_Ueberwachung = new Weichen_Ueberwachung(WeichenListe.Liste);
             weichen_Ueberwachung.Show();
             weichen_Ueberwachung.BringToFront();
+        }
+
+        private void LokKontrolle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.Checked == true)
+                {
+                    checkBox.BackColor = Color.FromArgb(128, 0, 128);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                }
+                else
+                {
+                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
+                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
+                }
+            }
         }
     }
 }
