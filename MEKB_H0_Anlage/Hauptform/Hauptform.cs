@@ -306,6 +306,7 @@ namespace MEKB_H0_Anlage
 
         }
 
+        int BelegtmelderGruppenIndex = 0;
         /// <summary>
         /// Cooldown Timer für Belegtmelder. Zeit in der gemessen wird ob das Signal stabil ist, erst dann wird der Wert übernommen
         /// </summary>
@@ -317,8 +318,8 @@ namespace MEKB_H0_Anlage
             if (z21Start.Verbunden())
             {
                 BelegtmelderListe.CoolDownUpdate(Timer_BelegtMeldung_ms);
-                z21Start.LAN_RMBUS_GETDATA(0x00);
-                z21Start.LAN_RMBUS_GETDATA(0x01);
+                if (BelegtmelderGruppenIndex == 0)  { z21Start.LAN_RMBUS_GETDATA(0x00); BelegtmelderGruppenIndex = 1; }
+                else                                { z21Start.LAN_RMBUS_GETDATA(0x01); BelegtmelderGruppenIndex = 0; }
             }
         }
 
