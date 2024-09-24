@@ -126,20 +126,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hauptform\Hauptform_ButtonCtrl.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Hauptform\Hauptform_LokStrg.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Hauptform\Hauptform.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Hauptform\Hauptform.Designer.cs">
       <DependentUpon>Hauptform.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Hauptform\Hauptform_Fahrstrassen.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="MenuFenster\Belegtmelder_Ueberwachung.cs">
       <SubType>Form</SubType>
@@ -199,15 +190,6 @@
     </Compile>
     <Compile Include="MenuFenster\Signal_Einstellungen.Designer.cs">
       <DependentUpon>Signal_Einstellungen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Hauptform\Z21_CallBacks.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Hauptform\Hauptform_Gleisplan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Hauptform\Hauptform_Invokes.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="MenuFenster\InfoBox.cs">
       <SubType>Form</SubType>
