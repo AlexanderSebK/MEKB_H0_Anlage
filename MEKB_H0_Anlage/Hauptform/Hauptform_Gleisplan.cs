@@ -614,7 +614,7 @@ namespace MEKB_H0_Anlage
                 //Prüfen ob alle Weichen der Fahrstraßen richtig geschaltet sind
                 if (fahrstrasse.CheckFahrstrassePos() == false) //Noch nicht alle Weichen gestellt
                 {
-                    if (Betriebsbereit) fahrstrasse.SetFahrstrasse(z21Start);
+                    if (Betriebsbereit) fahrstrasse.SetFahrstrasse();
                 }
                 else //Alle Weichen in richtiger Stellung
                 {

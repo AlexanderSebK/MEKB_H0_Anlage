@@ -141,7 +141,7 @@ namespace MEKB_H0_Anlage
                 weiche.FahrstrasseRichtung_vonZunge = this.WeichenKonfigRichtung[weiche.Name]; // weiche.FahrstrasseRichtung_vonZunge;
             }
         }
-        public void SetFahrstrasse(Z21 Z21_Instanz)
+        public void SetFahrstrasse()
         {
             if (SetPointer >= Fahrstr_Weichenliste.Count) SetPointer = 0;
             Weiche weiche = Fahrstr_Weichenliste[SetPointer];
