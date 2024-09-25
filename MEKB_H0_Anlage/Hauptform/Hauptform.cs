@@ -24,6 +24,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Threading;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 
 namespace MEKB_H0_Anlage
@@ -300,7 +301,7 @@ namespace MEKB_H0_Anlage
                         stopWatch.Stop();
                         return;
                     }
-                    this.BeginInvoke((Action<int>)UpdateFahrstrassenSchalter, 1);
+                    
                     
                     //GleisplanUpdateSignal();
                     stopWatch.Stop();
@@ -1955,6 +1956,7 @@ namespace MEKB_H0_Anlage
         public void CallBack_LAN_RMBUS_DATACHANGED(byte GruppenIndex, byte[] RMStatus)
         {
             this.BeginInvoke((Action<byte, byte[]>)UpdateBelegtmeldung, GruppenIndex, RMStatus);
+            this.BeginInvoke((Action<int>)UpdateFahrstrassenSchalter, 1);
         }
         #region Invokes
         private void Set_SerienNummer(string data)
