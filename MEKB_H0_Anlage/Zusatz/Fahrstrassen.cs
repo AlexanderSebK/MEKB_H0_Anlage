@@ -375,9 +375,9 @@ namespace MEKB_H0_Anlage
             Verzeichnis = new Dictionary<string, int>();
             GesperrteFahrstrassen = new Dictionary<string, bool>();
             XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
+            var Kategory = XMLFile.Element("Fahrstrassen");
 
-
-            var list = XMLFile.Elements("Fahrstrasse").ToList();             //Alle Elemente des Types Weiche in eine Liste Umwandeln 
+            var list = Kategory.Elements("Fahrstrasse").ToList();             //Alle Elemente des Types Fahrstrasse in eine Liste Umwandeln 
 
             foreach (XElement fahrstrasse in list)                            //Alle Elemente der Liste einzeln durchlaufen
             {

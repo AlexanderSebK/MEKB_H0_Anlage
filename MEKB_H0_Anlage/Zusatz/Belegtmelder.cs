@@ -52,8 +52,8 @@ namespace MEKB_H0_Anlage
             Liste = new List<Belegtmelder>();
             Verzeichnis = new Dictionary<string, int>();
             XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
-
-            var list = XMLFile.Elements("Belegtmelder").ToList();             //Alle Elemente des Types Belegtmelders in eine Liste Umwandeln 
+            var Kategory = XMLFile.Element("Belegtmelderliste");
+            var list = Kategory.Elements("Belegtmelder").ToList();             //Alle Elemente des Types Belegtmelders in eine Liste Umwandeln 
 
             foreach (XElement melder in list)                            //Alle Elemente der Liste einzeln durchlaufen
             {

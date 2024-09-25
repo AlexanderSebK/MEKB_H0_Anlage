@@ -40,8 +40,9 @@ namespace MEKB_H0_Anlage
         {
             Liste = new List<Weiche>();
             Verzeichnis = new Dictionary<string, int>();
-            XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen           
-            var list = XMLFile.Elements("Weiche").ToList();             //Alle Elemente des Types Weiche in eine Liste Umwandeln 
+            XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
+            var Kategory = XMLFile.Element("Weichen");
+            var list = Kategory.Elements("Weiche").ToList();             //Alle Elemente des Types Weiche in eine Liste Umwandeln 
 
             foreach (XElement weiche in list)                            //Alle Elemente der Liste einzeln durchlaufen
             {
@@ -159,7 +160,7 @@ namespace MEKB_H0_Anlage
             Schaltzeit = 3000;
             AktiveZeit = 0;
             AmBewegen = false;
-            Z21 = new Z21();
+            //Z21 = new Z21();
         }
         #region Parameter
         /// <summary>

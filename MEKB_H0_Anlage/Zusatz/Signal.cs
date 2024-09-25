@@ -45,7 +45,8 @@ namespace MEKB_H0_Anlage
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Signal>();
             XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
-            var list = XMLFile.Elements("Signal").ToList();    //Alle Elemente des Types Signal in eine Liste Umwandeln 
+            var Kategory = XMLFile.Element("Signale");
+            var list = Kategory.Elements("Signal").ToList();    //Alle Elemente des Types Signal in eine Liste Umwandeln 
 
             foreach (XElement XMLSignal in list)               //Alle Elemente der Liste einzeln durchlaufen
             {
@@ -507,7 +508,7 @@ namespace MEKB_H0_Anlage
         {
             Fahrstrassen = new List<Fahrstrasse>();
             Letzte_Adresswahl = false;
-            Z21_zentrale = new Z21();
+            //Z21_zentrale = new Z21();
             AutoSperre = false;
             Zustand = SignalZustand.Unbestimmt;
             UpdateNoetig = false;

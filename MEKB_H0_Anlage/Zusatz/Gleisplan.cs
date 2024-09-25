@@ -26,7 +26,8 @@ namespace MEKB_H0_Anlage
             Abschnitte = new List<Abschnitt>();
 
             XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
-            var XML_Abschnitte = XMLFile.Elements("Abschnitt").ToList();
+            var Kategory = XMLFile.Element("Gleisplan");
+            var XML_Abschnitte = Kategory.Elements("Abschnitt").ToList();
             foreach (XElement xml_abschnitt in XML_Abschnitte)
             {
                 Abschnitt neuerAbschnitt = new Abschnitt

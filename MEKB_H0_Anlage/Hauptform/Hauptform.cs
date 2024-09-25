@@ -54,10 +54,10 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region Listen
-        public Gleisplan Plan = new Gleisplan("Gleisplan.xml");
-        public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
-        public SignalListe SignalListe = new SignalListe("Signalliste.xml");
-        public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
+        public Gleisplan Plan = new Gleisplan();
+        public WeichenListe WeichenListe = new WeichenListe();
+        public SignalListe SignalListe = new SignalListe();
+        public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe();
         public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
         public LokomotivenVerwaltung LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
 
@@ -97,10 +97,12 @@ namespace MEKB_H0_Anlage
             InitializeComponent();                      //Programminitialisieren
             Z21_Initialisieren();
 
-            // Instanzen Zugriffe festlegen
-            SetupFahrstrassen();                        //Fahstrassen festlegen              
-            SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
-            BelegtmelderListe.SignalZugriff(SignalListe);
+            if (!Config.ReadConfig("LetzteAnlage").Equals("Not Found"))
+            {
+                Gleisplan_Laden(Config.ReadConfig("LetzteAnlage"));
+            }
+
+
             LokListe_Laden();
 
             ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe, BelegtmelderListe);
@@ -1241,7 +1243,7 @@ namespace MEKB_H0_Anlage
         private void SetupFahrstrassen()
         {
             //Fahrstrassen Importieren
-            FahrstrassenListe = new FahrstrassenListe("Fahrstrassenliste.xml", WeichenListe, SignalListe);
+            FahrstrassenListe = new FahrstrassenListe("MEKB_H0_Anlage.xml", WeichenListe, SignalListe);
         }
         /// <summary>
         /// Fahrstraße aktivieren/deaktivieren
@@ -1684,9 +1686,7 @@ namespace MEKB_H0_Anlage
 
             z21Start.SetQMode(true);
 
-            // Instanzzugriffe auf Zentrale
-            WeichenListe.DigitalzentraleZugriff(z21Start);
-            SignalListe.DigitalzentraleZugriff(z21Start);
+            
 
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
             z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
@@ -1754,6 +1754,33 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
+        
+        private void Gleisplan_Laden(string Dateiname)
+        {
+            Plan = new Gleisplan(Dateiname);
+            WeichenListe = new WeichenListe(Dateiname);
+            SignalListe = new SignalListe(Dateiname);
+            BelegtmelderListe = new BelegtmelderListe(Dateiname);
+            FahrstrassenListe = new FahrstrassenListe(Dateiname, WeichenListe, SignalListe);
+
+            SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
+            BelegtmelderListe.SignalZugriff(SignalListe);
+
+            // Instanzzugriffe auf Zentrale
+            WeichenListe.DigitalzentraleZugriff(z21Start);
+            SignalListe.DigitalzentraleZugriff(z21Start);
+        }
+
+        private void Gleisplan_Loeschen()
+        {
+            Plan = new Gleisplan();
+            WeichenListe = new WeichenListe();
+            SignalListe = new SignalListe();
+            BelegtmelderListe = new BelegtmelderListe();
+            FahrstrassenListe = new FahrstrassenListe();
+            GleisbildZeichnung.GleisZustand.Clear();
+        }
+
         #endregion
 
         #region Schnellzugriff (obere Zeile)
@@ -2145,6 +2172,45 @@ namespace MEKB_H0_Anlage
                     checkBox.ForeColor = Color.FromArgb(192, 192, 192);
                 }
             }
+        }
+
+        private void gleisplanLadenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Anlagen (*.xml) |*.xml";
+
+                if(openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Timer deaktivieren
+                    WeichenTimer.Enabled = false;
+                    BelegtmelderCoolDown.Enabled = false;
+                    UpdateLokStatus.Enabled = false;
+                    //Gleisplan löschen
+                    Gleisplan_Loeschen();
+                    this.GleisplanAnzeige.Controls.Clear();
+                    this.GleisplanAnzeige.Refresh();
+
+                    string datei = openFileDialog.FileName;
+                    Gleisplan_Laden(datei);
+
+                    Config.WriteConfig("LetzteAnlage", datei);
+
+                    //Gleisplan zeichnen
+                    GleisplanZeichnenInitial();
+
+                    // Timer aktivieren
+                    WeichenTimer.Enabled = true;
+                    BelegtmelderCoolDown.Enabled = true;
+                    UpdateLokStatus.Enabled = true;
+                    Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
+                    {
+                        IsBackground = true
+                    };
+                    trd.Start();
+                }
+            }
+            
         }
     }
 }

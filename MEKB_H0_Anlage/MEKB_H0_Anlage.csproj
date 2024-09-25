@@ -295,15 +295,6 @@
     <None Include="Resources\SH_2_inaktiv.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Belegtmelderliste.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Fahrstrassenliste.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Gleisplan.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Logo.ico" />
     <None Include="Resources\Fahrstrasse_links_deakt.png" />
     <None Include="Resources\Fahrstrasse_rechts_deakt.png" />
@@ -312,13 +303,10 @@
     <None Include="Resources\Fahrstrasse_unten_deakt.png" />
     <None Include="Resources\Fahrstrasse_oben.png" />
     <None Include="Resources\Fahrstrasse_oben_deakt.png" />
-    <Content Include="Signalliste.xml">
+    <Content Include="MEKB_H0_Gleisplan.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Standard.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Weichenliste.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

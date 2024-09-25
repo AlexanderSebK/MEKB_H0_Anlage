@@ -66,6 +66,7 @@
             this.AutoFahrdienstleiter = new System.Windows.Forms.CheckBox();
             this.AutoFahrplan = new System.Windows.Forms.CheckBox();
             this.AutoBahnhofsansagen = new System.Windows.Forms.CheckBox();
+            this.LokKontrolle = new System.Windows.Forms.CheckBox();
             this.StopAlle = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.GleisplanAnzeige = new System.Windows.Forms.Panel();
@@ -73,7 +74,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Btn_Fahrzeuge = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
-            this.LokKontrolle = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -113,6 +113,7 @@
             this.gleisplanLadenToolStripMenuItem.Name = "gleisplanLadenToolStripMenuItem";
             this.gleisplanLadenToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.gleisplanLadenToolStripMenuItem.Text = "Gleisplan laden";
+            this.gleisplanLadenToolStripMenuItem.Click += new System.EventHandler(this.gleisplanLadenToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
@@ -419,6 +420,23 @@
             this.AutoBahnhofsansagen.UseVisualStyleBackColor = false;
             this.AutoBahnhofsansagen.CheckedChanged += new System.EventHandler(this.AutoBahnhofsansagen_CheckedChanged);
             // 
+            // LokKontrolle
+            // 
+            this.LokKontrolle.Appearance = System.Windows.Forms.Appearance.Button;
+            this.LokKontrolle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.LokKontrolle.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LokKontrolle.ForeColor = System.Drawing.Color.Silver;
+            this.LokKontrolle.Location = new System.Drawing.Point(970, 41);
+            this.LokKontrolle.Name = "LokKontrolle";
+            this.LokKontrolle.Size = new System.Drawing.Size(161, 24);
+            this.LokKontrolle.TabIndex = 999;
+            this.LokKontrolle.Text = "Loks überwachen";
+            this.LokKontrolle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Hinttext.SetToolTip(this.LokKontrolle, "Leuchtet: Loks werden überwacht und führen Notbremse aus\r\nDunkel: Loks fahren nur" +
+        " manuell. Keine Notbremsen oder Verfolgung");
+            this.LokKontrolle.UseVisualStyleBackColor = false;
+            this.LokKontrolle.CheckedChanged += new System.EventHandler(this.LokKontrolle_CheckedChanged);
+            // 
             // StopAlle
             // 
             this.StopAlle.BackColor = System.Drawing.Color.Red;
@@ -494,23 +512,6 @@
             this.button15.TabIndex = 998;
             this.button15.Text = "Debug";
             this.button15.UseVisualStyleBackColor = true;
-            // 
-            // LokKontrolle
-            // 
-            this.LokKontrolle.Appearance = System.Windows.Forms.Appearance.Button;
-            this.LokKontrolle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.LokKontrolle.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LokKontrolle.ForeColor = System.Drawing.Color.Silver;
-            this.LokKontrolle.Location = new System.Drawing.Point(970, 41);
-            this.LokKontrolle.Name = "LokKontrolle";
-            this.LokKontrolle.Size = new System.Drawing.Size(161, 24);
-            this.LokKontrolle.TabIndex = 999;
-            this.LokKontrolle.Text = "Loks überwachen";
-            this.LokKontrolle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Hinttext.SetToolTip(this.LokKontrolle, "Leuchtet: Loks werden überwacht und führen Notbremse aus\r\nDunkel: Loks fahren nur" +
-        " manuell. Keine Notbremsen oder Verfolgung");
-            this.LokKontrolle.UseVisualStyleBackColor = false;
-            this.LokKontrolle.CheckedChanged += new System.EventHandler(this.LokKontrolle_CheckedChanged);
             // 
             // Hauptform
             // 
