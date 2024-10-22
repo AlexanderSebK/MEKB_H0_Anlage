@@ -106,7 +106,7 @@ namespace MEKB_H0_Anlage
                 {
                     return;
                 }
-
+                Fehlermeldung.Instance.LokMeldungenEntfernen(AktiveLoks[index].Name);
                 AktiveLoks.RemoveAt(index);
                 for (int i = 0; i < AktiveLoks.Count; i++)
                 {

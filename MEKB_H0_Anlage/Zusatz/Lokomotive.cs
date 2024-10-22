@@ -110,7 +110,8 @@ namespace MEKB_H0_Anlage
 
         public int FahrstufeVorNothalt { get; set; }
 
-        public bool Nothalt {  set; get; }
+        public bool Nothalt { get; set; }
+        
         #endregion
 
         #region Links und Delegates
@@ -143,6 +144,8 @@ namespace MEKB_H0_Anlage
         private CMD_LOKFAHRT setLOKFahrt;
         private CMD_LOKFUNKTION setLOKFunktion;
         private CMD_LOKSTATUS setLOKStatus;
+
+        public Fehlermeldung Fehlermeldung = Fehlermeldung.Instance;
 
         #endregion
 
@@ -244,7 +247,6 @@ namespace MEKB_H0_Anlage
             }
         }
 
-
         #endregion
         #region Delegates Registrierungen
         public void Register_CMD_LOKFAHRT(CMD_LOKFAHRT function)
@@ -287,6 +289,8 @@ namespace MEKB_H0_Anlage
         {
             FahrstufeVorNothalt = Fahrstufe;
             Nothalt = true;
+            Fehlermeldung.FehlerMelden(String.Format("Notbremse bei Lok {0} ({1})", Name, Adresse), "Warning");
+
             int RichtungMitUmkehr = Richtung;
             if (LokUmgedreht)
             {
@@ -301,6 +305,7 @@ namespace MEKB_H0_Anlage
             if (Nothalt)
             {
                 Nothalt = false;
+                Fehlermeldung.FehlerEntfernen(String.Format("Notbremse bei Lok {0} ({1})", Name, Adresse));
                 if (weiterfahrt) { Fahrstufe = FahrstufeVorNothalt; }
                 FahrstufeVorNothalt = 0;
 
@@ -469,6 +474,7 @@ namespace MEKB_H0_Anlage
                             {
                                 LetzterBekannter.Registriert = this.Name; //Lok für diesen Block registrieren
                                 AktuellerBlock = LetzterBekannter.Name;
+                                Fehlermeldung.FehlerEntfernen(String.Format("{0} (1) verloren", Name, Adresse));
                                 LetzterBekannterBlock = "";
                             }
                         }
@@ -483,6 +489,7 @@ namespace MEKB_H0_Anlage
             if (Aktuel == null) // Block unbekannt -> Lok verloren
             {
                 AktuellerBlock = "Lok verloren";
+                Fehlermeldung.FehlerMelden(String.Format("{0} (1) verloren", Name, Adresse), "Warning");
                 return;
             }
             if (Aktuel.GetSignalStatus(VorherigerBlock) != SignalZustand.NichtGefunden)
@@ -500,6 +507,7 @@ namespace MEKB_H0_Anlage
                 {
                     LetzterBekannterBlock = AktuellerBlock;
                     AktuellerBlock = "Lok verloren";
+                    Fehlermeldung.FehlerMelden(String.Format("{0} (1) verloren", Name, Adresse), "Warning");
                     NotBremse();
                 }
                 else

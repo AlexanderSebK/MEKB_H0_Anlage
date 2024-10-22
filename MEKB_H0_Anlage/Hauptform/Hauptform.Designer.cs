@@ -74,9 +74,12 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Btn_Fahrzeuge = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
+            this.FehlerListe = new System.Windows.Forms.ListView();
+            this.ErrorIconList = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.KontrollPanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -474,6 +477,7 @@
             // 
             // KontrollPanel
             // 
+            this.KontrollPanel.Controls.Add(this.FehlerListe);
             this.KontrollPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.KontrollPanel.Location = new System.Drawing.Point(0, 890);
             this.KontrollPanel.Name = "KontrollPanel";
@@ -513,6 +517,25 @@
             this.button15.Text = "Debug";
             this.button15.UseVisualStyleBackColor = true;
             // 
+            // FehlerListe
+            // 
+            this.FehlerListe.HideSelection = false;
+            this.FehlerListe.LargeImageList = this.ErrorIconList;
+            this.FehlerListe.Location = new System.Drawing.Point(3, 3);
+            this.FehlerListe.Name = "FehlerListe";
+            this.FehlerListe.Size = new System.Drawing.Size(1901, 40);
+            this.FehlerListe.SmallImageList = this.ErrorIconList;
+            this.FehlerListe.TabIndex = 1000;
+            this.FehlerListe.UseCompatibleStateImageBehavior = false;
+            this.FehlerListe.View = System.Windows.Forms.View.Tile;
+            // 
+            // ErrorIconList
+            // 
+            this.ErrorIconList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ErrorIconList.ImageStream")));
+            this.ErrorIconList.TransparentColor = System.Drawing.Color.Transparent;
+            this.ErrorIconList.Images.SetKeyName(0, "Fehler.png");
+            this.ErrorIconList.Images.SetKeyName(1, "Warnung.png");
+            // 
             // Hauptform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -539,6 +562,7 @@
             this.Statusbar.ResumeLayout(false);
             this.Statusbar.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.KontrollPanel.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -591,6 +615,8 @@
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.ToolStripMenuItem weichenToolStripMenuItem;
         private System.Windows.Forms.CheckBox LokKontrolle;
+        private System.Windows.Forms.ListView FehlerListe;
+        private System.Windows.Forms.ImageList ErrorIconList;
     }
 }
 

@@ -25,6 +25,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Globalization;
 using System.Runtime.InteropServices;
+//using static System.Net.Mime.MediaTypeNames;
 
 
 namespace MEKB_H0_Anlage
@@ -37,9 +38,10 @@ namespace MEKB_H0_Anlage
         #region Instanzen
         public Z21 z21Start;
         public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
-        //public Lokomotive[] AktiveLoks = new Lokomotive[12];
+
         public List<Lokomotive> LokListe = new List<Lokomotive>();
         public Bahnhofsansage Bahnhofsansage = new Bahnhofsansage();
+        public Fehlermeldung Fehlermeldungen = Fehlermeldung.Instance;
         private Logger Log { set; get; }
         #endregion
 
@@ -101,7 +103,9 @@ namespace MEKB_H0_Anlage
             {
                 Gleisplan_Laden(Config.ReadConfig("LetzteAnlage"));
             }
-
+            Fehlermeldungen.Register_Fehlermelden(FehlerMelden);
+            Fehlermeldungen.Register_Fehlerentfernen(FehlerEntfernen);
+            Fehlermeldungen.Register_LokMeldungenEntfernen(LokEntfernen);
 
             LokListe_Laden();
 
@@ -137,8 +141,6 @@ namespace MEKB_H0_Anlage
             // Timer mit Funktion "OnStatusUpdate" Verbinden
             UpdateLokStatus.Elapsed += OnStatusUpdate;
             UpdateLokStatus.AutoReset = true;
-
-            
 
             //Gleisplan zeichnen
             GleisplanZeichnenInitial();
@@ -1629,10 +1631,11 @@ namespace MEKB_H0_Anlage
                 if (timeoutVerbinden <= 0)
                 {
                     InitIsRunning = false;
+                    Fehlermeldungen.FehlerMelden("Z21-Zentrale nicht gefunden", "Error");
                     return; // Hat sich nicht verbunden -> Task beenden
                 }
             }
-
+            Fehlermeldungen.FehlerEntfernen("Z21-Zentrale nicht gefunden");
             // Z21 ist verbunden
             if (z21Start.Verbunden())
             {
@@ -2075,6 +2078,10 @@ namespace MEKB_H0_Anlage
                 TrackStatus.BackColor = Color.ForestGreen;
                 TrackStatus.ForeColor = Color.White;
                 Betriebsbereit = true;
+                Fehlermeldungen.FehlerEntfernen("Kein Strom");
+                Fehlermeldungen.FehlerEntfernen("Stoptaste wurde gedrückt");
+                Fehlermeldungen.FehlerEntfernen("Kurzschluss auf der Strecke");
+                Fehlermeldungen.FehlerEntfernen("Zentrale in Programmiermodus");
             }
             if ((Status & 0x02) == 0x02)
             {
@@ -2082,6 +2089,7 @@ namespace MEKB_H0_Anlage
                 TrackStatus.BackColor = Color.Gold;
                 TrackStatus.ForeColor = Color.Black;
                 Betriebsbereit = false;
+                Fehlermeldungen.FehlerMelden("Kein Strom", "Warning");
             }
             if ((Status & 0x01) == 0x01)
             {
@@ -2089,6 +2097,7 @@ namespace MEKB_H0_Anlage
                 TrackStatus.BackColor = Color.Orange;
                 TrackStatus.ForeColor = Color.Black;
                 Betriebsbereit = false;
+                Fehlermeldungen.FehlerMelden("Stoptaste wurde gedrückt", "Warning");
             }
             if ((Status & 0x04) == 0x04)
             {
@@ -2096,6 +2105,7 @@ namespace MEKB_H0_Anlage
                 TrackStatus.BackColor = Color.Red;
                 TrackStatus.ForeColor = Color.White;
                 Betriebsbereit = false;
+                Fehlermeldungen.FehlerMelden("Kurzschluss auf der Strecke", "Error");
             }
             if ((Status & 0x20) == 0x20)
             {
@@ -2103,6 +2113,7 @@ namespace MEKB_H0_Anlage
                 TrackStatus.BackColor = Color.Blue;
                 TrackStatus.ForeColor = Color.White;
                 Betriebsbereit = false;
+                Fehlermeldungen.FehlerMelden("Zentrale in Programmiermodus", "Hint");
             }
         }
         /// <summary>
@@ -2147,6 +2158,64 @@ namespace MEKB_H0_Anlage
             BelegtmelderListe.UpdateBelegtmelder(GruppenIndex, RMStatus);
         }
         #endregion
+        #endregion
+
+        #region Fehlermeldung
+
+        private void FehlerMeldenInvoke(string text, string typ)
+        {
+            if (string.IsNullOrEmpty(text)) return;
+            if (FehlerListe.FindItemWithText(text) != null) return; //Fehlermeldung bereits vorhanden
+
+            if (string.IsNullOrEmpty(typ)) typ = "Error";
+            int ImageIndex = 0;
+
+            switch (typ)
+            {
+                case "Error": ImageIndex = 0; break;
+                case "Warning": ImageIndex = 1; break;
+                default: ImageIndex = 0; break;
+            }
+
+            FehlerListe.Items.Add(text, ImageIndex);
+        }
+
+        public void FehlerMelden(string text, string typ)
+        {
+            this.BeginInvoke((Action<string,string>)FehlerMeldenInvoke,text,typ);  
+        }
+
+        private void FehlerEntfernenInvoke(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return;
+            ListViewItem FehlermeldungEintrag = FehlerListe.FindItemWithText(text);
+            if (FehlermeldungEintrag != null)
+            {
+                FehlerListe.Items.Remove(FehlermeldungEintrag);
+            }
+        }
+        public void FehlerEntfernen(string text)
+        {
+            this.BeginInvoke((Action<string>)FehlerEntfernenInvoke, text);
+        }
+
+        private void LokEntfernenInvoke(string lokname)
+        {
+            if (string.IsNullOrEmpty(lokname)) return;
+            foreach (ListViewItem listViewItem in FehlerListe.Items)
+            {
+                if(listViewItem.Text.Contains(lokname))
+                {
+                    FehlerListe.Items.Remove(listViewItem);
+                }
+            }
+        }
+
+        public void LokEntfernen(string lokname)
+        {
+            this.BeginInvoke((Action<string>)LokEntfernenInvoke, lokname);
+        }
+
         #endregion
 
         private void weichenToolStripMenuItem_Click(object sender, EventArgs e)

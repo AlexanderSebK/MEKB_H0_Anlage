@@ -133,5 +133,49 @@ namespace MEKB_H0_Anlage
                 return "Error";                                                                         //Fehler Rückgabe        
             }
         }
-    }    
+    }
+
+    /// <summary>
+    /// Fehlermeldungen verwalten (Austausch zwischen den Instanzen)
+    /// </summary>
+    public sealed class Fehlermeldung
+    {
+        private static readonly Lazy<Fehlermeldung> lazy =
+        new Lazy<Fehlermeldung>(() => new Fehlermeldung());
+
+        public static Fehlermeldung Instance { get { return lazy.Value; } }
+
+        private Fehlermeldung()
+        {
+        }
+
+
+        public delegate void FEHLER_MELDEN(string text, string typ);
+        public delegate void FEHLER_ENTFERNEN(string text);
+        public delegate void LOK_ENTFERNEN(string lokname);
+
+        private FEHLER_MELDEN call_Fehlermelden;
+        private FEHLER_ENTFERNEN call_Fehlerentfernen;
+        private LOK_ENTFERNEN call_Lokentfernen;
+
+        public void Register_Fehlermelden(FEHLER_MELDEN function) { call_Fehlermelden = function; }
+        public void Register_Fehlerentfernen(FEHLER_ENTFERNEN function) { call_Fehlerentfernen = function; }
+        public void Register_LokMeldungenEntfernen(LOK_ENTFERNEN function) { call_Lokentfernen = function; }
+
+        public void FehlerMelden(string text, string typ)
+        {
+            call_Fehlermelden?.Invoke(text, typ);
+        }
+
+        public void FehlerEntfernen(string text)
+        {
+            call_Fehlerentfernen?.Invoke(text);
+        }
+
+        public void LokMeldungenEntfernen(string lokname)
+        {
+            call_Lokentfernen?.Invoke(lokname);
+        }
+
+    }
 }
