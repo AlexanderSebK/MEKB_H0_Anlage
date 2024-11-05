@@ -111,6 +111,9 @@ namespace MEKB_H0_Anlage
         public int FahrstufeVorNothalt { get; set; }
 
         public bool Nothalt { get; set; }
+
+        public int ZeitBisNothalt { get; set; }
+        public bool NothaltAnkuendigung { get; set; }
         
         #endregion
 
@@ -300,14 +303,23 @@ namespace MEKB_H0_Anlage
             setLOKFahrt?.Invoke(Adresse, 255, RichtungMitUmkehr, FahrstufenInfo);
         }
 
-        public void NotBremseAufheben(bool weiterfahrt = false)
+        public void NotBremse(int Zeit)
         {
+            NothaltAnkuendigung = true;
+            ZeitBisNothalt = Zeit;
+        }
+
+        public void NotBremseAufheben(bool weiterfahrt = true)
+        {           
             if (Nothalt)
             {
                 Nothalt = false;
+                NothaltAnkuendigung = false;
+                ZeitBisNothalt = 0;
                 Fehlermeldung.FehlerEntfernen(String.Format("Notbremse bei Lok {0} ({1})", Name, Adresse));
+
                 if (weiterfahrt) { Fahrstufe = FahrstufeVorNothalt; }
-                FahrstufeVorNothalt = 0;
+                
 
                 int RichtungMitUmkehr = Richtung;
                 if (LokUmgedreht)
@@ -318,9 +330,20 @@ namespace MEKB_H0_Anlage
                 setLOKFahrt?.Invoke(Adresse, (byte)Fahrstufe, RichtungMitUmkehr, FahrstufenInfo);
             }
         }
-        public void NotBremseHandeln()
+        public void NotBremseHandeln(int Intervall = 200)
         {
-            if(Nothalt)
+            if (NothaltAnkuendigung)
+            {
+                ZeitBisNothalt = ZeitBisNothalt - Intervall;
+                if (ZeitBisNothalt < 0)
+                {
+                    FahrstufeVorNothalt = Fahrstufe;
+                    Nothalt = true;
+                    NothaltAnkuendigung = false;
+                    Fehlermeldung.FehlerMelden(String.Format("Notbremse bei Lok {0} ({1})", Name, Adresse), "Warning");
+                }
+            }
+            if (Nothalt)
             {
                 int RichtungMitUmkehr = Richtung;
                 if (LokUmgedreht)
@@ -492,11 +515,7 @@ namespace MEKB_H0_Anlage
                 Fehlermeldung.FehlerMelden(String.Format("{0} (1) verloren", Name, Adresse), "Warning");
                 return;
             }
-            if (Aktuel.GetSignalStatus(VorherigerBlock) != SignalZustand.NichtGefunden)
-            {
-                if (Aktuel.Signal.Zustand == SignalZustand.HP0) NotBremse();
-                else NotBremseAufheben();
-            }
+            
             if (!Aktuel.IstBelegt()) //Keine Belegtmeldung -> Lok verloren
             {
                 bool UnterdrueckeError = false;
@@ -508,7 +527,7 @@ namespace MEKB_H0_Anlage
                     LetzterBekannterBlock = AktuellerBlock;
                     AktuellerBlock = "Lok verloren";
                     Fehlermeldung.FehlerMelden(String.Format("{0} (1) verloren", Name, Adresse), "Warning");
-                    NotBremse();
+                    NotBremse(3000); //In 3 Sekunden Notbremse auslösen
                 }
                 else
                 {
@@ -537,6 +556,11 @@ namespace MEKB_H0_Anlage
                         AktuellerBlock = Naechster.Name; //Nächsten Block als aktuellen Block definieren
                     }
                 }
+            }
+            if (Aktuel.GetSignalStatus(VorherigerBlock) != SignalZustand.NichtGefunden)
+            {
+                if (Aktuel.Signal.Zustand == SignalZustand.HP0) NotBremse();
+                else NotBremseAufheben(true);
             }
         }
         #endregion

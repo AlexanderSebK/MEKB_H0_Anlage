@@ -166,9 +166,9 @@ namespace MEKB_H0_Anlage
                 if (Ruffeld != null) this.Controls.Remove(Ruffeld);
                 entfernt = true;
             }
-            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Ort_Wechsel", Nummer)))
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_OrtWechsel", Nummer)))
             {
-                Button Ortwechselfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Ort_Wechsel", Nummer), true).First();
+                Button Ortwechselfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_OrtWechsel", Nummer), true).First();
                 if (Ortwechselfeld != null) this.Controls.Remove(Ortwechselfeld);
                 entfernt = true;
             }
@@ -973,6 +973,7 @@ namespace MEKB_H0_Anlage
             //Daten übertragen
             AktiveLoks[index].AktuellerBlock = gewaehlterOrt.Name;
             AktiveLoks[index].VorherigerBlock = vorBlock;
+            Fehlermeldung.Instance.FehlerEntfernen(String.Format("{0} (1) verloren", AktiveLoks[index].Name, AktiveLoks[index].Adresse));
         }
 
         #endregion

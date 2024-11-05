@@ -37,6 +37,8 @@ namespace MEKB_H0_Anlage
 
         private bool ValueChangedByZ21 = false;
 
+        public delegate void InvokeDelegate();
+
         public void UpdateLokDaten()
         {
             ValueChangedByZ21 = true;
@@ -156,7 +158,8 @@ namespace MEKB_H0_Anlage
         private void ZugSteuerpult_Shown(object sender, EventArgs e)
         {
             //Fahrstufe.Value = 0;
-            //Fahrstufe_ValueChanged(sender, e);
+            ValueChangedByZ21 = true;
+            Fahrstufe_ValueChanged(sender, e);
             UpdateLokDaten();
         }
 
@@ -354,6 +357,7 @@ namespace MEKB_H0_Anlage
                     Lokname.Text = String.Format("Lok: {0}", Lokdaten.Adresse);
                 }
             }
+            UpdateLokDaten();
         }
 
         private void vor_Click(object sender, EventArgs e)

@@ -656,15 +656,32 @@ namespace MEKB_H0_Anlage
         }
         public void Z21_GET_LOCO_INFO(int Adresse)
         {
+            GenerateBytes_Z21_GET_LOCO_INFO(Adresse, out byte[] SendBytes);
+            _log.SendData("GET_LOCO_INFO", SendBytes);
+            SendCommand(SendBytes, 9);
+        }
+        public void GenerateBytes_Z21_GET_LOCO_INFO(int Adresse, out byte[] Data)
+        {
             byte Header = 0xE3;
             byte DB0 = 0xF0;
             byte DB1 = LokFahrstufen.Addr_High(Adresse);
             byte DB2 = LokFahrstufen.Addr_Low(Adresse);
             byte XOR = (byte)(Header ^ DB0 ^ DB1 ^ DB2);
-            byte[] SendBytes = { 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
-            _log.SendData("GET_LOCO_INFO", SendBytes);
-            SendCommand(SendBytes, 9);
+            Data = new byte[]{ 0x09, 0x00, 0x40, 0x00, Header, DB0, DB1, DB2, XOR };
         }
+        public void Z21_GET_LOCO_INFO(List<int> Adressen)
+        {
+            if (Adressen.Count == 0) return;
+            byte[] SendBytes = new byte[] { };
+            foreach(int Adresse in Adressen)
+            {
+                GenerateBytes_Z21_GET_LOCO_INFO(Adresse, out byte[] lokdata);
+                SendBytes = SendBytes.Concat(lokdata).ToArray();
+            }
+            SendCommand(SendBytes, SendBytes.Length);
+        }
+
+
         public void Z21_SET_LOCO_DRIVE(int Adresse, int Geschwindigkeit, int Richtung, int Fahrstufe)
         {
             int SendeFahrStufe = Fahrstufe;

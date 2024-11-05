@@ -25,6 +25,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using System.Diagnostics.Eventing.Reader;
 //using static System.Net.Mime.MediaTypeNames;
 
 
@@ -333,23 +334,23 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        int LokStatusTimerIndex = 0;
         private void OnStatusUpdate(Object source, ElapsedEventArgs e)
         {
             if (!Betriebsbereit) return;
             // Lokstatus abfragen
             if (LokListe.Count == 0) return;
 
-            if (!LokKontrolle.Checked) return;
+            List<int> StatusAdressen = new List<int>();
 
             foreach(Lokomotive lokomotive in LokListe)
             {
                 lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe);
-                lokomotive.NotBremseHandeln();
+                
+                if (LokKontrolle.Checked) lokomotive.NotBremseHandeln(200);
+                StatusAdressen.Add(lokomotive.Adresse);
             }
-            if(!(LokStatusTimerIndex < LokListe.Count)) LokStatusTimerIndex = 0;
-            Setze_Lok_Status(LokListe[LokStatusTimerIndex].Adresse);
-            LokStatusTimerIndex++;
+
+            z21Start.Z21_GET_LOCO_INFO(StatusAdressen);            
         }
 
 
@@ -1705,36 +1706,45 @@ namespace MEKB_H0_Anlage
                 string LokAdresse = Config.ReadConfig(String.Format("LokListe{0}", i));
                 if (int.TryParse(LokAdresse, out int DigitAdresse))
                 {
-                    if (LokomotivenArchiv.SucheDurchAdresse(DigitAdresse, out Lokomotive lokomotive))
+                    if (DigitAdresse == 0) continue;
+                    if(!LokomotivenArchiv.SucheDurchAdresse(DigitAdresse, out Lokomotive lokomotive))
                     {
-                        lokomotive.Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
-                        lokomotive.Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
-                        lokomotive.Register_CMD_LOKSTATUS(Setze_Lok_Status);
-
-                        lokomotive.VorherigerBlock = "";
-                        lokomotive.AktuellerBlock = "";
-
-                        string VorherigePosition = Config.ReadConfig(String.Format("LokPosVor{0}", i));
-                        if (BelegtmelderListe.GetBelegtmelder(VorherigePosition) != null)
+                        lokomotive = new Lokomotive() //Blanke Lok anlegen mit dieser Adresse
                         {
-                            lokomotive.VorherigerBlock = VorherigePosition;
-                        }
-                        
-                        string Position = Config.ReadConfig(String.Format("LokPos{0}", i));
-                        Belegtmelder AktPosition = BelegtmelderListe.GetBelegtmelder(Position);
-                        if (AktPosition != null)
-                        {
-                            lokomotive.AktuellerBlock = Position;
-                            AktPosition.Registriert = lokomotive.Name;
-                        }
-                        else
-                        {
-                            lokomotive.AktuellerBlock = "";
-                            lokomotive.VorherigerBlock = "";
-                        }
-
-                        LokListe.Add(lokomotive);
+                            Adresse = DigitAdresse,
+                            Name = String.Format("Lok: {0}", DigitAdresse)
+                        };
                     }
+                    
+                    
+                    lokomotive.Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+                    lokomotive.Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+                    lokomotive.Register_CMD_LOKSTATUS(Setze_Lok_Status);
+
+                    lokomotive.VorherigerBlock = "";
+                    lokomotive.AktuellerBlock = "";
+
+                    string VorherigePosition = Config.ReadConfig(String.Format("LokPosVor{0}", i));
+                    if (BelegtmelderListe.GetBelegtmelder(VorherigePosition) != null)
+                    {
+                        lokomotive.VorherigerBlock = VorherigePosition;
+                    }
+                        
+                    string Position = Config.ReadConfig(String.Format("LokPos{0}", i));
+                    Belegtmelder AktPosition = BelegtmelderListe.GetBelegtmelder(Position);
+                    if (AktPosition != null)
+                    {
+                        lokomotive.AktuellerBlock = Position;
+                        AktPosition.Registriert = lokomotive.Name;
+                    }
+                    else
+                    {
+                        lokomotive.AktuellerBlock = "";
+                        lokomotive.VorherigerBlock = "";
+                    }
+
+                    LokListe.Add(lokomotive);
+                    
                 }
             }
         }
@@ -1883,6 +1893,7 @@ namespace MEKB_H0_Anlage
             if (!ZugmenueFenster.IsDisposed)
             {
                 ZugmenueFenster.Show();
+                ZugmenueFenster.BringToFront();
             }
             else
             {
