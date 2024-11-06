@@ -1725,8 +1725,10 @@ namespace MEKB_H0_Anlage
                     lokomotive.AktuellerBlock = "";
 
                     string VorherigePosition = Config.ReadConfig(String.Format("LokPosVor{0}", i));
-                    if (BelegtmelderListe.GetBelegtmelder(VorherigePosition) != null)
+                    Belegtmelder VorBlock = BelegtmelderListe.GetBelegtmelder(VorherigePosition);
+                    if (VorBlock != null)
                     {
+                        VorBlock.Registriert = "Deregistriert";
                         lokomotive.VorherigerBlock = VorherigePosition;
                     }
                         
@@ -1794,6 +1796,10 @@ namespace MEKB_H0_Anlage
             GleisbildZeichnung.GleisZustand.Clear();
         }
 
+        private void LokomotivenPoszuordnen()
+        {
+
+        }
         #endregion
 
         #region Schnellzugriff (obere Zeile)

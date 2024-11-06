@@ -290,7 +290,7 @@ namespace MEKB_H0_Anlage
 
         public void NotBremse()
         {
-            FahrstufeVorNothalt = Fahrstufe;
+            if(!Nothalt) FahrstufeVorNothalt = Fahrstufe;
             Nothalt = true;
             Fehlermeldung.FehlerMelden(String.Format("Notbremse bei Lok {0} ({1})", Name, Adresse), "Warning");
 
@@ -329,6 +329,8 @@ namespace MEKB_H0_Anlage
                 }
                 setLOKFahrt?.Invoke(Adresse, (byte)Fahrstufe, RichtungMitUmkehr, FahrstufenInfo);
             }
+            NothaltAnkuendigung = false;
+            ZeitBisNothalt = 0;
         }
         public void NotBremseHandeln(int Intervall = 200)
         {
@@ -559,7 +561,10 @@ namespace MEKB_H0_Anlage
             }
             if (Aktuel.GetSignalStatus(VorherigerBlock) != SignalZustand.NichtGefunden)
             {
-                if (Aktuel.Signal.Zustand == SignalZustand.HP0) NotBremse();
+                if (Aktuel.Signal.Zustand == SignalZustand.HP0)
+                {
+                    NotBremse();
+                }
                 else NotBremseAufheben(true);
             }
         }

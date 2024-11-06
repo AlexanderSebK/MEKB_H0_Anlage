@@ -350,7 +350,7 @@ namespace MEKB_H0_Anlage
         /// <returns>true - Abschnitt belegt, flase - Abschnittfrei</returns>
         public bool IstBelegt()
         {
-            if (Belegt && Stabil) return true;
+            if (Belegt/* && Stabil*/) return true;
             else
             {
                 if (CoolDownTimer > 0) return true;
