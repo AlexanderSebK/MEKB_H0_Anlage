@@ -106,7 +106,7 @@ namespace MEKB_H0_Anlage
                 {
                     return;
                 }
-                Fehlermeldung.Instance.LokMeldungenEntfernen(AktiveLoks[index].Name);
+                Fehlermeldung.Instance.FehlertextEntfernen(AktiveLoks[index].Name);
                 AktiveLoks.RemoveAt(index);
                 for (int i = 0; i < AktiveLoks.Count; i++)
                 {
@@ -973,6 +973,7 @@ namespace MEKB_H0_Anlage
             //Daten übertragen
             AktiveLoks[index].AktuellerBlock = gewaehlterOrt.Name;
             AktiveLoks[index].VorherigerBlock = vorBlock;
+            gewaehlterOrt.Registriert = AktiveLoks[index].Name;
             Fehlermeldung.Instance.FehlerEntfernen(String.Format("{0} (1) verloren", AktiveLoks[index].Name, AktiveLoks[index].Adresse));
         }
 

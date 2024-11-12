@@ -106,7 +106,7 @@ namespace MEKB_H0_Anlage
             }
             Fehlermeldungen.Register_Fehlermelden(FehlerMelden);
             Fehlermeldungen.Register_Fehlerentfernen(FehlerEntfernen);
-            Fehlermeldungen.Register_LokMeldungenEntfernen(LokEntfernen);
+            Fehlermeldungen.Register_FehlertextEntfernen(FehlertextEntfernen);
 
             LokListe_Laden();
 
@@ -2216,7 +2216,7 @@ namespace MEKB_H0_Anlage
             this.BeginInvoke((Action<string>)FehlerEntfernenInvoke, text);
         }
 
-        private void LokEntfernenInvoke(string lokname)
+        private void FehlertextEntfernenInvoke(string lokname)
         {
             if (string.IsNullOrEmpty(lokname)) return;
             foreach (ListViewItem listViewItem in FehlerListe.Items)
@@ -2228,10 +2228,11 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        public void LokEntfernen(string lokname)
+        public void FehlertextEntfernen(string lokname)
         {
-            this.BeginInvoke((Action<string>)LokEntfernenInvoke, lokname);
+            this.BeginInvoke((Action<string>)FehlertextEntfernenInvoke, lokname);
         }
+
 
         #endregion
 
