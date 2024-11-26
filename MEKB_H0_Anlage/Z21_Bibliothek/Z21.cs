@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
+using System.Drawing;
 
 
 
@@ -194,23 +195,43 @@ namespace MEKB_H0_Anlage
         }
 
         /// <summary>
-        /// Starten einer UDP-Verbindung
+        /// Starten einer UDP-Verbindung mit bereits über SetIP_Z21 gesetzten Werten
         /// </summary>
         public void Connect_Z21()
         {
             Client = new UdpClient();
-            Z21_IP = Config.ReadConfig("Z21_IP");
+            if (Z21_IP == null) return;
             if (Z21_IP.Equals("Not Found")) return;
             if (Z21_IP.Equals("Error")) return;
-            Z21_Port = UInt16.Parse(Config.ReadConfig("Z21_Port"));
-            if (Z21_Port.Equals("Not Found")) return;
-            if (Z21_Port.Equals("Error")) return;
             IPEndPoint Z21_Adr = new IPEndPoint(IPAddress.Parse(Z21_IP), Z21_Port);     //Adressdaten in IPEndPoint-Datentyp umwandeln
             Client.Connect(Z21_Adr);                                                    //UPD-Verbindung aufbauen
             Client.BeginReceive(DataReceived, null);                                    //Interupt/Callback-funktion wenn neue Daten von Z21 empfangen wurden
             byte[] SendBytes = { 0x04, 0x00, 0x10, 0x00 };
             Client.Send(SendBytes, 4);
         }
+
+        public void SetIP_Z21(string ip, UInt16 port)
+        {
+            Z21_IP = ip;
+            Z21_Port = port;
+        }
+
+        public void Connect_Z21(string ip, UInt16 port)
+        {
+            Z21_IP = ip;
+            Z21_Port = port;
+
+            Client = new UdpClient();
+            if (Z21_IP == null) return;
+            if (Z21_IP.Equals("Not Found")) return;
+            if (Z21_IP.Equals("Error")) return;
+            IPEndPoint Z21_Adr = new IPEndPoint(IPAddress.Parse(Z21_IP), Z21_Port);     //Adressdaten in IPEndPoint-Datentyp umwandeln
+            Client.Connect(Z21_Adr);                                                    //UPD-Verbindung aufbauen
+            Client.BeginReceive(DataReceived, null);                                    //Interupt/Callback-funktion wenn neue Daten von Z21 empfangen wurden
+            byte[] SendBytes = { 0x04, 0x00, 0x10, 0x00 };
+            Client.Send(SendBytes, 4);
+        }
+
         /// <summary>
         /// Beenden der UDP-Verbindung inkl. Abmeldung von der Z21
         /// </summary>

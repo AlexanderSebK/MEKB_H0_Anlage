@@ -318,7 +318,7 @@ namespace MEKB_H0_Anlage
                 ZeitBisNothalt = 0;
                 Fehlermeldung.FehlerEntfernen(String.Format("Notbremse bei Lok {0} ({1})", Name, Adresse));
 
-                if (weiterfahrt) { Fahrstufe = FahrstufeVorNothalt; }
+                /*if (weiterfahrt) { Fahrstufe = FahrstufeVorNothalt; }
                 
 
                 int RichtungMitUmkehr = Richtung;
@@ -328,6 +328,7 @@ namespace MEKB_H0_Anlage
                     else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
                 }
                 setLOKFahrt?.Invoke(Adresse, (byte)Fahrstufe, RichtungMitUmkehr, FahrstufenInfo);
+                */
             }
             NothaltAnkuendigung = false;
             ZeitBisNothalt = 0;
@@ -353,7 +354,7 @@ namespace MEKB_H0_Anlage
                     if (Richtung == LokFahrstufen.Vorwaerts) RichtungMitUmkehr = LokFahrstufen.Rueckwaerts;
                     else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
                 }
-                setLOKFahrt?.Invoke(Adresse, 255, RichtungMitUmkehr, FahrstufenInfo);
+                setLOKFahrt?.Invoke(Adresse, 0, RichtungMitUmkehr, FahrstufenInfo);
             }
         }
 
@@ -481,7 +482,9 @@ namespace MEKB_H0_Anlage
         /// </summary>
         /// <param name="belegtmelderListe">Liste der Blöcke</param>
         /// <param name="weichenListe">Weichenliste</param>
-        public void BlockVerfolgung(BelegtmelderListe belegtmelderListe, WeichenListe weichenListe)
+        /// <param name="Notbremsen_Signal">Wenn true: Notbremse am Signal auslösen</param>
+        /// <param name="Notbremse_Verloren">Wenn true: Notbremse auslösen, wenn Lok verloren</param>
+        public void BlockVerfolgung(BelegtmelderListe belegtmelderListe, WeichenListe weichenListe, bool Notbremsen_Signal, bool Notbremse_Verloren)
         {
             // Wenn Position unbekannt: Funktion nicht ausführen
             if (AktuellerBlock == "") return;
@@ -529,7 +532,7 @@ namespace MEKB_H0_Anlage
                     LetzterBekannterBlock = AktuellerBlock;
                     AktuellerBlock = "Lok verloren";
                     Fehlermeldung.FehlerMelden(String.Format("{0} (1) verloren", Name, Adresse), "Warning");
-                    NotBremse(3000); //In 3 Sekunden Notbremse auslösen
+                    if(Notbremse_Verloren)NotBremse(3000); //In 3 Sekunden Notbremse auslösen
                 }
                 else
                 {
@@ -563,7 +566,10 @@ namespace MEKB_H0_Anlage
             {
                 if (Aktuel.Signal.Zustand == SignalZustand.HP0)
                 {
-                    NotBremse();
+                    if ((!Nothalt) && (this.Fahrstufe != 0))
+                    {
+                        if (Notbremsen_Signal) NotBremse();
+                    }
                 }
                 else NotBremseAufheben(true);
             }

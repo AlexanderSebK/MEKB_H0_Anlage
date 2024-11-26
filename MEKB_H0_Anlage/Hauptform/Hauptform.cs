@@ -26,6 +26,7 @@ using System.Threading;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Diagnostics.Eventing.Reader;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 //using static System.Net.Mime.MediaTypeNames;
 
 
@@ -43,6 +44,7 @@ namespace MEKB_H0_Anlage
         public List<Lokomotive> LokListe = new List<Lokomotive>();
         public Bahnhofsansage Bahnhofsansage = new Bahnhofsansage();
         public Fehlermeldung Fehlermeldungen = Fehlermeldung.Instance;
+        public Einstellungen Einstellungen = Einstellungen.Instance;
         private Logger Log { set; get; }
         #endregion
 
@@ -98,7 +100,31 @@ namespace MEKB_H0_Anlage
             Log = new Logger(String.Format("log/log{0}.txt", DateTime.Now.ToString("yyyyMMdd")));
 
             InitializeComponent();                      //Programminitialisieren
+            Einstellungen.LadeEinstellungen();
             Z21_Initialisieren();
+
+            if (Einstellungen.AutoSignal) SetCheckBoxColor(AutoSignale, "Blau");  
+            else SetCheckBoxColor(AutoSignale, "Grau");
+            AutoSignale.Checked = Einstellungen.AutoSignal;
+
+            if (Einstellungen.AutoFahrdienstleister) SetCheckBoxColor(AutoFahrdienstleiter, "Orange");
+            else SetCheckBoxColor(AutoFahrdienstleiter, "Grau");
+            AutoFahrdienstleiter.Checked = Einstellungen.AutoFahrdienstleister;
+
+            if (Einstellungen.AutoFahrplan) SetCheckBoxColor(AutoFahrplan, "Grün");
+            else SetCheckBoxColor(AutoFahrplan, "Grau");
+            AutoFahrplan.Checked = Einstellungen.AutoFahrplan;
+
+            if (Einstellungen.Bahnhofsansagen) SetCheckBoxColor(AutoBahnhofsansagen, "Lila");
+            else SetCheckBoxColor(AutoBahnhofsansagen, "Grau");
+            AutoBahnhofsansagen.Checked = Einstellungen.Bahnhofsansagen;
+
+            if (Einstellungen.AutoNotbremse) SetCheckBoxColor(LokKontrolle, "Cyan");
+            else SetCheckBoxColor(LokKontrolle, "Grau");
+            LokKontrolle.Checked = Einstellungen.AutoNotbremse;
+
+
+
 
             if (!Config.ReadConfig("LetzteAnlage").Equals("Not Found"))
             {
@@ -252,11 +278,8 @@ namespace MEKB_H0_Anlage
             //Nur ausführen, wenn Verbindung aufgebaut ist
             if (z21Start.Verbunden())
             {
-                if (!z21_Einstellung.IsDisposed) //Fenster Z21-Einstellung nläuft immer noch im Hintergrund
-                {
-                    Flags temp = z21_Einstellung.Get_Flag_Config();
-                    z21Start.Z21_SET_BROADCASTFLAGS(temp); //Flags neu setzen 
-                }
+                z21Start.Z21_SET_BROADCASTFLAGS(Einstellungen.Z21Flags);
+
                 if (!Z21_Initialisiert)
                 {
                     Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
@@ -293,7 +316,7 @@ namespace MEKB_H0_Anlage
                         Fahrstrassenupdate(fahrstrasse);
                     }
 
-                    if (Betriebsbereit && AutoSignale.Checked) 
+                    if (Betriebsbereit && Einstellungen.AutoSignal) 
                         SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"),50);
 
                     SignalListe.VorsignaleSchalten();
@@ -344,7 +367,7 @@ namespace MEKB_H0_Anlage
 
             foreach(Lokomotive lokomotive in LokListe)
             {
-                lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe);
+                lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe, LokKontrolle.Checked, true);
                 
                 if (LokKontrolle.Checked) lokomotive.NotBremseHandeln(200);
                 StatusAdressen.Add(lokomotive.Adresse);
@@ -1131,7 +1154,7 @@ namespace MEKB_H0_Anlage
                         if (signal.Zustand == SignalZustand.HP2) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
                         {
                             signal.Schalten(SignalZustand.HP0);
-                            if (AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
+                            if (Einstellungen.AutoSignal) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
                             return;
                         }
 
@@ -1163,7 +1186,7 @@ namespace MEKB_H0_Anlage
                         if (signal.Zustand == SignalZustand.SH1) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
                         {
                             signal.Schalten(SignalZustand.HP0);
-                            if (AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
+                            if (Einstellungen.AutoSignal) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
                             return;
                         }
                         // SH1 erlaubt
@@ -1205,7 +1228,7 @@ namespace MEKB_H0_Anlage
                         else // Zurückschalten auf HP0
                         {
                             signal.Schalten(SignalZustand.HP0);
-                            if (AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
+                            if (Einstellungen.AutoSignal) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
                             return;
                         }
                     }
@@ -1639,12 +1662,10 @@ namespace MEKB_H0_Anlage
             Fehlermeldungen.FehlerEntfernen("Z21-Zentrale nicht gefunden");
             // Z21 ist verbunden
             if (z21Start.Verbunden())
-            {
-                if (!z21_Einstellung.IsDisposed) // Fenster Z21-Einstellung läuft immer noch im Hintergrund
-                {
-                    Flags temp = z21_Einstellung.Get_Flag_Config();
-                    z21Start.Z21_SET_BROADCASTFLAGS(temp); // Flags neu setzen 
-                }
+            { 
+                // Broadcast-Nachrichten setzen
+                z21Start.Z21_SET_BROADCASTFLAGS(Einstellungen.Z21Flags);
+
                 Thread.Sleep(100);
                 // Alle Weichen abfragen
                 WeichenListe.WeichenStatus("Alle");
@@ -1691,9 +1712,10 @@ namespace MEKB_H0_Anlage
             z21Start.SetQMode(true);
 
             
+            z21Start.SetIP_Z21(Einstellungen.Z21_IP,Einstellungen.Z21_Port);
 
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
-            z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
+            z21_Einstellung.Get_Z21_Instance(z21Start);     //Z21-Verbindung dem neuen Fenster mitgeben
 
             ConnectStatus(false, false);                 //Verbindungsstatus initialisieren
             Betriebsbereit = false;
@@ -1772,6 +1794,7 @@ namespace MEKB_H0_Anlage
         
         private void Gleisplan_Laden(string Dateiname)
         {
+            GleisbildZeichnung.GleisZustand.Clear();
             Plan = new Gleisplan(Dateiname);
             WeichenListe = new WeichenListe(Dateiname);
             SignalListe = new SignalListe(Dateiname);
@@ -1812,16 +1835,10 @@ namespace MEKB_H0_Anlage
         {
             if (sender is CheckBox checkBox)
             {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.BackColor = Color.FromArgb(0, 0, 255);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
-                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
-                }
+                Einstellungen.AutoSignal = checkBox.Checked;
+                if (checkBox.Checked == true) SetCheckBoxColor(checkBox, "Blau");
+                else SetCheckBoxColor(checkBox, "Grau");
+                Einstellungen.WriteBoolToConfig("AutoSignal", Einstellungen.AutoSignal);
             }
         }
         /// <summary>
@@ -1833,16 +1850,10 @@ namespace MEKB_H0_Anlage
         {
             if (sender is CheckBox checkBox)
             {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.BackColor = Color.FromArgb(255, 128, 0);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
-                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
-                }
+                Einstellungen.AutoFahrdienstleister = checkBox.Checked;
+                if (checkBox.Checked == true) SetCheckBoxColor(checkBox, "Orange");
+                else SetCheckBoxColor(checkBox, "Grau");
+                Einstellungen.WriteBoolToConfig("AutoFahrdienstleister", Einstellungen.AutoFahrdienstleister);
             }
         }
         /// <summary>
@@ -1854,16 +1865,10 @@ namespace MEKB_H0_Anlage
         {
             if (sender is CheckBox checkBox)
             {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.BackColor = Color.FromArgb(0, 128, 0);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
-                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
-                }
+                Einstellungen.AutoFahrplan = checkBox.Checked;
+                if (checkBox.Checked == true) SetCheckBoxColor(checkBox, "Grün");
+                else SetCheckBoxColor(checkBox, "Grau");
+                Einstellungen.WriteBoolToConfig("AutoFahrplan", Einstellungen.AutoFahrplan);
             }
         }
         /// <summary>
@@ -1875,18 +1880,57 @@ namespace MEKB_H0_Anlage
         {
             if (sender is CheckBox checkBox)
             {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.BackColor = Color.FromArgb(128, 0, 128);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
-                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
-                }
+                Einstellungen.Bahnhofsansagen = checkBox.Checked;
+                if (checkBox.Checked == true) SetCheckBoxColor(checkBox, "Lila");
+                else SetCheckBoxColor(checkBox, "Grau");
+                Einstellungen.WriteBoolToConfig("Bahnhofsansagen", Einstellungen.Bahnhofsansagen);
             }
         }
+
+        private void LokKontrolle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                Einstellungen.AutoNotbremse = checkBox.Checked;
+                if (checkBox.Checked == true) SetCheckBoxColor(checkBox, "Cyan");
+                else SetCheckBoxColor(checkBox, "Grau");
+                Einstellungen.WriteBoolToConfig("AutoNotbremse", Einstellungen.AutoNotbremse);
+            }
+        }
+
+        private void SetCheckBoxColor(CheckBox checkBox, string farbe)
+        {
+            switch (farbe)
+            {
+                case "Blau":
+                    checkBox.BackColor = Color.FromArgb(0, 0, 255);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    break;
+                case "Grün":
+                    checkBox.BackColor = Color.FromArgb(0, 128, 0);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    break;
+                case "Lila":
+                    checkBox.BackColor = Color.FromArgb(128, 0, 128);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    break;
+                case "Orange":
+                    checkBox.BackColor = Color.FromArgb(255, 128, 0);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    break;
+                case "Cyan":
+                    checkBox.BackColor = Color.FromArgb(0, 128, 128);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    break;
+                case "Grau":
+                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
+                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         /// <summary>
         /// Fahrzeugliste aufrufen
         /// </summary>
@@ -2244,22 +2288,7 @@ namespace MEKB_H0_Anlage
             weichen_Ueberwachung.BringToFront();
         }
 
-        private void LokKontrolle_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sender is CheckBox checkBox)
-            {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.BackColor = Color.FromArgb(128, 0, 128);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
-                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
-                }
-            }
-        }
+        
 
         private void gleisplanLadenToolStripMenuItem_Click(object sender, EventArgs e)
         {

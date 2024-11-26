@@ -425,6 +425,20 @@ namespace MEKB_H0_Anlage
                 string[] subs = name.Split('_');
                 if (subs[1] != "Adr") return; //Muss auf _Adr enden
 
+                //Index der Lok lesen
+                string indexStr = subs[0].Substring(7);
+                if (Int32.TryParse(indexStr, out int index))
+                {
+                    if ((index >= 0) && (index < AktiveLoks.Count))
+                    {
+                        if (AktiveLoks[index].Adresse == Adressfeld.Value)
+                        {
+                            return; //Lok bereits geladen => Nicht nochmal alden
+                        }
+                    }
+                }
+                
+
                 if (LokomotivenArchiv.SucheDurchAdresse(Adressfeld.Value, out Lokomotive lokomotive))//Finde Lok mit dieser Adresse 
                 {
                     LokKontroll_UpdateAktiveLok(subs[0], lokomotive);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Windows.Forms;
+using System.Web;
 
 namespace MEKB_H0_Anlage
 {
@@ -134,6 +135,94 @@ namespace MEKB_H0_Anlage
             }
         }
     }
+
+    public sealed class Einstellungen
+    {
+        private static readonly Lazy<Einstellungen> lazy =
+        new Lazy<Einstellungen>(() => new Einstellungen());
+
+        public static Einstellungen Instance { get { return lazy.Value; } }
+
+        public Einstellungen() 
+        {
+            Z21Flags = new Flags(0);
+        }
+
+        public bool AutoSignal { get; set; }
+        public bool AutoFahrdienstleister { get; set; }
+        public bool AutoFahrplan {  get; set; }
+        public bool AutoNotbremse { get; set; }
+        public bool AutoZ21Connect { get; set; }
+        public bool Bahnhofsansagen { get; set; }
+
+        public Flags Z21Flags { get; set; }
+
+        public UInt16 Z21_Port { get; set; }
+        public string Z21_IP { get; set; }
+
+        #region Funktionen
+        public void SpeicherEinstellungen()
+        {
+            WriteBoolToConfig("Z21_Abos_Alle_Railcom", Z21Flags.Alle_Railcom);
+            WriteBoolToConfig("Z21_Abos_Railcom", Z21Flags.Railcom);
+            WriteBoolToConfig("Z21_Abos_Alle_Loks", Z21Flags.Alle_Lok_Info);
+            WriteBoolToConfig("Z21_Abos_Loks", Z21Flags.Fahren_Schalten);
+
+            WriteBoolToConfig("Z21_Abos_RMBus", Z21Flags.RM_Bus);
+            WriteBoolToConfig("Z21_Abos_CANBus", Z21Flags.CAN_Detect);
+            WriteBoolToConfig("Z21_Abos_System_Status", Z21Flags.System_Status);
+
+            WriteBoolToConfig("Z21_Abos_LOCONET_Basic", Z21Flags.LOCONET_Basic);
+            WriteBoolToConfig("Z21_Abos_LOCONET_Loks", Z21Flags.LOCONET_Lok);
+            WriteBoolToConfig("Z21_Abos_LOCONET_Weichen", Z21Flags.LOCONET_Weichen);
+            WriteBoolToConfig("Z21_Abos_LOCONET_Detector", Z21Flags.LOCONET_Detect);
+
+            WriteBoolToConfig("Auto_Connect", AutoZ21Connect);
+            Config.WriteConfig("Z21_IP", Z21_IP);
+            Config.WriteConfig("Z21_Port", Z21_Port.ToString());
+
+            WriteBoolToConfig("AutoSignal", AutoSignal);
+            WriteBoolToConfig("AutoNotbremse", AutoNotbremse);
+            WriteBoolToConfig("AutoFahrdienstleister", AutoFahrdienstleister);
+            WriteBoolToConfig("AutoFahrplan", AutoFahrplan);
+            WriteBoolToConfig("Bahnhofsansagen", Bahnhofsansagen);
+        }
+
+        public void WriteBoolToConfig(string name, bool value)
+        {
+            if (value) Config.WriteConfig(name, "true");
+            else Config.WriteConfig(name, "false");
+        }
+
+        public void LadeEinstellungen()
+        {
+            Z21_Port = UInt16.Parse(Config.ReadConfig("Z21_Port"));
+            Z21_IP = Config.ReadConfig("Z21_IP");
+
+            Z21Flags.Alle_Railcom = Config.ReadConfig("Z21_Abos_Alle_Railcom").Equals("true");
+            Z21Flags.Railcom = Config.ReadConfig("Z21_Abos_Railcom").Equals("true");
+            Z21Flags.Alle_Lok_Info = Config.ReadConfig("Z21_Abos_Alle_Loks").Equals("true");
+            Z21Flags.Fahren_Schalten = Config.ReadConfig("Z21_Abos_Loks").Equals("true");
+
+            Z21Flags.RM_Bus = Config.ReadConfig("Z21_Abos_RMBus").Equals("true");
+            Z21Flags.CAN_Detect = Config.ReadConfig("Z21_Abos_CANBus").Equals("true");
+            Z21Flags.System_Status = Config.ReadConfig("Z21_Abos_System_Status").Equals("true");
+
+            Z21Flags.LOCONET_Basic = Config.ReadConfig("Z21_Abos_LOCONET_Basic").Equals("true");
+            Z21Flags.LOCONET_Lok = Config.ReadConfig("Z21_Abos_LOCONET_Loks").Equals("true");
+            Z21Flags.LOCONET_Weichen = Config.ReadConfig("Z21_Abos_LOCONET_Weichen").Equals("true");
+            Z21Flags.LOCONET_Detect = Config.ReadConfig("Z21_Abos_LOCONET_Detector").Equals("true");
+
+            AutoSignal = Config.ReadConfig("AutoSignal").Equals("true");
+            AutoZ21Connect = Config.ReadConfig("Auto_Connect").Equals("true");
+            AutoNotbremse = Config.ReadConfig("AutoNotbremse").Equals("true");
+            AutoFahrdienstleister = Config.ReadConfig("AutoFahrdienstleister").Equals("true");
+            AutoFahrplan = Config.ReadConfig("AutoFahrplan").Equals("true");
+            Bahnhofsansagen = Config.ReadConfig("Bahnhofsansagen").Equals("true");
+        }
+        #endregion
+    }
+
 
     /// <summary>
     /// Fehlermeldungen verwalten (Austausch zwischen den Instanzen)

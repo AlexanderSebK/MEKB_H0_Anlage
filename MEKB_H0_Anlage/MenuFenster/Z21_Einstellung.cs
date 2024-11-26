@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MEKB_H0_Anlage
@@ -15,21 +9,27 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public partial class Z21_Einstellung : Form
     {
+        #region Instancen
+        public Einstellungen Einstellungen = Einstellungen.Instance;
         /// <summary>
         /// Instance der Z21 (übernommen von dem Hauptfenster)
         /// </summary>
-        private Z21 z21Start;
+        private Z21 z21Instance;
+        #endregion
+        #region Konstruktor
         public Z21_Einstellung()
         {
             InitializeComponent();
         }
+        #endregion
+        #region externe Zugriff
         /// <summary>
         /// Instance der Z21 vom Hauptfenster übernehmen und Konfigurationsdatei lesen
         /// </summary>
-        /// <param name="form1">Hauptfrom</param>
-        public void Get_Z21_Instance(Hauptform form1)
+        /// <param name="instance">Zentraleninstance</param>
+        public void Get_Z21_Instance(Z21 instance)
         {
-            z21Start = form1.z21Start;
+            z21Instance = instance;
             LoadConfig();
         }
         /// <summary>
@@ -58,47 +58,29 @@ namespace MEKB_H0_Anlage
             Abo_SystemStatus.Checked = flags.System_Status;
         }
         /// <summary>
-        /// Button "OK" - Fenster schließen
+        /// Buttons für Verbinden und Trennen aktivieren/deaktivieren
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Z21_Eigenschaften_OK_Click(object sender, EventArgs e)
+        /// <param name="status"></param>
+        public void ConnectStatus(bool status)
         {
-            this.Hide();
+            Z21_Connect.Enabled = !status;
+            Z21_DisConnect.Enabled = status;
         }
+
         /// <summary>
-        /// Button "Werte lesen" - Konfiguration von der Z21 abfragen
+        /// Schreiben eines Texts in die Textbox für Seriennummer
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Z21_Get_Click(object sender, EventArgs e)
+        /// <param name="data"></param>
+        public void Set_SerienNummer(string data)
         {
-            z21Start.GET_FIRMWARE_VERSION();
-            z21Start.GET_BROADCASTFLAGS();
+            Seriennummer.Text = data;
         }
+        #endregion
+        #region Hilfsfunktionen
         /// <summary>
-        /// Button "Werte schreiben" - Konfiguration an die Z21 senden
+        /// Aktuelle Checkboxen für die Z21 Broadcast-Flags einlesen und variable erstellen
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Z21_Update_Click(object sender, EventArgs e)
-        {
-            Flags flags = new Flags(0)
-            {
-                Alle_Railcom = Abo_AllRailCom.Checked,
-                Alle_Lok_Info = Abo_AllFahren.Checked,
-                Fahren_Schalten = Abo_Fahren.Checked,
-                LOCONET_Basic = Abo_LOCONET_Basis.Checked,
-                LOCONET_Detect = Abo_LOCONET_detect.Checked,
-                LOCONET_Lok = Abo_LOCONET_Loks.Checked,
-                LOCONET_Weichen = Abo_LOCONET_Weichen.Checked,
-                Railcom = Abo_Railcom.Checked,
-                RM_Bus = Abo_RMBus.Checked,
-                System_Status = Abo_SystemStatus.Checked,
-                CAN_Detect = Abo_CAN_detect.Checked
-            };
-            z21Start.Z21_SET_BROADCASTFLAGS(flags);
-        }
+        /// <returns>Z21 Broadcast-Flags</returns>
         public Flags Get_Flag_Config()
         {
             Flags flags = new Flags(0)
@@ -117,60 +99,14 @@ namespace MEKB_H0_Anlage
             };
             return flags;
         }
-        /// <summary>
-        /// Button "Konfiguration speichern" - Konfiguration in die Config-Datei speichern
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Config_save_Click(object sender, EventArgs e)
-        {
-            Config.WriteConfig("Z21_IP", string.Format("{0}.{1}.{2}.{3}", IP_1.Text, IP_2.Text, IP_3.Text, IP_4.Text));
-            Config.WriteConfig("Z21_Port", IP_Port.Text.ToString());
 
-            if (Abo_AllRailCom.Checked) Config.WriteConfig("Z21_Abos_Alle_Railcom", "true");
-            else Config.WriteConfig("Z21_Abos_Alle_Railcom", "false");
-            if (Abo_Railcom.Checked) Config.WriteConfig("Z21_Abos_Railcom", "true");
-            else Config.WriteConfig("Z21_Abos_Railcom", "false");
-            if (Abo_AllFahren.Checked) Config.WriteConfig("Z21_Abos_Alle_Loks", "true");
-            else Config.WriteConfig("Z21_Abos_Alle_Loks", "false");
-            if (Abo_Fahren.Checked) Config.WriteConfig("Z21_Abos_Loks", "true");
-            else Config.WriteConfig("Z21_Abos_Loks", "false");
-
-            if (Abo_RMBus.Checked) Config.WriteConfig("Z21_Abos_RMBus", "true");
-            else Config.WriteConfig("Z21_Abos_RMBus", "false");
-            if (Abo_CAN_detect.Checked) Config.WriteConfig("Z21_Abos_CANBus", "true");
-            else Config.WriteConfig("Z21_Abos_CANBus", "false");
-            if (Abo_SystemStatus.Checked) Config.WriteConfig("Z21_Abos_System_Status", "true");
-            else Config.WriteConfig("Z21_Abos_System_Status", "false");
-
-            if (Abo_LOCONET_Basis.Checked) Config.WriteConfig("Z21_Abos_LOCONET_Basic", "true");
-            else Config.WriteConfig("Z21_Abos_LOCONET_Basic", "false");
-            if (Abo_LOCONET_Loks.Checked) Config.WriteConfig("Z21_Abos_LOCONET_Loks", "true");
-            else Config.WriteConfig("Z21_Abos_LOCONET_Loks", "false");
-            if (Abo_LOCONET_Weichen.Checked) Config.WriteConfig("Z21_Abos_LOCONET_Weichen", "true");
-            else Config.WriteConfig("Z21_Abos_LOCONET_Weichen", "false");
-            if (Abo_LOCONET_detect.Checked) Config.WriteConfig("Z21_Abos_LOCONET_Detector", "true");
-            else Config.WriteConfig("Z21_Abos_LOCONET_Detector", "false");
-
-            if (AutoConnect.Checked) Config.WriteConfig("Auto_Connect", "true");
-            else Config.WriteConfig("Auto_Connect", "false");
-
-        }
-        /// <summary>
-        /// Button "Kofniguration laden " - Konfiguration aus der Config-Datei laden
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Config_laden_Click(object sender, EventArgs e)
-        {
-            LoadConfig();
-        }
         /// <summary>
         /// Unterfunktion Config-Datei auslesen und in die TextBoxen schreiben
         /// </summary>
         private void LoadConfig()
         {
-            String IP_Adresse = Config.ReadConfig("Z21_IP");
+            Einstellungen.LadeEinstellungen();
+            String IP_Adresse = Einstellungen.Z21_IP;
             string[] IP = IP_Adresse.Split(new char[] { '.' });
             if (IP.Count() == 4)
             {
@@ -187,32 +123,72 @@ namespace MEKB_H0_Anlage
                 IP_4.Text = "saved";
             }
 
-            IP_Port.Text = Config.ReadConfig("Z21_Port");
+            IP_Port.Text = Einstellungen.Z21_Port.ToString();
 
-            if (Config.ReadConfig("Z21_Abos_Alle_Railcom").Equals("true")) Abo_AllRailCom.Checked = true;
-            if (Config.ReadConfig("Z21_Abos_Railcom").Equals("true")) Abo_Railcom.Checked = true;
-            if (Config.ReadConfig("Z21_Abos_Alle_Loks").Equals("true")) Abo_AllFahren.Checked = true;
-            if (Config.ReadConfig("Z21_Abos_Loks").Equals("true")) Abo_Fahren.Checked = true;
+            Abo_AllRailCom.Checked = Einstellungen.Z21Flags.Alle_Railcom;
+            Abo_Railcom.Checked = Einstellungen.Z21Flags.Railcom;
+            Abo_AllFahren.Checked = Einstellungen.Z21Flags.Alle_Lok_Info;
+            Abo_Fahren.Checked = Einstellungen.Z21Flags.Fahren_Schalten;
 
-            if (Config.ReadConfig("Z21_Abos_RMBus").Equals("true")) Abo_RMBus.Checked = true;
-            if (Config.ReadConfig("Z21_Abos_CANBus").Equals("true")) Abo_CAN_detect.Checked = true;
-            if (Config.ReadConfig("Z21_Abos_System_Status").Equals("true")) Abo_SystemStatus.Checked = true;
+            Abo_RMBus.Checked = Einstellungen.Z21Flags.RM_Bus;
+            Abo_CAN_detect.Checked = Einstellungen.Z21Flags.CAN_Detect;
+            Abo_SystemStatus.Checked = Einstellungen.Z21Flags.System_Status;
 
-            if (Config.ReadConfig("Z21_Abos_LOCONET_Basic").Equals("true")) Abo_LOCONET_Basis.Checked = true;
-            if (Config.ReadConfig("Z21_Abos_LOCONET_Loks").Equals("true")) Abo_LOCONET_Loks.Checked = true;
-            if (Config.ReadConfig("Z21_Abos_LOCONET_Weichen").Equals("true")) Abo_LOCONET_Weichen.Checked = true;
-            if (Config.ReadConfig("Z21_Abos_LOCONET_Detector").Equals("true")) Abo_LOCONET_detect.Checked = true;
+            Abo_LOCONET_Basis.Checked = Einstellungen.Z21Flags.LOCONET_Basic;
+            Abo_LOCONET_Loks.Checked = Einstellungen.Z21Flags.LOCONET_Lok;
+            Abo_LOCONET_Weichen.Checked = Einstellungen.Z21Flags.LOCONET_Weichen;
+            Abo_LOCONET_detect.Checked = Einstellungen.Z21Flags.LOCONET_Detect;
 
-            if (Config.ReadConfig("Auto_Connect").Equals("true")) AutoConnect.Checked = true;
+            AutoConnect.Checked = Einstellungen.AutoZ21Connect;
+
+        }
+        #endregion
+        #region Buttons
+        /// <summary>
+        /// Button "OK" - Fenster schließen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Z21_Eigenschaften_OK_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
         /// <summary>
-        /// Buttons für Verbinden und Trennen aktivieren/deaktivieren
+        /// Button "Werte lesen" - Konfiguration von der Z21 abfragen
         /// </summary>
-        /// <param name="status"></param>
-        public void ConnectStatus(bool status)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Z21_Get_Click(object sender, EventArgs e)
         {
-            Z21_Connect.Enabled = !status;
-            Z21_DisConnect.Enabled = status;
+            z21Instance.GET_FIRMWARE_VERSION();
+            z21Instance.GET_BROADCASTFLAGS();
+        }
+        /// <summary>
+        /// Button "Werte schreiben" - Konfiguration an die Z21 senden
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Z21_Update_Click(object sender, EventArgs e)
+        {
+            z21Instance.Z21_SET_BROADCASTFLAGS(Get_Flag_Config());
+        }
+        /// <summary>
+        /// Button "Konfiguration speichern" - Konfiguration in die Config-Datei speichern
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Config_save_Click(object sender, EventArgs e)
+        {
+            Einstellungen.SpeicherEinstellungen();
+        }
+        /// <summary>
+        /// Button "Konfiguration laden " - Konfiguration aus der Config-Datei laden
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Config_laden_Click(object sender, EventArgs e)
+        {
+            LoadConfig();
         }
         /// <summary>
         /// Button "Verbinden" - Verbindung aufbauen
@@ -221,7 +197,7 @@ namespace MEKB_H0_Anlage
         /// <param name="e"></param>
         private void Z21_Connect_Click(object sender, EventArgs e)
         {
-            z21Start.Connect_Z21();
+            z21Instance.Connect_Z21();
         }
         /// <summary>
         /// Button "Trennen" - Verbindung trennen
@@ -230,15 +206,8 @@ namespace MEKB_H0_Anlage
         /// <param name="e"></param>
         private void Z21_DisConnect_Click(object sender, EventArgs e)
         {
-            z21Start.DisConnect_Z21();
+            z21Instance.DisConnect_Z21();
         }
-        /// <summary>
-        /// Schreiben eines Texts in die Textbox für Seriennummer
-        /// </summary>
-        /// <param name="data"></param>
-        public void Set_SerienNummer(string data)
-        {
-            Seriennummer.Text = data;
-        }
+        #endregion
     }
 }
