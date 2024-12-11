@@ -280,8 +280,10 @@ namespace MEKB_H0_Anlage
             {
                 z21Start.Z21_SET_BROADCASTFLAGS(Einstellungen.Z21Flags);
 
+                // Wenn noch nicht initialisiert: Thread für Initialisierung starten
                 if (!Z21_Initialisiert)
                 {
+                    if (InitIsRunning) return; //Läuft bereits, nicht ausführen
                     Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
                     {
                         IsBackground = true
@@ -300,10 +302,9 @@ namespace MEKB_H0_Anlage
             }));
         }
 
-        //private int GroupIndex = 0;
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
-            if (source is System.Timers.Timer)
+            if (source is System.Timers.Timer timer)
             {
 
                 if (z21Start.Verbunden())
@@ -317,7 +318,7 @@ namespace MEKB_H0_Anlage
                     }
 
                     if (Betriebsbereit && Einstellungen.AutoSignal) 
-                        SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"),50);
+                        SignalListe.AutoSignal(Einstellungen.AutoSignal, Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"),(int)timer.Interval);
 
                     SignalListe.VorsignaleSchalten();
                     try
@@ -363,17 +364,20 @@ namespace MEKB_H0_Anlage
             // Lokstatus abfragen
             if (LokListe.Count == 0) return;
 
-            List<int> StatusAdressen = new List<int>();
-
-            foreach(Lokomotive lokomotive in LokListe)
+            if (source is System.Timers.Timer timer)
             {
-                lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe, LokKontrolle.Checked, true);
-                
-                if (LokKontrolle.Checked) lokomotive.NotBremseHandeln(200);
-                StatusAdressen.Add(lokomotive.Adresse);
-            }
+                List<int> StatusAdressen = new List<int>();
 
-            z21Start.Z21_GET_LOCO_INFO(StatusAdressen);            
+                foreach (Lokomotive lokomotive in LokListe)
+                {
+                    lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe, LokKontrolle.Checked, true);
+
+                    if (LokKontrolle.Checked) lokomotive.NotBremseHandeln((int)timer.Interval);
+                    StatusAdressen.Add(lokomotive.Adresse);
+                }
+
+                z21Start.Z21_GET_LOCO_INFO(StatusAdressen);
+            }
         }
 
 
@@ -1709,7 +1713,7 @@ namespace MEKB_H0_Anlage
             z21Start.Register_LAN_X_LOCO_INFO(CallBack_Z21_LokUpdate);
             z21Start.Register_LAN_RMBUS_DATACHANGED(CallBack_LAN_RMBUS_DATACHANGED);
 
-            z21Start.SetQMode(true);
+            z21Start.SetQMode(true); //Queue Mode bei Weichen aktivieren
 
             
             z21Start.SetIP_Z21(Einstellungen.Z21_IP,Einstellungen.Z21_Port);

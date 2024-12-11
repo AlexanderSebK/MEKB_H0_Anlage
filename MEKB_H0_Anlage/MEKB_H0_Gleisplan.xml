@@ -3418,6 +3418,7 @@
 				<PosY>3</PosY>
 				<Typ>Gerade_90</Typ>
 				<Bedingung Teil='1'>1</Bedingung>
+				<Bahnhof>HBf Gleis 1</Bahnhof>
 			</Gleis>
 			<Gleis Name='Bhf_Gl1_6'>
 				<PosX>29</PosX>
@@ -15914,4 +15915,12 @@
 			</Nachbarbloecke>
 		</Belegtmelder>
 	</Belegtmelderliste>
+	<Anzeigeliste>
+		<Anzeige Name = 'HBf Gleis 1'>
+			<PosX>1</PosX>
+			<PosY>1</PosY>
+			<Richtung>rechts</Richtung>
+			<Melderliste></Melderliste>
+		</Anzeige>
+	</Anzeigeliste>
 </Anlage>
