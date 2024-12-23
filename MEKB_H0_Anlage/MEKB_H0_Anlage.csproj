@@ -218,6 +218,7 @@
       <DependentUpon>ZugSteuerpult.cs</DependentUpon>
     </Compile>
     <Compile Include="Zusatz\Weichen.cs" />
+    <Compile Include="Zusatz\Zuganzeige.cs" />
     <EmbeddedResource Include="Hauptform\Hauptform.resx">
       <DependentUpon>Hauptform.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -306,6 +307,25 @@
     <Content Include="MEKB_H0_Gleisplan.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\EC.png" />
+    <None Include="Resources\IC.png" />
+    <None Include="Resources\ICE.png" />
+    <None Include="Resources\IR.png" />
+    <None Include="Resources\IRE.png" />
+    <None Include="Resources\RB.png" />
+    <None Include="Resources\RE.png" />
+    <None Include="Resources\S-Bahn.png" />
+    <None Include="Resources\U-Bahn.png" />
+    <None Include="Resources\LinksAktiv.png" />
+    <None Include="Resources\LinksInaktiv.png" />
+    <None Include="Resources\ObenAktiv.png" />
+    <None Include="Resources\ObenInaktiv.png" />
+    <None Include="Resources\RechtsAktiv.png" />
+    <None Include="Resources\RechtsInaktiv.png" />
+    <None Include="Resources\UntenAktiv.png" />
+    <None Include="Resources\UntenInaktiv.png" />
+    <None Include="Resources\TypUnbekannt.png" />
+    <None Include="Resources\TypUnbesetzt.png" />
     <Content Include="Standard.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

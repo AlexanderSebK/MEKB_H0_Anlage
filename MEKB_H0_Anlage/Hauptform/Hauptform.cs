@@ -65,6 +65,7 @@ namespace MEKB_H0_Anlage
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe();
         public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
         public LokomotivenVerwaltung LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
+        public ZuganzeigerListe ZuganzeigerListe = new ZuganzeigerListe();
 
         private List<string> SperrButtons = new List<string>();
         #endregion
@@ -171,6 +172,7 @@ namespace MEKB_H0_Anlage
 
             //Gleisplan zeichnen
             GleisplanZeichnenInitial();
+            ZuganzeigeZeichnen();
 
             //Sofort verbinden wenn Optionen das erlauben
             if (Config.ReadConfig("Auto_Connect").Equals("true"))
@@ -1584,6 +1586,26 @@ namespace MEKB_H0_Anlage
         }
         #endregion
 
+        #region Zuganzeige
+        private void ZuganzeigeZeichnen()
+        {
+            foreach(Zuganzeige zuganzeige in ZuganzeigerListe.Liste)
+            {
+                zuganzeige.ZeichneAnzeige(out TextBox Anzeige, out PictureBox Typ, out PictureBox VFahrt, out PictureBox RFahrt);
+                
+                Anzeige.Text = zuganzeige.AnzeigeName;
+
+                this.GleisplanAnzeige.Controls.Add(Anzeige);
+                Anzeige.BringToFront();
+                this.GleisplanAnzeige.Controls.Add(Typ);
+                Typ.BringToFront();
+                this.GleisplanAnzeige.Controls.Add(VFahrt);
+                VFahrt.BringToFront();
+                this.GleisplanAnzeige.Controls.Add(RFahrt);
+                RFahrt.BringToFront();
+            }
+        }
+        #endregion
         #endregion
 
         #region Lok Steuerung
@@ -1804,6 +1826,8 @@ namespace MEKB_H0_Anlage
             SignalListe = new SignalListe(Dateiname);
             BelegtmelderListe = new BelegtmelderListe(Dateiname);
             FahrstrassenListe = new FahrstrassenListe(Dateiname, WeichenListe, SignalListe);
+            ZuganzeigerListe = new ZuganzeigerListe(Dateiname);
+
 
             SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
             BelegtmelderListe.SignalZugriff(SignalListe);
@@ -2318,6 +2342,7 @@ namespace MEKB_H0_Anlage
 
                     //Gleisplan zeichnen
                     GleisplanZeichnenInitial();
+                    ZuganzeigeZeichnen();
 
                     // Timer aktivieren
                     WeichenTimer.Enabled = true;
