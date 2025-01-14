@@ -41,7 +41,7 @@ namespace MEKB_H0_Anlage
         public Z21 z21Start;
         public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
 
-        public List<Lokomotive> LokListe = new List<Lokomotive>();
+        public AktiveLokomotiven AktiveLokomotiven = AktiveLokomotiven.Instance;
         public Bahnhofsansage Bahnhofsansage = new Bahnhofsansage();
         public Fehlermeldung Fehlermeldungen = Fehlermeldung.Instance;
         public Einstellungen Einstellungen = Einstellungen.Instance;
@@ -65,7 +65,8 @@ namespace MEKB_H0_Anlage
         public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe();
         public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
         public LokomotivenVerwaltung LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
-        public ZuganzeigerListe ZuganzeigerListe = new ZuganzeigerListe();
+
+        public ZuganzeigerListe ZuganzeigerListe = ZuganzeigerListe.Instance;
 
         private List<string> SperrButtons = new List<string>();
         #endregion
@@ -137,7 +138,7 @@ namespace MEKB_H0_Anlage
 
             LokListe_Laden();
 
-            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe, BelegtmelderListe);
+            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, AktiveLokomotiven.Liste, BelegtmelderListe);
 
             
         }
@@ -172,7 +173,7 @@ namespace MEKB_H0_Anlage
 
             //Gleisplan zeichnen
             GleisplanZeichnenInitial();
-            ZuganzeigeZeichnen();
+            ZuganzeigerListe.ZeichneZuganzeigen(this.GleisplanAnzeige.Controls);
 
             //Sofort verbinden wenn Optionen das erlauben
             if (Config.ReadConfig("Auto_Connect").Equals("true"))
@@ -363,14 +364,16 @@ namespace MEKB_H0_Anlage
         private void OnStatusUpdate(Object source, ElapsedEventArgs e)
         {
             if (!Betriebsbereit) return;
-            // Lokstatus abfragen
-            if (LokListe.Count == 0) return;
+            
 
             if (source is System.Timers.Timer timer)
             {
-                List<int> StatusAdressen = new List<int>();
+                this.BeginInvoke((Action<bool>) ZuganzeigenAktualisieren, false);
 
-                foreach (Lokomotive lokomotive in LokListe)
+                // Lokstatus abfragen
+                if (AktiveLokomotiven.Liste.Count == 0) return;
+                List<int> StatusAdressen = new List<int>();
+                foreach (Lokomotive lokomotive in AktiveLokomotiven.Liste)
                 {
                     lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe, LokKontrolle.Checked, true);
 
@@ -1587,24 +1590,20 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region Zuganzeige
-        private void ZuganzeigeZeichnen()
-        {
-            foreach(Zuganzeige zuganzeige in ZuganzeigerListe.Liste)
-            {
-                zuganzeige.ZeichneAnzeige(out TextBox Anzeige, out PictureBox Typ, out PictureBox VFahrt, out PictureBox RFahrt);
-                
-                Anzeige.Text = zuganzeige.AnzeigeName;
+        
 
-                this.GleisplanAnzeige.Controls.Add(Anzeige);
-                Anzeige.BringToFront();
-                this.GleisplanAnzeige.Controls.Add(Typ);
-                Typ.BringToFront();
-                this.GleisplanAnzeige.Controls.Add(VFahrt);
-                VFahrt.BringToFront();
-                this.GleisplanAnzeige.Controls.Add(RFahrt);
-                RFahrt.BringToFront();
-            }
+        private void ZuganzeigenAktualisieren(bool ErzwingeUpdate = false)
+        {
+            ZuganzeigerListe.ZuganzeigenAktualisieren(this.GleisplanAnzeige.Controls, ErzwingeUpdate);            
         }
+
+        
+
+        
+
+        
+
+        
         #endregion
         #endregion
 
@@ -1649,7 +1648,7 @@ namespace MEKB_H0_Anlage
         /// <param name="e">Eventparameter</param>
         private void StopAlle_Click(object sender, EventArgs e)
         {
-            foreach (Lokomotive lok in LokListe)
+            foreach (Lokomotive lok in AktiveLokomotiven.Liste)
             {
                 if (lok.Adresse != 0)
                 {
@@ -1793,7 +1792,7 @@ namespace MEKB_H0_Anlage
                         lokomotive.VorherigerBlock = "";
                     }
 
-                    LokListe.Add(lokomotive);
+                    AktiveLokomotiven.Liste.Add(lokomotive);
                     
                 }
             }
@@ -1803,11 +1802,11 @@ namespace MEKB_H0_Anlage
         {
             for(int i = 0;i < Max_Loks; i++)
             {
-                if(i <  LokListe.Count)
+                if(i <  AktiveLokomotiven.Liste.Count)
                 {
-                    Config.WriteConfig(String.Format("LokListe{0}", i), LokListe[i].Adresse.ToString());
-                    Config.WriteConfig(String.Format("LokPos{0}",i), LokListe[i].AktuellerBlock.ToString());
-                    Config.WriteConfig(String.Format("LokPosVor{0}",i), LokListe[i].VorherigerBlock.ToString());
+                    Config.WriteConfig(String.Format("LokListe{0}", i), AktiveLokomotiven.Liste[i].Adresse.ToString());
+                    Config.WriteConfig(String.Format("LokPos{0}",i), AktiveLokomotiven.Liste[i].AktuellerBlock.ToString());
+                    Config.WriteConfig(String.Format("LokPosVor{0}",i), AktiveLokomotiven.Liste[i].VorherigerBlock.ToString());
                 }
                 else
                 {
@@ -1826,11 +1825,14 @@ namespace MEKB_H0_Anlage
             SignalListe = new SignalListe(Dateiname);
             BelegtmelderListe = new BelegtmelderListe(Dateiname);
             FahrstrassenListe = new FahrstrassenListe(Dateiname, WeichenListe, SignalListe);
-            ZuganzeigerListe = new ZuganzeigerListe(Dateiname);
+            ZuganzeigerListe.DateiImportieren(Dateiname);
 
 
             SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
             BelegtmelderListe.SignalZugriff(SignalListe);
+            ZuganzeigerListe.BelegtmelderVerknuepfen(BelegtmelderListe);
+
+
 
             // Instanzzugriffe auf Zentrale
             WeichenListe.DigitalzentraleZugriff(z21Start);
@@ -1847,10 +1849,7 @@ namespace MEKB_H0_Anlage
             GleisbildZeichnung.GleisZustand.Clear();
         }
 
-        private void LokomotivenPoszuordnen()
-        {
-
-        }
+       
         #endregion
 
         #region Schnellzugriff (obere Zeile)
@@ -1975,7 +1974,7 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe, BelegtmelderListe);
+                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, AktiveLokomotiven.Liste, BelegtmelderListe);
                 ZugmenueFenster.Show();
             }
         }
@@ -2233,13 +2232,13 @@ namespace MEKB_H0_Anlage
                                              byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen)
         {
 
-            int ListID = LokListe.FindIndex(x => x.Adresse == Adresse); //Finde Lok mit dieser Adresse 
+            int ListID = AktiveLokomotiven.Liste.FindIndex(x => x.Adresse == Adresse); //Finde Lok mit dieser Adresse 
             if (ListID == -1)//Lok nicht gefunden in der Liste
             {
                 return;
             }
 
-            LokListe[ListID].UpdateZ21Data(ParamterCount, FahrstufenInfo, Richtung, Fahrstufe, Funktionen);
+            AktiveLokomotiven.Liste[ListID].UpdateZ21Data(ParamterCount, FahrstufenInfo, Richtung, Fahrstufe, Funktionen);
 
         }
         private void UpdateBelegtmeldung(byte GruppenIndex, byte[] RMStatus)
@@ -2342,7 +2341,7 @@ namespace MEKB_H0_Anlage
 
                     //Gleisplan zeichnen
                     GleisplanZeichnenInitial();
-                    ZuganzeigeZeichnen();
+                    ZuganzeigerListe.ZeichneZuganzeigen(this.GleisplanAnzeige.Controls);
 
                     // Timer aktivieren
                     WeichenTimer.Enabled = true;

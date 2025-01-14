@@ -79,10 +79,7 @@ namespace MEKB_H0_Anlage
                 Meldeabschnitt = Meldeabschnitt.Remove(0, 4); //Remove Pin_*
 
                 Belegtmelder belegtmelder = belegtmelderListe.GetBelegtmelder(Meldeabschnitt);
-                if(belegtmelder != null)
-                {
-                    belegtmelder.MeldeBesetzt(box.Checked);
-                }
+                belegtmelder?.MeldeBesetzt(box.Checked);
                 
             }
         }

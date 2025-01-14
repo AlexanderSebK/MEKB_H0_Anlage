@@ -53,6 +53,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -71,9 +72,9 @@
             this.label2.Font = new System.Drawing.Font("Bahnschrift Condensed", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(8, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(301, 23);
+            this.label2.Size = new System.Drawing.Size(312, 23);
             this.label2.TabIndex = 1;
-            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 4.1";
+            this.label2.Text = "H0 - Anlage mit Schattenbahnhof - Version 4.1.2";
             // 
             // label3
             // 
@@ -305,11 +306,23 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.Black;
             this.label23.Location = new System.Drawing.Point(384, 330);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(136, 17);
+            this.label23.Size = new System.Drawing.Size(56, 17);
             this.label23.TabIndex = 23;
-            this.label23.Text = "Bremsweg / Zwangsbremse";
+            this.label23.Text = "Bremsweg";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Bahnschrift Condensed", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.Orange;
+            this.label24.Location = new System.Drawing.Point(8, 356);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(94, 17);
+            this.label24.TabIndex = 24;
+            this.label24.Text = "Bahnhofsanzeigen";
             // 
             // InfoBox
             // 
@@ -317,6 +330,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(713, 424);
+            this.Controls.Add(this.label24);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label21);
@@ -380,5 +394,6 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
     }
 }

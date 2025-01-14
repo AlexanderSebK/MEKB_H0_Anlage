@@ -15952,5 +15952,29 @@
 				<Belegtmelder Pos = '1'>Schatten_Gl11_Halt</Belegtmelder>
 			</Melderliste>
 		</Anzeige>
+		<Anzeige Name = 'TunnelSued_Aussen'>
+			<PosX>57</PosX>
+			<PosY>3</PosY>
+			<Breite>160</Breite>
+			<AnzeigeName>Tunnel Süd Außen</AnzeigeName>
+			<Richtung>rechts</Richtung>
+			<Melderliste>
+				<Belegtmelder Pos = '1'>TunnelAussen_Halt</Belegtmelder>
+				<Belegtmelder Pos = '2'>TunnelAussen</Belegtmelder>
+				<Belegtmelder Pos = '3'>TunnelAussen_Einfahrt</Belegtmelder>
+			</Melderliste>
+		</Anzeige>
+		<Anzeige Name = 'TunnelSued_Innen'>
+			<PosX>57</PosX>
+			<PosY>4</PosY>
+			<Breite>160</Breite>
+			<AnzeigeName>Tunnel Süd Innen</AnzeigeName>
+			<Richtung>rechts</Richtung>
+			<Melderliste>
+				<Belegtmelder Pos = '1'>TunnelInnen_Halt</Belegtmelder>
+				<Belegtmelder Pos = '2'>TunnelInnen</Belegtmelder>
+				<Belegtmelder Pos = '3'>TunnelInnen_Einfahrt</Belegtmelder>
+			</Melderliste>
+		</Anzeige>
 	</Anzeigeliste>
 </Anlage>

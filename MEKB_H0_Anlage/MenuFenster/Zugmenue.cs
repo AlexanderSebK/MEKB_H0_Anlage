@@ -637,10 +637,7 @@ namespace MEKB_H0_Anlage
             }
 
             //Alten Steuerpult schließen
-            if (AktiveLoks[index].Steuerpult != null)
-            {
-                AktiveLoks[index].Steuerpult.Close();
-            }
+            AktiveLoks[index].Steuerpult?.Close();
             //Lok übertragen
             AktiveLoks[index] = lokomotive;
             AktiveLoks[index].Automatik = false; //Lok standardmäßig auf manuell

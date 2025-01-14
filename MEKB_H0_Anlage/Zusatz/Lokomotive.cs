@@ -9,6 +9,31 @@ using System.Threading.Tasks;
 
 namespace MEKB_H0_Anlage
 {
+    /// <summary>
+    /// Offene Instance: Liste aktive Lokomotiven
+    /// </summary>
+    public sealed class AktiveLokomotiven
+    {
+        private static readonly Lazy<AktiveLokomotiven> lazy =
+        new Lazy<AktiveLokomotiven>(() => new AktiveLokomotiven());
+
+        public static AktiveLokomotiven Instance { get { return lazy.Value; } }
+
+        private AktiveLokomotiven()
+        {
+            Liste = new List<Lokomotive>();
+        }
+
+        public List<Lokomotive> Liste { set; get; }
+
+        public Lokomotive GetLokomotive(string LokName)
+        {
+            int ListID = Liste.FindIndex(x => x.Name.Equals(LokName)); //Finde Lok mit diesem Name
+            if (ListID == -1) return null; //Lok nicht gefunden in der Liste
+            else return Liste[ListID];
+        }
+    }
+
     public class Lokomotive : IEquatable<Lokomotive>
     {
         #region Parameter
@@ -633,8 +658,8 @@ namespace MEKB_H0_Anlage
             {"RegionalExpress",     "RE",       "R E "},
             {"RegionalBahn",        "RB",       "R B "},
             {"S-Bahn",              "S",        "S "},
-            {"Güterzug",            "G",        "Güterzug "},
-            {"Sonderzug",           "Sonder",   "Sonderzug "},
+            {"Güterzug",            "CS",       "Güterzug "},
+            {"Sonderzug",           "CFA",      "Sonderzug "},
         };
         public LokKontrolle()
         {
