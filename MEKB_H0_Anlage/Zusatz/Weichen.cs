@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Threading;
 using System.Timers;
+using System.Data;
 
 namespace MEKB_H0_Anlage
 {
     public class WeichenListe
     {
+        private static readonly Lazy<WeichenListe> lazy =
+        new Lazy<WeichenListe>(() => new WeichenListe());
+        public static WeichenListe Instance { get { return lazy.Value; } }
+
         private Dictionary<string, int> Verzeichnis;
         public List<Weiche> Liste;
 
@@ -22,9 +27,10 @@ namespace MEKB_H0_Anlage
             Liste = new List<Weiche>();
         }
 
-        public WeichenListe(string Dateiname)
+        public void Clear()
         {
-            DateiImportieren(Dateiname);
+            Liste.Clear();
+            Verzeichnis.Clear();
         }
 
         public void DigitalzentraleZugriff(Z21 zentrale)

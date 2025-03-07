@@ -11,8 +11,13 @@ using System.Text.RegularExpressions;
 namespace MEKB_H0_Anlage
 {
 
-    public class GleisbildZeichnung
+    public sealed class GleisbildZeichnung
     {
+
+        private static readonly Lazy<GleisbildZeichnung> lazy =
+        new Lazy<GleisbildZeichnung>(() => new GleisbildZeichnung());
+
+        public static GleisbildZeichnung Instance { get { return lazy.Value; } }
 
         #region Design-Position
         private const int Gerade = 0;

@@ -179,6 +179,7 @@ namespace MEKB_H0_Anlage
         /// <param name="e"></param>
         private void Config_save_Click(object sender, EventArgs e)
         {
+            UpdateIP();
             Einstellungen.SpeicherEinstellungen();
         }
         /// <summary>
@@ -197,6 +198,8 @@ namespace MEKB_H0_Anlage
         /// <param name="e"></param>
         private void Z21_Connect_Click(object sender, EventArgs e)
         {
+            UpdateIP();
+            z21Instance.SetIP_Z21(Einstellungen.Z21_IP, Einstellungen.Z21_Port);
             z21Instance.Connect_Z21();
         }
         /// <summary>
@@ -209,5 +212,13 @@ namespace MEKB_H0_Anlage
             z21Instance.DisConnect_Z21();
         }
         #endregion
+
+        private void UpdateIP()
+        {
+            if (int.TryParse(IP_1.Text, out int IP1) && int.TryParse(IP_1.Text, out int IP2) && int.TryParse(IP_1.Text, out int IP3) && int.TryParse(IP_1.Text, out int IP4))
+            {
+                Einstellungen.Z21_IP = String.Format("{0}.{1}.{2}.{3}", IP_1.Text, IP_2.Text, IP_3.Text, IP_4.Text);
+            }
+        }
     }
 }

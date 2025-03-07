@@ -138,6 +138,7 @@ namespace MEKB_H0_Anlage
 
             myBrush.Dispose();
             anzeige.Dispose();
+
             
             if(ValueChangedByZ21)
             {

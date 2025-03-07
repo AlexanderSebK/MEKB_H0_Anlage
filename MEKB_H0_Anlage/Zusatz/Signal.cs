@@ -13,6 +13,11 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public class SignalListe
     {
+        private static readonly Lazy<SignalListe> lazy =
+        new Lazy<SignalListe>(() => new SignalListe());
+        public static SignalListe Instance { get { return lazy.Value; } }
+
+
         private Dictionary<string, int> Verzeichnis;
         public List<Signal> Liste;
 
@@ -36,6 +41,12 @@ namespace MEKB_H0_Anlage
             DateiImportieren(Dateiname);
         }
         #endregion
+        public void Clear()
+        {
+            Verzeichnis.Clear();
+            Liste.Clear(); 
+        }
+
         /// <summary>
         /// Signalliste via XML-Datei importieren
         /// </summary>

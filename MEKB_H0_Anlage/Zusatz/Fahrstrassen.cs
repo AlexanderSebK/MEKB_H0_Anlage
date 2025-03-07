@@ -10,6 +10,7 @@ namespace MEKB_H0_Anlage
 {
     public class Fahrstrasse
     {
+
         public Fahrstrasse()
         {
             Fahrstr_Weichenliste = new List<Weiche>();
@@ -266,6 +267,10 @@ namespace MEKB_H0_Anlage
 
     public class FahrstrassenListe
     {
+        private static readonly Lazy<FahrstrassenListe> lazy =
+        new Lazy<FahrstrassenListe>(() => new FahrstrassenListe());
+        public static FahrstrassenListe Instance { get { return lazy.Value; } }
+
         private Dictionary<string, int> Verzeichnis;
         public List<Fahrstrasse> Liste;
 
@@ -277,6 +282,14 @@ namespace MEKB_H0_Anlage
             Liste = new List<Fahrstrasse>();
             GesperrteFahrstrassen = new Dictionary<string, bool>();
         }
+
+        public void Clear()
+        {
+            Liste.Clear();
+            Verzeichnis.Clear();
+        }
+
+
         public FahrstrassenListe(string Dateiname, WeichenListe weichenListe, SignalListe signalListe)
         {
             DateiImportieren(Dateiname, weichenListe, signalListe);

@@ -374,12 +374,12 @@ namespace MEKB_H0_Anlage
             if (FahrtRueck == null) return; //Nicht gefunden: Abbrechen
             PictureBox ZugTyp = (PictureBox)Controls.Find(Name + "_Typ", true).First();
             if (ZugTyp == null) return; //Nicht gefunden: Abbrechen
-            TextBox AnzeigeName = (TextBox)Controls.Find(Name, true).First();
+            TextBox AnzeigeNamensfeld = (TextBox)Controls.Find(Name, true).First();
             if (ZugTyp == null) return; //Nicht gefunden: Abbrechen
 
-            AnzeigeName.Text = Name;
-            AnzeigeName.BackColor = Color.Gray;
-            AnzeigeName.ForeColor = Color.DarkGray;
+            AnzeigeNamensfeld.Text = AnzeigeName;
+            AnzeigeNamensfeld.BackColor = Color.White;
+            AnzeigeNamensfeld.ForeColor = Color.LightGray;
             ZugTyp.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.TypUnbesetzt);
             switch ((string)FahrtRueck.Tag)
             {

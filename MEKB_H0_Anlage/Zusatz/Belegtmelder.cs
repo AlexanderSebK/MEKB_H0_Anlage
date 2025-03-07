@@ -14,6 +14,11 @@ namespace MEKB_H0_Anlage
     
     public class BelegtmelderListe
     {
+        private static readonly Lazy<BelegtmelderListe> lazy =
+        new Lazy<BelegtmelderListe>(() => new BelegtmelderListe());
+        public static BelegtmelderListe Instance { get { return lazy.Value; } }
+
+
         private Dictionary<string, int> Verzeichnis;
         public List<Belegtmelder> Liste;
         
