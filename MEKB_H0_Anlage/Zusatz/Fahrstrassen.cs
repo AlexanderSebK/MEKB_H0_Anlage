@@ -10,6 +10,7 @@ namespace MEKB_H0_Anlage
 {
     public class Fahrstrasse
     {
+        public Systemzustand Systemzustand = Systemzustand.Instance;
 
         public Fahrstrasse()
         {
@@ -168,7 +169,7 @@ namespace MEKB_H0_Anlage
             }
             SetPointer++; // Nächste Weiche
         }
-        public void ControlSetFahrstrasse(Z21 Z21_Instanz)
+        public void ControlSetFahrstrasse()
         {
             if (Fahrstr_Weichenliste.Count == 0) //Weichenloser Block
             {
@@ -260,6 +261,27 @@ namespace MEKB_H0_Anlage
             FahrstrasseAktiv = false;
             Safe = false;
             WeichenSicherheit(Safe);
+        }
+
+        public void Update()
+        {
+            if (GetGesetztStatus())    //Fahrstraße wurde gesetzt
+            {
+                SetFahrstrasseRichtung();
+                //Prüfen ob alle Weichen der Fahrstraßen richtig geschaltet sind
+                if (CheckFahrstrassePos() == false) //Noch nicht alle Weichen gestellt
+                {
+                    if (Systemzustand.Betriebsbereit) SetFahrstrasse();
+                }
+                else //Alle Weichen in richtiger Stellung
+                {
+                    //Fahrstraße als aktiviert kennzeichnen
+                    AktiviereFahrstasse();
+
+                    //Weichen zyklisch nochmal schalten um hängenbleiben zu vermeiden
+                    if (Systemzustand.Betriebsbereit) ControlSetFahrstrasse();
+                }
+            }
         }
 
     }
@@ -357,6 +379,13 @@ namespace MEKB_H0_Anlage
             return true;
         }
 
+        public void Fahrstrassenupdate()
+        {
+            foreach (Fahrstrasse fahrstrasse in Liste)
+            {
+                fahrstrasse.Update();
+            }
+        }
 
         public bool FahrstrasseGleicheGesetzt(string Abschnitt)
         {

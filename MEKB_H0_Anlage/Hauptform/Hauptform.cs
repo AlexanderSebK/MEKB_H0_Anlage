@@ -320,10 +320,7 @@ namespace MEKB_H0_Anlage
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
 
-                    foreach (Fahrstrasse fahrstrasse in FahrstrassenListe.Liste)
-                    {
-                        Fahrstrassenupdate(fahrstrasse);
-                    }
+                    FahrstrassenListe.Fahrstrassenupdate();
 
                     if (Systemzustand.Betriebsbereit && Einstellungen.AutoSignal) 
                         SignalListe.AutoSignal(Einstellungen.AutoSignal, Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"),(int)timer.Interval);
@@ -394,170 +391,6 @@ namespace MEKB_H0_Anlage
             ZuganzeigerListe.ZuganzeigenAktualisieren(this.GleisplanAnzeige.Controls, ErzwingeUpdate);
         }
 
-
-        #endregion
-
-        #region Gleisplan
-
-       
-        #region Fahrstraßen bestimmen
-       
-        /// <summary>
-        /// Weichenliste der Fahrstraße durchlaufen und mit aktueller Weichenstellung vergleichen
-        /// </summary>
-        /// <param name="fahrstrasse">Fahrstraße zum überprüfen</param>
-        private void Fahrstrassenupdate(Fahrstrasse fahrstrasse)
-        {
-            if (fahrstrasse.GetGesetztStatus())    //Fahrstraße wurde gesetzt
-            {
-                fahrstrasse.SetFahrstrasseRichtung();
-                //Prüfen ob alle Weichen der Fahrstraßen richtig geschaltet sind
-                if (fahrstrasse.CheckFahrstrassePos() == false) //Noch nicht alle Weichen gestellt
-                {
-                    if (Systemzustand.Betriebsbereit) fahrstrasse.SetFahrstrasse();
-                }
-                else //Alle Weichen in richtiger Stellung
-                {
-                    //Fahrstraße als aktiviert kennzeichnen
-                    fahrstrasse.AktiviereFahrstasse();
-                    
-                    //Weichen zyklisch nochmal schalten um hängenbleiben zu vermeiden
-                    if (Systemzustand.Betriebsbereit) fahrstrasse.ControlSetFahrstrasse(z21Start);
-                }
-            }
-
-        }
-        #endregion
-
-       
-
-        #region Fahrstrassen
-
-
-        
-        /// <summary>
-        /// Alle Fahrstrassen-Buttons aktualisieren. (Deaktivieren der Buttons bei gesperrten Fahrstrassen)
-        /// </summary>
-        /// <param name="dummy"></param>
-        private void UpdateFahrstrassenSchalter(int dummy)
-        {
-            UpdateSperrungen();
-            foreach (Fahrstrasse fahrstrasse in FahrstrassenListe.Liste)
-            {
-                var Fund = this.GleisplanAnzeige.Controls.Find(fahrstrasse.Name + "_Button", true);
-                foreach (Control control in Fund)
-                {
-                    if (control is Button button)
-                    {
-                        if (FahrstrassenListe.FahrstrasseAlleGleicheBlockiert(fahrstrasse))
-                        {
-                            if (button.Enabled == true)
-                            {
-                                button.Enabled = false;
-                                if (button.BackgroundImage.Tag.Equals("oben"))
-                                {
-                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_oben_deakt;
-                                    button.BackgroundImage.Tag = "oben";
-                                }
-                                else if (button.BackgroundImage.Tag.Equals("unten"))
-                                {
-                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_unten_deakt;
-                                    button.BackgroundImage.Tag = "unten";
-                                }
-                                else if (button.BackgroundImage.Tag.Equals("rechts"))
-                                {
-                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_rechts_deakt;
-                                    button.BackgroundImage.Tag = "rechts";
-                                }
-                                else if (button.BackgroundImage.Tag.Equals("links"))
-                                {
-                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_links_deakt;
-                                    button.BackgroundImage.Tag = "links";
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                                if (fahrstrasse.EinfahrtsSignal.Zustand != SignalZustand.HP0) fahrstrasse.EinfahrtsSignal.Schalten(SignalZustand.HP0);
-                            }
-                        }
-                        else
-                        {
-                            if (button.Enabled == false)
-                            {
-                                button.Enabled = true;
-                                if (button.BackgroundImage.Tag.Equals("oben"))
-                                {
-                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_oben;
-                                    button.BackgroundImage.Tag = "oben";
-                                }
-                                else if (button.BackgroundImage.Tag.Equals("unten"))
-                                {
-                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_unten;
-                                    button.BackgroundImage.Tag = "unten";
-                                }
-                                else if (button.BackgroundImage.Tag.Equals("rechts"))
-                                {
-                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_rechts;
-                                    button.BackgroundImage.Tag = "rechts";
-                                }
-                                else if (button.BackgroundImage.Tag.Equals("links"))
-                                {
-                                    button.BackgroundImage = Properties.Resources.Fahrstrasse_links;
-                                    button.BackgroundImage.Tag = "links";
-                                }
-                                else { }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Fahrstrassensperrung anhand von SH2 und Belegtmeldung errechnen
-        /// </summary>
-        private void UpdateSperrungen()
-        {
-            List<string> Aenderungen = new List<string>();
-            foreach (string ButtonName in SperrButtons)
-            {
-                var Fund = this.GleisplanAnzeige.Controls.Find(ButtonName, true);
-                foreach (Control control in Fund)
-                {
-                    if (control is CheckBox checkBox)
-                    {
-                        if (checkBox.Checked)
-                        {
-                            Aenderungen.AddRange(checkBox.Tag.ToString().Split('+'));
-                        }
-                    }
-                }
-            }
-
-            foreach (Fahrstrasse fahrstrasse in FahrstrassenListe.Liste)
-            {
-                if (fahrstrasse.IstFahrstrasseBelegt(BelegtmelderListe.Liste))
-                {
-                    FahrstrassenListe.GesperrteFahrstrassen[fahrstrasse.Name] = true; // Fahrstrasse ist gesperrt
-                }
-                else if (Aenderungen.Contains(fahrstrasse.Name))
-                {
-                    FahrstrassenListe.GesperrteFahrstrassen[fahrstrasse.Name] = true; // Fahrstrasse ist gesperrt
-                    if (fahrstrasse.GetGesetztStatus())
-                    {
-                        //Fahrstraße deaktivieren wenn gesetzt
-                        fahrstrasse.DeleteFahrstrasse(WeichenListe.Liste);
-                    }
-                }
-                else
-                {
-                    FahrstrassenListe.GesperrteFahrstrassen[fahrstrasse.Name] = false; // Fahrstrasse ist nicht (oder nicht mehr) gesperrt
-                }
-            }
-
-        }
-        #endregion
 
         #endregion
 
@@ -1024,11 +857,15 @@ namespace MEKB_H0_Anlage
         {
 
         }
-
+        /// <summary>
+        /// CallBack-Funktion 
+        /// Wird gesendet, wenn sich der Belegtmelderstatus geändert hat
+        /// </summary>
+        /// <param name="GruppenIndex">0 oder 1 (Gruppen Index)</param>
+        /// <param name="RMStatus">Bit Array Belegtmeldungen</param>
         public void CallBack_LAN_RMBUS_DATACHANGED(byte GruppenIndex, byte[] RMStatus)
         {
             this.BeginInvoke((Action<byte, byte[]>)UpdateBelegtmeldung, GruppenIndex, RMStatus);
-            this.BeginInvoke((Action<int>)UpdateFahrstrassenSchalter, 1);
         }
         #region Invokes
         private void Set_SerienNummer(string data)
@@ -1198,6 +1035,7 @@ namespace MEKB_H0_Anlage
         private void UpdateBelegtmeldung(byte GruppenIndex, byte[] RMStatus)
         {
             BelegtmelderListe.UpdateBelegtmelder(GruppenIndex, RMStatus);
+            Plan.UpdateFahrstrassenSchalter(1);
         }
         #endregion
         #endregion

@@ -1220,7 +1220,7 @@ namespace MEKB_H0_Anlage
         /// Alle Fahrstrassen-Buttons aktualisieren. (Deaktivieren der Buttons bei gesperrten Fahrstrassen)
         /// </summary>
         /// <param name="dummy"></param>
-        private void UpdateFahrstrassenSchalter(int dummy)
+        public void UpdateFahrstrassenSchalter(int dummy)
         {
             UpdateSperrungen();
             foreach (Fahrstrasse fahrstrasse in FahrstrassenListe.Liste)
