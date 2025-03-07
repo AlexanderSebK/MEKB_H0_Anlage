@@ -106,7 +106,7 @@ namespace MEKB_H0_Anlage
                 {
                     return;
                 }
-
+                Fehlermeldung.Instance.FehlertextEntfernen(AktiveLoks[index].Name);
                 AktiveLoks.RemoveAt(index);
                 for (int i = 0; i < AktiveLoks.Count; i++)
                 {
@@ -166,9 +166,9 @@ namespace MEKB_H0_Anlage
                 if (Ruffeld != null) this.Controls.Remove(Ruffeld);
                 entfernt = true;
             }
-            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_Ort_Wechsel", Nummer)))
+            if (this.Controls.ContainsKey(String.Format("LokCtrl{0}_OrtWechsel", Nummer)))
             {
-                Button Ortwechselfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_Ort_Wechsel", Nummer), true).First();
+                Button Ortwechselfeld = (Button)this.Controls.Find(String.Format("LokCtrl{0}_OrtWechsel", Nummer), true).First();
                 if (Ortwechselfeld != null) this.Controls.Remove(Ortwechselfeld);
                 entfernt = true;
             }
@@ -425,6 +425,20 @@ namespace MEKB_H0_Anlage
                 string[] subs = name.Split('_');
                 if (subs[1] != "Adr") return; //Muss auf _Adr enden
 
+                //Index der Lok lesen
+                string indexStr = subs[0].Substring(7);
+                if (Int32.TryParse(indexStr, out int index))
+                {
+                    if ((index >= 0) && (index < AktiveLoks.Count))
+                    {
+                        if (AktiveLoks[index].Adresse == Adressfeld.Value)
+                        {
+                            return; //Lok bereits geladen => Nicht nochmal alden
+                        }
+                    }
+                }
+                
+
                 if (LokomotivenArchiv.SucheDurchAdresse(Adressfeld.Value, out Lokomotive lokomotive))//Finde Lok mit dieser Adresse 
                 {
                     LokKontroll_UpdateAktiveLok(subs[0], lokomotive);
@@ -623,10 +637,7 @@ namespace MEKB_H0_Anlage
             }
 
             //Alten Steuerpult schließen
-            if (AktiveLoks[index].Steuerpult != null)
-            {
-                AktiveLoks[index].Steuerpult.Close();
-            }
+            AktiveLoks[index].Steuerpult?.Close();
             //Lok übertragen
             AktiveLoks[index] = lokomotive;
             AktiveLoks[index].Automatik = false; //Lok standardmäßig auf manuell
@@ -973,6 +984,8 @@ namespace MEKB_H0_Anlage
             //Daten übertragen
             AktiveLoks[index].AktuellerBlock = gewaehlterOrt.Name;
             AktiveLoks[index].VorherigerBlock = vorBlock;
+            gewaehlterOrt.Registriert = AktiveLoks[index].Name;
+            Fehlermeldung.Instance.FehlerEntfernen(String.Format("{0} (1) verloren", AktiveLoks[index].Name, AktiveLoks[index].Adresse));
         }
 
         #endregion

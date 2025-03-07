@@ -14,7 +14,7 @@ namespace MEKB_H0_Anlage
     public partial class ZugSteuerpult : Form
     {
         private Lokomotive Lokdaten { set; get; }
-        private static System.Timers.Timer StatusUpdateTimer;
+        //private static System.Timers.Timer StatusUpdateTimer;
 
         public ZugSteuerpult(Lokomotive Instance)
         {
@@ -36,6 +36,8 @@ namespace MEKB_H0_Anlage
         public void Register_CMD_LOKSTATUS(CMD_LOKSTATUS function) { setLOKStatus = function; }
 
         private bool ValueChangedByZ21 = false;
+
+        public delegate void InvokeDelegate();
 
         public void UpdateLokDaten()
         {
@@ -136,6 +138,7 @@ namespace MEKB_H0_Anlage
 
             myBrush.Dispose();
             anzeige.Dispose();
+
             
             if(ValueChangedByZ21)
             {
@@ -156,7 +159,8 @@ namespace MEKB_H0_Anlage
         private void ZugSteuerpult_Shown(object sender, EventArgs e)
         {
             //Fahrstufe.Value = 0;
-            //Fahrstufe_ValueChanged(sender, e);
+            ValueChangedByZ21 = true;
+            Fahrstufe_ValueChanged(sender, e);
             UpdateLokDaten();
         }
 
@@ -354,6 +358,7 @@ namespace MEKB_H0_Anlage
                     Lokname.Text = String.Format("Lok: {0}", Lokdaten.Adresse);
                 }
             }
+            UpdateLokDaten();
         }
 
         private void vor_Click(object sender, EventArgs e)
@@ -383,7 +388,6 @@ namespace MEKB_H0_Anlage
 
         private void Notbremse_Click(object sender, EventArgs e)
         {
-            //setLOKFahrt?.Invoke(Lokdaten.Adresse, 255, Lokdaten.Richtung, Lokdaten.FahrstufenInfo);
             if(Lokdaten.Nothalt)
             {
                 Lokdaten.NotBremseAufheben();

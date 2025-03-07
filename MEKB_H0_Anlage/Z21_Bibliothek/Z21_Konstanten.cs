@@ -58,7 +58,7 @@ namespace MEKB_H0_Anlage
     /// <summary>
     /// Struktur für die Rückmelde-Optionen inkl. Umwandlung in sende-bares Datenpacket
     /// </summary>
-    public struct Flags
+    public class Flags
     {
         /// <summary>
         /// Construktor - Erstellen einer Flag-Variable

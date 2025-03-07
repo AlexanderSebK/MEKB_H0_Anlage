@@ -13,6 +13,11 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public class SignalListe
     {
+        private static readonly Lazy<SignalListe> lazy =
+        new Lazy<SignalListe>(() => new SignalListe());
+        public static SignalListe Instance { get { return lazy.Value; } }
+
+
         private Dictionary<string, int> Verzeichnis;
         public List<Signal> Liste;
 
@@ -36,6 +41,12 @@ namespace MEKB_H0_Anlage
             DateiImportieren(Dateiname);
         }
         #endregion
+        public void Clear()
+        {
+            Verzeichnis.Clear();
+            Liste.Clear(); 
+        }
+
         /// <summary>
         /// Signalliste via XML-Datei importieren
         /// </summary>
@@ -45,7 +56,8 @@ namespace MEKB_H0_Anlage
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Signal>();
             XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
-            var list = XMLFile.Elements("Signal").ToList();    //Alle Elemente des Types Signal in eine Liste Umwandeln 
+            var Kategory = XMLFile.Element("Signale");
+            var list = Kategory.Elements("Signal").ToList();    //Alle Elemente des Types Signal in eine Liste Umwandeln 
 
             foreach (XElement XMLSignal in list)               //Alle Elemente der Liste einzeln durchlaufen
             {
@@ -507,7 +519,7 @@ namespace MEKB_H0_Anlage
         {
             Fahrstrassen = new List<Fahrstrasse>();
             Letzte_Adresswahl = false;
-            Z21_zentrale = new Z21();
+            //Z21_zentrale = new Z21();
             AutoSperre = false;
             Zustand = SignalZustand.Unbestimmt;
             UpdateNoetig = false;

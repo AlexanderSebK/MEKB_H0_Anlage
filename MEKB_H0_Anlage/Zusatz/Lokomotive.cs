@@ -9,6 +9,31 @@ using System.Threading.Tasks;
 
 namespace MEKB_H0_Anlage
 {
+    /// <summary>
+    /// Offene Instance: Liste aktive Lokomotiven
+    /// </summary>
+    public sealed class AktiveLokomotiven
+    {
+        private static readonly Lazy<AktiveLokomotiven> lazy =
+        new Lazy<AktiveLokomotiven>(() => new AktiveLokomotiven());
+
+        public static AktiveLokomotiven Instance { get { return lazy.Value; } }
+
+        private AktiveLokomotiven()
+        {
+            Liste = new List<Lokomotive>();
+        }
+
+        public List<Lokomotive> Liste { set; get; }
+
+        public Lokomotive GetLokomotive(string LokName)
+        {
+            int ListID = Liste.FindIndex(x => x.Name.Equals(LokName)); //Finde Lok mit diesem Name
+            if (ListID == -1) return null; //Lok nicht gefunden in der Liste
+            else return Liste[ListID];
+        }
+    }
+
     public class Lokomotive : IEquatable<Lokomotive>
     {
         #region Parameter
@@ -110,7 +135,11 @@ namespace MEKB_H0_Anlage
 
         public int FahrstufeVorNothalt { get; set; }
 
-        public bool Nothalt {  set; get; }
+        public bool Nothalt { get; set; }
+
+        public int ZeitBisNothalt { get; set; }
+        public bool NothaltAnkuendigung { get; set; }
+        
         #endregion
 
         #region Links und Delegates
@@ -143,6 +172,8 @@ namespace MEKB_H0_Anlage
         private CMD_LOKFAHRT setLOKFahrt;
         private CMD_LOKFUNKTION setLOKFunktion;
         private CMD_LOKSTATUS setLOKStatus;
+
+        public Fehlermeldung Fehlermeldung = Fehlermeldung.Instance;
 
         #endregion
 
@@ -244,7 +275,6 @@ namespace MEKB_H0_Anlage
             }
         }
 
-
         #endregion
         #region Delegates Registrierungen
         public void Register_CMD_LOKFAHRT(CMD_LOKFAHRT function)
@@ -285,8 +315,10 @@ namespace MEKB_H0_Anlage
 
         public void NotBremse()
         {
-            FahrstufeVorNothalt = Fahrstufe;
+            if(!Nothalt) FahrstufeVorNothalt = Fahrstufe;
             Nothalt = true;
+            Fehlermeldung.FehlerMelden(String.Format("Notbremse bei Lok {0} ({1})", Name, Adresse), "Warning");
+
             int RichtungMitUmkehr = Richtung;
             if (LokUmgedreht)
             {
@@ -296,13 +328,23 @@ namespace MEKB_H0_Anlage
             setLOKFahrt?.Invoke(Adresse, 255, RichtungMitUmkehr, FahrstufenInfo);
         }
 
-        public void NotBremseAufheben(bool weiterfahrt = false)
+        public void NotBremse(int Zeit)
         {
+            NothaltAnkuendigung = true;
+            ZeitBisNothalt = Zeit;
+        }
+
+        public void NotBremseAufheben(bool weiterfahrt = true)
+        {           
             if (Nothalt)
             {
                 Nothalt = false;
-                if (weiterfahrt) { Fahrstufe = FahrstufeVorNothalt; }
-                FahrstufeVorNothalt = 0;
+                NothaltAnkuendigung = false;
+                ZeitBisNothalt = 0;
+                Fehlermeldung.FehlerEntfernen(String.Format("Notbremse bei Lok {0} ({1})", Name, Adresse));
+
+                /*if (weiterfahrt) { Fahrstufe = FahrstufeVorNothalt; }
+                
 
                 int RichtungMitUmkehr = Richtung;
                 if (LokUmgedreht)
@@ -311,11 +353,25 @@ namespace MEKB_H0_Anlage
                     else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
                 }
                 setLOKFahrt?.Invoke(Adresse, (byte)Fahrstufe, RichtungMitUmkehr, FahrstufenInfo);
+                */
             }
+            NothaltAnkuendigung = false;
+            ZeitBisNothalt = 0;
         }
-        public void NotBremseHandeln()
+        public void NotBremseHandeln(int Intervall = 200)
         {
-            if(Nothalt)
+            if (NothaltAnkuendigung)
+            {
+                ZeitBisNothalt = ZeitBisNothalt - Intervall;
+                if (ZeitBisNothalt < 0)
+                {
+                    FahrstufeVorNothalt = Fahrstufe;
+                    Nothalt = true;
+                    NothaltAnkuendigung = false;
+                    Fehlermeldung.FehlerMelden(String.Format("Notbremse bei Lok {0} ({1})", Name, Adresse), "Warning");
+                }
+            }
+            if (Nothalt)
             {
                 int RichtungMitUmkehr = Richtung;
                 if (LokUmgedreht)
@@ -323,7 +379,7 @@ namespace MEKB_H0_Anlage
                     if (Richtung == LokFahrstufen.Vorwaerts) RichtungMitUmkehr = LokFahrstufen.Rueckwaerts;
                     else RichtungMitUmkehr = LokFahrstufen.Vorwaerts;
                 }
-                setLOKFahrt?.Invoke(Adresse, 255, RichtungMitUmkehr, FahrstufenInfo);
+                setLOKFahrt?.Invoke(Adresse, 0, RichtungMitUmkehr, FahrstufenInfo);
             }
         }
 
@@ -451,7 +507,9 @@ namespace MEKB_H0_Anlage
         /// </summary>
         /// <param name="belegtmelderListe">Liste der Blöcke</param>
         /// <param name="weichenListe">Weichenliste</param>
-        public void BlockVerfolgung(BelegtmelderListe belegtmelderListe, WeichenListe weichenListe)
+        /// <param name="Notbremsen_Signal">Wenn true: Notbremse am Signal auslösen</param>
+        /// <param name="Notbremse_Verloren">Wenn true: Notbremse auslösen, wenn Lok verloren</param>
+        public void BlockVerfolgung(BelegtmelderListe belegtmelderListe, WeichenListe weichenListe, bool Notbremsen_Signal, bool Notbremse_Verloren)
         {
             // Wenn Position unbekannt: Funktion nicht ausführen
             if (AktuellerBlock == "") return;
@@ -469,6 +527,7 @@ namespace MEKB_H0_Anlage
                             {
                                 LetzterBekannter.Registriert = this.Name; //Lok für diesen Block registrieren
                                 AktuellerBlock = LetzterBekannter.Name;
+                                Fehlermeldung.FehlerEntfernen(String.Format("{0} (1) verloren", Name, Adresse));
                                 LetzterBekannterBlock = "";
                             }
                         }
@@ -483,13 +542,10 @@ namespace MEKB_H0_Anlage
             if (Aktuel == null) // Block unbekannt -> Lok verloren
             {
                 AktuellerBlock = "Lok verloren";
+                Fehlermeldung.FehlerMelden(String.Format("{0} (1) verloren", Name, Adresse), "Warning");
                 return;
             }
-            if (Aktuel.GetSignalStatus(VorherigerBlock) != SignalZustand.NichtGefunden)
-            {
-                if (Aktuel.Signal.Zustand == SignalZustand.HP0) NotBremse();
-                else NotBremseAufheben();
-            }
+            
             if (!Aktuel.IstBelegt()) //Keine Belegtmeldung -> Lok verloren
             {
                 bool UnterdrueckeError = false;
@@ -500,7 +556,8 @@ namespace MEKB_H0_Anlage
                 {
                     LetzterBekannterBlock = AktuellerBlock;
                     AktuellerBlock = "Lok verloren";
-                    NotBremse();
+                    Fehlermeldung.FehlerMelden(String.Format("{0} (1) verloren", Name, Adresse), "Warning");
+                    if(Notbremse_Verloren)NotBremse(3000); //In 3 Sekunden Notbremse auslösen
                 }
                 else
                 {
@@ -529,6 +586,17 @@ namespace MEKB_H0_Anlage
                         AktuellerBlock = Naechster.Name; //Nächsten Block als aktuellen Block definieren
                     }
                 }
+            }
+            if (Aktuel.GetSignalStatus(VorherigerBlock) != SignalZustand.NichtGefunden)
+            {
+                if (Aktuel.Signal.Zustand == SignalZustand.HP0)
+                {
+                    if ((!Nothalt) && (this.Fahrstufe != 0))
+                    {
+                        if (Notbremsen_Signal) NotBremse();
+                    }
+                }
+                else NotBremseAufheben(true);
             }
         }
         #endregion
@@ -590,8 +658,8 @@ namespace MEKB_H0_Anlage
             {"RegionalExpress",     "RE",       "R E "},
             {"RegionalBahn",        "RB",       "R B "},
             {"S-Bahn",              "S",        "S "},
-            {"Güterzug",            "G",        "Güterzug "},
-            {"Sonderzug",           "Sonder",   "Sonderzug "},
+            {"Güterzug",            "CS",       "Güterzug "},
+            {"Sonderzug",           "CFA",      "Sonderzug "},
         };
         public LokKontrolle()
         {

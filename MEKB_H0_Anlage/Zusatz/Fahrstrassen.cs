@@ -10,6 +10,8 @@ namespace MEKB_H0_Anlage
 {
     public class Fahrstrasse
     {
+        public Systemzustand Systemzustand = Systemzustand.Instance;
+
         public Fahrstrasse()
         {
             Fahrstr_Weichenliste = new List<Weiche>();
@@ -141,7 +143,7 @@ namespace MEKB_H0_Anlage
                 weiche.FahrstrasseRichtung_vonZunge = this.WeichenKonfigRichtung[weiche.Name]; // weiche.FahrstrasseRichtung_vonZunge;
             }
         }
-        public void SetFahrstrasse(Z21 Z21_Instanz)
+        public void SetFahrstrasse()
         {
             if (SetPointer >= Fahrstr_Weichenliste.Count) SetPointer = 0;
             Weiche weiche = Fahrstr_Weichenliste[SetPointer];
@@ -167,7 +169,7 @@ namespace MEKB_H0_Anlage
             }
             SetPointer++; // Nächste Weiche
         }
-        public void ControlSetFahrstrasse(Z21 Z21_Instanz)
+        public void ControlSetFahrstrasse()
         {
             if (Fahrstr_Weichenliste.Count == 0) //Weichenloser Block
             {
@@ -261,22 +263,55 @@ namespace MEKB_H0_Anlage
             WeichenSicherheit(Safe);
         }
 
+        public void Update()
+        {
+            if (GetGesetztStatus())    //Fahrstraße wurde gesetzt
+            {
+                SetFahrstrasseRichtung();
+                //Prüfen ob alle Weichen der Fahrstraßen richtig geschaltet sind
+                if (CheckFahrstrassePos() == false) //Noch nicht alle Weichen gestellt
+                {
+                    if (Systemzustand.Betriebsbereit) SetFahrstrasse();
+                }
+                else //Alle Weichen in richtiger Stellung
+                {
+                    //Fahrstraße als aktiviert kennzeichnen
+                    AktiviereFahrstasse();
+
+                    //Weichen zyklisch nochmal schalten um hängenbleiben zu vermeiden
+                    if (Systemzustand.Betriebsbereit) ControlSetFahrstrasse();
+                }
+            }
+        }
+
     }
 
 
     public class FahrstrassenListe
     {
+        private static readonly Lazy<FahrstrassenListe> lazy =
+        new Lazy<FahrstrassenListe>(() => new FahrstrassenListe());
+        public static FahrstrassenListe Instance { get { return lazy.Value; } }
+
         private Dictionary<string, int> Verzeichnis;
         public List<Fahrstrasse> Liste;
 
-        public Dictionary<string, bool> GesperrteFahrstarssen;
+        public Dictionary<string, bool> GesperrteFahrstrassen;
 
         public FahrstrassenListe()
         {
             Verzeichnis = new Dictionary<string, int>();
             Liste = new List<Fahrstrasse>();
-            GesperrteFahrstarssen = new Dictionary<string, bool>();
+            GesperrteFahrstrassen = new Dictionary<string, bool>();
         }
+
+        public void Clear()
+        {
+            Liste.Clear();
+            Verzeichnis.Clear();
+        }
+
+
         public FahrstrassenListe(string Dateiname, WeichenListe weichenListe, SignalListe signalListe)
         {
             DateiImportieren(Dateiname, weichenListe, signalListe);
@@ -305,7 +340,7 @@ namespace MEKB_H0_Anlage
         public bool FahrstrasseBlockiert(string Abschnitt)
         {
             Fahrstrasse fahrstrasse = GetFahrstrasse(Abschnitt);
-            if (GesperrteFahrstarssen[fahrstrasse.Name]) return true; // Fahrstrasse ist gesperrt
+            if (GesperrteFahrstrassen[fahrstrasse.Name]) return true; // Fahrstrasse ist gesperrt
             if (fahrstrasse != null)
             {
                 foreach (string Strasse in fahrstrasse.Fahrstr_Blockierende)
@@ -344,6 +379,13 @@ namespace MEKB_H0_Anlage
             return true;
         }
 
+        public void Fahrstrassenupdate()
+        {
+            foreach (Fahrstrasse fahrstrasse in Liste)
+            {
+                fahrstrasse.Update();
+            }
+        }
 
         public bool FahrstrasseGleicheGesetzt(string Abschnitt)
         {
@@ -373,11 +415,11 @@ namespace MEKB_H0_Anlage
         {
             Liste = new List<Fahrstrasse>();
             Verzeichnis = new Dictionary<string, int>();
-            GesperrteFahrstarssen = new Dictionary<string, bool>();
+            GesperrteFahrstrassen = new Dictionary<string, bool>();
             XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
+            var Kategory = XMLFile.Element("Fahrstrassen");
 
-
-            var list = XMLFile.Elements("Fahrstrasse").ToList();             //Alle Elemente des Types Weiche in eine Liste Umwandeln 
+            var list = Kategory.Elements("Fahrstrasse").ToList();             //Alle Elemente des Types Fahrstrasse in eine Liste Umwandeln 
 
             foreach (XElement fahrstrasse in list)                            //Alle Elemente der Liste einzeln durchlaufen
             {
@@ -422,7 +464,7 @@ namespace MEKB_H0_Anlage
                     Konfiguration.Fahrstr_GleicherEingang.Add(gleiche.Value);
                 }               
                 Liste.Add(new Fahrstrasse(Konfiguration, weichenListe, signalListe));  //Neue Fahrstrasse mit diesen Parametern hinzufügen
-                GesperrteFahrstarssen.Add(Konfiguration.Name, false);
+                GesperrteFahrstrassen.Add(Konfiguration.Name, false);
             }
             for (int i = 0; i < Liste.Count; i++)
             {

@@ -10,8 +10,15 @@ namespace MEKB_H0_Anlage
     /// <summary>
     /// Belegtmelderliste
     /// </summary>
+    /// 
+    
     public class BelegtmelderListe
     {
+        private static readonly Lazy<BelegtmelderListe> lazy =
+        new Lazy<BelegtmelderListe>(() => new BelegtmelderListe());
+        public static BelegtmelderListe Instance { get { return lazy.Value; } }
+
+
         private Dictionary<string, int> Verzeichnis;
         public List<Belegtmelder> Liste;
         
@@ -52,8 +59,8 @@ namespace MEKB_H0_Anlage
             Liste = new List<Belegtmelder>();
             Verzeichnis = new Dictionary<string, int>();
             XElement XMLFile = XElement.Load(Dateiname);       //XML-Datei öffnen
-
-            var list = XMLFile.Elements("Belegtmelder").ToList();             //Alle Elemente des Types Belegtmelders in eine Liste Umwandeln 
+            var Kategory = XMLFile.Element("Belegtmelderliste");
+            var list = Kategory.Elements("Belegtmelder").ToList();             //Alle Elemente des Types Belegtmelders in eine Liste Umwandeln 
 
             foreach (XElement melder in list)                            //Alle Elemente der Liste einzeln durchlaufen
             {
@@ -68,8 +75,8 @@ namespace MEKB_H0_Anlage
                 }
                 int Modulnummer = Int16.Parse(melder.Element("Modulnummer").Value);        //Modulnummer
                 int Portnummer = Int16.Parse(melder.Element("Portnummer").Value);               //Portnummer
-                int CoolDowntime = 5000;
-                int CoolUptime = 500;
+                int CoolDowntime = 5000;        
+                int CoolUptime = 2000;          
 
                 string Signal = "";
                 string SignalKommeVon = "";
@@ -268,6 +275,8 @@ namespace MEKB_H0_Anlage
     /// </summary>
     public class Belegtmelder : IEquatable<Belegtmelder>
     {
+        public Fehlermeldung Fehlermeldung = Fehlermeldung.Instance;
+
         #region Parameter
         /// <summary>
         /// Name des Belegtmelders als String
@@ -312,6 +321,14 @@ namespace MEKB_H0_Anlage
         /// </summary>
         public string Registriert { set; get; }
 
+        /// <summary>
+        /// Zeit für die Lok, den Block für sich zu registrieren, sonst wird es als unbekannte Lok gekennzeichnet
+        /// </summary>
+        public int RegTime { set; get; }
+
+        /// <summary>
+        /// Instance des Signals welches an dieses Gleis angehangen ist.
+        /// </summary>
         public Signal Signal { set; get; }
 
         public string SignalName; // Angehangendes Signal
@@ -324,6 +341,7 @@ namespace MEKB_H0_Anlage
         public Belegtmelder()
         {
             CoolDownTimer = CoolDownTime;
+            RegTime = 2000;
         }
 
         /// <summary>
@@ -350,7 +368,7 @@ namespace MEKB_H0_Anlage
         /// <returns>true - Abschnitt belegt, flase - Abschnittfrei</returns>
         public bool IstBelegt()
         {
-            if (Belegt && Stabil) return true;
+            if (Belegt/* && Stabil*/) return true;
             else
             {
                 if (CoolDownTimer > 0) return true;
@@ -372,13 +390,20 @@ namespace MEKB_H0_Anlage
                     else CoolDownTimer = 0; // Status war noch beim Einschalten: Sofort ausschalten
                 }
             }
-            Belegt = Status; //Status übernehmen
-            if (Status == false) // Neuer Status ist unbelegt
+            else //Letzter Status war nicht belegt
             {
-                Stabil = false; // Zustand nicht mehr stabil
-                CoolUpTimer = 0; // Einschaltimer resetten
-                if (Registriert.Equals("Deregistriert")) Registriert = "";
+                if (Status == false) // Neuer Status ist unbelegt
+                {
+                    Stabil = false; // Zustand nicht mehr stabil
+                    CoolUpTimer = 0; // Einschaltimer resetten
+                    
+                }
+                else //Neuer Status ist belegt
+                {
+                    RegTime = 2000; //Timer für Registrierung setzen
+                }
             }
+            Belegt = Status; //Status übernehmen    
         }
 
         /// <summary>
@@ -390,10 +415,32 @@ namespace MEKB_H0_Anlage
             if ((!Belegt) && (CoolDownTimer > 0)) //Beim Cool down
             {
                 CoolDownTimer -= ZeitVergangen; //Cooldowntimer weiterzählen
-                if (CoolDownTimer <= 0) CoolDownTimer = 0; //Cooldowntimer erreicht
+                if (CoolDownTimer <= 0)     //Cooldowntimer erreicht
+                {
+                    CoolDownTimer = 0; 
+                    Registriert = "";
+                    Fehlermeldung.FehlertextEntfernen(Name);
+                }
             }
-
-            if (Belegt == true) { CoolDownTimer = CoolUpTime; }
+            
+            if (Belegt == true) 
+            { 
+                CoolDownTimer = CoolDownTime; 
+                RegTime -= ZeitVergangen;
+                if (RegTime <= 0)
+                {
+                    RegTime = 0;
+                    if (Registriert.Equals(""))
+                    {
+                        Registriert = "Unbekannt";
+                        Fehlermeldung.FehlerMelden(String.Format("Unbekannte Lok auf {0}", Name), "Warning");
+                    }
+                }
+                if(!(Registriert.Equals("") || Registriert.Equals("Unbekannt")))
+                {
+                    Fehlermeldung.FehlertextEntfernen(Name);
+                }
+            }
 
             if (Stabil == false) //Noch instabil
             {

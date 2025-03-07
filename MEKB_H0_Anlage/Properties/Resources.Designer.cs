@@ -63,36 +63,6 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Bahnsteig_Mitte {
-            get {
-                object obj = ResourceManager.GetObject("Bahnsteig_Mitte", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Bahnsteig_Oben {
-            get {
-                object obj = ResourceManager.GetObject("Bahnsteig_Oben", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Bahnsteig_Unten {
-            get {
-                object obj = ResourceManager.GetObject("Bahnsteig_Unten", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Drehscheibe {
             get {
                 object obj = ResourceManager.GetObject("Drehscheibe", resourceCulture);
@@ -103,59 +73,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap EckeOL {
+        internal static System.Drawing.Bitmap EC {
             get {
-                object obj = ResourceManager.GetObject("EckeOL", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EckeOL_UR {
-            get {
-                object obj = ResourceManager.GetObject("EckeOL_UR", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EckeOR {
-            get {
-                object obj = ResourceManager.GetObject("EckeOR", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EckeUL {
-            get {
-                object obj = ResourceManager.GetObject("EckeUL", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EckeUL_OR {
-            get {
-                object obj = ResourceManager.GetObject("EckeUL_OR", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EckeUR {
-            get {
-                object obj = ResourceManager.GetObject("EckeUR", resourceCulture);
+                object obj = ResourceManager.GetObject("EC", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -253,9 +173,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Gerade135_EckeOR {
+        internal static System.Drawing.Bitmap IC {
             get {
-                object obj = ResourceManager.GetObject("Gerade135_EckeOR", resourceCulture);
+                object obj = ResourceManager.GetObject("IC", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -263,9 +183,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Gerade135_EckeUL {
+        internal static System.Drawing.Bitmap ICE {
             get {
-                object obj = ResourceManager.GetObject("Gerade135_EckeUL", resourceCulture);
+                object obj = ResourceManager.GetObject("ICE", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -273,9 +193,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Gerade45 {
+        internal static System.Drawing.Bitmap IR {
             get {
-                object obj = ResourceManager.GetObject("Gerade45", resourceCulture);
+                object obj = ResourceManager.GetObject("IR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -283,9 +203,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Gerade90 {
+        internal static System.Drawing.Bitmap IRE {
             get {
-                object obj = ResourceManager.GetObject("Gerade90", resourceCulture);
+                object obj = ResourceManager.GetObject("IRE", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -293,9 +213,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Gerade90_EckeOL {
+        internal static System.Drawing.Bitmap LinksAktiv {
             get {
-                object obj = ResourceManager.GetObject("Gerade90_EckeOL", resourceCulture);
+                object obj = ResourceManager.GetObject("LinksAktiv", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -303,169 +223,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Gerade90_EckeOL_UR {
+        internal static System.Drawing.Bitmap LinksInaktiv {
             get {
-                object obj = ResourceManager.GetObject("Gerade90_EckeOL_UR", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Gerade90_EckeOR {
-            get {
-                object obj = ResourceManager.GetObject("Gerade90_EckeOR", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Gerade90_EckeUL {
-            get {
-                object obj = ResourceManager.GetObject("Gerade90_EckeUL", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Gerade90_EckeUR {
-            get {
-                object obj = ResourceManager.GetObject("Gerade90_EckeUR", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap GeradePrelbock270 {
-            get {
-                object obj = ResourceManager.GetObject("GeradePrelbock270", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap GeradePrelbock90 {
-            get {
-                object obj = ResourceManager.GetObject("GeradePrelbock90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap GeradePrellbock135 {
-            get {
-                object obj = ResourceManager.GetObject("GeradePrellbock135", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kurve0L {
-            get {
-                object obj = ResourceManager.GetObject("Kurve0L", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kurve180R {
-            get {
-                object obj = ResourceManager.GetObject("Kurve180R", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kurve270L {
-            get {
-                object obj = ResourceManager.GetObject("Kurve270L", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kurve270L_EckeOR {
-            get {
-                object obj = ResourceManager.GetObject("Kurve270L_EckeOR", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kurve270R {
-            get {
-                object obj = ResourceManager.GetObject("Kurve270R", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kurve270R_EckeUL {
-            get {
-                object obj = ResourceManager.GetObject("Kurve270R_EckeUL", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kurve90L {
-            get {
-                object obj = ResourceManager.GetObject("Kurve90L", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kurve90L_EckeUR {
-            get {
-                object obj = ResourceManager.GetObject("Kurve90L_EckeUR", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kurve90R {
-            get {
-                object obj = ResourceManager.GetObject("Kurve90R", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Kurve90R_EckeOR {
-            get {
-                object obj = ResourceManager.GetObject("Kurve90R_EckeOR", resourceCulture);
+                object obj = ResourceManager.GetObject("LinksInaktiv", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -477,6 +237,76 @@ namespace MEKB_H0_Anlage.Properties {
             get {
                 object obj = ResourceManager.GetObject("Logo", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ObenAktiv {
+            get {
+                object obj = ResourceManager.GetObject("ObenAktiv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ObenInaktiv {
+            get {
+                object obj = ResourceManager.GetObject("ObenInaktiv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RB {
+            get {
+                object obj = ResourceManager.GetObject("RB", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RE {
+            get {
+                object obj = ResourceManager.GetObject("RE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RechtsAktiv {
+            get {
+                object obj = ResourceManager.GetObject("RechtsAktiv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RechtsInaktiv {
+            get {
+                object obj = ResourceManager.GetObject("RechtsInaktiv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap S_Bahn {
+            get {
+                object obj = ResourceManager.GetObject("S_Bahn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -503,9 +333,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_0 {
+        internal static System.Drawing.Bitmap TypUnbekannt {
             get {
-                object obj = ResourceManager.GetObject("Signal_2B_0", resourceCulture);
+                object obj = ResourceManager.GetObject("TypUnbekannt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -513,9 +343,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_180 {
+        internal static System.Drawing.Bitmap TypUnbesetzt {
             get {
-                object obj = ResourceManager.GetObject("Signal_2B_180", resourceCulture);
+                object obj = ResourceManager.GetObject("TypUnbesetzt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -523,9 +353,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_270 {
+        internal static System.Drawing.Bitmap U_Bahn {
             get {
-                object obj = ResourceManager.GetObject("Signal_2B_270", resourceCulture);
+                object obj = ResourceManager.GetObject("U_Bahn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -533,9 +363,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_90 {
+        internal static System.Drawing.Bitmap UntenAktiv {
             get {
-                object obj = ResourceManager.GetObject("Signal_2B_90", resourceCulture);
+                object obj = ResourceManager.GetObject("UntenAktiv", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -543,439 +373,9 @@ namespace MEKB_H0_Anlage.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_HP0_0 {
+        internal static System.Drawing.Bitmap UntenInaktiv {
             get {
-                object obj = ResourceManager.GetObject("Signal_2B_HP0_0", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_HP0_180 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_2B_HP0_180", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_HP0_270 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_2B_HP0_270", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_HP0_90 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_2B_HP0_90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_HP1_0 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_2B_HP1_0", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_HP1_180 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_2B_HP1_180", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_HP1_270 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_2B_HP1_270", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_2B_HP1_90 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_2B_HP1_90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_3B_270 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_3B_270", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_3B_90 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_3B_90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_3B_HP0_270 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_3B_HP0_270", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_3B_HP0_90 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_3B_HP0_90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_3B_HP1_270 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_3B_HP1_270", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_3B_HP1_90 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_3B_HP1_90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_3B_HP2_270 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_3B_HP2_270", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Signal_3B_HP2_90 {
-            get {
-                object obj = ResourceManager.GetObject("Signal_3B_HP2_90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Sperrsignal_kurz_270 {
-            get {
-                object obj = ResourceManager.GetObject("Sperrsignal_kurz_270", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_135_Abzweig135 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_135_Abzweig135", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_135_Abzweig90 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_135_Abzweig90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_135_Analog {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_135_Analog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_135_Diag135 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_135_Diag135", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_135_Diag90 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_135_Diag90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_135_Error {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_135_Error", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_135_Unbekannt {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_135_Unbekannt", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_45_Abzweig45 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_45_Abzweig45", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_45_Abzweig90 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_45_Abzweig90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_45_Analog {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_45_Analog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_45_Diag45 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_45_Diag45", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_45_Diag90 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_45_Diag90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_45_Error {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_45_Error", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheDKW90_45_Unbekannt {
-            get {
-                object obj = ResourceManager.GetObject("WeicheDKW90_45_Unbekannt", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheKW90_45_Abzweig45 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheKW90_45_Abzweig45", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheKW90_45_Analog {
-            get {
-                object obj = ResourceManager.GetObject("WeicheKW90_45_Analog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheKW90_45_Diag45 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheKW90_45_Diag45", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheKW90_45_Diag90 {
-            get {
-                object obj = ResourceManager.GetObject("WeicheKW90_45_Diag90", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheL135_Analog {
-            get {
-                object obj = ResourceManager.GetObject("WeicheL135_Analog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheL135_Analog_EckeOL {
-            get {
-                object obj = ResourceManager.GetObject("WeicheL135_Analog_EckeOL", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheL270_Analog {
-            get {
-                object obj = ResourceManager.GetObject("WeicheL270_Analog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheL315_Analog_EckeUL {
-            get {
-                object obj = ResourceManager.GetObject("WeicheL315_Analog_EckeUL", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheL90_Analog {
-            get {
-                object obj = ResourceManager.GetObject("WeicheL90_Analog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheR225_Analog {
-            get {
-                object obj = ResourceManager.GetObject("WeicheR225_Analog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheR270_Analog {
-            get {
-                object obj = ResourceManager.GetObject("WeicheR270_Analog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheR45_Analog {
-            get {
-                object obj = ResourceManager.GetObject("WeicheR45_Analog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WeicheR90_Analog {
-            get {
-                object obj = ResourceManager.GetObject("WeicheR90_Analog", resourceCulture);
+                object obj = ResourceManager.GetObject("UntenInaktiv", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

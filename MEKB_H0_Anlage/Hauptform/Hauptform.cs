@@ -23,6 +23,11 @@ using System.Net.Sockets;
 using System.Configuration;
 using System.Diagnostics;
 using System.Threading;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Diagnostics.Eventing.Reader;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+//using static System.Net.Mime.MediaTypeNames;
 
 
 namespace MEKB_H0_Anlage
@@ -34,10 +39,12 @@ namespace MEKB_H0_Anlage
     {
         #region Instanzen
         public Z21 z21Start;
-        public GleisbildZeichnung GleisbildZeichnung = new GleisbildZeichnung("Standard.png");
-        //public Lokomotive[] AktiveLoks = new Lokomotive[12];
-        public List<Lokomotive> LokListe = new List<Lokomotive>();
+        public GleisbildZeichnung GleisbildZeichnung = GleisbildZeichnung.Instance;
+
+        public AktiveLokomotiven AktiveLokomotiven = AktiveLokomotiven.Instance;
         public Bahnhofsansage Bahnhofsansage = new Bahnhofsansage();
+        public Fehlermeldung Fehlermeldungen = Fehlermeldung.Instance;
+        public Einstellungen Einstellungen = Einstellungen.Instance;
         private Logger Log { set; get; }
         #endregion
 
@@ -52,12 +59,18 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region Listen
-        public Gleisplan Plan = new Gleisplan("Gleisplan.xml");
-        public WeichenListe WeichenListe = new WeichenListe("Weichenliste.xml");
-        public SignalListe SignalListe = new SignalListe("Signalliste.xml");
-        public BelegtmelderListe BelegtmelderListe = new BelegtmelderListe("Belegtmelderliste.xml");
-        public FahrstrassenListe FahrstrassenListe = new FahrstrassenListe();
+        public Gleisplan Plan = new Gleisplan();
+        public WeichenListe WeichenListe = WeichenListe.Instance;
+        public SignalListe SignalListe = SignalListe.Instance;
+        public BelegtmelderListe BelegtmelderListe = BelegtmelderListe.Instance;
+        public FahrstrassenListe FahrstrassenListe = FahrstrassenListe.Instance;
         public LokomotivenVerwaltung LokomotivenArchiv = new LokomotivenVerwaltung("LokArchiv");
+
+        public Systemzustand Systemzustand = Systemzustand.Instance;
+
+        public ZuganzeigerListe ZuganzeigerListe = ZuganzeigerListe.Instance;
+
+        private List<string> SperrButtons = new List<string>();
         #endregion
 
         #region Threads
@@ -75,7 +88,7 @@ namespace MEKB_H0_Anlage
 
 
         private bool InitIsRunning = false; //Thread für Inittialisierung läuft aber noch nicht abgeschlossen. Verhindert Doppelte Ausführung
-        public bool Betriebsbereit;
+        
         public bool Z21_Initialisiert;
 
         public readonly int Max_Loks = 12;
@@ -91,15 +104,46 @@ namespace MEKB_H0_Anlage
             Log = new Logger(String.Format("log/log{0}.txt", DateTime.Now.ToString("yyyyMMdd")));
 
             InitializeComponent();                      //Programminitialisieren
+            Plan.ControlsZuweisen(this.GleisplanAnzeige.Controls);
+            Einstellungen.LadeEinstellungen();
             Z21_Initialisieren();
+            GleisbildZeichnung.ImportiereZeichenDesign("Standard.png");
 
-            // Instanzen Zugriffe festlegen
-            SetupFahrstrassen();                        //Fahstrassen festlegen              
-            SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
-            BelegtmelderListe.SignalZugriff(SignalListe);
+
+            if (Einstellungen.AutoSignal) SetCheckBoxColor(AutoSignale, "Blau");  
+            else SetCheckBoxColor(AutoSignale, "Grau");
+            AutoSignale.Checked = Einstellungen.AutoSignal;
+
+            if (Einstellungen.AutoFahrdienstleister) SetCheckBoxColor(AutoFahrdienstleiter, "Orange");
+            else SetCheckBoxColor(AutoFahrdienstleiter, "Grau");
+            AutoFahrdienstleiter.Checked = Einstellungen.AutoFahrdienstleister;
+
+            if (Einstellungen.AutoFahrplan) SetCheckBoxColor(AutoFahrplan, "Grün");
+            else SetCheckBoxColor(AutoFahrplan, "Grau");
+            AutoFahrplan.Checked = Einstellungen.AutoFahrplan;
+
+            if (Einstellungen.Bahnhofsansagen) SetCheckBoxColor(AutoBahnhofsansagen, "Lila");
+            else SetCheckBoxColor(AutoBahnhofsansagen, "Grau");
+            AutoBahnhofsansagen.Checked = Einstellungen.Bahnhofsansagen;
+
+            if (Einstellungen.AutoNotbremse) SetCheckBoxColor(LokKontrolle, "Cyan");
+            else SetCheckBoxColor(LokKontrolle, "Grau");
+            LokKontrolle.Checked = Einstellungen.AutoNotbremse;
+
+
+
+
+            if (!Config.ReadConfig("LetzteAnlage").Equals("Not Found"))
+            {
+                Gleisplan_Laden(Config.ReadConfig("LetzteAnlage"));
+            }
+            Fehlermeldungen.Register_Fehlermelden(FehlerMelden);
+            Fehlermeldungen.Register_Fehlerentfernen(FehlerEntfernen);
+            Fehlermeldungen.Register_FehlertextEntfernen(FehlertextEntfernen);
+
             LokListe_Laden();
 
-            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe, BelegtmelderListe);
+            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, AktiveLokomotiven.Liste, BelegtmelderListe);
 
             
         }
@@ -132,10 +176,9 @@ namespace MEKB_H0_Anlage
             UpdateLokStatus.Elapsed += OnStatusUpdate;
             UpdateLokStatus.AutoReset = true;
 
-            
-
             //Gleisplan zeichnen
-            GleisplanZeichnenInitial();
+            Plan.ZeichnenInitial();
+            ZuganzeigerListe.ZeichneZuganzeigen(this.GleisplanAnzeige.Controls);
 
             //Sofort verbinden wenn Optionen das erlauben
             if (Config.ReadConfig("Auto_Connect").Equals("true"))
@@ -243,13 +286,12 @@ namespace MEKB_H0_Anlage
             //Nur ausführen, wenn Verbindung aufgebaut ist
             if (z21Start.Verbunden())
             {
-                if (!z21_Einstellung.IsDisposed) //Fenster Z21-Einstellung nläuft immer noch im Hintergrund
-                {
-                    Flags temp = z21_Einstellung.Get_Flag_Config();
-                    z21Start.Z21_SET_BROADCASTFLAGS(temp); //Flags neu setzen 
-                }
+                z21Start.Z21_SET_BROADCASTFLAGS(Einstellungen.Z21Flags);
+
+                // Wenn noch nicht initialisiert: Thread für Initialisierung starten
                 if (!Z21_Initialisiert)
                 {
+                    if (InitIsRunning) return; //Läuft bereits, nicht ausführen
                     Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
                     {
                         IsBackground = true
@@ -268,10 +310,9 @@ namespace MEKB_H0_Anlage
             }));
         }
 
-        //private int GroupIndex = 0;
         private void OnTimedWeichenEvent(Object source, ElapsedEventArgs e)
         {
-            if (source is System.Timers.Timer)
+            if (source is System.Timers.Timer timer)
             {
 
                 if (z21Start.Verbunden())
@@ -279,24 +320,23 @@ namespace MEKB_H0_Anlage
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
 
-                    foreach (Fahrstrasse fahrstrasse in FahrstrassenListe.Liste)
-                    {
-                        Fahrstrassenupdate(fahrstrasse);
-                    }
+                    FahrstrassenListe.Fahrstrassenupdate();
 
-                    if (Betriebsbereit && AutoSignale.Checked) 
-                        SignalListe.AutoSignal(Config.ReadConfig("AutoSignalFahrt").Equals("true"), Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"),50);
+                    if (Systemzustand.Betriebsbereit && Einstellungen.AutoSignal) 
+                        SignalListe.AutoSignal(Einstellungen.AutoSignal, Config.ReadConfig("AutoSignalFahrstrasse").Equals("true"),(int)timer.Interval);
 
                     SignalListe.VorsignaleSchalten();
                     try
                     {
-                        GleisplanZeichnen();
+                        Plan.GleisplanZeichnen();
                     }
                     catch
                     {
                         stopWatch.Stop();
                         return;
                     }
+                    
+                    
                     //GleisplanUpdateSignal();
                     stopWatch.Stop();
                     return;
@@ -306,6 +346,7 @@ namespace MEKB_H0_Anlage
 
         }
 
+        int BelegtmelderGruppenIndex = 0;
         /// <summary>
         /// Cooldown Timer für Belegtmelder. Zeit in der gemessen wird ob das Signal stabil ist, erst dann wird der Wert übernommen
         /// </summary>
@@ -317,271 +358,39 @@ namespace MEKB_H0_Anlage
             if (z21Start.Verbunden())
             {
                 BelegtmelderListe.CoolDownUpdate(Timer_BelegtMeldung_ms);
-                z21Start.LAN_RMBUS_GETDATA(0x00);
-                z21Start.LAN_RMBUS_GETDATA(0x01);
+                //if (BelegtmelderGruppenIndex == 0)  { z21Start.LAN_RMBUS_GETDATA(0x00); BelegtmelderGruppenIndex = 1; }
+                //else                                { z21Start.LAN_RMBUS_GETDATA(0x01); BelegtmelderGruppenIndex = 0; }
             }
         }
 
-        int LokStatusTimerIndex = 0;
         private void OnStatusUpdate(Object source, ElapsedEventArgs e)
         {
-            if (!Betriebsbereit) return;
-            // Lokstatus abfragen
-            if (LokListe.Count == 0) return;
+            if (!Systemzustand.Betriebsbereit) return;
+            
 
-            if (!LokKontrolle.Checked) return;
-
-            foreach(Lokomotive lokomotive in LokListe)
+            if (source is System.Timers.Timer timer)
             {
-                lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe);
-                lokomotive.NotBremseHandeln();
+                this.BeginInvoke((Action<bool>) ZuganzeigenAktualisieren, false);
+
+                // Lokstatus abfragen
+                if (AktiveLokomotiven.Liste.Count == 0) return;
+                List<int> StatusAdressen = new List<int>();
+                foreach (Lokomotive lokomotive in AktiveLokomotiven.Liste)
+                {
+                    lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe, LokKontrolle.Checked, true);
+
+                    if (LokKontrolle.Checked) lokomotive.NotBremseHandeln((int)timer.Interval);
+                    StatusAdressen.Add(lokomotive.Adresse);
+                }
+
+                z21Start.Z21_GET_LOCO_INFO(StatusAdressen);
             }
-            if(!(LokStatusTimerIndex < LokListe.Count)) LokStatusTimerIndex = 0;
-            Setze_Lok_Status(LokListe[LokStatusTimerIndex].Adresse);
-            LokStatusTimerIndex++;
         }
-
-
-
-        #endregion
-
-        #region Weichensteuerung
-        /// <summary>
-        /// Schalten der Weiche bei Klicken auf das Symbol
-        /// </summary>
-        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
-        /// <param name="e">Argumente der Ausführung</param>
-        private void Weiche_Click(object sender, EventArgs e)
+        private void ZuganzeigenAktualisieren(bool ErzwingeUpdate = false)
         {
-            if (!Betriebsbereit) return;
-            if (sender is PictureBox weichenElement)
-            {
-                if (Control.ModifierKeys == Keys.Shift)
-                {
-                    //Weiche nochmal neu schalten
-                    WeichenListe.SetzeWeiche(weichenElement.Name, WeichenListe.GetWeiche(weichenElement.Name).Abzweig);
-                }
-                else
-                {
-                    WeichenListe.ToggleWeiche(weichenElement.Name);
-                }
-            }
-        }
-        /// <summary>
-        /// Doppelkreuzungsweiche schalten
-        /// </summary>
-        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
-        /// <param name="e">Argumente der Ausführung</param>
-        private void DKW_Click(object sender, EventArgs e)
-        {
-            if (!Betriebsbereit) return;
-            if (sender is PictureBox weichenElement)
-            {
-                Gleisplan.Abschnitt.GleisTyp gleis = Plan.SucheGleis(weichenElement.Name);
-                if (gleis != null)
-                {
-                    String[] tags = gleis.Typ.Split('_');
-                    MouseEventArgs e2 = (MouseEventArgs)e;
-                    switch (tags[1])
-                    {
-                        case "0":
-                        case "45":
-                            // Unterer Häfte ist 1. Weiche
-                            if (e2.Y > (weichenElement.Height / 2))
-                            {
-                                WeichenListe.ToggleWeiche(gleis.Weiche);
-                            }
-                            else
-                            {
-                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
-                            }
-                            break;
-                        case "90":
-                        case "135":
-                            // Linke Hälfte ist 1. Weiche
-                            if (e2.X > (weichenElement.Width / 2))
-                            {
-                                WeichenListe.ToggleWeiche(gleis.Weiche);
-                            }
-                            else
-                            {
-                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
-                            }
-                            break;
-                        case "180":
-                        case "225":
-                            // Obere Hälfte ist 1. Weiche
-                            if (e2.Y <= (weichenElement.Height / 2))
-                            {
-                                WeichenListe.ToggleWeiche(gleis.Weiche);
-                            }
-                            else
-                            {
-                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
-                            }
-                            break;
-                        case "270":
-                        case "315":
-                            // Rechte Hälfte ist 1. Weiche
-                            if (e2.X <= (weichenElement.Width / 2))
-                            {
-                                WeichenListe.ToggleWeiche(gleis.Weiche);
-                            }
-                            else
-                            {
-                                WeichenListe.ToggleWeiche(gleis.Weiche_2nd);
-                            }
-                            break;
-                        default: break;
-                    }
-                }
-            }
-        }
-        /// <summary>
-        /// Kreuzungsweiche schalten
-        /// </summary>
-        /// <param name="sender">Objekt, das diese Funktion ausführt</param>
-        /// <param name="e">Argumente der Ausführung</param>
-        private void KW_Click(object sender, EventArgs e)
-        {
-            if (!Betriebsbereit) return;
-            if (sender is PictureBox weichenElement)
-            {
-                Gleisplan.Abschnitt.GleisTyp gleis = Plan.SucheGleis(weichenElement.Name);
-                if (gleis != null)
-                {
-                    MouseEventArgs e2 = (MouseEventArgs)e;
-                    if (e2.X > 16)       //Auf rechte Hälfte der Weiche geklickt
-                    {
-                        Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche_2nd);
-                        if (weiche == null) return;
-                        if (weiche.Abzweig) WeichenListe.ToggleWeiche(gleis.Weiche);     //Nur Schalten wenn andere Zunge auf Abzweig
-                    }
-                    else                //Auf linke Hälfte der Weiche geklickt
-                    {
-                        Weiche weiche = WeichenListe.GetWeiche(gleis.Weiche);
-                        if (weiche == null) return;
-                        if (!weiche.Abzweig) WeichenListe.ToggleWeiche(gleis.Weiche_2nd);     //Nur Schalten wenn andere Zunge nicht auf Abzweig
-                    }
-                }
-            }
+            ZuganzeigerListe.ZuganzeigenAktualisieren(this.GleisplanAnzeige.Controls, ErzwingeUpdate);
         }
 
-
-
-        #endregion
-
-        #region SignalSteuerung
-        private void Signal_Click(object sender, EventArgs e)
-        {
-            if (sender is PictureBox PicBox)
-            {
-                bool Modus = Config.ReadConfig("AutoSignalFahrstrasse").Equals("true");
-                if (GetGleisObjekt(PicBox.Name, out Gleisplan.Abschnitt.GleisTyp Gleis))
-                {
-                    Signal signal = SignalListe.GetSignal(Gleis.Signal);
-                    // SHIFT-Taste während des Klickens gedrückt -> Schalten auf HP2 (langsame Fahrt)
-                    if (Control.ModifierKeys == Keys.Shift)
-                    {
-                        if (signal.Zustand == SignalZustand.HP2) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
-                        {
-                            signal.Schalten(SignalZustand.HP0);
-                            if (AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
-                            return;
-                        }
-
-                        // HP2 erlaubt
-                        if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
-                        {
-                            signal.Schalten(SignalZustand.HP2);
-                            signal.AutoSperre = false; //Signal wieder im Normalen Modus
-                            return;
-                        }
-                        // HP2 nicht erlaubt, prüfen ob HP1 möglich
-                        else if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
-                        {
-                            signal.Schalten(SignalZustand.HP1);
-                            signal.AutoSperre = false; //Signal wieder im Normalen Modus
-                            return;
-                        }
-                        else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
-                        {
-                            // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
-                            if (signal.Zustand != SignalZustand.HP0)
-                                signal.Schalten(SignalZustand.HP0);
-                            return;
-                        }
-                    }
-                    // CTRL-Taste während des Klickens gedrückt -> Schalten auf SH1 (Rangier Fahrt)
-                    else if (Control.ModifierKeys == Keys.Control)
-                    {
-                        if (signal.Zustand == SignalZustand.SH1) // Signal bereits auf diesem Zustand  -> auf HP0 schalten
-                        {
-                            signal.Schalten(SignalZustand.HP0);
-                            if (AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
-                            return;
-                        }
-                        // SH1 erlaubt
-                        if (signal.StellungErlaubt(SignalZustand.SH1, Modus))
-                        {
-                            signal.Schalten(SignalZustand.SH1);
-                            return;
-                        }
-                        else //Nicht erlaubt -> Strecke gesperrt
-                        {
-                            // Signal auf Rot-Schalten, wenn nicht bereits in diesem Zustand
-                            if (signal.Zustand != SignalZustand.HP0)
-                                signal.Schalten(SignalZustand.HP0);
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        // Signal is auf Rot -> Schalten in ein anderes 
-                        if (signal.Zustand == SignalZustand.HP0)
-                        {
-                            if (signal.StellungErlaubt(SignalZustand.HP1, Modus))
-                            {
-                                signal.Schalten(SignalZustand.HP1);
-                                signal.AutoSperre = false; //Signal wieder im Normalen Modus
-                                return;
-                            }
-                            else if (signal.StellungErlaubt(SignalZustand.HP2, Modus))
-                            {
-                                signal.Schalten(SignalZustand.HP2);
-                                signal.AutoSperre = false; //Signal wieder im Normalen Modus
-                                return;
-                            }
-                            else // Weder HP2 noch HP1 erlaubt -> Strecke gesperrt
-                            {
-                                return; // Schalten nicht erlauben
-                            }
-                        }
-                        else // Zurückschalten auf HP0
-                        {
-                            signal.Schalten(SignalZustand.HP0);
-                            if (AutoSignale.Checked) signal.AutoSperre = true; //Signal nicht wieder auf grün schalten lassen
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-        private void SperrungSh2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sender is CheckBox checkBox)
-            {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2;
-                }
-                else
-                {
-                    checkBox.Image = MEKB_H0_Anlage.Properties.Resources.SH_2_inaktiv;
-                }
-                UpdateFahrstrassenSchalter();
-            }
-        }
 
         #endregion
 
@@ -626,7 +435,7 @@ namespace MEKB_H0_Anlage
         /// <param name="e">Eventparameter</param>
         private void StopAlle_Click(object sender, EventArgs e)
         {
-            foreach (Lokomotive lok in LokListe)
+            foreach (Lokomotive lok in AktiveLokomotiven.Liste)
             {
                 if (lok.Adresse != 0)
                 {
@@ -658,18 +467,17 @@ namespace MEKB_H0_Anlage
                 if (timeoutVerbinden <= 0)
                 {
                     InitIsRunning = false;
+                    Fehlermeldungen.FehlerMelden("Z21-Zentrale nicht gefunden", "Error");
                     return; // Hat sich nicht verbunden -> Task beenden
                 }
             }
-
+            Fehlermeldungen.FehlerEntfernen("Z21-Zentrale nicht gefunden");
             // Z21 ist verbunden
             if (z21Start.Verbunden())
-            {
-                if (!z21_Einstellung.IsDisposed) // Fenster Z21-Einstellung läuft immer noch im Hintergrund
-                {
-                    Flags temp = z21_Einstellung.Get_Flag_Config();
-                    z21Start.Z21_SET_BROADCASTFLAGS(temp); // Flags neu setzen 
-                }
+            { 
+                // Broadcast-Nachrichten setzen
+                z21Start.Z21_SET_BROADCASTFLAGS(Einstellungen.Z21Flags);
+
                 Thread.Sleep(100);
                 // Alle Weichen abfragen
                 WeichenListe.WeichenStatus("Alle");
@@ -688,7 +496,7 @@ namespace MEKB_H0_Anlage
                     Thread.Sleep(100);
                 }
                 SetConnect(true, true); //Initialisierung abgeschlossen
-                Betriebsbereit = true;
+                Systemzustand.Betriebsbereit = true;
             }
             InitIsRunning = false; // Prozess beendet
         }
@@ -713,17 +521,16 @@ namespace MEKB_H0_Anlage
             z21Start.Register_LAN_X_LOCO_INFO(CallBack_Z21_LokUpdate);
             z21Start.Register_LAN_RMBUS_DATACHANGED(CallBack_LAN_RMBUS_DATACHANGED);
 
-            z21Start.SetQMode(true);
+            z21Start.SetQMode(true); //Queue Mode bei Weichen aktivieren
 
-            // Instanzzugriffe auf Zentrale
-            WeichenListe.DigitalzentraleZugriff(z21Start);
-            SignalListe.DigitalzentraleZugriff(z21Start);
+            
+            z21Start.SetIP_Z21(Einstellungen.Z21_IP,Einstellungen.Z21_Port);
 
             z21_Einstellung = new Z21_Einstellung();    //Neues Fenster: Einstellung der Z21 (Läuft im Hintergund)
-            z21_Einstellung.Get_Z21_Instance(this);     //Z21-Verbindung dem neuen Fenster mitgeben
+            z21_Einstellung.Get_Z21_Instance(z21Start);     //Z21-Verbindung dem neuen Fenster mitgeben
 
             ConnectStatus(false, false);                 //Verbindungsstatus initialisieren
-            Betriebsbereit = false;
+            Systemzustand.Betriebsbereit = false;
         }
 
         private void LokListe_Laden()
@@ -733,36 +540,47 @@ namespace MEKB_H0_Anlage
                 string LokAdresse = Config.ReadConfig(String.Format("LokListe{0}", i));
                 if (int.TryParse(LokAdresse, out int DigitAdresse))
                 {
-                    if (LokomotivenArchiv.SucheDurchAdresse(DigitAdresse, out Lokomotive lokomotive))
+                    if (DigitAdresse == 0) continue;
+                    if(!LokomotivenArchiv.SucheDurchAdresse(DigitAdresse, out Lokomotive lokomotive))
                     {
-                        lokomotive.Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
-                        lokomotive.Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
-                        lokomotive.Register_CMD_LOKSTATUS(Setze_Lok_Status);
-
-                        lokomotive.VorherigerBlock = "";
-                        lokomotive.AktuellerBlock = "";
-
-                        string VorherigePosition = Config.ReadConfig(String.Format("LokPosVor{0}", i));
-                        if (BelegtmelderListe.GetBelegtmelder(VorherigePosition) != null)
+                        lokomotive = new Lokomotive() //Blanke Lok anlegen mit dieser Adresse
                         {
-                            lokomotive.VorherigerBlock = VorherigePosition;
-                        }
-                        
-                        string Position = Config.ReadConfig(String.Format("LokPos{0}", i));
-                        Belegtmelder AktPosition = BelegtmelderListe.GetBelegtmelder(Position);
-                        if (AktPosition != null)
-                        {
-                            lokomotive.AktuellerBlock = Position;
-                            AktPosition.Registriert = lokomotive.Name;
-                        }
-                        else
-                        {
-                            lokomotive.AktuellerBlock = "";
-                            lokomotive.VorherigerBlock = "";
-                        }
-
-                        LokListe.Add(lokomotive);
+                            Adresse = DigitAdresse,
+                            Name = String.Format("Lok: {0}", DigitAdresse)
+                        };
                     }
+                    
+                    
+                    lokomotive.Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+                    lokomotive.Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+                    lokomotive.Register_CMD_LOKSTATUS(Setze_Lok_Status);
+
+                    lokomotive.VorherigerBlock = "";
+                    lokomotive.AktuellerBlock = "";
+
+                    string VorherigePosition = Config.ReadConfig(String.Format("LokPosVor{0}", i));
+                    Belegtmelder VorBlock = BelegtmelderListe.GetBelegtmelder(VorherigePosition);
+                    if (VorBlock != null)
+                    {
+                        VorBlock.Registriert = "Deregistriert";
+                        lokomotive.VorherigerBlock = VorherigePosition;
+                    }
+                        
+                    string Position = Config.ReadConfig(String.Format("LokPos{0}", i));
+                    Belegtmelder AktPosition = BelegtmelderListe.GetBelegtmelder(Position);
+                    if (AktPosition != null)
+                    {
+                        lokomotive.AktuellerBlock = Position;
+                        AktPosition.Registriert = lokomotive.Name;
+                    }
+                    else
+                    {
+                        lokomotive.AktuellerBlock = "";
+                        lokomotive.VorherigerBlock = "";
+                    }
+
+                    AktiveLokomotiven.Liste.Add(lokomotive);
+                    
                 }
             }
         }
@@ -771,11 +589,11 @@ namespace MEKB_H0_Anlage
         {
             for(int i = 0;i < Max_Loks; i++)
             {
-                if(i <  LokListe.Count)
+                if(i <  AktiveLokomotiven.Liste.Count)
                 {
-                    Config.WriteConfig(String.Format("LokListe{0}", i), LokListe[i].Adresse.ToString());
-                    Config.WriteConfig(String.Format("LokPos{0}",i), LokListe[i].AktuellerBlock.ToString());
-                    Config.WriteConfig(String.Format("LokPosVor{0}",i), LokListe[i].VorherigerBlock.ToString());
+                    Config.WriteConfig(String.Format("LokListe{0}", i), AktiveLokomotiven.Liste[i].Adresse.ToString());
+                    Config.WriteConfig(String.Format("LokPos{0}",i), AktiveLokomotiven.Liste[i].AktuellerBlock.ToString());
+                    Config.WriteConfig(String.Format("LokPosVor{0}",i), AktiveLokomotiven.Liste[i].VorherigerBlock.ToString());
                 }
                 else
                 {
@@ -785,6 +603,40 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
+        
+        private void Gleisplan_Laden(string Dateiname)
+        {
+            GleisbildZeichnung.GleisZustand.Clear();
+            Plan.DateiImportieren(Dateiname);
+            WeichenListe.DateiImportieren(Dateiname);
+            SignalListe.DateiImportieren(Dateiname);
+            BelegtmelderListe.DateiImportieren(Dateiname);
+            FahrstrassenListe.DateiImportieren(Dateiname, WeichenListe, SignalListe);
+            ZuganzeigerListe.DateiImportieren(Dateiname);
+
+
+            SignalListe.ListenZugriff(FahrstrassenListe, BelegtmelderListe, WeichenListe);
+            BelegtmelderListe.SignalZugriff(SignalListe);
+            ZuganzeigerListe.BelegtmelderVerknuepfen(BelegtmelderListe);
+
+
+
+            // Instanzzugriffe auf Zentrale
+            WeichenListe.DigitalzentraleZugriff(z21Start);
+            SignalListe.DigitalzentraleZugriff(z21Start);
+        }
+
+        private void Gleisplan_Loeschen()
+        {
+            Plan = new Gleisplan();
+            WeichenListe.Clear();
+            SignalListe.Clear();
+            BelegtmelderListe = new BelegtmelderListe();
+            FahrstrassenListe.Clear();
+            GleisbildZeichnung.GleisZustand.Clear();
+        }
+
+       
         #endregion
 
         #region Schnellzugriff (obere Zeile)
@@ -797,16 +649,10 @@ namespace MEKB_H0_Anlage
         {
             if (sender is CheckBox checkBox)
             {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.BackColor = Color.FromArgb(0, 0, 255);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
-                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
-                }
+                Einstellungen.AutoSignal = checkBox.Checked;
+                if (checkBox.Checked == true) SetCheckBoxColor(checkBox, "Blau");
+                else SetCheckBoxColor(checkBox, "Grau");
+                Einstellungen.WriteBoolToConfig("AutoSignal", Einstellungen.AutoSignal);
             }
         }
         /// <summary>
@@ -818,16 +664,10 @@ namespace MEKB_H0_Anlage
         {
             if (sender is CheckBox checkBox)
             {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.BackColor = Color.FromArgb(255, 128, 0);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
-                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
-                }
+                Einstellungen.AutoFahrdienstleister = checkBox.Checked;
+                if (checkBox.Checked == true) SetCheckBoxColor(checkBox, "Orange");
+                else SetCheckBoxColor(checkBox, "Grau");
+                Einstellungen.WriteBoolToConfig("AutoFahrdienstleister", Einstellungen.AutoFahrdienstleister);
             }
         }
         /// <summary>
@@ -839,16 +679,10 @@ namespace MEKB_H0_Anlage
         {
             if (sender is CheckBox checkBox)
             {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.BackColor = Color.FromArgb(0, 128, 0);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
-                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
-                }
+                Einstellungen.AutoFahrplan = checkBox.Checked;
+                if (checkBox.Checked == true) SetCheckBoxColor(checkBox, "Grün");
+                else SetCheckBoxColor(checkBox, "Grau");
+                Einstellungen.WriteBoolToConfig("AutoFahrplan", Einstellungen.AutoFahrplan);
             }
         }
         /// <summary>
@@ -860,18 +694,57 @@ namespace MEKB_H0_Anlage
         {
             if (sender is CheckBox checkBox)
             {
-                if (checkBox.Checked == true)
-                {
-                    checkBox.BackColor = Color.FromArgb(128, 0, 128);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
-                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
-                }
+                Einstellungen.Bahnhofsansagen = checkBox.Checked;
+                if (checkBox.Checked == true) SetCheckBoxColor(checkBox, "Lila");
+                else SetCheckBoxColor(checkBox, "Grau");
+                Einstellungen.WriteBoolToConfig("Bahnhofsansagen", Einstellungen.Bahnhofsansagen);
             }
         }
+
+        private void LokKontrolle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                Einstellungen.AutoNotbremse = checkBox.Checked;
+                if (checkBox.Checked == true) SetCheckBoxColor(checkBox, "Cyan");
+                else SetCheckBoxColor(checkBox, "Grau");
+                Einstellungen.WriteBoolToConfig("AutoNotbremse", Einstellungen.AutoNotbremse);
+            }
+        }
+
+        private void SetCheckBoxColor(CheckBox checkBox, string farbe)
+        {
+            switch (farbe)
+            {
+                case "Blau":
+                    checkBox.BackColor = Color.FromArgb(0, 0, 255);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    break;
+                case "Grün":
+                    checkBox.BackColor = Color.FromArgb(0, 128, 0);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    break;
+                case "Lila":
+                    checkBox.BackColor = Color.FromArgb(128, 0, 128);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    break;
+                case "Orange":
+                    checkBox.BackColor = Color.FromArgb(255, 128, 0);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    break;
+                case "Cyan":
+                    checkBox.BackColor = Color.FromArgb(0, 128, 128);
+                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
+                    break;
+                case "Grau":
+                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
+                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         /// <summary>
         /// Fahrzeugliste aufrufen
         /// </summary>
@@ -884,16 +757,344 @@ namespace MEKB_H0_Anlage
             if (!ZugmenueFenster.IsDisposed)
             {
                 ZugmenueFenster.Show();
+                ZugmenueFenster.BringToFront();
             }
             else
             {
-                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, LokListe, BelegtmelderListe);
+                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, AktiveLokomotiven.Liste, BelegtmelderListe);
                 ZugmenueFenster.Show();
             }
         }
 
 
 
+
+
+        #endregion
+
+        #region Z21 CallBacks
+        /// <summary>
+        /// Aufruf bei Fehler in der Nachricht
+        /// </summary>
+        /// <param name="FehlerCode">FehlerCode</param>
+        public void CallBack_Fehler(int FehlerCode)
+        {
+            this.BeginInvoke((Action<int>)ShowErrorCode, FehlerCode);
+        }
+        /// <summary>
+        /// Änderung des Verbindungsstatus
+        /// </summary>
+        /// <param name="Status">Neuer Status (true = verbunden)</param>
+        public void SetConnect(bool Status, bool Init)
+        {
+            this.BeginInvoke((Action<bool, bool>)ConnectStatus, Status, Init);
+        }
+        /// <summary>
+        /// CallBack Funktion: Seriennummer 
+        /// Wird aufgerufen sobald die SerienNummer von der Z21 empfangen wurde
+        /// </summary>
+        /// <param name="sn">Seriennummer als Zahl</param>
+        public void CallBack_GET_SERIAL_NUMBER(int sn)
+        {
+            this.BeginInvoke((Action<string>)Set_SerienNummer, sn.ToString());
+        }
+        /// <summary>
+        /// CallBack Funktion: Z21 Firmware
+        /// Wird aufgerufen sobald eine Nachricht über die Firmware erhalten wurde
+        /// </summary>
+        public void CallBack_LAN_X_GET_FIRMWARE_VERSION(double firmware)
+        {
+            this.BeginInvoke((Action<double>)ShowFirmware, firmware);
+        }
+        /// <summary>
+        /// CallBack Funktion: Z21_Status
+        /// Wird aufgerufen sobald eine Statusantwort von der Z21 bezüglich Weichen empfangen wurde
+        /// </summary>
+        public void CallBack_LAN_X_TURNOUT_INFO(int Adresse, byte Zustand)
+        {
+            this.BeginInvoke((Action<int, int>)UpdateWeiche, Adresse, Zustand);
+        }
+        /// <summary>
+        /// CallBack Funktion: Z21_Status
+        /// Wird aufgerufen sobald eine Braodcast_Flag-Nachricht von der Z21 empfangen wurde
+        /// Die Flags geben an welche Änderungen von der Z21 automatisch (ohne anfrage gesendet werden)
+        /// </summary>
+        /// <param name="newFlags">Struktur mit Flags</param>
+        public void CallBack_Z21_Broadcast_Flags(int flags)
+        {
+            Flags newFlags = new Flags(flags);
+            this.BeginInvoke((Action<Flags>)Set_Flags, newFlags);
+        }
+        /// <summary>
+        /// CallBack Funktion: Z21_Status
+        /// Wird aufgerufen, sobald eine Statusnachricht von der Z21 empfangen wurde
+        /// </summary>
+        /// <param name="MainCurrent"></param>
+        /// <param name="ProgCurrent"></param>
+        /// <param name="MainCurrentFilter"></param>
+        /// <param name="Temperatur"></param>
+        /// <param name="VersorgungSpg"></param>
+        /// <param name="GleisSpg"></param>
+        /// <param name="ZentralenStatus"></param>
+        /// <param name="ZentralenStatusGrund"></param>
+        public void CallBack_Z21_System_Status(int MainCurrent, int ProgCurrent, int MainCurrentFilter, int Temperatur,
+                    int VersorgungSpg, int GleisSpg, byte ZentralenStatus, byte ZentralenStatusGrund)
+        {
+            this.BeginInvoke((Action<int, int, int>)Set_Z21_Strom, MainCurrent, ProgCurrent, MainCurrentFilter);
+            this.BeginInvoke((Action<int, int>)Set_Z21_Spannung, VersorgungSpg, GleisSpg);
+            this.BeginInvoke((Action<int>)Set_Z21_Temperatur, Temperatur);
+            this.BeginInvoke((Action<int, int>)Set_Gleistatus, ZentralenStatus, ZentralenStatusGrund);
+        }
+
+        public void CallBack_Z21_LokUpdate(int ParamterCount, int Addresse, bool Besetzt, byte FahrstufenInfo, bool Richtung,
+                                             byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen)
+        {
+            this.BeginInvoke((Action<int, int, bool, byte, bool, byte, bool, bool, bool[]>)UpdateLok, ParamterCount, Addresse, Besetzt, FahrstufenInfo, Richtung,
+                                              Fahrstufe, Doppeltraktio, Smartsearch, Funktionen);
+        }
+
+        public void CallBack_Z21_TrackStatus(byte status)
+        {
+
+        }
+        /// <summary>
+        /// CallBack-Funktion 
+        /// Wird gesendet, wenn sich der Belegtmelderstatus geändert hat
+        /// </summary>
+        /// <param name="GruppenIndex">0 oder 1 (Gruppen Index)</param>
+        /// <param name="RMStatus">Bit Array Belegtmeldungen</param>
+        public void CallBack_LAN_RMBUS_DATACHANGED(byte GruppenIndex, byte[] RMStatus)
+        {
+            this.BeginInvoke((Action<byte, byte[]>)UpdateBelegtmeldung, GruppenIndex, RMStatus);
+        }
+        #region Invokes
+        private void Set_SerienNummer(string data)
+        {
+            z21_Einstellung.Set_SerienNummer(data);
+        }
+        private void ShowFirmware(double Firmware)
+        {
+            if (!z21_Einstellung.IsDisposed)
+            {
+                z21_Einstellung.SetFirmware(Firmware.ToString("F2", CultureInfo.CreateSpecificCulture("en-GB")));
+            }
+        }
+        private void Set_Flags(Flags flags)
+        {
+            if (!z21_Einstellung.IsDisposed)
+            {
+                z21_Einstellung.SetFlags(flags);
+            }
+        }
+        public void ShowErrorCode(int Code)
+        {
+            switch (Code)
+            {
+                case 1:
+                //FehlerCode.Text = "Falsche Länge"; break;
+                case 3:
+                //FehlerCode.Text = "Falsche CheckSumme"; break;
+                default: break;
+            }
+
+        }
+        /// <summary>
+        /// Aktuellen Verbindungsstatus festlegen und anziegen
+        /// </summary>
+        /// <param name="status">WAHR: Z21 ist verbunden</param>
+        /// <param name="init">WAHR: Z21 wurde bereits initialisiert</param>
+        public void ConnectStatus(bool status, bool init)
+        {
+            Menu_Trennen.Enabled = status;
+            Menu_Verbinden.Enabled = !status;
+            if (status)
+            {
+                if (init)
+                {
+                    Z21_Initialisiert = true;
+                    HauptStatusbar.Text = "Z21: Verbunden";
+                    HauptStatusbar.BackColor = Color.ForestGreen;
+                    HauptStatusbar.ForeColor = Color.White;
+                }
+                else
+                {
+                    Z21_Initialisiert = false;
+                    HauptStatusbar.Text = "Z21: Initialisieren";
+                    HauptStatusbar.BackColor = Color.Gold;
+                    HauptStatusbar.ForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                HauptStatusbar.Text = "Z21: Getrennt";
+                HauptStatusbar.BackColor = Color.Red;
+                HauptStatusbar.ForeColor = Color.White;
+            }
+            z21_Einstellung.ConnectStatus(status);
+        }
+        private void Set_Z21_Strom(int Main, int Prog, int MainFilter)
+        {
+            StatusBarStrom.Text = String.Format("Stromverbauch: {0} mA", MainFilter);
+        }
+        /// <summary>
+        /// Spannungsversorgung Z21 
+        /// </summary>
+        /// <param name="Versorgung">Versorgungsspannung Z21</param>
+        /// <param name="Gleis">Versgungspannung Gleisspannung (Ausgang Z21)</param>
+        private void Set_Z21_Spannung(int Versorgung, int Gleis)
+        {
+            StatusBarSpg.Text = String.Format("Gleisspannung: {0} mV", Gleis);
+        }
+        private void Set_Z21_Temperatur(int Temperatur)
+        {
+
+        }
+        private void Set_Gleistatus(int Status, int Grund)
+        {
+            if (Status == 0x00)
+            {
+                TrackStatus.Text = "Strecke: In Betrieb";
+                TrackStatus.BackColor = Color.ForestGreen;
+                TrackStatus.ForeColor = Color.White;
+                Systemzustand.Betriebsbereit = true;
+                Fehlermeldungen.FehlerEntfernen("Kein Strom");
+                Fehlermeldungen.FehlerEntfernen("Stoptaste wurde gedrückt");
+                Fehlermeldungen.FehlerEntfernen("Kurzschluss auf der Strecke");
+                Fehlermeldungen.FehlerEntfernen("Zentrale in Programmiermodus");
+            }
+            if ((Status & 0x02) == 0x02)
+            {
+                TrackStatus.Text = "Strecke: Kein Strom";
+                TrackStatus.BackColor = Color.Gold;
+                TrackStatus.ForeColor = Color.Black;
+                Systemzustand.Betriebsbereit = false;
+                Fehlermeldungen.FehlerMelden("Kein Strom", "Warning");
+            }
+            if ((Status & 0x01) == 0x01)
+            {
+                TrackStatus.Text = "Strecke: Nothalt";
+                TrackStatus.BackColor = Color.Orange;
+                TrackStatus.ForeColor = Color.Black;
+                Systemzustand.Betriebsbereit = false;
+                Fehlermeldungen.FehlerMelden("Stoptaste wurde gedrückt", "Warning");
+            }
+            if ((Status & 0x04) == 0x04)
+            {
+                TrackStatus.Text = "Strecke: Kurzschluss";
+                TrackStatus.BackColor = Color.Red;
+                TrackStatus.ForeColor = Color.White;
+                Systemzustand.Betriebsbereit = false;
+                Fehlermeldungen.FehlerMelden("Kurzschluss auf der Strecke", "Error");
+            }
+            if ((Status & 0x20) == 0x20)
+            {
+                TrackStatus.Text = "Programmiermodus";
+                TrackStatus.BackColor = Color.Blue;
+                TrackStatus.ForeColor = Color.White;
+                Systemzustand.Betriebsbereit = false;
+                Fehlermeldungen.FehlerMelden("Zentrale in Programmiermodus", "Hint");
+            }
+        }
+        /// <summary>
+        /// Invoke-Funktion
+        /// Ausgeführt, wenn neues Packet mit Signal/Weichen Status empfangen wird
+        /// </summary>
+        /// <param name="Adresse">Adresse des Betroffenen Signals/Weiche</param>
+        /// <param name="Status">neuer Status</param>
+        private void UpdateWeiche(int Adresse, int Status)
+        {
+            Weiche weiche = WeichenListe.GetWeiche(Adresse); //Finde Weiche mit dieser Adresse 
+            if (weiche != null)//Weiche gefunden in der Liste
+            {
+                weiche.StatusUpdate(Status);
+            }
+            else
+            {
+                // Versuche Signalzustand zu aktualisieren
+                if (SignalListe.UpdateSignalZustand(Adresse, Status))
+                {
+                    // Update erfolgreich (inkl. Signal gefunden)
+                    SignalListe.GetSignal(Adresse).UpdateNoetig = true;
+                }
+            }
+        }
+
+        private void UpdateLok(int ParamterCount, int Adresse, bool Besetzt, byte FahrstufenInfo, bool Richtung,
+                                             byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen)
+        {
+
+            int ListID = AktiveLokomotiven.Liste.FindIndex(x => x.Adresse == Adresse); //Finde Lok mit dieser Adresse 
+            if (ListID == -1)//Lok nicht gefunden in der Liste
+            {
+                return;
+            }
+
+            AktiveLokomotiven.Liste[ListID].UpdateZ21Data(ParamterCount, FahrstufenInfo, Richtung, Fahrstufe, Funktionen);
+
+        }
+        private void UpdateBelegtmeldung(byte GruppenIndex, byte[] RMStatus)
+        {
+            BelegtmelderListe.UpdateBelegtmelder(GruppenIndex, RMStatus);
+            Plan.UpdateFahrstrassenSchalter(1);
+        }
+        #endregion
+        #endregion
+
+        #region Fehlermeldung
+
+        private void FehlerMeldenInvoke(string text, string typ)
+        {
+            if (string.IsNullOrEmpty(text)) return;
+            if (FehlerListe.FindItemWithText(text) != null) return; //Fehlermeldung bereits vorhanden
+
+            if (string.IsNullOrEmpty(typ)) typ = "Error";
+            int ImageIndex = 0;
+
+            switch (typ)
+            {
+                case "Error": ImageIndex = 0; break;
+                case "Warning": ImageIndex = 1; break;
+                default: ImageIndex = 0; break;
+            }
+
+            FehlerListe.Items.Add(text, ImageIndex);
+        }
+
+        public void FehlerMelden(string text, string typ)
+        {
+            this.BeginInvoke((Action<string,string>)FehlerMeldenInvoke,text,typ);  
+        }
+
+        private void FehlerEntfernenInvoke(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return;
+            ListViewItem FehlermeldungEintrag = FehlerListe.FindItemWithText(text);
+            if (FehlermeldungEintrag != null)
+            {
+                FehlerListe.Items.Remove(FehlermeldungEintrag);
+            }
+        }
+        public void FehlerEntfernen(string text)
+        {
+            this.BeginInvoke((Action<string>)FehlerEntfernenInvoke, text);
+        }
+
+        private void FehlertextEntfernenInvoke(string lokname)
+        {
+            if (string.IsNullOrEmpty(lokname)) return;
+            foreach (ListViewItem listViewItem in FehlerListe.Items)
+            {
+                if(listViewItem.Text.Contains(lokname))
+                {
+                    FehlerListe.Items.Remove(listViewItem);
+                }
+            }
+        }
+
+        public void FehlertextEntfernen(string lokname)
+        {
+            this.BeginInvoke((Action<string>)FehlertextEntfernenInvoke, lokname);
+        }
 
 
         #endregion
@@ -906,21 +1107,50 @@ namespace MEKB_H0_Anlage
             weichen_Ueberwachung.BringToFront();
         }
 
-        private void LokKontrolle_CheckedChanged(object sender, EventArgs e)
+        
+        /// <summary>
+        /// Neue Anlage laden
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gleisplanLadenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (sender is CheckBox checkBox)
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                if (checkBox.Checked == true)
+                openFileDialog.Filter = "Anlagen (*.xml) |*.xml";
+
+                if(openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    checkBox.BackColor = Color.FromArgb(128, 0, 128);
-                    checkBox.ForeColor = Color.FromArgb(255, 255, 255);
-                }
-                else
-                {
-                    checkBox.BackColor = Color.FromArgb(64, 64, 64);
-                    checkBox.ForeColor = Color.FromArgb(192, 192, 192);
+                    // Timer deaktivieren
+                    WeichenTimer.Enabled = false;
+                    BelegtmelderCoolDown.Enabled = false;
+                    UpdateLokStatus.Enabled = false;
+                    //Gleisplan löschen
+                    Gleisplan_Loeschen();
+                    this.GleisplanAnzeige.Controls.Clear();
+                    this.GleisplanAnzeige.Refresh();
+
+                    string datei = openFileDialog.FileName;
+                    Gleisplan_Laden(datei);
+
+                    Config.WriteConfig("LetzteAnlage", datei);
+
+                    //Gleisplan zeichnen
+                    Plan.ZeichnenInitial();
+                    ZuganzeigerListe.ZeichneZuganzeigen(this.GleisplanAnzeige.Controls);
+
+                    // Timer aktivieren
+                    WeichenTimer.Enabled = true;
+                    BelegtmelderCoolDown.Enabled = true;
+                    UpdateLokStatus.Enabled = true;
+                    Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
+                    {
+                        IsBackground = true
+                    };
+                    trd.Start();
                 }
             }
+            
         }
     }
 }
