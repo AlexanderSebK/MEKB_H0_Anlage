@@ -11,7 +11,9 @@ namespace MEKB_H0_Anlage
     {
         public Logger(string file)
         {
-            if(!File.Exists(file))
+            if (!System.IO.Directory.Exists("log"))
+                System.IO.Directory.CreateDirectory("log");
+            if (!File.Exists(file))
             {
                 File.CreateText(file);
             }

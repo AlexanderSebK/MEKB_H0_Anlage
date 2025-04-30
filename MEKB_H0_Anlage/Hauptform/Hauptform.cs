@@ -1,5 +1,5 @@
 ﻿/***************************************************************
-  Datei:      Form1.cs
+  Datei:      Hauptform.cs
   Author:     Alexander Kühne
   Copyright:  MEBK - All rights reserved.
 ****************************************************************
@@ -629,6 +629,7 @@ namespace MEKB_H0_Anlage
         private void Gleisplan_Loeschen()
         {
             Plan = new Gleisplan();
+            Plan.ControlsZuweisen(this.GleisplanAnzeige.Controls);
             WeichenListe.Clear();
             SignalListe.Clear();
             BelegtmelderListe = new BelegtmelderListe();
@@ -1059,7 +1060,6 @@ namespace MEKB_H0_Anlage
 
             FehlerListe.Items.Add(text, ImageIndex);
         }
-
         public void FehlerMelden(string text, string typ)
         {
             this.BeginInvoke((Action<string,string>)FehlerMeldenInvoke,text,typ);  
@@ -1090,7 +1090,6 @@ namespace MEKB_H0_Anlage
                 }
             }
         }
-
         public void FehlertextEntfernen(string lokname)
         {
             this.BeginInvoke((Action<string>)FehlertextEntfernenInvoke, lokname);

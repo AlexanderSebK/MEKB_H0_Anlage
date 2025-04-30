@@ -15926,7 +15926,7 @@
 			<AnzeigeName>Gleis 9</AnzeigeName>
 			<Richtung>links</Richtung>
 			<Melderliste>
-				<Belegtmelder Pos = '2'>>Schatten_Gl9</Belegtmelder>
+				<Belegtmelder Pos = '2'>Schatten_Gl9</Belegtmelder>
 				<Belegtmelder Pos = '1'>Schatten_Gl9_Halt</Belegtmelder>
 			</Melderliste>
 		</Anzeige>

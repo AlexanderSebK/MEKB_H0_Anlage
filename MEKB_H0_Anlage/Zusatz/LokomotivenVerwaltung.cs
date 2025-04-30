@@ -210,6 +210,11 @@ namespace MEKB_H0_Anlage
         /// <param name="OrdnerName">Root-Ordner von allen Lokomotiven</param>
         public void DateiImportieren(string OrdnerName)
         {
+            //Ordner Existiert nicht -> Erstellen
+            if (!System.IO.Directory.Exists(OrdnerName))
+                System.IO.Directory.CreateDirectory(OrdnerName);
+
+
             string[] fileEntries = Directory.GetFiles(OrdnerName, "*.xml", SearchOption.AllDirectories);
             foreach (string fileName in fileEntries)
             {
