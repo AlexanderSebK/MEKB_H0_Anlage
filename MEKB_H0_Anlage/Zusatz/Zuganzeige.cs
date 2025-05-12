@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace MEKB_H0_Anlage
 {
-
+    using static Globals;
     public sealed class ZuganzeigerListe
     {
         //Lazy Instance
@@ -171,6 +171,21 @@ namespace MEKB_H0_Anlage
         private bool fehler;
         private string aktLokname;
 
+        private ContextMenu GeneriereContextMenu(bool belegt = true)
+        {
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem LokEinsetzen = new MenuItem("Lok einsetzen");           
+
+            foreach (Lokomotive lokomotive in AktiveLokomotiven.Liste)
+            {
+                LokEinsetzen.MenuItems.Add(new MenuItem(lokomotive.Name));
+            }
+            LokEinsetzen.Enabled = belegt;
+            contextMenu.MenuItems.Add(LokEinsetzen);
+
+            return contextMenu;
+        }
+
         public bool NeedUpdate()
         {
             ErrechneStatus(out bool Belegt, out bool UnbekannteLok, out bool Fehler, out string Lokname);
@@ -202,13 +217,19 @@ namespace MEKB_H0_Anlage
                 if (entry.Value.IstBelegt())
                 {
                     Belegt = true;
-                }
-                if (!entry.Value.Registriert.Equals("Deregistriert"))
-                {
-                    if (!entry.Value.Registriert.Equals(""))
+                    if (!entry.Value.Registriert.StartsWith(BLOCK_INBENUTZUNG))
                     {
-                        if (Lokname.Equals("")) { Lokname = entry.Value.Registriert; UnbekannteLok = false; }
-                        else Fehler = true; // Zwei Loks im Bereich
+                        if (!entry.Value.Registriert.Equals(""))
+                        {
+                            if (Lokname.Equals(""))
+                            {
+                                Lokname = entry.Value.Registriert; UnbekannteLok = false;
+                            }
+                            else
+                            {
+                                if (!Lokname.Equals(entry.Value.Registriert)) Fehler = true; // Zwei Loks im Bereich
+                            }
+                        }
                     }
                 }
             }
@@ -246,6 +267,7 @@ namespace MEKB_H0_Anlage
                 MinimumSize = new Size(32, 20),
                 Height = 20,
                 TextAlign = HorizontalAlignment.Center,
+                ContextMenu = GeneriereContextMenu()
             };
             Zugtyp = new PictureBox()
             {
@@ -304,6 +326,7 @@ namespace MEKB_H0_Anlage
             if (NeedUpdate() || ErzwingeUpdate)
             {
                 ErrechneStatus(out bool Belegt, out bool UnbekannteLok, out bool Fehler, out string Lokname);
+
                 if (Fehler) { ZuganzeigeDoppelbelegung(Controls); }
                 else
                 {
@@ -329,6 +352,7 @@ namespace MEKB_H0_Anlage
             }           
         }
 
+
         private void ZuganzeigeDoppelbelegung(Control.ControlCollection Controls)
         {
             PictureBox FahrtVor = (PictureBox)Controls.Find(Name + "_VFahrt", true).First();
@@ -337,12 +361,13 @@ namespace MEKB_H0_Anlage
             if (FahrtRueck == null) return; //Nicht gefunden: Abbrechen
             PictureBox ZugTyp = (PictureBox)Controls.Find(Name + "_Typ", true).First();
             if (ZugTyp == null) return; //Nicht gefunden: Abbrechen
-            TextBox AnzeigeName = (TextBox)Controls.Find(Name, true).First();
+            TextBox AnzeigeNamensfeld = (TextBox)Controls.Find(Name, true).First();
             if (ZugTyp == null) return; //Nicht gefunden: Abbrechen
 
-            AnzeigeName.Text = "Doppelbelegung";
-            AnzeigeName.BackColor = Color.RosyBrown;
-            AnzeigeName.ForeColor = Color.Black;
+            AnzeigeNamensfeld.Text = "Doppelbelegung";
+            AnzeigeNamensfeld.BackColor = Color.RosyBrown;
+            AnzeigeNamensfeld.ForeColor = Color.Black;
+            AnzeigeNamensfeld.ContextMenu = GeneriereContextMenu(false);
             ZugTyp.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.TypUnbekannt);
             switch ((string)FahrtRueck.Tag)
             {
@@ -380,6 +405,7 @@ namespace MEKB_H0_Anlage
             AnzeigeNamensfeld.Text = AnzeigeName;
             AnzeigeNamensfeld.BackColor = Color.White;
             AnzeigeNamensfeld.ForeColor = Color.LightGray;
+            AnzeigeNamensfeld.ContextMenu = GeneriereContextMenu(false);
             ZugTyp.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.TypUnbesetzt);
             switch ((string)FahrtRueck.Tag)
             {
@@ -411,12 +437,13 @@ namespace MEKB_H0_Anlage
             if (FahrtRueck == null) return; //Nicht gefunden: Abbrechen
             PictureBox ZugTyp = (PictureBox)Controls.Find(Name + "_Typ", true).First();
             if (ZugTyp == null) return; //Nicht gefunden: Abbrechen
-            TextBox AnzeigeName = (TextBox)Controls.Find(Name, true).First();
+            TextBox AnzeigeNamensfeld = (TextBox)Controls.Find(Name, true).First();
             if (ZugTyp == null) return; //Nicht gefunden: Abbrechen
 
-            AnzeigeName.Text = "Unbekannte Lok";
-            AnzeigeName.BackColor = Color.RosyBrown;
-            AnzeigeName.ForeColor = Color.Black;
+            AnzeigeNamensfeld.Text = "Unbekannte Lok";
+            AnzeigeNamensfeld.BackColor = Color.RosyBrown;
+            AnzeigeNamensfeld.ForeColor = Color.Black;
+            AnzeigeNamensfeld.ContextMenu = GeneriereContextMenu(true);
             ZugTyp.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.TypUnbekannt);
             switch ((string)FahrtRueck.Tag)
             {
@@ -448,12 +475,13 @@ namespace MEKB_H0_Anlage
             if (FahrtRueck == null) return; //Nicht gefunden: Abbrechen
             PictureBox ZugTyp = (PictureBox)Controls.Find(Name + "_Typ", true).First();
             if (ZugTyp == null) return; //Nicht gefunden: Abbrechen
-            TextBox AnzeigeName = (TextBox)Controls.Find(Name, true).First();
+            TextBox AnzeigeNamensfeld = (TextBox)Controls.Find(Name, true).First();
             if (ZugTyp == null) return; //Nicht gefunden: Abbrechen
 
-            AnzeigeName.Text = Lokname.Name;
-            AnzeigeName.BackColor = Color.White;
-            AnzeigeName.ForeColor = Color.Black;
+            AnzeigeNamensfeld.Text = Lokname.Name;
+            AnzeigeNamensfeld.BackColor = Color.White;
+            AnzeigeNamensfeld.ForeColor = Color.Black;
+            AnzeigeNamensfeld.ContextMenu = GeneriereContextMenu(true);
 
             switch (Lokname.Gattung)
             {

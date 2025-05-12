@@ -377,7 +377,7 @@ namespace MEKB_H0_Anlage
                 List<int> StatusAdressen = new List<int>();
                 foreach (Lokomotive lokomotive in AktiveLokomotiven.Liste)
                 {
-                    lokomotive.BlockVerfolgung(BelegtmelderListe, WeichenListe, LokKontrolle.Checked, true);
+                    lokomotive.BlockVerfolgung(LokKontrolle.Checked, true);
 
                     if (LokKontrolle.Checked) lokomotive.NotBremseHandeln((int)timer.Interval);
                     StatusAdressen.Add(lokomotive.Adresse);

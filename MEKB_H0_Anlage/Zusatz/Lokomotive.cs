@@ -7,8 +7,10 @@ using System.Windows.Forms;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MEKB_H0_Anlage
 {
+    using static Globals;
     /// <summary>
     /// Offene Instance: Liste aktive Lokomotiven
     /// </summary>
@@ -36,6 +38,7 @@ namespace MEKB_H0_Anlage
 
     public class Lokomotive : IEquatable<Lokomotive>
     {
+
         #region Parameter
         /// <summary>
         /// Parameter: Name der Lok als String
@@ -139,9 +142,9 @@ namespace MEKB_H0_Anlage
 
         public int ZeitBisNothalt { get; set; }
         public bool NothaltAnkuendigung { get; set; }
-        
-        #endregion
 
+        #endregion
+        
         #region Links und Delegates
         /// <summary>
         /// Verknüpfung zum Steuerpult-Fenster
@@ -502,23 +505,23 @@ namespace MEKB_H0_Anlage
         }
         #endregion
         #region BlockVerwaltung
+        private WeichenListe WeichenListe = WeichenListe.Instance;
+        private BelegtmelderListe BelegtmelderListe = BelegtmelderListe.Instance;
         /// <summary>
         /// Aktuellen Block berechnen
         /// </summary>
-        /// <param name="belegtmelderListe">Liste der Blöcke</param>
-        /// <param name="weichenListe">Weichenliste</param>
         /// <param name="Notbremsen_Signal">Wenn true: Notbremse am Signal auslösen</param>
         /// <param name="Notbremse_Verloren">Wenn true: Notbremse auslösen, wenn Lok verloren</param>
-        public void BlockVerfolgung(BelegtmelderListe belegtmelderListe, WeichenListe weichenListe, bool Notbremsen_Signal, bool Notbremse_Verloren)
+        public void BlockVerfolgung(bool Notbremsen_Signal, bool Notbremse_Verloren)
         {
             // Wenn Position unbekannt: Funktion nicht ausführen
             if (AktuellerBlock == "") return;
             // Lok Verloren: Suchen am letzten Ort (Kontakt verloren)
-            if (AktuellerBlock.Equals("Lok verloren"))
+            if (AktuellerBlock.Equals(LOK_VERLOREN))
             {
                 if (!LetzterBekannterBlock.Equals(""))
                 {
-                    Belegtmelder LetzterBekannter = belegtmelderListe.GetBelegtmelder(this.LetzterBekannterBlock);
+                    Belegtmelder LetzterBekannter = BelegtmelderListe.GetBelegtmelder(this.LetzterBekannterBlock);
                     if (LetzterBekannter != null)
                     {
                         if(LetzterBekannter.Registriert.Equals("") || LetzterBekannter.Registriert.Equals(Name))
@@ -527,7 +530,7 @@ namespace MEKB_H0_Anlage
                             {
                                 LetzterBekannter.Registriert = this.Name; //Lok für diesen Block registrieren
                                 AktuellerBlock = LetzterBekannter.Name;
-                                Fehlermeldung.FehlerEntfernen(String.Format("{0} (1) verloren", Name, Adresse));
+                                Fehlermeldung.FehlerEntfernen(String.Format("{0} ({1}) verloren", Name, Adresse));
                                 LetzterBekannterBlock = "";
                             }
                         }
@@ -538,11 +541,11 @@ namespace MEKB_H0_Anlage
 
 
             // Letzten gespeicherten Block auslesen
-            Belegtmelder Aktuel = belegtmelderListe.GetBelegtmelder(this.AktuellerBlock);
+            Belegtmelder Aktuel = BelegtmelderListe.GetBelegtmelder(this.AktuellerBlock);
             if (Aktuel == null) // Block unbekannt -> Lok verloren
             {
-                AktuellerBlock = "Lok verloren";
-                Fehlermeldung.FehlerMelden(String.Format("{0} (1) verloren", Name, Adresse), "Warning");
+                AktuellerBlock = LOK_VERLOREN;
+                Fehlermeldung.FehlerMelden(String.Format("{0} ({1}) verloren", Name, Adresse), "Warning");
                 return;
             }
             
@@ -555,7 +558,7 @@ namespace MEKB_H0_Anlage
                 if (!UnterdrueckeError)
                 {
                     LetzterBekannterBlock = AktuellerBlock;
-                    AktuellerBlock = "Lok verloren";
+                    AktuellerBlock = LOK_VERLOREN;
                     Fehlermeldung.FehlerMelden(String.Format("{0} (1) verloren", Name, Adresse), "Warning");
                     if(Notbremse_Verloren)NotBremse(3000); //In 3 Sekunden Notbremse auslösen
                 }
@@ -566,7 +569,7 @@ namespace MEKB_H0_Anlage
                 return;
             }
             //Potentieller nächsten Nachbarblock finden
-            Belegtmelder Naechster = belegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock, weichenListe));
+            Belegtmelder Naechster = BelegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock, WeichenListe));
             if (Naechster == null) //Nicht gefunden
             {
                 return;
@@ -578,10 +581,10 @@ namespace MEKB_H0_Anlage
             {
                 if(Naechster.IstBelegt()) // Gefunden und nächster Block ist belegt
                 {
-                    if(Naechster.Registriert.Equals("") || Naechster.Registriert.Equals("Deregistriert") || Naechster.Registriert.Equals(Name)) // Nächster Block nicht von einer anderen Lok reserviert
+                    if(Naechster.Registriert.Equals("") || Naechster.Registriert.StartsWith(BLOCK_INBENUTZUNG) || Naechster.Registriert.Equals(Name)) // Nächster Block nicht von einer anderen Lok reserviert
                     {
                         Naechster.Registriert = this.Name; //Lok für diesen Block registrieren
-                        Aktuel.Registriert = "Deregistriert";//Vorherigen Block deregistrieren
+                        Aktuel.Registriert = BLOCK_INBENUTZUNG + Name;//Vorherigen Block deregistrieren
                         VorherigerBlock = AktuellerBlock; //Aktuellen Block in Vorherigen Block speichern                     
                         AktuellerBlock = Naechster.Name; //Nächsten Block als aktuellen Block definieren
                     }

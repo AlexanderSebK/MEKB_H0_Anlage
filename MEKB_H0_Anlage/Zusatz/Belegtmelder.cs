@@ -161,8 +161,7 @@ namespace MEKB_H0_Anlage
         /// <returns>true = Abschnitt ist belegt</returns>
         public bool GetBelegtStatus(string Abschnitt)
         {
-            int ListID;
-            if (Verzeichnis.TryGetValue(Abschnitt, out ListID))
+            if (Verzeichnis.TryGetValue(Abschnitt, out int ListID))
             {
                 return Liste[ListID].IstBelegt();
             }
@@ -175,8 +174,7 @@ namespace MEKB_H0_Anlage
         /// <returns>Belegtmelder-Instanz</returns>
         public Belegtmelder GetBelegtmelder(string Abschnitt)
         {
-            int ListID;
-            if (Verzeichnis.TryGetValue(Abschnitt, out ListID))
+            if (Verzeichnis.TryGetValue(Abschnitt, out int ListID))
             {
                 return Liste[ListID];
             }

@@ -269,4 +269,10 @@ namespace MEKB_H0_Anlage
         }
 
     }
+
+    public static class Globals
+    {
+        public const string LOK_VERLOREN = "Lok verloren";
+        public const string BLOCK_INBENUTZUNG = "Block benutzt von: ";
+    }
 }
