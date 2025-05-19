@@ -7,13 +7,15 @@ using System.Xml.Linq;
 
 namespace MEKB_H0_Anlage
 {
+    using static Globals;
     /// <summary>
     /// Belegtmelderliste
     /// </summary>
     /// 
-    
     public class BelegtmelderListe
     {
+        
+
         private static readonly Lazy<BelegtmelderListe> lazy =
         new Lazy<BelegtmelderListe>(() => new BelegtmelderListe());
         public static BelegtmelderListe Instance { get { return lazy.Value; } }
@@ -244,7 +246,29 @@ namespace MEKB_H0_Anlage
             return unbekannt;
         }
 
+        public void RegistriereLok(string Abschnitt, Lokomotive Lok)
+        {
+            // Belegtmelder wo die Lok zuvor registriert war löschen. ( Vermeidet Doppelregistrierung)
+            foreach(Belegtmelder belegtmelder1 in Liste)
+            {
+                if (belegtmelder1.Registriert.Equals(Lok.Name)) belegtmelder1.Registriert = "";
+            }
+            Belegtmelder belegtmelder = GetBelegtmelder(Abschnitt);
+            // Belegtmelder nicht gefunden -> Funktion abbrechen
+            if(belegtmelder == null) return;
 
+            belegtmelder.Registriert = Lok.Name;
+            Lok.AktuellerBlock = belegtmelder.Name;
+        }
+
+        public void BenutzeBlock(string Abschnitt, Lokomotive Lok)
+        {
+            Belegtmelder belegtmelder = GetBelegtmelder(Abschnitt);
+            // Belegtmelder nicht gefunden -> Funktion abbrechen
+            if (belegtmelder == null) return;
+
+            belegtmelder.Registriert = BLOCK_INBENUTZUNG + Lok.Name;
+        }
 
         /// <summary>
         /// Anfrage an Zentrale für neuen Belegtmelderstatus
@@ -274,6 +298,7 @@ namespace MEKB_H0_Anlage
     public class Belegtmelder : IEquatable<Belegtmelder>
     {
         public Fehlermeldung Fehlermeldung = Fehlermeldung.Instance;
+        
 
         #region Parameter
         /// <summary>
@@ -348,11 +373,11 @@ namespace MEKB_H0_Anlage
         /// <param name="InFahrt">True = In normaler Fahrtrichtung </param>
         /// <param name="weichenListe">Liste der benutzten Weichne (globale Liste)</param>
         /// <returns>Name des Nächsten Blocks oder "gesperrt"</returns>
-        public string NaechsterBlock(string Einfahrtsblock, WeichenListe weichenListe)
+        public string NaechsterBlock(string Einfahrtsblock)
         {
             foreach(NachbarBlock block in NachbarBlocks)
             {
-                if(block.IstErreichbar(weichenListe, Einfahrtsblock))
+                if(block.IstErreichbar(Einfahrtsblock))
                 {
                     return block.BlockName;
                 }
@@ -509,6 +534,8 @@ namespace MEKB_H0_Anlage
 
     public class NachbarBlock
     {
+        public WeichenListe WeichenListe = WeichenListe.Instance;
+
         public List<String> WeichenAbzweig; //Liste von Weichennamen, die auf Abzweig stehen müssen, damit dieser Block erreicht werden kann
         public List<String> WeichenGerade;  //Liste von Weichennamen, die auf Gerade stehen müssen, damit dieser Block erreicht werden kann
         public string KommeVon; //Letzte Block, aus dem der Zug eingefahren ist 
@@ -522,7 +549,7 @@ namespace MEKB_H0_Anlage
             KommeVon = "";
         }
 
-        public bool IstErreichbar(WeichenListe weichenListe, string komme="")
+        public bool IstErreichbar(string komme="")
         {
             if(KommeVon != null)
             {
@@ -533,13 +560,13 @@ namespace MEKB_H0_Anlage
             }
             foreach(string weichename in WeichenAbzweig)
             {
-                Weiche weiche = weichenListe.GetWeiche(weichename);
+                Weiche weiche = WeichenListe.GetWeiche(weichename);
                 if(weiche == null) return false;
                 if(!weiche.Abzweig) return false;
             }
             foreach (string weichename in WeichenGerade)
             {
-                Weiche weiche = weichenListe.GetWeiche(weichename);
+                Weiche weiche = WeichenListe.GetWeiche(weichename);
                 if (weiche == null) return false;
                 if (weiche.Abzweig) return false;
             }

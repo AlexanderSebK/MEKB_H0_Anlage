@@ -569,7 +569,7 @@ namespace MEKB_H0_Anlage
                 return;
             }
             //Potentieller nächsten Nachbarblock finden
-            Belegtmelder Naechster = BelegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock, WeichenListe));
+            Belegtmelder Naechster = BelegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock));
             if (Naechster == null) //Nicht gefunden
             {
                 return;

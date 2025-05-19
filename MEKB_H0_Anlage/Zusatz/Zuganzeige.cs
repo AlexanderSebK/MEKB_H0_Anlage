@@ -11,6 +11,7 @@ using System.Xml.Linq;
 namespace MEKB_H0_Anlage
 {
     using static Globals;
+
     public sealed class ZuganzeigerListe
     {
         //Lazy Instance
@@ -84,6 +85,18 @@ namespace MEKB_H0_Anlage
             return null;
         }
 
+        public Zuganzeige GetZuganzeige(Belegtmelder belegtmelder)
+        {
+            foreach (Zuganzeige zuganzeige in Liste)
+            {
+                foreach(KeyValuePair<int, Belegtmelder> keyValuePair in zuganzeige.Melder)
+                {
+                    if(keyValuePair.Value.Equals(belegtmelder)) return zuganzeige;
+                }
+            }
+            return null;
+        }
+
         public void ZeichneZuganzeigen(Control.ControlCollection Controls)
         {
             foreach (Zuganzeige zuganzeige in Liste)
@@ -149,7 +162,7 @@ namespace MEKB_H0_Anlage
         }
 
         private AktiveLokomotiven AktiveLokomotiven = AktiveLokomotiven.Instance;
-
+        private BelegtmelderListe BelegtmelderListe = BelegtmelderListe.Instance;
         public int X { set; get; }
         public int Y { set; get; }
 
@@ -159,18 +172,25 @@ namespace MEKB_H0_Anlage
 
         public string AnzeigeName { set; get; }
 
-        // In welcher richtung ist die allgemeine Ausrichtung
+        /// <summary>
+        /// In welcher Richtung ist die allgemeine Vorwärtsfahrt
+        /// </summary>
         public string Richtung { set; get; }
 
         public Dictionary<int, string> Meldername { set; get; }
 
         public Dictionary<int, Belegtmelder> Melder { set; get; }
 
+        #region Status
+
         private bool istBelegt;
         private bool unbekannteLok;
         private bool fehler;
+        // Aktuelle Fahrtrichtung der Lok (true = normale Fahrtrichtung) 
+        private bool fahrtrichtung; 
         private string aktLokname;
 
+        #endregion
         private ContextMenu GeneriereContextMenu(bool belegt = true)
         {
             ContextMenu contextMenu = new ContextMenu();
@@ -178,12 +198,51 @@ namespace MEKB_H0_Anlage
 
             foreach (Lokomotive lokomotive in AktiveLokomotiven.Liste)
             {
-                LokEinsetzen.MenuItems.Add(new MenuItem(lokomotive.Name));
+                MenuItem item = new MenuItem(lokomotive.Name);
+                item.Tag = Name;
+                item.Click += Lokeinsetzen;
+                LokEinsetzen.MenuItems.Add(item);
             }
             LokEinsetzen.Enabled = belegt;
             contextMenu.MenuItems.Add(LokEinsetzen);
 
             return contextMenu;
+        }
+
+        private void Lokeinsetzen(object sender, EventArgs e)
+        {
+            if (sender is MenuItem item)
+            {
+                Belegtmelder belegtmelder = GetErstenBelegtenMelder(out int position);
+                if(belegtmelder != null)
+                {
+                    belegtmelder.Registriert = item.Name;
+                    Lokomotive lok = AktiveLokomotiven.GetLokomotive(item.Name);
+                    lok.AktuellerBlock = belegtmelder.Name;
+
+                    if (fahrtrichtung) position++;
+                    else position--;
+
+                    if (position == 0)
+                    {
+                        lok.VorherigerBlock = belegtmelder.NaechsterBlock(Melder[1].Name);
+                    }
+                    else if (position > Melder.Count)
+                    {
+                        lok.VorherigerBlock = belegtmelder.NaechsterBlock(Melder[Melder.Count].Name);
+                    }
+                    else
+                    {
+                        lok.VorherigerBlock = Melder[position].Name;
+                    }
+                    Belegtmelder belegtmelder1 = BelegtmelderListe.GetBelegtmelder(lok.VorherigerBlock);
+                    if( belegtmelder1 != null )
+                    {
+                        if(belegtmelder1.IstBelegt())
+                            belegtmelder1.Registriert = BLOCK_INBENUTZUNG + item.Name;
+                    }
+                }              
+            }
         }
 
         public bool NeedUpdate()
@@ -204,6 +263,20 @@ namespace MEKB_H0_Anlage
                 return true; 
             }
 
+        }
+
+        public Belegtmelder GetErstenBelegtenMelder(out int position)
+        {
+            foreach (KeyValuePair<int, Belegtmelder> entry in Melder)
+            {
+                if (entry.Value.IstBelegt())
+                {
+                    position = entry.Key;
+                    return entry.Value;
+                }
+            }
+            position = 0;
+            return null;
         }
 
         public void ErrechneStatus(out bool Belegt, out bool UnbekannteLok, out bool Fehler, out string Lokname)
@@ -235,26 +308,36 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        public bool ErrechneRichtung(string aktuellerBlock, string vorherigerBlock, out bool Richtung)
+        public bool ErrechneRichtung(string aktuellerBlock, string vorherigerBlock)
         {
             int PosAktuell = 0;
             int PosVorherige = 0;
+
+            //Position der Belegtmeldung in der Liste
             foreach (KeyValuePair<int, string> entry in Meldername)
             {
                 if(aktuellerBlock.Equals(entry.Value)) PosAktuell = entry.Key;
                 if(vorherigerBlock.Equals(entry.Value)) PosVorherige = entry.Key;
             }
-            if (PosAktuell == 0) { Richtung = false; return false; }
 
+            // Aktuelle Position nicht in der Liste -> Fehler
+            if (PosAktuell == 0) { fahrtrichtung = false; return false; }
+
+            // Vorherige Position außerhalb des Blocks
             if (PosVorherige == 0)
             {
-                if (PosAktuell == 1) { Richtung = false; return true; }
-                if (PosAktuell == Meldername.Count) { Richtung = true; return true; }
+                // Aktuelle Position ist erster Block
+                if (PosAktuell == 1) { fahrtrichtung = false; return true; } 
+                // Aktuelle Position ist letzter Block
+                if (PosAktuell == Meldername.Count) { fahrtrichtung = true; return true; }
             }
-            if (PosAktuell < PosVorherige) { Richtung = true; return true; }
-            if (PosAktuell > PosVorherige) { Richtung = false; return true;}
+            // Aktueller Block in Reihenfolge vor Vorherigem
+            if (PosAktuell < PosVorherige) { fahrtrichtung = true; return true; }
+            // Aktueller Block in Reihenfolge nach Vorherigem
+            if (PosAktuell > PosVorherige) { fahrtrichtung = false; return true;}
 
-            Richtung = false;
+            // Sollte nicht erreicht werden
+            fahrtrichtung = false;
             return false;
         }
 
@@ -340,8 +423,8 @@ namespace MEKB_H0_Anlage
                             {
                                 ZuganzeigeUnbekannteLok(Controls); return;
                             }
-                            if (ErrechneRichtung(lokomotive.AktuellerBlock, lokomotive.VorherigerBlock, out bool Richtung))
-                                ZuganzeigeBelegt(Controls, Richtung, lokomotive);
+                            if (ErrechneRichtung(lokomotive.AktuellerBlock, lokomotive.VorherigerBlock))
+                                ZuganzeigeBelegt(Controls, lokomotive);
                         }
                     }
                     else
@@ -467,7 +550,7 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        private void ZuganzeigeBelegt(Control.ControlCollection Controls, bool Richtung, Lokomotive Lokname)
+        private void ZuganzeigeBelegt(Control.ControlCollection Controls, Lokomotive Lokname)
         {
             PictureBox FahrtVor = (PictureBox)Controls.Find(Name + "_VFahrt", true).First();
             if (FahrtVor == null) return; //Nicht gefunden: Abbrechen
@@ -500,11 +583,11 @@ namespace MEKB_H0_Anlage
             switch ((string)FahrtRueck.Tag)
             {
                 case "rechts":
-                    if (Richtung) FahrtRueck.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.RechtsInaktiv);
+                    if (fahrtrichtung) FahrtRueck.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.RechtsInaktiv);
                     else FahrtRueck.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.RechtsAktiv);
                     break;
                 case "links":
-                    if (Richtung) FahrtRueck.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.LinksInaktiv);
+                    if (fahrtrichtung) FahrtRueck.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.LinksInaktiv);
                     else FahrtRueck.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.LinksAktiv);
                     break;
                 default: break;
@@ -512,11 +595,11 @@ namespace MEKB_H0_Anlage
             switch ((string)FahrtVor.Tag)
             {
                 case "rechts":
-                    if (Richtung) FahrtVor.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.RechtsAktiv);
+                    if (fahrtrichtung) FahrtVor.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.RechtsAktiv);
                     else FahrtVor.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.RechtsInaktiv);
                     break;
                 case "links":
-                    if (Richtung) FahrtVor.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.LinksAktiv);
+                    if (fahrtrichtung) FahrtVor.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.LinksAktiv);
                     else FahrtVor.Image = new Bitmap(global::MEKB_H0_Anlage.Properties.Resources.LinksInaktiv);
                     break;
                 default: break;
