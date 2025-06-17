@@ -15,9 +15,13 @@ namespace MEKB_H0_Anlage
         Systemzustand() 
         {
             Betriebsbereit = false;
+            InitialisierungAbgeschlossen = false;
+            InitialisierungAmLaufen = false;
         }
 
         // Zentrale ist verbunden und initialisieren
-        public bool Betriebsbereit;
+        public bool Betriebsbereit { set; get; }
+        public bool InitialisierungAbgeschlossen {  set; get; }
+        public bool InitialisierungAmLaufen {  set; get; }
     }
 }

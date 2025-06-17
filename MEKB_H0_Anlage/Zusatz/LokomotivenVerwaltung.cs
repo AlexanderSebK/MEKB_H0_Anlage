@@ -11,8 +11,13 @@ using System.Threading.Tasks;
 namespace MEKB_H0_Anlage
 {
     
-    public class LokomotivenVerwaltung
+    public sealed class LokomotivenVerwaltung
     {
+        private static readonly Lazy<LokomotivenVerwaltung> lazy =
+        new Lazy<LokomotivenVerwaltung>(() => new LokomotivenVerwaltung());
+
+        public static LokomotivenVerwaltung Instance { get { return lazy.Value; } }
+
         /// <summary>
         /// Liste der geladenen Lokomotiven
         /// </summary>

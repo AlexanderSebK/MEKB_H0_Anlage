@@ -31,7 +31,10 @@ namespace MEKB_H0_Anlage
         public Lokomotive GetLokomotive(string LokName)
         {
             int ListID = Liste.FindIndex(x => x.Name.Equals(LokName)); //Finde Lok mit diesem Name
-            if (ListID == -1) return null; //Lok nicht gefunden in der Liste
+            if (ListID == -1)
+            {
+                return null; //Lok nicht gefunden in der Liste
+            }       
             else return Liste[ListID];
         }
     }
@@ -142,6 +145,7 @@ namespace MEKB_H0_Anlage
 
         public int ZeitBisNothalt { get; set; }
         public bool NothaltAnkuendigung { get; set; }
+
 
         #endregion
         
@@ -411,7 +415,19 @@ namespace MEKB_H0_Anlage
                 if(FahrRichtung != Richtung)
                 {
                     Richtung = FahrRichtung;
-                    VorherigerBlock = NexterBlock; //Blockerkennung spiegeln
+                    if (NexterBlock.Equals(""))
+                    {
+                        Belegtmelder Aktuel = BelegtmelderListe.GetBelegtmelder(AktuellerBlock);
+                        Belegtmelder Naechster = BelegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock));
+                        if (Naechster != null) //Gefunden
+                        {
+                            VorherigerBlock = Naechster.Name;
+                        }
+                    }
+                    else
+                    {
+                        VorherigerBlock = NexterBlock; //Blockerkennung spiegeln
+                    }
                 }
                 
                 Fahrstufe = LokFahrstufen.ProtokolToFahrstufe(Z21Fahrstufe, FahrstufenInfo);
@@ -559,7 +575,7 @@ namespace MEKB_H0_Anlage
                 {
                     LetzterBekannterBlock = AktuellerBlock;
                     AktuellerBlock = LOK_VERLOREN;
-                    Fehlermeldung.FehlerMelden(String.Format("{0} (1) verloren", Name, Adresse), "Warning");
+                    Fehlermeldung.FehlerMelden(String.Format("{0} ({1}) verloren", Name, Adresse), "Warning");
                     if(Notbremse_Verloren)NotBremse(3000); //In 3 Sekunden Notbremse auslösen
                 }
                 else
@@ -601,6 +617,28 @@ namespace MEKB_H0_Anlage
                 }
                 else NotBremseAufheben(true);
             }
+        }
+        
+        /// <summary>
+        /// Lokomotive umdrehen (Fahrtrichtung spiegeln)
+        /// Setze diese Funktion ein, wenn die Block-Fahrtrichtung nicht mit der Z21-Fahrtrichtung übereinstimmt 
+        /// </summary>
+        public void LokRichtungDrehen()
+        {
+            // Inhalt sichern (schützt vor Überschreibung)
+            string vorherigerBlock_OLD = VorherigerBlock;
+
+            //Blockerkennung spiegeln
+            VorherigerBlock = NexterBlock; 
+            NexterBlock = vorherigerBlock_OLD;
+        }
+
+        /// <summary>
+        /// Fehlermeldung "Lok verloren" aufheben
+        /// </summary>
+        public void LokGefunden()
+        {
+            Fehlermeldung.FehlerEntfernen(String.Format("{0} ({1}) verloren", Name, Adresse));
         }
         #endregion
 

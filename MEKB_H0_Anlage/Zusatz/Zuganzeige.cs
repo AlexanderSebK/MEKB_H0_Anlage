@@ -26,6 +26,7 @@ namespace MEKB_H0_Anlage
 
 
         public Fehlermeldung Fehlermeldungen = Fehlermeldung.Instance;
+        public Control.ControlCollection Controls;
 
         public ZuganzeigerListe()
         {
@@ -97,8 +98,9 @@ namespace MEKB_H0_Anlage
             return null;
         }
 
-        public void ZeichneZuganzeigen(Control.ControlCollection Controls)
+        public void ZeichneZuganzeigen(Control.ControlCollection controls)
         {
+            Controls = controls; //Zeichneninstanz übernehmen
             foreach (Zuganzeige zuganzeige in Liste)
             {
                 zuganzeige.ZeichneAnzeige(out TextBox Anzeige, out PictureBox Typ, out PictureBox VFahrt, out PictureBox RFahrt);
@@ -119,7 +121,7 @@ namespace MEKB_H0_Anlage
             }
         }
 
-        public void ZuganzeigenAktualisieren(Control.ControlCollection Controls, bool ErzwingeUpdate = false)
+        public void ZuganzeigenAktualisieren(bool ErzwingeUpdate = false)
         {
             foreach (Zuganzeige zuganzeige in Liste)
             {
@@ -159,6 +161,7 @@ namespace MEKB_H0_Anlage
             Melder = new Dictionary<int, Belegtmelder>();
             Meldername = new Dictionary<int, string>();
             aktLokname = "";
+            fahrtrichtung = true;
         }
 
         private AktiveLokomotiven AktiveLokomotiven = AktiveLokomotiven.Instance;
@@ -189,6 +192,7 @@ namespace MEKB_H0_Anlage
         // Aktuelle Fahrtrichtung der Lok (true = normale Fahrtrichtung) 
         private bool fahrtrichtung; 
         private string aktLokname;
+        private bool updateVerlangen;
 
         #endregion
         private ContextMenu GeneriereContextMenu(bool belegt = true)
@@ -206,6 +210,11 @@ namespace MEKB_H0_Anlage
             LokEinsetzen.Enabled = belegt;
             contextMenu.MenuItems.Add(LokEinsetzen);
 
+            MenuItem LokDrehen = new MenuItem("Lok drehen");
+            LokDrehen.Click += LokRichtungDrehen;
+            LokDrehen.Enabled = belegt;
+            contextMenu.MenuItems.Add(LokDrehen);
+
             return contextMenu;
         }
 
@@ -214,34 +223,60 @@ namespace MEKB_H0_Anlage
             if (sender is MenuItem item)
             {
                 Belegtmelder belegtmelder = GetErstenBelegtenMelder(out int position);
-                if(belegtmelder != null)
+                Lokomotive lok = AktiveLokomotiven.GetLokomotive(item.Text);
+                if (belegtmelder != null && lok != null)
                 {
-                    belegtmelder.Registriert = item.Name;
-                    Lokomotive lok = AktiveLokomotiven.GetLokomotive(item.Name);
-                    lok.AktuellerBlock = belegtmelder.Name;
+                    // Lok auf Belegtmelder registrieren
+                    BelegtmelderListe.RegistriereLok(belegtmelder, lok);
+                    aktLokname = lok.Name;
 
+                    // Letzte bekannte Fahrtrichtung abfragen
+                    // Belegtmelderzählung startet bei 1 
                     if (fahrtrichtung) position++;
                     else position--;
 
+                    // Lok ist gerade aus einem anderen Block in den ersten Belegtmelder des Abschnitts gefahren (zug am vorderen Übergang)
                     if (position == 0)
                     {
-                        lok.VorherigerBlock = belegtmelder.NaechsterBlock(Melder[1].Name);
+                        lok.VorherigerBlock = belegtmelder.NaechsterBlock(Melder[2].Name);
                     }
+
+                    // Lok ist gerade aus einem anderen Block in den letzten Belegtmelder des Abschnitts gefahren (zug am hinteren Übergang)
                     else if (position > Melder.Count)
                     {
                         lok.VorherigerBlock = belegtmelder.NaechsterBlock(Melder[Melder.Count].Name);
                     }
+
+                    // Lok innerhalb des Abschnitts
                     else
                     {
                         lok.VorherigerBlock = Melder[position].Name;
                     }
+
+                    // Belegtmelder des vorherigen Blocks mit Lok registrieren
                     Belegtmelder belegtmelder1 = BelegtmelderListe.GetBelegtmelder(lok.VorherigerBlock);
                     if( belegtmelder1 != null )
                     {
                         if(belegtmelder1.IstBelegt())
                             belegtmelder1.Registriert = BLOCK_INBENUTZUNG + item.Name;
                     }
+                    updateVerlangen = true;
+                    lok.LokGefunden(); //Fehlermeldung bei verlorender Lok aufheben
                 }              
+            }
+        }
+
+        private void LokRichtungDrehen(object sender, EventArgs e)
+        {
+            if (sender is MenuItem item)
+            {
+                // Lokname vorhanden?
+                if (aktLokname != null && !aktLokname.Equals(""))
+                {
+                    Lokomotive lok = AktiveLokomotiven.GetLokomotive(aktLokname);
+                    lok.LokRichtungDrehen();
+                    updateVerlangen = true;
+                }
             }
         }
 
@@ -250,12 +285,13 @@ namespace MEKB_H0_Anlage
             ErrechneStatus(out bool Belegt, out bool UnbekannteLok, out bool Fehler, out string Lokname);
 
             // Änderung gegenüber vorheriger Abfrage
-            if((istBelegt == Belegt) && (unbekannteLok == UnbekannteLok) && (fehler == Fehler) && aktLokname.Equals(Lokname))
+            if((istBelegt == Belegt) && (unbekannteLok == UnbekannteLok) && (fehler == Fehler) && aktLokname.Equals(Lokname) && updateVerlangen == false)
             {
                 return false;
             }
             else
             {
+                updateVerlangen = false;
                 istBelegt = Belegt;
                 unbekannteLok = UnbekannteLok;
                 fehler = Fehler;

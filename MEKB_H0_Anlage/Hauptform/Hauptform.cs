@@ -32,6 +32,7 @@ using System.Diagnostics.Eventing.Reader;
 
 namespace MEKB_H0_Anlage
 {
+    using static Globals;
     /// <summary>
     /// Hauptform
     /// </summary>
@@ -87,9 +88,9 @@ namespace MEKB_H0_Anlage
 
 
 
-        private bool InitIsRunning = false; //Thread für Inittialisierung läuft aber noch nicht abgeschlossen. Verhindert Doppelte Ausführung
+        //private bool InitIsRunning = false; //Thread für Inittialisierung läuft aber noch nicht abgeschlossen. Verhindert Doppelte Ausführung
         
-        public bool Z21_Initialisiert;
+        //public bool Z21_Initialisiert;
 
         public readonly int Max_Loks = 12;
 
@@ -143,7 +144,7 @@ namespace MEKB_H0_Anlage
 
             LokListe_Laden();
 
-            ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, AktiveLokomotiven.Liste, BelegtmelderListe);
+            ZugmenueFenster = new Zugmenue(z21Start, Bahnhofsansage);
 
             
         }
@@ -289,9 +290,9 @@ namespace MEKB_H0_Anlage
                 z21Start.Z21_SET_BROADCASTFLAGS(Einstellungen.Z21Flags);
 
                 // Wenn noch nicht initialisiert: Thread für Initialisierung starten
-                if (!Z21_Initialisiert)
+                if (!Systemzustand.InitialisierungAbgeschlossen)
                 {
-                    if (InitIsRunning) return; //Läuft bereits, nicht ausführen
+                    if (Systemzustand.InitialisierungAmLaufen) return; //Läuft bereits, nicht ausführen
                     Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
                     {
                         IsBackground = true
@@ -388,7 +389,7 @@ namespace MEKB_H0_Anlage
         }
         private void ZuganzeigenAktualisieren(bool ErzwingeUpdate = false)
         {
-            ZuganzeigerListe.ZuganzeigenAktualisieren(this.GleisplanAnzeige.Controls, ErzwingeUpdate);
+            ZuganzeigerListe.ZuganzeigenAktualisieren(ErzwingeUpdate);
         }
 
 
@@ -454,8 +455,11 @@ namespace MEKB_H0_Anlage
         /// </summary>
         private void WeichenSignalInit()
         {
-            if (InitIsRunning) return; //Läuft bereits, nicht ausführen
-            InitIsRunning = true;
+            if (Systemzustand.InitialisierungAmLaufen) return; //Läuft bereits, nicht ausführen
+            Systemzustand.InitialisierungAmLaufen = true;
+
+            Systemzustand.InitialisierungAbgeschlossen = false;
+            Systemzustand.Betriebsbereit = false;
 
             // Max. Wartezeit bis sich die Z21 verbunden hat in [ms]
             int timeoutVerbinden = 1000;
@@ -466,7 +470,8 @@ namespace MEKB_H0_Anlage
                 timeoutVerbinden -= 100;
                 if (timeoutVerbinden <= 0)
                 {
-                    InitIsRunning = false;
+                    Systemzustand.InitialisierungAmLaufen = false;
+                    Systemzustand.Betriebsbereit = false;
                     Fehlermeldungen.FehlerMelden("Z21-Zentrale nicht gefunden", "Error");
                     return; // Hat sich nicht verbunden -> Task beenden
                 }
@@ -496,9 +501,10 @@ namespace MEKB_H0_Anlage
                     Thread.Sleep(100);
                 }
                 SetConnect(true, true); //Initialisierung abgeschlossen
+                Systemzustand.InitialisierungAbgeschlossen = true;
                 Systemzustand.Betriebsbereit = true;
             }
-            InitIsRunning = false; // Prozess beendet
+            Systemzustand.InitialisierungAmLaufen = false; // Prozess beendet
         }
 
         /// <summary>
@@ -562,7 +568,7 @@ namespace MEKB_H0_Anlage
                     Belegtmelder VorBlock = BelegtmelderListe.GetBelegtmelder(VorherigePosition);
                     if (VorBlock != null)
                     {
-                        VorBlock.Registriert = "Deregistriert";
+                        VorBlock.Registriert = BLOCK_INBENUTZUNG + lokomotive.Name; ;
                         lokomotive.VorherigerBlock = VorherigePosition;
                     }
                         
@@ -579,6 +585,10 @@ namespace MEKB_H0_Anlage
                         lokomotive.VorherigerBlock = "";
                     }
 
+                    string Fahrrichtung = Config.ReadConfig(String.Format("LokFahrrichtung{0}", i));
+                    int.TryParse(Fahrrichtung, out int fahrtrichtung);
+                    lokomotive.Richtung = fahrtrichtung;
+
                     AktiveLokomotiven.Liste.Add(lokomotive);
                     
                 }
@@ -594,12 +604,14 @@ namespace MEKB_H0_Anlage
                     Config.WriteConfig(String.Format("LokListe{0}", i), AktiveLokomotiven.Liste[i].Adresse.ToString());
                     Config.WriteConfig(String.Format("LokPos{0}",i), AktiveLokomotiven.Liste[i].AktuellerBlock.ToString());
                     Config.WriteConfig(String.Format("LokPosVor{0}",i), AktiveLokomotiven.Liste[i].VorherigerBlock.ToString());
+                    Config.WriteConfig(String.Format("LokFahrrichtung{0}", i), AktiveLokomotiven.Liste[i].Richtung.ToString());
                 }
                 else
                 {
                     Config.WriteConfig(String.Format("LokListe{0}", i), "0");
                     Config.WriteConfig(String.Format("LokPos{0}", i), "");
                     Config.WriteConfig(String.Format("LokPosVor{0}", i), "");
+                    Config.WriteConfig(String.Format("LokFahrrichtung{0}", i), "");
                 }
             }
         }
@@ -762,7 +774,7 @@ namespace MEKB_H0_Anlage
             }
             else
             {
-                ZugmenueFenster = new Zugmenue(z21Start, LokomotivenArchiv, Bahnhofsansage, AktiveLokomotiven.Liste, BelegtmelderListe);
+                ZugmenueFenster = new Zugmenue(z21Start, Bahnhofsansage);
                 ZugmenueFenster.Show();
             }
         }
@@ -912,14 +924,14 @@ namespace MEKB_H0_Anlage
             {
                 if (init)
                 {
-                    Z21_Initialisiert = true;
+                    Systemzustand.InitialisierungAbgeschlossen = true;
                     HauptStatusbar.Text = "Z21: Verbunden";
                     HauptStatusbar.BackColor = Color.ForestGreen;
                     HauptStatusbar.ForeColor = Color.White;
                 }
                 else
                 {
-                    Z21_Initialisiert = false;
+                    Systemzustand.InitialisierungAbgeschlossen = false;
                     HauptStatusbar.Text = "Z21: Initialisieren";
                     HauptStatusbar.BackColor = Color.Gold;
                     HauptStatusbar.ForeColor = Color.Black;
@@ -957,7 +969,7 @@ namespace MEKB_H0_Anlage
                 TrackStatus.Text = "Strecke: In Betrieb";
                 TrackStatus.BackColor = Color.ForestGreen;
                 TrackStatus.ForeColor = Color.White;
-                Systemzustand.Betriebsbereit = true;
+                if(Systemzustand.InitialisierungAbgeschlossen) Systemzustand.Betriebsbereit = true;
                 Fehlermeldungen.FehlerEntfernen("Kein Strom");
                 Fehlermeldungen.FehlerEntfernen("Stoptaste wurde gedrückt");
                 Fehlermeldungen.FehlerEntfernen("Kurzschluss auf der Strecke");
@@ -1023,6 +1035,8 @@ namespace MEKB_H0_Anlage
         private void UpdateLok(int ParamterCount, int Adresse, bool Besetzt, byte FahrstufenInfo, bool Richtung,
                                              byte Fahrstufe, bool Doppeltraktio, bool Smartsearch, bool[] Funktionen)
         {
+            // Z21 noch nicht initialisiert -> Funktion abbrechen
+            if (!Systemzustand.Betriebsbereit) return;
 
             int ListID = AktiveLokomotiven.Liste.FindIndex(x => x.Adresse == Adresse); //Finde Lok mit dieser Adresse 
             if (ListID == -1)//Lok nicht gefunden in der Liste
@@ -1124,24 +1138,29 @@ namespace MEKB_H0_Anlage
                     WeichenTimer.Enabled = false;
                     BelegtmelderCoolDown.Enabled = false;
                     UpdateLokStatus.Enabled = false;
-                    //Gleisplan löschen
+                    //alten Gleisplan löschen
                     Gleisplan_Loeschen();
                     this.GleisplanAnzeige.Controls.Clear();
                     this.GleisplanAnzeige.Refresh();
 
+                    // Datei laden
                     string datei = openFileDialog.FileName;
                     Gleisplan_Laden(datei);
 
                     Config.WriteConfig("LetzteAnlage", datei);
 
-                    //Gleisplan zeichnen
+                    // Gleisplan zeichnen
                     Plan.ZeichnenInitial();
+
+                    // Zuganzeigen zeichnen und Zeicheninstance übernehmen
                     ZuganzeigerListe.ZeichneZuganzeigen(this.GleisplanAnzeige.Controls);
 
                     // Timer aktivieren
                     WeichenTimer.Enabled = true;
                     BelegtmelderCoolDown.Enabled = true;
                     UpdateLokStatus.Enabled = true;
+
+                    // Initialisierungs routine starten
                     Thread trd = new Thread(new ThreadStart(this.WeichenSignalInit))
                     {
                         IsBackground = true

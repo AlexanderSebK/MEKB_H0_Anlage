@@ -246,17 +246,14 @@ namespace MEKB_H0_Anlage
             return unbekannt;
         }
 
-        public void RegistriereLok(string Abschnitt, Lokomotive Lok)
+        public void RegistriereLok(Belegtmelder belegtmelder, Lokomotive Lok)
         {
             // Belegtmelder wo die Lok zuvor registriert war löschen. ( Vermeidet Doppelregistrierung)
-            foreach(Belegtmelder belegtmelder1 in Liste)
+            foreach (Belegtmelder belegtmelder1 in Liste)
             {
                 if (belegtmelder1.Registriert.Equals(Lok.Name)) belegtmelder1.Registriert = "";
             }
-            Belegtmelder belegtmelder = GetBelegtmelder(Abschnitt);
-            // Belegtmelder nicht gefunden -> Funktion abbrechen
-            if(belegtmelder == null) return;
-
+            
             belegtmelder.Registriert = Lok.Name;
             Lok.AktuellerBlock = belegtmelder.Name;
         }

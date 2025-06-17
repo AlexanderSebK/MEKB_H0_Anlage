@@ -23,9 +23,10 @@ namespace MEKB_H0_Anlage
         #endregion
 
         #region Listen
-        public List<Lokomotive> AktiveLoks = new List<Lokomotive>();
-        public LokomotivenVerwaltung LokomotivenArchiv;
-        public BelegtmelderListe BelegtmelderListe;
+        public LokomotivenVerwaltung LokomotivenArchiv = LokomotivenVerwaltung.Instance;
+        public AktiveLokomotiven AktiveLokomotiven = AktiveLokomotiven.Instance;
+        public BelegtmelderListe BelegtmelderListe = BelegtmelderListe.Instance;
+        public ZuganzeigerListe ZuganzeigerListe = ZuganzeigerListe.Instance;
         #endregion
 
         #region Parameter
@@ -47,14 +48,10 @@ namespace MEKB_H0_Anlage
             InitializeComponent();
         }
 
-        public Zugmenue(Z21 zentrale, LokomotivenVerwaltung archiv, Bahnhofsansage bahnhofsansage, List<Lokomotive> aktLoks, BelegtmelderListe belegtmelder)
+        public Zugmenue(Z21 zentrale, Bahnhofsansage bahnhofsansage)
         {
             z21 = zentrale;
             InitializeComponent();
-            LokomotivenArchiv = archiv;
-            AktiveLoks = aktLoks;
-            BelegtmelderListe = belegtmelder;
-
 
             ThreadLoksuche = new Thread(() => DialogHandhabungLokSuche(""));
             ThreadBelegtmelderauswahl = new Thread(() => DialogHandhabungBelegtmelderAuswahl("", new List<Belegtmelder>()));
@@ -63,10 +60,10 @@ namespace MEKB_H0_Anlage
 
         private void LokDazu_Click(object sender, EventArgs e)
         {
-            AktiveLoks.Add(new Lokomotive());
-            AktiveLoks.Last().Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
-            AktiveLoks.Last().Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
-            GeneriereFelder(AktiveLoks.Count - 1);
+            AktiveLokomotiven.Liste.Add(new Lokomotive());
+            AktiveLokomotiven.Liste.Last().Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+            AktiveLokomotiven.Liste.Last().Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+            GeneriereFelder(AktiveLokomotiven.Liste.Count - 1);
         }
 
         private void FelderNeuzeichnen()
@@ -76,10 +73,10 @@ namespace MEKB_H0_Anlage
                 if (EntferneFelder(i) == false) break;
             }
 
-            for (int i = 0; i < AktiveLoks.Count; i++)
+            for (int i = 0; i < AktiveLokomotiven.Liste.Count; i++)
             {
-                AktiveLoks[i].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
-                AktiveLoks[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+                AktiveLokomotiven.Liste[i].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+                AktiveLokomotiven.Liste[i].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
                 GeneriereFelder(i);
                 LokKontroll_UpdateAll(String.Format("LokCtrl{0}", i));
             }
@@ -100,19 +97,19 @@ namespace MEKB_H0_Anlage
                 if (Int32.TryParse(indexStr, out int index))
                 {
                     if (index < 0) return;
-                    if (index > AktiveLoks.Count) return;
+                    if (index > AktiveLokomotiven.Liste.Count) return;
                 }
                 else
                 {
                     return;
                 }
-                Fehlermeldung.Instance.FehlertextEntfernen(AktiveLoks[index].Name);
-                AktiveLoks.RemoveAt(index);
-                for (int i = 0; i < AktiveLoks.Count; i++)
+                Fehlermeldung.Instance.FehlertextEntfernen(AktiveLokomotiven.Liste[index].Name);
+                AktiveLokomotiven.Liste.RemoveAt(index);
+                for (int i = 0; i < AktiveLokomotiven.Liste.Count; i++)
                 {
                     LokKontroll_UpdateAll(String.Format("LokCtrl{0}", i));
                 }
-                EntferneFelder(AktiveLoks.Count);
+                EntferneFelder(AktiveLokomotiven.Liste.Count);
             }
         }
 
@@ -429,9 +426,9 @@ namespace MEKB_H0_Anlage
                 string indexStr = subs[0].Substring(7);
                 if (Int32.TryParse(indexStr, out int index))
                 {
-                    if ((index >= 0) && (index < AktiveLoks.Count))
+                    if ((index >= 0) && (index < AktiveLokomotiven.Liste.Count))
                     {
-                        if (AktiveLoks[index].Adresse == Adressfeld.Value)
+                        if (AktiveLokomotiven.Liste[index].Adresse == Adressfeld.Value)
                         {
                             return; //Lok bereits geladen => Nicht nochmal alden
                         }
@@ -473,14 +470,14 @@ namespace MEKB_H0_Anlage
                 if (Int32.TryParse(indexStr, out int index))
                 {
                     if (index < 0) return;
-                    if (index > AktiveLoks.Count) return;
+                    if (index > AktiveLokomotiven.Liste.Count) return;
                 }
                 else
                 {
                     return;
                 }
 
-                AktiveLoks[index].Gattung = Gattungsfeld.Text;
+                AktiveLokomotiven.Liste[index].Gattung = Gattungsfeld.Text;
 
                 LokKontroll_UpdateAll(subs[0]);
 
@@ -516,7 +513,7 @@ namespace MEKB_H0_Anlage
                 if (Int32.TryParse(indexStr, out int index))
                 {
                     if (index < 0) return;
-                    if (index > AktiveLoks.Count) return;
+                    if (index > AktiveLokomotiven.Liste.Count) return;
                 }
                 else
                 {
@@ -524,21 +521,21 @@ namespace MEKB_H0_Anlage
                 }
 
                 //Wenn bereits geöffnet. Alten deaktivieren
-                if (!AktiveLoks[index].Steuerpult.IsDisposed)
+                if (!AktiveLokomotiven.Liste[index].Steuerpult.IsDisposed)
                 {
-                    AktiveLoks[index].Steuerpult.Dispose();
+                    AktiveLokomotiven.Liste[index].Steuerpult.Dispose();
                 }
 
                 //Neuen Fahrpult anlegen
-                AktiveLoks[index].Steuerpult = new ZugSteuerpult(AktiveLoks[index]);
+                AktiveLokomotiven.Liste[index].Steuerpult = new ZugSteuerpult(AktiveLokomotiven.Liste[index]);
                 //Funktionen zur Loksteuerung zuweisen
-                AktiveLoks[index].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
-                AktiveLoks[index].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
-                AktiveLoks[index].Register_CMD_LOKSTATUS(Setze_Lok_Status);
+                AktiveLokomotiven.Liste[index].Register_CMD_LOKFUNKTION(Setze_Lok_Funktion);
+                AktiveLokomotiven.Liste[index].Register_CMD_LOKFAHRT(Setze_Lok_Fahrt);
+                AktiveLokomotiven.Liste[index].Register_CMD_LOKSTATUS(Setze_Lok_Status);
                 //Fahrpult öffnen
-                AktiveLoks[index].Steuerpult.Show();
+                AktiveLokomotiven.Liste[index].Steuerpult.Show();
                 //Anfrage an Z21: Aktuelle Lokomotiv-Daten anfragen
-                z21.Z21_GET_LOCO_INFO(AktiveLoks[index].Adresse);
+                z21.Z21_GET_LOCO_INFO(AktiveLokomotiven.Liste[index].Adresse);
 
             }
         }
@@ -561,7 +558,7 @@ namespace MEKB_H0_Anlage
                 if (Int32.TryParse(indexStr, out int index))
                 {
                     if (index < 0) return;
-                    if (index > AktiveLoks.Count) return;
+                    if (index > AktiveLokomotiven.Liste.Count) return;
                 }
                 else
                 {
@@ -569,19 +566,19 @@ namespace MEKB_H0_Anlage
                 }
 
                 // Wert ändern: War zuvor manuell?
-                if (!AktiveLoks[index].Automatik)
+                if (!AktiveLokomotiven.Liste[index].Automatik)
                 {
                     //Auf Automatik umschalten
                     steuertyp.Text = "Automatik";
                     steuertyp.BackColor = Color.FromArgb(0, 0, 255);
-                    AktiveLoks[index].Automatik = true;
+                    AktiveLokomotiven.Liste[index].Automatik = true;
                 }
                 else //War zuvor Automatisch
                 {
                     //Auf Menuell umschalten
                     steuertyp.Text = "Manuell";
                     steuertyp.BackColor = Color.FromArgb(0, 128, 0);
-                    AktiveLoks[index].Automatik = false;
+                    AktiveLokomotiven.Liste[index].Automatik = false;
                 }
             }
         }
@@ -604,16 +601,16 @@ namespace MEKB_H0_Anlage
                 if (Int32.TryParse(indexStr, out int index))
                 {
                     if (index < 0) return;
-                    if (index > AktiveLoks.Count) return;
+                    if (index > AktiveLokomotiven.Liste.Count) return;
                 }
                 else
                 {
                     return;
                 }
                 // Gebe Fahrbefehl Nothalt für angegebene Adresse
-                if (AktiveLoks[index].Adresse != 0)
+                if (AktiveLokomotiven.Liste[index].Adresse != 0)
                 {
-                    Setze_Lok_Fahrt(AktiveLoks[index].Adresse, 255, AktiveLoks[index].Richtung, AktiveLoks[index].FahrstufenInfo);
+                    Setze_Lok_Fahrt(AktiveLokomotiven.Liste[index].Adresse, 255, AktiveLokomotiven.Liste[index].Richtung, AktiveLokomotiven.Liste[index].FahrstufenInfo);
                 }
             }
         }
@@ -629,7 +626,7 @@ namespace MEKB_H0_Anlage
             if (Int32.TryParse(indexStr, out int index))
             {
                 if (index < 0) return;
-                if (index > AktiveLoks.Count) return;
+                if (index > AktiveLokomotiven.Liste.Count) return;
             }
             else //Kein Index erkannt
             {
@@ -637,10 +634,10 @@ namespace MEKB_H0_Anlage
             }
 
             //Alten Steuerpult schließen
-            AktiveLoks[index].Steuerpult?.Close();
+            AktiveLokomotiven.Liste[index].Steuerpult?.Close();
             //Lok übertragen
-            AktiveLoks[index] = lokomotive;
-            AktiveLoks[index].Automatik = false; //Lok standardmäßig auf manuell
+            AktiveLokomotiven.Liste[index] = lokomotive;
+            AktiveLokomotiven.Liste[index].Automatik = false; //Lok standardmäßig auf manuell
             //Alle Fenster updaten
             LokKontroll_UpdateAll(CtrlID);
         }
@@ -702,31 +699,31 @@ namespace MEKB_H0_Anlage
             if (Int32.TryParse(indexStr, out int index))
             {
                 if (index < 0) return;
-                if (index > AktiveLoks.Count) return;
+                if (index > AktiveLokomotiven.Liste.Count) return;
             }
             else //Kein Index erkannt
             {
                 return;
             }
-            if (AktiveLoks[index] == null) return;
+            if (AktiveLokomotiven.Liste[index] == null) return;
             //Adresse übernehmen
-            Adressfeld.Value = AktiveLoks[index].Adresse;
+            Adressfeld.Value = AktiveLokomotiven.Liste[index].Adresse;
             //Name übernehmen
-            SuchFeld.Text = AktiveLoks[index].Name;
+            SuchFeld.Text = AktiveLokomotiven.Liste[index].Name;
             //Gattung übernehmen
-            Gattungsfeld.Text = AktiveLoks[index].Gattung;
+            Gattungsfeld.Text = AktiveLokomotiven.Liste[index].Gattung;
             //Ort übernehmen
-            Ortfeld.Text = AktiveLoks[index].AktuellerBlock;
+            Ortfeld.Text = AktiveLokomotiven.Liste[index].AktuellerBlock;
 
             //Rufnummer generieren
-            if (AktiveLoks[index].Adresse != 0) Ruffeld.Text = LokKontrolle.Abkuerzung(AktiveLoks[index].Gattung) + AktiveLoks[index].Adresse.ToString();
+            if (AktiveLokomotiven.Liste[index].Adresse != 0) Ruffeld.Text = LokKontrolle.Abkuerzung(AktiveLokomotiven.Liste[index].Gattung) + AktiveLokomotiven.Liste[index].Adresse.ToString();
             else Ruffeld.Text = "";
 
-            Zielfeld.Text = AktiveLoks[index].Zielbahnhof;
-            Zwischenzielfeld.Text = AktiveLoks[index].Zwischenbahnhoefe;
+            Zielfeld.Text = AktiveLokomotiven.Liste[index].Zielbahnhof;
+            Zwischenzielfeld.Text = AktiveLokomotiven.Liste[index].Zwischenbahnhoefe;
 
             //Automatik-Button anpassen
-            if (AktiveLoks[index].Automatik)
+            if (AktiveLokomotiven.Liste[index].Automatik)
             {
                 Steuertypfeld.Text = "Automatik";
                 Steuertypfeld.BackColor = Color.FromArgb(0, 0, 255);
@@ -736,6 +733,7 @@ namespace MEKB_H0_Anlage
                 Steuertypfeld.Text = "Manuell";
                 Steuertypfeld.BackColor = Color.FromArgb(0, 128, 0);
             }
+            ZuganzeigerListe.ZuganzeigenAktualisieren(true);
         }
         /// <summary>
         /// Button für Loksuche gedrückt. Öffne Fenster für die Loksuche. Fenster wird in einem separaten Thread gehandhabt. Verhindert blockieren und beschränkt es auf einen Suchfenster
@@ -824,7 +822,7 @@ namespace MEKB_H0_Anlage
         /// <param name="e">Eventparameter</param>
         private void StopAlle_Click(object sender, EventArgs e)
         {
-            foreach (Lokomotive lok in AktiveLoks)
+            foreach (Lokomotive lok in AktiveLokomotiven.Liste)
             {
                 if (lok.Adresse != 0)
                 {
@@ -847,7 +845,7 @@ namespace MEKB_H0_Anlage
                 if (Int32.TryParse(indexStr, out int index))
                 {
                     if (index < 0) return;
-                    if (index > AktiveLoks.Count) return;
+                    if (index > AktiveLokomotiven.Liste.Count) return;
                 }
                 else
                 {
@@ -866,7 +864,7 @@ namespace MEKB_H0_Anlage
                 }
 
 
-                Bahnhofsansage.Ansage(AktiveLoks[index], Ruffeld.Text, "", "");
+                Bahnhofsansage.Ansage(AktiveLokomotiven.Liste[index], Ruffeld.Text, "", "");
 
             }
         }
@@ -884,13 +882,13 @@ namespace MEKB_H0_Anlage
                 if (Int32.TryParse(indexStr, out int index))
                 {
                     if (index < 0) return;
-                    if (index > AktiveLoks.Count) return;
+                    if (index > AktiveLokomotiven.Liste.Count) return;
                 }
                 else
                 {
                     return;
                 }
-                AktiveLoks[index].Zielbahnhof = zieltyp.Text;
+                AktiveLokomotiven.Liste[index].Zielbahnhof = zieltyp.Text;
             }
         }
         private void LokZwischenZiel_TextChange(object sender, EventArgs e)
@@ -907,13 +905,13 @@ namespace MEKB_H0_Anlage
                 if (Int32.TryParse(indexStr, out int index))
                 {
                     if (index < 0) return;
-                    if (index > AktiveLoks.Count) return;
+                    if (index > AktiveLokomotiven.Liste.Count) return;
                 }
                 else
                 {
                     return;
                 }
-                AktiveLoks[index].Zwischenbahnhoefe = zieltyp.Text;
+                AktiveLokomotiven.Liste[index].Zwischenbahnhoefe = zieltyp.Text;
             }
         }
 
@@ -932,7 +930,7 @@ namespace MEKB_H0_Anlage
                 if (Int32.TryParse(indexStr, out int index))
                 {
                     if (index < 0) return;
-                    if (index > AktiveLoks.Count) return;
+                    if (index > AktiveLokomotiven.Liste.Count) return;
                 }
                 else
                 {
@@ -975,17 +973,17 @@ namespace MEKB_H0_Anlage
             if (Int32.TryParse(indexStr, out int index))
             {
                 if (index < 0) return;
-                if (index > AktiveLoks.Count) return;
+                if (index > AktiveLokomotiven.Liste.Count) return;
             }
             else //Kein Index erkannt
             {
                 return;
             }
             //Daten übertragen
-            AktiveLoks[index].AktuellerBlock = gewaehlterOrt.Name;
-            AktiveLoks[index].VorherigerBlock = vorBlock;
-            gewaehlterOrt.Registriert = AktiveLoks[index].Name;
-            Fehlermeldung.Instance.FehlerEntfernen(String.Format("{0} (1) verloren", AktiveLoks[index].Name, AktiveLoks[index].Adresse));
+            AktiveLokomotiven.Liste[index].AktuellerBlock = gewaehlterOrt.Name;
+            AktiveLokomotiven.Liste[index].VorherigerBlock = vorBlock;
+            gewaehlterOrt.Registriert = AktiveLokomotiven.Liste[index].Name;
+            Fehlermeldung.Instance.FehlerEntfernen(String.Format("{0} (1) verloren", AktiveLokomotiven.Liste[index].Name, AktiveLokomotiven.Liste[index].Adresse));
         }
 
         #endregion
@@ -1021,7 +1019,7 @@ namespace MEKB_H0_Anlage
 
         private void ZugmenueHeartbeat(Object source, ElapsedEventArgs e)
         {
-            for (int i = 0; i < AktiveLoks.Count; i++)
+            for (int i = 0; i < AktiveLokomotiven.Liste.Count; i++)
             {
                 this.BeginInvoke((Action<int>)UpdateOrt, i);
             }
@@ -1029,14 +1027,14 @@ namespace MEKB_H0_Anlage
         private void UpdateOrt(int ID)
         {
             if (ID < 0) return;
-            if (ID > AktiveLoks.Count) return;
+            if (ID > AktiveLokomotiven.Liste.Count) return;
             //Passendes Ortfeld finden
             TextBox Ortfeld = (TextBox)this.Controls.Find(String.Format("LokCtrl{0}_Ort", ID), true)[0];
             if (Ortfeld == null) return; //Nicht gefunden: Abbrechen
 
-            if(AktiveLoks[ID] == null) return;
-            if (AktiveLoks[ID].AktuellerBlock.Equals(Ortfeld.Text)) return;
-            Ortfeld.Text = AktiveLoks[ID].AktuellerBlock;
+            if(AktiveLokomotiven.Liste[ID] == null) return;
+            if (AktiveLokomotiven.Liste[ID].AktuellerBlock.Equals(Ortfeld.Text)) return;
+            Ortfeld.Text = AktiveLokomotiven.Liste[ID].AktuellerBlock;
         }
     }
 }
