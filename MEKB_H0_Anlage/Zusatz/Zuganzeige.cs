@@ -283,10 +283,13 @@ namespace MEKB_H0_Anlage
         public bool NeedUpdate()
         {
             ErrechneStatus(out bool Belegt, out bool UnbekannteLok, out bool Fehler, out string Lokname);
+            Lokomotive lok = AktiveLokomotiven.GetLokomotive(aktLokname);
+            bool Richtung = fahrtrichtung;
+            if (lok != null) ErrechneRichtung(lok.AktuellerBlock, lok.VorherigerBlock);
 
             // Änderung gegenüber vorheriger Abfrage
-            if((istBelegt == Belegt) && (unbekannteLok == UnbekannteLok) && (fehler == Fehler) && aktLokname.Equals(Lokname) && updateVerlangen == false)
-            {
+            if ((istBelegt == Belegt) && (unbekannteLok == UnbekannteLok) && (fehler == Fehler) && aktLokname.Equals(Lokname) && updateVerlangen == false && Richtung == fahrtrichtung)
+            {               
                 return false;
             }
             else
