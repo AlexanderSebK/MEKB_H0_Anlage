@@ -244,7 +244,7 @@ namespace MEKB_H0_Anlage
                     // Lok ist gerade aus einem anderen Block in den letzten Belegtmelder des Abschnitts gefahren (zug am hinteren Übergang)
                     else if (position > Melder.Count)
                     {
-                        lok.VorherigerBlock = belegtmelder.NaechsterBlock(Melder[Melder.Count].Name);
+                        lok.VorherigerBlock = belegtmelder.NaechsterBlock(Melder[Melder.Count-1].Name);
                     }
 
                     // Lok innerhalb des Abschnitts
@@ -329,20 +329,21 @@ namespace MEKB_H0_Anlage
                 if (entry.Value.IstBelegt())
                 {
                     Belegt = true;
-                    if (!entry.Value.Registriert.StartsWith(BLOCK_INBENUTZUNG))
+                    string belegtmelderString = entry.Value.Registriert;
+                    if (belegtmelderString.StartsWith(BLOCK_INBENUTZUNG)) belegtmelderString = belegtmelderString.Replace(BLOCK_INBENUTZUNG, "");
+                    
+                    if (!belegtmelderString.Equals(""))
                     {
-                        if (!entry.Value.Registriert.Equals(""))
+                        if (Lokname.Equals(""))
                         {
-                            if (Lokname.Equals(""))
-                            {
-                                Lokname = entry.Value.Registriert; UnbekannteLok = false;
-                            }
-                            else
-                            {
-                                if (!Lokname.Equals(entry.Value.Registriert)) Fehler = true; // Zwei Loks im Bereich
-                            }
+                            Lokname = belegtmelderString; UnbekannteLok = false;
+                        }
+                        else
+                        {
+                            if (!Lokname.Equals(belegtmelderString)) Fehler = true; // Zwei Loks im Bereich
                         }
                     }
+                    
                 }
             }
         }

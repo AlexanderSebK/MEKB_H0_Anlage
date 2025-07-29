@@ -252,6 +252,7 @@ namespace MEKB_H0_Anlage
             foreach (Belegtmelder belegtmelder1 in Liste)
             {
                 if (belegtmelder1.Registriert.Equals(Lok.Name)) belegtmelder1.Registriert = "";
+                if (belegtmelder1.Registriert.Equals(BLOCK_INBENUTZUNG + Lok.Name)) belegtmelder1.Registriert = "";
             }
             
             belegtmelder.Registriert = Lok.Name;

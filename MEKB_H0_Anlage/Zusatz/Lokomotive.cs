@@ -418,10 +418,13 @@ namespace MEKB_H0_Anlage
                     if (NexterBlock.Equals(""))
                     {
                         Belegtmelder Aktuel = BelegtmelderListe.GetBelegtmelder(AktuellerBlock);
-                        Belegtmelder Naechster = BelegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock));
-                        if (Naechster != null) //Gefunden
+                        if (Aktuel != null)
                         {
-                            VorherigerBlock = Naechster.Name;
+                            Belegtmelder Naechster = BelegtmelderListe.GetBelegtmelder(Aktuel.NaechsterBlock(this.VorherigerBlock));
+                            if (Naechster != null) //Gefunden
+                            {
+                                VorherigerBlock = Naechster.Name;
+                            }
                         }
                     }
                     else
