@@ -138,6 +138,12 @@
     <Compile Include="MenuFenster\Belegtmelder_Ueberwachung.Designer.cs">
       <DependentUpon>Belegtmelder_Ueberwachung.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuFenster\Lok_Ueberwachung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuFenster\Lok_Ueberwachung.Designer.cs">
+      <DependentUpon>Lok_Ueberwachung.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuFenster\MenuFenster_Signalistentool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuFenster\LokEditor.resx">
       <DependentUpon>LokEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuFenster\Lok_Ueberwachung.resx">
+      <DependentUpon>Lok_Ueberwachung.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuFenster\MenuFenster_Signalistentool.resx">
       <DependentUpon>MenuFenster_Signalistentool.cs</DependentUpon>

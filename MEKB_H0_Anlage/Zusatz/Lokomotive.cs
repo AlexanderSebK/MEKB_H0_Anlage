@@ -6,6 +6,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 
 namespace MEKB_H0_Anlage
@@ -39,18 +41,20 @@ namespace MEKB_H0_Anlage
         }
     }
 
-    public class Lokomotive : IEquatable<Lokomotive>
+    public class Lokomotive : IEquatable<Lokomotive> ,  INotifyPropertyChanged
     {
 
         #region Parameter
         /// <summary>
         /// Parameter: Name der Lok als String
         /// </summary>
-        public String Name { get; set; }
+        public String Name { get { return _name; } set { if (!_name.Equals(value)) { _name = value; NotifyPropertyChanged("Name"); } } }
+        private String _name = "";
         /// <summary>
         /// Parameter: Adresse der Lok
         /// </summary>
-        public int Adresse { get; set; }
+        public int Adresse { get { return _adresse; } set { if (_adresse != value) { _adresse = value; NotifyPropertyChanged("Adresse"); } } }
+        private int _adresse;
         /// <summary>
         /// Parameter: Standard Gattung
         /// </summary>
@@ -114,15 +118,18 @@ namespace MEKB_H0_Anlage
         /// <summary>
         /// Aktuelle Geschwindigkeit
         /// </summary>
-        public int Fahrstufe { get; set; }
+        public int Fahrstufe { get { return _fahrstufe; } set { if (_fahrstufe != value) { _fahrstufe = value; NotifyPropertyChanged("Fahrstufe"); } } }
+        private int _fahrstufe;
         /// <summary>
         /// Aktuelle Richtung
         /// </summary>
-        public int Richtung { get; set; }
+        public int Richtung { get { return _richtung; } set { if (_richtung != value) { _richtung = value; NotifyPropertyChanged("Richtung"); } } }
+        private int _richtung;
         /// <summary>
         /// True: Richtung wird gespiegelt
         /// </summary>
-        public bool LokUmgedreht { get; set; }
+        public bool LokUmgedreht { get { return _lokUmgedreht; } set { if (_lokUmgedreht != value) { _lokUmgedreht = value; NotifyPropertyChanged("LokUmgedreht"); } } }
+        private bool _lokUmgedreht;
         /// <summary>
         /// Aktive Funktionen
         /// </summary>
@@ -131,11 +138,16 @@ namespace MEKB_H0_Anlage
         /// True: Lok wird vom Programm gesteuert
         /// False: Lok wird manuel über Handy oder Lokmaus gesteuert
         /// </summary>
-        public bool Automatik { set; get; }
-        public string AktuellerBlock { set; get; }
-        public string VorherigerBlock { set; get; }
-        public string NexterBlock { set; get; }
-        public string LetzterBekannterBlock { set; get; }
+        public bool Automatik { get { return _automatik; } set { if (_automatik != value) { _automatik = value; NotifyPropertyChanged("Automatik"); } } }
+        private bool _automatik;
+        public string AktuellerBlock { get { return _aktuellerBlock; } set { if (!_aktuellerBlock.Equals(value)) { _aktuellerBlock = value; NotifyPropertyChanged("AktuellerBlock"); } } }
+        private string _aktuellerBlock = "";
+        public string VorherigerBlock { get { return _vorherigerBlock; } set { if (!_vorherigerBlock.Equals(value)) { _vorherigerBlock = value; NotifyPropertyChanged("VorherigerBlock"); } } }
+        private string _vorherigerBlock = "";
+        public string NexterBlock { get { return _nexterBlock; } set { if (!_nexterBlock.Equals(value)) { _nexterBlock = value; NotifyPropertyChanged("NexterBlock"); } } }
+        private string _nexterBlock = "";
+        public string LetzterBekannterBlock { get { return _letzterBekannterBlock; } set { if (!_letzterBekannterBlock.Equals(value)) { _letzterBekannterBlock = value; NotifyPropertyChanged("LetzterBekannterBlock"); } } }
+        private string _letzterBekannterBlock = "";
 
         public int ErlaubteGeschwindigkeit { set; get; }
 
@@ -184,6 +196,20 @@ namespace MEKB_H0_Anlage
 
         #endregion
 
+        #region Events
+        public event PropertyChangedEventHandler PropertyChanged;
+        // This method is called by the Set accessor of each property.
+        // The CallerMemberName attribute that is applied to the optional propertyName
+        // parameter causes the property name of the caller to be substituted as an argument.
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+
         #region Funktions
         #region Konstruktors
         /// <summary>
@@ -222,6 +248,43 @@ namespace MEKB_H0_Anlage
             V_min = 5;
             ZeitBisMax = 60;
         }
+
+        /// <summary>
+        /// Constructor (kopierer)
+        /// </summary>
+        public Lokomotive(Lokomotive toCopy)
+        {
+            Adresse = toCopy.Adresse;
+            Name = toCopy.Name;
+            Gattung = toCopy.Gattung;
+            Fahrstufe = toCopy.Fahrstufe;
+            FahrstufenInfo = toCopy.FahrstufenInfo; 
+            Richtung = toCopy.Richtung;
+            Nothalt = toCopy.Nothalt;
+
+            Funktionen = toCopy.Funktionen;
+            AktiveFunktion = toCopy.AktiveFunktion;
+            Steuerpult = toCopy.Steuerpult;
+            Automatik = toCopy.Automatik;
+
+            Epoche = 0;
+            Typ = "";
+            Verwaltung = "";
+            Hersteller = "";
+            Zielbahnhof = "";
+            Zwischenbahnhoefe = "";
+
+            AktuellerBlock = toCopy.AktuellerBlock;
+            NexterBlock = toCopy.NexterBlock;
+            VorherigerBlock = toCopy.VorherigerBlock;
+            LetzterBekannterBlock = toCopy.LetzterBekannterBlock;
+
+            V_max = 100;
+            V_mid = 40;
+            V_min = 5;
+            ZeitBisMax = 60;
+        }
+
         /// <summary>
         /// Constructor mit XML-Dateipfad. Werte aus der XML-Datei werden übernommen
         /// </summary>

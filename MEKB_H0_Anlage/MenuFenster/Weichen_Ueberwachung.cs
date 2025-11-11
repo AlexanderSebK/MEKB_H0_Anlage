@@ -18,9 +18,9 @@ namespace MEKB_H0_Anlage
     {
         #region Instanzen
         private static System.Timers.Timer HeartbeatTimer;
-        
-        private List<Weiche> Weichenliste;
 
+        private WeichenListe WeichenListe = WeichenListe.Instance;
+        
         private Dictionary<string, bool> AbzweigStatus = new Dictionary<string, bool>();
         private Dictionary<string, string> FehlerStatus = new Dictionary<string, string>();
 
@@ -34,25 +34,20 @@ namespace MEKB_H0_Anlage
         public Weichen_Ueberwachung()
         {
             InitializeComponent();
-        }
-        public Weichen_Ueberwachung(List<Weiche> weichen)
-        {
-            InitializeComponent();
-            Weichenliste = weichen;
             AbzweigStatus = new Dictionary<string, bool>();
             GeneriereFelder();
-            
         }
+        
 
         public void GeneriereFelder()
         {
-            for (int i = 0; i < Weichenliste.Count; i++)
+            for (int i = 0; i < WeichenListe.Liste.Count; i++)
             {
-                Controls.Add(NamenfeldGenerator(Weichenliste[i], i));
-                Controls.Add(AdressfeldGenerator(Weichenliste[i], i));
-                Controls.Add(AbzweigfeldGenerator(Weichenliste[i], i));
-                Controls.Add(FehlerfeldGenerator(Weichenliste[i], i));
-                Controls.Add(SchaltzeitfeldGenerator(Weichenliste[i], i));
+                Controls.Add(NamenfeldGenerator(WeichenListe.Liste[i], i));
+                Controls.Add(AdressfeldGenerator(WeichenListe.Liste[i], i));
+                Controls.Add(AbzweigfeldGenerator(WeichenListe.Liste[i], i));
+                Controls.Add(FehlerfeldGenerator(WeichenListe.Liste[i], i));
+                Controls.Add(SchaltzeitfeldGenerator(WeichenListe.Liste[i], i));
             }
         }
 
@@ -124,10 +119,10 @@ namespace MEKB_H0_Anlage
 
         private void Refresh_Heartbeat(Object source, ElapsedEventArgs e)
         {
-            for (int i = 0; i < Weichenliste.Count; i++)
+            foreach (Weiche weiche in WeichenListe.Liste)
             {
-                RefreshAbzweig(Weichenliste[i].Name, Weichenliste[i].Abzweig);
-                RefershFehler(Weichenliste[i].Name, FehlerAuswertung(Weichenliste[i]));
+                RefreshAbzweig(weiche.Name, weiche.Abzweig);
+                RefershFehler(weiche.Name, FehlerAuswertung(weiche));
             }
         }
 

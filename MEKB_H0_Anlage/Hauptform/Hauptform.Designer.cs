@@ -76,6 +76,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Btn_Fahrzeuge = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.lokomotivenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Statusbar.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -212,7 +213,8 @@
             // 
             this.überwachungToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.belegtmeldungToolStripMenuItem,
-            this.weichenToolStripMenuItem});
+            this.weichenToolStripMenuItem,
+            this.lokomotivenToolStripMenuItem});
             this.überwachungToolStripMenuItem.Name = "überwachungToolStripMenuItem";
             this.überwachungToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.überwachungToolStripMenuItem.Text = "Überwachung";
@@ -242,7 +244,7 @@
             // signalsteuergungToolStripMenuItem
             // 
             this.signalsteuergungToolStripMenuItem.Name = "signalsteuergungToolStripMenuItem";
-            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.signalsteuergungToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.signalsteuergungToolStripMenuItem.Text = "Signalsteuergung";
             this.signalsteuergungToolStripMenuItem.Click += new System.EventHandler(this.SignalsteuergungToolStripMenuItem_Click);
             // 
@@ -259,7 +261,7 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.signaleEditierenToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // signaleEditierenToolStripMenuItem
@@ -533,6 +535,13 @@
             this.label1.TabIndex = 1000;
             this.label1.Text = "Noch nicht implementiert";
             // 
+            // lokomotivenToolStripMenuItem
+            // 
+            this.lokomotivenToolStripMenuItem.Name = "lokomotivenToolStripMenuItem";
+            this.lokomotivenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lokomotivenToolStripMenuItem.Text = "Lokomotiven";
+            this.lokomotivenToolStripMenuItem.Click += new System.EventHandler(this.lokomotivenToolStripMenuItem_Click);
+            // 
             // Hauptform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -617,6 +626,7 @@
         private System.Windows.Forms.ListView FehlerListe;
         private System.Windows.Forms.ImageList ErrorIconList;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem lokomotivenToolStripMenuItem;
     }
 }
 

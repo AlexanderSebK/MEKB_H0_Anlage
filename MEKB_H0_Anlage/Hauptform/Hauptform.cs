@@ -54,6 +54,7 @@ namespace MEKB_H0_Anlage
         private Signal_Einstellungen signal_Einstellungen;
         private Belegtmelder_Ueberwachung belegtmelder_Ueberwachung;
         private Weichen_Ueberwachung weichen_Ueberwachung;
+        private Lok_Ueberwachung Lok_Ueberwachung;
         private InfoBox InfoBox;
         private MenuFenster_Signalistentool signaltool;
         private Zugmenue ZugmenueFenster = new Zugmenue();
@@ -1114,8 +1115,8 @@ namespace MEKB_H0_Anlage
 
         private void weichenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (weichen_Ueberwachung == null) weichen_Ueberwachung = new Weichen_Ueberwachung(WeichenListe.Liste);
-            if (weichen_Ueberwachung.IsDisposed) weichen_Ueberwachung = new Weichen_Ueberwachung(WeichenListe.Liste);
+            if (weichen_Ueberwachung == null) weichen_Ueberwachung = new Weichen_Ueberwachung();
+            if (weichen_Ueberwachung.IsDisposed) weichen_Ueberwachung = new Weichen_Ueberwachung();
             weichen_Ueberwachung.Show();
             weichen_Ueberwachung.BringToFront();
         }
@@ -1169,6 +1170,14 @@ namespace MEKB_H0_Anlage
                 }
             }
             
+        }
+
+        private void lokomotivenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Lok_Ueberwachung == null) Lok_Ueberwachung = new Lok_Ueberwachung();
+            if (Lok_Ueberwachung.IsDisposed) Lok_Ueberwachung = new Lok_Ueberwachung();
+            Lok_Ueberwachung.Show();
+            Lok_Ueberwachung.BringToFront();
         }
     }
 }
